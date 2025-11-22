@@ -1,0 +1,436 @@
+/*=================================================
+This file lists all spawn ZSCRIPT injectors for the weapons 
+GLOSSARY:
+* IN = Insanity's Brutality
+* DTECH = Demon Tech Weapons Pack
+* F&I = Fire & Ice
+* D2016 = Doom 2016 Weapon's Pack
+=================================================*/
+
+//UNUSED
+/*class KatanaSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_SawSpawnerT1', 'Katana', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT2', 'Katana', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT3', 'Katana', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'Katana', 255, 1);
+	}
+}*/
+
+class Unmaker64SpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_BFGSpawnerT1', 'Unmaker64', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT2', 'Unmaker64', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT3', 'Unmaker64', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT4', 'Unmaker64', 255, 1);
+	}
+}
+
+
+//SLOT 0 ==========================================================================================
+//Phase Eradicator
+class PhaseEradicatorBFGSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_BFGSpawnerT3', 'PhaseEradicatorBFG', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT4', 'PhaseEradicatorBFG', 255, 1);
+	}
+}
+
+//Demon Minigun - DTECH
+
+//Demon Exterminator
+class DEX_Injector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		//handler.InjectSpawn("PB_BFGSpawnerT1","PB_DemonExt",255,1);
+		//handler.InjectSpawn("PB_BFGSpawnerT2","PB_DemonExt",255,1);
+		handler.InjectSpawn("PB_BFGSpawnerT3","PB_DemonExt",255,1);
+		handler.InjectSpawn("PB_BFGSpawnerT4","PB_DemonExt",255,1);
+	}
+}
+
+//Demon Atomizer - DTECH
+
+//Ancient Crossbow
+class AncientCrossbowSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_BFGSpawnerT1', 'AncientCrossbow', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT2', 'AncientCrossbow', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT3', 'AncientCrossbow', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT4', 'AncientCrossbow', 255, 1);
+	}
+}
+
+//SLOT 1 ==========================================================================================
+//Argent Sith Katana
+class PB_ArgentSithSpawnerInjector : PBInjector
+{
+	override void init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn("PB_SawSpawnerT1", "PB_ArgentSith", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT2", "PB_ArgentSith", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT3", "PB_ArgentSith", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT4", "PB_ArgentSith", 255, 1);
+	}
+}
+
+//Battle Axe - F&I
+class BattleAxeSpawnerInjector : PBInjector
+{
+	override void init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn("PB_SawSpawnerT1", "BattleAxe", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT2", "BattleAxe", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT3", "BattleAxe", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT4", "BattleAxe", 255, 1);
+	}
+}
+
+//SLOT 2 ==========================================================================================
+//DemonPistol - DTECH
+
+//Plasma Annihilator - IN
+
+//
+
+
+//SLOT 3 ==========================================================================================
+//CSSG
+
+//2016 Shotgun
+
+//HellShotgun - DTECH
+
+//HASG - IN
+
+//Lever-Action
+class M1887SpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_ShotSpawnerT1', 'M1887', 255, 1);
+		handler.InjectSpawn('PB_ShotSpawnerT2', 'M1887', 255, 1);
+	}
+}
+
+//MSSG
+class MarauderSSGSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		//handler.InjectSpawn('PB_SSGSpawnerT1', 'MarauderSSG', 255, 1);
+		//handler.InjectSpawn('PB_SSGSpawnerT2', 'MarauderSSG', 255, 1);
+		handler.InjectSpawn('PB_SSGSpawnerT3', 'MarauderSSG', 255, 1);
+		handler.InjectSpawn('PB_SSGSpawnerT4', 'MarauderSSG', 255, 1);
+	}
+}
+
+//CryoShotgun
+class PB_CryoShotgunSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		//handler.InjectSpawn('PB_PlasSpawnerT1', 'PB_CryoShotgun', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT2', 'PB_CryoShotgun', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT3', 'PB_CryoShotgun', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'PB_CryoShotgun', 255, 1);
+	}
+}
+
+//GatlingShotgun - IN
+
+//
+
+
+//SLOT 4 ==========================================================================================
+//Heavy Sniper - IN
+
+//Magnum Sniper -IN
+
+//Bolt Action Sniper
+class PB_BoltRifleSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		//handler.InjectSpawn('PB_MGSpawnerT1', 'PB_BoltRifle', 255, 1);
+		//handler.InjectSpawn('PB_MGSpawnerT2', 'PB_BoltRifle', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT3', 'PB_BoltRifle', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT4', 'PB_BoltRifle', 255, 1);
+	}
+}
+
+//AK-47 - IN
+
+//Custom Sniper Rifle - IN
+
+//Pulse Rifle
+class M41ASpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_MGSpawnerT3', 'M41A', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT4', 'M41A', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT1', 'M41A', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'M41A', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT3', 'M41A', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT4', 'M41A', 255, 1);
+	}
+}
+class PB_10x24mm : PB_Projectile //Projectile Code
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 50;
+		PB_Projectile.RipperCount 10; //Oh &#+# This one can be Pierce Through the Monsters Easily.
+		Obituary "%o was Shot Down by %k's Alien Pulse Rifle Marine.";
+	}
+}
+
+//
+
+//SLOT 5 ==========================================================================================
+//HMG
+class OldHMGSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		//handler.InjectSpawn('PB_MGSpawnerT1', 'OldHMG', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT2', 'OldHMG', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT3', 'OldHMG', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT4', 'OldHMG', 255, 1);
+	}
+}
+
+//Ripper Chaingun - Duke
+class DukeNukemRipperInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		//handler.InjectSpawn('PB_MGSpawnerT1', 'DukeNukemRipper', 255, 1);
+		//handler.InjectSpawn('PB_MGSpawnerT2', 'DukeNukemRipper', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT3', 'DukeNukemRipper', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT4', 'DukeNukemRipper', 255, 1);
+	}
+}
+
+//Super Nailgun
+class SuperNailgunSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_MGSpawnerT3', 'SuperNailgun', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT4', 'SuperNailgun', 255, 1);
+	}
+}
+
+//Dragon Slayer - F&I
+
+//Machinegun - D2016
+class D4MachinegunSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		//handler.InjectSpawn('PB_MGSpawnerT1', 'D4Machinegun', 255, 3);
+		handler.InjectSpawn('PB_MGSpawnerT2', 'D4Machinegun', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT3', 'D4Machinegun', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT4', 'D4Machinegun', 255, 1);
+	}
+}
+class MachineGunUpgradeSpawnerInjector : PBInjector //Upgrade Injector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		//this adds the machine gun upgrade to the invulnerability sphere spawner
+        handler.InjectSpawn('PB_InvulSpawnerT1', 'MachinegunUpgrade', 255, 3);
+        //this adds the machine gun upgrade to the pack spawner
+        handler.InjectSpawn('PB_PackSpawnerT1', 'MachinegunUpgrade', 255, 2);
+        handler.InjectSpawn('PB_PackSpawnerT2', 'MachinegunUpgrade', 255, 1);
+        handler.InjectSpawn('PB_PackSpawnerT3', 'MachinegunUpgrade', 255, 1);
+        handler.InjectSpawn('PB_PackSpawnerT4', 'MachinegunUpgrade', 255, 1);
+	}
+}
+
+//Heavy Nailgun - IN
+
+//LMG - IN
+
+//Minigun - IN
+
+
+//SLOT 6 ==========================================================================================
+//Rocket Launcher - D2016
+class D4RocketLauncherSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+
+		handler.InjectSpawn('PB_RLSpawnerT1', 'D4RocketLauncher', 255, 1);
+		handler.InjectSpawn('PB_RLSpawnerT2', 'D4RocketLauncher', 255, 1);
+		handler.InjectSpawn('PB_RLSpawnerT3', 'D4RocketLauncher', 255, 1);
+		handler.InjectSpawn('PB_RLSpawnerT4', 'D4RocketLauncher', 255, 1);
+	}
+}
+
+//CyberdemonRL
+
+//Dual Devastator - Duke
+class DevastatorInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		//handler.InjectSpawn('PB_PlasSpawnerT1', 'Devastator', 255, 1);
+		//handler.InjectSpawn('PB_PlasSpawnerT2', 'Devastator', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT3', 'Devastator', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'Devastator', 255, 1);
+	}
+}
+
+//Paingiver
+class PaingiverSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_RLSpawnerT3', 'Paingiver', 255, 1);
+		handler.InjectSpawn('PB_RLSpawnerT4', 'Paingiver', 255, 1);
+		handler.InjectSpawn('PB_ChainGuySpawner_T4', 'HellTrooperPaingiver', 255, 1); //This injects the custom monster
+	}
+}
+
+//SGL - IN
+
+//Mastermind Chaingun
+class MastermindChaingunSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_RLSpawnerT3', 'MastermindChaingun', 255, 1);
+		handler.InjectSpawn('PB_RLSpawnerT4', 'MastermindChaingun', 255, 1);
+	}
+}
+
+//Excavator
+class PBExcavatorInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_RLSpawnerT3', 'PB_SuperGL', 255, 1); //What is this???
+		handler.InjectSpawn('PB_RLSpawnerT3', 'PB_Excavator', 255, 1);
+		handler.InjectSpawn('PB_RLSpawnerT4', 'PB_Excavator', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT3', 'PB_Excavator', 255, 1);
+	}
+}
+
+//SLOT 7 ==========================================================================================
+//Thunder Carrier - IN
+
+//Heavy Plasma - IN
+
+//Plague Extinguisher - IN
+
+//Plasma Gun - D2016
+class D4PlasmaGunSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+
+		//handler.InjectSpawn('PB_PlasSpawnerT1', 'D4PlasmaGun', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT2', 'D4PlasmaGun', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT3', 'D4PlasmaGun', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'D4PlasmaGun', 255, 1);
+	}
+}
+
+//Vortex Rifle - D2016
+class D4VortexRifleSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		//handler.InjectSpawn('PB_PlasSpawnerT1', 'D4VortexRifle', 255, 1);
+		//handler.InjectSpawn('PB_PlasSpawnerT2', 'D4VortexRifle', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT3', 'D4VortexRifle', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'D4VortexRifle', 255, 1);
+	}
+}
+
+//
+
+
+//SLOT 8 ==========================================================================================
+//MANCUBUS FLAMECANNON
+
+//ThunderCrossbow - F&I
+
+//Argent Fury - IN
+
+//Gauss Cannon
+
+//Calamity Blade
+class CalamityBladeInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnCalamityBlade == 1)
+		{
+		handler.InjectSpawn('PB_BFGSpawnerT1', 'PB_CalamityBlade', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT2', 'PB_CalamityBlade', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT3', 'PB_CalamityBlade', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT3', 'PB_CalamityBlade', 255, 1);
+		}
+	}
+}
+
+//
+
+
+//SLOT 9 ==========================================================================================
+//Stormcast - F&I
+
+//Acid Launcher - IN
+
+//Ballista
+class BallistaInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_PlasSpawnerT1', 'Ballistagun', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT2', 'Ballistagun', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT3', 'Ballistagun', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'Ballistagun', 255, 1);
+	}
+}
+
+//Equipments mod ==========================================================================================
+class NewEQ_Injector : PBInjector   
+{
+    override void Init(PB_EventHandler handler) 
+    {
+        handler.InjectSpawn('PB_PackSpawnerT1', 'ShieldGrenade', 255, 2);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'ShieldGrenade', 255, 2);
+		handler.InjectSpawn('PB_PackSpawnerT3', 'ShieldGrenade', 255, 2);
+		
+        handler.InjectSpawn('PB_PackSpawnerT4', 'VoidGrenade', 255, 1);
+		
+		handler.InjectSpawn('PB_RocketBoxSpawnerT2', 'AcidCharge', 255, 1);
+		handler.InjectSpawn('PB_RocketBoxSpawnerT3', 'AcidCharge', 255, 1);
+		handler.InjectSpawn('PB_RocketBoxSpawnerT4', 'AcidCharge', 255, 1);
+		
+		handler.InjectSpawn('PB_RocketBoxSpawnerT3', 'LaserCharge', 255, 1);
+		handler.InjectSpawn('PB_RocketBoxSpawnerT4', 'LaserCharge', 255, 1);
+		
+		handler.InjectSpawn('PB_RocketBoxSpawnerT3', 'SwarmCharge', 255, 1);
+		handler.InjectSpawn('PB_RocketBoxSpawnerT4', 'SwarmCharge', 255, 1);
+		
+		handler.InjectSpawn('PB_PackSpawnerT3', 'ElecPod', 255, 1);
+        handler.InjectSpawn('PB_PackSpawnerT4', 'ElecPod', 255, 1);
+    }
+}
+

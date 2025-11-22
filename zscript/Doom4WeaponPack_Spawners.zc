@@ -14,41 +14,6 @@ class D4BFG9KSpawnerInjector : PBInjector
 	}
 }
 
-class D4MachinegunSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-		handler.InjectSpawn('PB_MGSpawnerT1', 'D4Machinegun', 255, 3);
-		handler.InjectSpawn('PB_MGSpawnerT2', 'D4Machinegun', 255, 3);
-		handler.InjectSpawn('PB_MGSpawnerT3', 'D4Machinegun', 255, 3);
-		handler.InjectSpawn('PB_MGSpawnerT4', 'D4Machinegun', 255, 3);
-	}
-}
-
-class D4PlasmaGunSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-
-		handler.InjectSpawn('PB_PlasSpawnerT1', 'D4PlasmaGun', 255, 2);
-		handler.InjectSpawn('PB_PlasSpawnerT2', 'D4PlasmaGun', 255, 2);
-		handler.InjectSpawn('PB_PlasSpawnerT3', 'D4PlasmaGun', 255, 2);
-		handler.InjectSpawn('PB_PlasSpawnerT4', 'D4PlasmaGun', 255, 2);
-	}
-}
-
-class D4RocketLauncherSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-
-		handler.InjectSpawn('PB_RLSpawnerT1', 'D4RocketLauncher', 255, 3);
-		handler.InjectSpawn('PB_RLSpawnerT2', 'D4RocketLauncher', 255, 3);
-		handler.InjectSpawn('PB_RLSpawnerT3', 'D4RocketLauncher', 255, 3);
-		handler.InjectSpawn('PB_RLSpawnerT4', 'D4RocketLauncher', 255, 3);
-	}
-}
-
 class D4SuperShotgunSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
@@ -58,30 +23,5 @@ class D4SuperShotgunSpawnerInjector : PBInjector
 		handler.InjectSpawn('PB_SSGSpawnerT2', 'D4SSG', 255, 3);
 		handler.InjectSpawn('PB_SSGSpawnerT3', 'D4SSG', 255, 3);
 		handler.InjectSpawn('PB_SSGSpawnerT4', 'D4SSG', 255, 3);
-	}
-}
-
-class D4VortexRifleSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-		handler.InjectSpawn('PB_PlasSpawnerT1', 'D4VortexRifle', 255, 2);
-		handler.InjectSpawn('PB_PlasSpawnerT2', 'D4VortexRifle', 255, 2);
-		handler.InjectSpawn('PB_PlasSpawnerT3', 'D4VortexRifle', 255, 2);
-		handler.InjectSpawn('PB_PlasSpawnerT4', 'D4VortexRifle', 255, 2);
-	}
-}
-
-class MachineGunUpgradeSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-		//this adds the machine gun upgrade to the invulnerability sphere spawner
-        handler.InjectSpawn('PB_InvulSpawnerT1', 'MachinegunUpgrade', 255, 3);
-        //this adds the machine gun upgrade to the pack spawner
-        handler.InjectSpawn('PB_PackSpawnerT1', 'MachinegunUpgrade', 255, 3);
-        handler.InjectSpawn('PB_PackSpawnerT2', 'MachinegunUpgrade', 255, 1);
-        handler.InjectSpawn('PB_PackSpawnerT3', 'MachinegunUpgrade', 255, 1);
-        handler.InjectSpawn('PB_PackSpawnerT4', 'MachinegunUpgrade', 255, 1);
 	}
 }

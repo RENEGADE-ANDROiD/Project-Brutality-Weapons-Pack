@@ -4,27 +4,12 @@ version "4.11.3"
 #include "ZScript/ZRWSwitcher.zc"
 
 // Spawners ZScript
-#Include "Zscript/AncientCrossbow_Spawn.zc"
-#include "ZScript/PB_Addons/ArgentSithKatana_Spawner.zs"
-#include "Zscript/PB_Addons/CalamityBlade_Spawner.zs"
+#include "zscript/MergedSpawner.zc"
 #include "ZScript/ChainsawSpawn.zc"
 #Include "Zscript/CSSG/CSSGEvent.zs"
-#Include "Zscript/DemonExt_Spawn.zc"
-#Include "Zscript/Doom4WeaponPack_Spawners.zc"
-#Include "Zscript/DukeNukemWeaponSpawners.zs"
-#include "ZSCRIPT/Excavator_Spawner.zs"
+//#Include "Zscript/Doom4WeaponPack_Spawners.zc" //(MOSTLY) MERGED 
 #include "ZSCRIPT/GORENEST.zs"
 #include "ZScript/IN_SpawnersInjector.zs"
-#include "ZScript/M1887_Spawn.zc"
-#include "ZScript/M41AMicroProcressor.zc"
-#include "ZScript/MarauderSSG_Spawn.zc"
-#include "Zscript/MastermindChaingun_Spawn.zc"
-#include "zscript/NewEquip_Spawner"
-#include "zscript/OldHMG_Spawn.zc"
-#Include "Zscript/Paingiver_Spawn.zc"
-#Include "Zscript/PB_BoltRifle_Spawn.zc"
-#Include "Zscript/PB_CryoShotgun_Spawn.zc"
-#Include "Zscript/PhaseEradicatorBFG_Spawn.zc"
 
 // Player Pawn Insanity (Testing)
 //#include "ZScript/INPlayer.zc"
@@ -74,25 +59,6 @@ Class UNMK_DExtFastProjectile : FastProjectile{
 #include "Zscript/PB_Addons/DemonicExtProj2.zs"
 #include "Zscript/PB_Addons/DemonicExtStuff.zs"
 #include "Zscript/PB_Addons/DemonicExt_Wheel.zs"
-class DEX_Injector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-		//handler.InjectSpawn("PB_BFGSpawnerT1","PB_DemonExt",255,1);
-		//handler.InjectSpawn("PB_BFGSpawnerT2","PB_DemonExt",255,1);
-		handler.InjectSpawn("PB_BFGSpawnerT3","PB_DemonExt",255,1);
-		handler.InjectSpawn("PB_BFGSpawnerT4","PB_DemonExt",255,1);
-	}
-}
-class SuperNailgunSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-		handler.InjectSpawn('PB_MGSpawnerT4', 'SuperNailgun', 255, 1);
-		handler.InjectSpawn('PB_MGSpawnerT3', 'SuperNailgun', 255, 1);
-		handler.InjectSpawn('PB_MGSpawnerT4', 'SuperNailgun', 255, 1);
-	}
-}
 
 class PB_DragonSlayerSpawner : EventHandler
 {
@@ -127,17 +93,6 @@ class Shielsawammo_Injector : PBInjector
 	}
 }
 
-class BattleAxeSpawnerInjector : PBInjector
-{
-	override void init(PB_EventHandler handler)
-	{
-		handler.InjectSpawn("PB_SawSpawnerT1", "BattleAxe", 255, 1);
-		handler.InjectSpawn("PB_SawSpawnerT2", "BattleAxe", 255, 1);
-		handler.InjectSpawn("PB_SawSpawnerT3", "BattleAxe", 255, 1);
-		handler.InjectSpawn("PB_SawSpawnerT4", "BattleAxe", 255, 1);
-	}
-}
-
 class PB_StormcastSpawner : EventHandler
 {
     override void checkReplacement(replaceEvent e)
@@ -157,17 +112,6 @@ class PB_StormcastSpawner : EventHandler
                 e.Replacement = SpawnedWeap;
         }
     }
-}
-
-class PB_ArgentSithSpawnerInjector : PBInjector
-{
-	override void init(PB_EventHandler handler)
-	{
-		handler.InjectSpawn("PB_SawSpawnerT1", "PB_ArgentSith", 255, 1);
-		handler.InjectSpawn("PB_SawSpawnerT2", "PB_ArgentSith", 255, 1);
-		handler.InjectSpawn("PB_SawSpawnerT3", "PB_ArgentSith", 255, 1);
-		handler.InjectSpawn("PB_SawSpawnerT4", "PB_ArgentSith", 255, 1);
-	}
 }
 
 class PB_ThunderCrossbowSpawner : EventHandler
@@ -428,21 +372,6 @@ class PB_DemontechRifleSpawnerInjector : PBInjector
 		handler.InjectSpawn('PB_MGSpawnerT3', 'PB_Demontech', 255, 1);
 	}
 }
-
-class BallistaInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-		handler.InjectSpawn('PB_PlasSpawnerT1', 'Ballistagun', 255, 1);
-		handler.InjectSpawn('PB_PlasSpawnerT2', 'Ballistagun', 255, 1);
-		handler.InjectSpawn('PB_PlasSpawnerT3', 'Ballistagun', 255, 1);
-		handler.InjectSpawn('PB_PlasSpawnerT4', 'Ballistagun', 255, 1);
-	}
-}
-
-
-
-
 
 //Doorbuster
 #include "Zscript/doorbuster.zs"
