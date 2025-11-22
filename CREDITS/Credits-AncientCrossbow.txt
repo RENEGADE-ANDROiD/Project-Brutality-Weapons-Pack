@@ -1,3 +1,18 @@
 PB Ancient Crossbow Updated 12-23-2024
 -------------------------------------------
 Updated By 517qwerty
+
+Full Credits:
+
+SOUNDS:
+Squig
+Select - RPG Maker.
+
+SPRITES:
+Original sprites - Heretic (Raven Software).
+Reloading frames - Lippeth, ravage, Xaser.
+Sechtera - better arrow glows.
+Muzzle flash - Sergeant_Mark_IV, TypicalSF, Acclaim Entertainment and Probe Entertainment.
+Arrow actor - from mappack Toward The Hell by MyNameIs, edited by me.
+
+CODE: Original code by Sergeant_Mark_IV, edited by Dox778.

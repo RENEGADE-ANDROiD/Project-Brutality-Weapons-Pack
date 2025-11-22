@@ -900,3 +900,15 @@ class AxeCard : equipmentCard
 		sy.push(0.4);
 	}
 }
+
+class HookCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Hook");
+		tokens.push("WW_HookSelected");
+		img.push("graphics/hook.png");
+		sx.push(0.3);
+		sy.push(0.3);
+	}
+}

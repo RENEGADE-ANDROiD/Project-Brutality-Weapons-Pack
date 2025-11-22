@@ -1,3 +1,17 @@
+Actor WW_HookSelected : inventory{}
+Actor HookSelected : inventory{}
+Actor HookAmmo : ammo
+{
+	Inventory.Amount 1
+	Inventory.MaxAmount 1
+	Ammo.BackPackAmount 1
+	Ammo.BackPackMaxAmount 1
+	Inventory.PickUpMessage ""
+	Inventory.Icon BEACA0
+	+INVENTORY.IGNORESKILL
+	Scale 0.45
+}
+
 Actor HookShot : FastProjectile
 {
 	MissileHeight 8
