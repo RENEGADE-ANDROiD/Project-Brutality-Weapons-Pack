@@ -2,7 +2,7 @@
 //Equipments
 #include actors/Equipments/ShieldGrenade.dec
 #include actors/Equipments/VoidGrenade.dec
-#include actors/Equipments/ElecPod2
+#include actors/Equipments/ElecPod2.dec
 #include actors/Equipments/Axe.dec
 #include Decorate/Weapons/Doom4WeaponPack/ItemsUpgrades.dec
 #include Decorate/Weapons/Doom4WeaponPack/UpgradeStation.dec
