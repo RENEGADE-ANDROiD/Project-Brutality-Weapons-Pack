@@ -26,3 +26,65 @@ BrightMap Sprite UNMAX0 { Map "Brightmaps/bumk1.png" }
 BrightMap Sprite UNMAY0 { Map "Brightmaps/bumk1.png" }
 BrightMap Sprite UNMAZ0 { Map "Brightmaps/bumk1.png" }
 BrightMap Sprite UNMXA0 { Map "Brightmaps/bumk2.png" }
+
+
+//=================================================================//
+//======================= Thunder crossbow ========================//
+//=================================================================//
+//Dropped
+BrightMap Sprite WBOWA0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMWBOWA0.png" DisableFullBright }
+//Weapon
+//Blue
+BrightMap Sprite W02FA0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FA0.png" DisableFullBright }
+BrightMap Sprite W02FB0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FB0.png" DisableFullBright }
+BrightMap Sprite W02FC0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FC0.png" DisableFullBright }
+BrightMap Sprite W02FD0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FD0.png" DisableFullBright }
+BrightMap Sprite W02FE0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FE0.png" DisableFullBright }
+BrightMap Sprite W02GA0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GA0.png" DisableFullBright }
+BrightMap Sprite W02GB0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GB0.png" DisableFullBright }
+BrightMap Sprite W02GC0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GC0.png" DisableFullBright }
+BrightMap Sprite W02GD0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GD0.png" DisableFullBright }
+BrightMap Sprite W02GE0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GE0.png" DisableFullBright }
+BrightMap Sprite W02GF0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GF0.png" DisableFullBright }
+BrightMap Sprite W02GG0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GG0.png" DisableFullBright }
+BrightMap Sprite W02GH0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GH0.png" DisableFullBright }
+BrightMap Sprite W02GI0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GI0.png" DisableFullBright }
+BrightMap Sprite W02GJ0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GJ0.png" DisableFullBright }
+BrightMap Sprite W02GK0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GK0.png" DisableFullBright }
+BrightMap Sprite W02GL0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GL0.png" DisableFullBright }
+//Red
+BrightMap Sprite W03FA0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FA0.png" DisableFullBright }
+BrightMap Sprite W03FB0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FB0.png" DisableFullBright }
+BrightMap Sprite W03FC0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FC0.png" DisableFullBright }
+BrightMap Sprite W03FD0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FD0.png" DisableFullBright }
+BrightMap Sprite W03FE0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FE0.png" DisableFullBright }
+BrightMap Sprite W03GA0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GA0.png" DisableFullBright }
+BrightMap Sprite W03GB0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GB0.png" DisableFullBright }
+BrightMap Sprite W03GC0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GC0.png" DisableFullBright }
+BrightMap Sprite W03GD0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GD0.png" DisableFullBright }
+BrightMap Sprite W03GE0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GE0.png" DisableFullBright }
+BrightMap Sprite W03GF0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GF0.png" DisableFullBright }
+BrightMap Sprite W03GG0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GG0.png" DisableFullBright }
+BrightMap Sprite W03GH0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GH0.png" DisableFullBright }
+BrightMap Sprite W03GI0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GI0.png" DisableFullBright }
+BrightMap Sprite W03GJ0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GJ0.png" DisableFullBright }
+BrightMap Sprite W03GK0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GK0.png" DisableFullBright }
+BrightMap Sprite W03GL0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GL0.png" DisableFullBright }
+//Orange
+BrightMap Sprite W04FA0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FA0.png" DisableFullBright }
+BrightMap Sprite W04FB0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FB0.png" DisableFullBright }
+BrightMap Sprite W04FC0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FC0.png" DisableFullBright }
+BrightMap Sprite W04FD0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FD0.png" DisableFullBright }
+BrightMap Sprite W04FE0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02FE0.png" DisableFullBright }
+BrightMap Sprite W04GA0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GA0.png" DisableFullBright }
+BrightMap Sprite W04GB0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GB0.png" DisableFullBright }
+BrightMap Sprite W04GC0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GC0.png" DisableFullBright }
+BrightMap Sprite W04GD0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GD0.png" DisableFullBright }
+BrightMap Sprite W04GE0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GE0.png" DisableFullBright }
+BrightMap Sprite W04GF0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GF0.png" DisableFullBright }
+BrightMap Sprite W04GG0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GG0.png" DisableFullBright }
+BrightMap Sprite W04GH0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GH0.png" DisableFullBright }
+BrightMap Sprite W04GI0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GI0.png" DisableFullBright }
+BrightMap Sprite W04GJ0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GJ0.png" DisableFullBright }
+BrightMap Sprite W04GK0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GK0.png" DisableFullBright }
+BrightMap Sprite W04GL0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMW02GL0.png" DisableFullBright }
