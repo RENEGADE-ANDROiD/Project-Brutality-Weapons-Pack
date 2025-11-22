@@ -1,0 +1,16 @@
+class MarauderSSGSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		
+		//Usage:
+        //handler.InjectSpawn(Spawner to inject to, the thing you want to inject, 255, weight);
+        //weight is the probability for this to spawn over others spawns in the spawner, usually a weight of 1 is good enough, this is similar to the dropitem property in randomspawners
+
+		//this adds the Marauder SSG to the all of the tier supershotgun spawns
+		handler.InjectSpawn('PB_SSGSpawnerT1', 'MarauderSSG', 255, 3);
+		handler.InjectSpawn('PB_SSGSpawnerT2', 'MarauderSSG', 255, 3);
+		handler.InjectSpawn('PB_SSGSpawnerT3', 'MarauderSSG', 255, 3);
+		handler.InjectSpawn('PB_SSGSpawnerT4', 'MarauderSSG', 255, 3);
+	}
+}

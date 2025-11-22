@@ -1,0 +1,557 @@
+// --------------------------------------------------------------------------
+//
+// MaskMan Rifle Assault
+//
+// --------------------------------------------------------------------------
+ACTOR AssaultRespecter : inventory {inventory.maxamount 1}
+ACTOR AssaultR1 : PB_Weapon 26050
+{
+	Weapon.AmmoGive1 40
+	Weapon.AmmoGive2 0
+	Weapon.AmmoUse1 0
+	Weapon.AmmoUse2 0
+	Weapon.AmmoType2 "AR1EMag"
+	Weapon.AmmoType1 "PB_HighCalMag"
+
+	+WEAPON.WIMPY_WEAPON
+    +WEAPON.NOAUTOAIM
+    +WEAPON.NOALERT
+    +WEAPON.NOAUTOFIRE
+	+FORCEXYBILLBOARD
+	+WEAPON.NO_AUTO_SWITCH
+	PB_WeaponBase.RespectItem "AssaultRespecter"
+	Scale 0.7
+	
+	Weapon.SlotNumber 4
+	Weapon.SlotPriority 4
+	Inventory.PickupSound "MS_PCKP"
+	Inventory.PickupMessage "You found away through of the Model 4 Assault Rifle -;(Dignidad);-! (Slot 4)"
+	Obituary "$OB_MPCHAINGUN"
+	Tag "M4 Assault Rifle - Dignidad"
+	States
+	{
+	
+	Steady:
+		TNT1 A 1
+		Goto Ready
+	
+	SelectReady:
+	Ready:
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 PB_RespectIfNeeded
+	WeaponRespect:
+		TNT1 A 0 A_Giveinventory("AssaultRespecter",1)
+		
+		MagBag:
+		BADM A 0 A_PlaySound("MAGBAG1")
+		TNT1 A 7
+		BADM ABCDEFG 1 A_WeaponReady
+		
+		BADM HIJKLMNOPQ 1
+		BADM A 0 A_PlaySound("MAGBAG2",1)
+		BADM RSTU 1
+		BADM VWXYZ 1
+		
+		B4DM AB 1 
+		BADM A 0 A_PlaySound("MAGBAG3")
+		B4DM CDEFGHIJKLMN 1 A_WeaponReady
+		
+		B4DM OPQR 1 PB_WeaponRecoil(-0.10,-0.15) //(PITCH+1.0)
+		
+		TNT1 A 0 A_GIVEINVENTORY("AR1EMag",36)
+		
+MagLoad:
+		TNT1 A 10 A_WeaponReady
+		
+		BADC AABBBBBBCC 1 PB_WeaponRecoil(-0.10,-0.15) //(PITCH-1.0)
+		BADC DD 1 A_WeaponReady
+		TNT1 A 0 A_GIVEINVENTORY("AR1EMag",1)
+		BADF A 0 A_PlaySound("CLIPICK2",6)
+		
+		BADC EEEEFFFFFFFFGHIJKLMM 1 A_WeaponReady
+		TNT1 A 0 A_GIVEINVENTORY("AR1EMag",1)
+		BADF A 0 A_PlaySound("CLIPICK2",6)
+		
+		BADC NNNNOOOOOOOFGHIJKLMM 1 A_WeaponReady
+		TNT1 A 0 A_GIVEINVENTORY("AR1EMag",1)
+		BADF A 0 A_PlaySound("CLIPICK2",6)
+		
+		BADC NNNNOOOOOOOFGHIJKLMM 1 A_WeaponReady
+		TNT1 A 0 A_GIVEINVENTORY("AR1EMag",1)
+		BADF A 0 A_PlaySound("CLIPICK2",6)
+		
+		BADC NNNNOOOOOOO 1
+		BADC PQRS 1
+		TNT1 A 0 A_PlaySound("weapons/smg_magfly1")
+		TNT1 A 10
+		MRKU A 1 FAST PB_WeaponRecoil(-0.10,-0.15) //(Pitch+0.8)
+		TNT1 A 0 A_PlaySound("MS_SLCT",1)
+		MRKU B 1 FAST PB_WeaponRecoil(-0.10,-0.15) //(Pitch-0.4)
+		MRKU CD 1 FAST PB_WeaponRecoil(-0.10,-0.15) //(Pitch-0.4)
+		TNT1 A 0 A_SetCrosshair(25)
+		TNT1 AAA 0
+		
+		MRRR GHI 2
+		
+		TNT1 A 0 A_PlaySound ("MS_IN")
+		MRRR J 1
+		MRRR K 1
+		MRRR LM 1
+		
+		MRRR MNN 1
+		TNT1 A 0 A_PlaySound ("MS_PHS",73)
+		MRKM ABC 1
+		MRRR N 1
+		
+		MRRR O 3 A_DoPBWeaponAction(WRF_NOFIRE)
+		Goto RealReady
+		
+	SelectAnimation:
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+	    MRKU A 1 FAST PB_WeaponRecoil(-0.10,-0.15) //(Pitch+0.8)
+		TNT1 A 0 A_PlaySound("MS_SLCT",1)
+		MRKU B 1 FAST PB_WeaponRecoil(-0.10,-0.15) //(Pitch-0.4)
+		MRKU CD 1 FAST PB_WeaponRecoil(-0.10,-0.15) //(Pitch-0.4)
+		TNT1 A 0 A_SetCrosshair(25)
+		TNT1 AAA 0
+		
+	Ready3:
+	RealReady:
+        TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+        TNR1 A 0 A_JumpIfInventory("Zoomed", 1,"Ready2")
+		TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1,"WeaponSpecial")
+		MRKR A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		Loop
+		
+    Ready2:
+		MR2R A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		Loop
+		
+  Deselect:
+    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+    TNT1 A 0 A_PlaySound("MINY",18)
+    MRKU DCBA 1
+	TNT1 A 0 A_Takeinventory("Zoomed",1)
+	TNT1 A 0 A_ZoomFactor(1.0)
+    Null AAAAAAAAAAAAAAAAA 0 A_Lower
+	TNT1 A 1
+    Wait
+
+	Select:
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		Goto SelectFirstPersonLegs
+		SelectContinue:
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Raise
+		Wait
+		
+	FireNoreload:
+		J2FG A 0 A_JumpIfInventory("PB_HighCalMag",1,"FireNow")
+		Goto NoAmmo
+		
+	FireNow:
+		TNT1 A 0 A_Takeinventory("PB_HighCalMag",1)
+		Goto NormalFire
+	
+	Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+// 			A_GiveInventory("PB_LockScreenTilt",1);
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+		TNT1 A 0 A_JumpIfInventory ("AR1EMag", 1, 2)
+		Goto Reload
+		TNT1 AAA 0
+		
+	NormalFire:
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Fire2")
+		TNT1 A 0 A_ZoomFactor(0.99)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 PB_FireOffset
+		TNT1 A 0 A_PlaySound("Fire/MSKAR2",CHAN_Weapon,0.99,0,2)
+		TNT1 A 0 A_PlaySound("Fire/FaDD",CHAN_Body,0.77,0,2)
+
+		TNT1 A 0 {
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("PB_556x45mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+			else { 
+				A_FireProjectile("PB_556x45mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+		}
+		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,5)
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		
+		MRKF A 1 //Bright A_FireCustomMissile("Tracer", random(1, -2), 1, 0,0, 0,random(-1, 1))
+        TNT1 A 0 A_SpawnItem("DistantRifleFireSound",10,40)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(-1.0 + pitch)
+		TNT1 A 0 A_Jump (256, "FireSequence1", "FireSequence2")
+
+	FireSequence1:
+		MRKF B 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(+0.4 + pitch)
+		Goto EndSequence
+
+	FireSequence2:
+		MRKF C 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(+0.4 + pitch)
+		Goto EndSequence
+
+
+	EndSequence:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_ZoomFactor(0.99)
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(+0.2 + pitch)
+		TNT1 A 0 A_TakeInventory ("AR1EMag", 1)
+		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		
+		TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire")
+		TNT1 AAA 0
+		MRKF D 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+
+		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire")
+		TNT1 AAA 0
+		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire")
+	Refire:
+		MRKR B 0 A_ReFire
+		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+	FinalFire:
+		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"FinalFire1")
+		Goto RealReady
+
+    AltFire:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+        TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"NoAim")
+		TNT1 A 0 A_Giveinventory("Zoomed",1)
+        TNT1 A 0 A_ZoomFactor(1.8)
+		TNT1 A 0 A_PlaySound("Weapon/IronSit")
+        MR2P B 1
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(+1.0 + pitch)
+		MR2P C 1
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(+1.0 + pitch)
+		TNT1 A 0 A_SetCrosshair(0)
+        Goto Ready2
+		
+       NoAim:
+        TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_PlaySound("Weapon/IronSit")
+        MR2P C 1
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(-1.0 + pitch)
+		MR2P B 1
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(-1.0 + pitch)
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_SetCrosshair(25)
+        Goto RealReady
+
+	Fire2:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_ZoomFactor(1.99)
+
+		TNT1 A 0 A_PlaySound("Fire/MSKAR2",CHAN_Weapon,0.99,0,2)
+		TNT1 A 0 A_PlaySound("Fire/FaDD",CHAN_Body,0.77,0,2)
+
+		TNT1 A 0 {
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("PB_556x45mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+			else { 
+				A_FireProjectile("PB_556x45mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+		}
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,5)
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		MR2F A 1 Bright //A_FireCustomMissile("Tracer", random(1, -1), 1, 0,7, 0,random(-1, 1))
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(-0.6 + Pitch)
+        TNT1 A 0 A_SpawnItem("DistantRifleFireSound",10,40)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_TakeInventory ("AR1EMag", 1)
+		TNT1 AAA 0
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(+0.3 + Pitch)
+		TNT1 A 0 A_ZoomFactor(1.98)
+		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,5)
+		TNT1 A 0 A_ZoomFactor(1.97)
+		TNT1 A 0 A_Jump(255,"Recoil_1","Recoil_2")
+
+	Recoil_1:
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(+0.2 + Pitch)
+		MR2F B 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(-0.2 + Angle)
+		TNT1 A 0 A_ZoomFactor(1.98)
+		Goto EndOfRecoil
+
+	Recoil_2:
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(-0.2 + Pitch)
+		MR2F C 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(+0.2 + Angle)
+		Goto EndOfRecoil
+
+	EndOfRecoil:
+		TNT1 A 0 A_ZoomFactor(1.99)
+		TNT1 A 0 A_ZoomFactor(2.0)
+
+		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire")
+		TNT1 AAA 0
+		MR2F D 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+
+        TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+        TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+
+		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire1")
+		TNT1 AAA 0
+		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire1")
+		TNT1 AAA 0
+		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire1")
+	Refire1:
+		MR2R A 0 A_ReFire
+		TNT1 AAA 0
+	FinalFire1:
+		TNT1 AAA 0
+		TNT1 AAA 0
+		Goto Ready2
+		
+	WeaponSpecial:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 A_Takeinventory("GoWeaponSpecialAbility",1)
+	ChangeFireMode:
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_Takeinventory("ChangeFire_Type",1)
+		TNT1 A 0 A_Takeinventory("ADSmode",1)
+		TNT1 A 0 A_JumpIfInventory("SemiFire", 1, "SwitchToFullAuto")
+		Goto SwitchToSemiFire
+
+	SwitchToSemiFire:
+		
+		TNT1 A 0 A_Print ("Semi Fire Mode Selected")
+		TNT1 A 0 A_GiveInventory("SemiFire",1)
+		Goto AnimationChange
+		
+	SwitchToFullAuto:
+		TNT1 A 0 A_TakeInventory("SemiFire")
+		
+		TNT1 A 0 A_Print ("Full Auto Fire Mode Selected")
+		
+		Goto AnimationChange
+	
+	AnimationChange:
+		TNT1 A 0 A_PlaySound("MS_PHS",19)
+		Goto RealReady
+		
+	NoAmmo:
+		TNT1 A 0 A_PlaySound("DryFire/Rifle")
+	NoReload:
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_ZoomFactor(1.0)
+	Goto RealReady
+
+
+	Reload:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	    TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 A_JumpIfInventory("AR1EMag",41,"NoReload")
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,3)
+        Goto NoAmmo
+		TNT1 AAA 0
+		TNT1 A 0 A_SetCrosshair(25)
+		TNT1 A 0 A_GiveInventory ("Pumping", 1)
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 A_JumpIfInventory("Unloaded_MaskMan",1,11)
+		MRRR ABC 2
+		TNT1 A 0 A_PlaySound ("MS_GRB", 88)
+		MRRR DE 2
+		TNT1 A 0 A_PlaySound ("MS_OU", 86)
+		MRRR FG 2
+		TNT1 A 0 A_CustomMissile("EmptyDMRMag", 10, 0, random(5,34), 2, random(7,12))
+		
+		TNT1 AAAA 0
+		TNT1 A 0 A_Takeinventory("Unloaded_MaskMan",1)
+		
+		MRRR GHI 2
+		
+		TNT1 A 0 A_PlaySound ("MS_IN")
+		MRRR J 1
+		MRRR K 1
+		MRRR LM 1
+		
+		MRRR MNN 1
+		TNT1 A 0 A_JumpIfInventory("AR1EMag",1,"InsertBullets2")
+		TNT1 A 0 A_PlaySound ("MS_PHS",73)
+		MRKM ABC 1
+		MRRR N 1
+		
+		MRRR O 3 A_DoPBWeaponAction(WRF_NOFIRE)
+		Goto InsertBullets
+		
+	InsertBullets:
+		TNT1 AAAA 0
+		MRKR A 0 A_JumpIfInventory("AR1EMag",40,15)
+		MRKR A 0 A_JumpIfInventory("PB_HighCalMag",1,3)
+		Goto FinishReloading
+        TNT1 AAAAAA 0
+		MRKR A 0 A_Giveinventory("AR1EMag",1)
+		MRKR A 0 A_Takeinventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+		Goto InsertBullets
+		
+		TNT1 AAAAAAAAAA 0
+		MRKR A 0 A_Takeinventory("Reloading",1)
+		
+		MRKR A 0 A_Refire
+        Goto FinishReloading
+		TNT1 AAAA 0
+		MRKR A 0 A_Takeinventory("Reloading",1)
+		
+		MRKR A 0 A_Refire
+        Goto FinishReloading
+		
+	InsertBullets2:
+		TNT1 AAAA 0
+		MRKR A 0 A_JumpIfInventory("AR1EMag",41,15)
+		MRKR A 0 A_JumpIfInventory("PB_HighCalMag",1,3)
+		Goto FinishReloading
+        TNT1 AAAAAA 0
+		MRKR A 0 A_Giveinventory("AR1EMag",1)
+		MRKR A 0 A_Takeinventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+		Goto InsertBullets2
+		
+		TNT1 AAAAAAAAAA 0
+		MRKR A 0 A_Takeinventory("Reloading",1)
+		MRKR A 0 A_Refire
+        Goto FinishReloading
+		TNT1 AAAA 0
+		MRKR A 0 A_Takeinventory("Reloading",1)
+		
+		MRKR A 0 A_Refire
+        Goto FinishReloading	
+		
+	FinishReloading:
+		MRKR A 0
+		MRKR A 0 A_Refire
+		Goto Ready3
+		
+	FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		MRKU A 1 
+		MRKU A 1 
+		MRKU A 1 
+		MRKU B 2
+		MRKU C 2
+		MRKU D 6
+		MRKU C 1 
+		MRKU C 1
+		MRKU B 1
+		Goto Ready3
+		
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+		MRKU A 1
+		MRKU A 1
+		MRKU A 2
+		MRKU B 2
+		MRKU C 2
+		MRKU D 6
+		MRKU C 1
+		MRKU C 1
+		MRKU B 1
+		Goto Ready3
+		
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		MRKU AB 2
+		MRKU CDDDDDDD 2
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		MRKU DDCBA 1
+		Goto Ready3
+
+	Unload:
+		TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_Takeinventory("Unloading",1)
+		TNT1 A 0 A_Takeinventory("ADSmode",1)
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+        TNT1 A 0 A_JumpIfInventory("AR1EMag",1,3)
+        Goto NoAmmo
+        TNT1 AAA 0
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_Takeinventory("Unloading",1)
+		MRRR ABC 2
+		TNT1 A 0 A_PlaySound ("MS_GRB", 88)
+		MRRR DE 2
+		TNT1 A 0 A_PlaySound ("MS_OU", 86)
+		MRRR FG 2
+		MRRR BA 1
+		TNT1 A 0 A_GiveInventory("Unloaded_MaskMan", 1)
+		TNT1 A 0 A_Takeinventory("Unloading",1)
+		
+	RemoveBullets:
+		TNT1 AAAA 0
+		TNT1 A 0 A_JumpIfInventory("AR1EMag",1,3)
+		Goto Ready3
+        TNT1 AAAAAA 0
+		TNT1 A 0 A_Takeinventory("AR1EMag",1)
+		TNT1 A 0 A_Giveinventory("PB_HighCalMag",1)
+		Goto RemoveBullets
+
+	Spawn:
+		MRKR X -1
+		Stop
+	}
+}
+
+
+
+ACTOR AR1EMag : Ammo
+{
+Inventory.MaxAmount 41
+Inventory.Icon "MRKRX0"
++IgnoreSkill
+}
+
+ACTOR Unloaded_MaskMan : Inventory {Inventory.MaxAmount 1}
+ACTOR ARChamber: Inventory {inventory.maxamount 1}

@@ -1,0 +1,37 @@
+Actor ZAWARUDO : PowerupGiver 19240
+{
+  +CountItem
+  +NoGravity
+  +AutoActivate
+  +FLOATBOB
+  Powerup.Duration -30
+  Inventory.MaxAmount 0
+  Inventory.PickupSound "ZAWARUDO"
+  Powerup.Type "TimeFreezer"
+  Powerup.Color GoldMap
+  
+  Inventory.PickupMessage "Time freeze!"
+  //$Category PowerUps/Sphere of Power
+  States
+  {
+  Spawn:
+    JJSD I 6 Bright
+    Loop
+  }
+}
+
+Actor ZAWARUDO_PickUp : CustomInventory
+{
+  +THRUACTORS +FORCEXYBILLBOARD
+  Inventory.PickupMessage "You picked up the white smg (Slot 2)"
+  Inventory.Pickupsound "PICKM"
+  Scale 1.0
+  States
+  {
+	PickUp:
+		TNT1 A 0 A_PlaySound("ZAWARUDO",140)
+		TNT1 AAA 4
+		TNT1 A 0 A_GiveInventory("ZAWARUDO",1)
+		Stop
+  }
+}

@@ -1,0 +1,99 @@
+//// Brutal Doom B20: Infernal Nightmare's ////
+    //////     By Killer-Frosty     //////
+
+
+///////////////////////////////////////
+
+-Weapons Extracted of others mods:
+
+///////////////////////////////////////
+
+
+;--------------------------------------;
+
+  - MeleeFist of BD: Project Brutality
+  
+  - Decorate By BD: Project Brutality
+
+;--------------------------------------;
+
+  - Black DMR of the Insanity Bruality
+  
+  - Edited Sprites & Decorate By Killer-Frosty
+
+;--------------------------------------;
+
+  - PlasmaRifle Random Sprites Sheet/PB PlasmaRifle
+  
+  - Decorate By Killer-Frosty
+  
+  - recolored By Killer-Frosty
+
+;--------------------------------------;
+
+  - Minigun of the Ali's challenger
+  
+  - Decorate By Sergeant_Mark_IV (BD20Minigun)
+
+;--------------------------------------;
+
+  - BFGD4(Doom4) of Insanity Brutality
+  
+  - Decorate By Killer-Frosty
+
+;--------------------------------------;
+
+  - MP40 of Brutal Doom 21
+  
+  - Decorate By Killer-Frosty
+  
+  - Reload/Bolt Sprites of tomtefars_Extension 1.9
+
+;--------------------------------------;
+
+  - SSG of Insanity Brutality
+  
+  - Decorate By Killer-Frosty
+
+;--------------------------------------;
+
+  - Rocket Launcher of BD: Porject Brutality
+  
+  - Decorate By Sergeant_Mark_IV(RL Base)
+  
+  - Some Decorate By Killer-Frosty
+
+;--------------------------------------;
+
+  - Chainsaw of BD: Project Brutality
+  
+  - Decorate By Project Brutality (CS Copy&Paste)
+
+;--------------------------------------;
+
+  - FragGrenade of Brutal Doom
+  
+  - Decorate By Sergeant_Mark_IV(FG Base)
+  
+  - Some Decorate By Killer-Frosty
+
+;--------------------------------------;
+
+  - Meat Shields of BD/PB
+  
+  - Decorate By BD:PB(MS Base)
+  
+  - Some Decorate By Killer-Frosty
+  
+  - Sprites Edit By Killer-Frosty
+  {Roach, KarasawaGuy, SMGGuy, SlimeImp,
+  DuneWarrior, RiflePlasmaGuy, LesserMutant,
+  PyroImp, B.Zman, Exterminator, Sawed-offGuy,
+  Nazis, etc}
+
+;--------------------------------------;
+
+//////   Brutal Doom B20 Stuff By Sergeant_Mark_IV   //////
+
+
+

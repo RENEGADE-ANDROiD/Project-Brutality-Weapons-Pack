@@ -1,0 +1,9 @@
+class PaingiverSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_RLSpawnerT3', 'Paingiver', 255, 1);
+		handler.InjectSpawn('PB_RLSpawnerT4', 'Paingiver', 255, 1);
+		handler.InjectSpawn('PB_ChainGuySpawner_T4', 'HellTrooperPaingiver', 255, 1);
+	}
+}

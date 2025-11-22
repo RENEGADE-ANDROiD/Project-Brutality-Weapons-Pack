@@ -1,0 +1,183 @@
+Actor Upgrades_Spawner Replaces Chainsaw
+{
+	+LOOKALLAROUND
+  States
+  {
+  Spawn:
+	TNT1 A 0
+  Deciding:
+	TNT1 A 0 A_Jump(80,"SG_UP")
+	TNT1 A 0 A_Jump(90,"SMG_UP")
+	TNT1 A 0 A_Jump(100,"BR_UP")
+	TNT1 A 0 A_Jump(110,"ASG_UP")
+    Loop
+  SMG_UP:
+    TNT1 A 0 A_SpawnItemEx("SMG_Blood_Stains",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  BR_UP:
+    TNT1 A 0 A_SpawnItemEx("HASGDrum",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  SG_UP:
+    TNT1 A 0 A_SpawnItemEx("BLC_SG_Upgrader",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  ASG_UP:
+    TNT1 A 0 A_SpawnItemEx("ASG_Drum_Upgrader",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+	
+  }
+}
+
+Actor SG_Spawner Replaces Shotgun
+{
+	+LOOKALLAROUND
+  States
+  {
+  Spawn:
+	TNT1 A 0
+  Deciding:
+	TNT1 A 0 A_Jump(100,"SpecialSGuns")
+	TNT1 A 0 A_Jump(200,"PB_BoltRifle1")
+    Loop
+
+  PB_BoltRifle1:
+    TNT1 A 0 A_SpawnItemEx("PB_BoltRifle",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+
+  SpecialSGuns:
+	TNT1 A 0 A_Jump(100,"M41A1","M1887A")
+	Loop
+  M41A1:
+    TNT1 A 0 A_SpawnItemEx("M41A",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  M1887A:
+    TNT1 A 0 A_SpawnItemEx("M1887",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  }
+}
+
+
+Actor SSG_Spawner Replaces SuperShotgun
+{
+	+LOOKALLAROUND
+  States
+  {
+  Spawn:
+	TNT1 A 0
+  Deciding:
+	TNT1 A 0 A_Jump(175,"MarauderSSG")
+	TNT1 A 0 A_Jump(150,"LadyGolide")
+    Loop
+  MarauderSSG:
+    TNT1 A 0 A_SpawnItemEx("MarauderSSG",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  LadyGolide:
+    TNT1 A 0 A_SpawnItemEx("HASG_Lady-Golide",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  }
+}
+
+Actor Chaingun_Spawner Replaces Chaingun
+{
+	+LOOKALLAROUND
+  States
+  {
+  Spawn:
+	TNT1 A 0
+  Deciding:
+	TNT1 A 0 A_Jump(100,"Minigun")
+	TNT1 A 0 A_Jump(120,"Dark_Fate")
+	TNT1 A 0 A_Jump(140,"Gallary")
+    Loop
+  Minigun:
+    TNT1 A 0 A_SpawnItemEx("Minigun",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  Dark_Fate:
+    TNT1 A 0 A_SpawnItemEx("Dark_Fate",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  Gallary:
+    TNT1 A 0 A_SpawnItemEx("NailGun",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  }
+}
+
+Actor RocketLauncher_Spawner Replaces RocketLauncher
+{
+	+LOOKALLAROUND
+  States
+  {
+  Spawn:
+	TNT1 A 0
+  Deciding:
+	TNT1 A 0 A_Jump(120,"Paingiver")
+	TNT1 A 0 A_Jump(160,"BioAcidLauncher")
+	TNT1 A 0 A_Jump(200,"SGL")
+    Loop
+  BioAcidLauncher:
+    TNT1 A 0 A_SpawnItemEx("BioAcidLauncher",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  Paingiver:
+    TNT1 A 0 A_SpawnItemEx("Paingiver",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  SGL:
+    TNT1 A 0 A_SpawnItemEx("SuperGrenadeLauncher",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  }
+}
+
+Actor PlasmaRifle_Spawner Replaces PlasmaRifle
+{
+	+LOOKALLAROUND
+  States
+  {
+  Spawn:
+	TNT1 A 0
+  Deciding:
+	TNT1 A 0 A_Jump(120,"PlasmaRifles")
+	TNT1 A 0 A_Jump(150,"Snipers")
+    Loop
+  PlasmaRifles:
+	TNT1 A 0 A_Jump(1,"PR1","PR2","PR3")
+	Loop
+	PR1:
+    TNT1 A 0 A_SpawnItemEx("PlasmaRifleAssault",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+	Stop
+	PR2:
+    TNT1 A 0 A_SpawnItemEx("Ion_Heavy",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+	PR3:
+	TNT1 A 0 A_SpawnItemEx("Extinction_Ray",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+	Stop
+  Snipers:
+	TNT1 A 0 A_Jump(1,"SNP1","SNP2")
+	Loop
+	
+	SNP1:
+    TNT1 A 0 A_SpawnItemEx("MagnumSniperRifle",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+	Stop
+	
+	SNP2:
+    TNT1 A 0 A_SpawnItemEx("AncientCrossbow",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  }
+}
+
+Actor BFG9000_Spawner Replaces BFG9000
+{
+	+LOOKALLAROUND
+  States
+  {
+  Spawn:
+	TNT1 A 0
+  Deciding:
+	TNT1 A 0 A_Jump(200,"BFG9000")
+	TNT1 A 0 A_Jump(100,"Ballistagun")
+    Loop
+
+  BFG9000:
+    TNT1 A 0 A_SpawnItemEx("BFG-XHR160",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  SatanScream:
+    TNT1 A 0 A_SpawnItemEx("Ballistagun",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288)
+    Stop
+  }
+}

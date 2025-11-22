@@ -1,0 +1,542 @@
+Actor PhaseEradicationBFGProjectileTrail
+{
+Scale 2.5
+Alpha 0.8
+RenderStyle Add
++CLIENTSIDEONLY
++NOINTERACTION
+States
+{
+Spawn:
+TNT1 A 0 
+TNT1 A 0 A_SpawnItemEx("PhaseEradicationBFGProjectilFlare",0,0,0,frandom(-2,2),frandom(-2,2),frandom(-2,2),0,0,88)
+NTU9 A 1 Bright A_SetScale(random(2.5,3.5),random(2.5,3.5))
+Fly:
+NTU9 A 1 Bright A_FadeOut(0.04)
+Loop
+}
+}
+
+
+Actor PhaseEradicationBFGProjectilFlare
+{
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Renderstyle Add
+Alpha 0.5
++CLIENTSIDEONLY
+Scale 0.65
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SetScale(ScaleX-0.02,ScaleY-0.02)
+SCVN A 1 Bright A_FadeOut(0.035)
+Stop
+}
+}
+
+
+Actor PhaseEradicationBFGProjectileExplosion
+{ 
+Scale 0.8
+Alpha 0.12
+Renderstyle Add
++NOBLOCKMAP
++NOINTERACTION
++CLIENTSIDEONLY
++FORCEXYBILLBOARD
+States 
+{ 
+Spawn: 
+TNT1 A 0 
+TNT1 A 0 A_PlaySound("RedHuge/Explosion",7)
+TNT1 A 0 Radius_Quake(6,28,0,10,0)
+TNT1 A 0 A_SpawnItemEx("PurpleMegaRocketEx",0,0,0)
+TNT1 A 0 A_SpawnItemEx("PurpleMegaExplosionFlare",0,0,0,0,0,0,0,128)
+TNT1 A 0 A_SpawnItemEx("PurpleHugeExplosionShockWaveLong",0,0,0,0,0,0,0,128)
+TNT1 AAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("PurpleHugeExplosionParticle",random(64,-64),random(64,-64),random(64,-64),random(8,-8),random(8,-8),random(8,-8),0,128)
+TNT1 AAAAAAAAAAA 1 A_SpawnItemEx("PurpleHugeExplosionKaboom",0,0,0,frandom(-4,4),frandom(-4,4),frandom(-4,4))
+TNT1 AAAAA 0 A_SpawnItemEx("HugeExplosionSmoke",random(16,-16),random(16,-16),random(16,-16),random(8,-8),random(8,-8),random(0,6),0,128)
+TNT1 A 10 
+Stop
+} 
+}
+
+
+ACTOR HugeExplosionSmoke
+{
+Damage 0
+PROJECTILE
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
++NOGRAVITY
++MISSILE
++FORCEXYBILLBOARD
++CLIENTSIDEONLY
++NOINTERACTION
++NOCLIP
+Speed 2
+Renderstyle Translucent
+Alpha 0.75
+Scale 3.0
+States
+{
+Spawn:
+TNT1 A 0
+SMK3 ABCDEFGHIJKLM 7 A_FadeOut(0.025)
+Stop
+}
+}
+
+
+ACTOR PurpleHugeExplosionKaboom
+{
+Speed 3
+Damage 0
+Renderstyle Add
+Alpha 0.75
+PROJECTILE
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
++NOGRAVITY
++MISSILE
++FORCEXYBILLBOARD
++CLIENTSIDEONLY
++NOINTERACTION
++NOCLIP
+Scale 2.5
+States
+{
+Spawn:
+TNT1 A 0
+GSSS ABCDEFGHIJKLMN 1 Bright A_FadeOut(0.05)
+Stop
+}
+}
+
+
+ACTOR PurpleHugeExplosionParticle
+{
+Height 0
+Radius 0
+Mass 0
+Damage 0
++THRUACTORS
++NOTELEPORT
++DONTSPLASH
++DOOMBOUNCE
++CLIENTSIDEONLY
++MISSILE
++NOBLOCKMAP
++FORCEXYBILLBOARD
+RenderStyle Add
+BounceFactor 0.5
+Gravity 0.4
+Scale 0.09
++NOGRAVITY
+States
+{
+Spawn:
+TNT1 A 0
+TQLS A 3 Bright A_FadeOut(0.05)
+Loop
+}
+}
+
+
+ACTOR PurpleMegaRocketEx
+{
+RenderStyle Add
+Alpha 0.85
++CLIENTSIDEONLY
++NOGRAVITY
+Scale 5.8
+States
+{
+Spawn:
+PEXP ABCEFGH 4 Bright
+Stop
+}
+}
+
+
+Actor PurpleMegaExplosionFlare
+{
+Alpha 1.0
+Renderstyle Add
++BRIGHT
++NOBLOCKMAP
++NOINTERACTION
++CLIENTSIDEONLY
++FORCEXYBILLBOARD
+Scale 1.8
+States
+{
+Spawn:
+TNT1 A 0
+FYO2 D 1 A_FadeOut(0.03)
+Wait
+}
+}
+
+
+Actor PurpleHugeExplosionShockWaveLong
+{
+Renderstyle Add
++NOBLOCKMAP
++NOINTERACTION
++CLIENTSIDEONLY
++FORCEXYBILLBOARD
+Scale 2.7
+Alpha 0.36
+States 
+{ 
+Spawn: 
+TNT1 A 0
+CG3W A 1
+CG3W BCDEFGHIHJKLMNOPQ 1 A_FadeOut(0.01)
+Stop 
+} 
+}
+
+
+Actor PhaseEradicationBFGProjectileSmoke
+{ 
++NOINTERACTION
++NOGRAVITY
++FORCERADIUSDMG
+Renderstyle Add
+Alpha 0.45
+PROJECTILE
+DamageType "Cyber10K"
+Scale 1.4 
+States
+{
+Spawn1:
+Spawn4:
+TNT1 A 0 A_SetScale(ScaleX-0.002,ScaleY-0.002)
+G5SM A 4 Bright A_FadeOut(0.03)
+Loop
+Spawn2:
+Spawn5:
+TNT1 A 0 A_SetScale(ScaleX-0.002,ScaleY-0.002)
+G5SM B 4 Bright A_FadeOut(0.03)
+Loop
+Spawn3:
+Spawn6:
+TNT1 A 0 A_SetScale(ScaleX-0.002,ScaleY-0.002)
+G5SM C 4 Bright A_FadeOut(0.03)
+Loop
+}
+}
+
+
+ACTOR PhaseEradicatorBFGTargetPuff : BulletPuff
+{
+Radius 0
+Height 0
+Scale 0.75
+RenderStyle Translucent
+Alpha 0.5
++NOBLOCKMAP
++NOGRAVITY
++ALLOWPARTICLES
+DamageType "Marine"
++MTHRUSPECIES
++BLOODLESSIMPACT
+Decal HeatScorch
++ALWAYSPUFF
++FORCEDECAL
+States
+{
+Spawn:
+TNT1 A 1
+Stop
+}
+}
+
+
+ACTOR PhaseEradicatorBFGLaserSight
+{
++NOINTERACTION
++CLIENTSIDEONLY
++NOBLOCKMAP
++DONTSPLASH
++THRUACTORS
++NOCLIP
+Renderstyle Add
+Alpha 0.7
+Decal None
+Scale 0.1 
+States
+{
+Spawn:
+DMC2 B 2 Bright A_FadeOut(0.5)
+Stop
+}
+}
+
+
+Actor PhaseEradicationBFGFocusProjTrail
+{
+Scale 1.0
+Alpha 0.8
+RenderStyle Add
++CLIENTSIDEONLY
++NOINTERACTION
+States
+{
+Spawn:
+TNT1 A 0 
+TNT1 A 0 A_Jump(256,"Fly1","Fly2","Fly3")
+Fly1:
+TNT1 A 0 A_SetScale(ScaleX-0.05,ScaleY-0.05)
+G5SM A 1 Bright A_FadeOut(0.04)
+Loop
+
+Fly2:
+TNT1 A 0 A_SetScale(ScaleX-0.05,ScaleY-0.05)
+G5SM B 1 Bright A_FadeOut(0.04)
+Loop
+
+Fly3:
+TNT1 A 0 A_SetScale(ScaleX-0.05,ScaleY-0.05)
+G5SM C 1 Bright A_FadeOut(0.04)
+Loop
+}
+}
+
+
+Actor BigPurpleLightningSpawner
+{ 
+Scale 0.8
+Alpha 0.12
+Renderstyle Add
++NOBLOCKMAP
++NOINTERACTION
++CLIENTSIDEONLY
++FORCEXYBILLBOARD
+ReactionTime 36
+States 
+{ 
+Spawn: 
+TNT1 A 0 
+TNT1 A 0 A_Countdown
+TNT1 A 0 A_SpawnItemEx("PurpleLightningEffect",0,0,0,0,0,0,0,0,128)
+TNT1 A 1 A_SpawnItemEx("SmallPurpleLightningEffect",0,0,0,0,0,0,0,0,128)
+TNT1 A 1 A_SpawnItemEx("BigPurpleLightningEffect",0,0,0,0,0,0,0,0,128)
+Loop
+} 
+}
+
+
+Actor PurpleLightningEffect
+{
+RenderStyle Add
+Alpha 0.5
++MISSILE
++NOGRAVITY
++NOBLOCKMAP
++NOINTERACTION
++NOTELEPORT
++DONTSPLASH
++CLIENTSIDEONLY
+-SOLID
+Scale 1.0
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Jump(256,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36)
+PEL1 ABCDEFGHI 0 Bright A_Jump(256,"Death")
+PEL2 ABCDEFGHI 0 Bright A_Jump(256,"Death")
+PEL3 ABCDEFGHI 0 Bright A_Jump(256,"Death")
+PEL4 ABCDEFGHI 0 Bright A_Jump(256,"Death")
+Death:
+"----" A 1 Bright
+Stop
+}
+}
+
+Actor SmallPurpleLightningEffect : PurpleLightningEffect { Scale 0.5 }
+Actor BigPurpleLightningEffect : PurpleLightningEffect { Scale 1.7 }
+
+
+Actor PhaseEradicationBFGFocusProjExplosion
+{ 
+Scale 0.8
+Alpha 0.12
+Renderstyle Add
++NOBLOCKMAP
++NOINTERACTION
++CLIENTSIDEONLY
++FORCEXYBILLBOARD
+States 
+{ 
+Spawn: 
+TNT1 A 0 
+TNT1 A 0 A_PlaySound("RedHuge/Explosion",7)
+TNT1 A 0 Radius_Quake(6,28,0,10,0)
+TNT1 A 0 A_SpawnItemEx("PurpleMegaRocketEx",0,0,0)
+TNT1 A 0 A_SpawnItemEx("PurpleGigaExplosionFlare",0,0,0,0,0,0,0,128)
+TNT1 A 0 A_SpawnItemEx("PurpleHugeExplosionShockWaveLong",0,0,0,0,0,0,0,128)
+TNT1 AAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("PurpleHugeExplosionParticle",random(64,-64),random(64,-64),random(64,-64),random(8,-8),random(8,-8),random(8,-8),0,128)
+TNT1 AAAAAAAAAAA 1 A_SpawnItemEx("PurpleHugeExplosionKaboom",0,0,0,frandom(-4,4),frandom(-4,4),frandom(-4,4))
+TNT1 AAAAA 0 A_SpawnItemEx("HugeExplosionSmoke",random(16,-16),random(16,-16),random(16,-16),random(8,-8),random(8,-8),random(0,6),0,128)
+TNT1 A 10 
+Stop
+} 
+}
+
+
+Actor PurpleGigaExplosionFlare
+{
+Alpha 1.0
+Renderstyle Add
++BRIGHT
++NOBLOCKMAP
++NOINTERACTION
++CLIENTSIDEONLY
++FORCEXYBILLBOARD
+Scale 2.5
+States
+{
+Spawn:
+TNT1 A 0
+FYO2 D 1 A_FadeOut(0.02)
+Wait
+}
+}
+
+
+Actor PhaseEradicationBFGUltimateBallSmoke
+{
+Scale 0.8
++NOINTERACTION
++CLIENTSIDEONLY
++BRIGHT
+Renderstyle Add
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Jump(256,"Spawn1","Spawn2","Spawn3")
+Spawn1:
+TNT1 A 0 A_SetScale(ScaleX-0.002,ScaleY-0.002)
+G5SM A 1 Bright A_FadeOut(0.03)
+Wait
+Spawn2:
+TNT1 A 0 A_SetScale(ScaleX-0.002,ScaleY-0.002)
+G5SM B 1 Bright A_FadeOut(0.03)
+Wait
+Spawn3:
+TNT1 A 0 A_SetScale(ScaleX-0.002,ScaleY-0.002)
+G5SM C 1 Bright A_FadeOut(0.03)
+Wait 
+}
+}
+
+
+Actor PhaseEradicationBFGUltimateBallParticle
+{
+RenderStyle Add
+Scale 0.2
++NOINTERACTION
++CLIENTSIDEONLY
+States
+{
+Spawn:
+TNT1 A 0
+TQLS A 1 bright A_FadeOut(0.01,1)
+Loop
+
+Death:
+TNT1 A 1
+Stop
+}
+}
+
+
+Actor PurpleHugeExplosionShockWave
+{ 
+Scale 0.8
+Alpha 0.12
+Renderstyle Add
++NOBLOCKMAP
++NOINTERACTION
++CLIENTSIDEONLY
++FORCEXYBILLBOARD
+Scale 2.7
+States 
+{ 
+Spawn: 
+TNT1 A 0
+CG3W A 1
+CG3W CEGIKMOQ 1 A_FadeOut(0.03)
+Stop 
+} 
+}
+
+
+ACTOR PhaseEradicationBFGUltimateBallExplosion
+{
+Damage 0
+PROJECTILE
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
++NOGRAVITY
++MISSILE
++FORCEXYBILLBOARD
++CLIENTSIDEONLY
++NOINTERACTION
++NOCLIP
+Speed 0
+Alpha 0.85
+Scale 4.0
+Renderstyle Add
+States
+{
+Spawn:
+VOMX ABCDEFGHIJKLMNOPQRS 5 Bright
+Stop
+}
+}
+
+
+ACTOR PhaseEradicationBFGUltimateBallExplosionEffect
+{
++CLIENTSIDEONLY
++NOINTERACTION
+var int user_loop;
+States
+{
+Spawn:
+TNT1 A 0 A_JumpIf(user_loop >= 50,"Null") 
+TNT1 A 0 A_SetUserVar("user_loop",user_loop+1)
+TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("PhaseEradicationBFGUltimateBallParticle",random(0,100),0,random(-100,100),frandom(20,50),0,frandom(-30,30),random(0,360))
+TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("PhaseEradicationBFGUltimateBallExplosionSmoke",0,0,0,frandom(-80,80),frandom(-80,80),frandom(-50,50))
+TNT1 AAAAAA 0 A_SpawnItemEx("PhaseEradicationBFGUltimateBallSmoke2",0,0,0,frandom(-80,80),frandom(-80,80),frandom(-50,50))
+TNT1 A 2 //Light("NemesisBigBallBoom")
+Loop
+}
+}
+
+
+Actor PhaseEradicationBFGUltimateBallExplosionSmoke : PhaseEradicationBFGUltimateBallSmoke
+{
+Scale 2.5
+States
+{
+Spawn:
+VOCX ABCDEF 3 Bright A_FadeOut(0.1)
+Stop 
+}
+}
+
+
+Actor PhaseEradicationBFGUltimateBallSmoke2 : PhaseEradicationBFGUltimateBallSmoke { Scale 1.8 }

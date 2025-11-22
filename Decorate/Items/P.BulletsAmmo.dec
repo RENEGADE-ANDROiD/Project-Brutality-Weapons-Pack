@@ -1,0 +1,143 @@
+Actor P.Bullets : Ammo 25843
+{
+  Inventory.PickupMessage "You got Pistol Clip"
+  Inventory.Amount 16
+  Scale 0.8
+  Inventory.MaxAmount 350
+  Ammo.BackpackMaxAmount 650
+  Inventory.Icon "AMO2C0"
+  inventory.pickupsound "ASARVPK2"
+  //$Category Ammunition/Pistol Ammunition
+  States
+  {
+  Spawn:
+    ASMG A -1
+    loop
+  }
+}
+
+Actor P.BulletsBox : P.Bullets 24943
+{
+Inventory.PickupMessage "Picked up a case of low caliber Bullets"
+Inventory.Amount 45
+inventory.pickupsound "AMMBLLT2"
+  Scale 0.9
+  //$Category Ammunition/Pistol Ammunition
+
+  States
+  {
+  Spawn:
+    ASMG B 1
+    Loop
+  }
+}
+
+Actor P.BulletsPB : P.Bullets 24939
+{
+Inventory.PickupMessage "Picked up a low caliber Clip"
+Inventory.Amount 16
+inventory.pickupsound "ASACLPK1"
+  Scale 0.7
+  //$Category Ammunition/Pistol Ammunition
+
+  States
+  {
+  Spawn:
+    MBLK A -1
+    Loop
+  }
+}
+
+Actor P.BulletsBox2 : P.Bullets 24940
+{
+Inventory.PickupMessage "Picked up a case of low caliber Bullets"
+Inventory.Amount 32
+inventory.pickupsound "SK410UP"
+  Scale 0.9
+  //$Category Ammunition/Pistol Ammunition
+
+  States
+  {
+  Spawn:
+    AMO2 B -1
+    Loop
+  }
+}
+
+Actor P.BulletsCase : P.Bullets 24941
+{
+Inventory.PickupMessage "Picked up a Case of Low Caliber Bullets"
+Inventory.Amount 33
+inventory.pickupsound "AMMSMGA1"
+  Scale 0.9
+  //$Category Ammunition/Pistol Ammunition
+
+  States
+  {
+  Spawn:
+    AMO2 C 1
+    Loop
+  }
+}
+
+Actor SMG.Clip : P.Bullets 24949
+{
+Inventory.PickupMessage "Picked up a Large SMG Magazine"
+Inventory.Amount 60
+inventory.pickupsound "ASASHPK2"
+  Scale 0.07
+  //$Category Ammunition/Pistol Ammunition
+  States
+  {
+  Spawn:
+    CLIP B -1
+    Loop
+  }
+}
+
+Actor LargeP.BulletsCase : P.Bullets 24950
+{
+Inventory.PickupMessage "Picked up a Large Pack of Clips"
+Inventory.Amount 60
+inventory.pickupsound "JACKCIN"
+  Scale 1.0
+  //$Category Ammunition/Pistol Ammunition
+  States
+  {
+  Spawn:
+    4M0K A 1
+    Loop
+  }
+}
+
+
+Actor SmallP.BulletsCase : P.Bullets 24951
+{
+Inventory.PickupMessage "Picked up a Pistol Bullets case"
+Inventory.Amount 28
+inventory.pickupsound "DSDRMIN"
+  Scale 1.0
+  //$Category Ammunition/Pistol Ammunition
+  States
+  {
+  Spawn:
+    1422 A 1
+    Loop
+  }
+}
+
+
+Actor SmallP.BulletsClip : P.Bullets 24952
+{
+Inventory.PickupMessage "Picked up a used Pistol Clip"
+Inventory.Amount 8
+inventory.pickupsound "DSDRMIN"
+  Scale 1.0
+  //$Category Ammunition/Pistol Ammunition
+  States
+  {
+  Spawn:
+    1422 O 1
+    Loop
+  }
+}

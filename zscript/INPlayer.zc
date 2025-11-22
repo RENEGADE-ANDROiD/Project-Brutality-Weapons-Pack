@@ -1,0 +1,184 @@
+class IN_PlayerPrawn : PB_PlayerPrawn
+{
+    bool lfoot;
+    
+    Default
+    {
+        Mass 500;
+        GibHealth 20;
+        Species "Marines";
+        BloodType "NashGoreBlood";
+
+        DamageFactor "Head",0.0;
+        DamageFactor "FriendBullet",0.0;
+        DamageFactor "Taunt",0.0;
+        DamageFactor "KillMe",0.0;
+        DamageFactor "SSG",5.0;
+        DamageFactor "Shrapnel",0.0;
+        DamageFactor "Blood",0.0;
+        DamageFactor "BlueBlood",0.0;
+        DamageFactor "GreenBlood",0.0;
+        DamageFactor "MinorHead",0.0;
+        DamageFactor "Decaptate",0.0;
+        DamageFactor "IceExplosion",0.0;
+        DamageFactor "MonsterKnocked",0.0;
+        DamageFactor "Trample",0.0;
+        DamageFactor "Kick",3.0;
+        DamageFactor "Fatality",5.0;
+        DamageFactor "BHFTOnBarrel",0.0;
+        DamageFactor "GibRemoving",0.0;
+        DamageFactor "SuperPunch",5.0;
+        DamageFactor "HelperMarineFatallity",0.0;
+        DamageFactor "Leg",0.0;
+        DamageFactor "SpawnMarine",0.0;
+        DamageFactor "TeleportRemover",0.0;
+        DamageFactor "CancelTeleportFog",0.0;
+        DamageFactor "CauseObjectsToSplash",0.0;
+        DamageFactor "CauseObjectsToSplashSlime",0.0;
+        DamageFactor "CauseObjectsToSplashNukage",0.0;
+        DamageFactor "CauseObjectsToSplashBlood",0.0;
+        DamageFactor "CauseObjectsToSplashLava",0.0;
+        DamageFactor "SuperKick",0.0 ;
+        DamageFactor "BFGShield",0.0;
+        DamageFactor "KillMeBot",0.0;
+        DamageFactor "Flames",0.875;
+        DamageFactor "Fire",0.875;
+        DamageFactor "Burn",0.875;
+        DamageFactor "Disintegrate",0;
+		DamageFactor "Avoid",0;
+		
+        Player.ViewHeight 44;
+        Player.AttackZOffset 17;
+        Player.ColorRange 112,127;
+        Player.JumpZ 7.4;
+        Player.GruntSpeed 24;
+        Player.DisplayName "Insanity's Nightmare";
+        Player.CrouchSprite "PLYC";
+
+        Player.WeaponSlot 1,"PB_Axe","PB_Chainsaw","PB_Fists";
+        Player.WeaponSlot 2,"IN_Beretta","PB_Pistol","PB_Revolver","PB_SMG","W_SMG","PB_MP40","P_SMG","HellPistoler";
+        Player.WeaponSlot 3,"PB_Shotgun","BlackRemintong","PB_AutoShotgun","HASG","PB_SSG";
+        Player.WeaponSlot 4,"Black_DMR-RKX","Rifle","AK-47","PB_Carbine","AssaultR1","MaskMan_Rifle","Adv_Maskman_Rifle","HeavySniperRifle","PB_ChexRifle";
+        Player.WeaponSlot 5,"INMinigun","PB_Minigun","INNailgun","PB_Nailgun","PB_MG42","Fallen_Hawk","MagnumSniperRifle";
+        Player.WeaponSlot 6,"PB_SuperGL","PB_RocketLauncher";
+        Player.WeaponSlot 7,"PlasmaRifleAssault","PB_M1Plasma","LightningGun","PB_M2Plasma";
+        Player.WeaponSlot 8,"PB_CryoRifle","Extinction_Ray","PB_Flamethrower";
+        Player.WeaponSlot 9,"ThunderCarrierTI","PB_Railgun","PB_BFG9000";
+        Player.WeaponSlot 0,"Hell_Rifle","BioAcidLauncher","PB_Unmaker","Satan_Scream";
+
+        //Player.StartItem "PB_PDAWeaponContainer",1;
+        Player.StartItem "Black_DMR-RKX";
+        Player.StartItem "IN_Beretta";
+        Player.StartItem "PB_Fists";
+        Player.StartItem "CarbineFullAuto";
+        Player.StartItem "Black_Clip",30;
+        Player.StartItem "Beretta_Clip", 16;
+        Player.StartItem "ASGChamber", 15;
+        Player.StartItem "PB_HighCalMag",90;
+        Player.StartItem "RifleAmmo",31;
+        Player.StartItem "LeftRifleAmmo",31;
+        Player.StartItem "PrimaryPistolAmmo",16;
+        Player.StartItem "SecondaryPistolAmmo",16;
+        Player.StartItem "PB_LowCalMag",60;
+        Player.StartItem "ShotgunAmmo",9;
+        Player.StartItem "AutoShotgunAmmo",12;
+        Player.StartItem "LeftASGAmmo",12;
+        Player.StartItem "RevolverAmmo",6;
+        Player.StartItem "LeftRevolverAmmo",6;
+        Player.StartItem "SSGAmmoCounter",2;
+        Player.StartItem "LeftSSGAmmo",2;
+        Player.StartItem "HasNotPickedUpSSG",1;
+        Player.StartItem "QSSGAmmoCounter",4;
+        Player.StartItem "PB_NailgunAmmo",120;
+        Player.StartItem "PlasmaAmmo",60;
+        Player.StartItem "LeftPlasmaAmmo",60;
+        Player.StartItem "RocketRounds",6;
+        Player.StartItem "RailgunAmmo",60;
+        Player.StartItem "IsPlayer",1;
+        Player.StartItem "SMGAmmo",51;
+        Player.StartItem "LeftSMGAmmo",51;
+        Player.StartItem "XRifleAmmo",41;
+        Player.StartItem "LeftXRifleAmmo",41;
+        Player.StartItem "LMGAmmo",75;
+        Player.StartItem "M2PlasmaAmmo",50;
+        Player.StartItem "LeftM2PlasmaAmmo",50;
+        Player.StartItem "MP40Ammo",32;
+        Player.StartItem "LeftMP40Ammo",32;
+        Player.StartItem "HellAmmo",60;
+        Player.StartItem "GrenadeRounds",7;
+        //Player.StartItem "PulseCannonAmmo",60;
+        Player.StartItem "DeagleAmmo",12;
+        Player.StartItem "LeftDeagleAmmo",12;
+        Player.StartItem "ChexRifleAmmo",42;
+        Player.StartItem "CryoRifleAmmo",60;
+        Player.StartItem "HasBuckShot",1; //Added for proper SG ammo type sorting
+        Player.StartItem "FragGrenadeSelected",1;
+        Player.StartItem "PB_GrenadeAmmo",5;
+        Player.StartItem "PB_QuickLauncherAmmo",4;
+        Player.StartItem "FlamerAmmo",90;
+
+        +ROLLSPRITE
+        +THRUSPECIES
+        +MTHRUSPECIES
+        +THRUGHOST
+        -NOSKIN
+    }
+
+    override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+		if(!player||(player.mo!=self))
+		{
+			let v = Spawn("PB_VoodooDoll",pos);
+			v.angle = angle; v.player = player;
+			Destroy(); return;
+		}
+    }
+
+    override int DamageMobj(actor inflictor,actor source,int damage,name mod,int flags,double angle)
+    {
+        switch(mod)
+        { case 'Blast': case 'ExplosiveImpact': case 'Explosive': ThrustThingZ(0,20,1,0); break; }
+        if(source&&source.FindInventory("EnemyIsArchvile"))
+        {
+            A_SpawnProjectile("NewRocketExploFX",30,0,random(0,360),2,random(0,360));
+            for(int i=12;i>0;i--) A_SpawnProjectile("ExplosionParticleHeavy",30,0,random(0,360),2,random(0,180));
+        }
+        return Super.DamageMobj(inflictor,source,damage,mod,flags,angle);
+    }
+	
+	override void CheatGive (String name, int amount)
+	{
+		if(name ~== "PB_ALL" || name ~== "PB_Upgrades")
+		{
+			for(int i = 0; i < self.PB_ActUpgrades.size() -1; i++)
+				giveinventory(self.PB_ActUpgrades[i],2);
+			return;
+		}
+		if(name ~== "IN_ALL" || name ~== "IN_Upgrades")
+		{
+			for(int i = 0; i < self.IN_ActUpgrades.size() -1; i++)
+				giveinventory(self.IN_ActUpgrades[i],2);
+			return;
+		}
+		super.cheatgive(name,amount);
+	}
+	
+	//array to save all the upgrades
+	static const string PB_ActUpgrades[] = {
+		"PB_Deagle", //slot 2
+		"PB_AutoshotgunUpgrade","PB_QuadSGUpgrade","PB_SGMagazine", //slot3
+		"PB_LMG","RifleUpgrade", //slot 4
+		"PB_Minigun","MinigunUpgraded"," PB_MinigunUpgrade", //slot 5 
+		"PB_M2Upgrade", //slot 7
+		"PB_Flamethrower", "FlamerUpgraded" //slot 9?
+	};
+
+	static const string IN_ActUpgrades[] = {
+		"P_SMG","B92S", //slot 2
+		"RemintongRepeater","HASGDrum","RotationalSG", //slot3
+		"Adv_MaskMan_Rifle", //slot 4 //sorry only have one
+		"HeavySniperRifle","MGExplosiveUpgrade"," PB_MinigunUpgrade", //slot 5 
+		"ThunderCarrierTI","BioAcidLauncher" //slot 7
+	};
+}

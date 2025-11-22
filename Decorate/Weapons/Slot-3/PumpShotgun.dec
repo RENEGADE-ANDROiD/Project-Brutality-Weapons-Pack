@@ -1,0 +1,1184 @@
+Actor ReminResp : Inventory { Inventory.MaxAmount 1 } //Main Respect
+ACTOR RemSlug : Inventory {Inventory.MaxAmount 1 } //Slug and Breath
+Actor RemBreath : Inventory { Inventory.MaxAmount 1 }
+ACTOR RepeaterShot : Inventory {Inventory.MaxAmount 1} //Only at this Pack
+//New For Weapons Wheels
+Actor BSG_SelectNO : Inventory { Inventory.MaxAmount 1 }
+Actor BSG_SelectBuck : Inventory { Inventory.MaxAmount 1 }
+Actor BSG_SelectSlug : Inventory { Inventory.MaxAmount 1 }
+Actor BSG_SelectDRBT : Inventory { Inventory.MaxAmount 1 }
+//Tokens Stuff
+Actor BSG_Buck : Inventory { Inventory.MaxAmount 1 }
+Actor BSG_Slug : Inventory { Inventory.MaxAmount 1 }
+Actor BSG_DRBT : Inventory { Inventory.MaxAmount 1 }
+Actor RemintongRepeater : PB_UpgradeItem
+{
+//$Category Ammunition
+	 Game Doom
+   //SpawnID 9410
+	 Height 24
+  //-COUNTITEM
+	+INVENTORY.ALWAYSPICKUP
+	-COUNTITEM
+	Inventory.PickupSound "SHOTPICK"
+	Inventory.PickupMessage "Black Remintong Tri Modular Upgrade (Slot 3, Upgrade)!"
+	Scale 0.9
+	FloatBobStrength 0.5
+	States
+	{
+	Spawn:
+		UPSG ABCDEDCBA 1 BRIGHT Light("WeaponUpgradeSpawner")
+		Loop
+	
+    Pickup:
+	  TNT1 A 0
+	  TNT1 A 0 A_GiveInventory("BlackRemintong", 1)
+	  TNT1 A 0 A_GiveInventory("RepeaterShot", 1)
+	  TNT1 A 0 A_GiveInventory("PB_Shell", 20)
+      Stop
+	}
+}
+
+ACTOR BlackRemintong : PB_Weapon
+{
+	Game Doom
+	SpawnID 27
+	Weapon.SelectionOrder 1300
+	Weapon.AmmoUse1 0
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive1 9
+	Weapon.AmmoGive2 0
+	Weapon.AmmoType1 "PB_Shell"
+	Weapon.AmmoType2 "RemAmmo"
+	Weapon.SlotNumber 3
+    Weapon.SlotPriority 3
+	Inventory.PickupMessage "UAC XS-33 - Remintong Mark XXIII"
+    Inventory.PickupSound "SHOTPICK"
+	Obituary "$OB_MPSHOTGUN"
+    AttackSound "None"
+    +WEAPON.NOALERT
+    +WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+	+FORCEXYBILLBOARD
+	PB_WeaponBase.RespectItem "ReminResp"
+	PB_WeaponBase.UsesWheel 1
+	PB_WeaponBase.WheelInfo "BlackRemintongWheel"
+	Scale 0.9
+	Tag "UAC XS-33 - Remintong Mark 23"
+	States
+	{
+		
+    Spawn:
+		J3SP Z -1
+		Stop
+    	
+	Select:
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		Goto SelectFirstPersonLegs
+	SelectContinue:
+		TNT1 AAAAAAAAA 0 A_Raise
+		Wait
+	
+	Ready:	
+        TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
+        TNT1 A 0 PB_RespectIfNeeded
+    WeaponRespect:
+        TNT1 A 0 A_GiveInventory ("ReminResp", 1)
+	    TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_PlaySound ("SHOTSEL",4)
+        J3SS A 1 Fast A_JumpIfInventory("GoFatality", 1, "Steady")
+	TNT1 A 0 A_SetPitch(Pitch+0.8)
+		J3SS B 1 Fast A_JumpIfInventory("GoFatality", 1, "Steady")
+	TNT1 A 0 A_SetPitch(Pitch-0.2)
+		J3SS C 1 Fast A_JumpIfInventory("GoFatality", 1, "Steady")
+	TNT1 A 0 A_SetPitch(Pitch-0.2)
+		J3SS D 1 Fast A_JumpIfInventory("GoFatality", 1, "Steady")
+	TNT1 A 0 A_SetPitch(Pitch-0.4)
+	    TNT1 A 0 A_Giveinventory("RemAmmo",9)
+		J3TG BCDEFG 1
+	   J3TG H 1 A_PlaySound("BEAKPMP1", 3)
+	   J3TG IJ 1
+	   J3TG KL 1 
+	   J3TG KJIN 1
+	   J3TG A 0
+	   J3TG OFEDC 1
+		TNT1 A 0 A_SetCrosshair(42)
+	    TNT1 A 0 A_Takeinventory("ShotgunWasEmpty",1)
+		Goto Ready3
+    SelectAnimation:
+        TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 A_PlaySound ("SHOTSEL",4)
+        J3SS A 1 Fast A_JumpIfInventory("GoFatality", 1, "Steady")
+	TNT1 A 0 A_SetPitch(Pitch+0.8)
+		J3SS B 1 Fast A_JumpIfInventory("GoFatality", 1, "Steady")
+	TNT1 A 0 A_SetPitch(Pitch-0.2)
+		J3SS C 1 Fast A_JumpIfInventory("GoFatality", 1, "Steady")
+	TNT1 A 0 A_SetPitch(Pitch-0.2)
+		J3SS D 1 Fast A_JumpIfInventory("GoFatality", 1, "Steady")
+	TNT1 A 0 A_SetPitch(Pitch-0.4)
+		J3TG A 0 A_GunFlash
+	Ready3:
+	OkToFire:
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Ready2")
+		J3TG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+        Loop
+		
+		
+	Ready2:
+		J3T9 A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		Loop	
+		
+	
+	Deselect:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		J3TG A 0
+		J3TG A 0 A_Takeinventory("Zoomed",1)
+        J3TG A 0 A_ZoomFactor(1.0)
+		J3SS HGFE 1
+		TNT1 A 0 A_Lower
+		Wait
+
+		
+    Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+// 			A_GiveInventory("PB_LockScreenTilt",1);
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+        J3TG A 0 A_Takeinventory("Reloading",1)
+		J3TG A 0 A_JumpIfInventory("Zoomed",1,"Fire2")
+        J3TG A 0 A_JumpIfInventory("RemAmmo",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+        TNT1 A 0 A_JumpIfInventory("BSG_Slug",1,"SlugFire")
+        TNT1 A 0 A_JumpIfInventory("BSG_DRBT",1,"BreathFire")
+		J3TG A 0 A_ZoomFactor(0.96)
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3TF A 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("NWSG/Fire", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+                PB_FireBullets("PB_12GAPellet",8,2,0,0,2);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3TF B 1 BRIGHT
+		J3TG A 0 A_ZoomFactor(1.00)
+		J3TF C 1 
+		J3TF DE 1
+		J3TG A 1
+		TNT1 A 0 A_JumpIfInventory("RepeaterShot",1,"RefireNow")
+		Goto Pump1
+	RefireNow:
+		TNT1 A 0 A_Refire("FireII")
+		Goto Pump1
+		
+	FireII:
+		J3TG A 0 A_JumpIfInventory("Zoomed",1,"Fire2")
+        J3TG A 0 A_JumpIfInventory("RemAmmo",1,2)
+        Goto Pump1
+        TNT1 AAAA 0
+		J3TG A 0 A_ZoomFactor(0.96)
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3TF A 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("NWSG/Fire", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+                PB_FireBullets("PB_12GAPellet",8,2,0,0,2);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3TF B 1 BRIGHT
+		J3TG A 0 A_ZoomFactor(1.00)
+		J3TF C 1 
+		J3TF DE 1
+		J3TG A 1
+		TNT1 A 0 A_Refire("FireIII")
+		Goto Pump1II
+		
+	FireIII:
+		J3TG A 0 A_JumpIfInventory("Zoomed",1,"Fire2")
+        J3TG A 0 A_JumpIfInventory("RemAmmo",1,2)
+        Goto Pump1II
+        TNT1 AAAA 0
+		J3TG A 0 A_ZoomFactor(0.96)
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3TF A 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("NWSG/Fire", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+                PB_FireBullets("PB_12GAPellet",8,2,0,0,2);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3TF B 1 BRIGHT
+		J3TG A 0 A_ZoomFactor(1.00)
+		J3TF C 1 
+		J3TF DE 1
+		J3TG A 1
+		Goto Pump1III
+		
+	SlugFire:
+		J3TG A 0 A_ZoomFactor(0.96)
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3TF A 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("SlugShot", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+                A_FireProjectile("PB_12GASlug", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			    A_FireCustomMissile("Tracer", 0, 0, 0, -14, 0, 0);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3TF B 1 BRIGHT
+		J3TG A 0 A_ZoomFactor(1.00)
+		J3TF C 1 
+		J3TF DE 1
+		J3TG A 1
+		TNT1 A 0 A_JumpIfInventory("RepeaterShot",1,"RefireTheSlug")
+		Goto Pump1
+	RefireTheSlug:
+		TNT1 A 0 A_Refire("SlugFireII")
+		Goto Pump1
+		
+	SlugFireII:
+		J3TG A 0 A_JumpIfInventory("RemAmmo",1,2)
+        Goto Pump1
+        TNT1 AAAA 0
+		J3TG A 0 A_ZoomFactor(0.96)
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3TF A 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("SlugShot", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+                A_FireProjectile("PB_12GASlug", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			    A_FireCustomMissile("Tracer", 0, 0, 0, -14, 0, 0);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3TF B 1 BRIGHT
+		J3TG A 0 A_ZoomFactor(1.00)
+		J3TF C 1 
+		J3TF DE 1
+		J3TG A 1
+		TNT1 A 0 A_Refire("SlugFireIII")
+		Goto Pump1II
+		
+	SlugFireIII:
+		J3TG A 0 A_JumpIfInventory("RemAmmo",1,2)
+        Goto Pump1II
+        TNT1 AAAA 0
+		J3TG A 0 A_ZoomFactor(0.96)
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3TF A 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("SlugShot", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+                A_FireProjectile("PB_12GASlug", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			    A_FireCustomMissile("Tracer", 0, 0, 0, -14, 0, 0);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3TF B 1 BRIGHT
+		J3TG A 0 A_ZoomFactor(1.00)
+		J3TF C 1 
+		J3TF DE 1
+		J3TG A 1
+		Goto Pump1III
+		
+	BreathFire:
+		J3TG A 0 A_ZoomFactor(0.96)
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3TF A 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("DRBTFIRE", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                PB_FireBullets("PB_DragonsBreathTracer",8,2,0,0,2);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3TF B 1 BRIGHT
+		J3TG A 0 A_ZoomFactor(1.00)
+		J3TF C 1 
+		J3TF DE 1
+		J3TG A 1
+		TNT1 A 0 A_JumpIfInventory("RepeaterShot",1,"RefireTheBreath")
+		Goto Pump1
+	RefireTheBreath:
+		TNT1 A 0 A_Refire("BreathFireII")
+		Goto Pump1
+		
+	BreathFireII:
+		J3TG A 0 A_JumpIfInventory("RemAmmo",1,2)
+        Goto Pump1
+        TNT1 AAAA 0
+		J3TG A 0 A_ZoomFactor(0.96)
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3TF A 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("DRBTFIRE", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                PB_FireBullets("PB_DragonsBreathTracer",8,2,0,0,2);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3TF B 1 BRIGHT
+		J3TG A 0 A_ZoomFactor(1.00)
+		J3TF C 1 
+		J3TF DE 1
+		J3TG A 1
+		TNT1 A 0 A_Refire("BreathFireIII")
+		Goto Pump1II
+		
+	BreathFireIII:
+		J3TG A 0 A_JumpIfInventory("RemAmmo",1,2)
+        Goto Pump1II
+        TNT1 AAAA 0
+		J3TG A 0 A_ZoomFactor(0.96)
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3TF A 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("DRBTFIRE", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                PB_FireBullets("PB_DragonsBreathTracer",8,2,0,0,2);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3TF B 1 BRIGHT
+		J3TG A 0 A_ZoomFactor(1.00)
+		J3TF C 1 
+		J3TF DE 1
+		J3TG A 1
+		Goto Pump1III
+		
+   Pump1:
+	   J3TG A 0
+	   J3TG A 0 A_GiveInventory ("Pumping", 1)
+	   J3TG A 0 A_GiveInventory ("GoSpecial", 1)
+	   J3TG BCDEFG 1
+	   J3TG A 0 {
+		If(CountInv("BSG_Slug") >=1 ) {A_FireCustomMissile("ShotCaseSpawn2",0,0,-5,-21);
+		 return state("KeepPump");}        
+		 If(CountInv("BSG_DRBT") >=1 ) {A_FireCustomMissile("ShotCaseSpawn3",0,0,-5,-21);
+		 return state("KeepPump");}
+		A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26);
+		Return state("");
+		}
+	   KeepPump:
+	   J3TG A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   J3TG H 1 A_PlaySound("BEAKPMP1", 3)
+	   J3TG IJ 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   J3TG A 0 A_JumpIfInventory("RemAmmo",1,5)
+	   J3TG A 0 A_JumpIfInventory("TurboReload", 1, 4)
+	   J3TG A 0 A_Giveinventory("ShotgunWasEmpty",1)
+	   J3TG A 0 A_JumpIfInventory("NoAutoReload", 1, 2)
+	   Goto InsertingShells
+	   TNT1 AA 0
+	   J3TG KL 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   J3TG KJIN 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   J3TG A 0 A_Takeinventory("ShotgunWasEmpty",1)
+	   J3TG OFEDC 1
+	   J3TG A 0 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   J3TG A 0 A_JumpIfInventory("RemAmmo",1,2)
+	   J3TG A 0 A_JumpIfInventory("TurboReload", 1, "TurboReload")
+	   J3TG A 0
+	   Goto ReadyToFireAgain
+   
+   Pump1II:
+	   J3TG A 0
+	   J3TG A 0 A_GiveInventory ("Pumping", 1)
+	   J3TG A 0 A_GiveInventory ("GoSpecial", 1)
+	   J3TG BCDEFG 1
+	   J3TG A 0 {
+		If(CountInv("BSG_Slug") >=1 ) {A_FireCustomMissile("ShotCaseSpawn2",0,0,-5,-21);
+		 return state("KeepPumpII");}        
+		 If(CountInv("BSG_DRBT") >=1 ) {A_FireCustomMissile("ShotCaseSpawn3",0,0,-5,-21);
+		 return state("KeepPumpII");}
+		A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26);
+		Return state("");
+		}
+	   KeepPumpII:
+	   J3TG A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   J3TG H 1 A_PlaySound("BEAKPMP1", 3)
+		J3TG IJ 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+		J3TG KL 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   J3TG KJIN 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+		J3TG OFE 1
+		J3TG EFG 1
+	   J3TG A 0 {
+		If(CountInv("BSG_Slug") >=1 ) {A_FireCustomMissile("ShotCaseSpawn2",0,0,-5,-21);
+		 return state("KeepPumpII2");}        
+		 If(CountInv("BSG_DRBT") >=1 ) {A_FireCustomMissile("ShotCaseSpawn3",0,0,-5,-21);
+		 return state("KeepPumpII2");}
+		A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26);
+		Return state("");
+		}
+		KeepPumpII2:
+	   J3TG A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   J3TG H 1 A_PlaySound("BEAKPMP1", 3)
+		J3TG IJ 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+		J3TG KL 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   J3TG KJIN 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+		J3TG OFEDC 1
+	   J3TG A 0 A_JumpIfInventory("RemAmmo",1,5)
+	   J3TG A 0 A_JumpIfInventory("TurboReload", 1, 4)
+	   J3TG A 0 A_Giveinventory("ShotgunWasEmpty",1)
+	   J3TG A 0 A_JumpIfInventory("NoAutoReload", 1, 2)
+	   Goto InsertingShells
+	   TNT1 AA 0
+	   J3TG A 0 A_Takeinventory("ShotgunWasEmpty",1)
+	   J3TG A 0 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   J3TG A 0 A_JumpIfInventory("RemAmmo",1,2)
+	   J3TG A 0 A_JumpIfInventory("TurboReload", 1, "TurboReload")
+	   J3TG A 0
+	   Goto ReadyToFireAgain
+	
+	Pump1III:
+		J3TG A 0
+	   J3TG A 0 A_GiveInventory ("Pumping", 1)
+	   J3TG A 0 A_GiveInventory ("GoSpecial", 1)
+	   J3TG BCDEFG 1
+	   J3TG A 0 {
+		If(CountInv("BSG_Slug") >=1 ) {A_FireCustomMissile("ShotCaseSpawn2",0,0,-5,-21);
+		 return state("KeepPumpIII");}        
+		 If(CountInv("BSG_DRBT") >=1 ) {A_FireCustomMissile("ShotCaseSpawn3",0,0,-5,-21);
+		 return state("KeepPumpIII");}
+		A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26);
+		Return state("");
+		}
+		KeepPumpIII:
+	   J3TG A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   J3TG H 1 A_PlaySound("BEAKPMP1", 3)
+		J3TG IJ 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+		J3TG KL 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   J3TG KJIN 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+		J3TG OFE 1
+		J3TG EFG 1
+	   J3TG A 0 {
+		If(CountInv("BSG_Slug") >=1 ) {A_FireCustomMissile("ShotCaseSpawn2",0,0,-5,-21);
+		 return state("KeepPumpIII2");}        
+		 If(CountInv("BSG_DRBT") >=1 ) {A_FireCustomMissile("ShotCaseSpawn3",0,0,-5,-21);
+		 return state("KeepPumpIII2");}
+		A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26);
+		Return state("");
+		}
+	   KeepPumpIII2:
+	   J3TG A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   J3TG H 1 A_PlaySound("BEAKPMP1", 3)
+		J3TG IJ 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+		J3TG KL 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   J3TG KJIN 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+		J3TG OFE 1
+		J3TG EFG 1
+	   J3TG A 0 {
+		If(CountInv("BSG_Slug") >=1 ) {A_FireCustomMissile("ShotCaseSpawn2",0,0,-5,-21);
+		 return state("KeepPumpIII3");}        
+		 If(CountInv("BSG_DRBT") >=1 ) {A_FireCustomMissile("ShotCaseSpawn3",0,0,-5,-21);
+		 return state("KeepPumpIII3");}
+		A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26);
+		Return state("");
+		}
+		KeepPumpIII3:
+	   J3TG A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   J3TG H 1 A_PlaySound("BEAKPMP1", 3)
+		J3TG IJ 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+		J3TG KL 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   J3TG KJIN 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+		J3TG OFEDC 1
+	   J3TG A 0 A_JumpIfInventory("RemAmmo",1,5)
+	   J3TG A 0 A_JumpIfInventory("TurboReload", 1, 4)
+	   J3TG A 0 A_Giveinventory("ShotgunWasEmpty",1)
+	   J3TG A 0 A_JumpIfInventory("NoAutoReload", 1, 2)
+	   Goto InsertingShells
+	   TNT1 AA 0
+	   J3TG A 0 A_Takeinventory("ShotgunWasEmpty",1)
+	   J3TG A 0 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   J3TG A 0 A_JumpIfInventory("RemAmmo",1,2)
+	   J3TG A 0 A_JumpIfInventory("TurboReload", 1, "TurboReload")
+	   J3TG A 0
+	   Goto ReadyToFireAgain
+   
+   Pump2:	
+	   J3TG A 0
+	   J3TG A 0 A_GiveInventory ("Pumping", 1)
+	   J3TG A 0 A_TakeInventory("Reloading", 1)
+	   J3TG A 0 A_Takeinventory("Zoomed",1)
+	   J3TG A 0 A_ZoomFactor(1.0)
+	   J3TG FG 1
+	   J3TG H 1 A_PlaySound("BEAKPMP1", 3)
+	   J3TG IJ 1
+	   J3TG KL 1
+	   J3TG KJIH 1
+	   J3TG A 0 A_Takeinventory("ShotgunWasEmpty",1)
+	   J3TG GFEDC 1
+	   Goto ReadyToFireAgain
+		
+	ReadyToFireAgain:	
+		//J3TG A 6 <-- Old frame
+        J3L5 B 1 Offset(10,36) // <-- New frames
+        J3L5 C 1 Offset(9,40) //
+        J3L5 D 1 Offset(4,40) //
+        J3L5 A 1 Offset(0,32) //
+        J3TG A 0 A_Refire
+		Goto Ready3
+		
+	Fire2:
+		J3TG A 0 A_Takeinventory("Reloading",1)
+        J3TG A 0 A_JumpIfInventory("RemAmmo",1,1)
+        Goto NoAmmo
+        TNT1 A 0 A_JumpIfInventory("BSG_Slug",1,"SlugFire2")
+        TNT1 A 0 A_JumpIfInventory("BSG_DRBT",1,"BreathFire2")
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3T9 F 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("NWSG/Fire", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+                PB_FireBullets("PB_12GAPellet",8,2,0,0,2);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3T9 GHIA 1
+		TNT1 A 0 A_JumpIfInventory("RepeaterShot",1,"RefireNow2")
+		Goto Pump3
+	RefireNow2:
+		TNT1 A 0 A_Refire("Fire2II")
+		Goto Pump3
+		
+	Fire2II:
+		J3TG A 0 A_Takeinventory("Reloading",1)
+        J3TG A 0 A_JumpIfInventory("RemAmmo",1,1)
+        Goto Pump3
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3T9 F 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("NWSG/Fire", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+                PB_FireBullets("PB_12GAPellet",8,2,0,0,2);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3T9 GHIA 1
+		TNT1 A 0 A_Refire("Fire2III")
+		Goto Pump3II
+		
+	Fire2III:
+		J3TG A 0 A_Takeinventory("Reloading",1)
+        J3TG A 0 A_JumpIfInventory("RemAmmo",1,1)
+        Goto Pump3II
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3T9 F 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("NWSG/Fire", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+                PB_FireBullets("PB_12GAPellet",8,2,0,0,2);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3T9 GHIA 1
+		Goto Pump3III
+		
+  SlugFire2:
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3T9 F 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("SlugShot", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+                A_FireProjectile("PB_12GASlug", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			   A_FireCustomMissile("Tracer", 0, 0, 0, -14, 0, 0);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3T9 GHIA 1
+		TNT1 A 0 A_JumpIfInventory("RepeaterShot",1,"RefireTheSlug2")
+		Goto Pump3
+	RefireTheSlug2:
+		TNT1 A 0 A_Refire("SlugFire2II")
+		Goto Pump3
+		
+	SlugFire2II:
+		J3TG A 0 A_JumpIfInventory("RemAmmo",1,1)
+        Goto Pump3
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3T9 F 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("SlugShot", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+                A_FireProjectile("PB_12GASlug", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			   A_FireCustomMissile("Tracer", 0, 0, 0, -14, 0, 0);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3T9 GHIA 1
+		TNT1 A 0 A_Refire("SlugFire2III")
+		Goto Pump3II
+		
+	SlugFire2III:
+		J3TG A 0 A_JumpIfInventory("RemAmmo",1,1)
+        Goto Pump3II
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3T9 F 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("SlugShot", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+				A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+                A_FireProjectile("PB_12GASlug", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			   A_FireCustomMissile("Tracer", 0, 0, 0, -14, 0, 0);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3T9 GHIA 1
+		Goto Pump3III
+		
+	BreathFire2:
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3T9 F 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("DRBTFIRE", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                PB_FireBullets("PB_DragonsBreathTracer",8,2,0,0,2);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3T9 GHIA 1
+		TNT1 A 0 A_JumpIfInventory("RepeaterShot",1,"RefireTheBreath2")
+		Goto Pump3
+	RefireTheBreath2:
+		TNT1 A 0 A_Refire("BreathFire2II")
+		Goto Pump3
+		
+	BreathFire2II:
+		J3TG A 0 A_JumpIfInventory("RemAmmo",1,1)
+        Goto Pump3
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3T9 F 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("DRBTFIRE", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                PB_FireBullets("PB_DragonsBreathTracer",8,2,0,0,2);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3T9 GHIA 1
+		TNT1 A 0 A_Refire("BreathFire2III")
+		Goto Pump3II
+		
+	BreathFire2III:
+		J3TG A 0 A_JumpIfInventory("RemAmmo",1,1)
+        Goto Pump3II
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		J3T9 F 1 BRIGHT {
+		        A_AlertMonsters;
+                A_PlaySound("DRBTFIRE", CHAN_WEAPON);
+                PB_LowAmmoSoundWarning("shotgun");
+                A_Takeinventory("RemAmmo",1);
+                PB_FireBullets("PB_DragonsBreathTracer",8,2,0,0,2);
+                PB_WeaponRecoil(-0.50,-0.50);
+                }
+		J3T9 GHIA 1
+		Goto Pump3III
+	
+   Pump3:
+		J3T9 A 2	
+		/*J3TG A 0 A_JumpIfInventory("RemAmmo", 1, 1)
+		Goto NoAmmo3*/
+		J3TG A 0 A_GiveInventory ("Pumping", 1)
+		J3TG A 0 A_PlaySound("BEAKPMP1", 5)
+		J3T9 MJKL 1
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, 1)
+		J3TG A 0 {
+		If(CountInv("BSG_Slug") >=1 ) {A_FireCustomMissile("ShotCaseSpawn2",0,0,-5,-21);
+		 return state("KeepPump2");}        
+		 If(CountInv("BSG_DRBT") >=1 ) {A_FireCustomMissile("ShotCaseSpawn3",0,0,-5,-21);
+		 return state("KeepPump2");}
+		A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26);
+		Return state("");
+		}
+	KeepPump2:
+		J3TG A 0 A_TakeInventory("ShotgunWasEmpty", 1)
+		J3T9 KJM 1
+		J3T9 A 1 A_JumpIfInventory("RemAmmo",1, 1)
+		Goto Reload
+		J3TG A 0 A_REfire
+		Goto Ready2
+		
+	Pump3II:
+		J3T9 A 2	
+		/*J3TG A 0 A_JumpIfInventory("RemAmmo", 1, 1)
+		Goto NoAmmo3*/
+		J3TG A 0 A_GiveInventory ("Pumping", 1)
+		J3TG A 0 A_PlaySound("BEAKPMP1", 5)
+		J3T9 MJKL 1
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, 1)
+		J3TG A 0 {
+		If(CountInv("BSG_Slug") >=1 ) {A_FireCustomMissile("ShotCaseSpawn2",0,0,-5,-21);
+		 return state("KeepPump2II");}        
+		 If(CountInv("BSG_DRBT") >=1 ) {A_FireCustomMissile("ShotCaseSpawn3",0,0,-5,-21);
+		 return state("KeepPump2II");}
+		A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26);
+		Return state("");
+		}
+	 KeepPump2II:
+		J3TG A 0 A_TakeInventory("ShotgunWasEmpty", 1)
+		J3T9 KJM 1
+		J3T9 A 1
+		J3T9 A 2
+		J3TG A 0 A_GiveInventory ("Pumping", 1)
+		J3TG A 0 A_PlaySound("BEAKPMP1", 5)
+		J3T9 MJKL 1
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, 1)
+		J3TG A 0 {
+		If(CountInv("BSG_Slug") >=1 ) {A_FireCustomMissile("ShotCaseSpawn2",0,0,-5,-21);
+		 return state("KeepPump2IIS");}        
+		 If(CountInv("BSG_DRBT") >=1 ) {A_FireCustomMissile("ShotCaseSpawn3",0,0,-5,-21);
+		 return state("KeepPump2IIS");}
+		A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26);
+		Return state("");
+		}
+	KeepPump2IIS:
+		J3TG A 0 A_TakeInventory("ShotgunWasEmpty", 1)
+		J3T9 KJM 1
+		J3T9 A 1 A_JumpIfInventory("RemAmmo",1, 1)
+		Goto Reload
+		J3TG A 0 A_REfire
+		Goto Ready2
+		
+	Pump3III:
+		J3T9 A 2	
+		/*J3TG A 0 A_JumpIfInventory("RemAmmo", 1, 1)
+		Goto NoAmmo3*/
+		J3TG A 0 A_GiveInventory ("Pumping", 1)
+		J3TG A 0 A_PlaySound("BEAKPMP1", 5)
+		J3T9 MJKL 1
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, 1)
+		J3TG A 0 {
+		If(CountInv("BSG_Slug") >=1 ) {A_FireCustomMissile("ShotCaseSpawn2",0,0,-5,-21);
+		 return state("KeepPump3III");}        
+		 If(CountInv("BSG_DRBT") >=1 ) {A_FireCustomMissile("ShotCaseSpawn3",0,0,-5,-21);
+		 return state("KeepPump3III");}
+		A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26);
+		Return state("");
+		}
+	KeepPump3III:
+		J3TG A 0 A_TakeInventory("ShotgunWasEmpty", 1)
+		J3T9 KJM 1
+		J3T9 A 1
+		J3T9 A 2
+		J3TG A 0 A_GiveInventory ("Pumping", 1)
+		J3TG A 0 A_PlaySound("BEAKPMP1", 5)
+		J3T9 MJKL 1
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, 1)
+		J3TG A 0 {
+		If(CountInv("BSG_Slug") >=1 ) {A_FireCustomMissile("ShotCaseSpawn2",0,0,-5,-21);
+		 return state("KeepPump3IIIS");}        
+		 If(CountInv("BSG_DRBT") >=1 ) {A_FireCustomMissile("ShotCaseSpawn3",0,0,-5,-21);
+		 return state("KeepPump3IIIS");}
+		A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26);
+		Return state("");
+		}
+	KeepPump3IIIS:
+		J3TG A 0 A_TakeInventory("ShotgunWasEmpty", 1)
+		J3T9 KJM 1
+		J3T9 A 1
+		J3T9 A 2
+		J3TG A 0 A_GiveInventory ("Pumping", 1)
+		J3TG A 0 A_PlaySound("BEAKPMP1", 5)
+		J3T9 MJKL 1
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, 1)
+		J3TG A 0 {
+		If(CountInv("BSG_Slug") >=1 ) {A_FireCustomMissile("ShotCaseSpawn2",0,0,-5,-21);
+		 return state("KeepPump3IIISR");}        
+		 If(CountInv("BSG_DRBT") >=1 ) {A_FireCustomMissile("ShotCaseSpawn3",0,0,-5,-21);
+		 return state("KeepPump3IIISR");}
+		A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26);
+		Return state("");
+		}
+	KeepPump3IIISR:
+		J3TG A 0 A_TakeInventory("ShotgunWasEmpty", 1)
+		J3T9 KJM 1
+		J3T9 A 1 A_JumpIfInventory("RemAmmo",1, 1)
+		Goto Reload
+		J3TG A 0 A_REfire
+		Goto Ready2
+	
+	PumpNoReload:	
+	   J3TG IJ 1
+	   J3TG KL 1
+	   J3TG KJIH 1
+	   J3TG A 0 A_Takeinventory("ShotgunWasEmpty",1)
+	   J3TG GFEDC 1
+	   J3TG A 0 A_JumpIfInventory("RemAmmo",1,2)
+	   J3TG A 0 A_JumpIfInventory("TurboReload", 1, "TurboReload")
+	   J3TG A 0
+	   Goto ReadyToFireAgain
+	
+	
+	
+	AltFire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+        J3TG A 0
+		J3TG A 0 A_JumpIfInventory("Zoomed",1,"NoAim")
+		J3TG A 0 A_Giveinventory("Zoomed",1)
+        J3TG A 0 A_ZoomFactor(1.2)
+        J3T9 ED 1
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump3")
+		J3T9 A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		J3T9 A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		J3T9 A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		J3T9 A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		J3T9 A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		J3T9 A 2 A_WeaponReady(WRF_ALLOWRELOAD)
+        Goto Ready2
+		
+	NoAim:	
+        TNT1 AAAAAA 0
+		J3TG A 0 A_Takeinventory("Zoomed",1)
+        J3TG A 0 A_ZoomFactor(1.0)
+		J3TG A 0 A_Takeinventory("ADSmode",1)
+		J3TG A 0 A_Giveinventory("GoSpecial",1)
+		J3T9 DE 1
+        Goto Ready3
+	
+    ReloadWithNoAmmoLeft:
+    Reload:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	    J3TG A 0 A_ClearRefire
+		J3TG A 0 A_TakeInventory("Reloading", 1)
+		J3TG A 0 A_JumpIfInventory("PB_Shell", 1, 2)
+		Goto NoAmmo
+		J3TG A 0
+	    J3TG A 0 A_Takeinventory("Zoomed",1)
+        J3TG A 0 A_ZoomFactor(1.0)
+		J3TG A 1 A_WeaponReady
+		J3TG A 0 A_JumpIfInventory("RemAmmo",9,"OkToFire")
+		J3TG A 0 A_JumpIfInventory("RemAmmo", 1, "ReloadNormally2")//Check if there is a shell in the chamber //Update Normally has owned by daller
+		J3TG A 0 A_GiveInventory("ShotgunWasEmpty", 1)//This means there is no shell in the chamber
+		
+		
+	ReloadNormally:	
+        J3TG A 0 A_JumpIfInventory("PB_Shell",1,1)//If there is no reserve ammo, don't reload, go back to Ready
+        Goto Ready3
+		J3TG B 1 A_GiveInventory ("Pumping", 1)
+		J3TG CDE 1
+		J3TR AABBCCDD 1
+		J3TR EE 1 {
+		A_PlaySound("BPSG/Reload");
+		A_Takeinventory("PB_Shell",1,TIF_NOTAKEINFINITE);
+		A_Giveinventory("RemAmmo",1);}
+		J3TR FFGGHH 1
+		J3TG FG 1
+	    J3TG H 1 A_PlaySound("BEAKPMP1", 3)
+	    J3TG IJ 1
+	    J3TG KL 1
+	    J3TG KJIH 1
+	    J3TG A 0 A_Takeinventory("ShotgunWasEmpty",1)
+	    J3TG GFE 1
+		Goto InsertingShells
+	
+	ReloadNormally2:	
+        J3TG A 0 A_JumpIfInventory("PB_Shell",1,1)//If there is no reserve ammo, don't reload, go back to Ready
+        Goto Ready3
+		J3TG B 1 A_GiveInventory ("Pumping", 1)
+		J3TG CDE 1
+        
+	 InsertingShells:
+		J3TG A 0
+		J3TG A 0 A_JumpIfInventory("PB_Shell",1,2)//if there are no more reserve shells, finish reload.
+        Goto Pump2
+		J3TG A 0
+		J3TG A 0 A_GiveInventory ("Pumping", 1)
+		J3TR A 0 A_TakeInventory("Reloading", 1)
+        J3TG A 0 A_JumpIfInventory("RemAmmo",9,"CheckIfFinishReload")
+        J3TG A 0 A_Giveinventory("RemAmmo",1)
+		J3TG A 0 A_Takeinventory("PB_Shell",1,TIF_NOTAKEINFINITE)
+        
+	InsertShellAnimation:	
+		J3TG A 0
+		J3TR A 1 
+		TNT1 A 0 A_SetPitch(-0.25 + pitch)
+		J3TR B 1 
+		TNT1 A 0 A_SetAngle(- 0.25 + Angle)
+		J3TR C 1
+		TNT1 A 0 A_SetPitch(-0.25 + pitch)
+ 		J3TR D 1
+		TNT1 A 0 A_SetPitch(+0.25 + pitch)
+		J3TR E 1 A_PlaySound("BPSG/Reload")
+	    TNT1 A 0 A_SetPitch(+0.25 + pitch)
+        J3TR F 1 //A_PlaySound("BPSG/Reload")
+		TNT1 A 0 A_SetAngle(+ 0.25 + Angle)
+        J3TR G 1 A_WeaponReady(WRF_NOBOB)
+		TNT1 A 0 A_SetAngle(+ 0.25 + Angle)
+		J3TR H 1 A_WeaponReady(WRF_NOBOB)
+        J3TR A 0 A_JumpIfInventory("Reloading", 1, "Pump2")
+		J3TG A 0 A_JumpIfInventory("RemAmmo",9,"FinishedInsertingShells")//If there are 8+1 shells, stop it immediately
+        Goto InsertingShells
+		
+	CheckIfFinishReload:
+		J3TR A 1
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "FinishedInsertingShells")//If shotgun was empty, 
+		//Play the insert shell animation again, and insert the 9th shell
+		J3TG A 0 A_JumpIfInventory("PB_Shell",1,1)//if there are no more reserve shells, finish reload.
+        Goto Pump2
+		J3TG A 0 A_Giveinventory("RemAmmo",1)
+		J3TG A 0 A_Takeinventory("PB_Shell",1)
+        Goto InsertShellAnimation
+		
+	FinishedInsertingShells:
+		J3TG A 0 A_Takeinventory("Reloading",1)
+		J3TG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2") //I'll be Use the Daller's Style
+		//J3TG A 0 A_Takeinventory("ShotgunWasEmpty",1)
+		J3TG FEDCBA 1 A_WeaponReady
+		J3TG A 0 A_Takeinventory("Reloading",1)
+		Goto Ready3
+
+	Unload:
+		J3TG A 0 A_ZoomFactor(1.0)
+		J3TG A 0 A_Takeinventory("Unloading",1)
+		J3TG A 0 A_Takeinventory("ADSmode",1)
+		J3TG A 0 A_Takeinventory("Zoomed",1)
+		J3TG A 0 A_GiveInventory("ShotgunWasEmpty", 1)
+        J3TG A 0 A_JumpIfInventory("RemAmmo",1,3)
+        Goto OkToFire
+        TNT1 AAA 0
+		J3TG A 0 A_Takeinventory("Zoomed",1)
+		J3TG A 0 A_GiveInventory ("Pumping", 1)
+		J3TG A 0 A_Takeinventory("Unloading",1)
+		J3TG ABCDEF 1
+		
+	RemoveBullets:
+		TNT1 AAAA 0
+		J3TG A 0 A_JumpIfInventory("RemAmmo",1,3)
+		Goto FinishUnload
+        TNT1 AAAAAA 0
+		J3TG A 0 A_Takeinventory("RemAmmo",1)
+		J3TG A 0 A_Giveinventory("PB_Shell",1)
+		
+		J3TG G 1
+	   J3TG H 1 A_PlaySound("BEAKPMP1", 3)
+	   //J3TG A 0 A_SetPitch(+1 + pitch)
+	   J3TG IJ 1
+	   //J3TG A 0 A_SetPitch(-1 + pitch)
+	   J3TG KL 1
+	   J3TG KJIN 1
+	   J3TG A 0 A_Giveinventory("ShotgunWasEmpty",1)
+	   J3TG OF 1
+		Goto RemoveBullets
+	
+	FInishUnload:
+		J3TG EDCBA 1
+		J3TG A 0 A_Takeinventory("Unloading",1)
+		Goto OkToFire
+		
+	Steady:
+		TNT1 A 1
+		Goto Ready
+		
+		
+
+	NoAmmo:
+		RIFG A 0
+		RIFG A 0 A_ZoomFactor(1.0)
+		RIFG A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_PlaySound("weapons/empty", 4)
+		NoAmmo2:
+		J3TG A 5 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOPRIMARY)
+		RIFG A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		TNT1 A 0 A_JumpIfInventory("NoAutoReload", 1, "NoAmmo2")
+		RIFG A 0 A_JumpIfInventory("PB_Shell",1,"Reload")
+		RIFG A 0 A_JumpIfInventory("FiredPrimary",1,"NoAmmo2")
+		Goto Ready3
+		
+		
+	NoAmmo3:
+		J3T9 A 4 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOPRIMARY)
+		RIFG A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		TNT1 A 0 A_JumpIfInventory("NoAutoReload", 1, "NoAmmo3")
+		RIFG A 0 A_JumpIfInventory("PB_Shell",1,"Reload")
+		RIFG A 0 A_JumpIfInventory("FiredPrimary",1,"NoAmmo3")
+		Goto Ready3	
+		
+	AlreadyLoaded:
+		TNT1 A 0 A_Log("Ammo type already selected")
+		Goto Ready3
+		
+	WheelCancel:
+		TNT1 A 0 A_SetInventory("BSG_SelectNO",0)
+		TNT1 A 0 A_SetInventory("BSG_SelectBuck",0)
+		TNT1 A 0 A_SetInventory("BSG_SelectSlug",0)
+		TNT1 A 0 A_SetInventory("BSG_SelectDRBT",0)
+		Stop
+		
+	WeaponSpecial:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 {
+			A_SetInventory("GoWeaponSpecialAbility",0);
+			A_SetInventory("Zoomed",0);
+			A_SetInventory("ADSmode",0);
+			A_SetInventory("PB_LockScreenTilt",1);
+			//PB_HandleCrosshair(44); 
+			A_ZoomFactor(1.0);
+			A_ClearOverlays(10,11);
+			}
+		TNT1 A 0 {
+			if(CountInv("BSG_SelectBuck") == 1) {	
+				A_Overlay(-12, "WheelCancel");
+				return state ("SwitchToBuckShot");
+				}
+			if(CountInv("BSG_SelectSlug") == 1) {
+				A_Overlay(-12, "WheelCancel");
+				return state ("SwitchToSlug");
+				}
+			if(CountInv("BSG_SelectDRBT") == 1) {	
+				A_Overlay(-12, "WheelCancel");
+				return state ("SwitchToBreath");
+				}
+				return state("");
+			}
+			Goto Ready3
+			
+		SwitchToBuckShot:
+			TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+			TNT1 A 0 A_JumpIfInventory("BSG_Buck",1,"AlreadyLoaded")
+			TNT1 A 0 A_SetInventory("BSG_Buck",1)
+			TNT1 A 0 A_SetInventory("BSG_Slug",0)
+			TNT1 A 0 A_SetInventory("BSG_DRBT",0)
+			TNT1 A 0 A_Print("\cr 12ga \cj Loaded")
+			Goto ChangingShell
+		
+		SwitchToSlug:
+			TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+			TNT1 A 0 A_JumpIfInventory("BSG_Slug",1,"AlreadyLoaded")
+			TNT1 A 0 A_SetInventory("BSG_Buck",0)
+			TNT1 A 0 A_SetInventory("BSG_Slug",1)
+			TNT1 A 0 A_SetInventory("BSG_DRBT",0)
+			TNT1 A 0 A_Print("\cd Slug \cj Loaded")
+			Goto ChangingShell
+		
+		SwitchToBreath:
+			TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+			TNT1 A 0 A_JumpIfInventory("BSG_DRBT",1,"AlreadyLoaded")
+			TNT1 A 0 A_SetInventory("BSG_Buck",0)
+			TNT1 A 0 A_SetInventory("BSG_Slug",0)
+			TNT1 A 0 A_SetInventory("BSG_DRBT",1)
+			TNT1 A 0 A_Print("\cx Dragon Breath \cj Loaded")
+			Goto ChangingShell
+			
+		ChangingShell:
+			J3TG ABCDE 1
+			TNT1 A 0 A_SetPitch(-0.25 + pitch)
+			J3TR B 1 
+			TNT1 A 0 A_SetAngle(- 0.25 + Angle)
+			J3TR C 1
+			TNT1 A 0 A_SetPitch(-0.25 + pitch)
+	 		J3TR D 1
+			TNT1 A 0 A_SetPitch(+0.25 + pitch)
+			J3TR E 1 A_PlaySound("BPSG/Reload")
+		    TNT1 A 0 A_SetPitch(+0.25 + pitch)
+	        J3TR F 1
+			TNT1 A 0 A_SetAngle(+ 0.25 + Angle)
+	        J3TR G 1 A_WeaponReady(WRF_NOBOB)
+			TNT1 A 0 A_SetAngle(+ 0.25 + Angle)
+			J3TR H 1 A_WeaponReady(WRF_NOBOB)
+			J3TG G 1
+		   J3TG H 1 A_PlaySound("BEAKPMP1", 3)
+		   J3TG IJ 1
+		   J3TG KL 1
+		   J3TG KJIN 1
+		   J3TG OF 1
+			J3TG EDCBA 1
+			Goto Ready3
+		
+	FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		J3SS HGFEEEEEEEFGH 1
+		Goto Ready3
+		
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+		J3SS HGFEEEEEEEFGH 1
+		Goto Ready3
+		
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		J3SS HHGGFFEEEEEEEEEEEEEEE 1
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		J3SS EEFGH 1
+		Goto Ready3
+			
+	}
+}
+
+ACTOR RemAmmo : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 9
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 9
+   Inventory.Icon "SHTCA0"
+}
+
+
+

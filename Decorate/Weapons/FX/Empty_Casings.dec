@@ -1,0 +1,1021 @@
+// Smoke
+ACTOR ShotSmoke
+{
+	+NOGRAVITY
+	+NOBLOCKMAP
+	+FLOORCLIP
+	+FORCEXYBILLBOARD
+	+CLIENTSIDEONLY
+	+NOINTERACTION
+	+DONTSPLASH
+	+MISSILE
+	RenderStyle Add
+	Scale  0.35
+	Alpha  0.4
+	Radius 0
+	Height 0
+	Speed  1
+	States
+	{
+    Spawn:
+		NULL A 1 A_SetTranslucent(0.25)
+		SMKN ABCDEFGHI 2 A_FadeOut(0.005)
+		SMKN JKLMNOPQR 1 A_FadeOut(0.005)
+		TNT1 A 0
+		Stop
+    }
+}
+ACTOR CasingSmokes : ShotSmoke
+{
+	XScale 0.035
+	YScale 0.060
+	RenderStyle Add
+	States
+	{
+    Spawn:
+		NULL A 1 A_SetTranslucent(0.25)
+		SMKN ABCDEFGHIJKLMNOPQR 1 A_FadeOut(0.005)
+		TNT1 A 0
+		Stop
+    }
+}
+
+ACTOR RifleCaseSpawn
+{
+	Speed 20
+	PROJECTILE
+	+NOCLIP
+	+CLIENTSIDEONLY
+	States
+	{
+	Spawn:
+        TNT1 A 0
+		TNT1 A 1 A_CustomMissile("EmptyBrass",1,0,random(-80,-100),2,random(45,80))
+		Stop
+	}
+}
+
+////////////------------------Clip & Bullets Drop---------------////////////
+Actor HMG_EmptyCase
+{
+   Speed 16
+   Radius 1
+   Height 1
+   Scale 1
+   +DOOMBOUNCE
+   -NOGRAVITY
+   +WINDTHRUST
+   +CLIENTSIDEONLY
+   +MOVEWITHSECTOR
+   +MISSILE
+   +NOBLOCKMAP
+   -DROPOFF
+   +NOTELEPORT
+   +FORCEXYBILLBOARD
+   +NOTDMATCH
+   +GHOST
+   Mass 5
+   SeeSound "Magazine/Bounce"
+   States
+   {
+   Spawn:
+      DRM7 ABCDEFGH 4
+      loop
+   Death:
+      DRM7 I 200
+      Loop
+      stop      
+   }
+}
+
+
+
+Actor Auto-ShotgunMagazine
+{
+   Speed 16
+   Radius 1
+   Height 1
+   Scale 0.5
+   +DOOMBOUNCE
+   -NOGRAVITY
+   +WINDTHRUST
+   +CLIENTSIDEONLY
+   +MOVEWITHSECTOR
+   +MISSILE
+   +NOBLOCKMAP
+   -DROPOFF
+   +NOTELEPORT
+   +FORCEXYBILLBOARD
+   +NOTDMATCH
+   +GHOST
+   Mass 1
+   SeeSound "Magazine/Bounce"
+   States
+   {
+   Spawn:
+      DRM8 ABCDEFGH 4 
+      loop
+   Death:
+      DRM8 E -1
+      stop      
+   }
+}
+
+ACTOR MGLinks: EMptyBrass
+{
+   
+   Scale 0.06
+   States
+   {
+   Spawn:
+	  TNT1 A 0
+	  
+      MGLK ABCDEFGHABCDEFGHABCDEFGHABCDEFGH 1
+      STOP
+
+   Death:
+      CLIN A 0
+
+      LCPJ A 0 A_Jump(256,"Rest1","Rest2","Rest3","Rest4","Rest5")
+      Goto Rest1
+    Rest1:
+      MGLK F 200
+      Loop
+    Rest2:
+      MGLK B 200
+      Loop
+    Rest3:
+      MGLK F 200
+      Loop
+    Rest4:
+      MGLK B 200
+      Loop
+    Rest5:
+      MGLK F 200
+      Loop
+	 
+	Splash:
+	TNT1 A 0
+	Stop
+	
+	Bullet_Janitor1:
+	  MGLK F 1 A_FadeOut(0.005)
+	  Loop
+	
+	Bullet_Janitor2:
+	  MGLK B 1 A_FadeOut(0.005)
+	  Loop
+	
+	Bullet_Janitor3:
+	  MGLK F 1 A_FadeOut(0.005)
+	  Loop
+	Bullet_Janitor4:
+	  MGLK B 1 A_FadeOut(0.005)
+	  Loop
+	
+	Bullet_Janitor5:
+	  MGLK F 1 A_FadeOut(0.005)
+	  Loop
+   }
+}
+
+
+Actor ClasicDeathClip : Auto-ShotgunMagazine
+{
+   Speed 8
+   Mass 100
+   Radius 1
+   Height 1
+   Scale 1.0
+   +DOOMBOUNCE
+   +DROPOFF
+   -Nogravity
+   SeeSound "Magazine/Bounce"
+   States
+   {
+   Spawn:
+      CSDC ABCDEFGH 4 
+      loop
+   Death:
+	  CSDC G 240
+      CSDC G -1
+      stop
+	  
+	Bullet_Janitor:
+	  CSDC G 1 A_FadeOut(0.005)
+	  Loop
+   }
+}
+
+Actor DeathPistolClip : Auto-ShotgunMagazine
+{
+   Speed 8
+   Mass 100
+   Radius 1
+   Height 1
+   Scale 1.0
+   +DOOMBOUNCE
+   +DROPOFF
+   -Nogravity
+   SeeSound "Clip/Bounce"
+   States
+   {
+   Spawn:
+      ASDC ABCDEFGH 4 
+      loop
+   Death:
+	  ASDC G 240
+      ASDC G -1 
+      stop
+	  
+	Bullet_Janitor:
+	  ASDC G 1 A_FadeOut(0.005)
+	  Loop   
+   }
+}
+
+Actor PistolClip2 : Auto-ShotgunMagazine
+{
+   Speed 7
+   Radius 2
+   Height 2
+   Scale 1.0
+   +Missile
+   +DOOMBOUNCE
+   +DROPOFF
+   SeeSound "Magazine/Bounce"
+   States
+   {
+   Spawn:
+      CLP5 ABCD 4
+      loop
+   Death:
+	  CLP5 B 240
+      CLP5 B -1
+      stop
+	  
+	Bullet_Janitor:
+	  CLP5 B 1 A_FadeOut(0.005)
+	  Loop  
+   }
+}
+
+Actor DeathShell : Auto-ShotgunMagazine
+{
+   Speed 8
+   Radius 1
+   Height 1
+   Scale 0.1
+   +Missile
+   +DOOMBOUNCE
+   +DROPOFF
+   SeeSound "Casin/Shell"
+   States
+   {
+   Spawn:
+      CAS2 ABCDEFGHI 4 A_SpawnItem("CasingSmokes")
+      loop
+   Death:
+      TNT1 A 0 A_Jump (125, "Death2","Death3","Death4","Death5","Death6")
+      
+      CAS2 I -1 
+      stop  
+   Death2:
+      CAS2 J -1
+	  Stop
+   Death3:
+      CAS2 K -1 
+      stop
+   Death4:
+      CAS2 L -1 
+      stop
+   Death5:
+      CAS2 M -1 
+      stop
+   Death6:
+      CAS2 N -1 
+      stop
+   }
+}
+
+
+Actor LugerClip : Auto-ShotgunMagazine
+{
+   Speed 8
+   Scale 1.0 
+   Radius 8
+   Height 8
+   +Missile
+   +DOOMBOUNCE
+   +DROPOFF
+   SeeSound "Magazine/Bounce"
+   States
+   {
+   Spawn:
+      ECL1 ABCDFGH 4 
+      loop
+   Death:
+      ECLI G -1 
+      stop      
+   }
+}
+
+
+Actor Mp40DeathClip : Auto-ShotgunMagazine
+{
+   Speed 3
+   Scale 1.0 
+   Radius 2
+   Height 2
+   +Missile
+   +DOOMBOUNCE
+   +DROPOFF
+   Scale 0.7
+   SeeSound "Magazine/Bounce"
+   States
+   {
+   Spawn:
+      MCLI ABCDEFGH 4 
+      loop
+   Death:
+	  MCLI G 240
+      MCLI G -1 
+      stop
+
+	Bullet_Janitor:
+	  MCLI G 1 A_FadeOut(0.005)
+	  Loop
+   }
+}
+
+
+Actor UziDeathClip : Auto-ShotgunMagazine
+{
+   Speed 3
+   Scale 1.0 
+   Radius 2
+   Height 2
+   +Missile
+   +DOOMBOUNCE
+   +DROPOFF
+   SeeSound "Clip/Bounce"
+   States
+   {
+   Spawn:
+      UZID ABCDEFG 4 
+      loop
+   Death:
+      UZID G -1 
+      stop      
+   }
+}
+
+
+Actor MachineDeathClip : Auto-ShotgunMagazine
+{
+   Speed 3
+   Scale 1.0 
+   Radius 2
+   Height 2
+   +Missile
+   +DOOMBOUNCE
+   +DROPOFF
+   SeeSound "Barrel/Thing"
+   States
+   {
+   Spawn:
+      RCSE ABCDEFG 4 
+      loop
+   Death:
+      RCSE G -1 
+      stop      
+   }
+}
+
+
+Actor PlasmaDeathClip : Auto-ShotgunMagazine
+{
+   Speed 3
+   Scale 0.2
+   Radius 2
+   Height 2
+   +Missile
+   +DOOMBOUNCE
+   +DROPOFF
+   SeeSound "Magazine/Bounce"
+   States
+   {
+   Spawn:
+      CELO ABCDE 4 
+      loop
+   Death:
+	  CELO A 240
+      CELO A -1 
+      stop
+
+	Bullet_Janitor:
+	  CELO A 1 A_FadeOut(0.005)
+	  Loop  
+   }
+}
+
+Actor CryoDeathClip : Auto-ShotgunMagazine
+{
+   Speed 12
+   Radius 1
+   Height 1
+   Scale 0.2
+   +Missile
+   +DOOMBOUNCE
+   +DROPOFF
+   SeeSound "DSCOUN"
+   States
+   {
+   Spawn:
+      ETNI ABCDEFGH 2
+      loop
+   Death:
+      ETNI C -1 
+      stop      
+	  ETNI G -1
+	  Stop
+   }
+}
+
+Actor U.A.CRifleDeathClip : Auto-ShotgunMagazine
+{
+   Speed 6
+   Radius 1
+   Height 1
+   Scale 0.7
+   +Missile
+   +DOOMBOUNCE
+   +DROPOFF
+   SeeSound "Magazine/Bounce"
+   States
+   {
+   Spawn:
+      ECL2 ABCDEFGH 2
+      loop
+   Death:
+	  ECL2 C 240
+      ECL2 C -1 
+      stop
+
+	Bullet_Janitor:
+	  ECL2 C 1 A_FadeOut(0.005)
+	  Loop
+   }
+}
+
+Actor DeagleDeathClip : Auto-ShotgunMagazine
+{
+   Speed 6
+   Radius 1
+   Height 1
+   Scale 1.0
+   +Missile
+   +DOOMBOUNCE
+   +DROPOFF
+   SeeSound "Clip/Bounce"
+   States
+   {
+   Spawn:
+      PCLI ABCDEFGH 2
+      loop
+   Death:
+	  PCLI C 240
+      PCLI C -1 
+      stop
+
+	Bullet_Janitor:
+	  PCLI C 1 A_FadeOut(0.005)
+	  Loop
+   }
+}
+
+
+
+
+
+
+
+
+//Bullet Case
+Actor RifleDeathBullet : Auto-ShotgunMagazine
+{
+   Speed 12
+   Radius 1
+   Height 1
+   Scale 0.15
+   +DOOMBOUNCE
+   - NOGRAVITY
+   +WINDTHRUST
+   +CLIENTSIDEONLY
+   +MOVEWITHSECTOR
+   +MISSILE
+   +NOBLOCKMAP
+   -DROPOFF
+   +NOTELEPORT
+   +FORCEXYBILLBOARD
+   +NOTDMATCH
+   +GHOST
+   Mass 1
+   SeeSound "Bullet/Bounce"
+   States
+   {
+   Spawn:
+      CAS3 ABCDEFGHI 2
+      loop
+   Death:
+      CAS3 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 6 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0)
+	  CAS3 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 8
+      CAS3 A -1 
+      stop
+
+	Bullet_Janitor:
+	  CAS3 A 1 A_FadeOut(0.005)
+	  Loop     
+   }
+}
+
+Actor BlackRifleDeathBullet : Auto-ShotgunMagazine
+{
+   Speed 12
+   Radius 1
+   Height 1
+   Scale 0.15
+   +DOOMBOUNCE
+   -NOGRAVITY
+   +WINDTHRUST
+   +CLIENTSIDEONLY
+   +MOVEWITHSECTOR
+   +MISSILE
+   +NOBLOCKMAP
+   -DROPOFF
+   +NOTELEPORT
+   +FORCEXYBILLBOARD
+   +NOTDMATCH
+   +GHOST
+   Mass 1
+   SeeSound "Bullet/Bounce"
+   States
+   {
+   Spawn:
+      CAS5 ABCDEFGHI 2 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0)
+      loop
+   Death:
+      CAS5 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 8 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0) 
+	  CAS5 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 8
+      CAS5 A -1
+      stop
+
+	Bullet_Janitor:
+	  CAS5 A 1 A_FadeOut(0.005)
+	  Loop   
+   }
+}
+
+
+Actor PistolDeathBullet : Auto-ShotgunMagazine
+{
+   Speed 12
+   Radius 1
+   Height 1
+   Scale 0.15
+   +DOOMBOUNCE
+   -NOGRAVITY
+   +WINDTHRUST
+   +CLIENTSIDEONLY
+   +MOVEWITHSECTOR
+   +MISSILE
+   +NOBLOCKMAP
+   -DROPOFF
+   +NOTELEPORT
+   +FORCEXYBILLBOARD
+   +NOTDMATCH
+   +GHOST
+   Mass 1
+   SeeSound "Bullet/Pistol"
+   States
+   {
+   Spawn:
+      MPB3 ABCDEFGHI 2 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0)
+      loop
+   Death:
+      MPB3 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 8 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0)
+      MPB3 A -1 
+      stop      
+   }
+}
+
+Actor BurningDeathBullet : Auto-ShotgunMagazine
+{
+   Speed 12
+   Radius 1
+   Height 1
+   Scale 0.15
+   +DOOMBOUNCE
+   -NOGRAVITY
+   +WINDTHRUST
+   +CLIENTSIDEONLY
+   +MOVEWITHSECTOR
+   +MISSILE
+   +NOBLOCKMAP
+   -DROPOFF
+   +NOTELEPORT
+   +FORCEXYBILLBOARD
+   +NOTDMATCH
+   +GHOST
+   Mass 1
+   SeeSound "Bullet/Pistol"
+   States
+   {
+   Spawn:
+      MP13 ABCDEFGHI 2 Bright 
+      loop
+   Death:
+      MP13 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 8 Bright 
+	  MP13 A 32
+      MP13 A -1 Bright
+      stop
+
+	Bullet_Janitor:
+	  MP13 A 1 A_FadeOut(0.005)
+	  Loop
+   }
+}
+
+
+Actor AnacondaDeathBullet : Auto-ShotgunMagazine
+{
+   Speed 4
+   Radius 1
+   Height 1
+   Scale 0.15
+   +DOOMBOUNCE
+   -NOGRAVITY
+   +WINDTHRUST
+   +CLIENTSIDEONLY
+   +MOVEWITHSECTOR
+   +MISSILE
+   +NOBLOCKMAP
+   -DROPOFF
+   +NOTELEPORT
+   +FORCEXYBILLBOARD
+   +NOTDMATCH
+   +GHOST
+   Mass 1
+   SeeSound "Bullet/Pistol"
+   States
+   {
+   Spawn:
+      MPB3 ABCDEFGHI 2 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0)
+      loop
+   Death:
+      MPB3 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 8 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0)
+      MPB3 A -1 
+      stop      
+   }
+}
+
+
+Actor DeathShell : Auto-ShotgunMagazine
+{
+   Speed 8
+   Radius 1
+   Height 1
+   Scale 0.2
+   +DOOMBOUNCE
+   -NOGRAVITY
+   +WINDTHRUST
+   +CLIENTSIDEONLY
+   +MOVEWITHSECTOR
+   +MISSILE
+   +NOBLOCKMAP
+   -DROPOFF
+   +NOTELEPORT
+   +FORCEXYBILLBOARD
+   +NOTDMATCH
+   +GHOST
+   Mass 1
+   SeeSound "Casin/Shell"
+   States
+   {
+   Spawn:
+      CAS2 ABCDEFGHI 4 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0)
+      loop
+   Death:
+      TNT1 A 0 A_Jump (125, "Death2","Death3","Death4","Death5","Death6")
+      CAS2 IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII 8 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0)
+	  CAS2 I 32
+      CAS2 I -1 
+      stop  
+   Death2:
+      CAS2 JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ 8 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0)
+	  CAS2 J 32
+     CAS2 J -1
+	  Stop
+   Death3:
+      CAS2 KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK 8 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0)
+	  CAS2 K 32
+      CAS2 K -1 
+      stop
+   Death4:
+      CAS2 LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL 8 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0)
+	  CAS2 L 32
+      CAS2 L -1 
+      stop
+   Death5:
+      CAS2 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM 8 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0)
+	  CAS2 M 32
+      CAS2 M -1 
+      stop
+   Death6:
+      CAS2 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN 8 A_SpawnItemEx("CasingSmokes",frandom(0.3,0.2),random(0,-1.0),0,0,0,frandom(0.5,0.1),0,SXF_CLIENTSIDE,0)
+	  CAS2 N 32
+      CAS2 N -1 
+      stop
+   
+   Bullet_Janitor1:
+	  CAS2 I 1 A_FadeOut(0.005)
+	  Loop
+
+   Bullet_Janitor2:
+	  CAS2 J 1 A_FadeOut(0.005)
+	  Loop
+
+   Bullet_Janitor3:
+	  CAS2 K 1 A_FadeOut(0.005)
+	  Loop
+
+   Bullet_Janitor4:
+	  CAS2 L 1 A_FadeOut(0.005)
+	  Loop
+
+   Bullet_Janitor5:
+	  CAS2 M 1 A_FadeOut(0.005)
+	  Loop
+
+   Bullet_Janitor6:
+	  CAS2 N 1 A_FadeOut(0.005)
+	  Loop
+   }
+}
+
+
+Actor DeathBlueShell : Auto-ShotgunMagazine
+{
+   Speed 8
+   Radius 1
+   Height 1
+   Scale 0.2
+   +DOOMBOUNCE
+   -NOGRAVITY
+   +WINDTHRUST
+   +CLIENTSIDEONLY
+   +MOVEWITHSECTOR
+   +MISSILE
+   +NOBLOCKMAP
+   -DROPOFF
+   +NOTELEPORT
+   +FORCEXYBILLBOARD
+   +NOTDMATCH
+   +GHOST
+   Mass 1
+   SeeSound "Casin/Shell"
+   States
+   {
+   Spawn:
+      CAS4 ABCDEFGHI 4
+      loop
+   Death:
+      TNT1 A 0 A_Jump (125, "Death2","Death3","Death4","Death5","Death6")
+      CAS4 I -1 
+      stop  
+   Death2:
+      CAS4 J -1
+	  Stop
+   Death3:
+      CAS4 K -1 
+      stop
+   Death4:
+      CAS4 L -1 
+      stop
+   Death5:
+      CAS4 M -1 
+      stop
+   Death6:
+      CAS4 N -1 
+      stop
+   }
+}
+
+Actor HeavyRifleAssaultClip : Auto-ShotgunMagazine
+{
+   Speed 8
+   Mass 100
+   Radius 1
+   Height 1
+   Scale 0.2
+   +DOOMBOUNCE
+   +DROPOFF
+   -Nogravity
+   SeeSound "Magazine/Bounce"
+   States
+   {
+   Spawn:
+      LGW1 ABCDEFGH 4
+      loop
+
+    Death:
+      TNT1 A 0 A_Jump (255, "Death1","Death2")
+	  Loop
+	Death1:
+      LGW1 I 200
+	  Loop
+	Death2:
+      LGW1 J 200
+      stop
+	Nos_Vemos1:
+	  LGW1 I 4 A_FadeOut(0.005)
+	  Loop
+	Nos_Vemos2:
+	  LGW1 J 4 A_FadeOut(0.005)
+	  Loop
+   }
+}
+
+
+
+Actor DeathBlackShell : Auto-ShotgunMagazine
+{
+   Speed 8
+   Radius 1
+   Height 1
+   Scale 0.2
+   +DOOMBOUNCE
+   -NOGRAVITY
+   +WINDTHRUST
+   +CLIENTSIDEONLY
+   +MOVEWITHSECTOR
+   +MISSILE
+   +NOBLOCKMAP
+   -DROPOFF
+   +NOTELEPORT
+   +FORCEXYBILLBOARD
+   +NOTDMATCH
+   +GHOST
+   Mass 1
+   SeeSound "Casin/Shell"
+   States
+   {
+   Spawn:
+      BSHC ABCDEFG 4
+      loop
+   Death:
+      TNT1 A 0 A_Jump (255, "Death2","Death3","Death4","Death5")
+      stop  
+   Death2:
+      BSHC C -1
+	  Stop
+   Death3:
+      BSHC E -1 
+      stop
+   Death4:
+      BSHC F -1 
+      stop
+   Death5:
+      BSHC G -1 
+      stop
+   }
+}
+
+//Case Spawn
+
+ACTOR BlackRifleCaseSpawn
+{
+	Speed 20
+	PROJECTILE
+	+NOCLIP
+	+CLIENTSIDEONLY
+	States
+	{
+	Spawn:
+        TNT1 A 0
+		TNT1 A 1 A_CustomMissile("BlackRifleDeathBullet",-5,0,random(-80,-100),2,random(45,80))
+		Stop
+	}
+}
+
+
+ACTOR RifleCaseSpawn(Alternate)
+{
+	Speed 20
+	PROJECTILE
+	+NOCLIP
+	+CLIENTSIDEONLY
+	States
+	{
+	Spawn:
+        TNT1 A 0
+		TNT1 A 1 A_CustomMissile("RifleDeathBullet",5,0,random(80,100),2,random(45,80))
+		Stop
+	}
+}
+
+ACTOR PistolCaseSpawn
+{
+	Speed 20
+	PROJECTILE
+	+NOCLIP
+	+CLIENTSIDEONLY
+	States
+	{
+	Spawn:
+        TNT1 A 0
+		TNT1 A 1 A_CustomMissile("PistolDeathBullet",0,0,random(-80,-100),2,random(40,60))
+		Stop
+	}
+}
+
+ACTOR BurningCaseSpawn
+{
+	Speed 20
+	PROJECTILE
+	+NOCLIP
+	+CLIENTSIDEONLY
+	States
+	{
+	Spawn:
+        TNT1 A 0
+		TNT1 A 1 A_CustomMissile("BurningDeathBullet",0,0,random(-80,-100),2,random(40,60))
+		Stop
+	}
+}
+
+
+
+
+ACTOR PistolCaseSpawn(Alternate)
+{
+	Speed 20
+	PROJECTILE
+	+NOCLIP
+	+CLIENTSIDEONLY
+	States
+	{
+	Spawn:
+        TNT1 A 0
+		TNT1 A 1 A_CustomMissile("PistolDeathBullet",5,0,random(80,100),2,random(45,80))
+		Stop
+	}
+}
+
+ACTOR RedShellCaseSpawn
+{
+	Speed 20
+	PROJECTILE
+	+NOCLIP
+	+CLIENTSIDEONLY
+	States
+	{
+	Spawn:
+        TNT1 A 0 
+		TNT1 A 1 A_CustomMissile("DeathShell",-5,0,random(-80,-100),2,random(45,80))
+		Stop
+	}
+}
+
+ACTOR BlueShellCaseSpawn
+{
+	Speed 20
+	PROJECTILE
+	+NOCLIP
+	+CLIENTSIDEONLY
+	States
+	{
+	Spawn:
+        TNT1 A 0
+		TNT1 A 1 A_CustomMissile("DeathBlueShell",-5,0,random(-80,-100),2,random(45,80))
+		Stop
+	}
+}
+
+ACTOR BlackShellCaseSpawn
+{
+	Speed 20
+	PROJECTILE
+	+NOCLIP
+	+CLIENTSIDEONLY
+	States
+	{
+	Spawn:
+        TNT1 A 0
+		TNT1 A 1 A_CustomMissile("DeathBlackShell",-5,0,random(-80,-100),2,random(45,80))
+		Stop
+	}
+}
+
+
+

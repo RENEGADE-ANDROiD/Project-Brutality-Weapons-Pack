@@ -1,0 +1,6 @@
+PB3.0_M1887 Winchester Shotgun Updated 12-30-2024
+-----------------------------------------
+Updated by decibel for the new PB 0.2.0 build
+-----------------------------------------
+Summon Command: Summon M1887
+-----------------------------------------

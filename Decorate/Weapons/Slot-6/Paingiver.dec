@@ -1,0 +1,492 @@
+Actor TrippleMissileFire : Inventory {Inventory.MaxAmount 1}
+
+Actor Paingiver : PB_Weapon
+{
+    Game Doom
+	SpawnID 3400
+    Weapon.BobRangeX 0.3
+    Weapon.BobRangeY 0.5
+    Weapon.BobStyle InverseSmooth
+    Weapon.BobSpeed 2.0
+	Weapon.AmmoUse1 0
+	Weapon.AmmoGive 10
+	Weapon.AmmoType "PB_RocketAmmo"
+    Obituary "Death By Paingiver. Ouch!"
+   +WEAPON.NOALERT
+   +WEAPON.NOAUTOAIM //Prevents the weapon from Autoaiming
+   +WEAPON.NOAUTOFIRE
+   +FLOORCLIP
+   +DONTGIB
+	Inventory.PickupMessage "You got the Paingiver! (Slot 6)"
+	Inventory.PickupSound "misc/rockboxa"
+	Inventory.Icon "W17PA0"
+	Weapon.SlotNumber 6
+	Weapon.SelectionOrder 2500
+	Scale 0.9
+	Tag "Paingiver"
+	Inventory.althudicon "W17PA0"
+	FloatBobStrength 0.5
+	States
+	{
+	Steady:
+	    TNT1 A 0
+	    Goto Ready
+
+	Ready:
+	    TNT1 A 0
+	SelectAnimation:
+	    TNT1 A 0 {
+		     A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
+		TNT1 A 0 A_PlaySound("weapons/sgl/inspect2", 1)
+		TNT1 A 0 A_PlaySound("rocket", 2)
+		TNT1 A 0 A_PlaySound("KICKSW", CHAN_AUTO)
+		TNT1 A 0 A_SetPitch(Pitch-0.2)
+		W17S C 1 A_SetPitch(Pitch-0.5)
+		W17S B 1 A_SetPitch(Pitch+0.5)
+		W17S A 1 A_SetPitch(Pitch+0.2)
+		TNT1 A 0 {
+		     return A_DoPBWeaponAction(WRF_NOFIRE);
+		     }
+        TNT1 A 0
+	Ready3:
+	    TNT1 A 0 {
+	         A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 }
+	    TNT1 A 0
+    PaingiverReadyToFire:
+		W17A A 1 {
+		     if (PressingFire() && CountInv("PB_RocketAmmo") > 0){
+		         return state("Fire");
+		     }
+		     return A_DoPBWeaponAction;
+		     }
+	    TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+	    Loop
+
+	Deselect:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 A_StopSound(CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("KICKSW", CHAN_AUTO)
+		TNT1 A 0 A_ZoomFactor(1.0)
+		W17S A 1 A_SetPitch(Pitch+0.5)
+		W17S B 1 A_SetPitch(Pitch+0.8)
+		W17S C 1 A_SetPitch(Pitch+0.5)
+		TNT1 A 0 A_SetPitch(Pitch-0.18)
+	ActualLower:
+		TNT1 A 0 A_Lower
+		Wait
+
+	Select:
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+	    TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+	    TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+	    TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+	    TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+	    TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		Goto SelectFirstPersonLegs
+		SelectContinue:
+		TNT1 A 0 
+		TNT1 A 0 A_Raise
+		Wait
+
+	NoAmmo:
+		W17A A 5 {
+		     A_ZoomFactor(1.0);
+		     A_TakeInventory("Zoomed",1);
+			 A_TakeInventory("ADSmode", 1);
+			 A_PlaySound("weapons/empty", 4);
+			 }
+	    W17A A 5 {
+			 A_SelectWeapon("PB_Pistol");
+			 }
+		TNT1 A 0
+		Goto Ready3
+
+	Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		     }
+		TNT1 A 0
+    FireOneMissile:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("PB_RocketAmmo", 1, 1)
+		Goto NoAmmo
+		TNT1 A 0 Bright { 
+		     A_FireCustomMissile("Alerter", 0, 0, 0, 0);
+			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
+			 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		     A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		     A_TakeInventory("PB_RocketAmmo", 1);
+			 }
+		TNT1 A 0 A_PlaySound("RLFIRE", CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("RLsweet", CHAN_VOICE)
+		W17F A 1 Bright A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 Bright {
+		     A_FireCustomMissile("RocketGlassBreaker", 0, 0, 0, 0);
+			 A_FireCustomMissile("Rocket", 0, 0, 0, 0);
+			 A_AlertMonsters;
+			 }
+		TNT1 A 0 A_ZoomFactor(0.90)
+		TNT1 A 0 A_Quake(2,12,0,400, "")
+		W17F B 1 A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 A_SetPitch(Pitch-0.5)
+		TNT1 A 0 A_ZoomFactor(0.95)
+		TNT1 A 0 A_SetAngle(random(-1.0, +1.0)+Angle)
+		W17F CD 1 A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 A_ZoomFactor(0.97)
+		TNT1 A 0 A_SetPitch(Pitch-1)
+		W17F EF 2 A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 A_ZoomFactor(0.99)
+		TNT1 A 0 A_SetPitch(Pitch+0.5)
+		W17F GH 2 A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 A_ZoomFactor(1)
+		TNT1 A 0 A_SetPitch(Pitch-1)
+		W17F I 2 A_DoPBWeaponAction(WRF_NOFIRE)
+		W17A A 8 A_DoPBWeaponAction(WRF_NOFIRE)
+		MISG B 0 A_ReFire
+		W17A A 1 A_DoPBWeaponAction
+		Goto PaingiverReadyToFire
+
+	AltFire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("TrippleMissileFire", 1, "AltFireThreeMissiles")
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 }
+		TNT1 A 0
+	AltFireThreeMissiles:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("PB_RocketAmmo", 1, 1)
+		Goto NoAmmo
+		TNT1 A 0 Bright { 
+		     A_FireCustomMissile("Alerter", 0, 0, 0, 0);
+			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
+		     A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		     A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		     A_TakeInventory("PB_RocketAmmo", 3);
+			 }
+		TNT1 A 0 A_PlaySound("RLFIRE2", 1)
+		W17F A 1 Bright A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 {
+		     A_FireCustomMissile("SeekerRocket", frandom(20, -20), 1, 0, 0,FPF_NOAUTOAIM, 0);
+			 A_AlertMonsters;
+			 }
+		TNT1 A 0 A_Quake(2,12,0,400, "")
+		TNT1 A 0 A_ZoomFactor(0.90)
+		W17F B 1 A_DoPBWeaponAction(WRF_NOFIRE)
+		W17F CDE 1 A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 A_JumpIfNoAmmo("FireEnd")
+		TNT1 A 0 A_PlaySound("RLFIRE2", CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("RLsweet", CHAN_VOICE)
+		TNT1 A 0 Bright {
+		     A_FireCustomMissile("Alerter", 0, 0, 0, 0);
+			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
+		     A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		     A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+			 }
+		W17F A 1 Bright A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 {
+		     A_FireCustomMissile("SeekerRocket", frandom(20, -20), 1, 0, 0,FPF_NOAUTOAIM, 0);
+			 A_AlertMonsters;
+			 }
+		TNT1 A 0 A_Quake(2,12,0,400, "")
+		W17F B 1 A_DoPBWeaponAction(WRF_NOFIRE)
+		W17F CDE 1 A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 A_JumpIfNoAmmo("FireEnd")
+		TNT1 A 0 A_PlaySound("RLFIRE2", CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("RLsweet", CHAN_VOICE)
+		TNT1 A 0 Bright {
+		     A_FireCustomMissile("Alerter", 0, 0, 0, 0);
+			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
+		     A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		     A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+			 }
+		W17F A 1 Bright A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 {
+		     A_FireCustomMissile("SeekerRocket", frandom(20, -20), 1, 0, 0,FPF_NOAUTOAIM, 0);
+			 A_AlertMonsters;
+			 }
+		TNT1 A 0 A_Quake(2,12,0,400, "")
+		W17F B 1 A_DoPBWeaponAction(WRF_NOFIRE)
+		W17F CDE 1 A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 A_JumpIfNoAmmo("FireEnd")
+		TNT1 A 0 A_PlaySound("RLFIRE2", CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("RLsweet", CHAN_VOICE)
+		TNT1 A 0 Bright {
+			 A_FireCustomMissile("Alerter", 0, 0, 0, 0);
+			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
+		     A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		     A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+			 }
+		TNT1 A 0
+	FireEnd:
+		TNT1 A 0 A_ZoomFactor(0.93)
+		TNT1 A 0 A_Quake(1,12,0,400, "")
+		W17F F 1 A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 A_SetPitch(Pitch-0.5)
+		TNT1 A 0 A_ZoomFactor(0.95)
+		TNT1 A 0 A_SetAngle(random(-1.0, +1.0)+Angle)
+		W17F G 1 A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 A_ZoomFactor(0.97)
+		TNT1 A 0 A_SetPitch(Pitch-1)
+		W17F HI 2 A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 A_ZoomFactor(0.99)
+		TNT1 A 0 A_SetPitch(Pitch+0.5)
+		W17A A 2 A_DoPBWeaponAction(WRF_NOFIRE)
+		TNT1 A 0 A_ZoomFactor(1)
+		TNT1 A 0 A_SetPitch(Pitch-1)
+		W17A A 8 A_DoPBWeaponAction(WRF_NOFIRE)
+		W17A A 8 A_DoPBWeaponAction(WRF_NOFIRE)
+		MISG B 0 A_ReFire
+		W17A A 1 A_DoPBWeaponAction
+		Goto PaingiverReadyToFire
+
+	Reload:	
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0
+		Goto PaingiverReadyToFire
+
+	Spawn:
+		W17P A 0 NoDelay 
+		W17P A 10 A_PBVPFramework("W17P")
+	   "####" "#" 0 A_PbvpInterpolate()
+		Loop
+
+	WeaponSpecial:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 A_Takeinventory("GoWeaponSpecialAbility",1);
+			 }
+		TNT1 A 0 A_Print("\ciForged From The Metal Smelting Pits Of The Golgothan Enclave: \cdThe Paingiver Is A Weapon Of Pure Malice Devised For A Singular Purpose - To Enact Suffering Upon The Weak!")
+		Goto PaingiverReadyToFire
+
+	FlashKicking:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_ClearOverlays(10,11)
+		W17A A 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		W17S B 1 A_DoPBWeaponAction
+		W17S C 6 A_DoPBWeaponAction
+		W17S B 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		Goto PaingiverReadyToFire
+
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_ClearOverlays(10,11)
+		W17A A 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		W17S B 1 A_DoPBWeaponAction
+		W17S C 7 A_DoPBWeaponAction
+		W17S B 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		Goto PaingiverReadyToFire
+
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_ClearOverlays(10,11)
+		W17A A 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		W17S B 1 A_DoPBWeaponAction
+		W17S C 13 A_DoPBWeaponAction
+		W17S B 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		Goto PaingiverReadyToFire
+
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_ClearOverlays(10,11)
+		W17A A 1 A_DoPBWeaponAction
+		Goto PaingiverReadyToFire
+
+	FlashPunching:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_ClearOverlays(10,11)
+		W17A A 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		W17S B 1 A_DoPBWeaponAction
+		W17S C 7 A_DoPBWeaponAction
+		W17S B 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		W17S A 1 A_DoPBWeaponAction
+		Stop
+
+	FlashPunchingStop:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_ClearOverlays(10,11)
+		W17A A 1 A_DoPBWeaponAction
+		Stop
+	}
+}
+
+Actor SeekerRocket : FastProjectile
+{
+	Radius 11
+	Height 8
+	Speed 30
+	Damage 30
+	Projectile
+   +FRIENDLY
+   +FORCEPAIN
+   +RANDOMIZE
+   +DEHEXPLOSION
+   +EXTREMEDEATH
+   +ROCKETTRAIL
+   +BOSS
+	DamageType Nodrop
+	SeeSound "weapons/rocklf"
+	DeathSound "rlboom"
+	Decal "Scorch"
+	States
+	{
+	 Spawn:
+		MISL A 0
+	 MissileFlying:
+	    TNT1 A 0 {
+			 If(WaterLevel < 1) {
+			 A_SpawnItemEx("RocketTrailSparks",-10,0,0,-5,0,0);
+			 }
+			 }
+		MISL A 0
+		M1SL ABCD 1 Bright {
+			 A_SpawnItemEx("SeekerFlare");
+			 A_SeekerMissile(7, 10, SMF_PRECISE|SMF_LOOK, 256, 10);
+			 A_SpawnItemEx("SeekerRocketSmokeTrail",-14,0,0,0,FRandom(-0.5,0.5),FRandom(-0.5,0.5),0,0,64);
+			 }
+		TNT1 A 0
+		Loop
+
+	 Death:
+	    MISL A 0
+		TNT1 A 0 A_StopSound(6)
+		EXPL A 0 {
+		     Radius_Quake (3, 16, 0, 15, 0);
+		     A_SpawnItem ("RicoChet", 0, -30);
+             A_SpawnItemEx ("DetectFloorCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+	         A_SpawnItemEx ("DetectCeilCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+	       //A_SpawnItemEx ("UnderwaterExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+		     }
+        TNT1 A 0 Bright {
+		     A_SpawnItemEx ("ExplosionFlareSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+		     A_SpawnItemEx ("RocketExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+		     A_SpawnItemEx ("NewRocketExploFX", 0, 0, 0);
+             A_CustomMissile ("ExplosionParticleHeavy", 0, 0, random (0, 360), 2, random (0, 180));
+             }
+		TNT1 A 0 Bright {
+		     A_CustomMissile ("ExplosionParticleHeavy", 0, 0, random (0, 360), 2, random (0, 360));
+		     A_CustomMissile ("ExplosionParticleVeryFast", 0, 0, random (0, 360), 2, random (0, 360));
+			 A_CustomMissile ("MediumExplosionFlames", 0, 0, random (0, 360), 2, random (0, 360));
+             A_CustomMissile ("ExplosionSmokeFast22", 0, 0, random (0, 360), 2, random (0, 360));
+			 }
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("FAREXPL", 3)
+		TNT1 A 20
+		Stop
+  }
+}
+
+Actor SeekerFlare
+{
+		Radius 6
+		Height 8
+		Scale 0.4
+	   +NOGRAVITY
+	   -SOLID
+	   +RANDOMIZE
+		RenderStyle Add
+		States
+		{
+		Spawn:
+		W17M A 2 Bright
+		Stop
+  }
+}
+
+Actor SeekerRocketSmokeTrail
+{
+    Scale 0.50
+    Speed 0
+    Alpha 0.11
+   -NOGRAVITY
+   -NOINTERACTION
+    Gravity 0.005
+    States
+    {
+    Spawn:
+		TNT1 A 0
+        PUF2 EEFGHIJK 4 A_FadeOut(0.005)
+        PUF2 LMNOPQRSTUVWXYZ 4 A_FadeOut(0.005)
+        PUF3 ABC 2 A_FadeOut(0.005)
+		Goto Death
+	Death:
+        TNT1 A 0
+        Stop
+  }
+}

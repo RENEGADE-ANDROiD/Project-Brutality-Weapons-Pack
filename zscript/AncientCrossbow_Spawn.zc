@@ -1,0 +1,10 @@
+class AncientCrossbowSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_BFGSpawnerT1', 'AncientCrossbow', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT2', 'AncientCrossbow', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT3', 'AncientCrossbow', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT4', 'AncientCrossbow', 255, 1);
+	}
+}

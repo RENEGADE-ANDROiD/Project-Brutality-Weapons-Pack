@@ -1,0 +1,859 @@
+// --------------------------------------------------------------------------
+//
+//  New Minigun
+//
+// --------------------------------------------------------------------------
+ACTOR MGExplosiveUpgrade : PB_UpgradeItem
+{
+//$Category Ammunition
+	SpawnID 9310
+	Game Doom
+	Height 24
+	+INVENTORY.ALWAYSPICKUP
+	+COUNTITEM
+	Inventory.Pickupsound "MS_PCKP"
+	Inventory.PickupMessage "UAC MG-X-134 -;{Destroyer Hungry};- (Slot 5, Upgrade Weapon Special)"
+	Scale 0.95
+	FloatBobStrength 0.5
+	Tag "UAC MG-X-134 - Destroyer Hungry"
+	States
+	{
+
+	Spawn:
+		FSTR ABCDEDCBA 1 BRIGHT Light("WeaponUpgradeSpawner")
+		LOOP
+	
+    Pickup:
+		TNT1 A 0
+		{
+		A_GiveInventory("INMGUpgrade", 1);
+		A_GiveInventory("PB_HighCalMag", 100);
+		A_GiveInventory("INMinigun",1);
+		}
+		Stop
+	}
+}
+
+Actor INMGUpgrade : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR INMiniGun: PB_Weapon 19443
+{
+Weapon.SelectionOrder 700
+Weapon.AmmoType1 "PB_HighCalMag"
+Weapon.AmmoGive 60
+Weapon.AmmoUse1 0
+
++WEAPON.NOAUTOAIM
++WEAPON.NOAUTOFIRE
++FORCEXYBILLBOARD
++WEAPON.NO_AUTO_SWITCH
+
+Weapon.SlotNumber 5
+Weapon.SlotPriority 1
+Inventory.PickupSound "CHGNPKUP"
+Inventory.PickupMessage "UAC MG-134 -;(Lady Hungry);- (Slot 5)"
+Obituary "%o was mowed down by %k's Minigun."
+AttackSound "none"
+Tag "UAC MG-134 - Lady Hungry"
+PB_WeaponBase.RespectItem "INMGRespect"
+Scale 0.9
+//$Category Weapons/Heavy Weapons
+States
+{
+  Spawn:
+    CRIC A -1
+    Stop
+    
+    Steady:
+		TNT1 A 1
+		Goto Ready
+
+	SelectReady:
+	Ready: 
+	  TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+	  TNT1 A 0 PB_RespectIfNeeded
+	WeaponRespect:
+	  TNT1 A 0 A_GiveInventory("INMGRespect", 1)
+	  CGPK ABCDE 1
+	  TNT1 A 0 A_PlaySound("MWUP")
+      CGLX ABCD 2
+	  CGLX ABCD 1
+	  TNT1 A 0 A_PlaySound("MWDOWN")
+	  TNT1 A 0 A_StopSound(6)
+	  TNT1 A 0 A_StopSound(3)
+	  TNT1 A 0 A_StopSound(1)
+	  TNT1 A 0 A_PlaySound("DryFire/Rifle")
+	  CGLX ABCD 1
+	  TNT1 A 0 A_PlaySound("DryFire/Rifle")
+	  CGLX ABCDABCD 2 A_DoPBWeaponAction
+	  CGLX ABCD 3 A_DoPBWeaponAction
+	  TNT1 A 0 A_PlaySound("weapons/smg_magfly1")
+	  CGPK EDCBA 1
+	LoadingMag:
+		LMGI ABC 2 
+		4XFG A 0 A_PlaySound("RELO1")
+		LMGI DEFGHI 2 
+		4XFG A 0 A_PlaySound("BELT1")
+		LMGI JKLMNOPQR 2 
+		BADF A 0 A_PlaySound("BELT2")
+		LMGI STU 2 
+		BADF A 0 A_PlaySound("GRNTOSS")
+		LMG1 ABCDEFGGG 1 
+		LMGL P 0 A_playsound("MAGTHUD",1)
+		LMG1 HIJKLMNOP 1
+		TNT1 A 0 A_GiveInventory("PB_HighCalMag",200)
+	SelectAnimation:
+      CGPK ABCDE 1 A_JumpIfInventory("GoFatality", 1, "Steady")
+      TNT1 A 0 A_PlaySound("HMGUP")
+      TNT1 AAAAAAAAAAA 0
+      
+	Ready3:
+	RealReady:
+	Idle:
+	  TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+      CGLX A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+      TNT1 A 0 A_JumpIfInventory("Spin",1,"Ready2")
+	  TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,"Idle")
+      Goto IdleNoAmmo
+
+	IdleNoAmmo:
+	  CGLX A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+	  TNT1 A 0 A_TakeInventory ("Spin",1)
+	  TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,"Idle")
+	  Loop
+
+	GoToSpin:
+	  TNT1 A 0 A_PlaySound("MSLOOP", 6,1,1)
+	Ready2:
+      TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+      CGLX ABCD 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+	  TNT1 A 0 A_AlertMonsters
+      Loop
+
+	Deselect:
+	  TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	  TNT1 A 0 A_Takeinventory("RandomHeadExploder",1)
+	  TNT1 A 0 A_StopSound(6)
+	  TNT1 A 0 A_StopSound(3)
+	  TNT1 A 0 A_StopSound(1)
+	  CGPK EDCBA 1
+	  TNT1 A 0 A_TakeInventory ("Spin",1)
+	  TNT1 A 0 A_Takeinventory("RandomHeadExploder",1)
+	  TNT1 A 0 SetPlayerProperty(0,0,0)
+	  TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+	  TNT1 A 1
+	  Wait
+
+    Select:
+	    TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		Goto SelectFirstPersonLegs
+		SelectContinue:
+		TNT1 A 0 A_Giveinventory("RandomHeadExploder",1)
+		TNT1 A 0 A_Takeinventory("HasUnloaded",1)
+		TNT1 A 0 A_Takeinventory("Unloading",1)
+		TNT1 AAAAAAAAAAAAAA 0 A_Raise
+		Goto Ready
+
+	NoAmmoFiring:
+    NoAmmo:
+		TNT1 A 0 A_PlaySound("MWDOWN")
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_StopSound(3)
+		TNT1 A 0 A_StopSound(1)
+        CGLX A 10 A_PlaySound("weapons/empty")
+        Goto IdleNoAmmo
+        
+    Reload:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("HasBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("HasFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("HasIceBarrel", 1, "IdleIceBarrel")
+		Goto Ready3
+
+	AltFire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+// 			A_GiveInventory("PB_LockScreenTilt",1);
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+      TNT1 A 0 A_JumpIfInventory("Spin",1,"StopAlt")
+      TNT1 A 0 A_GiveInventory ("Spin",1)
+      //TNT1 A 0 SetPlayerProperty(0,1,0)
+      TNT1 A 0 A_PlaySound("MWUP")
+
+      CGLX ABCD 2
+	  CGLX ABCD 1
+	  TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,1)
+	  Goto IdleNoAmmo
+      TNT1 AA 0
+      Goto GoToSpin
+
+	StopAlt:
+		TNT1 A 0
+		TNT1 A 0 A_TakeInventory ("Spin",1)
+		TNT1 A 0 A_PlaySound("MWDOWN")
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_StopSound(3)
+		TNT1 A 0 A_StopSound(1)
+		//TNT1 A 0 SetPlayerProperty(0,0,0)
+		CGLX ABCD 1
+		CGLX ABCDABCD 2 A_DoPBWeaponAction
+		CGLX ABCD 3 A_DoPBWeaponAction
+		TNT1 A 0
+		goto RealReady
+		
+	Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+// 			A_GiveInventory("PB_LockScreenTilt",1);
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+	    TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("HMIGMode",1,"HighFire")
+		TNT1 A 0 A_JumpIfInventory("Spin",1,"Fire2")
+		TNT1 A 0 A_PlaySound("MWUP", 3)
+		TNT1 A 0 BRIGHT A_FireCustomMissile("Alerter", 0, 0, 0, 0)
+		CGLX BC 2
+		CGLX D 2
+		CGLX BC 1
+		CGLX D 1
+		CGLX BC 1
+		CGLX D 1
+        TNT1 A 0
+
+    Hold:
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+		TNT1 A 0 A_JumpIfInventory("Spin",1,"Fire2")
+		
+        TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+		TNT1 A 0 PB_WeaponRecoil(-0.15,-0.15) //(-0.5 + pitch)
+		
+		//TNT1 A 0 A_CustomMissile ("Rocket", 0, 0, 15, 2)
+		
+	ContinueFire:
+		
+        TNT1 A 0 A_PlaySound("MSLOOP", 6,1,1)
+	
+		TNT1 A 0 A_PlaySound("DSMINIGV", 1, 1, 1)
+
+
+        CGLF A 1 BRIGHT {
+	        PB_FireOffset;
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+			else { 
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+		}
+
+		//TNT1 A 0 A_SpawnItem("DistantMinigunFireSound", 0, 0, 0)
+        TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+        
+		TNT1 A 0 {
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+
+		CGLX A 1 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmoFiring
+        TNT1 AAAA 0
+
+        CGLF B 1 BRIGHT {
+	        PB_FireOffset;
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+			else { 
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+		}
+		
+		//TNT1 A 0 A_SpawnItem("DistantMinigunFireSound", 0, 0, 0)
+        TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+        
+		TNT1 A 0 {
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+
+		CGLX B 1 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmoFiring
+        TNT1 AAAA 0
+
+        CGLF C 1 BRIGHT {
+	        PB_FireOffset;
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+			else { 
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+		}
+
+		//TNT1 A 0 A_SpawnItem("DistantMinigunFireSound", 0, 0, 0)
+        TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+        
+		TNT1 A 0 {
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+
+		CGLX C 1 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmoFiring
+        TNT1 AAAA 0
+
+	    CGLF D 1 BRIGHT {
+			PB_FireOffset;
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+			else { 
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+		}
+
+		//TNT1 A 0 A_SpawnItem("DistantMinigunFireSound", 0, 0, 0)
+        TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+        
+		TNT1 A 0 {
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+
+		CGLX D 1 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmoFiring
+        TNT1 AAAA 0
+
+        MNGG B 0 A_ReFire("ContinueFire")
+
+		TNT1 A 0 A_PlaySound("MWDOWN")
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_StopSound(3)
+		TNT1 A 0 A_StopSound(1)
+		
+		CGLX A 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX B 1 A_DoPBWeaponAction
+		TNT1 A 0 A_Refire
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX C 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX D 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)		
+
+		CGLX A 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX B 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX C 2 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX D 2 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+      
+		TNT1 A 0 A_TakeInventory("Spin", 1)
+	 
+		CGLX A 2
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX B 2
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX C 2 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX D 2 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX ABCD 2 A_DoPBWeaponAction
+		CGLX ABCD 3 A_DoPBWeaponAction
+	 
+	 StopFiring:
+     goto RealReady
+
+	HighFire:
+		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+	    TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("Spin",1,"Fire2")
+		TNT1 A 0 A_PlaySound("MWUP", 3)
+		TNT1 A 0 BRIGHT A_FireCustomMissile("Alerter", 0, 0, 0, 0)
+		CGLX BC 2
+		CGLX D 2
+		CGLX BC 1
+		CGLX D 1
+		CGLX BC 1
+		CGLX D 1
+        TNT1 A 0
+
+    Hold2:
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+		TNT1 A 0 A_JumpIfInventory("Spin",1,"Fire2")
+		
+        TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+		TNT1 A 0 PB_WeaponRecoil(-0.15,-0.15) //(-0.5 + pitch)
+		
+		//TNT1 A 0 A_CustomMissile ("Rocket", 0, 0, 15, 2)
+		
+	ContinueFire2:
+		
+        TNT1 A 0 A_PlaySound("MSLOOP", 6,1,1)
+	
+		TNT1 A 0 A_PlaySound("DSMINIGV", 1, 1, 1)
+		TNT1 A 0 PB_FireOffset
+        CGLF A 1 BRIGHT A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
+        TNT1 A 0 A_FireCustomMissile("HMGExplosiveProjectile", 0, 0, 0, 0)
+
+		//TNT1 A 0 A_SpawnItem("DistantMinigunFireSound", 0, 0, 0)
+        TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+        
+		//TNT1 A 0 BRIGHT A_FireCustomMissile("Tracer", random(-3,3), 0, -1, -12, 0, random(-3,3))
+		TNT1 A 0 {
+			PB_FireOffset;
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+
+		CGLX A 1 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmoFiring
+        TNT1 AAAA 0
+
+        CGLF B 1 BRIGHT A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
+        TNT1 A 0 A_FireCustomMissile("HMGExplosiveProjectile", 0, 0, 0, 0)
+		
+		//TNT1 A 0 A_SpawnItem("DistantMinigunFireSound", 0, 0, 0)
+        TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+        
+		//TNT1 A 0 BRIGHT A_FireCustomMissile("Tracer", random(-3,3), 0, -1, -12, 0, random(-3,3))
+		TNT1 A 0 {
+			PB_FireOffset;
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+
+		CGLX B 1 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmoFiring
+        TNT1 AAAA 0
+
+        CGLF C 1 BRIGHT A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
+        TNT1 A 0 A_FireCustomMissile("HMGExplosiveProjectile", 0, 0, 0, 0)
+
+		//TNT1 A 0 A_SpawnItem("DistantMinigunFireSound", 0, 0, 0)
+        TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+        
+		//TNT1 A 0 BRIGHT A_FireCustomMissile("Tracer", random(-3,3), 0, -1, -12, 0, random(-3,3))
+		TNT1 A 0 {
+			PB_FireOffset;
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+
+		CGLX C 1 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmoFiring
+        TNT1 AAAA 0
+
+	    CGLF D 1 BRIGHT A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
+		TNT1 A 0 A_FireCustomMissile("HMGExplosiveProjectile", 0, 0, 0, 0)
+
+		//TNT1 A 0 A_SpawnItem("DistantMinigunFireSound", 0, 0, 0)
+        TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+        
+		//TNT1 A 0 BRIGHT A_FireCustomMissile("Tracer", random(-3,3), 0, -1, -12, 0, random(-3,3))
+		TNT1 A 0 {
+			PB_FireOffset;
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+
+		CGLX D 1 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmoFiring
+        TNT1 AAAA 0
+
+        MNGG B 0 A_ReFire("ContinueFire2")
+
+		TNT1 A 0 A_PlaySound("MWDOWN")
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_StopSound(3)
+		TNT1 A 0 A_StopSound(1)
+		
+		CGLX A 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX B 1 A_DoPBWeaponAction
+		TNT1 A 0 A_Refire
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX C 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX D 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)		
+
+		CGLX A 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX B 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX C 2 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX D 2 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+      
+		TNT1 A 0 A_TakeInventory("Spin", 1)
+	 
+		CGLX A 2
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX B 2
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX C 2 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX D 2 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		CGLX ABCD 2 A_DoPBWeaponAction
+		CGLX ABCD 3 A_DoPBWeaponAction
+	 
+	 StopFiring2:
+     goto RealReady
+	
+	Fire2:
+		TNT1 A 0 A_JumpIfInventory("HMIGMode",1,"HighFire2")
+		TNT1 A 0 A_PlaySound("DSMINIGF", 1, 1, 1)
+        TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		////TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		
+        CGLF A 1 BRIGHT {
+	        PB_FireOffset;
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+			else { 
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+		}
+		
+		TNT1 A 0 {
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+			
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+
+		//TNT1 A 0 A_SpawnItem("DistantMinigunFireSound", 0, 0, 0)
+		
+        CGLF B 1 BRIGHT {
+	        PB_FireOffset;
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+			else { 
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+		}
+		
+		TNT1 A 0 {
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+		
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+
+		TNT1 A 0
+		
+        CGLF C 1  BRIGHT {
+	        PB_FireOffset;
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+			else { 
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+		}
+		
+		TNT1 A 0 {
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+		
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+		
+		TNT1 A 0 PB_WeaponRecoil(-0.15,-0.15) //(-0.5 + pitch)
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+		RIFF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+		////TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+
+        CGLF D 1 BRIGHT {
+	        PB_FireOffset;
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+			else { 
+				A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+		}
+		
+		TNT1 A 0 {
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+		
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+
+		TNT1 A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,27)
+		//TNT1 A 0 A_SpawnItem("DistantMinigunFireSound", 0, 0, 0)
+		TNT1 A 0
+        
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+
+        W10F B 0 A_ReFire
+		
+		TNT1 A 0 A_StopSound(3)
+		TNT1 A 0 A_StopSound(1)
+		
+		CGLX A 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+
+		CGLX B 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+
+		CGLX C 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+
+		CGLX D 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+        goto Ready2
+        
+    HighFire2:
+		TNT1 A 0 A_PlaySound("DSMINIGF", 1, 1, 1)
+        TNT1 A 0 A_Recoil(0.1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		////TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 PB_FireOffset
+        CGLF A 1 BRIGHT A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
+        CGLF A 0 A_FireCustomMissile("HMGExplosiveProjectile", 0, 0, 0, 0)
+        
+        TNT1 A 0 {
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+		
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+
+		TNT1 A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,27)
+		//TNT1 A 0 A_SpawnItem("DistantMinigunFireSound", 0, 0, 0)
+		
+        CGLF B 1 BRIGHT A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
+        CGLF A 0 A_FireCustomMissile("HMGExplosiveProjectile", 0, 0, 0, 0)
+		//TNT1 A 0 A_FireCustomMissile("Tracer", random(-3,3), 0, -1, -12, 0, random(-3,3))
+		
+		TNT1 A 0 {
+			PB_FireOffset;
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+		
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+
+		TNT1 A 0
+		
+        CGLF C 1  BRIGHT A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
+        CGLF A 0 A_FireCustomMissile("HMGExplosiveProjectile", 0, 0, 0, 0)
+        
+        TNT1 A 0 {
+	        PB_FireOffset;
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+		
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+		
+		TNT1 A 0 PB_WeaponRecoil(-0.15,-0.15) //(-0.5 + pitch)
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+		RIFF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+		////TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+
+        CGLF D 1 BRIGHT A_FireProjectile("PB_762x51mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
+        CGLF A 0 A_FireCustomMissile("HMGExplosiveProjectile", 0, 0, 0, 0)
+        
+        TNT1 A 0 {
+	        PB_FireOffset;
+			A_Firecustommissile("FiftyCaseSpawn",0,0,-12,-18);
+			A_Firecustommissile("MiniBeltPieceSpawn",0,0,-12,-18);}
+
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+
+		TNT1 A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,27)
+		//TNT1 A 0 A_SpawnItem("DistantMinigunFireSound", 0, 0, 0)
+		TNT1 A 0
+        
+		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(random(1, -1) + angle)
+
+        W10F B 0 A_ReFire
+		
+		TNT1 A 0 A_StopSound(3)
+		TNT1 A 0 A_StopSound(1)
+		
+		CGLX A 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+
+		CGLX B 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+
+		CGLX C 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+
+		CGLX D 1 A_DoPBWeaponAction
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+        goto Ready2
+        
+    SwitchToNormal:
+	    TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+		TNT1 A 0 A_Print("Normal Mode")
+		TNT1 A 0 A_TakeInventory("HMIGMode",1)
+		TNT1 A 0 A_PlaySound("LIGHTON")
+		Goto Ready3
+        
+    WeaponSpecial:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 A_JumpIfInventory("INMGUpgrade",1,"ItHas")
+		TNT1 A 0 A_PlaySound("NOUPGRD")
+		TNT1 A 0 A_Print("\cu Missing Explosive Components Upgrade.")
+		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+		Goto Ready3
+		
+	ItHas:
+		TNT1 A 0 A_JumpIfInventory("HMIGMode",1,"SwitchToNormal")
+		TNT1 A 0 A_Print("High Explosive Ordinance Mode")
+		TNT1 A 0 A_GiveInventory("HMIGMode",1)
+		TNT1 A 0 A_PlaySound("LIGHTON")
+		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+		Goto Ready3
+		
+	FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		CGPK EDCB 2
+		CGPK B 6
+		CGPK CDE 1
+		Goto Ready3
+		
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+		CGPK EDCB 2
+		CGPK B 8
+		CGPK CDE 1
+		Goto Ready3
+		
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		CGPK ED 2
+		CGPK CBBBBBBB 2
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		CGPK CDE 1
+		Goto Ready3
+		
+
+	}
+}
+ACTOR HMIGMode : Inventory {Inventory.MaxAmount 1}
+ACTOR INMGRespect : Inventory {Inventory.MaxAmount 1}

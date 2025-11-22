@@ -1,0 +1,465 @@
+Actor TechBlaster : PB_Weapon
+{
+   Height 12
+   Weapon.SelectionOrder 7980
+   Weapon.KickBack 60
+   Weapon.AmmoUse1 0
+   Weapon.AmmoUse2 0
+   Weapon.AmmoGive 90
+   Weapon.AmmoGive2 180
+   Scale 1
+   Weapon.AmmoType1 "PB_DTech"   
+   Weapon.AmmoType2 "TechBlasterMagazine"
+   Weapon.SlotNumber 0
+	Weapon.SlotPriority 0
+   Inventory.PickupMessage "Wait How did...? Demon-Tech Atomizer? (Slot-0)" 
+   Inventory.PickupSound "TechBlaster/PickUp"
+   Obituary "%o was dematerialized by %k's Demon Tech Atomizer"
+   Tag "Demon-Tech Atomizer"
+   +WEAPON.AMMO_OPTIONAL
+   +WEAPON.NOALERT
+   +Weapon.NoAutoAim
+   +Weapon.NoAutoFire
+   +FORCEXYBILLBOARD
+   States
+   {
+   Steady:
+	TNT1 A 1
+	Goto Ready
+   
+	Ready:
+	 TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
+	SelectAnimation:
+	 TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+     TNT1 A 0 A_PlayWeaponSound("HRReady")
+	 TNT1 A 0 A_JumpIfInventory("TechBlasterMagazine",3,1)
+	 Goto ReadyEmpty
+	 DTGL ONBHV 1
+	 Goto ReadyLoop
+	ReadyEmpty:
+	 DTGE ONBHV 1
+	 Goto NoBuzzing
+	Ready3:
+	TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+	TNT1 A 0 {
+				A_TakeInventory("PB_LockScreenTilt",1);
+				PB_HandleCrosshair(39);
+				}
+	ReadyLoop:
+	 TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+	 TNT1 A 0 A_JumpIfInventory("TechBlasterMagazine",3,1)
+	 Goto NoBuzzing
+	 TNT1 A 0 A_PlaySound("TechBlaster/Idle",5,0.4,1)
+	 DTGA A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+	 TNT1 A 0 A_JumpIfInventory("TechBlasterMagazine",3,1)
+	 Goto NoBuzzing
+	 DTGA A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+	 Loop
+	
+JustFired:
+	TNT1 A 0 A_JumpIfInventory("AdjBlastFast",1,"JustNow")
+	DTGA A 5
+	Goto ReadyLoop
+JustNow:
+	DTGA A 0
+	Goto ReadyLoop
+	NoBuzzing:
+	 TNT1 A 0 A_StopSound(5)
+	 TNT1 A 0 A_JumpIfInventory("TechBlasterMagazine",3,"ReadyLoop")
+     DTGE A 1 A_DoPBWeaponAction
+	 Loop
+   Deselect:
+     TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	 TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	 TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	 TNT1 A 0 {
+				A_WeaponOffset(0,32);
+				A_SetRoll(0);
+				PB_HandleCrosshair(39);
+				A_TakeInventory("PB_LockScreenTilt",1);
+			}
+     TNT1 A 0 A_PlayWeaponSound("weapons/weapondown")
+	 TNT1 A 0 A_StopSound(5)
+Deselecting:
+	 DTGA A 0 A_Lower
+     Loop
+   Select:
+   TNT1 A 0 {
+				A_WeaponOffset(0,32);
+				A_SetRoll(0);
+				PB_HandleCrosshair(39);
+				A_TakeInventory("PB_LockScreenTilt",1);
+			}
+    TNT1 A 0 A_TakeInventory("HasBarrel",1)
+	TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+	TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+	TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+	TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+	TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+	Goto SelectFirstPersonLegs
+	SelectContinue:
+	 DTGA A 0 A_Raise
+	 Wait
+   Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+// 			A_GiveInventory("PB_LockScreenTilt",1);
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			A_SetCrosshair(39);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+	TNT1 A 0 A_JumpIfInventory ("TechBlasterMagazine", 3, 2)
+	 TNT1 A 0 A_StopSound(5)
+     Goto Reload
+     TNT1 A 0 PB_FireOffset
+     TNT1 A 0 A_JumpIfInventory("AdjBlastFast",1,"FastFire")
+	 TNT1 A 0 A_AlertMonsters
+     TNT1 A 0 A_GunFlash
+	 //TNT1 A 0 Radius_Quake(6,4,0,2,0)
+     TNT1 A 0 A_Light1
+	 TNT1 A 0 A_PlaySound("TechBlaster/Fire",1)
+	 DTGA B 2 Bright {
+			//A_RailAttack(200,0,0,"None","None",RGF_SILENT|RGF_FULLBRIGHT,0,"ChargedMicrowavePuff",0,0,8192,0,15,1.0,"GaussTrailUber",-5); //to spawn the trail
+			A_FireProjectile("TechBlasterBeam",0,0,0,0);}
+	 TNT1 A 0 A_TakeInventory("TechBlasterMagazine",3)
+     DTGA C 1 Bright
+	 DTGB N 1 Bright
+     TNT1 A 0 A_ReFire
+     Goto JustFired
+     
+   FastFire:
+	 TNT1 A 0 A_AlertMonsters
+     TNT1 A 0 A_GunFlash
+	 //TNT1 A 0 Radius_Quake(6,4,0,2,0)
+     TNT1 A 0 A_Light1
+	 TNT1 A 0 A_PlaySound("TechBlaster/Fire",1)
+	 DTGA B 1 Bright {
+			//A_RailAttack(200,0,0,"None","None",RGF_SILENT|RGF_FULLBRIGHT,0,"ChargedMicrowavePuff",0,0,8192,0,15,1.0,"GaussTrailUber",-5); //to spawn the trail
+			A_FireProjectile("TechBlasterBeam",0,0,0,0);}
+	 TNT1 A 0 A_TakeInventory("TechBlasterMagazine",3)
+     DTGA C 1 Bright
+	 DTGB N 1 Bright
+     TNT1 A 0 A_ReFire
+     Goto JustFired
+   AltFire:
+   TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			PB_HandleCrosshair(39);
+			A_TakeInventory("PB_LockScreenTilt",1);
+			A_ClearOverlays(10,11);
+		}
+	TNT1 A 0 A_JumpIfInventory ("TechBlasterMagazine", 1, 2)
+	 TNT1 A 0 A_StopSound(5)
+     Goto Reload
+     TNT1 A 0 PB_FireOffset
+     TNT1 A 0 A_JumpIfInventory("AdjBlastFast",1,"FastAltFire")
+	 TNT1 A 0 A_AlertMonsters
+     TNT1 A 0 A_GunFlash
+	 //TNT1 A 0 Radius_Quake(6,4,0,2,0)
+     TNT1 A 0 A_Light1
+	 TNT1 A 0 {
+		A_PlaySound("TechBlaster/Fire",1);
+		A_PlaySoundEX("HRFire", CHAN_WEAPON);}
+	 DTGA B 2 Bright {
+		A_FireProjectile("BlasterSeekerBeam",0,0,0,0);
+		A_TakeInventory("TechBlasterMagazine",1);}
+     DTGA C 1 Bright
+	 DTGB N 1 Bright
+     TNT1 A 0 A_ReFire
+     Goto JustFired
+     
+  FastAltFire:
+	 TNT1 A 0 A_JumpIfInventory ("TechBlasterMagazine", 2, 2)
+	 TNT1 A 0 A_StopSound(5)
+     Goto Reload
+     TNT1 A 0 A_AlertMonsters
+     TNT1 A 0 A_GunFlash
+	 //TNT1 A 0 Radius_Quake(6,4,0,2,0)
+     TNT1 A 0 A_Light1
+	 TNT1 A 0 {
+		A_PlaySound("TechBlaster/Fire",1);
+		A_PlaySoundEX("HRFire", CHAN_WEAPON);}
+	 DTGA B 1 Bright {
+		A_FireProjectile("BlasterSeekerBeam",0,0,0,0);
+		A_FireProjectile("BlasterSeekerBeam",0,0,0,0);
+		A_TakeInventory("TechBlasterMagazine",2);}
+     DTGA C 1 Bright
+	 DTGB N 1 Bright
+     TNT1 A 0 A_ReFire
+     Goto JustFired
+     
+   Empty:
+   NoAmmo:
+     DTGE A 10 A_PlayWeaponSound("weapons/click2")
+	Goto Ready3
+	
+	NoReload:
+	Goto ReadyLoop
+    
+	Reload:
+      TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	  TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	  TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	  TNT1 A 0 A_ClearReFire
+	  TNT1 A 0 A_Takeinventory("Reloading",1)
+	  TNT1 A 0 A_JumpIfInventory("TechBlasterMagzine",60,"NoReload") //Didn't Getting Probably nothing.
+      TNT1 A 0 A_JumpIfInventory("PB_DTech",3,1)
+	  Goto NoAmmo
+	  TNT1 A 0 A_JumpIfInventory("AdjBlastFast",1,"ActualFastReload")
+	  TNT1 A 0 A_JumpIfInventory("TechBlasterMagzine",60,"NoReload")
+	  RNLG A 0 A_PlaySound("toolbox/off", 6)
+	  DTGA D 4
+	  DTGA L 5
+	  DTGA I 5 A_PlaySound("TechBlaster/Unload",1)
+	  TNT1 A 0 A_StopSound(5)
+	  DTGA I 1 A_PlaySound("TechBlaster/Tsss",0)
+	  DTGA J 2 Radius_Quake(2,2,0,1,0)
+	  DTGA O 2 Radius_Quake(2,2,0,1,0)
+	  DTGA E 3 Radius_Quake(2,2,0,1,0)
+	  DTGA R 4 
+	  DTGA M 3
+	  DTGA N 3
+	  DTGA P 20
+	  DTGA Z 3
+	  TNT1 A 0 A_PlaySound("TechBlaster/LoadIn",0)
+	  DTGA X 3 A_PlaySound("TechBlaster/Online",1)
+	  DTGA V 4
+	  //DTGA T 3
+      DTGA J 9
+	  DTGA K 5
+	  DTGA U 5
+	  DTGA A 2
+	InsertBullets:
+		TNT1 A 0 PB_AmmoIntoMag("TechBlasterMagazine", "PB_DTech", 60, 1)
+        Goto ReadyLoop
+	
+ ActualFastReload:
+	 TNT1 A 0 A_JumpIfInventory("TechBlasterMagzine",60,"NoReload")
+      TNT1 A 0 A_JumpIfInventory("PB_DTech",3,1)
+	  Goto NoAmmo
+	 TNT1 A 0 A_JumpIfInventory("TechBlasterMagzine",60,"NoReload") //Didn't Getting Probably nothing.
+	 RNLG A 0 A_PlaySound("toolbox/off", 6)
+	 DTGA D 1
+	 DTGA L 2
+	 DTGA I 3 A_PlaySound("TechBlaster/Unload",1)
+	 TNT1 A 0 A_StopSound(5)
+	 DTGA I 1 A_PlaySound("TechBlaster/Tsss",0)
+	 DTGA J 1 Radius_Quake(2,2,0,1,0)
+	 DTGA O 1 Radius_Quake(2,2,0,1,0)
+	 DTGA E 2 Radius_Quake(2,2,0,1,0)
+	 DTGA R 1
+	 DTGA M 1
+	 DTGA N 1
+	 DTGA P 15
+	 DTGA Z 1
+	 TNT1 A 0 A_PlaySound("TechBlaster/LoadIn",0)
+	 DTGA X 2 A_PlaySound("TechBlaster/Online",1)
+	 DTGA V 2
+	 //DTGA T 1
+     DTGA J 1
+	 DTGA K 1
+	 DTGA U 2
+	 Goto InsertBullets
+     
+     WeaponSpecial:
+    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+	Goto Ready3
+   
+   FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_StopSound(5)
+		DTGE VHBNOOOOONBHV 1
+		Goto Ready3
+		
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+		TNT1 A 0 A_StopSound(5)
+		DTGE VHBNOOOOONBHV 1
+		Goto Ready3
+		
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_StopSound(5)
+		DTGE VVHHBBNOOOOO 1
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_StopSound(5)
+		DTGE OONBHV 1
+		Goto Ready3
+   
+   Spawn:
+     DTNG A -1
+     Stop
+     }
+}
+
+ACTOR TechBlasterMagazine : Ammo
+{
+Inventory.Amount 0
+Inventory.MaxAmount 60
+Ammo.BackpackAmount 0
+Ammo.BackpackMaxAmount 60
+Inventory.Icon "HUDGA0"
++INVENTORY.IGNORESKILL
+}
+
+Actor AdjBlastFast : Inventory {Inventory.MaxAmount 1}
+
+/*Actor TechBlasterSpawner : RandomSpawner Replaces TossedHellRifle
+{
+Dropitem "PB_DemonTech", 256, 10
+Dropitem "TechBlaster", 256, 5
+Dropitem "TechBlasterUpgrade", 256, 1
+}*/ //Moving to Spawners
+
+Actor TechBlasterUpgrade : CustomInventory
+{
+//$Category Ammunition
+	SpawnID 9310
+	Game Doom
+	Height 24
+	+INVENTORY.ALWAYSPICKUP
+	-COUNTITEM
+	Inventory.Pickupsound "BFGPICK"
+	Inventory.PickupMessage "You Redesign and Your Reloading Skills Increased!"
+	Scale 1
+	FloatBobStrength 0.5
+	States
+	{
+
+	Spawn:
+		DTNG A -1 BRIGHT Light("WeaponUpgradeSpawner")
+		LOOP
+	
+    Pickup:
+		TNT1 A 0
+		{
+		A_GiveInventory("TechBlaster", 1);
+		A_GiveInventory("AdjBlastFast", 1);
+		A_GiveInventory("PB_DTech", 120);
+		//A_Print("You Redesign and Your Reloading Skills Increased!");
+		}
+		Stop
+	}
+}
+
+ACTOR TechBlasterBeam : FastProjectile //Failed to PB_Projectile
+{
+  Speed 300
+  Radius 0.5
+  Height 0.5
+  Alpha 0.2
+  Damage (Random (150, 200))
+  Renderstyle Add
+  DamageType Saw
+  +RIPPER
+  -CANNOTPUSH
+  +NODAMAGETHRUST
+  -EXTREMEDEATH
+ // +FORCERADIUSDMG
+  DeathSound "weapons/StachanovHit"
+  MissileType "RevanentBeamTrail"
+//  MissileHeight 10
+  Decal "BFGLightning"
+  Decal "BigScorch"
+  //PB_Projectile.RipperCount 10 Sorry Forgot it. it's penetrate
+  states
+  {
+  Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("Weapons/StachanovFly",6,1.0,1)
+		Fly:
+        TNT1 A 6 
+		Loop
+		
+  Death:
+    TNT1 A 0 A_StopSound(6)
+    TNT1 A 0 A_PlaySound("Weapons/YamatoExp",3)
+    TNT1 A 0 A_Explode(random(10,13),8,0,0)
+    TNT1 AAAA 0 A_SpawnItemEx("ObeliskTrailSpark", random(19,-19), random(19,-19), random(19,-19), 0, 0, 0, 0, 128, 0)
+    TNT1 A 0 A_SpawnItemEx("ObeliskExplode",0,0,0,0,0,0,0,128,0)
+    TNT1 BCD 4
+    stop
+    
+  /*Crash:
+	TNT1 A 0 A_StopSound(6)
+    TNT1 A 0 A_PlaySound("Weapons/YamatoExp",3)
+    TNT1 A 0 A_Explode(random(64,64),8,0,0)
+    TNT1 AAAA 0 A_SpawnItemEx("ObeliskTrailSpark", random(19,-19), random(19,-19), random(19,-19), 0, 0, 0, 0, 128, 0)
+    TNT1 A 0 A_SpawnItemEx("ObeliskExplode",0,0,0,0,0,0,0,128,0)
+    TNT1 BCD 4
+    stop
+    
+  XDeath:
+    TNT1 A 0 A_StopSound(6)
+    TNT1 A 0 A_PlaySound("Weapons/YamatoExp",3)
+    TNT1 A 0 A_Explode(random(128,128),8,0,0)
+    TNT1 AAAA 0 A_SpawnItemEx("ObeliskTrailSpark", random(19,-19), random(19,-19), random(19,-19), 0, 0, 0, 0, 128, 0)
+    TNT1 A 0 A_SpawnItemEx("ObeliskExplode",0,0,0,0,0,0,0,128,0)
+    TNT1 BCD 4
+    stop*/
+  }
+}
+
+Actor BlasterSeekerBeam : FastProjectile
+{
+		Radius 0.5
+		Height 0.5
+		Alpha 0.2
+		Speed 40
+		Damage (Random (55, 100))
+		Projectile
+		+FRIENDLY
+		//+RIPPER
+		+FORCEPAIN
+		+RANDOMIZE
+		+DEHEXPLOSION
+		+EXTREMEDEATH
+		+ROCKETTRAIL
+		+BOSS
+		DamageType Fire
+		SeeSound ""
+		MissileType "RevanentBeamTrail"
+		DeathSound "weapons/StachanovHit"
+		Decal "Scorch"
+		States
+		{
+		Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("Weapons/StachanovFly",6,1.0,1)
+				
+		Fly:
+        TNT1 A 6 A_SeekerMissile(0,10,SMF_LOOK|SMF_PRECISE)
+		Loop
+
+		Death:
+		TNT1 A 0 A_StopSound(6)
+	    TNT1 A 0 A_PlaySound("Weapons/YamatoExp",3)
+	    TNT1 A 0 A_Explode(random(128,128),8,0,0)
+	    TNT1 AAAA 0 A_SpawnItemEx("ObeliskTrailSpark", random(19,-19), random(19,-19), random(19,-19), 0, 0, 0, 0, 128, 0)
+	    TNT1 A 0 A_SpawnItemEx("ObeliskExplode",0,0,0,0,0,0,0,128,0)
+	    TNT1 BCD 4
+		Stop
+	}
+}

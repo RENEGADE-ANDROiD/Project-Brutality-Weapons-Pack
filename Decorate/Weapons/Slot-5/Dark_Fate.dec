@@ -1,0 +1,280 @@
+// --------------------------------------------------------------------------
+//
+// Machine Gun Dark Fate 2.0
+//
+// --------------------------------------------------------------------------
+
+ACTOR Dark_Fate : PB_Weapon
+{
+	Weapon.AmmoUse1 0
+	Weapon.AmmoGive1 50
+	Weapon.AmmoType1 "PB_HighCalMag"
+	Inventory.PickUpSound "PHNBOLT"
+	Inventory.PickupMessage "XM-44 LMG : Aliyah - Dark Fate - (Slot 5)"
+	Obituary "$OB_MPCHAINGUN"
+	+WEAPON.WIMPY_WEAPON
+    +WEAPON.NOAUTOAIM
+    +WEAPON.NOALERT
+    +WEAPON.NOAUTOFIRE
+	+FORCEXYBILLBOARD
+	+WEAPON.NO_AUTO_SWITCH
+	Weapon.SlotNumber 5
+	Weapon.SlotPriority 5
+	Tag "XM-44 LMG - Dark Fate"
+	PB_WeaponBase.RespectItem "DFRespectable"
+	States
+	{
+
+	Spawn:
+		86ST Z -1
+		Stop
+		
+	Steady:
+		TNT1 A 1
+		Goto Ready
+
+	SelectReady:
+	Ready:
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 PB_RespectIfNeeded
+	WeaponRespect:
+		TNT1 A 0 A_GiveInventory("DFRespectable",1)
+		LMGI ABC 2 A_DoPBWeaponAction
+		4XFG A 0 A_PlaySound("RELO1")
+		LMGI DEFGHI 2 A_DoPBWeaponAction
+		4XFG A 0 A_PlaySound("BELT1")
+		LMGI JKLMNOPQR 2 A_DoPBWeaponAction
+		BADF A 0 A_PlaySound("BELT2")
+		LMGI STU 2 A_DoPBWeaponAction
+		BADF A 0 A_PlaySound("GRNTOSS")
+		LMG1 ABCDEFGGG 1 A_DoPBWeaponAction
+		LMGL P 0 A_playsound("MAGTHUD",1)
+		LMG1 HIJKLMNOP 1 A_DoPBWeaponAction
+		TNT1 A 0 A_PlaySound("LONGUP",10)
+		MG86 ABCDE 1 A_DoPBWeaponAction
+		MG86 F 6 A_DoPBWeaponAction
+		MG86 GHIJK 1 A_DoPBWeaponAction
+		TNT1 A 0 A_PlaySound("SK410UP",15)
+		MG86 LM 2 A_DoPBWeaponAction
+		TNT1 A 0 A_PlaySound("ASASHPK2",20) 
+		MG86 NML 2 A_DoPBWeaponAction
+		TNT1 A 0 A_SetCrosshair(22)
+		MG86 OP 1 A_DoPBWeaponAction
+		MG86 QR 1 A_DoPBWeaponAction
+		MG86 STUVX 1 A_DoPBWeaponAction
+		Goto Ready3
+		SelectAnimation:
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+	    86SP A 1 FAST A_SetPitch(Pitch+0.8)
+		86SP B 1 FAST A_SetPitch(Pitch-0.4)
+		86SP C 1 FAST A_SetPitch(Pitch-0.4)
+		TNT1 A 0 A_JumpIfInventory("HasDanmakuClip",1,"RealReady")
+		TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1, "WeaponSpecial")
+		TNT1 A 0 A_PlaySound("LONGUP",16)
+		TNT1 A 0 A_SetCrosshair(22)
+		TNT1 AAA 0
+	Ready3:
+	RealReady:
+		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag", 1,2)
+		Goto ReadyNoAmmo
+		TNT1 AAA 0
+        TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		86ST A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		Goto RealReady
+		
+	ReadyNoAmmo:
+		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag", 1,"Ready")
+		
+        TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+        TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+        TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1,"WeaponSpecial")
+		86ST A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		Goto ReadyNoAmmo
+
+  Deselect:
+    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+    HMGU CBA 1
+	TNT1 A 0 A_ZoomFactor(1.0)
+    TNT1 A 0 A_Lower
+    Wait
+
+	Select:
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		Goto SelectFirstPersonLegs
+		SelectContinue:
+		TNT1 A 0 A_Raise
+		Wait
+		
+	AltFire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		Goto Ready3
+
+	Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+// 			A_GiveInventory("PB_LockScreenTilt",1);
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+	    TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+	 Goto NoAmmo
+		TNT1 AAAA 0
+		TNT1 A 0 PB_FireOffset
+		TNT1 A 0 A_PlaySound("MC/Fire",83,0.99,0,1)
+		TNT1 A 0 A_PlaySound("MC/Fade",150,0.99,0,1)
+		TNT1 A 0 A_JumpIfInventory("HasDanmakuClip",1,"HighFire")
+		TNT1 A 0 A_ZoomFactor(0.98)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,5)
+		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,0,-9)
+		//TNT1 A 0 A_FireCustomMissile("Tracer", random(1, -2), 1, 0,0, 0,random(-1, 1))
+		TNT1 A 0 BRIGHT A_FireCustomMissile("Alerter")
+		TNT1 A 0 A_Jump (255, "FireDispersion1", "FireDispersion2", "FireDispersion3")
+	FireDispersion1:
+		TNT1 A 0 A_FireProjectile("IN_765x38mmDarkFate", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
+	FireDispersion2:
+		TNT1 A 0 A_FireProjectile("IN_765x38mmDarkFate", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
+	FireDispersion3:
+		TNT1 A 0 {
+		if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("IN_765x38mmDarkFate", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+			else { 
+				A_FireProjectile("IN_765x38mmDarkFate", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			}
+		}
+        TNT1 A 0 A_Takeinventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+		86ST B 1 Bright
+		TNT1 A 0 A_ZoomFactor(0.96)
+		86ST C 1 Bright
+		TNT1 A 0 A_ZoomFactor(0.98)
+		86ST D 1
+		TNT1 A 0 A_ZoomFactor(1.0)
+		86ST E 1
+		TNT1 A 0 A_Refire
+		Goto RealReady
+		
+	NoAmmo:
+	HMGD A 1 A_PlaySound("Dryfire/MachineGun")
+	TNT1 A 0 A_Takeinventory("Zoomed",1)
+    TNT1 A 0 A_ZoomFactor(1.0)
+	Goto RealReady
+	
+	HighFire:
+		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+	 Goto NoAmmo
+		TNT1 AAAA 0
+		TNT1 A 0 PB_FireOffset
+		TNT1 A 0 A_PlaySound("MC/Fire",83,0.99,0,1)
+		TNT1 A 0 A_PlaySound("MC/Fade",150,0.99,0,1)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 PB_GunSmoke(0,0,0)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,5)
+		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,0,-9)
+		//TNT1 A 0 A_FireCustomMissile("Tracer", random(1, -2), 1, 0,0, 0,random(-1, 1))
+		TNT1 A 0 BRIGHT A_FireCustomMissile("Alerter")
+		TNT1 AAA 0 A_FireCustomMissile("DarkDanmakuProjectile", Random(-3, 3), 0, -1, 0, Random(-3, 3), Random(-3, 3))
+        TNT1 A 0 A_Takeinventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+		86ST B 1 Bright
+		TNT1 A 0 A_ZoomFactor(0.96)
+		86ST C 1 Bright
+		TNT1 A 0 A_ZoomFactor(0.98)
+		86ST D 1
+		TNT1 A 0 A_ZoomFactor(1.0)
+		86ST E 1
+		TNT1 A 0 A_Refire
+		Goto RealReady
+	
+	SwitchToBullets:
+		TNT1 A 0 A_Print("Fire Mode : Normal Bullets")
+		TNT1 A 0 A_Takeinventory("GoWeaponSpecialAbility",1)
+		TNT1 A 0 A_Takeinventory("HasDanmakuClip",1)		
+		TNT1 A 0 A_PlaySound("LIGHTON")			
+		Goto RealReady
+	
+	WeaponSpecial:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	TNT1 A 0 A_JumpIfInventory("HasDanmakuClip", 1, "SwitchToBullets")
+	TNT1 A 0 A_Takeinventory("GoWeaponSpecialAbility",1)
+	TNT1 A 0 A_JumpIfInventory("DanmakuUpgrade",1,"DanmakuMode")
+	Goto Nahuh
+	
+	DanmakuMode:
+	TNT1 A 0 A_PlaySound ("LIGHTON")
+	TNT1 A 0 A_GiveInventory("HasDanmakuClip",1)
+	TNT1 A 0 A_Print("Fire mode : Danmaku Bullets")
+	Goto RealReady
+	
+	Nahuh:
+	TNT1 A 0 A_PlaySound ("NOUPGRD")
+	TNT1 A 0 A_Print ("Missing Components Danmaku Shell Box")
+	Goto RealReady
+	
+    Reload:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("HasBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("HasFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("HasIceBarrel", 1, "IdleIceBarrel")
+		Goto Ready3
+		
+	FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		86SP CBA 2
+		
+		86SP A 8
+		
+		86SP ABC 1
+		Goto Ready3
+		
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+		86SP CBA 2
+		
+		86SP A 8
+		
+		86SP ABC 1
+		Goto Ready3
+		
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		86SP CCCBBBAAAAAAAAAA 1
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		86SP AABBBCCC 1
+		Goto Ready3
+
+  }
+}
+ACTOR HasDanmakuClip : Inventory {Inventory.MaxAMount 1}
+ACTOR DFRespectable : Inventory {Inventory.MaxAMount 1}

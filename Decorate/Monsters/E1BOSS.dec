@@ -1,0 +1,1527 @@
+Actor EBossHead 
+{
+  //$Category Monsters/Earth
+  Health 3000
+  Radius 34
+  Height 88
+  Mass 9999999999
+  Speed 0
+  PainChance 28
+  FloatBobPhase 1
+  FloatBobStrength 0.5
+  Scale 2
+  //Monster
+  Species "EBoss"
+  DamageFactor EBossDamage, 0.0
+  DamageFactor EWandDamage, 0.3
+  +FLOAT
+  +NOGRAVITY
+  +DONTTHRUST
+  +FLOATBOB
+  +NOCLIP
+  +BOSS
+  -COUNTKILL
+  +SHOOTABLE
+//  SeeSound "EBoss/See"
+  PainSound "EBPain"
+  DeathSound "EBDeath"
+  ActiveSound "EBActive"
+  Obituary "%o submitted to the God Parasite."
+  var int user_BossAttack1;
+  var int user_BossAttack2;
+  var int user_BossAttack3;
+  var int user_BossAttack4;
+  var int user_BossAttack5;
+  var int user_BossAttack6;
+  var int user_AracnorbCount;
+  var int user_HealAmount;
+  var int user_BlobNumber;
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TWRM A 10
+	{
+	A_Look;
+	//user_BossAttack1=0;
+	//user_BossAttack2=0;
+	//user_BossAttack3=0;
+	//user_BossAttack4=0;
+	//user_BossAttack5=0;
+	//user_BossAttack6=0;
+	}
+    Loop
+  See:
+    	TWRM A 3 A_Chase
+	TWRM A 3 A_Chase
+	TNT1 A 0 A_Jump(user_BossAttack1,"ArachAttack")
+	TNT1 A 0 A_Jump(user_BossAttack2,"HectAttack1","HectAttack2")
+	TNT1 A 0 A_Jump(user_BossAttack3,"AracnorbAttack")
+	TNT1 A 0 A_Jump(user_BossAttack4,"HomeBlob")
+	TNT1 A 0 A_Jump(user_BossAttack5,"EarthAttack")
+	TNT1 A 0 A_Jump(user_BossAttack6,"WallBlast")
+	TNT1 A 0 A_Look
+	Loop
+  HectAttack1:
+    TWRM B 2 A_FaceTarget
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,0)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-5)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-10)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-15)
+	TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-20)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-15)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-10)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-5)
+	TWRM B 0 A_FaceTarget
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,0)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,5)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,10)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,15)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,20)
+	TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,15)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,10)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,5)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,0)
+    Goto See
+  HectAttack2:
+    TWRM B 2 A_FaceTarget
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,0)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,5)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,10)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,15)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,20)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,15)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,10)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,5)
+	TWRM B 0 A_FaceTarget
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,0)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-5)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-10)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-15)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-20)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-15)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-10)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,-5)
+    TWRM B 2 Bright A_SpawnProjectile("Hecteball",52,0,0)
+    Goto See
+  ArachAttack:
+    TWRM A 4 A_FaceTarget
+    TWRM B 4 Bright
+	{
+	A_SpawnProjectile("ArachnotronBossPlasma",52,0,-20);
+	A_SpawnProjectile("ArachnotronBossPlasma",52,0,0);
+	}
+	TWRM A 4 A_FaceTarget
+    TWRM B 4 Bright
+	{
+	A_SpawnProjectile("ArachnotronBossPlasma",52,0,20);
+	A_SpawnProjectile("ArachnotronBossPlasma",52,0,0);
+	}
+	TWRM A 4 A_FaceTarget
+    TWRM B 4 Bright
+	{
+	A_SpawnProjectile("ArachnotronBossPlasma",52,0,-30);
+	A_SpawnProjectile("ArachnotronBossPlasma",52,0,0);
+	}
+	TWRM A 4 A_FaceTarget
+    TWRM B 4 Bright
+	{
+	A_SpawnProjectile("ArachnotronBossPlasma",52,0,30);
+	A_SpawnProjectile("ArachnotronBossPlasma",52,0,0);
+	}
+	TWRM A 4 A_FaceTarget
+    TWRM B 4 Bright
+	{
+	A_SpawnProjectile("ArachnotronBossPlasma",52,0,-40);
+	A_SpawnProjectile("ArachnotronBossPlasma",52,0,0);
+	}
+	TWRM A 4 A_FaceTarget
+    TWRM B 4 Bright
+	{
+	A_SpawnProjectile("ArachnotronBossPlasma",52,0,40);
+	A_SpawnProjectile("ArachnotronBossPlasma",52,0,0);
+	}
+    Goto See
+  AracnorbAttack:
+	TWRM B 2 A_FaceTarget
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	TWRM B 2 Bright
+	{
+	A_FaceTarget;
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,0,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,7,CMF_ABSOLUTEPITCH,50);
+	A_SpawnProjectile("AracnorbBallBoss1",52,0,-7,CMF_ABSOLUTEPITCH,50);
+	}
+	TWRM A 2
+	Goto See
+  HomeBlob:
+	TNT1 A 0 ACS_Execute(30)
+	TWRM A 2 A_JumpIf(user_BlobNumber > 35, "See")
+	TWRM B 15 Bright A_SpawnItemEx("BlobBall",25.0,0.0,0.0,random(0,10.0),random(-1.0,1.0),0.0,0,0,0,1000)
+	TWRM A random(20,50)
+	Goto See
+  EarthAttack:
+    TWRM B 2 
+	{
+	A_SpawnProjectile("BossBigBoulder",40,0,random(-15,15));
+	A_PlaySound("EWFire", 0, 1.0);
+	}
+	TWRM A 3
+	Goto See
+  WallBlast:
+    TNT1 A 0 A_SetPainThreshold(999)
+	TWRM A 22 A_SetAngle(270)
+	TWRM A 0 A_Jump(192,"WallBlastLow")
+  	TWRM B 5
+	{
+	A_SetAngle(270);
+	A_SpawnProjectile("WallBlastHigh",52,0,0,CMF_AIMDIRECTION,70);
+	A_SpawnProjectile("WallBlastDummyHigh",52,0,-50,CMF_AIMDIRECTION,70);
+	A_SpawnProjectile("WallBlastDummyHigh",52,0,-25,CMF_AIMDIRECTION,70);
+	A_SpawnProjectile("WallBlastDummyHigh",52,0,0,CMF_AIMDIRECTION,70);
+	A_SpawnProjectile("WallBlastDummyHigh",52,0,25,CMF_AIMDIRECTION,70);
+	A_SpawnProjectile("WallBlastDummyHigh",52,0,50,CMF_AIMDIRECTION,70);
+	}
+	Goto See
+  WallBlastLow:
+  	TWRM B 5
+	{
+	A_SetAngle(270);
+	A_SpawnProjectile("WallBlastLow",52,0,0,CMF_AIMDIRECTION,70);
+	A_SpawnProjectile("WallBlastDummyLow",52,0,-50,CMF_AIMDIRECTION,70);
+	A_SpawnProjectile("WallBlastDummyLow",52,0,-25,CMF_AIMDIRECTION,70);
+	A_SpawnProjectile("WallBlastDummyLow",52,0,0,CMF_AIMDIRECTION,70);
+	A_SpawnProjectile("WallBlastDummyLow",52,0,25,CMF_AIMDIRECTION,70);
+	A_SpawnProjectile("WallBlastDummyLow",52,0,50,CMF_AIMDIRECTION,70);
+	}
+	Goto See
+  Pain:
+    TWRM B 3
+    TWRM B 3 A_Pain
+    TWRM B 6
+    Goto See
+  Announce:
+    TNT1 A 0 A_PlaySound("EBSee", 0, 5.0)
+	TWRD A 5
+    TWRD B 5
+    TWRD A 5
+    TWRD B 5
+    TWRD A 5
+    TWRD B 5
+    TWRD A 5
+    TWRD B 5
+    TWRD A 5
+    TWRD B 5
+	Goto See
+  Heal:
+	TWRD A 0 HealThing(user_HealAmount) 
+	TWRD A 0 A_PlaySound("EBHeal", 0, 1.0)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(270.0,359.0),96.0,0.0,(48.0-48.0),-3.0,0.0,1.5)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(270.0,359.0),96.0,0.0,48.0,-3.0)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(90.0,180.0),96.0,0.0,48.0,-3.0)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(0.0,90.0),96.0,0.0,48.0,-3.0)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(90.0,180.0),96.0,0.0,(48.0-48.0),-3.0,0.0,1.5)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(90.0,180.0),96.0,0.0,(48.0+96.0),-3.0,0.0,-3.0)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(270.0,359.0),96.0,0.0,(48.0-96.0),-3.0,0.0,3.0)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(0.0,90.0),96.0,0.0,(48.0-48.0),-3.0,0.0,1.5)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(90.0,180.0),96.0,0.0,(48.0+64.0),-3.0,0.0,-1.5)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(90.0,180.0),96.0,0.0,48.0,-3.0)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(270.0,359.0),96.0,0.0,48.0,-3.0)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(180.0,270.0),96.0,0.0,(48.0+96.0),-3.0,0.0,-3.0)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(90.0,180.0),96.0,0.0,(48.0+96.0),-3.0,0.0,-3.0)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(90.0,180.0),96.0,0.0,(48.0+48.0),-3.0,0.0,-1.5)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(270.0,359.0),96.0,0.0,(48.0+64.0),-3.0,0.0,-1.5)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(270.0,359.0),96.0,0.0,(48.0+48.0),-3.0,0.0,-1.5)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(0.0,90.0),96.0,0.0,(48.0-48.0),-3.0,0.0,1.5)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(0.0,90.0),96.0,0.0,(48.0+64.0),-3.0,0.0,-1.5)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(0.0,90.0),96.0,0.0,(48.0+96.0),-3.0,0.0,-3.0)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(180.0,270.0),96.0,0.0,(48.0+96.0),-3.0,0.0,-3.0)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(180.0,270.0),96.0,0.0,(48.0+48.0),-3.0,0.0,-1.5)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(0.0,90.0),96.0,0.0,(48.0+48.0),-3.0,0.0,-1.5)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(270.0,359.0),96.0,0.0,(48.0-96.0),-3.0,0.0,3.0)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(90.0,180.0),96.0,0.0,(48.0-96.0),-3.0,0.0,3.0)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(90.0,180.0),96.0,0.0,(48.0-48.0),-3.0,0.0,1.5)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(180.0,270.0),96.0,0.0,(48.0-96.0),-3.0,0.0,3.0)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(180.0,270.0),96.0,0.0,(48.0-48.0),-3.0,0.0,1.5)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(180.0,270.0),96.0,0.0,48.0,-3.0)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(180.0,270.0),96.0,0.0,(48.0-96.0),-3.0,0.0,3.0)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(0.0,90.0),96.0,0.0,(48.0-96.0),-3.0,0.0,3.0)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(180.0,270.0),96.0,0.0,(48.0-48.0),-3.0,0.0,1.5)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(0.0,90.0),96.0,0.0,(48.0-96.0),-3.0,0.0,3.0)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(0.0,90.0),96.0,0.0,(48.0+96.0),-3.0,0.0,-3.0)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(270.0,359.0),96.0,0.0,(48.0-48.0),-3.0,0.0,1.5)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(0.0,90.0),96.0,0.0,48.0,-3.0)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(270.0,359.0),96.0,0.0,(48.0+96.0),-3.0,0.0,-3.0)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(180.0,270.0),96.0,0.0,(48.0+64.0),-3.0,0.0,-1.5)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(270.0,359.0),96.0,0.0,(48.0+96.0),-3.0,0.0,-3.0)
+	TWRD A 2 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(180.0,270.0),96.0,0.0,48.0,-3.0)
+	TWRD A 1 A_SpawnParticle(d21a1a,SPF_FULLBRIGHT|SPF_RELATIVE,30,30.0,frandom(90.0,180.0),96.0,0.0,(48.0-96.0),-3.0,0.0,3.0)
+	TWRM A 10 A_Chase
+	Goto See
+  Anger:
+    TWRM B 45 A_PlaySound("EBSee")
+	TWRM A 60 A_Chase
+	TWRM A 10 A_Chase
+	Goto See
+  Death:
+    TNT1 A 0 A_PlaySound("EBDeath")
+	TNT1 A 0 A_RadiusGive("InvunEBoss",1024,RGF_MONSTERS,1,"None","Eboss")
+    TWRD A 5
+    TWRD B 5
+    TWRD A 5
+    TWRD B 5
+    TWRD A 5
+    TWRD B 5
+    TWRD A 5
+    TWRD B 5
+    TNT1 A 0
+		{
+		A_SetScale(1.0);
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(0,20),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(20,40),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(40,60),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(60,80),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(80,100),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(100,120),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(120,140),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(140,160),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(160,180),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(180,200),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(200,220),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(220,240),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(240,260),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(260,280),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(280,300),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(320,340),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(340,360),CMF_AIMDIRECTION,Random(-10,10));
+//		A_SpawnProjectile("BossNeckMlem",64,0,Random(330,350),CMF_AIMDIRECTION,Random(-10,10));
+
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(0,40),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(40,80),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(80,120),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(120,160),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(160,200),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(200,240),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(240,280),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(280,320),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(320,360),CMF_AIMDIRECTION,Random(-40,-20));
+
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(0,40),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(40,80),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(80,120),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(120,160),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(160,200),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(200,240),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(240,280),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(280,320),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(320,360),CMF_AIMDIRECTION,Random(20,40));
+
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(0,72),CMF_AIMDIRECTION,Random(-80,-40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(72,144),CMF_AIMDIRECTION,Random(-80,-40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(144,216),CMF_AIMDIRECTION,Random(-80,-40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(216,288),CMF_AIMDIRECTION,Random(-80,-40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(288,360),CMF_AIMDIRECTION,Random(-80,-40));
+
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(0,72),CMF_AIMDIRECTION,Random(40,80));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(72,144),CMF_AIMDIRECTION,Random(40,80));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(144,216),CMF_AIMDIRECTION,Random(40,80));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(216,288),CMF_AIMDIRECTION,Random(40,80));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(288,360),CMF_AIMDIRECTION,Random(40,80));
+
+		A_SpawnProjectile("BloodBoop",64,0,0,0,0);
+		A_SpawnProjectile("BloodBoop",64,0,0,0,0);
+		A_SpawnProjectile("BloodBoop",64,0,0,0,0);
+		A_SpawnProjectile("BloodBoop",64,0,0,0,0);
+		A_SpawnProjectile("BloodBoop",64,0,0,0,0);
+		A_SpawnProjectile("BloodBoop",64,0,0,0,0);
+		}
+
+    Stop
+
+  }
+}
+
+
+ACTOR EBossHead1 : EBossHead
+{
+
+}
+
+ACTOR EBossHead2 : EBossHead
+{
+
+}
+
+ACTOR EBossHead3 : EBossHead
+{
+
+}
+
+ACTOR EBossHead4 : EBossHead
+{
+
+}
+
+ACTOR EBossHead5 : EBossHead
+{
+
+}
+
+ACTOR EBossHead6 : EBossHead
+{
+
+}
+
+ACTOR EBossNeckMed
+{
+  //$Category Monsters/Earth
+  Health 999999
+  Radius 34
+  Height 68
+  Mass 99999
+  Speed 0
+  PainChance 0
+  FloatBobPhase 1
+  Scale 1
+  //Monster
+  Species "EBoss"
+  DamageFactor EBossDamage, 0.0
+  +FLOAT
+  +NOGRAVITY
+  +FLOATBOB
+  +DONTTHRUST
+  +NOCLIP
+  -SOLID
+  -COUNTKILL
+  +NOBLOOD
+  +SHOOTABLE
+  States
+  {
+  Spawn:
+    TTAI A 1 NoDelay
+	{
+	A_NoBlocking;
+	}
+    Loop
+  See:
+    TTAI A 3
+	{
+	A_NoBlocking;
+	}
+    Loop
+  Death:
+    TNT1 A 0
+	{
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(0,20),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(20,40),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(40,60),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(60,80),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(80,100),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(100,120),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(120,140),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(140,160),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(160,180),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(180,200),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(200,220),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(220,240),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(240,260),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(260,280),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(280,300),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(320,340),CMF_AIMDIRECTION,Random(-10,10));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(340,360),CMF_AIMDIRECTION,Random(-10,10));
+//		A_SpawnProjectile("BossNeckMlem",64,0,Random(330,350),CMF_AIMDIRECTION,Random(-10,10));
+
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(0,40),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(40,80),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(80,120),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(120,160),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(160,200),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(200,240),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(240,280),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(280,320),CMF_AIMDIRECTION,Random(-40,-20));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(320,360),CMF_AIMDIRECTION,Random(-40,-20));
+
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(0,40),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(40,80),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(80,120),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(120,160),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(160,200),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(200,240),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(240,280),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(280,320),CMF_AIMDIRECTION,Random(20,40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(320,360),CMF_AIMDIRECTION,Random(20,40));
+
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(0,72),CMF_AIMDIRECTION,Random(-80,-40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(72,144),CMF_AIMDIRECTION,Random(-80,-40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(144,216),CMF_AIMDIRECTION,Random(-80,-40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(216,288),CMF_AIMDIRECTION,Random(-80,-40));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(288,360),CMF_AIMDIRECTION,Random(-80,-40));
+
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(0,72),CMF_AIMDIRECTION,Random(40,80));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(72,144),CMF_AIMDIRECTION,Random(40,80));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(144,216),CMF_AIMDIRECTION,Random(40,80));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(216,288),CMF_AIMDIRECTION,Random(40,80));
+		A_SpawnProjectile("BossNeckMlem",64,0,Random(288,360),CMF_AIMDIRECTION,Random(40,80));
+
+		A_SpawnProjectile("BloodBoop",64,0,0,0,0);
+		A_SpawnProjectile("BloodBoop",64,0,0,0,0);
+	}
+
+    Stop
+  }
+}
+
+ACTOR EBossNeckHigh : EBossNeckMed
+{
+	FloatBobStrength 1.5
+}
+
+ACTOR EBossNeckLow : EBossNeckMed
+{
+	FloatBobStrength 0.5
+}
+
+ACTOR EBossNeckOff : EBossNeckMed
+{
+	FloatBobStrength 0.0
+}
+
+ACTOR 64Block
+{
+	Radius 32
+	Height 64
+	+SOLID
+	+NOGRAVITY
+	Alpha 0.0
+	States
+	{
+		Spawn:
+		TNT1 A -1
+		Stop
+	}
+}
+
+ACTOR 32Block
+{
+	Radius 16
+	Height 32
+	+SOLID
+	+NOGRAVITY
+	Alpha 0.0
+	States
+	{
+		Spawn:
+		TNT1 A -1
+		Stop
+	}
+}
+
+ACTOR 32BlockHitScan
+{
+	Radius 16
+	Height 32
+	+SOLID
+	+NOGRAVITY
+	+SHOOTABLE
+	+NODAMAGE
+	+INVULNERABLE
+	Alpha 0.0
+	States
+	{
+		Spawn:
+		TNT1 A -1
+		Stop
+	}
+}
+
+ACTOR 16Block
+{
+	Radius 8
+	Height 16
+	+SOLID
+	+NOGRAVITY
+	Alpha 0.0
+	States
+	{
+		Spawn:
+		TNT1 A -1
+		Stop
+	}
+}
+
+ACTOR 8x56Block 
+{
+	Radius 4
+	Height 56
+	+SOLID
+	+NOGRAVITY
+	Alpha 0.0
+	States
+	{
+		Spawn:
+		TNT1 A -1
+		Stop
+	}
+}
+
+ACTOR BossNeckMlem
+{
+  Radius 6
+  Height 16
+  Speed 20
+  FastSpeed 30
+  Damage 0
+  Projectile
+  Species "EBoss"
+  +RANDOMIZE
+  -NOGRAVITY
+  Scale 1.5
+  SeeSound ""
+  DeathSound "baron/shotx"
+  DamageType EBossDamage
+  States
+  {
+  Spawn:
+    XDT1 ABCD 3
+    Loop
+  Death:
+    XDT1 EFGHIJKL 3
+    Stop
+  }
+}
+
+ACTOR BloodBoop
+{
+  Radius 6
+  Height 16
+  Speed 0
+  Damage 0
+  Projectile
+  +RANDOMIZE
+  +ROLLSPRITE
+  +NOCLIP
+  +THRUACTORS
+  Scale 2.0
+  SeeSound ""
+  var int user_BloodBoopRotate;
+  States
+  {
+  Spawn:
+    TNT1 A 0 noDelay
+	{
+	user_BloodBoopRotate=random(0,359);
+	}
+	TNT1 A 0 A_Jump (128, 3, 4, 5)
+	Loop
+	MSBD ABCDEFGH 3 Bright A_Setroll (user_BloodBoopRotate)
+	Goto Death
+	MSBL ABCDEFGH 3 Bright A_Setroll (user_BloodBoopRotate)
+	Goto Death
+	MSBU ABCDEFG 3 Bright A_Setroll (user_BloodBoopRotate)
+	Goto Death
+  Death:
+	TNT1 A 0
+	Stop
+  }
+}
+
+Actor Hecteball
+{
+  Radius 16
+  Height 8
+  Speed 23
+  Damage 5
+  Projectile
+  RenderStyle Add
+  Alpha 0.97
+  SeeSound "Imp/Attack"
+  DeathSound "Imp/ShotX"
+  Decal Scorch
+  DamageType EBossDamage
+  +RIPPER
+  States
+  {
+  Spawn:
+    HECF AB 4 Bright
+    Loop
+  Death:
+    HECF CDE 4 Bright
+    Stop
+  }
+}
+
+Actor HecteballMedium : Hecteball
+{
+	Damage 3
+}
+
+Actor HecteballEasy : Hecteball
+{
+	Damage 1
+}
+
+ACTOR ArachnotronBossPlasma
+{
+  Radius 13
+  Height 8
+  Speed 20
+  Damage 3
+  Projectile
+  +RANDOMIZE
+  RenderStyle Add
+  Alpha 0.75
+  SeeSound "Imp/Attack"
+  DeathSound "baby/shotx"
+  DamageType EBossDamage
+  States
+  {
+  Spawn:
+    APLS AB 5 Bright
+    Loop
+  Death:
+    APBX ABCDE 5 Bright
+    Stop
+  }
+}
+
+Actor ArachnotronBossPlasmaEasy : ArachnotronBossPlasma
+{
+	Damage 1
+}
+
+Actor ArachnotronBossPlasmaMedium : ArachnotronBossPlasma
+{
+	Damage 2
+}
+
+actor AracnorbBallBoss1
+{
+  Radius 16
+  Height 32
+  Speed 12
+  Damage 2
+  RenderStyle Add
+  Alpha 0.75
+  SeeSound "baby/attack"
+  DamageType EBossDamage
+  PROJECTILE
+  +STRIFEDAMAGE
+  +SEEKERMISSILE
+  +RANDOMIZE
+  +MTHRUSPECIES
+  States
+  {
+  Spawn:
+    ACNF AABB 1 Bright A_BishopMissileWeave
+    Loop
+  Death:
+    TNT1 A 0 A_RearrangePointers (AAPTR_TRACER, AAPTR_DEFAULT, AAPTR_TARGET, 0)
+	TNT1 A 0 A_SpawnProjectile("AracnorbBallBoss2",0,0,random(-5,5),CMF_TRACKOWNER)
+    Stop
+  }
+}
+
+actor AracnorbBallBoss1Easy : AracnorbBallBoss1
+{
+	Damage 1
+	Speed 8
+}
+
+actor AracnorbBallBoss1Medium : AracnorbBallBoss1
+{
+	Damage 1
+}
+
+actor AracnorbBallBoss2
+{
+  Radius 13
+  Height 8
+  Speed 12
+  Damage 2
+  RenderStyle Add
+  Alpha 0.75
+  DeathSound "baby/shotx"
+  DamageType EBossDamage
+  PROJECTILE
+  +STRIFEDAMAGE
+  +SEEKERMISSILE
+  +RANDOMIZE
+  +FLOORHUGGER
+  States
+  {
+  Spawn:
+	ACNF A 0 NoDelay A_RearrangePointers (AAPTR_TRACER, AAPTR_DEFAULT, AAPTR_TARGET, 0)
+  Spawnloop:
+    ACNF AABB 1 Bright A_BishopMissileWeave
+    Loop
+  Death:
+    ACNF CDEFG 5 Bright
+    Stop
+  }
+}
+
+actor AracnorbBallBoss2Easy : AracnorbBallBoss2
+{
+	Damage 1
+	Speed 8
+}
+
+actor AracnorbBallBoss2Medium : AracnorbBallBoss2
+{
+	Damage 1
+}
+
+actor BlobBall
+{
+  Health 5
+  Radius 24
+  Height 48
+  Mass 1000
+  Speed 9
+  DamageFactor EBossDamage, 0.0
+  Obituary "%o submitted to the Parasite God"
+  Monster
+  Species "Boss"
+  SeeSound "Imp/Attack"
+  DeathSound "Flamethrower/Hit"
+  BloodColor 0 256 0
+  +LOOKALLAROUND
+  +DONTGIB
+  +NOTARGET
+  +NOGRAVITY
+  +FLOAT
+  +DONTFALL
+  -COUNTKILL
+  States
+  {
+  Spawn:
+    HADG ABCD 2 Bright A_Look
+    Loop
+  See:
+    HADG ABCD 2 Bright A_Chase
+	Loop
+  Melee:
+	TNT1 A 0 A_Die
+  Death:
+    TNT1 A 0 A_ChangeFlag("NOCLIP", TRUE)
+	NECB A 8 Bright Light("EBOSSNECKDEATH")
+	{
+		A_explode(20,96,XF_NOTMISSILE,FALSE,0,0,0,"BulletPuff","EBossDamage");
+
+		A_SpawnProjectile("BossNeckMlem2",0,0,Random(0,40),CMF_AIMDIRECTION,-70);
+		A_SpawnProjectile("BossNeckMlem2",0,0,Random(40,80),CMF_AIMDIRECTION,-70);
+		A_SpawnProjectile("BossNeckMlem2",0,0,Random(80,120),CMF_AIMDIRECTION,-70);
+		A_SpawnProjectile("BossNeckMlem2",0,0,Random(120,160),CMF_AIMDIRECTION,-70);
+		A_SpawnProjectile("BossNeckMlem2",0,0,Random(160,200),CMF_AIMDIRECTION,-70);
+		A_SpawnProjectile("BossNeckMlem2",0,0,Random(200,240),CMF_AIMDIRECTION,-70);
+		A_SpawnProjectile("BossNeckMlem2",0,0,Random(240,280),CMF_AIMDIRECTION,-70);
+		A_SpawnProjectile("BossNeckMlem2",0,0,Random(280,320),CMF_AIMDIRECTION,-70);
+		A_SpawnProjectile("BossNeckMlem2",0,0,Random(320,360),CMF_AIMDIRECTION,-70);
+	}
+    NECB B 6 Bright Light("EBOSSNECKDEATH")
+    NECB C 4 Bright Light("EBOSSNECKDEATH")
+    Stop
+  }
+}
+
+Actor BlobBallEasy : BlobBall
+{
+	Speed 3
+}
+
+Actor BlobBallMedium : BlobBall
+{
+	Speed 6
+}
+
+ACTOR BossNeckMlem2
+{
+  Radius 6
+  Height 16
+  Speed 20
+  Damage 3
+  Projectile
+  +RANDOMIZE
+  -NOGRAVITY
+  //+DOHARMSPECIES
+  //+HARMFRIENDS
+  RenderStyle Add
+  Alpha 1
+  Scale 1.0
+  SeeSound ""
+  DeathSound "baron/shotx"
+  Decal "BaronScorch"
+  DamageType EBossDamage
+  States
+  {
+  Spawn:
+    BAL7 AB 4 Bright
+    Loop
+  Death:
+    BAL7 CDE 6 Bright
+    Stop
+  }
+}
+
+Actor WallBlastLow
+{
+  Radius 16
+  Height 8
+  Speed 23
+  Damage 5
+  Projectile
+  RenderStyle Add
+  Alpha 0.97
+  SeeSound "Imp/Attack"
+  DeathSound "Imp/ShotX"
+  Decal Scorch
+  +THRUACTORS
+  DamageType EBossDamage
+  States
+  {
+  Spawn:
+    TNT1 A 4 Bright
+    Loop
+  Death:
+    TNT1 A 0
+	{
+	A_SetAngle(270);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*0),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*1),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*2),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*3),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*4),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*5),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*6),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*7),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*8),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*9),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*10),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*11),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*12),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*13),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*14),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*15),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*16),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*17),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*18),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*19),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*20),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*21),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*22),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*23),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*24),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*25),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*26),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*27),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*28),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*29),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*30),0,CMF_AIMDIRECTION);	
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*31),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*32),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*33),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*34),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*35),0,CMF_AIMDIRECTION);	
+	
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-1),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-2),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-3),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-4),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-5),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-6),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-7),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-8),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-9),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-10),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-11),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-12),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-13),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-14),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-15),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-16),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-17),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-18),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-19),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-20),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-21),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-22),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-23),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-24),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-25),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-26),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-27),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-28),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-29),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-30),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-31),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-32),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-33),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-34),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-35),0,CMF_AIMDIRECTION);
+	}
+	TNT1 A 0
+	{
+	A_SetAngle(90);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*0),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*1),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*2),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*3),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*4),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*5),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*6),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*7),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*8),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*9),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*10),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*11),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*12),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*13),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*14),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*15),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*16),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*17),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*18),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*19),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*20),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*21),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*22),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*23),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*24),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*25),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*26),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*27),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*28),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*29),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*30),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*31),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*32),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*33),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*34),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*35),0,CMF_AIMDIRECTION);		
+	
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-1),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-2),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-3),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-4),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-5),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-6),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-7),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-8),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-9),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-10),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-11),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-12),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-13),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-14),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-15),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-16),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-17),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-18),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-19),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-20),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-21),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-22),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-23),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-24),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-25),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-26),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-27),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-28),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-29),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-30),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-31),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-32),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-33),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-34),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastLowHorizontal",1,(32*-35),0,CMF_AIMDIRECTION);
+	}
+    Stop
+  }
+}
+
+ACTOR WallBlastLowHorizontal
+{
+  Radius 13
+  Height 8
+  Speed 15
+  Damage 2
+  Projectile
+  +FLOORHUGGER
+  RenderStyle Add
+  Alpha 0.75
+  SeeSound "Imp/Attack"
+  DeathSound "baby/shotx"
+  DamageType EBossDamage
+  States
+  {
+  Spawn:
+    APLS AB 5 Bright
+    Loop
+  Death:
+    APBX ABCDE 5 Bright
+    Stop
+  }
+}
+
+Actor WallBlastLowHorizontalEasy : WallBlastLowHorizontal
+{
+  Damage 1
+  Height 4
+}
+
+Actor WallBlastLowHorizontalMedium : WallBlastLowHorizontal
+{
+  Damage 1
+}
+
+Actor WallBlastDummyLow
+{
+  Radius 13
+  Height 8
+  Speed 23
+  Damage 5
+  Projectile
+  RenderStyle Add
+  Alpha 0.97
+ // SeeSound "Imp/Attack"
+ // DeathSound "Imp/ShotX"
+ // Decal Scorch
+  DamageType EBossDamage
+  States
+  {
+  Spawn:
+    APLS AB 4 Bright
+    Loop
+  Death:
+	TNT1 A 0
+	Stop
+  }
+}
+
+Actor WallBlastHigh
+{
+  Radius 1
+  Height 128
+  Speed 23
+  Damage 5
+  Projectile
+  RenderStyle Add
+  Alpha 0.97
+  SeeSound "Imp/Attack"
+  DeathSound "Imp/ShotX"
+  Decal Scorch
+  +THRUACTORS
+  DamageType EBossDamage
+  States
+  {
+  Spawn:
+    TNT1 A 4 Bright
+    Loop
+  Death:
+    TNT1 A 0
+	{
+	A_SetAngle(270);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*0),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*1),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*2),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*3),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*4),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*5),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*6),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*7),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*8),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*9),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*10),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*11),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*12),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*13),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*14),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*15),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*16),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*17),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*18),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*19),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*20),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*21),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*22),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*23),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*24),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*25),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*26),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*27),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*28),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*29),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*30),0,CMF_AIMDIRECTION);	
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*31),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*32),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*33),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*34),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*35),0,CMF_AIMDIRECTION);	
+	
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-1),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-2),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-3),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-4),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-5),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-6),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-7),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-8),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-9),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-10),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-11),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-12),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-13),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-14),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-15),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-16),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-17),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-18),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-19),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-20),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-21),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-22),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-23),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-24),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-25),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-26),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-27),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-28),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-29),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-30),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-31),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-32),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-33),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-34),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-35),0,CMF_AIMDIRECTION);
+	}
+	TNT1 A 0
+	{
+	A_SetAngle(90);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*0),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*1),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*2),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*3),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*4),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*5),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*6),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*7),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*8),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*9),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*10),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*11),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*12),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*13),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*14),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*15),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*16),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*17),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*18),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*19),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*20),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*21),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*22),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*23),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*24),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*25),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*26),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*27),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*28),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*29),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*30),0,CMF_AIMDIRECTION);	
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*31),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*32),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*33),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*34),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*35),0,CMF_AIMDIRECTION);
+	
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-1),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-2),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-3),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-4),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-5),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-6),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-7),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-8),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-9),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-10),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-11),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-12),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-13),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-14),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-15),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-16),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-17),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-18),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-19),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-20),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-21),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-22),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-23),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-24),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-25),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-26),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-27),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-28),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-29),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-30),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-31),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-32),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-33),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-34),0,CMF_AIMDIRECTION);
+	A_SpawnProjectile("WallBlastHighHorizontal",56,(32*-35),0,CMF_AIMDIRECTION);
+	}
+    Stop
+  }
+}
+
+
+ACTOR WallBlastHighHorizontal
+{
+  Radius 13
+  Height 8
+  Speed 15
+  Damage 2
+  Projectile
+  RenderStyle Add
+  Alpha 0.75
+  SeeSound "Imp/Attack"
+  DeathSound "baby/shotx"
+  DamageType EBossDamage
+  States
+  {
+  Spawn:
+    APLS AB 5 Bright
+    Loop
+  Death:
+    APBX ABCDE 5 Bright
+    Stop
+  }
+}
+
+Actor WallBlastHighHorizontalEasy : WallBlastHighHorizontal
+{
+  Damage 1
+  Height 4
+}
+
+Actor WallBlastHighHorizontalMedium : WallBlastHighHorizontal
+{
+  Damage 1
+}
+
+Actor WallBlastDummyHigh
+{
+  Radius 8
+  Height 8
+  Speed 20
+  Damage 5
+  Projectile
+  RenderStyle Add
+  Alpha 0.97
+  +THRUACTORS
+ // SeeSound "Imp/Attack"
+ // DeathSound "Imp/ShotX"
+ // Decal Scorch
+  DamageType EBossDamage
+  States
+  {
+  Spawn:
+    APLS A 1 Bright A_JumpIf(z - floorz < 56, "Death")
+    APLS A 1 Bright A_JumpIf(z - floorz < 56, "Death")
+    APLS A 1 Bright A_JumpIf(z - floorz < 56, "Death")
+    APLS A 1 Bright A_JumpIf(z - floorz < 56, "Death")
+    APLS B 1 Bright A_JumpIf(z - floorz < 56, "Death")
+    APLS B 1 Bright A_JumpIf(z - floorz < 56, "Death")
+    APLS B 1 Bright A_JumpIf(z - floorz < 56, "Death")
+    APLS B 1 Bright A_JumpIf(z - floorz < 56, "Death")
+    Loop
+  Death:
+	TNT1 A 0
+	Stop
+  }
+}
+
+actor BossBigBoulder
+{
+  PROJECTILE
+  -NOGRAVITY
+  +DOOMBOUNCE
+  +USEBOUNCESTATE
+  SeeSound "stone/bounce"
+  Radius 12
+  Height 12
+  Scale 2
+  Speed 50
+  VSpeed 25
+  Damage 1
+  DamageType EWandDamage
+  States
+  {
+  Spawn:
+    STNB ABCDEFGH 3
+    Loop
+  Bounce:
+    STNB A 0 A_PlaySound("stone/bounce", 0, 1.0)
+    Goto Spawn
+  Death:
+    STNB A 0 A_RadiusThrust(500,20,RTF_THRUSTZ,19)
+	STNB HHHHHHH 0 A_SpawnProjectile("StoneDemonMiniBoulder",6,0,random(0,359),2,random(-40,0))
+    Stop
+  }
+} 
+
+ACTOR InvunEBoss : PowerInvulnerable
+{
+  Powerup.Duration 110
+}

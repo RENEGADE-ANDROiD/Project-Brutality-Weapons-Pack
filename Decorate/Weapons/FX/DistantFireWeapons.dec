@@ -1,0 +1,84 @@
+Actor DistantPistoloSMGFireSound : OrangeLensFlareAlt
+{
+states
+	{
+	Spawn:
+		LEYS O 0 bright
+		TNT1 A 0 A_PlaySOund("FARSMG")
+	    TNT1 A 0 A_Stop
+		LEYS O 0 bright
+		TNT1 A 60
+		stop
+	}
+}
+
+Actor DistantShotgunFireSound : OrangeLensFlareAlt
+{
+states
+	{
+	Spawn:
+		LEYS O 0 bright
+		TNT1 A 0 A_PlaySOund("FARSHT")
+	    TNT1 A 0 A_Stop
+		LEYS O 0 bright
+		TNT1 A 60
+		stop
+	}
+}
+
+Actor DistantSSGFireSound : OrangeLensFlareAlt
+{
+states
+	{
+	Spawn:
+		LEYS O 0 bright
+		TNT1 A 0 A_PlaySOund("FARSSG")
+	    TNT1 A 0 A_Stop
+		LEYS O 0 bright
+		TNT1 A 60
+		stop
+	}
+}
+
+
+Actor DistantRifleFireSound : OrangeLensFlareAlt
+{
+states
+	{
+	Spawn:
+		LEYS O 0 bright
+		TNT1 A 0 A_PlaySOund("FARRIF")
+	    TNT1 A 0 A_Stop
+		LEYS O 0 bright
+		TNT1 A 60
+		stop
+	}
+}
+
+Actor DistantMinigunFireSound : OrangeLensFlareAlt
+{
+states
+	{
+	Spawn:
+		LEYS O 0 bright
+		TNT1 A 0 A_PlaySOund("FARHMG")
+	    TNT1 A 0 A_Stop
+		LEYS O 0 bright
+		TNT1 A 60
+		stop
+	}
+}
+
+Actor DistantExplosibBFGSound : OrangeLensFlareAlt
+{
+states
+	{
+	Spawn:
+		LEYS O 0 bright
+		TNT1 A 0 A_PlaySOund("BFGBall/FadeEX")
+	    TNT1 A 0 A_Stop
+		LEYS O 0 bright
+		TNT1 A 60
+		stop
+	}
+}

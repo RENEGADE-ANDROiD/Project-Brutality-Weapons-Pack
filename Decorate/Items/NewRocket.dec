@@ -1,0 +1,93 @@
+ACTOR NewRocket : Ammo 25037
+{
+  Inventory.PickupMessage "Picked up a Rocket."
+  Inventory.PickupSound "ROCKPKUP"
+  Inventory.Amount 1
+  Inventory.MaxAmount 100
+  Ammo.BackpackAmount 20
+  Ammo.BackpackMaxAmount 180
+  Inventory.Icon "BROKF0"
+  //$Category Ammunition/NewRocket
+  States
+  {
+  Spawn:
+    ROCK A 1
+    loop
+  }
+}
+
+
+ACTOR NewRocketBag : NewRocket 25032
+{
+  Inventory.PickupMessage "Picked up a Rocket."
+  Inventory.PickupSound "RCKCLIP"
+  Inventory.Amount 1
+  //$Category Ammunition/NewRocket
+  States
+  {
+  Spawn:
+    ROCK B 1
+    loop
+  }
+}
+
+
+ACTOR NewRockeBox : NewRocket 25033
+{
+  Game Doom
+  Inventory.PickupMessage "Picked up a Rocket Box."
+  Inventory.PickupSound "ROCKBOXA"
+  Inventory.Amount 3
+  //$Category Ammunition/NewRocket
+  States
+  {
+  Spawn:
+    BROK A 1
+    loop
+  }
+}
+
+
+ACTOR NewRocketPack : NewRocket 25034
+{
+  Inventory.PickupMessage "Picked up a Rocket Box."
+  Inventory.PickupSound "ROCKBOXA"
+  Inventory.Amount 4
+  //$Category Ammunition/NewRocket
+  States
+  {
+  Spawn:
+    BROK D 1
+    loop
+  }
+}
+
+ACTOR NewRocketBigPack : NewRocket 25035
+{
+  Inventory.PickupMessage "Picked up a Rocket Box."
+  Inventory.PickupSound "RCKCLIP2"
+  Inventory.Amount 6
+  //$Category Ammunition/NewRocket
+  States
+  {
+  Spawn:
+    BROK E 1
+    loop
+  }
+}
+
+
+ACTOR NewRocketCeldur : NewRocket 25036
+{
+  Inventory.PickupMessage "Picked up a Rocket Box."
+  Inventory.PickupSound "RCKCLIP2"
+  Inventory.Amount 7
+  //$Category Ammunition/NewRocket
+  States
+  {
+  Spawn:
+    BROK F 1
+    loop
+  }
+}
+

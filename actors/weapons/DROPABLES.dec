@@ -1,0 +1,374 @@
+actor PB_PistolDrop
+{
+Radius 0
+Height 0
++THRUACTORS
+ states
+ {
+  Spawn:
+	 TRII A 0
+	 TNT1 A 0 A_CustomMissile ("BulletCartridge", 20, 0, 0, 2, random (30, 50))
+	 Stop	
+}
+}
+
+
+ACTOR DropedMinigun
+{
+	Radius 8
+	Height 10
+	Scale 1.0
+	Speed 1
+	Mass 1
+	gravity 1
+	Decal none
+	+MOVEWITHSECTOR
+	+DONTGIB
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	States
+	{
+	Spawn:
+		TNT1 AA 1
+	Death:
+		TNT1 A 1 
+		TNT1 A 0 A_SpawnItemEx("PB_HighCalMag",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
+		Stop
+	
+	}
+}
+
+ACTOR DropedPB_SSG
+{
+	SpawnID 9330
+	Radius 8
+	Height 10
+	Scale 1.0
+	Speed 1
+	Mass 1
+	gravity 1
+	Decal none
+	+MOVEWITHSECTOR
+	+DONTGIB
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	States
+	{
+	Spawn:
+		TNT1 AA 1
+	Death:
+		TNT1 A 0 A_SpawnItemEx("PB_Shell",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
+		Stop
+	
+	}
+}
+
+//PBAxe
+ACTOR DroppedPB_Axe
+{
+	Radius 8
+	Height 10
+	Scale 0.7
+	Speed 1
+	Mass 1
+	gravity 1
+	Decal none
+	+MOVEWITHSECTOR
+	+DONTGIB
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	States
+	{
+	Spawn:
+		AXE0 AA 1
+	Death:
+		AXE0 AA 1
+		//TNT1 A 0 A_SpawnItemEx("PB_Axe",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
+		Stop
+	
+	}
+}
+
+
+ACTOR DropedASG
+{
+	SpawnID 9340
+	Radius 8
+	Height 10
+	Scale 1.0
+	Speed 1
+	Mass 1
+	gravity 1
+	Decal none
+	+MOVEWITHSECTOR
+	+DONTGIB
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	States
+	{
+	Spawn:
+		TNT1 AA 1
+		Goto Death
+		
+	Death:
+		TNT1 AA 1
+		TNT1 A 0 A_SpawnItemEx("PB_Shell",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
+		Stop
+	}
+}
+
+ACTOR DroppedPB_Nailgun
+{
+	Radius 8
+	Height 10
+	Scale 1.0
+	Speed 1
+	Mass 1
+	gravity 1
+	Decal none
+	+MOVEWITHSECTOR
+	+DONTGIB
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	States
+	{
+	Spawn:
+		TNT1 AA 1
+		Goto Death
+		
+	Death:
+		TNT1 AA 1
+		TNT1 A 0 A_SpawnItemEx("PB_HighCalMag",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
+		Stop
+	}
+}
+
+ACTOR DropedSMG
+{
+	Radius 8
+	Height 10
+	Scale 1.0
+	Speed 1
+	Mass 1
+	gravity 1
+	Decal none
+	+MOVEWITHSECTOR
+	+DONTGIB
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	States
+	{
+	Spawn:
+		TNT1 AA 1
+		Goto Death
+		
+	Death:
+		TNT1 AA 1
+		TNT1 A 0 A_SpawnItemEx("PB_HighCalMag",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
+		Stop
+		
+	
+	}
+}
+
+ACTOR DropedPB_Revolver
+{
+	Radius 8
+	Height 10
+	Scale 1.0
+	Speed 1
+	Mass 1
+	gravity 1
+	Decal none
+	+MOVEWITHSECTOR
+	+DONTGIB
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	States
+	{
+	Spawn:
+		TNT1 AA 1
+		Goto Death
+		
+	Death:
+		TNT1 AA 1
+		TNT1 A 0 A_SpawnItemEx("BulletCartridge",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
+		Stop
+	
+	}
+}
+
+ACTOR DropedCarbine
+{
+	Radius 8
+	Height 10
+	Scale 1.0
+	Speed 1
+	Mass 1
+	gravity 1
+	Decal none
+	+MOVEWITHSECTOR
+	+DONTGIB
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	States
+	{
+	Spawn:
+		TNT1 AA 1
+		Goto Death
+		
+	Death:
+		TNT1 AA 1
+		TNT1 A 0 A_SpawnItemEx("PB_HighCalMag",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
+		Stop
+	}
+}
+
+ACTOR DropedM2Plasma
+{
+	SpawnID 9610
+	Radius 8
+	Height 10
+	Scale 1.0
+	Speed 1
+	Mass 1
+	gravity 1
+	Decal none
+	+MOVEWITHSECTOR
+	+DONTGIB
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	States
+	{
+	Spawn:
+		TNT1 AA 1
+		Goto Death
+		
+	Death:
+		TNT1 AA 1
+		TNT1 A 0 A_SpawnItemEx("PB_Cell",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
+		Stop
+	}
+}
+
+ACTOR DropedPlasma
+{
+	SpawnID 9600
+	Radius 8
+	Height 10
+	Scale 1.0
+	Speed 1
+	Mass 1
+	gravity 1
+	Decal none
+	+MOVEWITHSECTOR
+	+DONTGIB
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	States
+	{
+	Spawn:
+		TNT1 AA 1
+		Goto Death
+		
+	Death:
+		TNT1 AA 1
+		TNT1 A 0 A_SpawnItemEx("PB_Cell",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
+		Stop
+	
+	}
+}
+
+ACTOR DropedPistol
+{
+	//$Title Pistol
+	//$Sprite DEGTA0
+	Scale 0.4 //So the editor sprite isn't massive.
+	Radius 8
+	Height 10
+	Speed 1
+	Mass 1
+	gravity 1
+	Decal none
+	+MOVEWITHSECTOR
+	+DONTGIB
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	States
+	{
+	Spawn:
+		TNT1 AA 1
+		Goto Death
+		
+	Death:
+		TNT1 AA 1
+		TNT1 A 0 A_SpawnItemEx("BulletCartridge",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
+		Stop
+	
+	}
+}
+
+ACTOR DropedRifle
+{
+	Radius 8
+	Height 10
+	Scale 1.0
+	Speed 1
+	Mass 1
+	gravity 1
+	Decal none
+	+MOVEWITHSECTOR
+	+DONTGIB
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	States
+	{
+	Spawn:
+		TNT1 AA 1
+		Goto Death
+		
+	Death:
+		TNT1 AA 1
+		TNT1 A 0 A_SpawnItemEx("PB_HighCalMag",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
+		Stop
+	}
+}
+
+ACTOR DropedShotgun
+{
+	Radius 8
+	Height 10
+	Scale 1.0
+	Speed 1
+	Mass 1
+	gravity 1
+	Decal none
+	+MOVEWITHSECTOR
+	+DONTGIB
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+MISSILE
+	States
+	{
+	Spawn:
+		TNT1 AA 1
+		Goto Death
+		
+	Death:
+		TNT1 AA 1
+		TNT1 A 0 A_SpawnItemEx("PB_Shell",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
+		Stop
+	}
+}

@@ -1,0 +1,34 @@
+Credits PB (Project Brutality) Team
+----------------------------------------
+OLD CREDITS
+goldenmob72 for testing addon, JMartinez209 for fixing bugs, PC1073 for HMG shooting sounds
+WolVexus for new badass nailgun sound and HMG Windup sounds
+----------------------------------------
+NEW CREDITS 12-23-2024
+----------------------------------------
+Old Nail Sprites Conflicting With The New Nail Sprites Removed and Code OverHauled
+----------------------------------------
+Updated By 517qwerty For New PB 0.2.0 Build
+----------------------------------------
+OLD-HMG/UAC-320 Heavy Machine Gun
+----------------------------------------
+Update ChangeLog: 21-07-2023 Fixes
+----------------------------------------
+3 Start-Up Error (Fixed) 15-02-2023
+----------------------------------------
+Barrels: GrabbedBarrels Are Now (Fixed) 15-02-2023
+----------------------------------------
+Muzzel-Heat: Gun Will Smoke Now After You Fire Bullets
+----------------------------------------
+Ammo Type (Fixed)
+----------------------------------------
+NailGun OverHeat Added
+----------------------------------------
+GloryKill While Using: (Yes)
+----------------------------------------
+All Unwanted Code Removed
+----------------------------------------
+Weapon Select-Animation Code and Pick-Up Sound Reorganized and (Fixed)
+----------------------------------------
+Weapon-Up Animation and Sound After Using Explosives: Cannons: GloryKill: and Crucible Blade (Fixed)
+----------------------------------------

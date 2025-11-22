@@ -1,0 +1,40 @@
+PB3.0_UAC Excavator Launcher Final Edition Updated 26-02-2023
+---------------------------------------
+JM Branch Only
+----------------------------------------
+Updated By Miss Jeniffer For New PB3.0 Build Update
+----------------------------------------
+Update ChangeLog: 26-02-2023 Fixes
+----------------------------------------
+Barrels: Grabbed-Barrels Are Now (Fixed) 26-02-2023
+----------------------------------------
+New Zscripting For Idle Sprite 26-02-2023
+----------------------------------------
+New Zscripting For Drill Charge Idle Sprite 26-02-2023
+----------------------------------------
+New Zscripting For Select-Animation 26-02-2023
+----------------------------------------
+Excavator Reload: Reload Bug Making The Excavator Reload Loop Again and Again, (Fixed) 26-02-2023
+----------------------------------------
+Unwanted Kick Code Removed
+----------------------------------------
+GloryKill While Using: (Yes)
+----------------------------------------
+Weapon Select-Animation Code and Pick-Up Sound Reorganized and (Fixed)
+----------------------------------------
+Weapon-Up Animation and Sound After Using Explosives: Cannons: GloryKill: and Crucible Blade (Fixed)
+----------------------------------------
+All Errors: Unwanted Code (Fixed) 26-02-2023
+---------------------------------------
+All Bugs (Fixed)
+---------------------------------------
+Previous (Fixes) 10-27-2022
+----------------------------------------
+Kicking Enemies Code Re-Done With New Kick Sprites
+----------------------------------------
+SlideKicking Enemies Code Re-Done With New Kick Sprites
+----------------------------------------
+Punching Enemies Code Re-Done
+----------------------------------------
+LEGENDARYREPACKS: Our Discord Link: https://discord.gg/zkUQJ66XrH
+----------------------------------------

@@ -1,0 +1,5 @@
+ACTOR SoulCoin : Ammo
+{
+	+IGNORESKILL
+	Inventory.MaxAmount 50000
+}

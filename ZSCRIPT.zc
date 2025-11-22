@@ -1,0 +1,532 @@
+version "4.11.3"
+
+#include "ZScript/ZRWSwitchMenu.zc"
+#include "ZScript/ZRWSwitcher.zc"
+
+// Spawners ZScript
+#Include "Zscript/AncientCrossbow_Spawn.zc"
+#include "ZScript/PB_Addons/ArgentSithKatana_Spawner.zs"
+#include "Zscript/PB_Addons/CalamityBlade_Spawner.zs"
+#include "ZScript/ChainsawSpawn.zc"
+#Include "Zscript/CSSG/CSSGEvent.zs"
+#Include "Zscript/DemonExt_Spawn.zc"
+#Include "Zscript/Doom4WeaponPack_Spawners.zc"
+#Include "Zscript/DukeNukemWeaponSpawners.zs"
+#include "ZSCRIPT/Excavator_Spawner.zs"
+#include "ZSCRIPT/GORENEST.txt"
+#include "ZScript/IN_SpawnersInjector.zs"
+#include "ZScript/M1887_Spawn.zc"
+#include "ZScript/M41AMicroProcressor.zc"
+#include "ZScript/MarauderSSG_Spawn.zc"
+#include "Zscript/MastermindChaingun_Spawn.zc"
+#include "zscript/NewEquip_Spawner"
+#include "zscript/OldHMG_Spawn.zc"
+#Include "Zscript/Paingiver_Spawn.zc"
+#Include "Zscript/PB_BoltRifle_Spawn.zc"
+#Include "Zscript/PB_CryoShotgun_Spawn.zc"
+#Include "Zscript/PhaseEradicatorBFG_Spawn.zc"
+
+// Player Pawn Insanity (Testing)
+//#include "ZScript/INPlayer.zc"
+//#include "ZScript/PBMeleePlayer.zc"
+#Include "Zscript/CSSG/CSSG_Wheel.zs"
+#Include "Zscript/D2016SGWHEEL/D2016Shotgun_Wheel.zs"
+#Include "ZScript/IN_SpecialWheeltest.zs"
+
+// Casings
+#Include "Zscript/CSSG/Casings.zs"
+#Include "Zscript/DukeNukemBulletsSystem.zc"
+#include "ZScript/HASGCasings.zc"
+#include "ZScript/IN_BulletSystem.zc"
+#include "ZScript/IN_SpecialProjectile.zc"
+#include "ZScript/PlasmaRifleAssaultProjectile.zc"
+
+// Weapons & Etc (Testing)
+#include "Zscript/PB_Addons/CalamityBlade.zs"
+#Include "Zscript/CSSG/CSSG.zs"
+#Include "Zscript/CSSG/CSSG_Upgrades.zs"
+#include "ZScript/Weapons/Slot-4/HeavySniperRifle.zs"
+#include "ZScript/Weapons/Slot-6/Excavator.zs"
+#include "Zscript/PB_Addons/DemonicExt.zs"
+#include "Zscript/PB_Addons/DemonicExtFunctions.zs"
+Class UNMK_DExtActor : Actor{
+	Default{
+		Species "Marines";
+		+THRUSPECIES
+		+MTHRUSPECIES
+		+DOHARMSPECIES
+		+DONTHARMSPECIES
+		+FORCERADIUSDMG
+	}
+}
+Class UNMK_DExtFastProjectile : FastProjectile{
+	Default{
+		Species "Marines";
+		+THRUSPECIES
+		+MTHRUSPECIES
+		+DOHARMSPECIES
+		+DONTHARMSPECIES
+		+FORCERADIUSDMG
+	}
+}
+#include "Zscript/PB_Addons/DemonicExtAttacks.zs"
+#include "Zscript/PB_Addons/DemonicExtProj.zs"
+#include "Zscript/PB_Addons/DemonicExtProj2.zs"
+#include "Zscript/PB_Addons/DemonicExtStuff.zs"
+#include "Zscript/PB_Addons/DemonicExt_Wheel.zs"
+class DEX_Injector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		//handler.InjectSpawn("PB_BFGSpawnerT1","PB_DemonExt",255,1);
+		//handler.InjectSpawn("PB_BFGSpawnerT2","PB_DemonExt",255,1);
+		handler.InjectSpawn("PB_BFGSpawnerT3","PB_DemonExt",255,1);
+		handler.InjectSpawn("PB_BFGSpawnerT4","PB_DemonExt",255,1);
+	}
+}
+class SuperNailgunSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_MGSpawnerT4', 'SuperNailgun', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT3', 'SuperNailgun', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT4', 'SuperNailgun', 255, 1);
+	}
+}
+
+class PB_DragonSlayerSpawner : EventHandler
+{
+    override void checkReplacement(replaceEvent e)
+    {
+		name SpawnedWeap, DSWeap;
+		SpawnedWeap = 'PB_Minigun';
+		DSWeap = 'Fire_and_Ice-DragonSlayer';
+        if (e.replacee is SpawnedWeap)
+        {
+            // Roll chance
+            if (Random(0.0, 1.0) < 0.30)
+            {
+                e.Replacement = DSWeap;
+            }
+			else
+                e.Replacement = SpawnedWeap;
+        }
+    }
+}
+
+class Shielsawammo_Injector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		
+		handler.InjectSpawn('PB_SawSpawnerT1', 'ShieldsawAmmo', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT2', 'ShieldsawAmmo', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT3', 'ShieldsawAmmo', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'ShieldsawAmmo', 255, 1);
+		
+	}
+}
+
+class BattleAxeSpawnerInjector : PBInjector
+{
+	override void init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn("PB_SawSpawnerT1", "BattleAxe", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT2", "BattleAxe", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT3", "BattleAxe", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT4", "BattleAxe", 255, 1);
+	}
+}
+
+class PB_StormcastSpawner : EventHandler
+{
+    override void checkReplacement(replaceEvent e)
+    {
+		name SpawnedWeap, StormWeap;
+		SpawnedWeap = 'PB_RocketLauncher';
+		StormWeap = 'Stormcast';
+        if (e.replacee is SpawnedWeap)
+        {
+            // Roll chance
+            if (Random(0.0, 1.0) < 0.50)
+            {
+
+                e.Replacement = StormWeap;
+            }
+			else
+                e.Replacement = SpawnedWeap;
+        }
+    }
+}
+
+class PB_ArgentSithSpawnerInjector : PBInjector
+{
+	override void init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn("PB_SawSpawnerT1", "PB_ArgentSith", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT2", "PB_ArgentSith", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT3", "PB_ArgentSith", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT4", "PB_ArgentSith", 255, 1);
+	}
+}
+
+class PB_ThunderCrossbowSpawner : EventHandler
+{
+    override void checkReplacement(replaceEvent e)
+    {
+		name SpawnedWeap, ThunderCrossbowWeap;
+		SpawnedWeap = 'PB_RocketLauncher';
+		ThunderCrossbowWeap = 'ThunderCrossbow';
+        if (e.replacee is SpawnedWeap)
+        {
+            // Roll chance
+            if (Random(0.0, 1.0) < 0.50)
+            {
+
+                e.Replacement = ThunderCrossbowWeap;
+            }
+			else
+                e.Replacement = ThunderCrossbowWeap;
+        }
+    }
+}
+
+class PB_MancubusFlameCannonSpawner : EventHandler
+{
+    override void checkReplacement(replaceEvent e)
+    {
+		name SpawnedWeap, MancubusFlameCannonWeap;
+		SpawnedWeap = 'PB_RocketLauncher';
+		MancubusFlameCannonWeap = 'MancubusFlameCannon';
+        if (e.replacee is SpawnedWeap)
+        {
+            // Roll chance
+            if (Random(0.0, 1.0) < 0.50)
+            {
+
+                e.Replacement = MancubusFlameCannonWeap;
+            }
+			else
+                e.Replacement = MancubusFlameCannonWeap;
+        }
+    }
+}
+
+//By Warcarlsson
+class NoDrop_PB_CarbineZombieDrop : PB_CarbineZombieDrop replaces PB_CarbineZombieDrop
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_HighCalMag";
+		PB_MonsterDropBase.upgradeDrop "";
+		PB_MonsterDropBase.ammoDrop "PB_HighCalMag";
+		PB_MonsterDropBase.weaponCvar "DisablePB_Carbine";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_PlasmaZombieDrop : PB_PlasmaZombieDrop replaces PB_PlasmaZombieDrop
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "";
+		PB_MonsterDropBase.upgradeDrop "PB_Cell";
+		PB_MonsterDropBase.ammoDrop "PB_Cell";
+		PB_MonsterDropBase.weaponCvar "";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_ZombieManDrop1 : PB_ZombieManDrop1 replaces PB_ZombieManDrop1
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_HighCalMag";
+		PB_MonsterDropBase.upgradeDrop "PB_D16SGBurstUpgrade";
+		PB_MonsterDropBase.ammoDrop "PB_HighCalMag";
+		PB_MonsterDropBase.weaponCvar "";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_ShotgunGuyDrop1 : PB_ShotgunGuyDrop1 replaces PB_ShotgunGuyDrop1
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_Shell";
+		PB_MonsterDropBase.upgradeDrop "MSSGUpgrade";
+		PB_MonsterDropBase.ammoDrop "PB_Shell";
+		PB_MonsterDropBase.weaponCvar "";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_ChaingunGuyDrop1 : PB_ChaingunGuyDrop1 replaces PB_ChaingunGuyDrop1
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_HighCalMag";
+		PB_MonsterDropBase.upgradeDrop "";
+		PB_MonsterDropBase.ammoDrop "PB_HighCalMag";
+		PB_MonsterDropBase.weaponCvar "";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_ASGGuyDrop : PB_ASGGuyDrop replaces PB_ASGGuyDrop
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_Shell";
+		PB_MonsterDropBase.upgradeDrop "HASGdrum";
+		PB_MonsterDropBase.ammoDrop "PB_Shell";
+		PB_MonsterDropBase.weaponCvar "DisablePB_Autoshotgun";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_CultistDrop : PB_CultistDrop replaces PB_CultistDrop
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_DTech";
+		PB_MonsterDropBase.upgradeDrop "";
+		PB_MonsterDropBase.ammoDrop "PB_DTech";
+		PB_MonsterDropBase.weaponCvar "";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+
+Class NoDrop_PB_WolfSSdrop : PB_WolfSSdrop replaces PB_WolfSSdrop
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_LowCalMag";
+		PB_MonsterDropBase.upgradeDrop "";
+		PB_MonsterDropBase.ammoDrop "PB_LowCalMag";
+		PB_MonsterDropBase.weaponCvar "";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_NailgunGuydrop : PB_NailgunGuydrop replaces PB_NailgunGuydrop
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_HighCalMag";
+		PB_MonsterDropBase.upgradeDrop "";
+		PB_MonsterDropBase.ammoDrop "PB_HighCalMag";
+		PB_MonsterDropBase.weaponCvar "DisablePB_Nailgun";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_QSGZombieDrop : PB_QSGZombieDrop replaces PB_QSGZombieDrop
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_Shell";
+		PB_MonsterDropBase.upgradeDrop "PB_Shell";
+		PB_MonsterDropBase.ammoDrop "PB_Shell";
+		PB_MonsterDropBase.weaponCvar "";
+		PB_MonsterDropBase.UpgradeCvar "DisablePB_QuadSG";
+	}
+}
+
+Class NoDrop_PB_RocketZombieDrop : PB_RocketZombieDrop replaces PB_RocketZombieDrop
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "";
+		PB_MonsterDropBase.upgradeDrop "PB_RocketAmmo";
+		PB_MonsterDropBase.ammoDrop "PB_RocketAmmo";
+		PB_MonsterDropBase.weaponCvar "";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_PyroGuyDrop : PB_PyroGuyDrop replaces PB_PyroGuyDrop
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_Fuel";
+		PB_MonsterDropBase.upgradeDrop "PB_D16SGExplosiveUpgrade";
+		PB_MonsterDropBase.ammoDrop "PB_Fuel";
+		PB_MonsterDropBase.weaponCvar "DisablePB_Flamer";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_ZSpecSMGDrop : PB_ZSpecSMGDrop replaces PB_ZSpecSMGDrop
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_LowCalMag";
+		PB_MonsterDropBase.upgradeDrop "";
+		PB_MonsterDropBase.ammoDrop "PB_LowCalMag";
+		PB_MonsterDropBase.weaponCvar "DisablePB_SMG";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_ScientistAxeDrop : PB_ScientistAxeDrop replaces PB_ScientistAxeDrop
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "";
+		PB_MonsterDropBase.upgradeDrop "";
+		PB_MonsterDropBase.ammoDrop "";
+		PB_MonsterDropBase.weaponCvar "";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_ScientistSAWDrop : PB_ScientistSAWDrop replaces PB_ScientistSAWDrop
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_Fuel";
+		PB_MonsterDropBase.upgradeDrop "";
+		PB_MonsterDropBase.ammoDrop "PB_Fuel";
+		PB_MonsterDropBase.weaponCvar "";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_PistolGuyDrop : PB_PistolGuyDrop replaces PB_PistolGuyDrop
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_LowCalMag";
+		PB_MonsterDropBase.upgradeDrop "";
+		PB_MonsterDropBase.ammoDrop "PB_LowCalMag";
+		PB_MonsterDropBase.weaponCvar "";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+
+
+//Axe spawner
+
+class PB_AxeSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_SawSpawnerT1', 'PB_Axe', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT2', 'PB_Axe', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT3', 'PB_Axe', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'PB_Axe', 255, 1);
+	}
+}
+
+class PB_DemontechRifleSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_MGSpawnerT3', 'PB_Demontech', 255, 1);
+	}
+}
+
+class BallistaInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		handler.InjectSpawn('PB_PlasSpawnerT1', 'Ballistagun', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT2', 'Ballistagun', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT3', 'Ballistagun', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'Ballistagun', 255, 1);
+	}
+}
+
+
+
+
+
+//Doorbuster
+#include "Zscript/doorbuster.zs"
+	
+Class BusterHandler : eventhandler
+{
+	int doorwait;
+	const fullsec = 35;
+	override void NetworkProcess(ConsoleEvent e)
+	{
+		let pm = players[e.Player].mo;
+		if(!pm)
+			return;
+		
+		if (e.Name ~== "TryBustDoor")
+		{
+			//bool cantry = (onlyonberserk && pm.findinventory("PowerStrength",true)) || !onlyonberserk;
+			bool enoughammo = (pm.countinv("BusterAmmo") > 0) || infinitecharges;
+			if(!enoughammo)
+			{
+				if(!nologs)
+					console.printf("Not enough buster charges");
+				return;
+			}
+			if(!doorwait)
+			{
+				//pm.A_Startsound("weapons/pbarm",18);
+				int lk = The_DoorBuster.LB_CheckKey;
+				if(ignoreLocks)
+					lk = The_DoorBuster.LB_All;
+				bool destroyedDoor = The_DoorBuster.DestroyDoor(pm, breakLocks: lk);
+				doorwait = fullsec;
+				if(destroyedDoor && !infinitecharges)
+						pm.A_takeinventory("BusterAmmo",1);
+				if(!nologs && !infinitecharges)
+					console.printf("buster charges left: \cg"..pm.countinv("BusterAmmo").."\c-");
+			}
+		}
+	}
+	
+	override void worldtick()
+	{
+		if(doorwait > 0)
+			doorwait--;
+	}
+	
+	override void worldloaded(worldevent e)
+	{
+		//randomly spawn busterammo in secret sectors 
+		for(int i = 0; i < level.sectors.size(); i++)
+		{
+			if(level.sectors[i].issecret())
+			{
+				if(random(0,99) > busterAmmoChance)
+					continue;
+				//console.printf("attempting to spawn: "..i);
+				let center = level.sectors[i].centerspot;
+				if(level.ispointinlevel((center.x,center.y,level.sectors[i].floorplane.zAtPoint(center))))
+				{
+					actor.spawn("BusterAmmo",(center.x,center.y,level.sectors[i].floorplane.zAtPoint(center)));
+					//console.printf("spawned ammo at: "..(center.x,center.y,level.sectors[i].floorplane.zAtPoint(center)));
+				}
+			}
+		}
+		
+	}
+	
+}
+
+Class BusterAmmo : inventory
+{
+	default
+	{
+		inventory.maxamount 10;
+		inventory.amount 1;
+		inventory.icon "XCR9A0";
+		inventory.pickupsound "misc/rocket_PickUp";
+		inventory.pickupmessage "Got a door buster charge";
+		//+inventory.INVBAR;
+	}
+	states
+	{
+		spawn:
+			XCR9 A -1;
+			stop;
+	}
+}

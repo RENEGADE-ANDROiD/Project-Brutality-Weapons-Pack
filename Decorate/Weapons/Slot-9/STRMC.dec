@@ -1,0 +1,4784 @@
+//For add-on weapons
+Actor AddonSelected: PB_WeaponSelected{}
+
+ACTOR ExecuteStompWall : Inventory
+{
+Inventory.MaxAmount 1
+}
+
+ACTOR ExecuteBashWall : Inventory
+{
+Inventory.MaxAmount 1
+}
+
+Actor Berserker : Inventory
+{
+inventory.maxamount 1
+}
+
+Actor NoFatality : Inventory
+{
+inventory.maxamount 1
+}
+
+Actor GoFatality : Inventory
+{
+inventory.maxamount 1
+}
+
+ACTOR PhantasmFatality : Inventory
+{
+Inventory.MaxAmount 1
+}
+
+Actor ShotgunguyHead: Inventory
+{
+inventory.maxamount 1
+}
+
+//Schism stuff
+Actor Quickspell : Inventory {}
+
+Actor AllCounter : Inventory {Inventory.MaxAmount 7}
+
+Actor ElecCounter : Inventory {Inventory.MaxAmount 4}
+
+Actor Dissapate : Inventory {Inventory.MaxAmount 1}
+
+Actor NoShoot : Inventory {Inventory.MaxAmount 1}
+
+Actor TossGrenade : Inventory {Inventory.MaxAmount 1}
+
+Actor StartDualWield : Inventory {Inventory.MaxAmount 1}
+
+actor WarpTimer : Inventory
+{
+Inventory.maxamount 200
+}
+
+Actor PowerChargeStorm : Ammo
+{
+inventory.maxamount 666
+Inventory.Icon "STRMA0"
+}
+
+Actor CastingArcOfDeath : Inventory
+{
+inventory.maxamount 3
+}
+
+Actor QuickLightningSpellSelected: Inventory 
+{
+Inventory.Maxamount 1
+}
+
+ACTOR Stormcast : PB_Weapon
+{
+  Game Doom
+	scale 0.5
+	Height 20
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive2 200
+	Weapon.AmmoType2 "PowerChargeStorm"
+    Inventory.PickupSound "PZAPCHR2"
+	Inventory.AltHudIcon "STRMA0"
+	Weapon.KickBack 200
+  Inventory.Pickupmessage "You got the Arcane Power of Stormcasting!"
+  Tag "Stormcast"
+  Obituary "%o was electrocuted by %k "
+  +WEAPON.AMMO_OPTIONAL
+  +WEAPON.NOAUTOAIM
+  Weapon.SlotNumber 9
+  Weapon.SelectionOrder 2800
+  States
+  {
+/////////
+////////	
+	FlashKicking:
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+	   TNT1 A 0 A_ClearOverlays(10,11)
+	   MEQI A 1 A_DoPBWeaponAction
+	   MEQI A 1
+	   MEQI A 1
+	   MEQI A 1 
+	   MEQI A 7
+	   MEQI A 1
+	   MEQI A 1
+	   MEQI A 1
+	   MEQI A 1
+	   Goto Ready
+
+	FlashAirKicking:
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+	   TNT1 A 0 A_ClearOverlays(10,11)
+	   MEQI A 1 A_DoPBWeaponAction
+	   MEQI A 1
+	   MEQI A 1
+	   MEQI A 1 
+	   MEQI A 7
+	   MEQI A 1
+	   MEQI A 1
+	   MEQI A 1
+	   MEQI A 1
+	   Goto Ready
+
+	FlashSlideKicking:
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+	   TNT1 A 0 A_ClearOverlays(10,11)
+	   CONE A 1 A_DoPBWeaponAction
+	   CONE AB 1
+	   CONE B 35
+	   Goto Ready
+
+	FlashSlideKickingStop:
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+	   TNT1 A 0 A_ClearOverlays(10,11)
+	   CONE A 1 A_DoPBWeaponAction
+	   CONE B 5
+	   CONE A 1
+	   Goto Ready
+	ForceBobbing:
+		TNT1 A 10 A_WeaponReady(WRF_NOFIRE)
+		loop
+	Steady:
+		TNT1 A 0 A_SetRoll(0)
+		TNT1 A 1 {
+				A_TakeInventory("GoWeaponSpecialAbility", 1);
+				A_TakeInventory("Grabbing_A_Ledge", 1);
+				A_TakeInventory("UseEquipment", 1);
+				A_TakeInventory("ToggleEquipment", 1);
+				A_TakeInventory("Taunting", 1);
+				A_TakeInventory("Salute1", 1);
+				A_TakeInventory("Salute2", 1);
+				A_TakeInventory("Kicking", 1);
+			}
+	    Goto Ready+2
+
+	Reload:
+	WeaponSpecial:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 A_TakeInventory("Punching", 1)
+		TNT1 A 0 A_JumpIfInventory("LostSoulFatality",1,"KillLS")
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 A_JumpIfInventory("PB_PowerStrength",1,"SelectFatalityModes")
+		PUNS E 2
+		PUNS F 2 A_PlaySoundEx("KNUCKLED", "Auto")
+		PUNS GFEK 2
+		PUNS L 2 A_PlaySoundEx("KNUCKLED", "Auto")
+		PUNS MLK 2 
+		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
+		Goto Ready+2
+
+	SelectFatalityModes:
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 A_JumpIfInventory("NoFatality", 1, "FatalityOn")
+		Goto FatalityOff
+		
+	FatalityOn:
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 A_Print("Auto Execute: On")
+		PUNS E 2
+		TNT1 A 0 A_PlaySoundEx("KNUCKLED", "Auto")
+		PUNS FGF 2 A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0) 
+		PUNS EK 2
+		TNT1 A 0 A_PlaySoundEx("KNUCKLED", "Auto")
+		PUNS LML 2 A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0) 
+		PUNS K 2
+		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
+		TNT1 A 0 A_TakeInventory("NoFatality", 1)
+		Goto Ready+2
+		
+	FatalityOff:
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 A_Print("Auto Execute: Off")
+		
+		P1NR ABCDEFFGGHIJKKLMMNOPQRSTUVWX 0
+		P2NR ABCDEFFGGHIJKKLMMNOPQRSTUVWX 0
+		P3NR ABCDEFFGGHIJKKLMMNOPQRSTUVWX 0
+		
+		P9NS ABCDEFF 1 {
+			if (CountInv("PowerBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P1NR"); }
+			if (CountInv("PowerBlueBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P2NR");}
+			if (CountInv("PowerGreenBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P3NR");}
+			}
+		TNT1 A 0 {
+			A_PlaySoundEx("weapons/fists_smash", "Auto");
+			A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0);
+			}
+		P9NS GGHIJKKLMM 1 {
+			if (CountInv("PowerBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P1NR"); }
+			if (CountInv("PowerBlueBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P2NR");}
+			if (CountInv("PowerGreenBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P3NR");}
+			}
+		TNT1 A 0 {
+			A_PlaySoundEx("weapons/fists_smash", "Auto");
+			A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0);
+			}
+		P9NS NOPQRSTUVWX 1 {
+			if (CountInv("PowerBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P1NR"); }
+			if (CountInv("PowerBlueBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P2NR");}
+			if (CountInv("PowerGreenBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P3NR");}
+			}
+		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
+		TNT1 A 0 A_GiveInventory("NoFatality", 1)
+		Goto Ready+2
+////////
+	ReadyLoop:
+	Ready:
+		////////////////// Check if player is performing a fatality
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 PB_RespectIfNeeded
+ 		TNT1 A 0 A_JumpIfInventory("ShotgunguyHead",1,"ReadyShotgunguyHead")
+		TNT1 A 0 A_JumpIfInventory("LostSoulFatality",1,"ReadySoul")
+		TNT1 A 0 A_JumpIfInventory("PhantasmFatality",1, "ReadyPhantasm")
+		TNT1 A 0
+	SelectAnimation:
+		TNT1 A 0 {
+			if(CountInv("GoFatality") >= 1) {
+				SetPlayerProperty(0,1,0);
+			}	
+			else {
+				SetPlayerProperty(0,0,0);
+			}
+		}
+		TNT1 A 0 {
+		     A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 PB_HandleCrosshair(90);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 A_PlaySound("DRAW", 1)
+		TNT1 A 0 {
+		     return A_DoPBWeaponAction(WRF_NOFIRE);
+			 }
+		TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")		
+		TNT1 A 0 A_StopSound(CHAN_WEAPON)
+		CONE A 1 A_WeaponReady
+////////
+        TNT1 A 0 A_JumpIfInventory("Kicking",1,"DoKick")
+        TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		TNT1 A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("Unloading",1,"Unload") 
+		"####" A 0 A_JumpIfInventory("Quickspell",1,"Quickspell")
+		CONE A 1 A_JumpIfInventory("dualwieldToken", 1, "InitializeThunderstorm")
+		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 1)
+		CONE A 1 A_WeaponReady
+		CONE A 1 A_WeaponReady
+		TNT1 A 0 A_StopSound(CHAN_WEAPON)
+		Goto Ready+2
+		TNT1 A 0 A_GiveInventory("PrimaryPistolAmmo", 1) //instant recovery with chalice of mana!
+		CONE C 1 {
+		     return A_DoPBWeaponAction(WRF_NOFIRE);
+			 }
+		TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
+		CONE C 1 {
+		if (CountInv("PowerBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P1NG"); }
+		if (CountInv("PowerBlueBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P2NG");}
+		if (CountInv("PowerGreenBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P3NG");}
+		return A_DoPBWeaponAction;
+		}
+		Goto Ready3
+	Ready3:
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 PB_HandleCrosshair(90);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 }
+	    TNT1 A 0
+		LGQS E 1 {
+			 return A_DoPBWeaponAction;
+		     }
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 A_JumpIfInventory("ShotgunguyHead",1,"ReadyShotgunguyHead")
+		TNT1 A 0 A_JumpIfInventory("LostSoulFatality",1,"ReadySoul")
+		TNT1 A 0 A_JumpIfInventory("PhantasmFatality",1, "ReadyPhantasm")
+		LGQS E 1 {
+		if (CountInv("PowerBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P1NG"); }
+		if (CountInv("PowerBlueBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P2NG");}
+		if (CountInv("PowerGreenBloodOnVisor") >= 1 ) { A_SetWeaponSprite("P3NG");}
+		return A_DoPBWeaponAction;
+		}
+		Goto Ready
+////////
+	ReadyShotgunguyHEad:
+		PTG1 B 1 A_DoPBWeaponAction
+		loop	
+	LostSoulHandFireOverlay:
+			TNT1 A 5 {
+				A_FireCustomMissile("LostSoulOnHandFireSpawner",40,0,0,5);
+				if (CountInv("LostSoulFatality") < 1) { return state("LostSoulHandFireOverlayEnd"); }
+				return state("");
+			}
+			Loop		
+	LostSoulHandFireOverlayEnd:
+			TNT1 A 0
+			Stop			
+	ReadySoul:
+		TNT1 A 0 A_Overlay(-3, "LostSoulHandFireOverlay")
+		THEA AAAABBBBAAAABBBBCCCCDDDDCCCCDDDD 1 BRIGHT A_DoPBWeaponAction
+		loop	
+	PhantasmHandFireOverlay:
+			TNT1 A 5 {
+				A_FireCustomMissile("PhantasmOnHandFireSpawner",40,0,0,5);
+				if (CountInv("PhantasmFatality") < 1) { return state("PhantasmHandFireOverlayEnd"); }
+				return state("");
+			}
+			loop			
+	PhantasmHandFireOverlayEnd:
+			TNT1 A 0
+			Stop			
+	ReadyPhantasm:
+		TNT1 A 0 A_Overlay(-3, "PhantasmHandFireOverlay")
+		TH3A AAAABBBBAAAABBBBCCCCDDDDCCCCDDDD 1 BRIGHT A_DoPBWeaponAction
+		loop
+////////
+	Deselect:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 PB_HandleCrosshair(-1);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 A_ZoomFactor(1)
+		TNT1 A 0 A_TakeInventory("PowerBloodOnVisor",1)
+		TNT1 A 0 A_TakeInventory("PowerBlueBloodOnVisor",1)
+		TNT1 A 0 A_TakeInventory("PowerGreenBloodOnVisor",1)
+		TNT1 AAAAAAAAAAAAAAAAA 0 A_Lower
+		CONE C 1 A_Lower
+		Loop
+	Unload: 
+		TNT1 A 0 
+		TNT1 A 0 A_TakeInventory("Unloading",1)
+		SCQS ABC 1 
+		TNT1 A 0 A_PlaySound("SHOCK",1)
+		SCQS DEFGGHH 1 Bright
+		SCQS IJ 2 BRIGHT
+		TNT1 A 0 A_PlaySound("STATIC",2)
+		SCQS KLM 2 BRIGHT
+		TNT1 A 0 A_Log("Lightning selected as Quick Spell!")
+		TNT1 A 0 A_GiveInventory("QuickLightningSpellSelected",1)
+		Goto Ready
+	SpellFlash:
+		TNT1 A 0
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAA 1
+		stop
+  Select:
+		TNT1 A 0 {
+		  A_WeaponOffset(0,32);
+		  A_SetRoll(0);
+		  PB_HandleCrosshair(90);
+		  A_TakeInventory("PB_LockScreenTilt",1);
+		  }
+		Goto SelectFirstPersonLegs
+	SelectContinue:
+		
+		//Load bloody fist frames into memory
+		TNT1 A 0 PB_ResetVisorBloodTokens
+		TNT1 A 0 PB_ResetBarrelTokens
+		
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 A_SetInventory("Reloading", 0) //Prevent accidentally switching to smash/fatality mode
+		TNT1 A 0 PB_WeapTokenSwitch("Stormcast")
+		////////////////// Check if player is performing a fatality\\\\
+		TNT1 A 0
+////////////////////
+		CONE A 0 A_GiveInventory ("PowerChargeStorm", 200)
+		TNT1 A 0 A_TakeInventory("CastingArcOfDeath",1)
+		TNT1 A 0 A_GiveInventory("ArcOfDeath_Fake", 1)
+		CONE AAAAAAAAAAAAAAAAAA 0 A_Raise
+		CONE AAAAAAAA 1 A_Raise
+		Wait
+	Spawn:
+      	MSCR AABBCCBB 2 BRIGHT A_SpawnItem("PlasmaFlareSpawn",0,20)
+		MSCR A 1 bright A_SpawnItem("ElectroBlastTrail",0,30)
+		Loop
+////////
+	GrabObject:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/fistwhoosh2")
+		PKUP ABCDEF 1
+		Goto Ready		
+	KillLS:
+		THEA E 1 A_PlaySound("gore/headshot")
+		THEA E 3 
+		THEA F 4 
+		{
+			A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0);
+			A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0);
+			A_FireCustomMissile("LSOHK",40,0,0,5);
+			A_SetInventory("LostSoulFatality",0);
+			A_SetInventory("PhantasmFatality",0);
+			A_SetInventory("GoWeaponSpecialAbility",0);
+		} 
+		Wait
+////////
+  Fire:
+		NULL A 0 A_JumpIf (momZ > 0, "Fly")
+		NULL A 0 A_JumpIf (momZ < 0, "Fly")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+			//A_GiveInventory("PB_LockScreenTilt",1);
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			A_SetCrosshair(90);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+		//Determine berserk strike or not
+		TNT1 A 0 {
+			if (CountInv("PB_PowerStrength") >= 1 ) 
+			{ 
+				A_FireCustomMissile("MeleeStrikeSuperHook", 0, 0, 0, 5);
+			}
+			else {
+				A_FireCustomMissile("MeleeStrike1", 0, 0, 0, 5);
+				A_FireCustomMissile("MeleeStrike1", 0, 0, -25, 5);
+				A_FireCustomMissile("MeleeStrike1", 0, 0, 25, 5);
+			}
+		}
+		LGQS ABCDE 1
+	HoldLightning:
+		TNT1 A 0 A_GiveInventory ("PowerChargeStorm", 200)
+		LGQS F 1 BRIGHT 		
+		//TNT1 A 0 A_PlaySound("LIGHTN01", 6)
+		TNT1 A 0 A_PlaySound("SPELLC01", CHAN_VOICE) 	
+		TNT1 A 0 A_PlaySound("STATIC",1)
+		TNT1 A 0 PB_ReFire("GotoHold")
+		Goto CastQuickZap
+
+	GotoHold:
+		LGQS GHI 1 BRIGHT 
+		TNT1 A 0 A_RailAttack(15,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,400,5,0.001,3.0,"ElectroBlastTrail2",-15)
+		LGQS JKL 1 BRIGHT
+		TNT1 A 0 A_RailAttack(19,7,0,None,None,RGF_SILENT|RGF_FULLBRIGHT,1.9,"LightningGunProjectile",0,0,300,0,1.1,0,"BlueBeamdots",-5)
+		LGQS MNO 1 
+
+	HoldLightning2:
+		TNT1 AAA 0
+		TNT1 A 0 A_PlaySound("SHOCK")		
+		TNT1 A 0 A_JumpIfCloser(100,"RealElectricArc1")
+		TNT1 A 0 A_JumpIfCloser(200,"RealElectricArc2")
+		TNT1 A 0 A_JumpIfCloser(400,"RealElectricArc3")
+		TNT1 A 0 A_JumpIfCloser(600,"RealElectricArc4")
+		TNT1 A 0 A_JumpIfCloser(800,"RealElectricArc5")
+		//Here we check distance to target and jump to proper state depending on it
+		//The CLOSER the target, the WEAKER the arc, also the less mana it consumes
+				
+		LGQS GH 1 BRIGHT 
+		TNT1 A 0 A_RailAttack(14,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,200,5,0.001,3.0,"ElectroBlastTrail2",-15)
+		LGQS IJ 1 BRIGHT 
+		LGQS L 0 PB_ReFire ("HoldLightning2")
+
+	FinishElectricArc:
+		LGQS PQREDCBA 1 
+		LGQS A 0 A_StopSound(5)
+		Goto Ready3
+
+	RealElectricArc1:
+		TNT1 A 0 A_PlaySound("SHOCK")
+		LGQS GH 1 BRIGHT A_RailAttack(15,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,150,5,0.001,3.0,"ElectroBlastTrail2",-15)
+		//TNT1 A 0 A_RailAttack(14,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,120,5,0.001,3.0,"ElectroBlastTrail2",-15)
+		LGQS IJ 1 BRIGHT A_RailAttack(15,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,150,5,0.001,3.0,"ElectroBlastTrail3",-15)
+		TNT1 A 0 PB_ReFire ("HoldLightning2")
+		Goto FinishElectricArc
+	
+	RealElectricArc2:
+		TNT1 A 0 A_PlaySound("SHOCK")
+		LGQS GH 1 BRIGHT A_RailAttack(20,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,250,5,0.001,3.0,"ElectroBlastTrail2",-15)
+		//TNT1 A 0 A_RailAttack(16,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,220,5,0.001,3.0,"ElectroBlastTrail2",-15)
+		LGQS IJ 1 BRIGHT A_RailAttack(20,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,250,5,0.001,3.0,"ElectroBlastTrail3",-15)
+		TNT1 A 0 PB_ReFire ("HoldLightning2")
+		Goto FinishElectricArc
+
+	RealElectricArc3:
+		TNT1 A 0 A_PlaySound("SHOCK")
+		LGQS GH 1 BRIGHT A_RailAttack(25,7,0,None,None,RGF_SILENT|RGF_FULLBRIGHT,1.9,"LightningGunProjectile",0,0,450,0,1.1,0,"BlueBeamdots",-5) //A_RailAttack(10,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,700,5,0.1,3.0,"ElectroBlastTrail2",-15)
+//		TNT1 A 0 A_RailAttack(19,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,450,5,0.001,3.0,"ElectroBlastTrail3",-15)
+		LGQS IJ 1 BRIGHT A_RailAttack(25,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,450,5,0.001,3.0,"ElectroBlastTrail2",-15)
+		TNT1 A 0 PB_ReFire ("HoldLightning2")
+		Goto FinishElectricArc
+
+	RealElectricArc4:
+		TNT1 A 0 A_PlaySound("SHOCK")
+		LGQS GH 1 BRIGHT A_RailAttack(35,7,0,None,None,RGF_SILENT|RGF_FULLBRIGHT,1.9,"LightningGunProjectile",0,0,650,0,1.1,0,"BlueBeamdots",-5) //A_RailAttack(10,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,700,5,0.1,3.0,"ElectroBlastTrail3",-15)
+		TNT1 A 0 A_RailAttack(20,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,650,5,0.001,3.0,"ElectroBlastTrail2",-15)
+		LGQS IJ 1 BRIGHT A_RailAttack(35,7,0,None,None,RGF_SILENT|RGF_FULLBRIGHT,1.9,"LightningGunProjectile",0,0,650,0,1.1,0,"BlueBeamdots",-5) //BRIGHT A_RailAttack(10,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,700,5,0.1,3.0,"ElectroBlastTrail3",-15)
+		TNT1 A 0 PB_ReFire ("HoldLightning2")
+		Goto FinishElectricArc
+		
+	RealElectricArc5:
+		TNT1 A 0 A_PlaySound("SHOCK")
+		LGQS GH 1 BRIGHT A_RailAttack(45,7,0,None,None,RGF_SILENT|RGF_FULLBRIGHT,1.9,"LightningGunProjectile",0,0,850,0,1.1,0,"BlueBeamdots",-5) //A_RailAttack(10,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,700,5,0.1,3.0,"ElectroBlastTrail3",-15)
+		TNT1 A 0 A_FireCustomMissile("LightningMissile4",0,0,7,0)
+		//TNT1 A 0 A_RailAttack(25,7,0,None,None,RGF_SILENT|RGF_FULLBRIGHT,1.9,"LightningGunProjectile",0,0,850,0,1.1,0,"BlueBeamdots",-5)
+		LGQS IJ 1 BRIGHT A_RailAttack(45,7,0,None,None,RGF_SILENT|RGF_FULLBRIGHT,1.9,"LightningGunProjectile",0,0,850,0,1.1,0,"BlueBeamdots",-5) //BRIGHT A_RailAttack(10,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,700,5,0.1,3.0,"ElectroBlastTrail2",-15)
+		TNT1 A 0 PB_ReFire ("HoldLightning2")
+		Goto FinishElectricArc
+
+	Fly:
+		//TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 75, "Hold4")
+		//TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 50, "Hold3")
+		//TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 25, "Hold2")
+		//TNT1 A 0 A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0
+		MEDI E 2 BRIGHT A_ChangeVelocity(cos(pitch)-1,0,-sin(pitch)+2.2,CVF_RELATIVE)
+		TNT1 A 0 A_JumpIfInventory("FiredSecondary", 1, "QuickLightning")
+		TNT1 A 0 PB_ReFire("fly")
+		MEDI F 4
+		goto ready
+			
+	Hold2:
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 50, "Hold3")
+		TNT1 A 0 A_GiveInventory("PowerChargeStorm",200)
+		CONE D 1 
+		TNT1 A 0 PB_ReFire
+		
+	Hold3:
+		//TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 50, "Hold3")
+		TNT1 A 0 A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_JumpIfInventory("FiredSecondary", 1, "CastPurgatory")
+		CONE E 1 BRIGHT 
+		TNT1 A 0 PB_ReFire 
+		
+	AltFire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			PB_HandleCrosshair(90);
+			A_SetInventory("PB_LockScreenTilt",0);
+		}
+		TNT1 A 0 A_PlaySound("PZAPCHR2")
+		SCST ABCD 1
+		SCST EFGH 1 BRIGHT
+		TNT1 A 0 PB_ReFire("AltHold")
+		goto CastInstantZap
+		//CONL A 0 A_SetBlend("Blue", 0.2, 35)
+	AltHold:
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 75, "AltHold4") 
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 50, "AltHold3")
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 25, "AltHold2")
+
+		
+		TNT1 A 0 A_PlaySound("PZAPHUM", CHAN_WEAPON,2,1) 
+		
+		SCC1 ABCDE 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 BRIGHT A_JumpIfInventory("FiredPrimary", 1, "CastPulseBall")
+		TNT1 A 0 BRIGHT A_JumpIfInventory("TossGrenade",1,"InitializeStunwallXS")
+		TNT1 A 0 A_JumpIfInventory("StartDualWield", 1, "InitializeThunderstorm2")
+		TNT1 A 0 PB_ReFire("AltHold")
+
+	AltHold2:
+		TNT1 A 0 A_JumpIfInventory("GoFatality",1, "AltHold3")
+		goto discharge
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 75, "AltHold4")
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 50, "AltHold3")
+
+		TNT1 A 0 BRIGHT A_JumpIfInventory("FiredPrimary", 1, "CastStunBall")
+		TNT1 A 0 BRIGHT A_JumpIfInventory("TossGrenade",1,"InitializeStunwallSmall")
+		TNT1 A 0 A_JumpIfInventory("StartDualWield", 1, "InitializeThunderstorm2")
+		TNT1 A 0 A_PlaySound("PZAPHUM", CHAN_WEAPON,2,1) 
+		
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0)
+		SCC2 ABCDEFGH 1 BRIGHT A_FireCustomMissile("PlasmaFlareSpawn",25,0,0,0)
+		TNT1 A 0 A_GiveInventory("PowerChargeStorm",8)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1, "StartWarp")
+		TNT1 A 0 PB_ReFire("AltHold2")
+		goto discharge
+		
+	AltHold3:
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 75, "AltHold4")
+		TNT1 A 0 A_TakeInventory("GoFatality", 1)
+		SCC3 D 1 BRIGHT A_JumpIfInventory("FiredPrimary", 1, "CastBallLightning")
+		TNT1 A 0 BRIGHT A_JumpIfInventory("TossGrenade",1,"InitializeStunwallSmall")
+		TNT1 A 0 A_JumpIfInventory("StartDualWield", 1, "InitializeThunderstorm2")
+		TNT1 A 0 A_PlaySound("CHRGEBL", CHAN_WEAPON,2,1) 
+		
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0)
+		SCC3 A 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("LightningFlareSpawn",25,0,0,0)
+		SCC3 B 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("LightningFlareSpawn",25,0,0,0)
+		SCC3 C 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0)
+		TNT1 A 0 A_FireCustomMissile("LightningFlareSpawn",25,0,0,0)
+		SCC3 D 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("LightningFlareSpawn",25,0,0,0)
+		SCC3 E 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("LightningFlareSpawn",25,0,0,0)
+		SCC3 F 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1, "StartWarp2")
+		TNT1 A 0 PB_ReFire("AltHold3")
+		goto discharge
+		
+	AltHold4:
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 100, "AltHold5")
+		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",20,0,0,0)
+		TNT1 A 0 A_PlaySound("TPortalLoop", CHAN_WEAPON,2,1) 
+		SCC4 A 1 BRIGHT A_JumpIfInventory("FiredPrimary", 1, "CastBallLightning")
+		TNT1 A 0 A_JumpIfInventory("TossGrenade",1,"InitializeStunwall")
+		TNT1 A 0 A_JumpIfInventory("StartDualWield", 1, "InitializeThunderstorm3")
+		TNT1 A 0 A_FireCustomMissile("StormFlareSpawn",25,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0)
+		SCC4 B 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("StormFlareSpawn",25,0,0,0)
+		SCC4 C 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("StormFlareSpawn",25,0,0,0)
+		SCC4 D 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("StormFlareSpawn",25,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0)
+		SCC4 E 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("StormFlareSpawn",25,0,0,0)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1, "StartWarp2")
+		TNT1 A 0 PB_ReFire("AltHold4")
+	
+	AltHold5:
+		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",20,0,0,0)
+		TNT1 A 0 A_PlaySound("TPortalLoop", CHAN_WEAPON,2,1) 
+		SCC4 A 1 BRIGHT A_JumpIfInventory("FiredPrimary", 1, "CastMorgenstern")
+		TNT1 A 0 BRIGHT A_JumpIfInventory("TossGrenade",1,"InitializeStunwall")
+		TNT1 A 0 A_JumpIfInventory("StartDualWield", 1, "InitializeThunderstorm4")
+		TNT1 A 0 A_FireCustomMissile("StormFlareSpawn",25,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0)
+		SCC4 B 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("StormFlareSpawn",25,0,0,0)
+		SCC4 C 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("StormFlareSpawn",25,0,0,0)
+		SCC4 D 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("StormFlareSpawn",25,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0)
+		SCC4 E 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_FireCustomMissile("StormFlareSpawn",25,0,0,0)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1, "StartWarp3")
+		TNT1 A 0 PB_ReFire("AltHold5")		
+		
+	Discharge:
+		TNT1 A 0 A_JumpIfInventory("PB_PowerStrength",1,0)
+		goto Ready
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 100, "CastStorm")
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 75, "CastDeadlyLightning")
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 50, "CastLightning")
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 25, "CastLightLightning")
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 10, "CastQuickZap")
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 1, "CastInstantZap")
+		/*	
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 75, "CastStorm")
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 50, "CastDeadlyLightning")
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 25, "CastLightning")
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 20, "CastLightLightning")
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 1, "CastQuickZap")
+		*/
+
+	StartWarp:
+		TNT1 A 0 A_JumpIfInventory("AllCounter", 7, "AllPrint")
+		TNT1 A 0 A_JumpIfInventory("ElecCounter", 4, "ElecPrint")
+		TNT1 A 0 A_GiveInventory("AllCounter",1)
+		TNT1 A 0 A_GiveInventory("ElecCounter",1)
+		TNT1 A 0 A_PlaySound("CHRGEBL", CHAN_WEAPON,2,1) 
+		SCC2 ABCDEFGH 1 BRIGHT A_FireCustomMissile("PlasmaFlareSpawn",25,0,0,0)
+		StartWarp2:
+		SCC3 ABCDEFGH 1 BRIGHT A_FireCustomMissile("LightningFlareSpawn",25,0,0,0)
+		StartWarp3:
+		SCC4 ABCDEABC 1 BRIGHT A_FireCustomMissile("StormFlareSpawn",25,0,0,0)
+		SCBS D 2 BRIGHT 
+		TNT1 A 0 A_SpawnItemEx("LightningWarperA", 0, 0, 0, 0, 0, 0, 0, SXF_SETMASTER|SXF_NOCHECKPOSITION)
+		TNT1 A 0 A_GiveInventory("LightningImmunity",1)
+		SCBA ABCDE 2  
+		TNT1 A 0 A_Takeinventory("PowerChargeStorm",2) 
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		SCBA F 5
+		Goto Ready+2
+		
+	AllPrint:
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 A_Print("You can't spell more than 7 warpers!", -30)
+		Goto Ready+2
+	ElecPrint:
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 A_Print("You can't spell more than 4 storm warpers!", -30)
+		Goto Ready+2
+		
+//===============
+//LIGHTNING AND ZAPS CASTS
+//===============
+
+
+	CastInstantZap:	
+        //CONE ABCD 2 
+		TNT1 A 0 A_PlaySound("MULTIC01", 1) 
+		TNT1 A 0 
+		SCLA AB 2 BRIGHT
+		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 200)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
+		SCLA C 2 BRIGHT A_FireCustomMissile("LightningMissile4",0,0,0,0)
+		SCLA DF 1 BRIGHT 
+		TNT1 A 0 A_PlaySound("PZAPFIRE",6)  //A_PlaySound("ZAP", CHAN_WEAPON,2) 
+		SCLA GHIIJJ 1 BRIGHT
+		Goto Ready+2
+		
+
+	CastQuickZap:	
+        //CONE ABCD 2 
+		TNT1 A 0 A_PlaySound("MULTIC01", 1) 
+		TNT1 A 0 
+		SCLA AB 2 BRIGHT
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
+		SCLA C 2 BRIGHT A_FireCustomMissile("LightningMissile3",0,0,0,0)
+		SCLA DF 2 BRIGHT A_FireCustomMissile("LightningMissile5",0,0,0,0)
+//		TNT1 A 0 A_FireCustomMissile("LightningMissile4",0,0,0,0)
+		//TNT1 A 0 BRIGHT A_RailAttack(90,10,0,none,"9F 9F FF",RGF_SILENT | RGF_FULLBRIGHT,25,"LightningPuff",0,0,600,5,0.1,4.0,"LightningDotz",-15) //A_FireCustomMissile("LightningMissile4",0,0,0,0)
+		//		TNT1 A 0 BRIGHT A_RailAttack(90,10,0,none,"9F 9F FF",RGF_SILENT | RGF_FULLBRIGHT,50,"LightningPuff",0,0,600,15,0.1,6.0,0,-15) //A_FireCustomMissile("LightningMissile4",0,0,0,0)
+		//CONL G 1 BRIGHT A_RailAttack(10,10,0,none,"9F 9F FF",RGF_SILENT | RGF_FULLBRIGHT,65,"LightningPuff",0,0,600,5,150.0,2.0,"LightningTrailExtraSmall",-15) //A_FireCustomMissile("LightningMissile4",0,0,0,0)
+		//TNT1 A 0 BRIGHT A_RailAttack(90,10,0,none,"9F 9F FF",RGF_SILENT | RGF_FULLBRIGHT,25,"LightningPuff",0,0,600,5,0.001,5.0,"StormTrailParticle",-15) //A_FireCustomMissile("LightningMissile4",0,0,0,0)
+		TNT1 A 0 A_PlaySound("PZAPFIRE",6)  //A_PlaySound("ZAP", CHAN_WEAPON,2) 
+		SCLA GHIJ 2 BRIGHT
+		//TNT1 A 0 A_Print("Quick Zap", -30)
+		//TNT1 A 0 A_FireCustomMissile("LightningMissile2",0,0,0,0)
+		//CONL G 2 BRIGHT A_FireCustomMissile("LightningMissile3",0,0,0,0) //1 BRIGHT A_FireCustomMissile("LightningMissile",0,0,0,0)
+		//CONL EFG 1 BRIGHT 
+		//CONL FED 2 BRIGHT 
+		//CONL DC 2 BRIGHT 
+		Goto Ready+2
+		
+	CastLightLightning:	
+		SCLA AB 2 BRIGHT 
+		TNT1 A 0 A_PlaySound("LIGHTN01", 1) 
+		TNT1 A 0 A_PlaySound("SPELLC01", CHAN_VOICE) 	
+		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 10)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+		TNT1 A 0 A_PlaySound("LGBOMB", CHAN_WEAPON,2) 
+		SCLA CD 2 BRIGHT A_RailAttack(90,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningPuff",0,0,600,5,0.001,5.0,"StormTrailParticle",-15)
+		SCLA D 1 BRIGHT A_FireCustomMissile("LightningMissile3",0,0,0,-10)
+		SCLA F 1 BRIGHT A_FireCustomMissile("LightningMissile4",0,0,0,-10)
+		TNT1 AA 0 A_FireCustomMissile("LightningMissile5",random(-5,5),0,0,0)
+		//TNT1 A 0 A_Print("LightLightning", -30)
+		//CONL G 0 //A_FireCustomMissile("LightningMissile4",0,0,0,0)
+		//TNT1 A 0 A_FireCustomMissile("LightningMissile2",0,0,0,0)
+		//CONL G 2 BRIGHT A_FireCustomMissile("LightningMissile3",0,0,0,0) //1 BRIGHT A_FireCustomMissile("LightningMissile",0,0,0,0)
+		SCLA FGHIJ 2 BRIGHT
+		TNT1 A 0 PB_ReFire
+		Goto Ready+2
+		
+	CastLightning:
+		SCLA AB 2 BRIGHT
+		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 10)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+		TNT1 A 0 A_PlaySound("LIGHTN01", 1) 
+		TNT1 A 0 A_PlaySound("LIGHTNA1", 6) 
+		TNT1 A 0 A_PlaySound("TPortalZap", CHAN_WEAPON,2) 
+		SCLA CD 2 BRIGHT A_RailAttack(150,10,0,none,"9F 9F FF",RGF_SILENT | RGF_FULLBRIGHT,25,"LightningPuff",0,0,600,5,0.001,5.0,"StormTrailParticle",-15) 
+		SCLA F 2 BRIGHT A_FireCustomMissile("LightningMissile5",random(-5,5),0,0,0)
+		//TNT1 A 0 A_Print("Lightning", -30)
+		TNT1 A 0 A_FireCustomMissile("LightningMissile1",0,0,0,-10)
+		TNT1 AAA 0 A_FireCustomMissile("LightningMissile5",random(-5,5),0,0,0)
+		SCLA GHIJJ 2 BRIGHT
+		Goto Ready+2
+	
+		
+	CastDeadlyLightning:	
+		SCLA AB 2 BRIGHT
+		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 10)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+
+		TNT1 A 0 A_PlaySound("LIGHTN01", 1) 
+		TNT1 A 0 A_PlaySound("LIGHTNA1", 6) 
+		TNT1 A 0 A_PlaySound("LIGHTNA2", 7) 
+
+		TNT1 A 0 A_PlaySound("PZAPFIRE", CHAN_WEAPON,2) 
+		SCLA CD 2 BRIGHT A_RailAttack(200,10,0,none,"9F 9F FF",RGF_SILENT | RGF_FULLBRIGHT,25,"LightningPuff",0,0,600,5,0.001,5.0,"StormTrailParticle",-15) 
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+		SCLA E 2 BRIGHT A_FireCustomMissile("SCZ_ChainLightningBeam",0,0,0,-10)
+		TNT1 A 0 A_RailAttack(250,10,0,none,"9F 9F FF",RGF_SILENT | RGF_FULLBRIGHT,25,"LightningPuff",0,0,600,5,0.001,5.0,"StormTrailParticle",-15) 
+		//TNT1 A 0 A_Print("DeadlyLightning", -30)
+		//SCLA E 2 BRIGHT A_FireCustomMissile("LightningMissile1",0,0,0,-10)
+		TNT1 AA 0 A_FireCustomMissile("LightningMissile5",random(-5,5),0,0,0)
+		SCLA F 2 BRIGHT A_FireCustomMissile("LightningMissile2",0,0,0,-10)
+		TNT1 A 0 A_FireCustomMissile("LightningMissile5",random(-5,5),0,0,0)
+		TNT1 A 0 A_RailAttack(250,10,0,none,"9F 9F FF",RGF_SILENT | RGF_FULLBRIGHT,25,"LightningPuff",0,0,600,5,0.001,5.0,"StormTrailParticle",-15) 
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+		TNT1 A 0 A_PlaySound("ZAP") 
+		SCLA GHIJJ 2 BRIGHT
+		TNT1 A 0 A_PlaySound("PZAPFIRE", CHAN_WEAPON,2) 
+		SCLA J 8
+		Goto Ready+2
+
+		
+	CastStorm:	
+		TNT1 A 0 A_PlaySound("TPortalAppear")
+		SCLA AB 2 BRIGHT
+		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 100)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+		TNT1 A 0 A_PlaySound("LIGHTNA2", 7) 
+		TNT1 A 0 A_PlaySound("SPELLCL1", CHAN_VOICE) 		
+		TNT1 A 0 A_PlaySound("PZAPFIRE", CHAN_WEAPON,2)
+		SCLA CD 2 BRIGHT A_RailAttack(250,10,0,none,"9F 9F FF",RGF_SILENT | RGF_FULLBRIGHT,25,"LightningPuff",0,0,600,5,0.001,5.0,"StormTrailParticle",-15) 
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+		TNT1 A 0 A_FireCustomMissile("LightningMissile5",random(-5,5),0,0,0)
+		//TNT1 A 0 A_Print("Storm", -30)
+		SCLA E 2 BRIGHT A_FireCustomMissile("SCZ_ChainLightningBeam",0,0,0,-10)
+		TNT1 A 0 A_FireCustomMissile("LightningMissile5",random(-5,5),0,0,0)
+		TNT1 A 0 A_RailAttack(250,10,0,none,"9F 9F FF",RGF_SILENT | RGF_FULLBRIGHT,25,"LightningPuff",0,0,600,5,0.001,5.0,"StormTrailParticle",-15) 
+		//SCLA E 2 BRIGHT A_FireCustomMissile("LightningMissile1",0,0,0,-10)
+		SCLA F 2 BRIGHT A_FireCustomMissile("LightningMissile1",0,0,0,-10)
+		TNT1 AA 0 A_FireCustomMissile("LightningMissile5",random(-5,5),0,0,0)
+		TNT1 A 0 A_RailAttack(250,10,0,none,"9F 9F FF",RGF_SILENT | RGF_FULLBRIGHT,25,"LightningPuff",0,0,600,5,0.001,5.0,"StormTrailParticle",-15) 
+		TNT1 A 0 A_PlaySound("PZAPBOMB")
+		SCLA GH 2 BRIGHT A_FireCustomMissile("LightningMissile2",0,0,0,-10)
+		TNT1 AA 0 A_FireCustomMissile("LightningMissile5",random(-5,5),0,0,0)
+		SCLA IJ 2 BRIGHT A_FireCustomMissile("LightningMissile3",0,0,0,-10)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+		//TNT1 A 0 A_FireCustomMissile("LightningMissile2",0,0,0,0)
+		//CONL G 2 BRIGHT A_FireCustomMissile("LightningMissile3",0,0,0,0) //1 BRIGHT A_FireCustomMissile("LightningMissile",0,0,0,0)
+		SCLA J 15
+		Goto Ready+2
+
+//////////////////////////////////////////////////////////////////////////
+//																		//
+//				BALL LIGHTNING CASTS									//
+//																		//
+//////////////////////////////////////////////////////////////////////////
+
+	CastPulseBall:
+		SCBS D 2 BRIGHT 
+		TNT1 A 0 A_FireCustomMissile("TeslaPulseBall",0,0,0,0)
+		SCBA ABCDE 2  
+		TNT1 A 0 A_Takeinventory("PowerChargeStorm",10) 
+		SCBA F 5
+		Goto Ready+2
+	
+	CastStunBall:
+		SCBS D 2 BRIGHT 
+		TNT1 A 0 A_FireCustomMissile("StunBall",0,0,0,0)
+		SCBA ABCDE 2  
+		TNT1 A 0 A_Takeinventory("PowerChargeStorm",10) 
+		SCBA F 5
+		Goto Ready+2
+
+	CastBallLightning:
+		SCBS CD 2 BRIGHT 
+		TNT1 A 0 A_FireCustomMissile("ElectroBomb2",0,0,0,0)
+		SCBA ABCDDE 2  
+		TNT1 A 0 A_Takeinventory("PowerChargeStorm",10) 
+		SCBA F 10
+		Goto Ready+2
+		
+	CastMorgenstern:
+		//TNT1 A 0 A_PlaySound("PZAPFIRE", CHAN_WEAPON,2)
+		SCBS ABCD 2 BRIGHT 
+		TNT1 A 0 A_FireCustomMissile("JacobLadderBall",0,0,0,0)
+		SCBA ABCCDDE 2  
+		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 10)
+		//TNT1 A 0 A_PlaySound("PZAPFIRE", CHAN_WEAPON,2)
+		SCBA F 15
+		Goto Ready+2
+    
+	QuickLightning:
+		//TNT1 A 0 A_PlaySound("PZAPFIRE", CHAN_WEAPON,2)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+		SCLA ABCD 2 BRIGHT //A_FireCustomMissile("LightningMissile1",0,0,0,0)
+		//TNT1 A 0 A_FireCustomMissile("LightningMissile1",0,0,0,0)
+		SCLA EFGHIJ 2 BRIGHT 
+		TNT1 A 0 A_FireCustomMissile("LightningMissile2",0,0,0,0)
+		TNT1 A 0 A_PlaySound("PZAPFIRE", CHAN_WEAPON,2)
+		TNT1 A 0 A_Takeinventory("Taunting",1) 
+		Goto ready+2
+
+		
+//////////////////////////////////////////////////////////
+//                                                      //
+//             LIGHTNING "WALL" CASTS                   //
+//                                                      //
+//////////////////////////////////////////////////////////
+
+	InitializeStunwall:
+		SCLA EFGHI 2 BRIGHT //A_FireCustomMissile("LostSoulOnHandFireSpawner",random (-40,40),0,0,3)
+		TNT1 A 0 A_PlaySound("TPortalAppear")
+		TNT1 A 0 A_FireCustomMissile ("StunwallProj", 0, 1, 0, 0)
+		TNT1 A 0 A_SetPitch(-4.0 + pitch)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
+		SCLA BA 3 A_SetPitch(+2.0 + pitch)
+		SCLA AAAAA 3
+		TNT1 A 0 A_TakeInventory("TossGrenade", 1)
+		Goto Ready
+	
+	InitializeStunwallSmall:
+		SCLA EFGHI 2 BRIGHT //A_FireCustomMissile("LostSoulOnHandFireSpawner",random (-40,40),0,0,3)
+		TNT1 A 0 A_PlaySound("TPortalAppear")
+		TNT1 A 0 A_FireCustomMissile ("StunwallProjSmall", 0, 1, 0, 0)
+		TNT1 A 0 A_SetPitch(-4.0 + pitch)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
+		SCLA BA 3 A_SetPitch(+2.0 + pitch)
+		SCLA AAAAA 3
+		TNT1 A 0 A_TakeInventory("TossGrenade", 1)
+		Goto Ready
+	
+	TossGrenade:
+	InitializeStunwallXS:
+		SCLA EFGHI 2 BRIGHT //A_FireCustomMissile("LostSoulOnHandFireSpawner",random (-40,40),0,0,3)
+		TNT1 A 0 A_PlaySound("TPortalAppear")
+		TNT1 A 0 A_FireCustomMissile ("StunwallProjXS", 0, 1, 0, 0)
+		TNT1 A 0 A_SetPitch(-4.0 + pitch)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
+		SCLA BA 3 A_SetPitch(+2.0 + pitch)
+		SCLA AAAAA 3
+		TNT1 A 0 A_TakeInventory("TossGrenade", 1)
+		Goto Ready
+		
+				
+	InitializeThunderstorm:	
+		TNT1 A 0 A_TakeInventory("StartDualWield", 1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+		TNT1 A 10 
+		TNT1 A 0 A_SelectWeapon("ArcOfDeath_Fake")
+		TNT1 A 0 A_WeaponReady
+		Goto Ready
+		
+	InitializeThunderstorm2:	
+		TNT1 A 0 A_TakeInventory("StartDualWield", 1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+		TNT1 A 0 A_GiveInventory("CastingArcOfDeath",1)
+		TNT1 A 0 A_SelectWeapon("ArcOfDeath_Fake")
+		TNT1 A 0 A_WeaponReady
+		Goto Ready
+		
+	InitializeThunderstorm3:	
+		TNT1 A 0 A_TakeInventory("StartDualWield", 1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+		TNT1 A 0 A_GiveInventory("CastingArcOfDeath",2)
+		TNT1 A 0 A_SelectWeapon("ArcOfDeath_Fake")
+		TNT1 A 0 A_WeaponReady
+		Goto Ready
+		
+	InitializeThunderstorm4:	
+		TNT1 A 0 A_TakeInventory("StartDualWield", 1)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+		TNT1 A 0 A_GiveInventory("CastingArcOfDeath",3)
+		TNT1 A 0 A_SelectWeapon("ArcOfDeath_Fake")
+		TNT1 A 0 A_WeaponReady
+		Goto Ready	
+
+	Teleportium:
+		MLNG I 4 BRIGHT
+		TNT1 A 0 A_StopSound(7)
+		TNT1 A 0 A_PlaySound("DSBOSPIT", 2)
+//		PUND CCBA 1
+		Goto Ready
+		
+	Salute:
+	    TNT1 A 0 SetPlayerProperty(0,1,0)
+		TNT1 A 0 A_ALertMonsters
+		SALU ABCDEDCDEDCDEDCBA 4
+		TNT1 A 0 A_TakeInventory("Salute1",1)
+		TNT1 A 0 A_TakeInventory("Salute2",1)
+		TNT1 A 0 SetPlayerProperty(0,0,0)
+		Goto Ready
+	}
+}
+
+ACTOR ArcOfDeath_Fake : MWeapLightning //replaces MWeapLightning
+{
+    //SpawnID 113
+    //Weapon.SlotNumber 7
+    Weapon.AmmoType1 "PrimaryPistolAmmo"
+    Weapon.AmmoType2 "PowerChargeStorm"
+	//Inventory.ForbiddenTo Schism_Ranger, Schism_Paladin, Schism_Corvus
+	
+    //Weapon.SisterWeapon "ArcOfDeathPowered"
+    States
+    {
+ 
+			Select:
+			TNT1 A 0 A_Raise	
+			Wait
+
+    Ready:
+	TNT1 A 0 A_PlaySound("TPortalLoop", CHAN_WEAPON,2,1) 
+	TNT1 A 0 
+	//TNT1 A 0 A_JumpIfInventory("PowerChargeStorm",50,"ChargedAnim")
+	TNT1 A 0 A_JumpIfInventory("CastingArcOfDeath",1,"ChargedFire")
+	TNT1 A 0 A_WeaponReady
+	MLNG JKLMN 2 BRIGHT //showing anim from bare hands - a bit longer way for balance
+	goto ReadyLoop 
+
+		ReadyLoop:
+		MLNG A 1 Bright A_WeaponReady
+		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		MLNG A 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		MLNG A 1 Bright A_LightningReady
+		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		MLNG A 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		TNT1 A 0 
+		MLNG B 1 Bright A_WeaponReady
+		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		MLNG B 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		MLNG B 1 Bright A_LightningReady
+		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		MLNG B 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		TNT1 A 0 
+		MLNG C 1 Bright A_WeaponReady
+		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		MLNG C 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		MLNG C 1 Bright A_LightningReady
+		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		MLNG C 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		TNT1 A 0 
+		MLNG D 1 Bright A_WeaponReady
+		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		MLNG D 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		MLNG D 1 Bright A_LightningReady
+		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		MLNG D 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
+		TNT1 A 0 
+		Loop
+
+    Deselect:
+	TNT1 A 0 
+    TNT1 A 0 
+	TNT1 A 0 A_Lower
+	Wait
+	
+
+    Fire:
+	TNT1 A 0 A_TakeInventory("PowerChargeStorm", 2)
+	TNT1 A 0 A_TakeInventory("PrimaryPistolAmmo", 2)
+	TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+
+	TNT1 A 0 A_PlaySound("LIGHTNA2", 7) 
+	TNT1 A 0 A_PlaySound("SPELLCL1", CHAN_VOICE) 		
+	TNT1 A 0 A_PlaySound("PZAPFIRE", CHAN_WEAPON,2)
+
+	MLNG DE 3 Bright
+	TNT1 A 0 A_MLightningAttack
+	TNT1 A 0 A_PlaySound("TPortalAppear")
+	MLNG F 3 Bright 
+	MLNG G 3 Bright
+	MLNG HI 3 Bright
+	TNT1 A 0
+	TNT1 A 0 A_SelectWeapon("Stormcast")
+	TNT1 A 0 A_WeaponReady //patch
+	Goto ReadyLoop
+	
+	ChargedFire:
+	TNT1 A 0 
+	MLNG PQRST 2 BRIGHT	//showing anim with charged ball in left hand going down
+			//AltFire:
+		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 3)
+		TNT1 A 0 A_TakeInventory("PrimaryPistolAmmo", 3)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
+
+		TNT1 A 0 A_PlaySound("LIGHTNA2", 7) 
+		TNT1 A 0 A_PlaySound("SPELLCL1", CHAN_VOICE) 		
+		TNT1 A 0 A_PlaySound("PZAPFIRE", CHAN_WEAPON,2)
+
+		MLNG D 3 Bright
+		TNT1 A 0 A_MLightningAttack
+		TNT1 A 0 A_PlaySound("TPortalAppear")
+		TNT1 A 0 A_JumpIfInventory("CastingArcOfDeath",3,3)
+		TNT1 A 0 A_JumpIfInventory("CastingArcOfDeath",2,7)
+		TNT1 A 0 A_JumpIfInventory("CastingArcOfDeath",1,9)
+		MLNG E 3 Bright 
+		TNT1 A 0 A_MLightningAttack
+		MLNG F 3 Bright //A_MLightningAttack
+		TNT1 A 0 A_MLightningAttack
+		MLNG E 3 Bright 
+		TNT1 A 0 A_MLightningAttack
+		MLNG F 3 Bright //A_MLightningAttack
+		TNT1 A 0 A_MLightningAttack
+		MLNG G 3 Bright 
+		MLNG HI 3 Bright
+		TNT1 A 0 A_TakeInventory("CastingArcOfDeath",3)
+		TNT1 A 0
+		TNT1 A 0 A_SelectWeapon("Stormcast")
+		TNT1 A 0 A_WeaponReady //patch
+		Goto ReadyLoop
+	}
+}
+
+///////////////////////////////////////////////////////////////
+////////                                         //////////////
+////////            LIGHTNING WARPERS            //////////////
+////////                                         //////////////
+///////////////////////////////////////////////////////////////
+
+
+
+ACTOR LightningWarperA
+{
+  RenderStyle "Add"
+  Scale 0.1
+  species "Marines"
+  Projectile
+  damagetype Lightning
+  +MISSILE
+  +DONTHURTSPECIES
+	+THRUSPECIES
+	+MTHRUSPECIES
+  +NOINTERACTION
+  +BLOODLESSIMPACT
+  +FRIENDLY
+  seesound "Static"
+    
+ var int user_angle;
+  var int user_xoffset;
+  var int user_yoffset;
+  var int user_zoffset;
+		 
+  States
+  {
+  Spawn:
+    TNT1 A 0 NoDelay A_SetUserVar("user_xoffset", 32)
+  SetVars:
+    TNT1 A 0 A_SetUserVar("user_yoffset", 16)
+    TNT1 A 0 A_SetUserVar("user_zoffset", 32)
+    TNT1 A 0 A_SetUserVar("user_angle", 0)
+  AnimInit:
+    TNT1 A 1 A_Warp(AAPTR_PLAYER1, user_xoffset, user_yoffset, user_zoffset, user_angle,
+                    WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE|WARPF_ABSOLUTEANGLE)
+  AnimLoop:
+   	TNT1 A 0 A_JumpIfInventory("WarpTimer", 60, "Destroy")
+
+    LGBL A 1 BRIGHT A_Warp(AAPTR_PLAYER1, user_xoffset, user_yoffset, user_zoffset, user_angle,
+                           WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE|WARPF_ABSOLUTEANGLE)
+	TNT1 A 0 A_SetUserVar("user_angle", user_angle + 8)
+    TNT1 A 0 A_SpawnItemEx("LightningWarperTrail", 0, 0, 0, 0, 0, 0, 0,
+                           SXF_NOCHECKPOSITION|SXF_TRANSFERTRANSLATION)
+	//TNT1 A 0 A_Explode(2,128,0)
+	TNT1 A 0 A_spawnitem("BlueFlareSmall")
+
+	LGBL B 1 BRIGHT A_Warp(AAPTR_PLAYER1, user_xoffset, user_yoffset, user_zoffset, user_angle,
+                           WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE|WARPF_ABSOLUTEANGLE)
+	TNT1 A 0 A_SetUserVar("user_angle", user_angle + 8)
+    TNT1 A 0 A_SpawnItemEx("LightningWarperTrail", 0, 0, 0, 0, 0, 0, 0,
+                           SXF_NOCHECKPOSITION|SXF_TRANSFERTRANSLATION)
+	//TNT1 A 0 A_Explode(2,128,0)
+	TNT1 A 0 A_spawnitem("BlueFlareSmall")
+
+    LGBL C 1 BRIGHT A_Warp(AAPTR_PLAYER1, user_xoffset, user_yoffset, user_zoffset, user_angle,
+                           WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE|WARPF_ABSOLUTEANGLE)
+	TNT1 A 0 A_SetUserVar("user_angle", user_angle + 8)
+    TNT1 A 0 A_SpawnItemEx("LightningWarperTrail", 0, 0, 0, 0, 0, 0, 0,
+                           SXF_NOCHECKPOSITION|SXF_TRANSFERTRANSLATION)
+	// A 0 A_Explode(2,128,0)
+	TNT1 A 0 A_spawnitem("BlueFlareSmall")
+
+    LGBL D 1 BRIGHT A_Warp(AAPTR_PLAYER1, user_xoffset, user_yoffset, user_zoffset, user_angle,
+                           WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE|WARPF_ABSOLUTEANGLE)
+	TNT1 A 0 A_SetUserVar("user_angle", user_angle + 8)
+    TNT1 A 0 A_SpawnItemEx("LightningWarperTrail", 0, 0, 0, 0, 0, 0, 0,
+                           SXF_NOCHECKPOSITION|SXF_TRANSFERTRANSLATION)
+	//TNT1 A 0 A_Explode(2,128,0)
+	TNT1 A 0 A_spawnitem("BlueFlareSmall")
+
+    LGBL E 1 BRIGHT A_Warp(AAPTR_PLAYER1, user_xoffset, user_yoffset, user_zoffset, user_angle,
+                           WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE|WARPF_ABSOLUTEANGLE)
+	TNT1 A 0 A_SetUserVar("user_angle", user_angle + 8)
+    TNT1 A 0 A_SpawnItemEx("LightningWarperTrail", 0, 0, 0, 0, 0, 0, 0,
+                           SXF_NOCHECKPOSITION|SXF_TRANSFERTRANSLATION)
+	TNT1 A 0 A_Explode(10,128,0)
+	TNT1 A 0 A_spawnitem("BlueFlareSmall")
+	
+	TNT1 A 0 A_Jump(176,2)
+	TNT1 A 0 A_GiveInventory("WarpTimer",1)
+	TNT1 A 0 
+
+	Loop
+  Destroy:
+	TNT1 A 0 A_TakeFromTarget("ElecCounter", 1, 0, AAPTR_PLAYER1 | AAPTR_PLAYER2 | AAPTR_PLAYER3 | AAPTR_PLAYER4)
+	TNT1 A 0 A_TakeFromTarget("AllCounter", 1, 0, AAPTR_PLAYER1 | AAPTR_PLAYER2 | AAPTR_PLAYER3 | AAPTR_PLAYER4)
+	RealDestroy:
+    LGBL A 1 BRIGHT A_Warp(AAPTR_PLAYER1, user_xoffset, user_yoffset, user_zoffset, user_angle,
+                           WARPF_NOCHECKPOSITION|WARPF_INTERPOLATE|WARPF_ABSOLUTEANGLE)
+    TNT1 A 0 A_SetUserVar("user_angle", user_angle + 8)
+    TNT1 A 0 A_SpawnItemEx("LightningWarperTrail", 0, 0, 0, 0, 0, 0, 0,
+                           SXF_NOCHECKPOSITION|SXF_TRANSFERTRANSLATION)
+    TNT1 A 0 A_FadeOut(0.02)
+    Loop
+  }
+}
+
+ACTOR LightningWarperB : LightningWarperA
+{
+  States
+  {
+  Spawn:
+    TNT1 A 0 NoDelay A_SetUserVar("user_xoffset", -32)
+	SetVars:
+    TNT1 A 0 A_SetUserVar("user_yoffset", 16)
+    TNT1 A 0 A_SetUserVar("user_zoffset", 32)
+    TNT1 A 0 A_SetUserVar("user_angle", 0)
+	Goto AnimInit
+  }
+}
+
+
+ACTOR LightningWarperC : LightningWarperA
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0 NoDelay A_SetUserVar("user_xoffset", 0)
+		SetVars:
+		TNT1 A 0 A_SetUserVar("user_yoffset", -32)
+		TNT1 A 0 A_SetUserVar("user_zoffset", 32)
+		TNT1 A 0 A_SetUserVar("user_angle", 0)
+		Goto AnimInit
+	}
+}
+
+ACTOR LightningWarperTrail
+{
+  RenderStyle "Add"
+  Scale 0.08
+  +NOINTERACTION
+  States
+  {
+	  Spawn:
+		TNT1 A 1
+		LGBL A 1 Bright A_FadeOut(0.25)
+		Wait
+  }
+}
+
+ACTOR LightningWarp : CustomInventory
+{
+  States
+  {
+  Pickup:
+    TNT1 A 0 A_SpawnItemEx("LightningWarperA", 0, 0, 0, 0, 0, 0, 0, SXF_SETMASTER|SXF_NOCHECKPOSITION)
+    TNT1 A 0 A_SpawnItemEx("LightningWarperB", 0, 0, 0, 0, 0, 0, 0, SXF_SETMASTER|SXF_NOCHECKPOSITION)
+    TNT1 A 0 A_SpawnItemEx("LightningWarperC", 0, 0, 0, 0, 0, 0, 0, SXF_SETMASTER|SXF_NOCHECKPOSITION)
+	TNT1 A 0 A_GiveInventory("LightningImmunity",1)
+	stop
+  }
+}
+
+ACTOR LightningImmunity : PowerupGiver
+{
+  Powerup.Type PowerLightningImmunity
+  Powerup.Duration -60
+  +INVENTORY.AUTOACTIVATE
+  -ADDITIVETIME
+}
+
+actor PowerLightningImmunity : PowerProtection
+{
+DamageFactor "Lightning", 0.2
+DamageFactor "Plasma", 0.2
+
+}
+
+ACTOR DLightningFX
+{
+    Scale 0.5
+    RenderStyle Add
+    +NOINTERACTION
+    Alpha 1.0
+    States
+    {
+    Spawn:
+	//FAXE TUVWX 2 Bright
+	SH1K ABCDEFG 1 BRIGHT A_FadeOut(0.08)
+	Loop
+    }
+}
+
+Actor ArcShot
+{
+  Damage (random(1,8))
+  Damagetype "Lightning"
+  RenderStyle Add
+  alpha 0.5
+  height 10
+  radius 10
+  Decal none
+  Speed 30
+  PROJECTILE
+  +MTHRUSPECIES
+  +FORCEPAIN
+  States
+  {
+  Spawn:
+    MRS2 A 0
+    MRS2 A 0 bright A_Explode(10,128,0,0,128)
+    MRS2 A 1 bright A_SpawnItem("TeslaTail1")
+	MRS2 AAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("TeslaExtra3",0,0,0,random(-4,4),random(-4,4),random(-4,4),random(1,360))
+	MRS2 A 0 bright A_Explode(10,128,0,0,128)
+	MRS2 B 1 bright A_SpawnItem("TeslaExtra3")
+	MRS2 AAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("TeslaTail1",0,0,0,random(-4,4),random(-4,4),random(-4,4),random(1,360))
+    Loop
+	death:
+	NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("TeslaExtra3",0,0,0,random(-4,4),random(-4,4),random(-4,4),random(1,360))
+	NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("TeslaTail",0,0,0,random(-4,4),random(-4,4),random(-4,4),random(1,360))
+	NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("TeslaExtra3",0,0,0,random(-4,4),random(-4,4),random(-4,4),random(1,360))
+	NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("TeslaTail",0,0,0,random(-4,4),random(-4,4),random(-4,4),random(1,360))
+	NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("TeslaExtra3",0,0,0,random(-4,4),random(-4,4),random(-4,4),random(1,360))
+	NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("TeslaTail",0,0,0,random(-4,4),random(-4,4),random(-4,4),random(1,360))
+	TNT1 AAAAAAAAAAAAAAAAAAAAAAAAA 1 bright A_Explode(4,64,0,0,64)
+	Stop
+  }
+}
+Actor TeslaExtra
+{
+	Projectile
+	Damage 0
+	+RIPPER
+	+BLOODLESSIMPACT
+	+NOINTERACTION
+	+CLIENTSIDEONLY
+	+NOCLIP
+	Speed 0
+	Radius 1
+	Height 1
+	Scale 0.3
+	RenderStyle Add
+	States
+	{
+	Spawn:
+		ZAPR ABC 1 Bright
+		NULL A 0 A_Jump(160,1)
+		Loop
+		ZAPR ABC 1 Bright
+		ZAPR DE 1 Bright A_FadeOut
+		Wait
+	Death:
+		NULL A 1
+		Stop
+	}
+}
+Actor Teslatail
+{
+	Projectile
+	Damage 0
+	+RIPPER
+	+BLOODLESSIMPACT
+	+NOINTERACTION
+	+CLIENTSIDEONLY
+	+NOCLIP
+	Speed 0
+	Radius 1
+	Height 1
+	Scale 0.2
+	RenderStyle Add
+	States
+	{
+	Spawn:
+		MRS2 AB 1 bright A_FadeOut
+		wait
+	}
+}
+Actor TeslaExtra1 : TeslaExtra
+{
+Scale 1.2
+}
+Actor TeslaExtra3 : TeslaExtra
+{
+Scale 0.8
+}
+Actor Teslatail1 : Teslatail
+{
+Scale 0.5
+}
+Actor BlueBeamdots
+{
+  Scale 0.3
+  Renderstyle add
+  +nogravity
+  Alpha 0.9
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	TNT1 A 0 A_JumpIfCloser(28,"death")
+
+  Spawn2:
+	TFFP L 1 Bright A_FadeOut(0.6)
+    Loop
+
+	Death:
+	TNT1 A 1
+	Stop
+    //SPKB A 1 Bright A_FadeOut(0.08)
+}}
+
+ACTOR LightningFog
+{
+    Radius 1
+    Height 1
+    Alpha 0.9
+    RenderStyle Add
+    Scale 1
+    Speed 8
+    Gravity 0
+    +NOBLOCKMAP
+    +NOTELEPORT
+    +DONTSPLASH
+    +MISSILE
+    +FORCEXYBILLBOARD
+    +CLIENTSIDEONLY
+    States
+    {
+    Spawn:
+        PFOG ABCDEF 2 BRIGHT A_SpawnItem("BlueFlare",0,0)
+        Goto Death
+    Death:
+        PFOG G 2 BRIGHT A_SpawnItem("BlueFlare",0,0)
+        Stop
+    }
+}
+
+actor ElectroBlast
+{
+  Radius 13
+  Height 8
+  Speed 50
+  Damage 6
+  Projectile
+  DamageType Lightning
+  Scale 0.5
+  +RANDOMIZE
+  +BLOODLESSIMPACT
+  +NOEXTREMEDEATH
+  +SEEKERMISSILE
+  +BOUNCEONWALLS
+  +BOUNCEONCEILINGS
+  +BOUNCEONFLOORS
+  -ALLOWBOUNCEONACTORS
+  RenderStyle Add
+  Alpha 1
+  SeeSound "electrogun/shoot"
+  DeathSound "electrogun/hit"
+  Obituary "%o was shocked by %k's lightning gun."
+  BounceCount 3
+  BounceFactor 0.9
+  States
+  {
+  Spawn:
+    MRS2 A 0 bright A_SpawnItem("ElectroBlastTrail")
+	TNT1 A 0 A_SeekerMissile(1,8,SMF_LOOK)
+    MRS2 B 2 bright A_BishopMissileWeave
+	TNT1 A 0 A_SeekerMissile(1,8,SMF_LOOK)
+	MRS2 A 2 bright A_BishopMissileWeave
+	MRS2 A 0 bright A_SpawnItem("ElectroBlastTrail")
+	TNT1 A 0 A_SeekerMissile(1,8,SMF_LOOK)
+    MRS2 B 2 bright A_BishopMissileWeave
+	TNT1 A 0 A_SeekerMissile(1,8,SMF_LOOK)
+	MRS2 A 2 bright A_BishopMissileWeave
+	MRS2 A 0 bright A_SpawnItem("ElectroBlastTrail")
+	TNT1 A 0 A_SeekerMissile(1,8,SMF_LOOK)
+    MRS2 B 2 bright A_BishopMissileWeave
+	TNT1 A 0 A_SeekerMissile(1,8,SMF_LOOK)
+	MRS2 A 2 bright A_BishopMissileWeave
+	MRS2 A 0 bright A_SpawnItem("ElectroBlastTrail")
+	TNT1 A 0 A_SeekerMissile(1,8,SMF_LOOK)
+    MRS2 B 2 bright A_BishopMissileWeave
+	TNT1 A 0 A_SeekerMissile(1,8,SMF_LOOK)
+	MRS2 A 2 bright A_BishopMissileWeave
+    //loop
+  Death:
+    FX16 G 2 bright
+    stop
+  }
+}
+
+actor ElectroBlastTrail
+{
+  Radius 13
+  Height 8
+  Speed 20
+  Damage 0
+  Projectile
+  +RANDOMIZE
+  RenderStyle Add
+  Alpha 1
+  Scale 0.6
+  States
+  {
+  Spawn:
+    TNT1 A 0 A_Jump(256, "Spawn1", "Spawn2", "Spawn3")
+  Spawn1:
+    ZAPR ABC 3 bright //A_SpawnItemEx("LightningBeamSpark", 0, 0, 0, 0, 0, 0, 0, 128)
+    goto death
+  Spawn2:
+    ZAPR BCA 3 bright //A_SpawnItemEx("LightningBeamSpark", 0, 0, 0, 0, 0, 0, 0, 128)
+    goto death
+  Spawn3:
+    ZAPR CAB 3 bright //A_SpawnItemEx("LightningBeamSpark", 0, 0, 0, 0, 0, 0, 0, 128)
+    goto death
+  Death:
+	TNT1 A 0 A_Jump(256, "Death1", "Death2", "Death3")
+  Death1:
+	ZAPR DEF 4 bright A_FadeOut(0.5)
+	loop
+  Death2:
+	ZAPR FDE 4 bright A_FadeOut(0.5)
+	loop
+  Death3:
+    ZAPR EFD 4 bright A_FadeOut(0.5)
+    loop
+  }
+}
+Actor ElectroBlastTrail2 : ElectroBlastTrail
+{
+	Speed 10
+}
+
+Actor ElectroBlastTrail3 : ElectroBlastTrail
+{
+	Speed 10
+	Scale 0.62
+}
+
+Actor BluePlasmaFire 
+{
+
+  +NoGravity
+  RenderStyle Add
+  Scale 1.0
+  Alpha 0.9
+  Speed 0
+  States
+  {
+  Spawn:
+  Death:
+    FIR5 ABCDEFGHIJKLMNOP 1 Bright// A_FadeOut(0.04)
+	//PLAF ABCDEFGHIJKLMNOPQ 1 Bright
+    Stop
+  }
+}
+
+ACTOR StunBall
+{
+	Game Doom
+	SpawnID 126
+	Radius 6
+	Height 6
+	Speed 30
+	Damage (random(40,80))
+	Projectile
+	+RANDOMIZE
+	+THRUGHOST
+	+FORCEXYBILLBOARD
+	RenderStyle Add
+	Alpha 0.95
+    damagetype lightning
+	SeeSound "STATIC"
+	DeathSound "LIGHTNG"
+	Decal "Scorch"
+	Scale 1
+	States
+	{
+	Spawn:
+		PLCX ABCD 1 BRIGHT
+		Loop
+	Death:
+		BFSK ABCD 1 BRIGHT A_SpawnItem("BallLightningZapperHeavy")
+        TNT1 AAA 0 A_CustomMissile ("ShoqueAzul", 3, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAA 0 A_CustomMissile ("BluePlasmaFire", 1, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAAAAAAAAA 0 A_SpawnItem ("BigElectroBlastTrailX", 0,0)
+		//TNT1 A 0 A_SpawnItem("Thunder_GeneratorBlue")
+		TNT1 A 0 A_SpawnItem("StunGrenadeExplosion")
+	  //TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile("ElectroBlast",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-45,45))
+		TNT1 AAA 1 A_SpawnItem("BlueFlare")
+		TNT1 AAAAAAA 3 A_SpawnItem("BallLightningZapperHeavy")
+		TNT1 AAAAAAA 2 A_SpawnItem("BallLightningZapper")
+		Stop
+	}
+}
+
+Actor Stunwall
+{
+	Game Doom
+	Radius 6
+	Height 16
+	Speed 0
+	Damage 0
+	Health 9999
+	Monster
+	-SOLID
+	-COUNTKILL
+	+SHOOTABLE
+    //+NOBLOCKMAP
+    +NOTELEPORT
+    +DONTSPLASH
+    +CLIENTSIDEONLY
+    //+NOINTERACTION
+	//+NOCLIP
+	+FORCEXYBILLBOARD
+	+DONTBLAST
+	+NOBLOOD
+	+FRIENDLY
+	+LOOKALLAROUND
+	MaxTargetRange 100
+	Species "StunWalls"
+	RenderStyle Translucent
+	DamageFactor 1.0
+	DamageFactor "Lightning", 0.0
+	DamageType "Lightning"
+    Scale 1.0
+	Alpha 1.0
+	States
+	{
+
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_JumpIfInventory("StopSpawnWall", 1, "See")
+		TNT1 A 0 A_SpawnItemEx ("BlueFlare",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 0 A_CustomMissile ("BlueFlareSmall", 2, 0, random (0, 360), 2, random (40, 90))
+		TNT1 A 0 A_CustomMissile ("BlueFlareSmall", 5, 0, random (0, 360), 2, random (40, 90))
+		TNT1 A 0 A_CustomMissile ("BlueFlareSmall", 10, 0, random (0, 360), 2, random (40, 90))
+		EXPL A 0 A_CustomMissile ("BlueFlareSmall", 6, 0, random (0, 360), 2, random (-2, 2))
+		TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", 10, 0)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", -4, 10)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -4, -10, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 6, 20)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 6, -60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", 6, -20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 6, 20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 16, 30)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 16, -30, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallPart", -10, 50, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -10, -50)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 0, 0, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", 0, 40, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 0, 80, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 0, -40)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 10, 30, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 10, -30)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallPart", -15, 70, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -15, -70, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, 20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -5, 60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, 100, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, -100, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -5, -60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, -20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 5, 50, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 5, -50, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", -20, 90)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -20, -90, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -10, 80)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -10, -120, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -10, -80, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -10, -40, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 0, 70)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 0, -70, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", -25, 110)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -25, -110, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -15, 100)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -15, -140, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -15, -100, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -15, -60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -5, 90)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, -90, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallPart", -30, 130, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -30, -130)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -20, 80, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -20, 120, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -20, 160, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -20, -120)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -10, 110, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -10, -110)
+		TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", -37, 150)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -37, -150)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -27, 140)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -27, -140)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -17, 130)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -17, -130)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 0, -10, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 4 A_SpawnItemEX ("StunWallPart", -7, 30, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -7, -30)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 10, -40, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", 10, 0, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 10, 40, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 3, -20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", 3, 20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 3, 60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 3, -20)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 20, 10, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 13, 10, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 13, -10)
+		TNT1 A 0 A_GiveInventory("StopSpawnWall", 1)
+		TNT1 A 1 A_Look
+		Goto See
+
+	See:
+		TNT1 A 0
+		TNT1 A 0
+		TNT1 A 0 A_Chase
+		TNT1 A 0 A_JumpIfInventory("Dissapate", 1, "JustDissipate")
+		TNT1 A 1 A_JumpIfInventory("Ignite", 1, "IgniteWall")
+		loop
+
+	JustDissipate:
+		TNT1 A 1
+		Goto Death
+
+	IgniteWall:
+		TNT1 A 0
+		TNT1 A 1 A_KillChildren
+		Goto Death
+
+	Death:
+		TNT1 A 1
+		Stop
+	}
+}
+
+Actor StunwallSmall : Stunwall
+{
+
+	States
+	{
+
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_JumpIfInventory("StopSpawnWall", 1, "See")
+		TNT1 A 0 A_SpawnItemEx ("BlueFlare",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 0 A_CustomMissile ("BlueFlareSmall", 2, 0, random (0, 360), 2, random (40, 90))
+		TNT1 A 0 A_CustomMissile ("BlueFlareSmall", 5, 0, random (0, 360), 2, random (40, 90))
+		TNT1 A 0 A_CustomMissile ("BlueFlareSmall", 10, 0, random (0, 360), 2, random (40, 90))
+		EXPL A 0 A_CustomMissile ("BlueFlareSmall", 6, 0, random (0, 360), 2, random (-2, 2))
+		TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", 10, 0)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", -4, 10)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -4, -10, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 6, 20)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 6, -60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", 6, -20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 6, 20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 16, 30)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 16, -30, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallPart", -10, 50, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -10, -50)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 0, 0, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", 0, 40, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 0, 80, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 0, -40)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 10, 30, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 10, -30)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallPart", -15, 70, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -15, -70, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, 20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -5, 60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, 100, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, -100, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -5, -60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, -20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 5, 50, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 5, -50, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", -20, 90)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -20, -90, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -10, 80)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -10, -120, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -10, -80, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -10, -40, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 0, 70)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 0, -70, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", -25, 110)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -25, -110, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -15, 100)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -15, -140, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -15, -100, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -15, -60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -5, 90)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, -90, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_playsound ("fignite")
+		//TNT1 A 4 A_SpawnItemEX ("StunWallPart", -30, 130, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -30, -130)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", -20, 80, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -20, 120, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", -20, 160, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -20, -120)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", -10, 110, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -10, -110)
+		//TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", -37, 150)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -37, -150)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -27, 140)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -27, -140)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -17, 130)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -17, -130)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 0, -10, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 4 A_SpawnItemEX ("StunWallPart", -7, 30, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -7, -30)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 10, -40, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", 10, 0, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 10, 40, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 3, -20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", 3, 20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 3, 60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 3, -20)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 20, 10, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 13, 10, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 13, -10)
+		TNT1 A 0 A_GiveInventory("StopSpawnWall", 1)
+		TNT1 A 1 A_Look
+		Goto See
+
+	See:
+		TNT1 A 0
+		TNT1 A 0
+		TNT1 A 0 A_Chase
+		TNT1 A 0 A_JumpIfInventory("Dissapate", 1, "JustDissipate")
+		TNT1 A 1 A_JumpIfInventory("Ignite", 1, "IgniteWall")
+		loop
+
+	JustDissipate:
+		TNT1 A 1
+		Goto Death
+
+	IgniteWall:
+		TNT1 A 0
+		TNT1 A 1 A_KillChildren
+		Goto Death
+
+	Death:
+		TNT1 A 1
+		Stop
+	}
+}
+
+Actor StunwallXS : Stunwall
+{
+
+	States
+	{
+
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_JumpIfInventory("StopSpawnWall", 1, "See")
+		TNT1 A 0 A_SpawnItemEx ("BlueFlare",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 0 A_CustomMissile ("BlueFlareSmall", 2, 0, random (0, 360), 2, random (40, 90))
+		TNT1 A 0 A_CustomMissile ("BlueFlareSmall", 5, 0, random (0, 360), 2, random (40, 90))
+		TNT1 A 0 A_CustomMissile ("BlueFlareSmall", 10, 0, random (0, 360), 2, random (40, 90))
+		EXPL A 0 A_CustomMissile ("BlueFlareSmall", 6, 0, random (0, 360), 2, random (-2, 2))
+		TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", 10, 0)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", -4, 10)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -4, -10, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 6, 20)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 6, -60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", 6, -20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 6, 20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 16, 30)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 16, -30, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallPart", -10, 50, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -10, -50)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 0, 0, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", 0, 40, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 0, 80, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 0, -40)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 10, 30, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 10, -30)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallPart", -15, 70, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -15, -70, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, 20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -5, 60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, 100, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, -100, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -5, -60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, -20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 5, 50, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 5, -50, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_playsound ("fignite")
+		//TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", -20, 90)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", -20, -90, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -10, 80)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", -10, -120, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -10, -80, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", -10, -40, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 0, 70)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 0, -70, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_playsound ("fignite")
+		//TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", -25, 110)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", -25, -110, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -15, 100)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", -15, -140, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -15, -100, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", -15, -60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -5, 90)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", -5, -90, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_playsound ("fignite")
+		//TNT1 A 4 A_SpawnItemEX ("StunWallPart", -30, 130, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -30, -130)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", -20, 80, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", -20, 120, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", -20, 160, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -20, -120)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", -10, 110, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -10, -110)
+		//TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", -37, 150)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -37, -150)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -27, 140)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -27, -140)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -17, 130)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -17, -130)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 0, -10, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 4 A_SpawnItemEX ("StunWallPart", -7, 30, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", -7, -30)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 10, -40, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", 10, 0, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 10, 40, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 3, -20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", 3, 20, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 3, 60, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 3, -20)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 20, 10, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallPart", 13, 10, 24, 0, 0, 0, 0, SXF_SETMASTER)
+		//TNT1 A 0 A_SpawnItemEX ("StunWallTeslaPuff", 13, -10)
+		TNT1 A 0 A_GiveInventory("StopSpawnWall", 1)
+		TNT1 A 1 A_Look
+		Goto See
+
+	See:
+		TNT1 A 0
+		TNT1 A 0
+		TNT1 A 0 A_Chase
+		TNT1 A 0 A_JumpIfInventory("Dissapate", 1, "JustDissipate")
+		TNT1 A 1 A_JumpIfInventory("Ignite", 1, "IgniteWall")
+		loop
+
+	JustDissipate:
+		TNT1 A 1
+		Goto Death
+
+	IgniteWall:
+		TNT1 A 0
+		TNT1 A 1 A_KillChildren
+		Goto Death
+
+	Death:
+		TNT1 A 1
+		Stop
+	}
+}
+
+ACTOR StunWallPartBoom : Stunwall
+{
+	damagetype "lightning"
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_Look
+    See:
+		TNT1 A 0 A_PlaySound("STATIC", 5, 1.0, 1)
+		//TNT1 A 0 A_CustomMissile ("MediumBlackSmoke", 40, 0, random (0, 360), 2, random (60, 130))
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Ignite")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 0 A_SpawnItemEx ("StunElectrocute", random (-4, 4), random (-4, 4),  random (2, 6), 0, 0)
+		//TNT1 A 0 A_Explode(10, 30)
+		TNT1 A 0 A_GiveInventory("Timer555", 1)
+		TNT1 A 0 A_JumpIfInventory("Timer555", 30, "Dissipate")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		Loop
+
+	Ignite:
+		TNT1 A 0
+		TNT1 A 1 A_GiveInventory("Ignite", 1, AAPTR_MASTER)
+		Goto Death
+
+	Death:
+	Crash:
+		TNT1 A 0 A_Jump(255, "Delay1", "Delay2", "Delay3", "Delay4")
+		Goto Delay1
+
+	Delay1:
+		TNT1 A 1
+		Goto RealDeath
+
+	Delay2:
+		TNT1 A 2
+		Goto RealDeath
+
+	Delay3:
+		TNT1 A 3
+		Goto RealDeath
+
+	Delay4:
+		TNT1 A 4
+		Goto RealDeath
+
+	RealDeath:
+		TNT1 A 0
+		TNT1 A 0 A_Explode(100, 100)
+		TNT1 A 0 A_SpawnItem("BallLightningZapperVL")
+		BFSK ABCD 1 BRIGHT
+        TNT1 A 0 A_CustomMissile ("ShoqueAzul", 3, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_CustomMissile ("BluePlasmaFire", 1, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAA 0 A_SpawnItem ("BigElectroBlastTrailX", 0,0)
+		//TNT1 A 0 A_SpawnItem("Thunder_GeneratorBlue")
+		//TNT1 A 0 A_SpawnItem("StunGrenadeExplosion")
+	  //TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile("ElectroBlast",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-45,45))
+		TNT1 A 1 A_SpawnItem("BlueFlare")
+		TNT1 AAAAAAA 3 //A_SpawnItem("BallLightningZapperHeavy")
+		TNT1 AAAAAAA 2 //A_SpawnItem("BallLightningZapper")
+		Stop
+
+	Dissipate:
+		//TNT1 A 0 A_CustomMissile ("MediumBlackSmoke", 40, 0, random (0, 360), 2, random (60, 130))
+		TNT1 A 4 A_SpawnItemEx ("StunElectrocute", random (-4, 4), random (-4, 4),  random (2, 6), 0, 0)
+		//TNT1 A 0 A_Explode(10, 30)
+		//TNT1 A 0 A_CustomMissile ("MediumBlackSmoke", 40, 0, random (0, 360), 2, random (60, 130))
+		TNT1 A 4 A_SpawnItemEx ("StunElectrocute", random (-4, 4), random (-4, 4),  random (2, 6), 0, 0)
+		TNT1 A 0 A_stopsound(5)
+		TNT1 A 0 A_GiveInventory("Dissapate", 1, AAPTR_MASTER)
+		//TNT1 A 0 A_Explode(5, 30)
+		//TNT1 BBBBBBBBB 16 A_CustomMissile ("MediumBlackSmoke", 20, 0, random (0, 360), 2, random (60, 130))
+		Stop
+	}
+}
+
+ACTOR StunWallPart : Stunwall
+{
+	damagetype "lightning"
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_Look
+    See:
+		TNT1 A 0 A_PlaySound("STATIC", 5, 1.0, 1)
+		//TNT1 A 0 A_CustomMissile ("MediumBlackSmoke", 40, 0, random (0, 360), 2, random (60, 130))
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 1 A_JumpIfCloser(64, "Stun")
+		TNT1 A 0 A_ClearTarget
+		TNT1 A 0 A_Chase
+		TNT1 A 0 A_GiveInventory("Timer555", 1)
+		TNT1 A 0 A_JumpIfInventory("Timer555", 30, "Dissapate")
+		TNT1 A 0 A_SpawnItemEx ("StunElectrocute", random (-4, 4), random (-4, 4),  random (2, 6), 0, 0)
+		//TNT1 A 0 A_Explode(10, 30)
+		Loop
+
+	Stun:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("BallLightningZapperVL")
+		BFSK ABCD 1 BRIGHT
+		TNT1 A 64 A_SpawnItemEx ("StunElectrocute", random (-4, 4), random (-4, 4),  random (2, 6), 0, 0)
+		TNT1 A 0 A_GiveInventory("Timer555", 4) //purpose... to dissipate entire wall more evenly
+		Goto See
+
+	Death:
+	Crash:
+		TNT1 A 0 A_Jump(255, "Delay1", "Delay2", "Delay3", "Delay4")
+		Goto Delay1
+
+	Delay1:
+		TNT1 A 1
+		Goto RealDeath
+
+	Delay2:
+		TNT1 A 2
+		Goto RealDeath
+
+	Delay3:
+		TNT1 A 3
+		Goto RealDeath
+
+	Delay4:
+		TNT1 A 4
+		Goto RealDeath
+
+	RealDeath:
+		TNT1 A 0
+		TNT1 A 0 A_Explode(100, 100, 0)
+		TNT1 A 0 A_SpawnItem("BallLightningZapperVL")
+		TNT1 A 4
+		//BFSK ABCD 1 BRIGHT
+        //TNT1 A 0 A_CustomMissile ("ShoqueAzul", 3, 0, random (0, 360), 2, random (0, 360))
+		//TNT1 A 0 A_CustomMissile ("BluePlasmaFire", 1, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_SpawnItem ("BigElectroBlastTrailX", 0,0)
+		//TNT1 A 0 A_SpawnItem("Thunder_GeneratorBlue")
+		//TNT1 A 0 A_SpawnItem("StunGrenadeExplosion")
+	  //TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile("ElectroBlast",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-45,45))
+		TNT1 A 1 A_SpawnItem("BlueFlare")
+		TNT1 AAAAAAA 3 //A_SpawnItem("BallLightningZapperHeavy")
+		TNT1 AAAAAAA 2 //A_SpawnItem("BallLightningZapper")
+		Stop
+
+	Dissapate:
+		//TNT1 A 0 A_CustomMissile ("MediumBlackSmoke", 40, 0, random (0, 360), 2, random (60, 130))
+		TNT1 A 4 A_SpawnItemEx ("StunElectrocute", random (-4, 4), random (-4, 4),  random (2, 6), 0, 0)
+		//TNT1 A 0 A_Explode(10, 30)
+		//TNT1 A 0 A_CustomMissile ("MediumBlackSmoke", 40, 0, random (0, 360), 2, random (60, 130))
+		TNT1 A 4 A_SpawnItemEx ("StunElectrocute", random (-4, 4), random (-4, 4),  random (2, 6), 0, 0)
+		TNT1 A 0 A_stopsound(5)
+		TNT1 A 0 A_GiveInventory("Dissapate", 1, AAPTR_MASTER)
+		//TNT1 A 0 A_Explode(5, 30)
+		//TNT1 BBBBBBBBB 16 A_CustomMissile ("MediumBlackSmoke", 20, 0, random (0, 360), 2, random (60, 130))
+		Stop
+	}
+}
+
+Actor StunwallSingle: StunWall
+{
+States
+	{
+	Spawn:
+		TNT1 A 0 A_SpawnItemEx ("BlueFlare",0,0,random (1, 15),0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", 0, 0)
+		TNT1 A 0 A_playsound ("fignite")
+		TNT1 A 4 A_SpawnItemEX ("StunWallTeslaPuff", 0, 0)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPart", 0, 0, random (1, 15), 0, 0, 0, 0, SXF_SETMASTER)
+		TNT1 A 0 A_SpawnItemEX ("StunWallPartBoom", 0, 0, random (1, 15), 0, 0, 0, 0, SXF_SETMASTER)
+		goto see
+	}
+}
+
+Actor StunwallProj : StunBall
+{
+Damage 0
++NOGRAVITY
++THRUACTORS
+Speed 50
+Damagetype "Lightning"
+scale 0.1
+
+States
+	{
+
+	Spawn:
+		TNT1 A 0
+		TNT1 AAA 2
+
+	Death:
+	XDeath:
+		FLMG A 0
+		FLMG A 0 A_Explode (100, 100)
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("StunWall",0,0,0,0,0,0,0,0,0)
+		Stop
+	}
+}
+
+Actor StunwallProjSmall : StunBall
+{
+Damage 0
++NOGRAVITY
++THRUACTORS
+Speed 50
+Damagetype "Lightning"
+scale 0.1
+
+States
+	{
+
+	Spawn:
+		TNT1 A 0
+		TNT1 AAA 2
+
+	Death:
+	XDeath:
+		FLMG A 0
+		FLMG A 0 A_Explode (75, 75)
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("StunWallSmall",0,0,0,0,0,0,0,0,0)
+		Stop
+	}
+}
+
+Actor StunwallProjXS : StunBall
+{
+Damage 0
++NOGRAVITY
++THRUACTORS
+Speed 50
+Damagetype "Lightning"
+scale 0.1
+
+States
+	{
+
+	Spawn:
+		TNT1 A 0
+		TNT1 AAA 2
+
+	Death:
+	XDeath:
+		FLMG A 0
+		FLMG A 0 A_Explode (50, 50)
+		TNT1 A 0
+		TNT1 A 1 A_SpawnItemEx ("StunWallXS",0,0,0,0,0,0,0,0,0)
+		Stop
+	}
+}
+
+ACTOR ZeusSaysHi
+{
+	+NOBLOCKMAP
+	+NOGRAVITY
+	RenderStyle Add
+	Alpha 0.95
+	DamageType "Plasma"
+	States
+	{
+	Spawn:
+		XELC ABCDEF 2
+		Stop
+	}
+}
+
+ACTOR LightningBeamSpark
+{
+    RenderStyle Add
+    Scale 0.025
+    Alpha 0.95
+    +NOINTERACTION
+    +NOGRAVITY
+    States
+    {
+    Spawn:
+	SPKB A 0 NoDelay A_JumpIf(ScaleX <= 0, "NULL")
+	SPKB A 0 Bright A_SetScale(ScaleX-0.00075)
+    SPKB A 3 Bright A_ChangeVelocity (frandom(-0.3, 0.3), frandom(-0.3, 0.3), frandom(-0.3, 0.3), 0)
+    SPKB A 1 Bright A_FadeOut(0.05)
+    Loop
+    }
+}
+
+//Projectile being shot from sides of the main Overlord storm projectile.
+//They work, but they don't have graphics.
+ACTOR StormLite1
+{
+   Radius 6
+   Height 12
+   Speed 32
+   Damage 2
+   PROJECTILE
+   RENDERSTYLE ADD
+   Alpha 0.95
+   Damagetype plasma
+   DeathSound "weapons/devzap"
+   +THRUGHOST
+   +RIPPER
+   +FORCEXYBILLBOARD
+   States
+   {
+   Spawn:
+      DLIT ABC 1 Bright
+      Loop
+   Death:
+      DLIT DEFGHIJKLMNO 1 Bright
+      Stop
+   }
+}
+
+// [MagicWazard] More powerful version of StormLite1
+ACTOR StormLite2 : StormLite1
+{
+   Speed 64
+   Damage 5
+   States
+   {
+   Spawn:
+      LFX1 XYZ 1 Bright
+      Loop
+   Death:
+      LFX1 STUVW 3 Bright
+      Stop
+   }
+}
+
+ACTOR BlueStormLite : StormLite2
+{
+   +SEEKERMISSILE
+   Speed 64
+   Damage 20
+   Scale 0.25
+   States
+   {
+   Spawn:
+      BFX2 K 1 Bright A_SeekerMissile(1,8,SMF_LOOK)
+	  TNT1 A 0 A_SpawnItem("ElectroBlastTrail")
+	  BFX2 L 1 Bright A_SeekerMissile(1,8,SMF_LOOK)
+	  TNT1 A 0 A_SpawnItem("ElectroBlastTrail")
+	  BFX2 M 1 Bright A_SeekerMissile(1,8,SMF_LOOK)
+	  TNT1 A 0 A_SpawnItem("ElectroBlastTrail")
+	  BFX2 N 1 Bright A_SeekerMissile(1,8,SMF_LOOK)
+	  TNT1 A 0 A_SpawnItem("ElectroBlastTrail")
+	  BFX2 O 1 Bright A_SeekerMissile(1,8,SMF_LOOK)
+	  TNT1 A 0 A_SpawnItem("ElectroBlastTrail")
+      Loop
+   Death:
+      XELC ABCDEF 3 Bright
+      Stop
+   }
+}
+
+
+actor ElectroBlastTrailX
+{
+    +VISIBILITYPULSE
+    Radius 0
+    Height 0
+    +NOGRAVITY
+    +NOINTERACTION
+    Speed 0
+    +RANDOMIZE
+    +DontSplash
+    +THRUACTORS
+    +NOBLOOD
+    RenderStyle Add
+    //Alpha 0.4
+    Scale 0.27
+    States
+    {
+    Spawn:
+            TNT1 A 0
+            TNT1 A 0 A_Jump (256, "Spawn2", "Spawn3", "Spawn4", "Spawn5", "Spawn6", "Spawn7", "Spawn8", "Spawn9", "Spawn10")
+            DLI6 ABCDEFGHIJK 1 bright
+            Stop
+        Spawn2:
+            TNT1 A 0
+            DLI7 ABCDEFGHIJK 1 bright
+            Stop
+        Spawn2:
+            TNT1 A 0
+            DLI8 ABCDEFGHIJK 1 bright
+            Stop
+        Spawn3:
+            TNT1 A 0
+            DLI9 ABCDEFGHIJK 1 bright
+            Stop
+        Spawn4:
+            TNT1 A 0
+            DLI0 ABCDEFGHIJK 1 bright
+            Stop
+        Spawn5:
+            TNT1 A 0
+            DLI6 ABCDEFGHIJK 1 bright
+            Stop
+        Spawn6:
+            TNT1 A 0
+            DLI7 LMNOPQRSTUV 1 bright
+            Stop
+        Spawn7:
+            TNT1 A 0
+            DLI8 LMNOPQRSTUV 1 bright
+            Stop
+        Spawn8:
+            TNT1 A 0
+            DLI9 LMNOPQRSTUV 1 bright
+            Stop
+        Spawn9:
+            TNT1 A 0
+            DLI0 LMNOPQRSTUV 1 bright
+            Stop
+        Spawn10:
+            TNT1 A 0
+            DLI0 ABCDEFGHIJK 1 bright
+            Stop
+    }
+}
+
+Actor ElectroBlastTrailX2 : ElectroBlastTrailX
+{
+    Speed 10
+}
+
+Actor ElectroBlastTrailX3 : ElectroBlastTrailX
+{
+    Speed 10
+    Scale 0.62
+}
+
+Actor BigElectroBlastTrailX : ElectroBlastTrailX
+{
+Scale 1.0
+}
+
+Actor StunElectrocute : ElectroBlastTrailX
+{
+	Scale 0.32
+	States
+	{
+	Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_Playsound("Sparks/Spawn")
+			TNT1 A 0 A_Jump (256, "Spawn2", "Spawn3", "Spawn4", "Spawn5", "Spawn6", "Spawn7", "Spawn8", "Spawn9", "Spawn10")
+			DLI6 ABCDEFGHIJK 1 bright Light("ElectrocutionLight")
+			Stop
+		Spawn2:
+			TNT1 A 0
+			DLI7 ABCDEFGHIJK 1 bright Light("ElectrocutionLight")
+			Stop
+		Spawn2:
+			TNT1 A 0
+			DLI8 ABCDEFGHIJK 1 bright Light("ElectrocutionLight")
+			Stop
+		Spawn3:
+			TNT1 A 0
+			DLI9 ABCDEFGHIJK 1 bright Light("ElectrocutionLight")
+			Stop
+		Spawn4:
+			TNT1 A 0
+			DLI0 ABCDEFGHIJK 1 bright Light("ElectrocutionLight")
+			Stop
+		Spawn5:
+			TNT1 A 0
+			DLI6 ABCDEFGHIJK 1 bright Light("ElectrocutionLight")
+			Stop
+		Spawn6:
+			TNT1 A 0
+			DLI7 LMNOPQRSTUV 1 bright Light("ElectrocutionLight")
+			Stop
+		Spawn7:
+			TNT1 A 0
+			DLI8 LMNOPQRSTUV 1 bright Light("ElectrocutionLight")
+			Stop
+		Spawn8:
+			TNT1 A 0
+			DLI9 LMNOPQRSTUV 1 bright Light("ElectrocutionLight")
+			Stop
+		Spawn9:
+			TNT1 A 0
+			DLI0 LMNOPQRSTUV 1 bright Light("ElectrocutionLight")
+			Stop
+		Spawn10:
+			TNT1 A 0
+			DLI0 ABCDEFGHIJK 1 bright Light("ElectrocutionLight")
+			Stop
+	}
+}
+
+Actor Schism_GreenLightning
+{
+    Radius 0
+    Height 0
+    Speed 0
+    +RANDOMIZE
+    +DONTSPLASH
+    +THRUACTORS
+    +NOBLOOD
+	+NOGRAVITY
+    +NOINTERACTION
+	+VISIBILITYPULSE
+    RenderStyle Add
+	Scale 0.32
+    States
+    {
+		Spawn:
+            TNT1 A 0 NODELAY A_Jump(256, "Spawn2", "Spawn3", "Spawn4", "Spawn5")
+            DLI1 ABCDEFGHIJK 1 BRIGHT Light("BARONBALL_X1")
+            Stop
+
+        Spawn2:
+            DLI2 ABCDEFGHIJK 1 BRIGHT Light("BARONBALL_X1")
+            Stop
+
+        Spawn3:
+            DLI3 ABCDEFGHIJK 1 BRIGHT Light("BARONBALL_X1")
+            Stop
+
+        Spawn4:
+            DLI4 ABCDEFGHIJK 1 BRIGHT Light("BARONBALL_X1")
+            Stop
+
+        Spawn5:
+            DLI5 ABCDEFGHIJK 1 BRIGHT Light("BARONBALL_X1")
+            Stop
+    }
+}
+
+Actor Schism_RedLightning : Schism_GreenLightning
+{
+	Translation "0:255=%[0.00,0.00,0.00]:[2.00,0.00,0.00]"
+// 	RenderStyle Shaded
+// 	StencilColor "FF 24 00"
+	States
+	{
+		Spawn:
+            TNT1 A 0 NODELAY A_Jump (256, "Spawn2", "Spawn3", "Spawn4", "Spawn5", "Spawn6", "Spawn7", "Spawn8", "Spawn9", "Spawn10", "Spawn11")
+            DLI6 ABCDEFGHIJK 1 BRIGHT Light("RegenSphere")
+            Stop
+
+        Spawn2:
+            DLI7 ABCDEFGHIJK 1 BRIGHT Light("RegenSphere")
+            Stop
+
+        Spawn3:
+            DLI8 ABCDEFGHIJK 1 BRIGHT Light("RegenSphere")
+            Stop
+
+        Spawn4:
+            DLI9 ABCDEFGHIJK 1 BRIGHT Light("RegenSphere")
+            Stop
+
+        Spawn5:
+            DLI0 ABCDEFGHIJK 1 BRIGHT Light("RegenSphere")
+            Stop
+
+        Spawn6:
+            DLI6 ABCDEFGHIJK 1 BRIGHT Light("RegenSphere")
+            Stop
+
+        Spawn7:
+            DLI7 LMNOPQRSTUV 1 BRIGHT Light("RegenSphere")
+            Stop
+
+        Spawn8:
+            DLI8 LMNOPQRSTUV 1 BRIGHT Light("RegenSphere")
+            Stop
+
+        Spawn9:
+            DLI9 LMNOPQRSTUV 1 BRIGHT Light("RegenSphere")
+            Stop
+
+        Spawn10:
+            DLI0 LMNOPQRSTUV 1 BRIGHT Light("RegenSphere")
+            Stop
+
+        Spawn11:
+            DLI0 ABCDEFGHIJK 1 BRIGHT Light("RegenSphere")
+            Stop
+	}
+}
+
+Actor JacobLadderZapper
+{
+  Radius 2
+  Height 2
+  Speed 0
+  DamageType Lightning
+  MaxTargetRange 512
+  +NOGRAVITY
+  +FRIENDLY
+  +NOTARGET
+  +LOOKALLAROUND
+  +NOCLIP
+  States
+  {
+  Spawn:
+  Missile:
+    TNT1 A 0
+    TNT1 A 1 A_Chase
+    TNT1 A 0 A_FaceTarget
+    TNT1 A 0 A_CustomRailgun(16, 0, "none", 05FAFA, RGF_Silent, 1, 50, "TeslaZapperPuff", 10,5, random(512,720), 0,0,0, "LightningDotz", 0)
+    Stop
+  }
+}
+
+Actor BallLightningZapper : JacobLadderZapper
+{
+  Radius 2
+  Height 2
+  Speed 0
+  DamageType Lightning
+  MaxTargetRange 150
+  States
+  {
+  Spawn:
+  Missile:
+    TNT1 A 0
+    TNT1 A 1 A_Chase
+    TNT1 A 0 A_FaceTarget
+	TNT1 AAA 0 A_CustomRailgun(12, 0, "None", "White", RGF_SILENT | RGF_FULLBRIGHT, 0, 25, "TeslaPuff", frandom(0,359), frandom(-45,45), random(64,128), 1, 0.15, 0, "none", -8)
+    TNT1 A 0 A_CustomRailgun(25, 0, "none", 05FAFA, RGF_Silent, 1, 50, "TeslaPuff", 10,5, random(64,128), 0,0.1,0, "LightningDotz", 0)
+    Stop
+  }
+}
+
+Actor BallLightningZapperHeavy : JacobLadderZapper
+{
+  Radius 2
+  Height 2
+  Speed 0
+  DamageType Lightning
+  MaxTargetRange 300
+  States
+  {
+  Spawn:
+  Missile:
+    TNT1 A 0
+    TNT1 A 1 A_Chase
+    TNT1 A 0 A_FaceTarget
+	TNT1 AAA 0 A_CustomRailgun(15, 0, "None", "White", RGF_SILENT | RGF_FULLBRIGHT, 0, 25, "TeslaPuff", frandom(0,359), frandom(-45,45), random(128,196), 1, 0.15, 0, "none", -8)
+    TNT1 A 0 A_CustomRailgun(25, 0, "none", 05FAFA, RGF_Silent, 1, 50, "TeslaPuff", 10,5, random(128,256), 0,0.1,0, "LightningDotz", 0)
+    Stop
+  }
+}
+
+Actor TeslaZapperPuff
+{
+  Radius 1
+  Height 1
+ // Decal Scorch
+  Damage 6
+  DamageType Lightning
+  +NoBlockMap
+  +NoGravity
+  +ActivateImpact
+  +ActivatePCross
+  +NoTeleport
+  +AlwaysPuff
+  +BLOODLESSIMPACT
+  Renderstyle Add
+  Alpha 0.75
+  States
+  {
+  Spawn:
+	TNT1 A 0 A_SpawnItem("BlueFlareSmall")
+	TNT1 A 0 A_SpawnItemEx("BluePlasmaParticle", 0, 0, 0, 6, 6, 6, random(180,-180), 128)
+	SH1K ABCDEFG 1 BRIGHT
+	//ELCF ABCDG 1 BRIGHT
+	Stop
+}
+}
+
+
+actor ChainLightningBall
+{
+  Radius 12
+  Height 10
+  Speed 40
+  Damage 3
+  Projectile
+  DamageType plasma
+  Scale .75
+  +RANDOMIZE
+  +BLOODLESSIMPACT
+  +SEEKERMISSILE
+  RenderStyle Add
+  Alpha 0.75
+  States
+  {
+  Spawn:
+    EBLT G 1 bright A_SpawnItem("BlueFlareSmall")
+	TNT1 A 0
+	EBLT G 1 bright A_SpawnItem("BlueFlareSmall")
+	TNT1 A 0
+	EBLT H 1 bright A_SpawnItem("BlueFlareSmall")
+	TNT1 A 0
+	EBLT H 1 bright A_SpawnItem("BlueFlareSmall")
+	TNT1 A 0
+    loop
+  Death: //supposedly when it hits walls
+	TNT1 A 0 A_SpawnItem("WhiteShockWaveSmall")
+	TNT1 AAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+    EBLT IJK 3 bright
+    stop
+  XDeath: //supposedly when it hits monsters
+	TNT1 A 0 A_CustomMissile("ChainLightningBall",0,0,45)
+	TNT1 A 0 A_CustomMissile("ChainLightningBall",0,0,-45)
+	//TNT1 AA 0 A_CustomMissile("ChainLightningBall",0,0,Random(0,360))
+    EBLT IJK 3 bright
+    stop
+  }
+}
+
+
+ACTOR TeslaPulseBall : FastProjectile
+{
+	Radius 10
+	Height 10
+	Speed 90
+	Damage (random(45, 70))
+    DamageType Lightning
+	Decal "SmallerScorch"
+	Projectile
+	+RANDOMIZE
+	+NOBLOOD
+    +BLOODLESSIMPACT
+	+FORCEXYBILLBOARD
+	+FRIENDLY
+	renderstyle ADD
+	alpha 0.50
+	Scale 0.25
+	Seesound "STATIC"
+	States
+	{
+	Spawn:
+        LGBL ABCDE 1 BRIGHT A_spawnitem("BlueFlareSmall")
+		Loop
+	Death:
+		TNT1 A 0 A_PlaySound("LIGHTNG")
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("ElectroBlastTrail", 0, 0, random (0, 360), 2, random (0, 360))
+		ELCF ABCDG 1 BRIGHT A_SpawnItem("BallLightningZapper")
+		TNT1 A 0 A_SpawnItem("WhiteShockWaveSmall")
+		Stop
+	}
+}
+
+
+Actor LightningDotz
+{
+  Height 0
+  Radius 0
+  Mass 0
+  +Missile
+  +NoBlockMap
+  +DontSplash
+  +DoomBounce
+  +FORCEXYBILLBOARD
+  RenderStyle Add
+  DamageType Lightning
+  Scale 0.2
+  Speed 1
+  States
+  {
+  Spawn:
+  Death:
+	NKON G 2 bright
+    Stop
+  }
+}
+
+actor StunLightnings
+{
+    +VISIBILITYPULSE
+    Radius 0
+    Height 0
+    +NOGRAVITY
+    +NOINTERACTION
+    Speed 1
+    +RANDOMIZE
+    +DontSplash
+    +THRUACTORS
+    +NOBLOOD
+    RenderStyle Add
+    Scale 0.2
+    States
+    {
+    Spawn:
+            TNT1 A 0
+            TNT1 A 0 A_Jump (256, "Spawn2", "Spawn3")
+            ZAP6 ABCABCABCAB 1 bright
+            Stop
+        Spawn2:
+            TNT1 A 0
+            ZAP6 CBACBACBACB 1 bright
+            Stop
+        Spawn3:
+            TNT1 A 0
+            ZAP6 ACBACBACBAC 1 bright
+            Stop
+    }
+}
+
+
+//***************//
+// Support Actors//
+//***************//
+
+Actor VisualSpecialEffect
+{
+	+CLIENTSIDEONLY
+	+NOINTERACTION
+	+NOBLOCKMAP
+	+NOGRAVITY
+	+NOTELEPORT
+	+FORCEXYBILLBOARD
+}
+
+Actor TPortLightning : VisualSpecialEffect
+{
+	RenderStyle Add
+	Alpha 0.7
+	States
+	{
+	Spawn:
+		TNT1 A 0 // Huh, that's the jump...
+		TNT1 A 0 A_Jump(256,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72)
+	Select:
+		BLL1 ABCDEFGHIJKLMNOPQR 0 A_Jump(256,"Fade")
+		BLL2 ABCDEFGHIJKLMNOPQR 0 A_Jump(256,"Fade")
+		BLL3 ABCDEFGHIJKLMNOPQR 0 A_Jump(256,"Fade")
+		BLL4 ABCDEFGHIJKLMNOPQR 0 A_Jump(256,"Fade")
+	Fade:
+		"----" A 1 bright A_FadeOut(0.15)
+		loop
+	}
+}
+
+Actor TPortLightningSmall : TPortLightning
+{
+	Scale 0.2
+}
+
+Actor TPortLightningMedium : TPortLightning
+{
+	Scale 0.3
+}
+
+Actor TPortLightningLarge : TPortLightning
+{
+	Scale 0.4
+}
+
+Actor TPortLightningHuge : TPortLightning
+{
+	Scale 0.5
+}
+
+// A wave of lightning
+Actor TPortLightningWave : VisualSpecialEffect
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx("TPortLightningSmall",Random(-2,2),Random(-2,2),Random(-2,2),0,0,0,0,0,32)
+		TNT1 A 0 A_SpawnItemEx("TPortLightningMedium",Random(-3,3),Random(-3,3),Random(-3,3),0,0,0,0,0,56)
+		TNT1 A 0 A_SpawnItemEx("TPortLightningLarge",Random(-4,4),Random(-4,4),Random(-3,3),0,0,0,0,0,96)
+		TNT1 A 0 A_SpawnItemEx("TPortLightningHuge",Random(-5,5),Random(-5,5),Random(-5,5),0,0,0,0,0,144)
+		stop
+	}
+}
+
+// Spawns lightning waves
+Actor TPortLightningWaveSpawner : VisualSpecialEffect
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("TPortalZap")
+		TNT1 A 1 Light("TPortZap") A_SpawnItem("TPortLightningWave")
+		TNT1 A 1 Light("TPortZap") A_SpawnItem("TPortLightningWave")
+		TNT1 A 2 Light("TPortZap") A_SpawnItem("TPortLightningWave")
+		TNT1 A 1 Light("TPortZap") A_SpawnItem("TPortLightningWave")
+		TNT1 A 1 Light("TPortZap") A_SpawnItem("TPortLightningWave")
+		TNT1 A 1 Light("TPortZap") A_SpawnItem("TPortLightningWave")
+		TNT1 A 2 A_SpawnItem("TPortLightningWave")
+		stop
+	}
+}
+
+//===========================================================================
+//Stunwall Actors (feel free to place them in LightningProjectiles.txt later)
+//===========================================================================
+
+ACTOR Ignite : Inventory
+{
+Inventory.maxamount 1
+}
+
+ACTOR Dissipate : Inventory
+{
+Inventory.maxamount 1
+}
+
+ACTOR StopSpawnWall : Inventory
+{
+Inventory.maxamount 1
+}
+
+ACTOR TeslaPuff: HitPuff
+{
+	//Decal "SmallerScorch"
+	+RANDOMIZE
+	+SPECTRAL
+	+NOBLOOD
+	+FORCEXYBILLBOARD
+	+ALWAYSPUFF
+	+BLOODLESSIMPACT
+	+PUFFONACTORS
+	alpha 0.9
+	Scale 0.7
+	DamageType lightning
+	//seesound "SPARKS"
+	 states
+  {
+  Melee:
+  Crash:
+  Spawn:
+	    PLSN A 0
+		PLSN A 0 A_PlaySound("SPARKS")
+		TNT1 AAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_CustomMissile ("ExplosionParticleVeryFast", 10, 0, random (0, 180), 2, random (10, 90))
+		SH1K A 1 //A_Explode(5,50,0)
+		TNT1 A 0 A_Jump(128,2)
+		SH1K BC 1 BRIGHT A_SpawnItem("BlueFlareSmall")
+		TNT1 A 0 A_Jump(128,3)
+		SH1K DE 1 Bright A_SpawnItem("BlueFlareSmall")
+		TNT1 A 0
+		stop
+  }
+}
+
+ACTOR StunWallTeslaPuff : TeslaPuff
+{
+	Scale 0.25
+}
+
+ACTOR StunWallElectrocute : StunElectrocute
+{
+    Scale 0.5
+}
+
+Actor BallLightningZapperVL : JacobLadderZapper
+{
+  Radius 2
+  Height 2
+  Speed 0
+  DamageType Lightning
+  MaxTargetRange 150
+  States
+  {
+  Spawn:
+  Missile:
+    TNT1 A 0
+    TNT1 A 1 A_Chase
+    TNT1 A 0 A_FaceTarget
+	TNT1 AAA 0 A_CustomRailgun(1, 0, "None", "White", RGF_SILENT | RGF_FULLBRIGHT, 0, 25, "TeslaPuff", frandom(0,359), frandom(-45,45), random(64,128), 1, 0.15, 0, "none", -8)
+    TNT1 A 0 A_CustomRailgun(2, 0, "none", 05FAFA, RGF_Silent, 1, 50, "TeslaPuff", 10,5, random(64,128), 0,0.1,0, "LightningDotz", 0)
+    Stop
+
+  Death:
+  XDeath:
+		TNT1 A 0 A_Explode(5,50,1)
+		TNT1 A 3
+		//ELCF CDG 1 BRIGHT
+		TNT1 A 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+		EXPL AAA 0 A_CustomMissile ("BigElectroBlastTrailX", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_SpawnItem("WhiteShockWaveSmall")
+		TNT1 AAA 1 A_Spawnitem("BlueFlare")
+		Stop
+/*
+  XDeath:
+	    TNT1 A 0 A_SetScale(1.5, 1.5)
+	    TNT1 A 0 A_PlaySound("electrogun/explode")
+		TNT1 A 4
+		//BFSK ABCD 1 Bright A_SpawnItem("BallLightningZapperHeavy") //A_Explode(200,150,1)
+		TNT1 A 0 Bright A_SpawnItem ("LightningFog", 0,0)
+		TNT1 A 0 A_PlaySoundEx("thunder/hit", "Voice", 0, 2)
+		TNT1 AAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+		EXPL AAAAAAAAAAAAAAA 0 A_CustomMissile ("BigElectroBlastTrailX", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_SpawnItem("WhiteShockWaveSmall")
+		TNT1 A 0 A_SpawnItem("TPortLightningWaveSpawner")
+		TNT1 A 4
+		//BFSK EFGH 1 Bright A_SpawnItem("BallLightningZapperHeavy") //A_Explode(100,300,1)
+		TNT1 AAA 1 A_Spawnitem("BlueFlare")
+		TNT1 AAAAAA 2 //A_SpawnItem("BallLightningZapperHeavy")
+		TNT1 AAAAAA 3 //A_SpawnItem("BallLightningZapper")
+		Stop
+*/
+  }
+}
+
+actor RedSparkle 
+{
+	translation "112:127=176:191"
+}
+
+actor RedSparkleSpawner 
+{
+	translation "112:127=176:191"
+}
+
+actor LightningPuff : BulletPuff
+{
+	obituary "%o accepts %k's shaft."
+	damagetype lightning
+	renderstyle add
+	alpha 0.9
+	Scale 1
+	radius 0
+	height 0
+	+NOBLOCKMAP
+	+NOGRAVITY
+	Gravity 0.01
+	+NOEXTREMEDEATH
+	+FORCEXYBILLBOARD
+	+DONTSPLASH
+	-EXPLODEONWATER
+  states
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 AAAA 0
+  Melee:
+    TNT1 A 1
+	SH1K ABCDEFG 2 BRIGHT A_SpawnItem("BlueFlare",0,0)
+	stop
+
+Crash:
+    TNT1 A 0
+    TNT1 AAAA 0
+XDeath:
+    TNT1 A 1
+	SH1K ABCDEFG 2 BRIGHT A_SpawnItem("BlueFlare",0,0)
+Death:
+    TNT1 A 0
+    TNT1 AAAA 0
+	Stop
+
+	}
+}
+
+Actor BlueTrailParticle
+{
+  Height 0
+  Radius 0
+  Mass 0
+  Speed 3
+  +Missile
+  +NoBlockMap
+  +NoGravity
+  +DontSplash
+  RenderStyle Add
+  Scale 0.2
+  States
+  {
+  Spawn:
+    SPKB A 2 Bright A_FadeOut(0.1)
+	TNT1 A 0
+    Loop
+  }
+}
+
+ACTOR StormTrailParticle : BlueTrailParticle
+{
+  Height 0
+  Radius 0
+  Mass 0
+  Speed 5
+  +Missile
+  +NoBlockMap
+  +NoGravity
+  +DontSplash
+  RenderStyle Add
+  Alpha 1
+  Scale 0.4
+  States
+  {
+  Spawn:
+	TNT1 A 0 A_Weave(5, 5, random( -5, 5), random( -5, 5))
+	ZAPT A 1 BRIGHT A_Weave(5, 5, random( -5, 5), random( -5, 5))
+	SH1K AB 1 Bright //A_Weave(5, 5, random( -5, 5), random( -5, 5))
+	goto Spawn2
+	Spawn2:
+
+	TNT1 A 0 A_Weave(5, 5, random( -3, 3), random( -3, 3))
+	FAXE T 1 BRIGHT A_FadeOut(0.25)
+	FAXE U 1 BRIGHT A_FadeOut(0.25)
+	loop
+  }
+}
+
+ACTOR LightningMissile : FastProjectile
+{
+	Radius 10
+	Height 15
+	Projectile
+	Speed 120
+    Damage 10
+	DamageType Plasma
+    //Gravity 0.2
+    Decal "Scorch"
+	Renderstyle Add
+    //-NOGRAVITY
+	+EXTREMEDEATH
+	+THRUGHOST
+	Scale 1.7
+
+  SeeSound "electrogun/shoot"
+  DeathSound "electrogun/hit"
+	Obituary "$OB_MPROCKET"
+	States
+	{
+
+	Spawn:
+       TNT1 A 0 A_SpawnItemEx("SmallBlueFlameTrails", 0, 0, 0, 0, 0, 0, 0, 128)
+   		TNT1 A 0 A_CustomMissile("LightningMissile2",0,0,frandom(-15,15),6,(momz+frandom(-15,15)))
+  		ZAP6 A 1 BRIGHT A_SpawnItem("BlueFlareSmall",0,0)
+		TNT1 A 0 A_Weave(10, 10, random( -7, 7), random( -7, 7))
+        TNT1 AAAA 0 A_SpawnItemEx("SmallBlueFlameTrails", 0, 0, 5, 0, 0, 0, 0, 128)
+    	TNT1 AAAA 0 A_SpawnItemEx("StormTrailParticle", 0, 0, 0, frandom(15,15), 0, 0, 0, 128)
+        ZAP6 BC 1 BRIGHT A_SpawnItem("BlueFlareSmall",0,0)
+		TNT1 AAAA 0 A_SpawnItemEx("StormTrailParticle", 0, 0, 0, 20, 0, 0, 0, 128)
+		TNT1 AAA 1 A_SpawnItemEx("LightningTrail",0,0,0,0,0,0,0,32)
+		TNT1 AA 1 A_SpawnItemEx("LightningTrail",0,0,0,0,0,0,0,32)
+
+        Loop
+    Death:
+            TNT1 AAA 0 A_SpawnItemEx("PlasmaParticleSpawner", 0, 0, 0, 6, 6, 6, 0, 128)
+        FRPB ABCDEFGH 2 BRIGHT  A_SpawnItem("BlueFlare",0,0)
+        TNT1 AAAAA 19 A_CustomMissile ("PlasmaSmoke", 1, 0, random (0, 360), 2, random (0, 160))
+        Stop
+    XDeath:
+            TNT1 AAA 0 A_SpawnItemEx("PlasmaParticleSpawner", 0, 0, 0, 0, 0, 0, 0, 128)
+        FRPB ABCDEFGH 2  A_SpawnItem("BlueFlare",0,0)
+        Stop
+    Crash:
+            TNT1 AAA 0 A_SpawnItemEx("PlasmaParticleSpawner", 0, 0, 0, 6, 6, 6, 0, 128)
+        FRPB ABCDEFGH 2 BRIGHT  A_SpawnItem("BlueFlare",0,0)
+        TNT1 AAAAA 19 A_CustomMissile ("PlasmaSmoke", 1, 0, random (0, 360), 2, random (0, 160))
+        Stop
+	}
+}
+
+ACTOR MiniBlueShockWave
+{
+   Speed 0
+   Height 64
+   Radius 32
+   Scale 1
+   RenderStyle add
+   Alpha 0.9
+   +DROPOFF
+   +NOBLOCKMAP
+   +NOGRAVITY
+   +CLIENTSIDEONLY
+   States
+   {
+   Spawn:
+      SHOB A 1 BRIGHT
+      Goto Death
+   Death:
+      SHOB BCDEFGHIJKLMNOPQR 1 BRIGHT A_FadeOut(0.05)
+      Stop
+   }
+}
+
+
+
+Actor LightningTrail
+{
+    +NOINTERACTION
+    RenderStyle Add
+    Scale 1.4
+    Alpha 1
+  +NoBlockMap
+  +NoGravity
+  +DontSplash
+  Height 0
+  Radius 0
+  Mass 0
+    States
+    {
+    Spawn:
+	//SH1K ABCDEFG 2 BRIGHT
+	ZAP6 ABC 1 BRIGHT A_SpawnItemEx("LightningSparksTrail",0,0,0,0,0,0,0,32)
+
+//	FAXE TUVWX 2 Bright
+	Stop
+    }
+}
+
+Actor LightningSparksTrail: LightningTrail
+{
+    Scale 0.7
+	States
+    {
+    Spawn:
+	TNT1 A 0 A_Jump(256,"Spawn1","Spawn2","Spawn3","Spawn4","Spawn5","Spawn6")//randomisation... = LL
+	Spawn1:
+	5H0K ABCDEFGHIJKABC 1 BRIGHT
+	Goto Death
+	Spawn2:
+	5H0K CDEFGHIJK 1 BRIGHT
+	Goto Death
+
+	Spawn3:
+	5H0K EFGHIJK 1 BRIGHT
+	Goto Death
+
+	Spawn4:
+	5H0K GHIJKA 1 BRIGHT
+	Goto Death
+
+	Spawn5:
+	5H0K IJKA 1 BRIGHT
+	Goto Death
+
+	Spawn6:
+	5H0K EFGHIJKAB 1 BRIGHT
+	Death:
+	TNT1 A 0
+	//ZAP6 ABCBACA 1 BRIGHT
+	STOP
+    }
+}
+
+Actor LightningSparksTrailMedium: LightningSparksTrail
+{
+    Scale 0.5
+}
+
+
+Actor LightningSparksTrailLarge: LightningSparksTrail
+{
+    Scale 1
+}
+
+Actor LightningSparksTrailSmall: LightningSparksTrail
+{
+    Scale 0.3
+}
+
+Actor LightningSparksTrailXS: LightningSparksTrail
+{
+    Scale 0.25
+	speed 3
+}
+
+
+Actor LightningTrailLarge : LightningTrail
+{
+    Scale 1.6
+	States
+    {
+    Spawn:
+	ZAP6 ABC 1 BRIGHT A_SpawnItemEx("LightningSparksTrailLarge",0,0,0,0,0,0,0,32)
+	Stop
+    }
+}
+
+Actor LightningTrailMedium : LightningTrail
+{
+    Scale 1.1
+	States
+    {
+    Spawn:
+	TNT1 A 0 A_Jump(256,1,2,3)
+	ZAP6 ABC 1 BRIGHT
+	ZAP6 A 1 BRIGHT A_Jump(96,2)
+	TNT1 A 0 A_SpawnItemEx("LightningSparksTrailSmall",0,0,0,0,0,0,0,32)
+	ZAP6 B 1 BRIGHT A_Jump(96,2)
+	TNT1 A 0 A_SpawnItemEx("LightningSparksTrailSmall",0,0,0,0,0,0,0,32)
+	ZAP6 C 1 BRIGHT A_Jump(128,2)
+	TNT1 A 0 A_SpawnItemEx("LightningSparksTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0
+	Stop
+    }
+
+}
+
+Actor LightningTrailSmall : LightningTrail
+{
+    Scale 0.8
+	States
+    {
+    Spawn:
+	ZAP6 A 1 BRIGHT A_Jump(96,2)
+	TNT1 A 0 A_SpawnItemEx("LightningSparksTrailSmall",0,0,0,0,0,0,0,32)
+	ZAP6 B 1 BRIGHT A_Jump(96,2)
+	TNT1 A 0 A_SpawnItemEx("LightningSparksTrailSmall",0,0,0,0,0,0,0,32)
+	ZAP6 C 1 BRIGHT A_Jump(128,2)
+	TNT1 A 0 A_SpawnItemEx("LightningSparksTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0
+	Stop
+    }
+
+}
+
+Actor LightningTrailExtraSmall : LightningTrail //LIGHTNING RAIL TRAIL
+{
+    Scale 0.8
+	speed 15
+	States
+    {
+    Spawn:
+	5H0K ABCDEFGHIJK 1 BRIGHT
+	//ZAP6 ABCBACA 1 BRIGHT
+	STOP
+    }
+}
+
+ACTOR LightningMissile1
+{
+    Radius 2
+    Height 4
+    Speed 120
+    Damage (200)
+    DamageType Lightning
+    PROJECTILE
+    +BLOODLESSIMPACT
+    -EXTREMEDEATH
+    +NODAMAGETHRUST
+	+DOOMBOUNCE
+	+RIPPER
+	+SEEKERMISSILE
+	+FRIENDLY
+	+FORCEPAIN
+	ProjectileKickBack 200
+    DeathSound "weapons/lightningend"
+	SeeSound "PZAPBOMB"
+	Species "Marines"
+	+THRUSPECIES
+	+MTHRUSPECIES
+
+	renderstyle ADD
+	alpha 0.90
+	scale 1.6
+
+	States
+    {
+    Spawn:
+	TNT1 A 0
+	TNT1 A 0 A_Weave(10, 10, random( -10, 10), random( -10, 10))
+	TNT1 A 0 A_SeekerMissile(40,50, SMF_LOOK|SMF_PRECISE)
+	ZAP6 A 1 BRIGHT A_SeekerMissile(40,50, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 0 A_CustomMissile("LightningMissileTargetSeeker",0,0,frandom(-15,15),6,(momz+frandom(-15,15)))
+	TNT1 A 0 A_CustomMissile("LightningMissile2",0,0,frandom(-15,15),6,(momz+frandom(-15,15)))
+	ZAP6 B 1 BRIGHT A_SeekerMissile(40,50, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 0 A_CustomMissile("LightningMissile3",0,0,frandom(-15,15),6,(momz+frandom(-15,15)))
+	ZAP6 C 1 BRIGHT A_SeekerMissile(40,50, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 0 A_CustomMissile("LightningMissile4",0,0,frandom(-15,15),6,(momz+frandom(-15,15)))
+	TNT1 A 0 A_CustomMissile("LightningMissileTargetSeeker",0,0,frandom(-15,15),6,(momz+frandom(-15,15)))
+
+	Stop
+	Crash:
+	XDeath:
+    Death:
+	//TNT1 AAAA 0 A_CustomMissile ("ShoqueAzul", 3, 0, random (0, 360), 2, random (0, 360))
+	TNT1 AAAAAAA 0 A_SpawnItemEx("DLightningFX",0,0,0,frandom(3,-3),frandom(3,-3),frandom(3,-3),0,0)
+	TNT1 AAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+        SH1K ABCDEFG 2 BRIGHT A_SpawnItem("BlueFlare",0,0)
+ 	TNT1 A 0 A_SpawnItemEx("LightningTrailLarge",0,0,0,0,0,0,0,32)
+	//TNT1 A 0 A_Explode(15,10,0)
+	TNT1 A 1 A_Scream
+
+	Stop
+    }
+}
+
+ACTOR LightningMissile2 : LightningMissile1
+{
+    Radius 2
+    Height 2
+    Damage (120)
+	Damagetype Lightning
+	+SEEKERMISSILE
+	+RIPPER
+	+DOOMBOUNCE
+	+FORCEPAIN
+	SeeSound "PZAPFIRE"
+	scale 1.3
+
+	States
+    {
+    Spawn:
+	TNT1 A 0 A_Weave(12, 12, random( -8, 8), random( -8, 8))
+	TNT1 A 0 A_SeekerMissile(50,55, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 0 A_SpawnItemEx("LightningTrailLarge",0,0,0,0,0,0,0,32)
+	ZAP6 A 1 BRIGHT A_SeekerMissile(50,55, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 0 A_CustomMissile("LightningMissile3",0,0,frandom(-15,15),6,(momz+frandom(-15,15)))
+	ZAP6 B 1 BRIGHT A_SeekerMissile(50,55, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 0 A_CustomMissile("LightningMissileTargetSeeker",0,0,frandom(-15,15),6,(momz+frandom(-15,15)))
+	ZAP6 C 1 A_SeekerMissile(50,55, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 0 A_CustomMissile("LightningMissile3",0,0,frandom(-15,15),6,(momz+frandom(-15,15)))
+	ZAP6 A 1 A_SeekerMissile(50,55, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 0 A_CustomMissile("LightningMissile4",0,0,frandom(-40,40),6,(momz+frandom(-30,30)))
+	ZAP6 B 1 A_SeekerMissile(50,55, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 0 A_CustomMissile("LightningMissile4",0,0,frandom(-40,40),6,(momz+frandom(-30,30)))
+	TNT1 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(50,55, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 0 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_CustomMissile("LightningMissileTargetSeeker",0,0,frandom(-15,15),6,(momz+frandom(-15,15)))
+
+	Stop
+	Crash:
+	XDeath:
+    Death:
+    //TNT1 AAAA 0 A_CustomMissile ("ShoqueAzul", 3, 0, random (0, 360), 2, random (0, 360))
+	TNT1 AAAAAAA 0 A_SpawnItemEx("DLightningFX",0,0,0,frandom(3,-3),frandom(3,-3),frandom(3,-3),0,0)
+	TNT1 AAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+        SH1K ABCDEFG 2 BRIGHT A_SpawnItem("BlueFlare",0,0)
+ 	TNT1 A 0 A_SpawnItemEx("LightningTrail",0,0,0,0,0,0,0,32)
+	//TNT1 A 0 A_Explode(15,10,0)
+	TNT1 A 1 A_Scream
+	Stop
+    }
+}
+
+ACTOR LightningMissile3 : LightningMissile2
+{
+	Radius 2
+    Height 2
+	+SEEKERMISSILE
+	+RIPPER
+	+FORCEPAIN
+	Damage (80)
+	DamageType Lightning
+	SeeSound "LIGHTN"
+	scale 1.0
+
+    States
+    {
+    Spawn:
+	TNT1 A 0 A_Weave(12, 12, random( -8, 8), random( -8, 8))
+	ZAP6 C 1 A_SeekerMissile(60,70, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 0 A_SpawnItemEx("LightningTrail",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_CustomMissile("LightningMissileTargetSeeker",0,0,frandom(-30,30),6,(momz+frandom(-15,15)))
+	TNT1 A 0 A_SeekerMissile(60,70, SMF_LOOK|SMF_PRECISE)
+	ZAP6 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(60,70, SMF_LOOK|SMF_PRECISE)
+	ZAP6 B 1
+	TNT1 A 0 A_SeekerMissile(60,70, SMF_LOOK|SMF_PRECISE)
+	ZAP6 C 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+
+//	TNT1 A 0 A_CustomMissile("LightningMissile4",0,0,frandom(-30,30),6,(momz+frandom(-15,15)))
+
+//	TNT1 A 0 A_CustomMissile("LightningMissile4",0,0,frandom(-30,30),6,(momz+frandom(-15,15)))
+	TNT1 A 0 A_CustomMissile("LightningMissileTargetSeeker",0,0,frandom(-20,20),6,(momz+frandom(-15,15)))
+
+	ZAP6 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(60,70, SMF_LOOK|SMF_PRECISE)
+	ZAP6 C 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(60,70, SMF_LOOK|SMF_PRECISE)
+	ZAP6 B 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+		TNT1 A 0 A_SeekerMissile(60,70, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_CustomMissile("LightningMissileTargetSeeker",0,0,frandom(-15,15),6,(momz+frandom(-15,15)))
+
+	ZAP6 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(60,70, SMF_LOOK|SMF_PRECISE)
+	ZAP6 C 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(60,70, SMF_LOOK|SMF_PRECISE)
+	ZAP6 B 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+		TNT1 A 0 A_SeekerMissile(60,70, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	Stop
+	Crash:
+	XDeath:
+	    //TNT1 AAAA 0 A_CustomMissile ("ShoqueAzul", 3, 0, random (0, 360), 2, random (0, 360))
+	TNT1 AAAAAAA 0 A_SpawnItemEx("DLightningFX",0,0,0,frandom(3,-3),frandom(3,-3),frandom(3,-3),0,0)
+	TNT1 AAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+        SH1K ABCDEFG 2 BRIGHT A_SpawnItem("BlueFlare",0,0)
+	TNT1 A 0 A_SpawnItemEx("LightningTrailLarge",0,0,0,0,0,0,0,32)
+	//TNT1 A 0 A_Explode(15,10,0)
+	TNT1 A 1 A_Scream
+	TNT1 A 2
+	//TNT1 A 0 A_CustomMissile("LightningMissileTargetSeeker",0,0,frandom(-45,45),6,(momz+frandom(-15,15)))
+
+	TNT1 A 0 A_SpawnItemEx("LightningMissile5",32,0,0,0,0,0,0,32)
+
+    Death:
+ 	TNT1 A 0 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	Stop
+    }
+}
+
+ACTOR LightningMissile4 : LightningMissile3
+{
+	Radius 2
+    Height 2
+	Damage (50)
+	Damagetype Lightning
+	SeeSound "TPortalZap"
+	-RIPPER
+    //+DOOMBOUNCE
+	+SEEKERMISSILE
+	+FORCEPAIN
+	scale 0.8
+
+    States
+    {
+    Spawn:
+	TNT1 A 0 A_Weave(10, 10, random( -8, 8), random( -8, 8))
+	TNT1 A 0 A_SeekerMissile(65,75, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 0 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_CustomMissile("LightningMissileTargetSeeker",0,0,frandom(-15,15),6,(momz+frandom(-15,15)))
+	//TNT1 A 0 A_JumpIfCloser(15,"Death")
+	ZAP6 C 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(70,80, SMF_LOOK|SMF_PRECISE)
+	ZAP6 B 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(65,75, SMF_LOOK|SMF_PRECISE)
+	ZAP6 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(65,75, SMF_LOOK|SMF_PRECISE)
+	ZAP6 C 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(65,75, SMF_LOOK|SMF_PRECISE)
+
+	ZAP6 C 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(70,80, SMF_LOOK|SMF_PRECISE)
+	ZAP6 B 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(65,75, SMF_LOOK|SMF_PRECISE)
+	ZAP6 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(65,75, SMF_LOOK|SMF_PRECISE)
+	ZAP6 C 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(65,75, SMF_LOOK|SMF_PRECISE)
+	stop
+	Crash:
+	XDeath:
+	    //TNT1 AAAA 0 A_CustomMissile ("ShoqueAzul", 3, 0, random (0, 360), 2, random (0, 360))
+	TNT1 AAAAAAA 0 A_SpawnItemEx("DLightningFX",0,0,0,frandom(3,-3),frandom(3,-3),frandom(3,-3),0,0)
+	TNT1 AAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+        SH1K ABCDEFG 2 BRIGHT A_SpawnItem("BlueFlare",0,0)
+	//TNT1 A 0 A_Explode(15,10,0)
+	TNT1 A 1 A_Scream
+	Death:
+ 	TNT1 A 0 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	Stop
+    }
+}
+
+ACTOR LightningMissile5 : LightningMissile3
+{
+	Radius 2
+    Height 2
+	Damage (30)
+	Damagetype Lightning
+	SeeSound "ZAP"
+    -DOOMBOUNCE
+	+SEEKERMISSILE
+	+FORCEPAIN
+	scale 0.6
+
+
+    States
+    {
+    Spawn:
+	TNT1 A 0 A_SeekerMissile(89,90, SMF_LOOK|SMF_PRECISE)
+	TNT1 A 0 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_CustomMissile("LightningMissileTargetSeeker",0,0,frandom(-15,15),6,(momz+frandom(-15,15)))
+	//TNT1 A 0 A_JumpIfCloser(15,"Death")
+	ZAP6 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(89,90, SMF_LOOK|SMF_PRECISE)
+	ZAP6 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(89,90, SMF_LOOK|SMF_PRECISE)
+	ZAP6 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(89,90, SMF_LOOK|SMF_PRECISE)
+	ZAP6 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(89,90, SMF_LOOK|SMF_PRECISE)
+	ZAP6 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(89,90, SMF_LOOK|SMF_PRECISE)
+	ZAP6 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	TNT1 A 0 A_SeekerMissile(89,90, SMF_LOOK|SMF_PRECISE)
+	ZAP6 A 1 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	stop
+	Crash:
+	XDeath:
+	    //TNT1 AAAA 0 A_CustomMissile ("ShoqueAzul", 3, 0, random (0, 360), 2, random (0, 360))
+	TNT1 AAAAAAA 0 A_SpawnItemEx("DLightningFX",0,0,0,frandom(3,-3),frandom(3,-3),frandom(3,-3),0,0)
+	TNT1 AAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+        SH1K ABCDEFG 2 BRIGHT A_SpawnItem("BlueFlare",0,0)
+	//TNT1 A 0 A_Explode(15,10,0)
+	TNT1 A 1 A_Scream
+	Death:
+ 	TNT1 A 0 A_SpawnItemEx("LightningTrailSmall",0,0,0,0,0,0,0,32)
+	Stop
+    }
+}
+
+
+ACTOR LightningMissileTargetSeeker
+{
+    +FRIENDLY
+    MONSTER
+    -COUNTKILL
+    +NOGRAVITY
+    +NOCLIP
+    +THRUACTORS
+    +LOOKALLAROUND
+
+    Radius 1
+    Height 1
+    Speed 0
+    States
+    {
+    Spawn:
+	TNT1 A 0
+	TNT1 A 0 Thing_ChangeTid(0,1933)
+	TNT1 A 0 Thing_Hate(1933,1932,2)
+	TNT1 A 0 A_UnSetShootable
+	TNT1 A 0 A_Look
+    See:
+	TNT1 AAAA 1 A_Chase
+    Missile:
+	TNT1 A 0 A_FaceTarget
+	TNT1 A 0 A_CustomMissile("LightningMissile5",0,0)
+	Stop
+    }
+}
+
+ACTOR JacobLadderBall
+{
+	Radius 20
+	Height 40
+	Speed 15
+	Damage 130
+    DamageType Lightning
+	Decal "SmallerScorch"
+	Projectile
+	BounceType Grenade //Hexen
+	+MISSILE
+	+RANDOMIZE
+	+FRIENDLY
+	//+RIPPER
+	+THRUSPECIES
+	+MTHRUSPECIES
+	+FORCEXYBILLBOARD
+	+BOUNCEONWALLS
+	+BOUNCEONFLOORS
+	+BOUNCEONCEILINGS
+    +BLOODLESSIMPACT
+	+EXPLODEONWATER
+	+SKYEXPLODE
+	-ALLOWBOUNCEONACTORS
+	BounceFactor 0
+	BounceSound "electrogun/hit"
+	ReactionTime 20
+	Species "Marines"
+	Scale 1
+	renderstyle ADD
+	alpha 0.9
+	States
+	{
+	Spawn:
+		SKOB A 1 BRIGHT
+		TNT1 A 0 A_SpawnItemEx("JacobLadderZapper", 0, 0)
+		TNT1 A 0 A_SpawnItemEx("ElectroBlastTrail",random(5,-5),random(5,-5))
+		SKOB B 1 BRIGHT
+		TNT1 A 0 A_SpawnItemEx("JacobLadderZapper", 0, 0)
+		TNT1 A 0 A_SpawnItemEx("ElectroBlastTrail",random(5,-5),random(5,-5))
+		SKOB C 1 BRIGHT
+		TNT1 A 0 A_SpawnItemEx("JacobLadderZapper", 0, 0)
+		TNT1 A 0 A_SpawnItemEx("ElectroBlastTrail",random(5,-5),random(5,-5))
+		SKOB D 1 BRIGHT
+		TNT1 A 0 A_SpawnItemEx("JacobLadderZapper", 0, 0)
+		TNT1 A 0 A_SpawnItemEx("ElectroBlastTrail",random(5,-5),random(5,-5))
+		SKOB E 1 BRIGHT
+		TNT1 A 0 A_SpawnItemEx("JacobLadderZapper", 0, 0)
+		TNT1 A 0 A_SpawnItemEx("ElectroBlastTrail",random(5,-5),random(5,-5))
+		SKOB A 1 BRIGHT
+		TNT1 A 0 A_SpawnItemEx("JacobLadderZapper", 0, 0)
+		TNT1 A 0 A_SpawnItemEx("ElectroBlastTrail",random(5,-5),random(5,-5))
+		SKOB B 1 BRIGHT
+		TNT1 A 0 A_SpawnItemEx("JacobLadderZapper", 0, 0)
+		TNT1 A 0 A_SpawnItemEx("ElectroBlastTrail",random(5,-5),random(5,-5))
+		SKOB C 1 BRIGHT
+		TNT1 A 0 A_SpawnItemEx("JacobLadderZapper", 0, 0)
+		TNT1 A 0 A_SpawnItemEx("ElectroBlastTrail",random(5,-5),random(5,-5))
+		SKOB D 1 BRIGHT
+		TNT1 A 0 A_SpawnItemEx("JacobLadderZapper", 0, 0)
+		TNT1 A 0 A_SpawnItemEx("ElectroBlastTrail",random(5,-5),random(5,-5))
+		SKOB E 1 BRIGHT
+		TNT1 A 0 A_SpawnItemEx("JacobLadderZapper", 0, 0)
+		TNT1 A 0 A_SpawnItemEx("ElectroBlastTrail",random(5,-5),random(5,-5))
+		TNT1 A 0 A_CountDown
+		Loop
+
+	Death:
+		TNT1 A 0 A_Explode(5,50,1)
+		ELCF CDG 1 BRIGHT
+		TNT1 AAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+		EXPL AAAAAAAAAAAAAAAAA 0 A_CustomMissile ("BigElectroBlastTrailX", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_SpawnItem("WhiteShockWaveSmall")
+		TNT1 AAAAA 1 A_Spawnitem("BlueFlare")
+		Stop
+	XDeath:
+	      TNT1 A 0 A_SetScale(1.5, 1.5)
+	  TNT1 A 0 A_PlaySound("electrogun/explode")
+		BFSK ABCD 1 Bright A_SpawnItem("BallLightningZapperHeavy") //A_Explode(200,150,1)
+
+		EXPL AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("BFGBlueBIGFOG", 0, 0, random (0, 360), 2, random (0, 360))
+		EXPL AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("BFGBlueBIGFOG", 0, 0, random (0, 360), 2, random (0, 360))
+		EXPL AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("BFGBlueSuperParticle", 0, 0, random (0, 360), 2, random (0, 360))
+		EXPL AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("BFGBlueSuperParticle", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 Radius_Quake (5, 10, 0, 10, 0)
+
+		TNT1 A 0 Bright A_SpawnItem ("LightningFog", 0,0)
+		TNT1 A 0 A_PlaySoundEx("thunder/hit", "Voice", 0, 2)
+		TNT1 AAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+		EXPL AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("BigElectroBlastTrailX", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_SpawnItem("WhiteShockWaveSmall")
+		TNT1 A 0 A_SpawnItem("TPortLightningWaveSpawner")
+		TNT1 AAAAA 0 A_SpawnItem("BallLightningZapperHeavy")
+		BFSK EFGH 1 Bright A_SpawnItem("BallLightningZapperHeavy") //A_Explode(100,300,1)
+		TNT1 AAAAA 0 A_CustomMissile ("BigElectroBlastTrailX", 0, 0, random (0, 360), 2, random (0, 360))
+
+		TNT1 AAAAA 0 A_SpawnItem("BallLightningZapperHeavy")
+		TNT1 A 1 A_Spawnitem("BlueFlare")
+		TNTT AAAAAAA 1 A_CustomMissile ("BigElectroBlastTrailX", 0, 0, random (0, 360), 2, random (0, 360))
+	TNT1 AAAAA 0 A_SpawnItem("BallLightningZapperHeavy")
+	TNTT AAAAA 0 A_CustomMissile ("BigElectroBlastTrailX", 0, 0, random (0, 360), 2, random (0, 360))
+	TNT1 AAAAA 1 A_SpawnItem("BallLightningZapperHeavy")
+	TNTT AAA 0 A_CustomMissile ("BigElectroBlastTrailX", 0, 0, random (0, 360), 2, random (0, 360))
+	TNT1 AAAAAA 0 A_SpawnItem("BallLightningZapper")
+	TNTT AAA 0 A_CustomMissile ("BigElectroBlastTrailX", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAAAAAAAA 1 A_SpawnItem("BallLightningZapperHeavy")
+	TNTT AAA 0 A_CustomMissile ("BigElectroBlastTrailX", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAAAAAAAA 1 A_SpawnItem("BallLightningZapper")
+		Stop
+	}
+}
+
+Actor ElectroBomb2
+{
+   Radius 10
+   Height 15
+   Speed 50
+   Damage 15
+   PROJECTILE
+   RENDERSTYLE ADD
+   Alpha 1
+   Damagetype Lightning
+   Scale 1
+   +THRUGHOST
+   +FORCEXYBILLBOARD
+   +BLOODLESSIMPACT
+   States
+   {
+   Spawn:
+	  TNT1 A 0 A_PlaySoundEx("electogun/fly", 7, 1)
+      NKON ABCDE 1 Bright
+	  Loop
+   Death:
+	  TNT1 A 0 A_SpawnItem ("StunGrenadeExplosion", 0,0)
+      BFSK ABCD 1 BRIGHT A_SpawnItem("BallLightningZapper")
+      TNT1 A 0 Bright A_SpawnItem ("LightningFog", 0,0)
+      TNT1 A 0 A_SetScale(1.2, 1.2)
+	  TNT1 A 0 A_PlaySound("electrogun/explode")
+	  TNT1 AAAAAAAAAA 0 A_SpawnItem ("BigElectroBlastTrailX", 0,0)
+	  TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile("ElectroBlast",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+	  BFSK DEFGH 1 Bright A_SpawnItem("BallLightningZapperHeavy")
+	TNT1 AAAAA 2 A_SpawnItem("BallLightningZapperHeavy")
+	TNT1 AAAAAA 3 A_SpawnItem("BallLightningZapper")
+	  //XELC ABCDEF 3 Bright
+	  Stop
+	  }
+}
+
+ACTOR SCZ_ChainLightningBeam : FastProjectile	//This is what you fire from your weapon
+{
+	Projectile
+	speed 170
+	//MissileType "SCZ_ChainLightningFlare"
+	Damage (random(150,450))
+	DamageType "Lightning"
+	radius 5
+	height 10
+    Decal "Scorch"
+	MissileType "SCZ_LightningFlare"
+	Renderstyle ADD
+	States
+	{
+		Spawn:
+			SKOB ABCDE 1
+			Loop
+		Death:
+//			TNT1 A 0 A_SpawnItemEx("SCZ_ChainLightningFlash",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+			TNT1 A 0 A_CustomMissile("ChainLightning",0,0,0,CMF_TRACKOWNER)
+			ZPRJ ABCDEFGHIJKL 1 BRIGHT
+			ZEXP ABCDEFGHIJ 1 BRIGHT
+			Stop
+	}
+}
+
+ACTOR ChainLightning
+{
+	+MISSILE
+	+NOGRAVITY
+	+NOINTERACTION
+	+FRIENDLY
+	+NOTARGET
+	+FORCERADIUSDMG
+	+FORCEPAIN
+	DamageType Lightning
+	var int user_Counter;
+	var int user_Victims;
+	var int user_PitchStore;
+	States
+	{
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_ChangeFlag("ISMONSTER",TRUE)
+			TNT1 A 1 A_RearrangePointers(AAPTR_NULL,AAPTR_TARGET,AAPTR_DEFAULT)
+			TNT1 A 0 A_Warp(AAPTR_DEFAULT,20)
+		Spawn1:
+			TNT1 AAAAAAAAAAA 1 A_LookEx(LOF_NOSOUNDCHECK,0,1000,1000,360,"Fire")
+			Goto Death
+
+		Fire:
+			TNT1 A 0 A_SetUserVar("User_Victims",user_victims+1)
+			TNT1 A 0 A_FaceTarget(0,90)
+			TNT1 A 0 A_SetUserVar("user_PitchStore",pitch*10000)
+			TNT1 A 0 A_Warp(AAPTR_Default,0,0,10,0,WARPF_NOCHECKPOSITION)
+			TNT1 A 0 A_FaceTarget(0,90)
+			TNT1 A 0 A_JumpIf(Pitch < user_PitchStore*.0001,2)
+			TNT1 A 0 A_SetUserVar("user_PitchStore",user_PitchStore*-1)
+			TNT1 A 0 A_Warp(AAPTR_Default,0,0,-10,0,WARPF_NOCHECKPOSITION)
+			TNT1 A 0 A_SetPitch(user_PitchStore*.0001)
+
+			TNT1 A 0 A_SetUserVar("user_Counter",0)
+			TNT1 A 0 A_PlaySound("PZAPFIRE",0)
+		Warping:
+			TNT1 A 0 A_JumpIfCloser(15,"Finishing")
+			TNT1 A 0 A_JumpIf(user_Counter>100,"Finishing")
+			TNT1 A 0 A_SetUserVar("user_Counter", user_Counter+1)
+// 			TNT1 A 0 A_Logint(pitch)
+			TNT1 A 0 A_Warp(AAPTR_DEFAULT,cos(pitch)*10,0,sin(pitch)*10,0,WARPF_NOCHECKPOSITION)
+			TNT1 A 0 A_SpawnItemEx("ChainLightningBolt",random(10,20),0,random(-10,10),3,0,random(-1,1),random(0,360))
+			Goto Warping
+		Finishing:
+			TNT1 A 0 A_Warp(AAPTR_TARGET,0,0,40,0,WARPF_NOCHECKPOSITION)
+			TNT1 A 0 A_RearrangePointers(AAPTR_MASTER,AAPTR_TARGET,AAPTR_DEFAULT)
+			TNT1 A 0 A_Explode(random(120,300),20,XF_HURTSOURCE,0,0,0,0,0)//,"Lightning"\
+			TNT1 A 0 A_SpawnItemEx("SCZ_ChainLightningFlash",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+			TNT1 AAAAAAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+			TNT1 AAAAAAAAA 0 A_CustomMissile ("ChainLightningBolt", 0, 0, random (0, 360), 2, random (0, 360))
+			TNT1 A 0 A_GiveInventory("NoShoot",1,AAPTR_MASTER)
+			TNT1 A 0 A_RearrangePointers(AAPTR_NULL,AAPTR_TARGET,AAPTR_DEFAULT)
+			TNT1 A 0 A_JumpIf(user_victims > 12,"Death")
+			TNT1 A 0 A_SetAngle(random(0,360))
+			TNT1 A 0 A_LookEx(LOF_NOSOUNDCHECK,0,1000,1000,360,"Fire")
+			TNT1 A 0
+			Goto Death
+		Death:
+			TNT1 A 1 //A_CustomMissile("SCZ_LightningBeam",0,0,0,CMF_TRACKOWNER | CMF_SAVEPITCH | CMF_AIMDIRECTION,-pitch)
+			Stop
+	}
+}
+
+ACTOR SCZ_ChainLightningFlash
+{
+	+NOINTERACTION
+	+NOCLIP
+	RenderStyle "ADD"
+	Scale 0.5
+	States
+	{
+		Spawn:
+			ZEXP ACEGIJ 1 Bright
+			Stop
+	}
+}
+
+ACTOR ChainLightningBolt
+{
+	Radius 2
+    Height 2
+	+RIPPER
+	+NOINTERACTION
+ 	Damage (20)
+	DamageType "Lightning"
+	SeeSound "LIGHTN"
+	RenderStyle "ADD"
+	Alpha 0.9
+	scale .3
+    States
+    {
+		Spawn:
+			TNT1 A 0 A_Weave(12, 12, random( -8, 8), random( -8, 8))
+			ZAP6 ABCACBCABC 1 BRIGHT
+			Stop
+	}
+}
+
+ACTOR SCZ_LightningFlare
+{
+	+NOINTERACTION
+	RenderStyle ADD
+	Scale 0.2
+	States
+	{
+		Spawn:
+			LENB A 2 BRIGHT A_FadeOut(0.5)
+			TNT1 A 0 A_Jump(230,2)
+			//TNT1 A 0 A_SpawnItemEx("LightningTrailMedium",0,0,0,0,0,0,0,32)
+			TNT1 A 0 A_SpawnItemEx("LightningSparksTrailMedium",random(10,20),0,random(-10,10),3,0,random(-1,1),random(0,360))
+//			TNT1 A 0 A_SpawnItemEx("LightningTrailMedium",random(10,20),0,random(-10,10),3,0,random(-1,1),random(0,360))
+//			TNT1 A 0 A_SpawnItemEx("SkullWizLightning3",random(10,20),0,random(-10,10),3,0,random(-1,1),random(0,360))
+			TNT1 A 0
+			Loop
+	}
+}
+
+ACTOR SCZ_ChainLightningFlare : SCZ_LightningFlare
+{
+	+NOINTERACTION
+	RenderStyle ADD
+	Scale .2
+	States
+	{
+		Spawn:
+			LENB A 2 BRIGHT A_FadeOut
+			Loop
+	}
+}
+
+ACTOR ThunderstormTimer : Inventory
+{
+	inventory.maxamount 6
+	+INVENTORY.UNDROPPABLE
+}
+
+ACTOR Thunderstorm
+{
+	+MISSILE
+	-NOGRAVITY
+	+NOBLOCKMAP
+	+ACTIVATEIMPACT
+	+RIPPER
+	Speed 50
+	Gravity 3.5
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 2
+		Loop
+
+	Death:
+	XDeath:
+		FLMG A 0
+		FLMG A 0 A_Explode (20, 50)
+		TNT1 A 0 A_PlaySound("coldchr", 5)
+		BXPL AAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION)
+		BXPL AAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
+		BXPL AAAAAAA 0 Bright A_SpawnItemEx("FreezerTrailSparksSmall", random(5,-5), random(5,-5), random(5,-5), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
+		BXPL A 0 Bright //A_SpawnItemEx("SnowStart")
+		//BXPL A 0 Bright A_SpawnItemEx("CloudWhirl")
+		BXPL AAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
+		TNT1 A 30
+		//TNT1 A 0 A_SpawnItemEX ("BlizzTarget")
+
+	StormTime:
+		TNT1 A 0 A_JumpIfInventory("ThunderstormTimer", 5, "TimesUp")
+		TNT1 A 0 A_SpawnItemEX ("StunwallSingle", random(-180,180), random(-180,180), (ceilingz -15) - floorz, random(-2, 2), random(-2, 2),random(-50,-20))
+		TNT1 A 0 A_Jump(random(128,256),3)
+		TNT1 A 4
+		TNT1 A 0 A_SpawnItemEX ("StunwallSingle", random(-180,180), random(-180,180), (ceilingz -15) - floorz, random(-2, 2), random(-2, 2),random(-90,-30))
+		TNT1 A 6
+		TNT1 A 0 A_SpawnItemEX ("StunwallSingle", random(-180,180), random(-180,180), (ceilingz -15) - floorz, random(-2, 2), random(-2, 2),random(-70,-30))
+		TNT1 A 4
+		TNT1 A 0 A_SpawnItemEX ("StunwallSingle", random(-180,180), random(-180,180), (ceilingz -15) - floorz, random(-2, 2), random(-2, 2),random(-70,-30))
+		TNT1 A 2
+		TNT1 A 0 A_Jump(random(128,256),2)
+		TNT1 A 0 A_SpawnItemEX ("StunwallSingle", random(-180,180), random(-180,180), (ceilingz -15) - floorz, random(-2, 2), random(-2, 2),random(-50,-20))
+		TNT1 A 10
+		TNT1 A 0 A_GiveInventory("ThunderstormTimer")
+		loop
+
+	TimesUp:
+		TNT1 A 0 A_StopSound(5)
+		Stop
+		}
+}
+
+ACTOR BFGBlueBIGFOG
+{
+    Radius 1
+    Height 1
+	Alpha 0.7
+	RenderStyle Add
+	Scale 0.6
+	Speed 4
+	Gravity 0
+    +NOBLOCKMAP
+    +NOTELEPORT
+    +DONTSPLASH
+	+MISSILE
+	+FORCEXYBILLBOARD
+    +CLIENTSIDEONLY
+    States
+    {
+    Spawn:
+        PFOG ABCDEF 6 BRIGHT A_SpawnItem("BlueFlareMedium",0,0)
+		Stop
+    }
+}
+
+Actor BFGBlueSuperParticleSpawner
+{
+  +NoClip
+  +NoBlockMap
+  +NoGravity
+  +Missile
+  +FORCEXYBILLBOARD
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("BFGBlueSuperParticle", 0, 0, 0, (0.1)*Random(10, 35), 0, (0.1)*Random(-20, 20), Random(0, 360), 128)
+    TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("BFGBlueSuperParticle", 0, 0, 0, (0.1)*Random(10, 35), 0, (0.1)*Random(-20, 20), Random(0, 360), 128)
+    TNT1 AAAAAAAAAAAAAAA 0 A_SpawnItemEx("BFGBlueSuperParticle", 0, 0, 0, (0.1)*Random(10, 35), 0, (0.1)*Random(-20, 20), Random(0, 360), 128)
+    TNT1 A 1
+    Stop
+  }
+}
+
+Actor BFGBlueSuperParticle
+{
+  Height 0
+  Radius 0
+  Mass 0
+  +Missile
+  +NoBlockMap
+  +NOGRAVITY
+  +DontSplash
+  +FORCEXYBILLBOARD
+  RenderStyle Add
+  Scale 0.04
+  Speed 24
+  States
+  {
+  Spawn:
+  Death:
+    SPKB A 2 Bright A_FadeOut(0.02)
+    Loop
+  }
+}
+
+// Schism Flares
+Actor BlueFlareMedium : BlueFlare
+{
+alpha 0.3
+scale 0.15
+}
+
+Actor BlueFlareMedium2 : BlueFlare
+{
+alpha 0.3
+scale 0.25
+}
+
+Actor BlueFlareMedium3 : BlueFlare
+{
+alpha 0.3
+scale 0.35
+}
+
+Actor BlueFlareSmall : BlueFlare
+{
+alpha 0.3
+scale 0.15
+}
+
+Actor BlueFlareSmallItem : BlueFlare
+{
+alpha 0.5
+Xscale 0.18
+YScale 0.065
++FORCEXYBILLBOARD
+}
+
+
+Actor PlasmaFlare : Flare_General
+{
+alpha 0.4
+scale 0.15
+states
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(128,2)
+		L2NB A 1 bright
+		stop
+		TNT1 A 0
+		L2NB B 1 bright
+		stop
+	}
+}
+
+Actor LightningFlare : Flare_General
+{
+alpha 0.4
+XScale 0.25
+YScale 0.17
+states
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(128,2)
+		L2NB A 1 bright
+		stop
+		TNT1 A 0
+		L2NB B 1 bright
+		stop
+	}
+}
+
+Actor StormFlare : Flare_General
+{
+alpha 0.4
+XScale 0.4
+YScale 0.25
+states
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(128,2)
+		L2NB A 1 bright
+		stop
+		TNT1 A 0
+		L2NB B 1 bright
+		stop
+	}
+}
+
+ACTOR LightningFlareSpawn
+{
+	Speed 20
+	PROJECTILE
+	+NOCLIP
+	States
+	{
+	Spawn:
+	    TNT1 A 0
+		TNT1 A 1 A_CustomMissile("LightningFlare",-5,0,-85,0,random(-10,10))
+		Stop
+	}
+}
+
+ACTOR StormFlareSpawn
+{
+	Speed 20
+	PROJECTILE
+	+NOCLIP
+	States
+	{
+	Spawn:
+	    TNT1 A 0
+		TNT1 A 1 A_CustomMissile("StormFlare",-5,0,-85,0,random(-10,10))
+		Stop
+	}
+}
+
+ACTOR BlueFlareSpawn
+{
+	Speed 20
+	PROJECTILE
+	+NOCLIP
+	States
+	{
+	Spawn:
+		TNT1 AA 1 A_CustomMissile("BlueFlareSmall",-5,0,-85,0,random(-10,10))
+		Stop
+	}
+}
+
+Actor BlueFlare22 : Flare_General
+{
+states
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(128,2)
+		L2NB A 2 bright
+		stop
+		TNT1 A 0
+		L2NB B 2 bright
+		stop
+	}
+}
+
+//Radius_Quake (intensity, duration, damrad, tremrad, tid)
+
+actor ShakeYourAssMinor
+{
+  height 8
+  radius 4
+  +NOBLOCKMAP
+  +NOGRAVITY
+  +NOSECTOR
+  +NOCLIP
+  +CLIENTSIDEONLY
+  states
+  {
+  Spawn:
+  TNT1 A 0
+  TNT1 A 0 Radius_Quake (1, 4, 0, 1, 0)
+  TNT1 A 10
+    Stop
+  }
+}
+
+
+actor ShakeYourAss
+{
+  height 8
+  radius 4
+  +NOBLOCKMAP
+  +NOGRAVITY
+  +NOSECTOR
+  +NOCLIP
+  +CLIENTSIDEONLY
+  states
+  {
+  Spawn:
+  TNT1 A 0
+  TNT1 A 0 Radius_Quake (2, 6, 0, 1, 0)
+  TNT1 A 10
+    Stop
+  }
+}
+
+
+actor ShakeYourAssDouble
+{
+  height 8
+  radius 4
+  +NOBLOCKMAP
+  +NOGRAVITY
+  +NOSECTOR
+  +NOCLIP
+  +CLIENTSIDEONLY
+  states
+  {
+  Spawn:
+  TNT1 A 0
+  TNT1 A 0 Radius_Quake (4, 6, 0, 1, 0)
+  TNT1 A 10
+    Stop
+  }
+}
+
+
+actor ShakeYourAssQuad
+{
+  height 8
+  radius 4
+  +NOBLOCKMAP
+  +NOGRAVITY
+  +NOSECTOR
+  +NOCLIP
+  +CLIENTSIDEONLY
+  states
+  {
+  Spawn:
+  TNT1 A 0
+  TNT1 A 0 Radius_Quake (8, 6, 0, 1, 0)
+  TNT1 A 10
+    Stop
+  }
+}
+
+
+actor ExplosionQuake
+{
+  height 8
+  radius 4
+  +NOBLOCKMAP
+  +NOGRAVITY
+  +NOSECTOR
+  +NOCLIP
+  +CLIENTSIDEONLY
+  states
+  {
+  Spawn:
+  TNT1 A 0
+  TNT1 A 0 Radius_Quake (1, 12, 0, 7, 0)
+  TNT1 A 10
+    Stop
+  }
+}
+
+// PB Fatality Actors
+ACTOR PoorLostSoul
+{
+	Radius 6
+	Height 8
+	Speed 22
+	Fastspeed 26
+	Damage 15
+	Projectile 
+	Scale 1.0
+	+FORCEXYBILLBOARD
+	DamageType Fire
+ExplosionRadius 70
+ExplosionDamage 50
+	Alpha 1
+	SeeSound "skull/melee"
+	DeathSound "fatso/shotx"
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_CustomMissile ("FlameTrails", 24, 0, 0, 0, 0)
+		LSOL B 2 BRIGHT A_SpawnItem("RedFlare",0,0)
+		Loop
+	Death:
+	
+		LSOL F 2 BRIGHT
+		LSOL G 2 BRIGHT
+		TNT1 A 0 A_Explode
+	EXPL AAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("FlameTrails", 6, 0, random (0, 360), 2, random (0, 360))
+		EXPL A 0 A_SpawnItemEx("ExplosionParticleSpawner", 0, 0, 0, 0, 0, 0, 0, 0)
+	TNT1 AAA 0 A_CustomMissile ("LSpart1", 42, 0, random (0, 360), 2, random (0, 160))
+	TNT1 A 0 A_CustomMissile ("LSpart3", 42, 0, random (0, 360), 2, random (0, 160))
+	TNT1 AAAA 0 A_CustomMissile ("LSpart2", 42, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0
+		LSOL HI 6
+		Stop
+		Stop
+	}
+}
+
+ACTOR PoorPhantasm
+{
+	Radius 6
+	Height 8
+	Speed 28
+	Fastspeed 32
+	Damage 20
+	Projectile 
+	Scale 1.0
+	+FORCEXYBILLBOARD
+	DamageType GreenFire
+ExplosionRadius 80
+ExplosionDamage 60
+	Alpha 1
+	SeeSound "skull/melee"
+	DeathSound "LSOD"
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_CustomMissile ("GreenFlameTrails", 24, 0, 0, 0, 0)
+		STLK B 1 BRIGHT A_SpawnItem("GreenFlare",0,0)
+		Loop
+	Death:
+
+		STLK F 2 BRIGHT
+		STLK G 2 BRIGHT
+		TNT1 AAA 0 A_SpawnItemEx("PlasmaParticleSpawner", 0, 0, 0, 0, 0, 0, 0, 128)
+		TNT1 A 0 A_SpawnItemEx ("BFGAltExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 0 A_SpawnItem("BFGAltShockWave",0,0)
+		TNT1 A 0 A_Explode
+		EXPL AAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("GreenFlameTrails", 6, 0, random (0, 360), 2, random (0, 360))
+		EXPL A 0 A_SpawnItemEx("ExplosionParticleSpawner", 0, 0, 0, 0, 0, 0, 0, 0)
+		TNT1 AAA 0 A_CustomMissile ("Phantasmpart1", 42, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_CustomMissile ("Phantasmpart3", 42, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAA 0 A_CustomMissile ("Phantasmpart2", 42, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0
+		LSOL HI 6
+		Stop
+	}
+}
+
+ACTOR ExecutionAttackKick: KickAttack
+{
+	Damage 22
+	speed 100
+	DamageType Kick
+	Radius 2
+	Height 2
+	-ACTIVATEIMPACT
+	-ACTIVATEPCROSS
+	-ACTIVATEMCROSS
+	-CANUSEWALLS
+	States
+	{
+	Death:
+			PUFF A 0 A_PlaySound("player/cyborg/fist")
+			TNT1 A 0 A_Explode(10, 10, 0)
+			EXPL AAAAAA 0 A_CustomMissile ("MeleeSmoke", 0, 0, random (0, 360), 2, random (0, 360))
+			TNT1 A 10
+			Stop
+		}
+}
+
+ACTOR ExecutionAttackMelee: ExecutionAttackKick
+{
+	DamageType Melee
+}
+
+ACTOR ExecutionAttackFatality: ExecutionAttackKick
+{
+	DamageType Fatality
+}
+
+ACTOR MeleeStrike1: KickAttack
+{
+DamageType Melee
+Damage (random(13,18))
+Speed 22
+States
+{
+	Spawn:
+		TNT1 A 1 BRIGHT
+		TNT1 A 1 BRIGHT
+		Stop
+	Death:
+		TNT1 A 0
+		PUFF A 0 A_PlaySound("player/cyborg/fist")
+		EXPL AAAAAA 0 A_CustomMissile ("MeleeSmoke", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 10
+		Stop
+}
+}
+
+ACTOR MeleeStrikeSuperHook: MeleeStrike1
+{
+Damage 80
+DamageType ExtremePunches
++FORCEPAIN
+}
+
+actor PLOFT
+{
+	+NOTARGET
+Radius 10
+Height 10
+DamageType MonsterKnocked
++NOGRAVITY
++NOTELEPORT
++NODAMAGETHRUST
++THRUGHOST
++NORADIUSDMG
++NOEXTREMEDEATH
+PROJECTILE
+	+DEHEXPLOSION
+	+ACTIVATEMCROSS
+States
+{
+Spawn:
+TNT1 A 0
+		TNT1 A 0 A_Explode(25,150, 0)
+Stop
+ }
+}
+
+actor PLOFT2
+{
+	+NOTARGET
+Radius 10
+Height 10
+DamageType Kick
++NOGRAVITY
++NOTELEPORT
++NODAMAGETHRUST
++THRUGHOST
++NORADIUSDMG
++NOEXTREMEDEATH
+PROJECTILE
++DEHEXPLOSION
++ACTIVATEMCROSS
+States
+{
+Spawn:
+TNT1 A 0
+		// TNT1 A 0 A_Explode(20,30, 0)
+Stop
+ }
+}
+
+actor PLOFT3
+{
+	+NOTARGET
+Radius 10
+Height 10
++NOGRAVITY
++NOTELEPORT
++NODAMAGETHRUST
++THRUGHOST
++NORADIUSDMG
++NOEXTREMEDEATH
+PROJECTILE
++DEHEXPLOSION
++ACTIVATEMCROSS
+States
+{
+Spawn:
+TNT1 A 0
+		TNT1 A 0 A_Explode(20,30, 0)
+Stop
+ }
+}
+
+actor PLOFT4
+{
+	+NOTARGET
+Radius 10
+Height 10
++NOGRAVITY
++NOTELEPORT
++NODAMAGETHRUST
++THRUGHOST
++NORADIUSDMG
++NOEXTREMEDEATH
+PROJECTILE
++DEHEXPLOSION
++ACTIVATEMCROSS
+DamageType Kick
+States
+{
+Spawn:
+TNT1 A 0
+		TNT1 A 0 A_Explode(20,30, 0)
+Stop
+ }
+}
+
+actor PLOFT5
+{
+	+NOTARGET
+Radius 10
+Height 10
++NOGRAVITY
++NOTELEPORT
++NODAMAGETHRUST
++THRUGHOST
++NORADIUSDMG
++NOEXTREMEDEATH
+PROJECTILE
++DEHEXPLOSION
++ACTIVATEMCROSS
+DamageType Kick
+States
+{
+Spawn:
+TNT1 A 2
+		TNT1 A 0 A_Explode(10,30, 0)
+Stop
+ }
+}
+
+// PB Elec Actors
+Actor LightningGunProjectile: FastProjectile
+{
+	+RANDOMIZE
+	+FORCEXYBILLBOARD
+	+DONTSPLASH
+	-BLOODSPLATTER
+	+FORCERADIUSDMG
+	damage 0
+	radius 1
+	height 1
+	speed 500
+  Mass 9999999
+	renderstyle ADD
+	//alpha 0.9
+	scale .15
+	decal "none"
+	damagetype "Plasma"
+	missiletype "ElectroBlastTrail"
+	states
+		{
+		Spawn:
+			TNT1 A 1 BRIGHT
+			Loop
+			
+		Death:
+			TNT1 A 0 BRIGHT A_SpawnItem("LightningGunPuff",0)
+			TNT1 A 0 BRIGHT A_SpawnItem("BlueFlare",0)
+			TNT1 AA 0 A_SpawnItemEx("CryoRifleTrailSparksSmall", random(4,-4), random(4,-4), random(4,-4), 0, 0, 0, 0, 128, 0)
+			TNT1 A 0 A_explode(random(12,15), 80)
+			TNT1 AAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+			TNT1 A 1 Light("LightningImpactLight")
+			Stop
+		}
+	}
+
+/*Actor LightningGunPuff
+{
+  -COUNTKILL
+  -SHOOTABLE
+  +CLIENTSIDEONLY
+  +BLOODLESSIMPACT 
+  +FORCEXYBILLBOARD
+  +THRUACTORS
+  +NOGRAVITY
+  +NODAMAGETHRUST
+  +DONTTHRUST
+  +DONTSPLASH
+  -SHOOTABLE
+  +RANDOMIZE
+  Mass 9999999
+  RenderStyle Add
+  Speed 0
+  Radius 1
+  Height 1
+	damagetype "Plasma"
+	Scale 1.12
+	States
+	{
+		Spawn:
+			TNT1 A 0
+			TNT1 A 0 A_CheckFloor("FloorCheck")
+			TNT1 A 1
+			Die:
+			DB08 ABCDEFGHIJKLM 1 bright A_SetScale(ScaleX+frandom(0.04,0.08), ScaleY+frandom(0.04,0.08))
+			DB08 NOPQRSTUVWXYZABCDEFGHIJKLM 1 bright
+				{
+					A_SetScale(ScaleX-0.08, ScaleY-0.08);
+					A_FadeOut(0.08);
+				}
+			Stop
+			
+		FloorCheck:
+			
+			TNT1 A 2			
+			TNT1 A 1
+			Goto Die	
+			
+		ConductiveDeath:
+			TNT1 A 0 BRIGHT A_SpawnItem("LightningGunPuff_Big",0)
+			TNT1 A 0 BRIGHT A_SpawnItem("ElectroBombFX",0)
+			TNT1 A 0 BRIGHT A_SpawnItem("BlueFlare",0)
+			TNT1 A 0 A_explode(random(30,35), 240,0,0,200)
+			TNT1 AA 0 A_CustomMissile("ElectroBlastTrail3",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(30,270))
+			TNT1 AAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+			TNT1 A 1 Light("LightningImpactLight")
+			Stop
+	}
+}*/
+
+Actor LightningGunPuff_Big
+{
+  -COUNTKILL
+  -SHOOTABLE
+  //+CLIENTSIDEONLY
+  +BLOODLESSIMPACT 
+  +FORCEXYBILLBOARD
+  +THRUACTORS
+  +NOGRAVITY
+  +NODAMAGETHRUST
+  +DONTSPLASH
+  +RANDOMIZE
+		RenderStyle Add
+		Scale 2.50
+		States 
+		{
+		
+			Spawn:
+				DB08 ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ 1 bright 
+				{
+					A_SetScale(ScaleX-0.1, ScaleY-0.1);
+					A_FadeOut(0.03);
+				}
+				Stop
+		
+		}
+}
+
+Actor LightningGunPuff_Bigger : LightningGunPuff_Big
+{Scale 3.25}
+
+Actor ElectroBombFX
+{
+	Speed 0
+	Damage 0
+	PROJECTILE
+	RENDERSTYLE ADD
+	Damagetype plasma
+	Scale 0.35
+	+THRUGHOST
+	+THRUACTORS
+	+FORCEXYBILLBOARD
+	+NoGravity
+	+DONTSPLASH
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("LGBOMB")
+		STFL ABCDEFGHIJKLMNOP 1 Bright A_SetScale(ScaleX+0.05,ScaleY+0.05)
+		STFL ABCDE 1 BRIGHT A_FadeOut(0.2)
+		Stop
+		}
+}

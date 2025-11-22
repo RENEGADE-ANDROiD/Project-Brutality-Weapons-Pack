@@ -1,0 +1,39 @@
+//Green Armor Variants
+ACTOR U.A.CGreenArmor1 : BasicArmorPickup 19519
+{ 
+ Scale 1.2
+ Radius 20
+ Height 16
+ Inventory.PickupMessage "Picked up a Basic U.A.C Green armor"
+ Inventory.PickupSound "ARMOR/PickUp"
+ Inventory.Icon "ARMBA0"
+ Armor.SavePercent 25
+ Armor.SaveAmount 50
+ Tag "U.A.C Green Armor 1"
+ //$Category Health and Armor/Armor
+ States
+ {
+  Spawn:
+   ARMB A -1
+   Stop
+  }
+}
+
+ACTOR U.A.CGreenArmor2 : BasicArmorPickup 19520
+{ 
+ Radius 20
+ Height 16
+ Inventory.PickupMessage "Picked up a Standar U.A.C Green armor"
+ Inventory.PickupSound "ARMOR/PickUp2"
+ Inventory.Icon "TBM1A0"
+ Armor.SavePercent 25
+ Armor.SaveAmount 75
+ Tag "U.A.C Green Armor 2"
+ //$Category Health and Armor/Armor
+ States
+ {
+  Spawn:
+   TBM1 A -1
+   Stop
+  }
+}

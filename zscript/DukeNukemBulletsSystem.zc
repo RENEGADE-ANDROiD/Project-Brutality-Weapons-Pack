@@ -1,0 +1,31 @@
+class Duke_9x19mmRipper : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 25;
+		PB_Projectile.RipperCount 10;
+		Obituary "%o was filled with Ripper by %k.";
+	}
+}
+/*
+//For the one who's Gonna Want this. Giving me to Credits. because I'm up to Decorate script to ZScript.
+
+class Duke_12GAPellet : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 15;
+		PB_Projectile.RipperCount 2;
+		Obituary "%o was filled with Pellet duke by %k.";
+	}
+}
+
+class Duke_9x19mm : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 15;
+		PB_Projectile.RipperCount 1;
+		Obituary "%o was Fallen with an Pew Pew by %k.";
+	}
+}*/

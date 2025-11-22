@@ -1,0 +1,250 @@
+Actor PhaseEradicatorBFGMode : Inventory 
+{
+Inventory.maxamount 1
+}
+
+
+Actor PhaseEradicatorBFG : PB_Weapon
+{
+game doom
+Tag "Phase Eradicator BFG"
+Weapon.AmmoUse 0
+Weapon.AmmoGive 300
+Weapon.AmmoType "PB_Cell"
+Weapon.SelectionOrder 10
++WEAPON.NOAUTOAIM
+Inventory.PickupSound "EradicationBFG/Pickup"
+Inventory.PickupMessage "You got the FUCKING Phase Eradicator BFG"
+Weapon.SlotNumber 0
+States
+{
+
+
+Spawn:
+PRDC Z -1
+Stop
+
+
+Ready:
+TNT1 A 0
+SelectAnimation:
+CHAG A 0 A_GunFlash
+PRDC XWVU 1
+Ready3:
+TNT1 A 0 {PB_HandleCrosshair(69);}
+TNT1 A 0 A_JumpIfInventory("PB_Cell",1,"LoadedReady")
+TNT1 A 0 A_stopsound(5)
+TNT1 A 0 A_stopsound(6)
+TNT1 A 0 A_stopsound(7)
+PRDC A 1 A_DoPBWeaponAction
+Loop
+
+LoadedReady:
+TNT1 A 0
+TNT1 A 0 A_PlaySound("DSNUKBID", 7, 1, 1, 1.4)
+PRDC ABCDCB 1 A_DoPBWeaponAction
+Goto Ready3
+
+
+SwitchFireMode:
+TNT1 A 0 A_TakeInventory("PhaseEradicatorBFGMode", 1)
+TNT1 A 0 A_Print("Phase Eradication BFG Focus Proj")
+PRDC A 1 A_PlaySound("EradicationBFG/Up")
+Goto Ready3
+
+WeaponSpecial:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+TNT1 A 0 A_JumpIfInventory("PhaseEradicatorBFGMode",1,"SwitchFireMode")
+TNT1 A 0 A_GiveInventory("PhaseEradicatorBFGMode", 1)
+TNT1 A 0 A_Print("Ultimate Phase EradicatorBFG Ball")
+PRDC A 1 A_PlaySound("EradicationBFG/Up")
+Goto Ready3
+
+
+NoAmmo:
+TNT1 A 0
+PRDC A 15 A_PlaySound("sentry/warn")
+Goto Ready3
+
+Deselect:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+TNT1 A 0 {PB_HandleCrosshair(69);}
+TNT1 A 0 A_StopSound(5)
+TNT1 A 0 A_StopSound(6)
+TNT1 A 0 A_StopSound(7)
+PRDC UVWX 1 
+TNT1 A 0 A_Lower
+Wait
+
+
+Select:
+TNT1 A 0 A_TakeInventory("HasBarrel",1)
+TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+TNT1 A 0 {PB_HandleCrosshair(69);}
+Goto SelectFirstPersonLegs
+SelectContinue:
+CHAG A 0 A_PlaySound("EradicationBFG/Up")
+TNT1 AAAAAA 0 A_Raise
+Wait
+
+Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			A_TakeInventory("PB_LockScreenTilt",1);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+HG2G A 0 A_JumpIfInventory("PB_Cell",50,2) 
+HG2G A 0 A_Print("The Phase BFG Projectile requires 50 Eradication Cell!")
+Goto NoAmmo
+TNT1 A 0 A_PlayWeaponSound("EradicationBFG/Charge")
+TNT1 A 0 A_AlertMonsters
+PRDC A 14 A_GunFlash
+PRDC B 14 A_GunFlash
+PRDC C 13 A_GunFlash
+PRDC D 13 A_GunFlash
+PRDC E 13 A_GunFlash
+PRDC F 13 A_GunFlash
+Hold:
+HG2G A 0 A_JumpIfInventory("PB_Cell",50,2) 
+HG2G A 0 A_Print("The Phase BFG Projectile requires 50 Eradication Cell!")
+Goto NoAmmo
+TNT1 A 0 A_GunFlash
+TNT1 A 0 A_FireCustomMissile("PhaseEradicationBFGProjectile",0,1,0,0)
+TNT1 A 0 A_TakeInventory("PB_Cell",50,TIF_NOTAKEINFINITE)
+PRDC GHI 4 Bright A_FireCustomMissile("PurpleFlareMedium", 0, 1, 0, 0)
+PRDC J 2
+PRDC K 2
+PRDC L 2
+PRDC M 2
+PRDC N 2
+PRDC O 5
+PRDC O 10 A_Refire
+Goto Ready3
+
+
+AltFire:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+PRDC A 0 
+HG2G A 0 A_JumpIfInventory("PhaseEradicatorBFGMode",1,"PhaseUltimateFire")
+PRDC A 0 A_JumpIfInventory("PB_Cell",75,2) 
+PRDC A 0 A_Print("The Phase Focus Fire requires 75 Eradication Cell!")
+Goto NoAmmo
+TNT1 A 0 A_PlayWeaponSound("weapons/railgun/laserchargeup", 5)
+TNT1 A 0 A_AlertMonsters
+TNT1 A 0 A_GunFlash
+PRDC FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF 1 A_RailAttack(0,0,0,0,0,RGF_SILENT|RGF_NOPIERCING,0,"PhaseEradicatorBFGTargetPuff",0,0,0,0,0.2,0,"PhaseEradicatorBFGLaserSight",-4)
+PRDC FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF 1 A_RailAttack(0,0,0,0,0,RGF_SILENT|RGF_NOPIERCING,0,"PhaseEradicatorBFGTargetPuff",0,0,0,0,0.2,0,"PhaseEradicatorBFGLaserSight",-4)
+PRDC FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF 1 A_RailAttack(0,0,0,0,0,RGF_SILENT|RGF_NOPIERCING,0,"PhaseEradicatorBFGTargetPuff",0,0,0,0,0.2,0,"PhaseEradicatorBFGLaserSight",-4)
+TNT1 A 0 {
+	A_StartSound("weapons/railgun/laser_huge", 5, CHANF_OVERLAP);
+	A_FireCustomMissile("PhaseEradicationBFGFocusProj",0,0,0,0);
+	}
+TNT1 A 0 {A_TakeInventory("PB_Cell",75,TIF_NOTAKEINFINITE); A_PlaySound("Intern/RailFire", CHAN_AUTO);}
+PRDC G 2 Bright A_FireCustomMissile("PurpleFlareMedium", 0, 1, 0, 0)
+PRDC G 2 Bright A_FireCustomMissile("PurpleFlareMedium", 0, 1, 0, 0)
+PRDC H 2 Bright A_FireCustomMissile("PurpleFlareMedium", 0, 1, 0, 0)
+PRDC H 2 Bright A_FireCustomMissile("PurpleFlareMedium", 0, 1, 0, 0)
+PRDC I 2 Bright A_FireCustomMissile("PurpleFlareMedium", 0, 1, 0, 0)
+PRDC I 2 Bright A_FireCustomMissile("PurpleFlareMedium", 0, 1, 0, 0)
+PRDC J 2
+PRDC K 2
+PRDC L 2
+PRDC M 2
+PRDC N 2
+PRDC O 25
+PRDC O 10 A_Refire
+Goto Ready3
+
+
+PhaseUltimateFire:
+HG2G A 0 
+HG2G A 0 A_JumpIfInventory("PB_Cell",100,2) 
+HG2G A 0 A_Print("The Phase Ultimate Fire requires 100 Eradication Cell!")
+Goto NoAmmo
+TNT1 A 0 A_GunFlash
+TNT1 A 0 A_PlayWeaponSound("EradicationBFG/UltimateCharge")
+TNT1 A 0 A_AlertMonsters
+PRDC A 12 A_GunFlash
+PRDC B 12 A_GunFlash
+PRDC C 12 A_GunFlash
+PRDC D 12 A_GunFlash
+PRDC E 11 A_GunFlash
+PRDC F 11 A_GunFlash
+TNT1 A 0 Radius_Quake(12,3,0,1,0)
+TNT1 A 0 A_FireCustomMissile("PhaseEradicationBFGUltimateBall",0,0,0,0)
+TNT1 A 0 A_TakeInventory("PB_Cell",100,TIF_NOTAKEINFINITE)
+PRDC G 2 Bright A_FireCustomMissile("PurpleFlareMedium", 0, 1, 0, 0)
+PRDC G 2 Bright A_FireCustomMissile("PurpleFlareMedium", 0, 1, 0, 0)
+PRDC H 2 Bright A_FireCustomMissile("PurpleFlareMedium", 0, 1, 0, 0)
+PRDC H 2 Bright A_FireCustomMissile("PurpleFlareMedium", 0, 1, 0, 0)
+PRDC I 2 Bright A_FireCustomMissile("PurpleFlareMedium", 0, 1, 0, 0)
+PRDC I 2 Bright A_FireCustomMissile("PurpleFlareMedium", 0, 1, 0, 0)
+PRDC J 2
+PRDC K 2
+PRDC L 2
+PRDC M 2
+PRDC N 2
+PRDC O 25
+PRDC O 10 A_Refire
+Goto Ready3
+
+Reload:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+TNT1 A 0 A_JumpIfInventory ("HasBarrel", 1, "IdleBarrel")
+TNT1 A 0 A_JumpIfInventory ("HasFlameBarrel", 1, "IdleFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("HasIceBarrel", 1, "IdleIceBarrel")
+Goto Ready3
+
+FlashKicking:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+PRDC UVWXXXXXXXWVU 1
+Goto Ready3
+
+FlashAirKicking:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+PRDC UVWXXXXXXXXWVU 1
+Goto Ready3
+
+FlashSlideKicking:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+PRDC UVWXXXXXXX 2
+FlashSlideKickingStop:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+PRDC XXWVU 1
+Goto Ready3
+
+Flash:
+TNT1 A 4 A_Light2
+TNT1 A 3 A_Light1
+TNT1 A 0 A_Light0
+Stop
+}
+}

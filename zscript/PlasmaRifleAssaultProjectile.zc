@@ -1,0 +1,238 @@
+Class IN_RailLazerBase : Actor
+{
+  Default
+  {
+  Scale 8.0;
+  Alpha 0.001;
+  +FORCERADIUSDMG
+  +RANDOMIZE
+  +DONTSPLASH
+  +EXTREMEDEATH
+  +NOINTERACTION
+  +BRIGHT
+  Radius 0;
+  Height 0;
+  RenderStyle "Add";
+  }
+  
+  States
+  {
+  Spawn:
+	PLSS A 0;
+	PLSS A 1
+	{
+		A_FadeIn(frandom(0.25, 0.65), 0);
+		A_QuakeEx(1, 1, 1, 10, 0, 100, "none", QF_SCALEDOWN);
+		A_SetScale(Scale.X-frandom(-0.1, 0.5));
+	}
+	Stop;
+  }
+}
+
+Class IN_BallistaTrail : IN_RailLazerBase
+{
+  Default
+  {
+  DamageType "Stun";
+  +NOTIMEFREEZE;
+  Scale 6.5;
+  }
+  
+  States
+  {
+  Spawn:
+	PLSS A 0;
+	PLSS A 5
+	{
+		A_FadeIn(frandom(0.25, 0.65), 0);
+		A_QuakeEx(1, 1, 1, 10, 0, 100, "none", QF_SCALEDOWN);
+		A_SetScale(Scale.X-frandom(-0.1, 0.5));
+	}
+	PLSS AAAAAAAAAA 1
+	{
+		A_FadeOut(0.1, 0);
+		A_SetScale(Scale.X, Scale.Y-0.15);
+	}
+	Stop;
+  }
+}
+
+Class IN_NeonicWandTrail : IN_BallistaTrail
+{
+  Default
+  {
+  Scale 2.475;
+  DamageType "Plasma";
+  }
+  
+  States
+  {
+  Spawn:
+	PLSS A 0;
+	PLSS A 5
+	{
+		A_FadeIn(frandom(0.25, 0.65), 0);
+		A_SetScale(Scale.X+frandom(-0.1, 0.5));
+	}
+	PLSS AAAAAAAAAA 1
+	{
+		A_FadeOut(0.05, 0);
+		A_SetScale(Scale.X, Scale.Y-0.15);
+	}
+	Stop;
+  }
+}
+
+Class IN_NeonicRing : Actor
+{
+  Default
+  {
+  Scale 0.45;
+  RenderStyle "Add";
+  Alpha 1.0;
+  Mass 5;
+  Damage (20);
+  Radius 3;
+  VSpeed 0;
+  Height 2;
+  -SOLID;
+  -CANNOTPUSH;
+  +BRIGHT;
+  +FLATSPRITE;
+  +ROLLSPRITE;
+  +ALWAYSPUFF;
+  +NODAMAGETHRUST;
+  +ExtremeDeath;
+  +NoGravity;
+  DamageType "Plasma";
+  Translation "0:255=%[0.00,0.00,0.18]:[1.01,2.00,2.00]";
+  }
+  States
+  {
+  Spawn:
+	C28Y A 0 NoDelay
+	{
+		A_SetAngle(random(0, 360));
+		A_SetRoll(random(0, 360));
+		A_SetPitch(random(0, 360));
+	}
+	C28Y A 1;
+	C28Y B 1 A_Explode(50, 25, 0, 0);
+	C28Y DFGIJLMNPQ 1;
+	TNT1 A 1;
+	Stop;
+  }
+}
+
+class NeonPlasma_Ball: actor
+{
+	Default
+	{
+	Radius 10;
+	Height 2;
+	Speed 70;
+	Damage 50;
+	DamageType "Plasma";
+	Decal "SmallerScorch";
+	Projectile;
+	Gravity 0;
+	+RANDOMIZE;
+	
+	//+SHOOTABLE
+	//-NOBLOCKMAP
+	+NOBLOCKMAP;
+	+NOBLOOD;
+	+NORADIUSDMG;
+	+THRUSPECIES;
+	+MTHRUSPECIES;
+	+FORCEPAIN;
+	Species "Marines";
+	damagefactor "Blood", 0.0;
+	damagefactor "BlueBlood", 0.0;
+	damagefactor "GreenBlood", 0.0;
+	damagefactor "Taunt", 0.0;
+	damagefactor "KillMe", 0.0;
+	damagefactor "Shrapnel", 0.0;
+	Health 5;
+	
+renderstyle "ADD";
+Scale 0.19;
+	DeathSound "weapons/plasmax";
+	//SeeSound "PLSM9"
+	SeeSound "None";
+	Obituary "$OB_MPPLASMARIFLE";
+	}
+	
+	color tracercolor;
+	
+	States
+	{
+		
+		Spawn:
+			DB19 ABC 1 nodelay A_Spawnparticle(tracercolor,SPF_FULLBRIGHT|SPF_NOTIMEFREEZE|SPF_RELATIVE,3,18,0,0,0,0,0,0,0,0,0,0,1,-1,-1);
+		Fly:
+			DB19 ABC 1 {
+				spawnNeonFlare(pos);
+				A_Spawnparticle(tracercolor,SPF_FULLBRIGHT|SPF_RELATIVE,3,random(13,15),0,0,0,0,0,0,0,0,0,0,1,-1,-1);
+			}
+			loop;
+
+		Xdeath:
+			TNT1 A 0 A_SpawnItem ("Plasma_Puff", 0);
+			TNT1 A 0 A_CustomMissile ("BluePlasmaFire", 0, 0, random (0, 360), 2, random (0, 360));
+			TNT1 A 0 A_CustomMissile ("IN_NeonicRing", 0, 0, random (0, 360), 2, random (0, 360));
+			
+			TNT1 AAAA 0 A_CustomMissile ("RailGunTrailSpark", 0, 0, random (0, 360), 2, random (0, 360));
+			TNT1 A 1 A_Explode(8,50,0);
+			TNT1 A 4;
+			TNT2 AAA 9 A_CustomMissile ("PlasmaSmoke", 1, 0, random (0, 360), 2, random (0, 160));
+			Stop;
+
+		Death:
+			TNT1 A 0 A_SpawnItem ("Plasma_Puff", 0);
+			TNT1 B 1; //A_Explode(6,50,1);
+			TNT1 A 0 A_SpawnItemEx ("DetectFloorCraterSmall",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+			TNT1 A 0 A_SpawnItemEx ("DetectCeilCraterSmall",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+			TNT1 A 0 A_CustomMissile ("BluePlasmaFire", 0, 0, random (0, 360), 2, random (0, 360));
+			TNT1 AAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360));
+			TNT1 A 0 A_CustomMissile ("IN_NeonicRing", 0, 0, random (0, 360), 2, random (0, 360));
+			TNT1 B 4;
+			TNT2 AAAAAA 9 A_CustomMissile ("PlasmaSmoke", 1, 0, random (0, 360), 2, random (0, 160));
+			Stop;
+			
+		}
+		
+	void spawnNeonFlare(vector3 position, bool bigger = false)
+	{
+		FSpawnParticleParams FFLAR;
+		FFLAR.Texture = TexMan.CheckForTexture("5PRKA0");//("LENSA0");//("L2NBA0");
+		FFLAR.Color1 = tracercolor;//"FFFFFF";
+		FFLAR.Style = STYLE_ADDSTENCIL;
+		FFLAR.Flags = SPF_ROLL|SPF_FULLBRIGHT;
+		FFLAR.Vel = (0,0,0);
+		FFLAR.Startroll = random(0,360);
+		FFLAR.RollVel = frandom(-5,5);
+		FFLAR.StartAlpha = 0.85;
+		FFLAR.FadeStep = 0.15;
+		FFLAR.Size = bigger ? random(50,69) : random(20,30);
+		FFLAR.SizeStep = -5;
+		FFLAR.Lifetime = bigger ? random(4,6): 1; 
+		FFLAR.Pos = position;
+		Level.SpawnParticle(FFLAR);
+	}
+		
+	static const color NeontracerCol[] = {
+		"83FFF9","D083FF","83AEFF","BAEFFF","E0BAFF",
+		"E9BAFF","FFBAD0","7FC9FF","C27FFF","FFFFFF"
+	};
+			
+		override void beginplay()
+	{
+		self.bxflip = random(0,1);
+		self.byflip = random(0,1);
+		A_Setroll(random(0,360));
+		int c = random(0,self.NeontracerCol.Size()-1);
+		tracercolor = self.NeontracerCol[c];
+		super.beginplay();
+	}
+}

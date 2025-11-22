@@ -1,0 +1,471 @@
+Actor SniperAttackState : Inventory 
+{ 
+    Inventory.MaxAmount 10 
+}
+
+Actor SniperZoomFactor : Inventory 
+{ 
+    Inventory.MaxAmount 2 
+}
+
+Actor WeaponSpecialZoom : Inventory 
+{
+    Inventory.MaxAmount 1
+}
+
+Actor BoltRifleAmmo : Ammo
+{
+    Inventory.Amount 0
+    Inventory.MaxAmount 11
+    Ammo.BackpackAmount 0
+    Ammo.BackpackMaxAmount 11
+    Inventory.Icon "SILVA0"
+}
+
+Actor PB_BoltRifle : PB_Weapon
+{
+    Game Doom
+    SpawnID 7219
+    Weapon.BobRangeX 0.3
+    Weapon.BobRangeY 0.5
+    Weapon.BobStyle InverseSmooth
+    Weapon.BobSpeed 2.4
+    Weapon.AmmoUse1 0
+    Weapon.AmmoUse2 0
+    Weapon.AmmoGive1 10
+    Weapon.AmmoGive2 0
+    Weapon.AmmoType1 "PB_HighCalMag"
+    Weapon.AmmoType2 "BoltRifleAmmo"
+    Weapon.Kickback 200
+   +WEAPON.NOAUTOAIM
+   +WEAPON.NOALERT
+   +WEAPON.NOAUTOFIRE
+   +INVENTORY.ALWAYSPICKUP
+   +FORCEXYBILLBOARD
+   +FLOORCLIP
+    Weapon.SlotNumber 4
+    Weapon.SlotPriority 4
+    Weapon.SelectionOrder 9500
+    Inventory.PickupSound "M40RIF3"
+    Inventory.PickupMessage "You Got The Bolt-Action Rifle! (Slot 4)"
+    Obituary "Layed To Waste By The Bolt Rifle!"
+    Scale 0.8
+    Tag "UAC-50B Bolt-Action Sniper Rifle"
+    Inventory.AltHudIcon "SILVA0"
+    FloatBobStrength 0.5
+    States
+	{
+	Steady:
+	    TNT1 A 1
+	        Goto Ready
+	        
+       Ready:
+           TNT1 A 0
+           TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+       SelectAnimation:
+           TNT1 A 0 A_SetInventory("Zoomed",0)
+	    BLRS ABCD 1
+	    TNT1 A 0 A_PlaySound("M40RIF3", 7)
+	Ready3:
+	    TNT1 A 0 {
+		       A_WeaponOffset(0,32);
+		       A_SetRoll(0);
+		       PB_HandleCrosshair(57);
+		       A_TakeInventory("PB_LockScreenTilt",1);
+		      }
+	    TNT1 A 0
+	BoltRifleReadyToFire:
+	    BLRF A 1 {
+		       PB_CoolDownBarrel;
+			return A_Weaponready(WRF_ALLOWRELOAD);  
+		      }
+	        Loop
+	        
+       BoltRifleBarrelSmoke:
+	    TNT1 A 0 A_FireCustomMissile("GunBarrelSmoke", 0, 0, 0, 0, 0, 0)
+	    TNT1 A 0
+	        Stop
+
+	ReadyZoom:
+	    TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			PB_HandleCrosshair(57);
+			A_TakeInventory("PB_LockScreenTilt",1);
+			}
+	    TNT1 A 0
+	BoltRifleZoomReadyToFire:
+	    BLRZ E 1 {
+			return A_DoPBWeaponAction;
+		      }
+	        Loop
+	        
+       ReadyZoom8X:
+	    TNT1 A 0 A_ZoomFactor(8.0,ZOOM_INSTANT)
+	    SNPZ Z 2
+	    TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			PB_HandleCrosshair(57);
+			A_TakeInventory("PB_LockScreenTilt",1);
+		      }
+	        Goto BoltRifleZoomReadyToFire  
+	          
+       ReadyZoom16X:
+	    TNT1 A 0 A_ZoomFactor(16.0,ZOOM_INSTANT)
+	    SNPZ Z 2
+	    TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			PB_HandleCrosshair(57);
+			A_TakeInventory("PB_LockScreenTilt",1);
+		      }
+	        Goto BoltRifleZoomReadyToFire
+
+	Deselect:
+           TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	    TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			PB_HandleCrosshair(57);
+			A_TakeInventory("PB_LockScreenTilt",1);
+		      }
+	    TNT1 A 0 A_ZoomFactor(1.0,ZOOM_INSTANT)
+	    TNT1 A 0 A_GunFlash("MudOff")
+	    TNT1 A 0 A_PlaySound("weapons/changing")
+	    TNT1 A 0 A_Takeinventory("ADSmode",1)
+	    TNT1 A 0 A_JumpIfInventory("Zoomed", 1, 2)
+	    TNT1 A 0 A_TakeInventory("Zoomed", 1)
+	    TNT1 A 0 A_Takeinventory("WeaponSpecialZoom",1)
+	    BLRS DCBA 1
+	    TNT1 A 0 A_Lower
+	        Wait	
+	        
+	Select:
+	    TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			PB_HandleCrosshair(57);
+			A_TakeInventory("PB_LockScreenTilt",1);
+		      }
+	    TNT1 A 0 A_TakeInventory("HasBarrel",1)
+	    TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+	    TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+	    TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+	    TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+	    TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+	        Goto SelectFirstPersonLegs
+	        
+	SelectContinue:
+	    TNT1 A 0 A_Raise
+	        Wait
+	        
+	Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+// 			A_GiveInventory("PB_LockScreenTilt",1);
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			A_SetCrosshair(57);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+	    TNT1 A 0 A_JumpIfInventory("Zoomed", 1, "FireZoom")
+           TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo",1,1)
+               Goto Reload
+	    TNT1 A 0 {
+		       A_AlertMonsters;
+		      }
+	    TNT1 A 0 A_TakeInventory ("BoltRifleAmmo",1)
+	    TNT1 A 0 {
+		       A_RailAttack(300,0,1,None,None,RGF_SILENT,0,"ShotgunPuff",0,0,8192,0,1.0,1.0,None,0,0,6);
+	              A_FireProjectile("PB_762x51mmAP", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+		      }
+	    TNT1 A 0 A_PlaySound("M40Rifle/Fire")
+	    TNT1 A 0 {
+		       A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0);
+		       A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		      }
+	    TNT1 A 0 A_SetPitch(Pitch-1)
+	    BLRF A 0
+	    BLRF F 2 BRIGHT
+	    BLRF BBCCDD 1 {
+		            A_FireCustomMissile("SmokeSpawner", random(-1,1), 0, 0, 0, 0, random(-1,1));
+		            PB_CoolDownBarrel;
+		           }
+	    TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo",1,1)
+	        Goto SkipBolting
+	    BLRR BC 1
+	    BLRR DEF 2
+	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt1", 3)
+	    BLRR GHI 2
+	    TNT1 A 0 {
+		       A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9);
+		      }
+	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt2", 3)
+	    BLRR JKLMNO 2
+	SkipBolting:
+	    TNT1 A 0 A_TakeInventory("SniperAttackState",10)
+	    TNT1 A 0 A_StopSound(1)
+	        Goto Ready3
+	
+	FireZoom:
+           TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo",1,1)
+               Goto Reload
+           TNT1 A 0 A_Takeinventory("BoltRifleAmmo",1)
+	    TNT1 A 0 {
+		       A_AlertMonsters;
+		      }
+	    TNT1 A 0 A_PlaySound("M40Rifle/Fire")
+	    BLRZ F 1 BRIGHT 
+	             {
+		       A_RailAttack(300,0,1,None,None,RGF_SILENT,0,"ShotgunPuff",0,0,8192,0,1.0,1.0,None,0,0,6);
+		       A_FireProjectile("PB_762x51mmAP", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+                     A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0);
+		       A_SpawnItemEx("PlayerMuzzle1",30,0,45);
+		       A_FireCustomMissile("SmokeSpawner", random(-1,1), 0, 0, 0, 0, random(-1,1));
+		       PB_CoolDownBarrel;
+		      }
+	    BLRZ GH 2		
+	    TNT1 A 0 A_SetPitch(Pitch-1)
+	    TNT1 A 0 A_ZoomFactor(1.0)
+	    BLRZ DCBA 1
+	    TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo",1,1)
+	        Goto SkipBoltingZoom
+	    BLRR BC 1
+	    BLRR DEF 2
+	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt1", 5)
+	    BLRR GHI 2
+	    TNT1 A 0 {
+		       A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9);
+		      }
+	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt2", 5)
+	    BLRR JKLMNO 2
+	SkipBoltingZoom:
+	    TNT1 A 0 A_TakeInventory("SniperAttackState",10)
+	    TNT1 A 0 A_StopSound(1)
+	    TNT1 A 0 A_TakeInventory("WeaponSpecialZoom",1)
+	    TNT1 A 0 A_ZoomFactor(1.5)
+	    BLRZ ABCD 1
+	        Goto AfterFireZoom
+	        
+	Altfire:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	    TNT1 A 0 {
+		       A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			PB_HandleCrosshair(57);
+			A_TakeInventory("PB_LockScreenTilt",1);
+		      }
+	AltFireSwitchToZoom:
+           TNT1 A 0 A_JumpIfInventory("Zoomed",1,"ZoomOut")
+	    TNT1 A 0 A_GiveInventory("Zoomed",1)
+           TNT1 A 0 A_ZoomFactor(1.5)
+	    TNT1 A 0 A_GiveInventory("ADSmode",1)
+           BLRZ ABCD 1
+       AfterFireZoom:
+           TNT1 A 0 A_JumpIfInventory("SniperZoomFactor",2,"ReadyZoom16X")
+           TNT1 A 0 A_JumpIfInventory("SniperZoomFactor",1,"ReadyZoom8X")
+               Goto ReadyZoom
+               
+	ZoomOut:
+	    TNT1 A 0 A_Takeinventory("Zoomed",1)
+           TNT1 A 0 A_ZoomFactor(1.0)
+           TNT1 A 0 A_SetInventory("SniperZoomFactor",0)
+	    TNT1 A 0 A_Takeinventory("ADSmode",1)
+	    BLRZ DCBA 1
+               Goto Ready3
+               
+	WeaponSpecial:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	    TNT1 A 0 A_JumpIfInventory("Zoomed", 1, 1)
+	        Goto Ready3
+	    TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
+	WeaponSpecialZoom:
+	    TNT1 A 0 A_JumpIfInventory("SniperZoomFactor", 2, 10)
+	    TNT1 A 0 A_GiveInventory("SniperZoomFactor", 1)
+           TNT1 A 0 A_JumpIfInventory("SniperZoomFactor", 2, 4)
+	    TNT1 A 0 A_Print("8X Zoom")
+	    TNT1 A 0 A_PlaySound("M40Rifle/Scope")
+	        Goto ReadyZoom8X
+	    TNT1 AAA 0
+	    TNT1 A 0 A_Print("16X Zoom")
+	    TNT1 A 0 A_PlaySound("M40Rifle/Scope")
+	        Goto ReadyZoom16X
+	    TNT1 AAA 0
+	    TNT1 A 0 A_TakeInventory("SniperZoomFactor", 2)
+	    TNT1 A 0 A_PlaySound("M40Rifle/Scope")
+	    TNT1 A 0 A_Print("Standard Zoom")
+	    TNT1 A 0 A_ZoomFactor(1.5,ZOOM_INSTANT)
+	    SNPZ Z 2
+	        Goto ReadyZoom
+	        
+	MudOff:
+	    TNT1 A 0
+	        Stop
+	        
+	DryFire:
+	    TNT1 A 0 A_PlaySound("weapons/empty")
+	        Goto Ready3
+	        
+       Reload:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	    TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo",11,"Ready3")
+	    TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,1)
+		 Goto DryFire
+	    TNT1 A 0 A_JumpIfInventory("TurboReload",1,"Refill")
+	    TNT1 A 0 A_JumpIfInventory("Zoomed",1,1)
+	        Goto ReloadAnimStart
+	    TNT1 A 0 A_TakeInventory("Zoomed", 1)
+	    TNT1 A 0 A_PlaySound("M40Rifle/Scope")
+	    TNT1 A 0 A_ZoomFactor(1.0,ZOOM_INSTANT)
+	    TNT1 A 0 A_Takeinventory("SniperZoomFactor",2)
+	    TNT1 A 0 A_GunFlash("MudOff")
+	ReloadAnimStart:
+	    BRR1 ABCDEFG 2
+	    TNT1 A 0 A_PlaySound("weapons/carbine/magout")
+	    TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo",1,2)
+	    TNT1 A 0 A_FireCustomMissile("EmptyClipSpawn",-5,0,8,-4)
+	    TNT1 A 0
+           BRR2 ABCDEF 2
+           TNT1 A 0 A_PlaySound("weapons/carbine/magin",1)
+           BRR2 GHIJKLMNOPRST 2
+           TNT1 A 0
+	    TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo",1,"SkipBoltingOnReload")
+	    BLRR DEF 2
+	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt1", 5)
+	    BLRR GHI 2
+	    TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt2", 5)
+	    BLRR JKLMNO 2
+	SkipBoltingOnReload:
+	    TNT1 A 0 A_Takeinventory("SniperAttackState",10)
+	    TNT1 A 0 A_StopSound(1)
+	    TNT1 A 0 A_Takeinventory("WeaponSpecialZoom",1)
+	Refill:
+	    TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo", 1, "ReloadLoop11")
+	ReloadLoop10:
+	    TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo",11,"ReloadDone")
+	    TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",2,1)
+	        Goto ReloadDone
+	    TNT1 A 0 A_Giveinventory("BoltRifleAmmo",1)
+           TNT1 A 0 A_Takeinventory("PB_HighCalMag",2)
+		 Goto ReloadLoop10
+	ReloadLoop11:
+	    TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo",11,"ReloadDone")
+	    TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",2,1)
+		 Goto ReloadDone
+	    TNT1 A 0 A_Giveinventory("BoltRifleAmmo",1)
+	    TNT1 A 0 A_Takeinventory("PB_HighCalMag",2)
+		 Goto ReloadLoop11
+	ReloadDone:
+	    TNT1 A 0 A_Refire
+		 Goto Ready3
+		 
+	Spawn:
+	    SILV A -1
+		 Stop
+		 
+	FlashKicking:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+	    BLRF A 1 A_DoPBWeaponAction
+	    BRR1 A 1
+	    BRR1 B 1
+	    BRR1 C 1
+	    BRR1 D 1
+	    BRR1 E 1
+	    BRR1 F 1
+	    BRR1 G 3
+	    BRR1 F 1
+	    BRR1 E 1
+	    BRR1 D 1
+	    BRR1 C 1
+	    BRR1 B 1
+	    BRR1 A 1
+	    BLRF A 1
+		 Goto BoltRifleReadyToFire
+		 
+	FlashAirKicking:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+	    BLRF A 1 A_DoPBWeaponAction
+	    BRR1 A 1
+	    BRR1 B 1
+	    BRR1 C 1
+	    BRR1 D 1
+	    BRR1 E 1
+	    BRR1 F 1
+	    BRR1 G 3
+	    BRR1 F 1
+	    BRR1 E 1
+	    BRR1 D 1
+	    BRR1 C 1
+	    BRR1 B 1
+	    BRR1 A 1
+	    BLRF A 1
+		 Goto BoltRifleReadyToFire
+
+	FlashSlideKicking:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+	    BLRF A 1 A_DoPBWeaponAction
+	    BRR1 A 1
+	    BRR1 B 1
+	    BRR1 C 1
+	    BRR1 D 1
+	    BRR1 E 1
+	    BRR1 F 1
+	    BRR1 G 8
+	    BRR1 F 1
+	    BRR1 E 1
+	    BRR1 D 1
+	    BRR1 C 1
+	    BRR1 B 1
+	    BRR1 A 1
+	    BLRF A 1
+		 Goto BoltRifleReadyToFire
+
+	FlashSlideKickingStop:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+	    BLRF A 1 A_DoPBWeaponAction
+		 Goto BoltRifleReadyToFire
+
+	FlashPunching:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+	    BLRF A 1 A_DoPBWeaponAction
+	    BLRS D 1
+	    BLRS C 1
+	    BLRS B 1
+	    BLRS A 6
+	    BLRS B 1
+	    BLRS C 1
+	    BLRS D 1
+	    BLRF A 1
+		 Stop
+	}
+}

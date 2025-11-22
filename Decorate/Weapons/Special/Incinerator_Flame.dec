@@ -1,0 +1,138 @@
+ACTOR PossessedDemonFire
+{
+	Radius 13
+	Height 8
+	Speed 25
+	Damage 10
+	Projectile
+	+RANDOMIZE
+	+NOBOSSRIP
+	+NODAMAGETHRUST
+	-BLOODSPLATTER
+	+BLOODLESSIMPACT
+	RenderStyle Add
+	Alpha 0.66
+	Scale 0.5
+	DeathSound "weapons/flamehit"
+	Obituary "$OB_MPFLAMETHROWER"
+	Decal "FlameScorch"
+	DamageType Fire
+	States
+	{
+	Spawn:
+		TNT1 A 0 BRIGHT A_PlaySound("weapons/flamehit")
+		TNT1 AAAA 1 BRIGHT A_SpawnItemEx("FlameStreamTrail", 0, 0, 0, Random(-1,1)+MOMX, Random(-1,1)+MOMY, Random(-1,1)+MOMZ, 0, SXF_CLIENTSIDE | SXF_ABSOLUTEMOMENTUM, 32)
+        TNT1 A 1 BRIGHT A_SpawnItemEx("FlameStreamTrail", 0, 0, 0, Random(-2,2)+MOMX, Random(-2,2)+MOMY, Random(-2,2)+MOMZ, 0, SXF_CLIENTSIDE | SXF_ABSOLUTEMOMENTUM, 32)
+		TNT1 A 0 BRIGHT A_SpawnItemEx("FlameStreamTrail", 0, 0, 0, Random(-3,3)+MOMX, Random(-3,3)+MOMY, Random(-3,3)+MOMZ, 0, SXF_CLIENTSIDE | SXF_ABSOLUTEMOMENTUM, 32)
+		TNT1 A 1 BRIGHT A_SpawnItemEx("FlameStreamTrail", 0, 0, 0, Random(-3,3)+MOMX, Random(-3,3)+MOMY, Random(-3,3)+MOMZ, 0, SXF_CLIENTSIDE | SXF_ABSOLUTEMOMENTUM, 32)
+		TNT1 A 0 BRIGHT A_SpawnItemEx("FlameStreamTrail", 0, 0, 0, Random(-3,3)+MOMX, Random(-3,3)+MOMY, Random(-3,3)+MOMZ, 0, SXF_CLIENTSIDE | SXF_ABSOLUTEMOMENTUM, 32)
+		TNT1 A 1 BRIGHT A_SpawnItemEx("FlameStreamTrail", 0, 0, 0, Random(-4,4)+MOMX, Random(-4,4)+MOMY, Random(-4,4)+MOMZ, 0, SXF_CLIENTSIDE | SXF_ABSOLUTEMOMENTUM, 32)
+		TNT1 A 18 BRIGHT
+		Stop
+	Death:
+		TNT1 A 0 A_SpawnItemEx("IgnitedSurface", random(-8,8), Random(-8,8), 0, 0, 0, Random(1, 2), 0, 128, 64)
+		stop
+	}
+}
+
+ACTOR PossessedDemonFire2 : PossessedDemonFire // Map hack D:
+{
+	Decal ""
+	speed 25
+	States
+	{
+	Death:
+		TNT1 A 1
+		Stop
+	}
+}
+
+actor IgnitedSurfaceFlame
+{
+	Scale 0.3
+	Alpha 0.7
+	+NOINTERACTION
+	 Height 2
+ Radius 2
+ Speed 3
+ RenderStyle Add
+ Alpha 0.9
+ +NOGRAVITY
+ +FORCEXYBILLBOARD
+ +DONTSPLASH
+ +NOTELEPORT
+ +NOBLOCKMAP
+ +RIPPER
+ +BLOODLESSIMPACT
+ +CANNOTPUSH
+ -BLOODSPLATTER
+ -ACTIVATEPCROSS
+ Damagetype "Fire"
+ -ACTIVATEIMPACT
+ -NOCLIP
+ States
+ {
+ Spawn:
+ 	FIR1 A 0
+ 	FIR1 A 0 A_Jump(127, "Spawn2", "Spawn3")
+ 	FRE1 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 BRIGHT
+ 	stop
+ Spawn2:
+ 	FRE1 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 BRIGHT
+ 	stop
+ Spawn3:
+ 	FRE1 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 BRIGHT
+ 	stop
+}}
+
+actor FlameStreamTrail : IgnitedSurfaceFlame
+{
+	Scale 0.36
+	Alpha 0.32
+	Damage 0
+	+MISSILE
+	-ACTIVATEIMPACT
+	-ACTIVATEPCROSS
+	States
+	{
+		Death:
+			TNT1 AA 1
+			stop
+	}
+}
+
+actor IgnitedSurface
+{
+Projectile
+Height 5
+Radius 2
+BounceFactor 0.0
+obituary "%o was purified by %k's cleansing flame."
+RenderStyle Add
+Scale 0.5
+ReactionTime 160
+DamageType "Fire"
+-SOLID
++NODAMAGETHRUST
++LOWGRAVITY
+-NOGRAVITY
++HEXENBOUNCE
++SKYEXPLODE
++DONTSPLASH
+States
+{
+Spawn:
+TFIR A 0 A_CountDown
+TNT1 A 0 A_SpawnItemEx("IgnitedSurfaceFlame", random(-8,8), Random(-8,8), 0, 0, 0, Random(1, 2), 0, 128, 64)
+TNT1 A 2 A_Explode(3, 18, 1)
+TNT1 A 0 A_JumpIf(waterlevel == 3, "Disappear")
+loop
+Death:
+TNT1 A 1
+stop
+Disappear:
+TNT1 A 0
+TNT1 A 1
+stop
+}
+}

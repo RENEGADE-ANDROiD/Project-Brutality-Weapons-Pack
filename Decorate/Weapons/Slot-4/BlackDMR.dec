@@ -1,0 +1,922 @@
+ACTOR Black_DMR-RKX : PB_Weapon
+{
+	Inventory.PickupSound "J2RCOCK"
+	Weapon.AmmoGive1 10
+	Weapon.AmmoGive2 0
+	Weapon.AmmoUse1 0
+	Weapon.AmmoUse2 0
+	Weapon.AmmoType2 "Black_Clip"
+	Weapon.AmmoType1 "PB_HighCalMag"
+	Weapon.UpSound "RANEQ"
+	Tag "UAC-35 DMR - Shadow Song"
+	+WEAPON.WIMPY_WEAPON
+    +WEAPON.NOAUTOAIM
+    +WEAPON.NOALERT
+    +WEAPON.NOAUTOFIRE
+	+FORCEXYBILLBOARD
+	+WEAPON.NO_AUTO_SWITCH
+	+WEAPON.CHEATNOTWEAPON
+	Inventory.PickupMessage "\cjUAC-35 DMR \ck:-{Shadow Song}-:! \cj(Slot 4)"
+	//$Category Weapons/Rifles
+	PB_WeaponBase.RespectItem "JustStartGamesWithRifle"
+	PB_WeaponBase.DualWieldToken "DualWieldWithRKX"
+	PB_WeaponBase.AmmoTypeLeft "LeftBlack_Clip"
+	States
+	{
+	Spawn:
+		J2SP A 1
+		Loop
+		
+	Steady:
+		TNT1 A 1
+		Goto Ready
+		
+	Ready:
+		TNT1 A 0
+		TNT1 A 0 PB_RespectIfNeeded
+	WeaponRespect:
+		TNT1 A 0 A_GiveInventory("JustStartGameWithRifle",1)
+		J2FR GGGGGGGGGG 1
+		
+		TNT1 AAA 0
+		
+		J2FR H 1
+		
+		J2FR IKL 1
+		TNT1 A 0 A_PlaySound ("RIFCL_IN", 11)
+		J2FR MN 1
+		J2FR O 3
+	    J2FR OPQR 1
+		TNT1 A 0 A_PlaySound ("RIFCL_CL", 12)
+		J2FG A 1
+		TNT1 A 0 A_PlaySound("MINY",18)
+		Goto Ready3
+	SelectAnimation:
+		TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
+		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"DualSelectAnimation")
+		J2PU A 1 FAST A_SetPitch(Pitch+0.8)
+		J2PU B 1 FAST A_SetPitch(Pitch-0.4)
+		J2PU C 1 FAST A_SetPitch(Pitch-0.4)
+		TNT1 A 0 A_PlaySound("J2RCLIPO",16)
+		TNT1 A 0 A_SetCrosshair(14)
+		Goto Ready3
+	DualSelectAnimation:
+		TNT1 A 0 A_PlaySound("J2RCLIPO", "AUTO")
+		J2DA A 1 FAST A_SetPitch(Pitch+0.8)
+		J2DS B 1 FAST A_SetPitch(Pitch-0.4)
+		J2DS C 1 FAST A_SetPitch(Pitch-0.1)
+		J2DS D 1 FAST A_SetPitch(Pitch-0.1)
+		J2DS E 1 FAST A_SetPitch(Pitch-0.1)
+		J2DS F 1 FAST A_SetPitch(Pitch-0.1)
+		TNT1 A 0 A_PlaySound("J2RCLIPO", "AUTO")
+		TNT1 A 0 A_SetCrosshair(14)
+	Ready3:
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Ready2")
+		J2FG A 1 {
+			if (countinv("DualWieldWithRKX") == 1) {A_SetWeaponSprite("J2DG");}
+			
+			return A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM);
+			}
+		Loop
+		
+    Ready2:
+		J22G A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		Loop
+		
+	Zoom:
+		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"ChangingToNormal")
+		TNT1 A 0 A_TakeInventory("BurstSong", 1)
+		TNT1 A 0 A_TakeInventory("SemiSong",1)
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_GiveInventory("DualWieldWithRKX", 1)
+		J2PU CBA 1
+		Goto SelectAnimation
+		
+	ChangingToNormal:
+		TNT1 A 0 A_TakeInventory("DualWieldWithRKX",1)
+		J2DS FEDCBA 1
+		Goto SelectAnimation
+	    
+	Select:
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		Goto SelectFirstPersonLegs
+	SelectContinue:
+		TNT1 A 0 A_Raise
+		Wait
+
+	Deselect:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	    TNT1 A 0 A_PlaySound("MINY",18)
+		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"DeselectWithDual")
+	    J2PU CBA 1
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_ZoomFactor(1.0)
+	    TNT1 A 0 A_Lower
+	    Wait
+	
+	DeselectWithDual:
+		J2DS FEDCBA 1
+		TNT1 A 0 A_ZoomFactor(1.0)
+	    TNT1 A 0 A_Lower
+	    Wait
+	
+	FireNoreload:
+		J2FG A 0 A_JumpIfInventory("PB_HighCalMag",1,"FireNow")
+		Goto NoAmmo
+		
+	FireNow:
+		TNT1 A 0 A_Takeinventory("PB_HighCalMag",1)
+		Goto NormalFire
+	
+	Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+// 			A_GiveInventory("PB_LockScreenTilt",1);
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"DualFire")
+	    J2FG A 0 A_JumpIfInventory("Black_Clip",1,"NormalFire")
+		Goto Reload
+
+	NormalFire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Fire2")
+		TNT1 A 0 A_JumpIfInventory("BurstSong",1,"BurstFire")
+		J2FF A 1 Bright {
+		PB_FireOffset;
+		A_ZoomFactor(0.99);
+        A_PlaySound("Omen/Fire",21);
+		
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+			else { 
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+		A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
+		A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
+		PB_GunSmoke(0,0,0);
+		PB_WeaponRecoil(-0.75,0.55);
+        A_Takeinventory("Black_Clip",1);
+		}
+		TNT1 A 0 A_ZoomFactor(0.98)
+		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+		TNT1 A 0 A_ZoomFactor(0.97)
+		TNT1 A 0 A_Jump(256,"FireSequence1","FireSequence2","FireSequence3")
+		
+		FireSequence1:
+		J2AF A 1 Bright
+		//TNT1 A 0 A_SetAngle(+0.1 + angle)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		Goto EndSequence
+		
+		FireSequence2:
+		J2AF B 1 Bright
+		//TNT1 A 0 A_SetAngle(-0.1 + angle)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		Goto EndSequence
+		
+		FireSequence3:
+		J2AF C 1 Bright
+		//TNT1 A 0 A_SetPitch(-0.2 + pitch)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		Goto EndSequence
+		
+		EndSequence:
+		//TNT1 A 0 A_SetPitch(+0.4 + pitch)
+		J2FF C 1
+		TNT1 A 0 A_ZoomFactor(0.99)
+		J2FG A 1
+		TNT1 A 0 A_ZoomFactor(1.0)
+		
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_JumpIfInventory("SemiSong",1,"Ready3") // Thinking already has been...
+		TNT1 A 0 A_Refire
+		Goto Ready3
+		
+	NoAmmoOnRight:
+		TNT1 A 0 A_JumpIfInventory("LeftBlack_Clip",1,1)
+		Goto Reload
+		J2D1 A 1 {
+			A_GunFlash("LeftFireFlashEmpty");
+			A_ZoomFactor(0.99);
+			A_PlaySound("Omen/Fire",21);
+			A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
+			A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
+			A_FireCustomMissile("GunSmokeSpawner",0,0,0);
+			PB_WeaponRecoil(-0.75,0.55);
+			PB_LowAmmoSoundWarning("default", "LeftBlack_Clip");
+	        A_Takeinventory("LeftBlack_Clip",1);
+			A_Takeinventory("LeftRKXFire",1);
+			}
+		J2D1 A 1
+		TNT1 A 0 A_ZoomFactor(0.98)
+		//TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+		J2D1 A 1
+		TNT1 A 0 A_ZoomFactor(0.97)
+		J2D1 A 1
+		TNT1 A 0 A_ZoomFactor(0.98)
+		J2DG A 0 A_Refire
+		Goto Ready3
+	
+	NoAmmoOnLeft:
+		TNT1 A 0 A_JumpIfInventory("Black_Clip",1,1)
+		Goto Reload
+		J2D2 A 1 {
+			A_GunFlash("RightFireFlashEmpty");
+			A_ZoomFactor(0.99);
+			A_PlaySound("Omen/Fire",21);
+			A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
+			A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
+			A_FireCustomMissile("GunSmokeSpawner",0,0,0);
+			PB_WeaponRecoil(-0.75,0.55);
+			PB_LowAmmoSoundWarning;
+	        A_Takeinventory("Black_Clip",1);
+			A_Takeinventory("LeftRKXFire",1);
+			}
+		J2D2 A 1
+		TNT1 A 0 A_ZoomFactor(0.98)
+		//TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+		J2D2 A 1
+		TNT1 A 0 A_ZoomFactor(0.97)
+		J2D2 A 1
+		TNT1 A 0 A_ZoomFactor(0.98)
+		J2DG A 0 A_Refire
+		Goto Ready3
+	
+	DualFire:
+		TNT1 A 0 A_JumpIfInventory("LeftRKXFire",1,"LeftDualFire")
+		TNT1 A 0 A_JumpIfInventory("Black_Clip",1,1)
+		Goto NoAmmoOnRight
+		J2D2 A 1 {
+			A_GunFlash("RightFireFlash");
+			A_ZoomFactor(0.99);
+			A_PlaySound("Omen/Fire",21);
+			A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
+			A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
+			A_FireCustomMissile("GunSmokeSpawner",0,0,0);
+			PB_WeaponRecoil(-0.75,0.55);
+			PB_LowAmmoSoundWarning;
+	        A_Takeinventory("Black_Clip",1);
+			A_Giveinventory("LeftRKXFire",1);
+			}
+		J2D2 A 1
+		TNT1 A 0 A_ZoomFactor(0.98)
+		//TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+		J2D2 A 1
+		TNT1 A 0 A_ZoomFactor(0.97)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		J2DG A 0 A_Refire
+		Goto Ready3
+		
+	LeftDualFire:
+		TNT1 A 0 A_JumpIfInventory("LeftBlack_Clip",1,1)
+		Goto NoAmmoOnLeft
+		J2D1 A 1 {
+			A_GunFlash("LeftFireFlash");
+			A_ZoomFactor(0.99);
+			A_PlaySound("Omen/Fire",21);
+			A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
+			A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
+			A_FireCustomMissile("GunSmokeSpawner",0,0,0);
+			PB_WeaponRecoil(-0.75,0.55);
+			PB_LowAmmoSoundWarning("default", "LeftBlack_Clip");
+	        A_Takeinventory("LeftBlack_Clip",1);
+			A_Takeinventory("LeftRKXFire",1);
+			}
+		J2D1 A 1
+		TNT1 A 0 A_ZoomFactor(0.98)
+		//TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+		J2D1 A 1
+		TNT1 A 0 A_ZoomFactor(0.97)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		J2DG A 0 A_Refire
+		Goto Ready3
+		
+	//GunFlashInitiate
+		
+	RightFireFlash:
+		J2D1 BCD 1
+		Stop
+		
+	RightFireFlashEmpty:
+		J2D1 BCD 1
+		Stop
+		
+	LeftFireFlash:
+		J2D2 BCD 1
+		Stop
+		
+	LeftFireFlashEmpty:
+		J2D2 BCDA 1
+		Stop
+	
+	BurstFire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Fire2")
+		J2FF A 1 Bright {
+		PB_FireOffset;
+		A_ZoomFactor(0.99);
+        A_PlaySound("Omen/Fire",21);
+		
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+			else { 
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+		A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
+		A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
+		PB_GunSmoke(0,0,0);
+		PB_WeaponRecoil(-0.75,0.55);
+        A_Takeinventory("Black_Clip",1);
+		}
+		TNT1 A 0 A_ZoomFactor(0.98)
+		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+		TNT1 A 0 A_ZoomFactor(0.97)
+		J2AF A 1 Bright
+		//TNT1 A 0 A_SetAngle(+0.1 + angle)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		TNT1 A 0 A_JumpIfInventory("Black_Clip",1,"GoBurstAgain")
+		Goto EndSequenceBurst
+		
+	GoBurstAgain:
+		J2FF A 1 Bright {
+		PB_FireOffset;
+		A_ZoomFactor(0.99);
+        A_PlaySound("Omen/Fire",21);
+		
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+			else { 
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+		A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
+		A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
+		PB_GunSmoke(0,0,0);
+		PB_WeaponRecoil(-0.75,0.55);
+        A_Takeinventory("Black_Clip",1);
+		}
+		TNT1 A 0 A_ZoomFactor(0.98)
+		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+		TNT1 A 0 A_ZoomFactor(0.97)
+		J2AF B 1 Bright
+		//TNT1 A 0 A_SetAngle(-0.1 + angle)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		TNT1 A 0 A_JumpIfInventory("Black_Clip",1,"GoAgainnn")
+		Goto EndSequenceBurst
+		
+	GoAgainnn:
+		J2FF A 1 Bright {
+		PB_FireOffset;
+		A_ZoomFactor(0.99);
+        A_PlaySound("Omen/Fire",21);
+		
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+			else { 
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+		A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
+		A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
+		PB_GunSmoke(0,0,0);
+		PB_WeaponRecoil(-0.75,0.55);
+        A_Takeinventory("Black_Clip",1);
+		}
+		TNT1 A 0 A_ZoomFactor(0.98)
+		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+		TNT1 A 0 A_ZoomFactor(0.97)
+		J2AF C 1 Bright
+		//TNT1 A 0 A_SetPitch(-0.2 + pitch)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		
+		EndSequenceBurst:
+		//TNT1 A 0 A_SetPitch(+0.4 + pitch)
+		J2FF C 1
+		TNT1 A 0 A_ZoomFactor(0.99)
+		J2FG A 10
+		TNT1 A 0 A_ZoomFactor(1.0)
+		
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_Refire
+		Goto Ready3
+
+    AltFire:
+        TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"Ready3") //No Zoomed insight with Dual Wielding situation.
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"NoAim")
+		TNT1 A 0 A_Giveinventory("Zoomed",1)
+        TNT1 A 0 A_ZoomFactor(1.8)
+		TNT1 A 0 A_PlaySound("Weapon/IronSit")
+        J2FZ AB 1
+		TNT1 A 0 A_SetPitch(+1.0 + pitch)
+		J2FZ CD 1
+		TNT1 A 0 A_SetPitch(+1.0 + pitch)
+		TNT1 A 0 A_SetCrosshair(0)
+        Goto Ready2
+		
+       NoAim:
+        TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_PlaySound("Weapon/IronSit")
+        J2FZ DC 1
+		TNT1 A 0 A_SetPitch(-1.0 + pitch)
+		J2FZ BA 1
+		TNT1 A 0 A_SetPitch(-1.0 + pitch)
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_SetCrosshair(14)
+        Goto Ready3
+
+	WeaponSpecial:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"Failtomodes")
+		TNT1 A 0 A_JumpIfInventory("SemiSong",1,"Burst")
+		TNT1 A 0 A_JumpIfInventory("BurstSong",1,"FullAuto")
+		TNT1 A 0 A_Takeinventory("GoWeaponSpecialAbility",1)
+		TNT1 A 0 A_PlaySound("DryFire/Rifle")
+		TNT1 A 0 A_Print("Semi-Auto Mode")
+		TNT1 A 0 A_GiveInventory("SemiSong", 1)
+		Goto Ready3
+		
+	Failtomodes:
+		TNT1 A 0 A_Takeinventory("GoWeaponSpecialAbility",1)
+		TNT1 A 0 A_PlaySound("NOUPGRD")
+		TNT1 A 0 A_Print("You Can't Changing mode During Dual Wielding Mode.")
+		Goto Ready3
+		
+	Burst:
+		TNT1 A 0 A_Takeinventory("GoWeaponSpecialAbility",1)
+		TNT1 A 0 A_PlaySound("DryFire/Rifle")
+		TNT1 A 0 A_Print("Burst Mode")
+		TNT1 A 0 A_TakeInventory("SemiSong", 1)
+		TNT1 A 0 A_GiveInventory("BurstSong", 1)
+		Goto Ready3
+	
+	FullAuto:
+		TNT1 A 0 A_Takeinventory("GoWeaponSpecialAbility",1)
+		TNT1 A 0 A_PlaySound("DryFire/Rifle")
+		TNT1 A 0 A_Print("Full-Auto Mode")
+		TNT1 A 0 A_TakeInventory("BurstSong", 1)
+		Goto Ready3
+		
+	Fire2:
+		TNT1 A 0 A_JumpIfInventory("BurstSong",1,"BurstFire2")
+		J22F A 1 Bright {
+		A_AlertMonsters;
+		A_ZoomFactor(1.99);
+        A_PlaySound("Omen/Fire",Chan_Weapon);
+		A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
+		A_FireCustomMissile("GunSmokeSpawner",0,0,0);
+		
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+			else { 
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+		PB_WeaponRecoil(-0.25,0.45);
+        A_Takeinventory("Black_Clip",1);
+        }
+		TNT1 A 0 A_ZoomFactor(1.98)
+		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-5)
+		TNT1 A 0 A_ZoomFactor(1.97)
+		TNT1 A 0 A_Jump (255,"ZoomFireSecuence1","ZoomFireSecuence2")
+		
+		ZoomFireSecuence1:
+		//TNT1 A 0 A_SetPitch(+0.4 + Pitch)
+		J22F B 1
+		//TNT1 A 0 A_SetAngle(-0.5 + Angle)
+		TNT1 A 0 A_ZoomFactor(1.98)
+		Goto ZoomEnSecuence
+		
+		ZoomFireSecuence2:
+		//TNT1 A 0 A_SetPitch(+0.4 + Pitch)
+		J22F C 1
+		//TNT1 A 0 A_SetAngle(+0.5 + Angle)
+		TNT1 A 0 A_ZoomFactor(1.98)
+		Goto ZoomEnSecuence
+		
+		ZoomEnSecuence:
+		J22F D 1
+		TNT1 A 0 A_ZoomFactor(1.99)
+		J22F E 1
+		TNT1 A 0 A_ZoomFactor(2.0)
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_JumpIfInventory("SemiSong",1,"Ready2")
+		TNT1 A 0 A_Refire
+		Goto Ready2
+		
+	BurstFire2:
+		J22F A 1 Bright {
+		A_AlertMonsters;
+		A_ZoomFactor(1.99);
+        A_PlaySound("Omen/Fire",Chan_Weapon);
+		A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
+		A_FireCustomMissile("GunSmokeSpawner",0,0,0);
+		
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+			else { 
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+		PB_WeaponRecoil(-0.25,0.45);
+        A_Takeinventory("Black_Clip",1);
+        }
+		TNT1 A 0 A_ZoomFactor(1.98)
+		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-5)
+		TNT1 A 0 A_ZoomFactor(1.97)
+		//TNT1 A 0 A_SetPitch(+0.4 + Pitch)
+		J22F B 1
+		//TNT1 A 0 A_SetAngle(-0.5 + Angle)
+		TNT1 A 0 A_ZoomFactor(1.98)
+		TNT1 A 0 A_JumpIfInventory("Black_Clip",1,"GoBurstZoom")
+		Goto ZoomEnSecuenceBurst
+		
+		GoBurstZoom:
+		J22F A 1 Bright {
+		A_AlertMonsters;
+		A_ZoomFactor(1.99);
+        A_PlaySound("Omen/Fire",Chan_Weapon);
+		A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
+		A_FireCustomMissile("GunSmokeSpawner",0,0,0);
+		
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+			else { 
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+		PB_WeaponRecoil(-0.25,0.45);
+        A_Takeinventory("Black_Clip",1);
+        }
+		TNT1 A 0 A_ZoomFactor(1.98)
+		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-5)
+		TNT1 A 0 A_ZoomFactor(1.97)
+		//TNT1 A 0 A_SetPitch(+0.4 + Pitch)
+		J22F C 1
+		//TNT1 A 0 A_SetAngle(+0.5 + Angle)
+		TNT1 A 0 A_ZoomFactor(1.98)
+		TNT1 A 0 A_JumpIfInventory("Black_Clip",1,"GoZoomAgain")
+		Goto ZoomEnSecuenceBurst
+		
+		GoZoomAgain:
+		J22F A 1 Bright {
+		A_AlertMonsters;
+		A_ZoomFactor(1.99);
+        A_PlaySound("Omen/Fire",Chan_Weapon);
+		A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
+		A_FireCustomMissile("GunSmokeSpawner",0,0,0);
+		
+				if(GetCvar("PB_alttracer") >=1) {
+				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+			else { 
+				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_LowAmmoSoundWarning;
+			}
+		PB_WeaponRecoil(-0.25,0.45);
+        A_Takeinventory("Black_Clip",1);
+        }
+		TNT1 A 0 A_ZoomFactor(1.98)
+		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-5)
+		TNT1 A 0 A_ZoomFactor(1.97)
+		//TNT1 A 0 A_SetPitch(+0.4 + Pitch)
+		J22F B 1
+		//TNT1 A 0 A_SetAngle(-0.5 + Angle)
+		TNT1 A 0 A_ZoomFactor(1.98)
+		
+		ZoomEnSecuenceBurst:
+		J22F D 1
+		TNT1 A 0 A_ZoomFactor(1.99)
+		J22F E 10
+		TNT1 A 0 A_ZoomFactor(2.0)
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_Refire
+		Goto Ready2
+	
+	NoAmmo:
+	J2FG A 1 A_PlaySound("DryFire/Rifle")
+	TNT1 A 0 A_JumpIfInventory("Black_Clip",1,"Ready3")
+	NoReload:
+	TNT1 A 0 A_Takeinventory("Reloading",1)
+	TNT1 A 0 A_Takeinventory("Zoomed",1)
+    TNT1 A 0 A_ZoomFactor(1.0)
+    TNT1 A 0 A_SelectWeapon("IN_Beretta")
+	Goto Ready3
+	
+    Reload:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 A_SetCrosshair(14)
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+	    TNT1 A 0 A_Takeinventory("Zoomed",1)
+        TNT1 A 0 A_ZoomFactor(1.0)
+        TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"ReloadWithDual")
+		TNT1 A 0 A_JumpIfInventory("Black_Clip",31,"Ready3")
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,3)
+		TNT1 A 0 A_JumpIfInventory("Unloaded_ShadowSong",1,4)
+    Goto NoAmmo
+		TNT1 A 0 A_GiveInventory ("Pumping", 1)
+	    TNT1 A 0 A_Takeinventory("Zoomed",1)
+        TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 A_PlaySound("RANEQ",20)
+		TNT1 A 0 A_JumpIfInventory("Black_Clip",1,3)
+		Goto ReloadBolt
+        TNT1 A 0
+		TNT1 AAA 0
+		
+		
+		J2FR ABC 1
+		
+		J2FR DEF 1
+		
+		TNT1 A 0 A_JumpIfInventory("Unloaded_ShadowSong",1,10)
+		
+		J3FR Z 1
+		J3FR AB 1
+		TNT1 A 0 A_PlaySound ("RIFCL_OU", 22)
+		J3FR CD 1
+		
+		TNT1 A 0 A_CustomMissile("EmptyDMRMag", 7, 0, random(-40,60), 2, random(5,10))
+		
+		TNT1 AAAAA 0
+		TNT1 A 0 A_Takeinventory("Unloaded_ShadowSong",1)
+		
+		J2FR G 8
+		
+		TNT1 AAA 0
+		
+		J2FR H 1
+		
+		J2FR IKL 1
+	ReloadLoop:
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_GiveInventory("Black_Clip",1)
+		TNT1 A 0 A_JumpIfInventory("Black_Clip",31,"ReloadFinish")
+		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,"ReloadLoop")
+	ReloadFinish:
+		TNT1 A 0 A_PlaySound ("RIFCL_IN", 11)
+		J2FR MN 1
+		J2FR O 3
+	    J2FR OPQR 1
+		TNT1 A 0 A_PlaySound ("RIFCL_CL", 12)
+		J2FG A 1
+		TNT1 A 0 A_PlaySound("MINY",18)
+		Goto Ready3
+		
+	ReloadBolt:
+		TNT1 A 0 A_JumpIfInventory("Unloaded_ShadowSong",1,14)
+		J2FR ABCDEF 1
+		
+		J3FR Z 1
+		J3FR AB 1
+		TNT1 A 0 A_PlaySound ("RIFCL_OU", Chan_Weapon)
+		J3FR CD 1
+		TNT1 A 0 A_CustomMissile("EmptyDMRMag", 7, 0, random(-40,60), 2, random(5,10))
+
+		TNT1 AAA 0
+		TNT1 A 0 A_TakeInventory ("Unloaded_ShadowSong",1)
+		J2FR G 8
+		J2FR HIKL 1
+	ReloadLoop2:
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_GiveInventory("Black_Clip",1)
+		TNT1 A 0 A_JumpIfInventory("Black_Clip",30,"ReloadFinish2")
+		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,"ReloadLoop2")
+	ReloadFinish2:
+		TNT1 A 0 A_PlaySound ("RIFCL_IN",6)
+		J2FR MN 1
+		J2FR O 3
+	    J2FR OPQR 1
+		TNT1 A 0 A_PlaySound ("RIFCL_CL",5)
+		J2FG A 1
+		
+		J2FC ABC 1
+		TNT1 A 0 A_PlaySound("RIFCL_CK",9)
+		J2FC DEFGH 1
+		
+		J2FC HGFEDCBA 1
+		
+		TNT1 A 0 A_PlaySound("MINY",18)
+		J2FG A 1
+		Goto Ready3
+		
+	ReloadWithDual:
+		TNT1 A 0 {
+			if (CountInv("Black_Clip") >= 31 && CountInv("LeftBlack_Clip") >= 31) {
+				return state("Ready3");
+			}
+			return state("");
+		}
+        TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,3)
+		TNT1 A 0 A_JumpIfInventory("Unloaded_ShadowSong",1,"LoadedMagRightReload")
+	    Goto NoAmmo
+		TNT1 A 0 A_GiveInventory ("Pumping", 1)
+	    TNT1 A 0 A_Takeinventory("Zoomed",1)
+        TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 A_PlaySound("RANEQ",20)
+		J2DS FEDCBA 1
+		TNT1 A 5
+		TNT1 A 0 A_JumpIfInventory("Black_Clip",31,"LoadMagLeft") //Go again...
+		J2DL AB 1
+		TNT1 A 0 A_PlaySound ("RIFCL_OU", 22)
+		J2DL CDE 1
+	LoadedMagRightReload:
+		J2DL FGH 1
+		J2DL IJKL 1
+		TNT1 A 0 A_PlaySound ("RIFCL_IN", 11)
+		TNT1 A 0 PB_AmmoIntoMag("Black_Clip","PB_HighCalMag", 31, 1) 
+		J2DL MNOOO 1
+		TNT1 A 0 A_PlaySound ("RIFCL_CL", 12)
+		TNT1 A 0 A_JumpIfInventory("LeftBlack_Clip",31,"StopTheReeload")
+	LoadMagLeft:
+		TNT1 A 0 A_JumpIfInventory("Unloaded_ShadowSong",1,"LoadedMagLeftReload")
+		J2DR AB 1
+		TNT1 A 0 A_PlaySound ("RIFCL_OU", 22)
+		J2DR CDE 1
+	LoadedMagLeftReload:
+		J2DR FGH 1
+		J2DR IJKL 1
+		TNT1 A 0 A_PlaySound ("RIFCL_IN", 11)
+		TNT1 A 0 PB_AmmoIntoMag("LeftBlack_Clip","PB_HighCalMag", 31, 1) 
+		J2DR MNOOO 1
+		TNT1 A 0 A_PlaySound ("RIFCL_CL", 12)
+	StopTheReeload:
+		TNT1 A 0 A_TakeInventory("Unloaded_ShadowSong",1)
+		J2DS ABCDEF 1
+		Goto Ready3
+		
+		
+	FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"FlashDualKicking")
+		J2FR BBATTTTTTTABB 1 A_DoPBWeaponAction
+		Goto Ready3
+		
+	FlashDualKicking:
+		J2DS FEDCBAAAAABCDEF 1 A_DoPBWeaponAction
+		Goto Ready3
+		
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"FlashDualAirKicking")
+		J2FR BBATTTTTTTTABB 1 A_DoPBWeaponAction
+		Goto Ready3
+		
+	FlashDualAirKicking:
+		J2DS FEDCBAAAAAABCDEF 1 A_DoPBWeaponAction
+		Goto Ready3
+		
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"FlashDualSlideKicking")
+		J2FR BATTTTTTTTTT 2 A_DoPBWeaponAction
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"FlashDualSlideKickingStop")
+		J2FR TAB 1 A_DoPBWeaponAction
+		Goto Ready3
+		
+	FlashDualSlideKicking:
+		J2DS FEDCB 1 A_DoPBWeaponAction
+		J2DS A 9
+	FlashDualSlideKickingStop:
+		J2DS AABCDEF 1 A_DoPBWeaponAction
+		Goto Ready3
+
+	Unload:
+		TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_Takeinventory("Unloading",1)
+		TNT1 A 0 A_Takeinventory("ADSmode",1)
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"UnloadWithDual")
+        TNT1 A 0 A_JumpIfInventory("Black_Clip",1,3)
+        Goto Ready3
+        TNT1 AAA 0
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_Takeinventory("Unloading",1)
+		
+	RemoveBullets:
+		TNT1 AAAA 0
+		TNT1 A 0 A_JumpIfInventory("Black_Clip",1,3)
+		Goto FinishUnload
+        TNT1 AAAAAA 0
+		TNT1 A 0 A_Takeinventory("Black_Clip",1)
+		TNT1 A 0 A_Giveinventory("PB_HighCalMag",1)
+		Goto RemoveBullets
+	
+	FInishUnload:
+        J2FR TSRQP 1
+		
+		J2FR ONML 2
+		
+		TNT1 A 0 A_PlaySound("RIFCL_OU",12)
+		
+		J2FR KIHGFEDCBA 1
+		
+		TNT1 A 0 A_GiveInventory("Unloaded_ShadowSong", 1)
+		TNT1 A 0 A_Takeinventory("Unloading",1)
+				
+		Goto Ready3
+		
+	UnloadWithDual:
+		TNT1 A 0 A_Takeinventory("Unloading",1)
+		J2DL ONML 1
+		TNT1 A 0 A_PlaySound("RIFCL_OU",12)
+		J2DL KJIHGFEDC 1
+		J2DR OMNL 1
+		TNT1 A 0 A_PlaySound("RIFCL_OU",12)
+		J2DR KJIHGFEDC 1
+		
+	RemoveBulletsDual:
+		TNT1 AAAA 0
+		TNT1 A 0 A_JumpIfInventory("LeftBlack_Clip",1,3)
+		Goto Ready3
+        TNT1 AAAAAA 0
+		TNT1 A 0 A_Takeinventory("Black_Clip",1)
+		TNT1 A 0 A_Takeinventory("LeftBlack_Clip",1)
+		TNT1 A 0 A_Giveinventory("PB_HighCalMag",2)
+		Goto RemoveBulletsDual
+
+  }
+}
+
+
+ACTOR Black_Clip : PB_WeaponAmmo
+{
+Inventory.MaxAmount 31
+Inventory.Icon "J2SPA0"
++IgnoreSkill
+}
+
+ACTOR LeftBlack_Clip : PB_WeaponAmmo
+{
+Inventory.MaxAmount 31
+Inventory.Icon "J2SPB0"
++IgnoreSkill
+}
+
+ACTOR JustStartGamesWithRifle : Inventory {Inventory.MaxAmount 1}
+Actor Unloaded_ShadowSong : Inventory { Inventory.MaxAmount 1 }
+Actor SemiSong : Inventory { Inventory.MaxAmount 1 }
+Actor BurstSong : Inventory { Inventory.MaxAmount 1 }
+Actor DualWieldWithRKX : Inventory { Inventory.MaxAmount 1 }
+Actor LeftRKXFire : Inventory { Inventory.MaxAmount 1 }

@@ -1,0 +1,23 @@
+The Demon-Tech Weapons Packs
+
+Demon-Tech Pistol
+Sprites: MickeeYoofers
+PB Coder: AresFallen
+
+Demon-Tech Shotgun
+Sprites: Carrot, Craneo, Dusted
+PB Coder/Texture Edit(Sprites): AresFallen
+
+Demon-Tech Minigun
+Sprites: NoozeArts
+PB Coder: AresFallen
+
+Demon-Tech Atomizer
+Sprites: Fluffy(Default Complex Doom Nexus)
+Resprites: UV(Base on New Tech Blaster 5/10/22), AresFallen (Re Edit Reloading Sprites)
+PB Coder: AresFallen
+
+Remember that. There's an Took an Some Sounds has Taken from Official Games Sounds
+Reimagined CF Sounds
+- Demon-Tech Pistol [Valve,L4D2]
+- Demon-Tech Shotgun [ID Software, DOOM 2016/DOOM Eternal]

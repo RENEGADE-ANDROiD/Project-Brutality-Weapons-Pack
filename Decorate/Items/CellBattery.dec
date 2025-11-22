@@ -1,0 +1,76 @@
+ACTOR CellBattery : Ammo 20001
+{
+  Inventory.Amount 20
+  Inventory.MaxAmount 600
+  Ammo.BackpackAmount 40
+  Ammo.BackpackMaxAmount 800
+	Inventory.PickupMessage "Picked up a Cell Battery"
+    Inventory.Icon "CELLC0"
+	Inventory.Pickupsound "BATTERY"
+    //$Category Ammunition/Plasma Ammunition
+	States
+	{
+	Spawn:
+		CELL ABCDEEDCBA 4
+		Loop
+	}
+}
+
+
+ACTOR CellCharge : CellBattery 20002
+{
+    Inventory.Amount 40
+	Inventory.PickupMessage "Picked up a Small Cell Battery"
+    Inventory.Icon "CELLH0"
+	Inventory.Pickupsound "SENTDOWN"
+    //$Category Ammunition/Plasma Ammunition
+	States
+	{
+	Spawn:
+		PLSM B 4
+		Loop
+	}
+}
+
+
+ACTOR CellBatteryMedium : CellBattery 20003
+{
+	Inventory.Amount 60
+	Inventory.PickupMessage "Picked up a Large Cell Battery"
+	Inventory.Pickupsound "CR_AMMOP"
+    //$Category Ammunition/Plasma Ammunition
+	States
+	{
+	Spawn:
+	    BATT A 4
+		loop
+	}
+}
+
+ACTOR CellBatteryBig1 : CellBattery 20004
+{
+	Inventory.Amount 80
+	Inventory.PickupMessage "Picked up a StrongBox Cell Battery"
+	Inventory.Pickupsound "CELL_PAK"
+    //$Category Ammunition/Plasma Ammunition
+	States
+	{
+	Spawn:
+		CEL4 ABCDEFFEDCBA 4
+		Loop
+	}
+}
+
+ACTOR CellBatteryBig2 : CellBattery 20005
+{
+	Inventory.Amount 100
+	Inventory.PickupMessage "Picked up a Large StrongBox Cell Battery"
+	Inventory.Pickupsound "PLSPIK"
+    //$Category Ammunition/Plasma Ammunition
+	States
+	{
+	Spawn:
+		PLSM C 4
+		Loop
+	}
+}

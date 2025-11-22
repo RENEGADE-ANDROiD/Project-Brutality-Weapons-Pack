@@ -1,0 +1,31 @@
+Actor Unloaded_Berreta : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_BerretauP : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_SMG : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_SMGUP : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_Magnum : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_Deagle : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_Golide : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_ShadowSong : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_MP40 : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_MaskMan : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_AK-47 : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_Dark-Fate : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_Fallen-Falcon : Inventory {inventory.maxamount 1}
+
+Actor Unloaded_Magnum-Sniper : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_Rocket-Launcher : Inventory { inventory.maxamount 1 }
+
+Actor Unloaded_Plasma-Rifle : Inventory { inventory.maxamount 1 }

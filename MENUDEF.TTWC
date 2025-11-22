@@ -1,0 +1,177 @@
+AddOptionMenu "OptionsMenu"
+{
+    Submenu "Top Tier Weapon Collection Settings", "ttwcoptions"
+}
+
+OptionMenu "ttwcoptions"
+{
+	Title "Top Tier Weapon Collection Settings"
+    StaticText ""
+	Submenu "Behold! Fire & Ice Options", "BeholdOptions"
+    StaticText ""
+	submenu "Door buster settings","BusterMenu"
+    StaticText ""
+	submenu "Weapon Visual Options", "ZMoveMenu"
+    StaticText ""
+	Submenu "Random Weapon Switcher", "SwitchItUpOptions"
+    StaticText ""
+	Submenu "Weapon spawn settings", "PB03XWeaponSpawnSettings"
+    StaticText ""
+	Option "Execution with Fire Button", "ttwcfbex", "OnOff"
+}
+
+
+OptionMenu "PB03XWeaponSpawnSettings"
+{
+	Title "PB03X weapon spawn settings"
+    StaticText ""
+	StaticText "---------------Slot 1 weapons---------------", gold
+	StaticText ""
+	Option "Spawn Argent Sith", "PBSpawnArgentSith", "OnOff"
+
+    StaticText ""
+	StaticText "---------------Slot 8 weapons---------------", gold
+	StaticText ""
+	Option "Spawn Calamity Blade", "PBSpawnCalamityBlade", "OnOff"
+}
+
+
+
+
+OptionMenu "SwitchItUpOptions" 
+{
+	Title "$RW_TITLE"
+	StaticText ""
+	Control	   "$RW_SWITCH"					 , "SwitchItUp"
+	Control	   "$RW_PREV"					 , "BackItUp"
+	StaticText ""
+	ZRWSwitchOption "Enable random switching", "$RW_RANDOM", "rw_switchEnabled", "OnOff"
+	ZRWSwitchOption "Enable weapon lock", "$RW_LOCK", "rw_lockWeap", "OnOff"
+	ZRWSwitchOption "Enable instant switch", "$RW_INST", "rw_instSwitch", "OnOff"
+   
+    StaticText "$RW_DELAYS", Yellow
+	
+	ZRWSwitchSlider	"Minimum Delay", "$RW_MIN", "rw_DelayMin", 10, 60, 1, "", "rw_switchEnabled"
+	ZRWSwitchSlider	"Maximum Delay", "$RW_MAX", "rw_DelayMax", 10, 60, 1, "", "rw_switchEnabled"
+}
+
+OptionMenu "BeholdOptions"
+{
+    Title "Behold! Fire & Ice Options"
+
+    StaticText ""
+    StaticText "Welcome to Behold!"
+    StaticText "FIRE & ICE Edition"
+    StaticText "When triggered, Behold! will:"
+    StaticText "• Resurrect you if you died (works even if not dead!)"
+    StaticText "• Give you a Battle Axe, DragonSlayer,"
+    StaticText "• Shieldsaw, Stormcast & Super Shotgun"
+    StaticText "• Spawn enemies based on the selected mode"
+    StaticText ""
+
+    StaticText "Bind: Behold! modes (each key = set + trigger)"
+    Control "Random Mayhem — 3–5 foes — Trigger",        "+dp_random_key"
+    Control "The Quadrant — up to 4 foes — Trigger",      "+dp_quad_key"
+    Control "More Trouble — up to 6 foes — Trigger",      "+dp_more_key"
+    Control "Hell's Fury — up to 10 foes — Trigger",      "+dp_fury_key"
+    Control "Total Apocalypse — up to 12 foes — Trigger", "+dp_apoc_key"
+    StaticText ""
+    Command "Show current mode (prints on screen)", "dp_show_mode"
+}
+
+//ZMOVEMENT
+OptionMenu "WeaponVisuals"
+{
+	Class "ZMoveMenu"
+	Title "Weapon Visual Options"
+	Position -32
+	
+	StaticText	"Bobbing", 0
+	ZMoveSlider	"Walk/Run View Bobbing",				"Adjust view bobbing's intensity when moving",											"movebob",					0.5,	1.0,	0.1
+	ZMoveSlider	"Still View Bobbing",					"Adjust view bobbing's intensity when not moving",										"stillbob",					0.1,	1.0,	0.1
+	ZMoveSlider	"Walk/Run Weapon Bobbing",				"Adjust weapon bobbing's intensity when moving",										"wbobspeed",				1.0,	2.0,	0.1
+	ZMoveOption	"Still Weapon Bobbing",					"Turn on/off the weapon bobbing when standing still",									"zm_stillbob",				"OnOff"
+	ZMoveSlider	"Sprite speed to full bob",				"How fast weapon sprites transition to their maximum bobbing range",					"zm_fullbobspeed",			1,		15,		1,		0
+	StaticText 	""
+	StaticText	"Weapon Sway", Orange
+	ZMoveOption "Yaw Weapon Sway", 						"Allow weapons to sway according to your mouse yaw",									"zm_yawsway",				"OnOff"
+	ZMoveSlider "Yaw Sway Speed", 						"How fast weapons sway",																"zm_yawswayspeed",			0,		4,		0.5
+	ZMoveSlider "Yaw Sway Range", 						"Maximum Distance weapons can sway",													"zm_yawswayrange",			0,		8,		0.1
+	ZMoveSlider "Yaw Sway Friction", 					"How fast sprites will tend to realign to the center",									"zm_yawswayfriction",		5,		14,		0.5
+	ZMoveOption "Yaw Sway Direction", 					"Set wherever weapons sway in the direction you turn or the opposite",					"zm_yawswaydirection",		"SwayDirection"
+	ZMoveOption "Vertical Sway Type",					"How should vertical sway look",														"zm_pitchswaytype",			"VSwayType"
+	StaticText 	""
+	StaticText	"Vertical Offset", Orange
+	ZMoveSlider "Offset Speed", 						"How fast weapons raise and fall depending on your vertical velocity",					"zm_offsetspeed",			50,		100,	1,		0
+	ZMoveSlider "Offset Range", 						"Maximum Height weapons can fall",														"zm_offsetmaxrange",		10,		50,		1,		0
+	ZMoveOption "Offset Direction", 					"Set Wherever the sprites are offset according to your vertical direction",				"zm_offsetdirection",		"OffsetDirection"
+	StaticText 	""
+	
+	StaticText	"Others", 1
+	ZMoveOption "Speedometer", 							"Enable SpeedOMeter",																	"zm_speedometer",			"Speedometer"
+	ZMoveOption "Horizontal Weapon Stretch","Turn on/off the 20% horizontal weapon stretch","pb_scalexweapons","OnOff"
+	Control		"Reset to default values",				"zmove_reset"
+}
+
+
+OptionValue "BobType"
+{
+	0, "Doom"
+	1, "Build Engine"
+	2, "Dusk"
+	3, "Painkiller"
+	4, "Unreal Tournament"
+}
+
+OptionValue "SwayDirection"
+{
+	0, "Opposite Direction"
+	1, "Same Direction"
+}
+
+OptionValue "VSwayType"
+{
+	0, "Both Ways"
+	1, "One Way"
+}
+
+OptionValue "OffsetDirection"
+{
+	0, "Opposite Direction"
+	1, "Same Direction"
+}
+
+OptionValue "Speedometer"
+{
+	0, "Off"
+	1, "Doom Units"
+	2, "Quake Units"
+}
+
+optionmenu "BusterMenu"
+{
+	Title "PB Door Buster Addon Options"
+	statictext ""
+	control "Try use door buster: ","netevent TryBustDoor"
+	statictext "dont forget to bind this!",green
+	statictext ""
+	option "Bypass locks: ","ignoreLocks","Yez"
+	statictext "allows you to destroy locked doors",yellow
+	statictext ""
+	option "Disable logs: ","nologs","Yez"
+	statictext "disable the info logs",yellow
+	statictext ""
+	option "Infinite Charges: ","infinitecharges","Yez"
+	statictext "go crazy",yellow
+	statictext ""
+	slider "Buster ammo spawn chance: ","busterAmmoChance",0,100,5,0
+	statictext "0 is never, 100 is always",yellow
+	statictext "(*buster ammo spawns in secret sectors, if enough space)",yellow
+	statictext ""
+}
+
+optionvalue "Yez"
+{
+	0,"Disable"
+	1,"Enable"
+}

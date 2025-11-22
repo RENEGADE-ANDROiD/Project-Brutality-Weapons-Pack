@@ -1,0 +1,24 @@
+[enu default]
+RW_TITLE = "Random Weapon Switching";
+
+RW_RANDOM = "Randomly switch weapon";
+RW_LOCK = "Lock current weapon until random/forced switch";
+RW_INST = "Instantly switch weapon";
+
+RW_DELAYS = "Delay sliders";
+
+RW_MIN = "Minimum delay (in seconds) before weapon is switched";
+RW_MAX = "Maximum delay (in seconds) before weapon is switched";
+
+RW_SWITCH = "Random Switch Bind";
+RW_PREV = "Previous Weapon Switch Bind";
+
+CM_BUCKLD = "\cgBuckshot \c- Shells selected";
+CM_SLUGLD = "\cdSlugs \c- Shells selected";
+CM_DGBTLD = "\ciDragon Breath \c- Shells selected";
+CM_FLAKLD = "\chFlak \c-Shells Loaded";
+CM_FLCHLD = "\cjFlechette \c-Shells Loaded";
+CM_EXPLLD = "\cuExplosive \c-Shells Loaded";
+CM_WPLOAD = "\c[WPBronze]White Phosphorus\c- Shells Loaded";
+CM_DOOMLD = "\ctTriple Doom\c- Shells Loaded";
+CM_DNMKULD = "\c[DanmakuYellow]Danmaku \c-Shells Loaded";

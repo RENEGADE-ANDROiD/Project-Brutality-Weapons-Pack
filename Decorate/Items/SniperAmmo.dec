@@ -1,0 +1,71 @@
+ACTOR MauserAmmo : Ammo 17765
+{
+	//$Category Ammunition/Mauser Ammunition
+	//$Title Clip (x5 clips)
+	//$Color 6
+	Tag "7.92x57mm"
+	Inventory.Amount 5
+	Inventory.MaxAmount 100
+	Ammo.BackpackAmount 25
+	Ammo.BackpackMaxAmount 200
+	Inventory.PickupMessage "Picked Up a Sniper Ammunition +5"
+	Inventory.PickUpSound "SNPClip"
+	Scale 0.8
+	Inventory.Icon "792AA0"
+	States
+	{
+	Spawn:
+		792A A -1
+		Stop
+	}
+}
+
+ACTOR MauserClipBox : MauserAmmo 20932
+{
+	//$Category Ammunition/Mauser Ammunition
+	//$Title Clipbox (x15 clips)
+	//$Color 6
+	Scale 0.7
+	Inventory.Amount 15
+	Inventory.PickupMessage "Picked Up a Sniper Ammunition +15"
+	Inventory.PickUpSound "SNPBox"
+	States
+	{
+	Spawn:
+		792A B -1
+		Stop
+	}
+}
+
+ACTOR MauserAmmoBox : MauserAmmo 20933
+{
+	//$Category Ammunition/Mauser Ammunition
+	//$Title Clipbox (x45 clips)
+	//$Color 6
+	Scale 1.1
+	Inventory.Amount 45
+	Inventory.PickupMessage "Picked Up a Sniper Ammunition +45"
+	Inventory.PickUpSound "SNPBox"
+	States
+	{
+	Spawn:
+		792A C -1
+		Stop
+	}
+}
+
+ACTOR MauserAmmoBox2 : MauserAmmo 20934
+{
+	//$Category Ammunition/Mauser Ammunition
+	//$Title Clipbox (x20 clips)
+	Scale 1.0
+	Inventory.Amount 20
+	Inventory.PickupMessage "Picked Up a Sniper Ammunition +20"
+	Inventory.PickUpSound "SNPBox"
+	States
+	{
+	Spawn:
+		792A D -1
+		Stop
+	}
+}

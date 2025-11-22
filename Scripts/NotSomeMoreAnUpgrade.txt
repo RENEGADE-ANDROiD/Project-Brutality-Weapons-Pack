@@ -1,0 +1,17 @@
+#library "TheUpgrader"
+#include "zcommon.acs"
+
+Script "HASGDrumMag" (void)
+{
+	SetAmmoCapacity("ASGChamber", 25);
+}
+
+Script "AdvAssaultDrumMag" (void)
+{
+	SetAmmoCapacity("SP50cAmmo", 30);
+}
+
+Script "AdvAssault50cDrumMag" (void)
+{
+	SetAmmoCapacity("SP50cAmmo", 51);
+}

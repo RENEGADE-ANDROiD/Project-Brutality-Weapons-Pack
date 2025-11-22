@@ -1,0 +1,14 @@
+Credits!  Thanks to our amazing mod community.  I love you all.
+
+ 
+- Behold! by Bob-Quick-Save-Smith! https://www.doomworld.com/forum/topic/155315-behold-resurrection-add-on-for-gzdoom/
+- DragonSlayer Swords and Bolt-Repeater by Craneo.  I found this on the Hexen moddb.
+- Shieldsaw by Craneo.  I paired this with the Heavensever.
+- BattleAxe and Shield\Stormcast is made by Dreo & Lord Lothar for the amazing mod Schism!
+- ThunderCrossbow sprites from Brutal Hexen by Seidolon.
+- ThunderCrossbow AltFire is the PSI Thunder ability from the mod PSI Powers by Mini--Joe - https://forum.zdoom.org/viewtopic.php?p=1181250
+
+Huge thanks to my tech support scripting badass, BROS_ETT_311, for converting some BD tokens for Stormcast functionality in PB and for creating their PB Weapon Injectors.  Huge thanks to the Project Brutality team for making such a fun and complete way to enjoy Doom & Doom II
+
+THESE WEAPONS WERE REWORKED FOR COMPATIBILITY WITH PROJECT BRUTALITY 0.3.X 
+BY RENEGADE ANDROiD

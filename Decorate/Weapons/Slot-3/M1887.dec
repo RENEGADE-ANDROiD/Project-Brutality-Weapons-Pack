@@ -1,0 +1,634 @@
+Actor M1887WinchesterShotgunFired: Inventory {Inventory.MaxAmount 200}
+
+Actor WinchesterShotgunWasEmpty : Inventory {Inventory.MaxAmount 1}
+
+Actor NoAutoReload : Inventory {Inventory.MaxAmount 1}
+
+Actor RespectM1887 : Inventory {Inventory.MaxAmount 1}
+
+Actor M1887 : PB_Weapon
+{
+	Game Doom
+	SpawnID 3100
+    Weapon.BobRangeX 0.3
+    Weapon.BobRangeY 0.5
+    Weapon.BobStyle InverseSmooth
+    Weapon.BobSpeed 2.0
+	Weapon.AmmoUse1 0
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive1 7
+	Weapon.AmmoGive2 0
+	Weapon.AmmoType1 "PB_Shell"
+	Weapon.AmmoType2 "M1887Ammo"
+	Inventory.PickupMessage "You Got The M1887-Winchester Shotgun. (Slot 3)!"
+    Inventory.PickupSound "weapons/M1887Deploy"
+	Obituary "Deadly Fire! Watch Out!"
+    AttackSound "None"
+   +WEAPON.NOALERT
+   +WEAPON.NOAUTOAIM
+   +WEAPON.NOAUTOFIRE
+   +WEAPON.WIMPY_WEAPON
+   +DONTGIB
+	Weapon.SlotNumber 3
+    Weapon.SlotPriority 1
+	Weapon.SelectionOrder 1300
+	Scale 0.9
+	Tag "M1887-Winchester Shotgun"
+	Inventory.AltHudIcon "M87PA0"
+    PB_WeaponBase.RespectItem "RespectM1887"
+	FloatBobStrength 0.5
+	
+	States
+	{
+    Steady:
+		TNT1 A 0
+		Goto Ready
+
+	Ready:
+	    TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
+	    TNT1 A 0 PB_RespectIfNeeded
+	WeaponRespect:
+	TNT1 A 0 {
+		  A_GiveInventory("RespectM1887",1);
+		  A_GiveInventory("PB_LockScreenTilt",1);
+		  A_PlaySound("weapons/M1887Deploy");
+		  }
+     M87S A 1 {
+		  A_SetRoll(roll-1.5,SPF_INTERPOLATE);
+		  return A_DoPBWeaponAction;
+		  }
+	 M87S B 1 {
+		  A_SetRoll(roll-1.4,SPF_INTERPOLATE);
+		  return A_DoPBWeaponAction;
+		  }
+	 M87S C 1 {
+		  A_SetRoll(roll-1.2,SPF_INTERPOLATE);
+		  return A_DoPBWeaponAction;
+		  }
+	 M87S D 1 {
+		  A_SetRoll(roll-1.1,SPF_INTERPOLATE);
+		  return A_DoPBWeaponAction;
+		  }
+	 M87G AAAAAA 3 {
+		  A_SetRoll(0);
+		  return A_DoPBWeaponAction;
+		  }
+	 M87J J 1 A_PlaySound("weapons/M1887LeverDown", 3)
+	 M87J ABCDEFGHI 1 {
+	      A_SetRoll(roll-0.5,SPF_INTERPOLATE);
+		  return A_DoPBWeaponAction;
+		  }
+	 M87J KLMNO 1 {
+	      A_SetRoll(roll+2.0,SPF_INTERPOLATE);
+		  return A_DoPBWeaponAction;
+		  }
+	 M87G A 0 A_PlaySound("weapons/M1887LeverUp", 3)
+	 M87J P 2 {
+	      A_SetRoll(roll-1.0,SPF_INTERPOLATE);
+		  return A_DoPBWeaponAction;
+		  }
+	 M87J QRSTU 1 {
+	      A_SetRoll(roll-1.3,SPF_INTERPOLATE);
+		  return A_DoPBWeaponAction;
+		  }
+	 M87J VWXYZ 1 {
+	      A_SetRoll(roll-1.5,SPF_INTERPOLATE);
+		  return A_DoPBWeaponAction;
+		  }
+	 TNT1 A 0 A_GiveInventory ("M1887Ammo", 6)
+	 Goto Ready3
+	SelectAnimation:
+	 TNT1 A 0 {
+		  PB_HandleCrosshair(98);
+		  A_WeaponOffset(0,32);
+		  A_SetRoll(0);
+		  A_TakeInventory("PB_LockScreenTilt",1);
+		  }
+	 M87G A 0 A_PlaySound("weapons/M1887Deploy", 6)
+	 M87S ABCD 1 {
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
+		  }
+	 TNT1 A 0
+	 TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
+	Ready3:
+	 TNT1 A 0 {
+		  A_WeaponOffset(0,32);
+		  A_SetRoll(0);
+		  PB_HandleCrosshair(98);
+		  A_TakeInventory("PB_LockScreenTilt",1);
+		  }
+	 TNT1 A 0
+  WinchesterShotgunReadyToFire:
+	 M87G A 1 {
+		  if (CountInv("M1887WinchesterShotgunFired") >= 60) { A_GunFlash("M1887WinchesterShotgunBarrelSmoke");
+		  }
+		  if (PressingFire() && CountInv("M1887Ammo") > 0){
+		  return state("Fire");
+		  }
+		  return A_DoPBWeaponAction(WRF_ALLOWRELOAD);
+		  }
+	 TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+	 Loop
+  M1887WinchesterShotgunBarrelSmoke:
+	 TNT1 A 0 {
+		  A_FireCustomMissile("GunBarrelSmoke", 0, 0, 0, 0, 0, 0);
+		  A_TakeInventory("M1887WinchesterShotgunFired",1);
+		  }
+	 TNT1 A 0
+	 Stop
+
+	Deselect:
+	 TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	 TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	 TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	 TNT1 A 0 {
+		  A_WeaponOffset(0,32);
+		  A_SetRoll(0);
+		  PB_HandleCrosshair(98);
+		  A_TakeInventory("PB_LockScreenTilt",1);
+		  }
+	 M87G A 0 A_ZoomFactor(1.0)
+	 M87G A 0 A_TakeInventory("Zoomed",1)
+	 M87G A 0 A_TakeInventory("ADSmode",1)
+	 M87S DCBA 1
+	 TNT1 A 1 A_Lower
+	 Wait
+    
+	Select:
+	 TNT1 A 0 {
+		  A_WeaponOffset(0,32);
+		  A_SetRoll(0);
+		  PB_HandleCrosshair(98);
+		  A_TakeInventory("PB_LockScreenTilt",1);
+		  }
+	 TNT1 A 0 A_TakeInventory("HasBarrel",1)
+	 TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+	 TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+	 TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+	 TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+	 TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+	 Goto SelectFirstPersonLegs
+	 SelectContinue:
+	 TNT1 A 0 A_Raise
+     Wait
+
+  NoAmmo:
+	 M87G A 1 {
+		  A_DoPBWeaponAction(WRF_NOFIRE);
+		  A_ZoomFactor(1.0);
+		  A_TakeInventory("Zoomed",1);
+		  A_TakeInventory("ADSmode",1);
+		  A_PlaySound("weapons/empty", 4);
+		  }
+	 TNT1 A 0 A_JumpIfInventory("TurboReload",1,"TurboReload")
+  NoAmmo2:
+	 M87G A 5 {
+	      A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOPRIMARY);
+		  }
+	 TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+	 TNT1 A 0 A_JumpIfInventory("PB_Shell",1,"Reload")
+	 TNT1 A 0 A_JumpIfInventory("FiredPrimary",1,"NoAmmo2")
+	 TNT1 A 0 {
+		  A_SelectWeapon("PB_Pistol");
+		  }
+	 TNT1 A 0
+	 Goto WinchesterShotgunReadyToFire
+    
+  Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+// 			A_GiveInventory("PB_LockScreenTilt",1);
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			A_SetCrosshair(98);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+	   M87G A 0 A_Takeinventory("Reloading",1)
+       M87G A 0 A_JumpIfInventory("M1887Ammo",1,2)
+       Goto NoAmmo
+       TNT1 AAAA 0
+	   M87G A 0 A_ZoomFactor(0.96)
+       M87G A 0 A_PlaySound("weapons/M1887Fire", 1)
+	   M87F AB 1 Bright {
+	        A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		    A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
+		    A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+		    A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		    A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		    A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		    A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+			PB_FireBullets("PB_12GAPellet",9,1.5,0,0,1.5);
+			A_AlertMonsters;
+			A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		    A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		    A_GiveInventory("M1887WinchesterShotgunFired",20);
+		    A_GunFlash;
+		    }
+	   M87G A 0 A_SetPitch(-6.0 + pitch)
+	   M87G A 0 A_TakeInventory("M1887Ammo",1)
+	   M87G A 0 A_SetPitch(pitch-10)
+	   M87G A 0 A_ZoomFactor(1.00)
+	   M87F C 2 A_SetPitch(+1.0 + pitch)
+	   M87F DE 1 A_SetPitch(+1.0 + pitch)
+	   M87G A 1 A_SetPitch(+3.0 + pitch)
+	   M87G A 0 A_Jump(128,"MoviePump")
+	   M87G AAAAAA 1 A_SetPitch(pitch+0.6)
+	   Goto Pump1
+
+   Pump1:	
+	   M87G A 0
+	   M87G A 0 A_GiveInventory ("Pumping", 1)
+	   M87G BCDEFG 1
+	   M87G A 0 A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26)
+	   M87G A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   M87G H 1 A_PlaySound("weapons/M1887LeverDown", 3)
+	   M87G A 0 A_JumpIfInventory("TurboReload", 1, "PumpNoReload")//Tactical Mode is slower to pump
+	   M87G IJ 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0 A_JumpIfInventory("M1887Ammo",1,5)
+	   M87G A 0 A_JumpIfInventory("TurboReload", 1, 4)
+	   M87G A 0 A_Giveinventory("WinchesterShotgunWasEmpty",1)
+	   M87G A 0 A_JumpIfInventory("NoAutoReload", 1, 2)
+	   TNT1 AA 0
+	   M87G J 2 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0 A_PlaySound("weapons/M1887LeverUp", 3)
+	   M87G JJIH 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0
+	   M87G A 0 A_TakeInventory("WinchesterShotgunWasEmpty",1)
+	   M87G GFEDC 1
+	   M87G A 0 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0 A_JumpIfInventory("M1887Ammo",1,2)
+	   M87G A 0 A_JumpIfInventory("TurboReload", 1, "TurboReload")
+	   M87G A 0
+	   Goto ReadyToFireAgain
+   
+   MoviePump:	
+	   M87G A 0
+	   M87G A 0 A_GiveInventory ("Pumping", 1)
+	   M87J ABCDEFGHI 1
+	   M87G A 0 A_FireCustomMissile("ShotCaseSpawn",-40,0,-8,-26)
+	   M87G A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   M87J J 1 A_PlaySound("weapons/M1887LeverDown", 3)
+	   M87J KLMNO 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0 A_JumpIfInventory("M1887Ammo",1,5)
+	   M87G A 0 A_JumpIfInventory("TurboReload", 1, 4)
+	   M87G A 0 A_GiveInventory("WinchesterShotgunWasEmpty",1)
+	   M87G A 0 A_JumpIfInventory("NoAutoReload", 1, 2)
+	   TNT1 AA 0   
+	   M87J P 2 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0 A_PlaySound("weapons/M1887LeverUp", 3)	
+	   M87J QRSTU 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0
+	   M87G A 0 A_TakeInventory("WinchesterShotgunWasEmpty",1)
+	   M87J VWXYZ 1
+	   M87G A 0 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0 A_JumpIfInventory("M1887Ammo",1,2)
+	   M87G A 0 A_JumpIfInventory("TurboReload", 1, "TurboReload")
+	   M87G A 0
+	   Goto ReadyToFireAgain
+
+	AltFire:
+       TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	   TNT1 A 0 {
+		    A_WeaponOffset(0,32);
+		    A_SetRoll(0);
+		    PB_HandleCrosshair(98);
+		    A_TakeInventory("PB_LockScreenTilt",1);
+		    }
+	   M87G A 0 A_Takeinventory("Reloading",1)
+       M87G A 0 A_JumpIfInventory("M1887Ammo",1,2)
+       Goto NoAmmo
+       TNT1 AAAA 0
+	   M87G A 0 A_ZoomFactor(0.96)
+       M87G A 0 A_PlaySound("weapons/M1887Fire", 1)
+	   M87F AB 1 Bright {
+	        A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		    A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
+		    A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+		    A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		    A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+	        PB_FireBullets("PB_12GAPellet",9,1.5,0,0,1.5);
+			A_AlertMonsters;
+			A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		    A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+			A_GiveInventory("M1887WinchesterShotgunFired",20);
+		    A_GunFlash;
+		    }
+	   M87G A 0 A_SetPitch(-6.0 + pitch)
+	   M87G A 0 A_TakeInventory("M1887Ammo",1)
+	   M87G A 0 A_SetPitch(pitch-10)
+	   M87G A 0 A_ZoomFactor(1.00)
+	   M87F C 2 A_SetPitch(+1.0 + pitch)
+	   M87F DE 1 A_SetPitch(+1.0 + pitch)
+	   M87G A 1 A_SetPitch(+3.0 + pitch)
+	   M87G A 0 A_Jump(128,"MoviePumpAltFire")
+	   M87G AAAAAA 1 A_SetPitch(pitch+0.6)
+	   Goto Pump2
+
+	Pump2:
+	   M87G A 0
+	   M87G A 0 A_GiveInventory ("Pumping", 1)
+	   M87G BCDEFG 1
+	   M87G A 0 A_FireCustomMissile("ShotCaseSpawn",40,0,-8,-26)
+	   M87G A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   M87G H 1 A_PlaySound("weapons/M1887LeverDown", 3)
+	   M87G A 0 A_JumpIfInventory("TurboReload", 1, "PumpNoReload")//Tactical Mode is slower to pump
+	   M87G IJ 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0 A_JumpIfInventory("M1887Ammo",1,5)
+	   M87G A 0 A_JumpIfInventory("TurboReload", 1, 4)
+	   M87G A 0 A_Giveinventory("WinchesterShotgunWasEmpty",1)
+	   M87G A 0 A_JumpIfInventory("NoAutoReload", 1, 2)
+	   TNT1 AA 0
+	   M87G J 2 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0 A_PlaySound("weapons/M1887LeverUp", 3)
+	   M87G JJIH 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0
+	   M87G A 0 A_TakeInventory("WinchesterShotgunWasEmpty",1)
+	   M87G GFEDC 1
+	   M87G A 0 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0 A_JumpIfInventory("M1887Ammo",1,2)
+	   M87G A 0 A_JumpIfInventory("TurboReload", 1, "TurboReload")
+	   M87G A 0
+	   Goto ReadyToFireAgain
+    
+	MoviePumpAltFire:	
+	   M87G A 0
+	   M87G A 0 A_GiveInventory ("Pumping", 1)
+	   M87J ABCDEFGHI 1
+	   M87G A 0 A_FireCustomMissile("ShotCaseSpawn",-40,0,-8,-26)
+	   M87G A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   M87J J 1 A_PlaySound("weapons/M1887LeverDown", 3)
+	   M87J KLMNO 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0 A_JumpIfInventory("M1887Ammo",1,5)
+	   M87G A 0 A_JumpIfInventory("TurboReload", 1, 4)
+	   M87G A 0 A_Giveinventory("WinchesterShotgunWasEmpty",1)
+	   M87G A 0 A_JumpIfInventory("NoAutoReload", 1, 2)
+	   TNT1 AA 0   
+	   M87J P 2 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0 A_PlaySound("weapons/M1887LeverUp", 3)	
+	   M87J QRSTU 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0
+	   M87G A 0 A_TakeInventory("WinchesterShotgunWasEmpty",1)
+	   M87J VWXYZ 1
+	   M87G A 0 A_JumpIfInventory("Reloading",1,"InsertingShells")
+	   M87G A 0 A_JumpIfInventory("M1887Ammo",1,2)
+	   M87G A 0 A_JumpIfInventory("TurboReload", 1, "TurboReload")
+	   M87G A 0
+	   Goto ReadyToFireAgain
+	
+	ReadyToFireAgain:	
+       M87G A 1 Offset(10,36) // <-- New frames
+       M87G A 1 Offset(9,40) //
+       M87G A 1 Offset(4,40) //
+       M87G A 1 Offset(0,32) //
+       M87G A 0 A_Refire
+	   Goto WinchesterShotgunReadyToFire
+
+	PumpNoReload:	
+	   M87G J 2
+	   M87G JJIH 1
+	   M87G A 0 A_TakeInventory("WinchesterShotgunWasEmpty",1)
+	   M87G GFEDC 1
+	   M87G A 0 A_JumpIfInventory("M1887Ammo",1,2)
+	   M87G A 0 A_JumpIfInventory("TurboReload", 1, "TurboReload")
+	   M87G A 0
+	   Goto ReadyToFireAgain
+
+    Reload:
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	   TNT1 A 0 {
+		    A_TakeInventory("PB_LockScreenTilt",1);
+		    }
+	   M87G A 0
+	   M87G A 0 A_TakeInventory("Reloading", 1)
+	   M87G A 0 A_JumpIfInventory("PB_Shell", 1, 2)
+	   Goto NoAmmo
+	   M87G A 0
+	   M87G A 0 A_TakeInventory("Zoomed",1)
+       M87G A 0 A_ZoomFactor(1.0)
+	   M87G A 1 A_WeaponReady
+	   M87G A 0 A_JumpIfInventory("M1887Ammo",6,"WinchesterShotgunReadyToFire")
+	   M87G A 0 A_JumpIfInventory("M1887Ammo", 1, "ReloadNormally")//Check if there is a shell in the chamber
+	   M87G A 0 A_GiveInventory("WinchesterShotgunWasEmpty", 1)//This means there is no shell in the chamber
+
+	ReloadNormally:	
+       M87G A 0 A_JumpIfInventory("PB_Shell",1,1)//If there is no reserve ammo, don't reload, go back to Ready
+       Goto WinchesterShotgunReadyToFire
+	   M87G A 0 A_JumpIfInventory("TurboReload", 1, "TurboReload")//Check if reloads are disabled.
+	   M87G A 0 A_GiveInventory ("Pumping", 1)
+	   M87G A 0 A_PlaySound("weapons/M1887LeverDown", 3)
+	   M8RS ABC 1
+
+	 InsertingShells:
+	   M87G A 0
+	   M87G A 0 A_JumpIfInventory("PB_Shell",1,2)//if there are no more reserve shells, finish reload.
+       Goto FinishedInsertingShells
+	   M87G A 0
+	   M87G A 0 A_GiveInventory ("Pumping", 1)
+	   M8RS C 0 A_TakeInventory("Reloading", 1)
+       M87G A 0 A_JumpIfInventory("M1887Ammo",6,"CheckIfFinishReload")
+       M87G A 0 A_GiveInventory("M1887Ammo",1)
+	   M87G A 0 A_TakeInventory("PB_Shell",1)
+
+	InsertShellAnimation:	
+	   M87G A 0
+	   M87R AAABC 1
+       M87R D 1 A_PlaySound("weapons/M1887InsertingShells")
+       M87R EFGHIJKL 1 A_WeaponReady(WRF_NOBOB)
+       M8RS C 0 A_JumpIfInventory("Reloading", 1, "FinishedInsertingShells")
+       M87G A 0
+	   M87G A 0
+	   M87G A 0 A_JumpIfInventory("M1887Ammo",6,"FinishedInsertingShells")//If there are 8+1 shells, stop it immediately
+       Goto InsertingShells
+
+	CheckIfFinishReload:
+	   M8RS C 1
+	   M87G A 0 A_JumpIfInventory("WinchesterShotgunWasEmpty", 1, "FinishedInsertingShells")//If shotgun was empty, 
+	 //Play the insert shell animation again, and insert the 9th shell
+	   M87G A 0 A_JumpIfInventory("PB_Shell",1,1)//if there are no more reserve shells, finish reload.	
+	   Goto FinishedInsertingShells		
+	   M87G A 0 A_GiveInventory("M1887Ammo",1)
+	   M87G A 0 A_TakeInventory("PB_Shell",1)
+	   Goto InsertShellAnimation	
+
+	FinishedInsertingShells:
+	   M87G A 0 A_TakeInventory("Reloading",1)
+	   M87G A 0 A_PlaySound("weapons/M1887LeverUp", 3)
+	   M8RS CBA 1 A_WeaponReady
+	   M87G A 0 A_TakeInventory("Reloading",1)
+	   Goto WinchesterShotgunReadyToFire
+
+    TurboReload:
+	   SHSS BC 0
+	TurboBullets:	
+	   M87G A 0
+	   M87G A 0 A_JumpIfInventory("M1887Ammo",6,"FinishTurboReload")
+       M87G A 0 A_JumpIfInventory("PB_Shell",1,3)
+       Goto FinishTurboReload
+       TNT1 AAAA 0
+       M87G A 0 A_GiveInventory("M1887Ammo",1)
+	   M87G A 0 A_TakeInventory("PB_Shell",1)
+	   Goto TurboBullets
+	FinishTurboReload:
+	   M87G A 1
+	   M87G A 1 A_Refire
+	   Goto WinchesterShotgunReadyToFire
+
+	Unload:
+		M87G A 1
+		M87G A 0 A_ZoomFactor(1.0)
+		M87G A 0 A_TakeInventory("Unloading",1)
+		M87G A 0 A_TakeInventory("ADSmode",1)
+		M87G A 0 A_TakeInventory("Zoomed",1)
+		M87G A 0 A_GiveInventory("WinchesterShotgunWasEmpty", 1)
+        M87G A 0 A_JumpIfInventory("M1887Ammo",1,3)
+        Goto WinchesterShotgunReadyToFire
+        TNT1 AAA 0
+		M87G A 0 A_TakeInventory("Zoomed",1)
+		M87G A 0 A_GiveInventory ("Pumping", 1)
+		M87G A 0 A_TakeInventory("Unloading",1)
+		M87J ABCDEFGHI 1
+
+	RemoveBullets:
+		TNT1 AAAA 0
+		M87G A 0 A_JumpIfInventory("M1887Ammo",1,3)
+		Goto FinishUnload
+        TNT1 AAAAAA 0
+		M87G A 0 A_TakeInventory("M1887Ammo",1)
+		M87G A 0 A_GiveInventory("PB_Shell",1)
+		M87J J 1 A_PlaySound("weapons/M1887LeverDown", 3)
+	    M87G A 0 A_SetPitch(+1 + pitch)
+		M87J KLMNO 1
+	    M87G A 0 A_SetPitch(-1 + pitch)
+		M87G A 0 A_PlaySound("weapons/M1887LeverUp", 3)	   
+		M87J PQRST 1
+		M87G A 0 A_GiveInventory("WinchesterShotgunWasEmpty",1)
+		M87J UV 1
+		Goto RemoveBullets
+
+	FinishUnload:
+		M87J WXYZ 1
+		M87G A 0 A_TakeInventory("Unloading",1)
+		Goto WinchesterShotgunReadyToFire
+
+	Spawn:
+	    M87P A 0 NoDelay
+	    M87P A 10 A_PbvpFramework("M87P")
+	   "####" A 0 A_PbvpInterpolate()
+	    Loop
+
+	WeaponSpecial:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	    TNT1 A 0 {
+		     A_WeaponOffset(0,32);
+		     A_SetRoll(0);
+		     A_TakeInventory("PB_LockScreenTilt",1);
+		     A_Takeinventory("GoWeaponSpecialAbility",1);
+		     }
+	    TNT1 A 0 A_Print("No Winchester Special Available")
+        Goto WinchesterShotgunReadyToFire
+
+	FlashKicking:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		M87G A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		M87G B 1
+		M87G C 1
+		M87G D 1
+		M87G E 6
+		M87G D 1
+		M87G C 1
+		M87G B 1
+		M87G A 1
+		Goto WinchesterShotgunReadyToFire
+
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		M87G A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		M87G B 1
+		M87G C 1
+		M87G D 1
+		M87G E 7
+		M87G D 1
+		M87G C 1
+		M87G B 1
+		M87G A 1
+		Goto WinchesterShotgunReadyToFire
+
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		M87G A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		M87G B 1
+		M87G C 1
+		M87G D 1
+		M87G E 14
+		M87G D 1
+		M87G C 1
+		M87G B 1
+		M87G A 1
+		Goto WinchesterShotgunReadyToFire
+
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		M87G A 1 A_DoPBWeaponAction
+		Goto WinchesterShotgunReadyToFire
+
+	FlashPunching:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		M87G A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		M87K A 1
+		M87K B 1
+		M87K C 1
+		M87K D 1
+		M87K E 4
+		M87K D 1
+		M87K C 1
+		M87K B 1
+		M87K A 1
+		M87G A 1
+		Stop
+
+	FlashPunchingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		M87G A 1 A_DoPBWeaponAction
+		Stop
+	}
+}
+
+Actor M1887Ammo : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 6
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 6
+  +Inventory.IgnoreSkill
+   Inventory.Icon "M87PA0"
+}

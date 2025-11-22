@@ -1,0 +1,1039 @@
+//=============================================================
+//		Doom 2016 Shotgun
+//		Sprites: TypicalSF(Sonik.o.fan)
+//		Animations: RIP AND TEARING DEEP
+//		Brightmaps: JMartinez2098
+//		Code: JMartinez2098
+//		Sounds: Doom 2016. Mostly from EOA by DoomKrakken
+//      Updated By Jeniffer/Jenny For The Latest PB3.0 Build
+//=============================================================
+
+Actor SelectD2016Shotgun_Normal : Inventory {Inventory.MaxAmount 1}
+
+Actor SelectD2016Shotgun_Burst : Inventory {Inventory.MaxAmount 1}
+
+Actor SelectD2016Shotgun_Explosive : Inventory {Inventory.MaxAmount 1}
+
+Actor D4SGHasAnUpgrade : Inventory {Inventory.MaxAmount 1}
+
+Actor HasExplosiveMode : Inventory {Inventory.MaxAmount 1}
+
+Actor HasBurstMode : Inventory {Inventory.MaxAmount 1}
+
+Actor BurstCharge : Inventory {Inventory.MaxAmount 3}
+
+Actor ChargeBurstCoolDown : Inventory {Inventory.MaxAmount 40}
+
+Actor ExplosiveShotCoolDown : Inventory {Inventory.MaxAmount 90}
+
+Actor HasNormal : Inventory {Inventory.MaxAmount 1}
+
+ACTOR RespectD2016Shotgun : Inventory {Inventory.MaxAmount 1}
+
+Actor BurstModeUpgrade : Inventory {Inventory.MaxAmount 1}
+
+Actor ExplosiveModeUpgrade : Inventory {Inventory.MaxAmount 1}
+
+Actor TriBurstReady : Zoomed{}
+
+Actor ExplosiveShotReady: Zoomed{} //For Toggle Aim Mode
+
+Actor PB_D16SGBurstUpgrade: PB_UpgradeItem
+{
+	Game Doom
+	Height 24
+   +COUNTITEM
+	Inventory.Pickupsound "SHOTPICK"
+	Inventory.PickupMessage "\ciYou Got The Tri \chBurst Module!!!"
+	Scale .8
+	FloatBobStrength 0.5
+	States
+	{
+	Spawn:
+		V4SC B 0
+		D4SC B 10 A_PBVPFramework("V4SC")
+	   "####" "#" 0 A_PbvpInterpolate()
+		Loop
+    Pickup:
+		TNT1 A 0 {
+		     A_GiveInventory("PB_Doom2016Shotgun", 1);
+		     A_GiveInventory("BurstModeUpgrade", 1);
+		     A_SetInventory("D4SGHasAnUpgrade",1);
+		     }
+		TNT1 A 0
+		Stop
+	}
+}
+
+Actor PB_D16SGExplosiveUpgrade: PB_D16SGBurstUpgrade
+{
+	Inventory.PickupMessage "\cuYou got the Explosive \ciShot Module!!!"
+	States
+	{
+	Spawn:
+		V4SC C 0
+		D4SC C 10 A_PBVPFramework("V4SC")
+	   "####" "#" 0 A_PbvpInterpolate()
+		Loop
+    Pickup:
+		TNT1 A 0 {
+		     A_GiveInventory("PB_Doom2016Shotgun", 1);
+		     A_GiveInventory("ExplosiveModeUpgrade", 1);
+		     A_SetInventory("D4SGHasAnUpgrade",1);
+		     }
+		TNT1 A 0
+		Stop
+	}
+}
+
+Actor CombatShotgunFired: Inventory {Inventory.MaxAmount 200}
+/*---------------------------------------------------------------------------
+
+	12 Gauge Pump Shotgun (With and Without The Magazine Upgrade)
+
+	If you're looking specifically for the mag upgrade coding, look in the pump and reloading states, weapon special states
+	kickflash states, and unload states.
+ 
+-----------------------------------------------------------------------------*/
+Actor PB_Doom2016Shotgun : PB_Weapon
+{
+	Game Doom
+	SpawnID 9300
+	Weapon.BobRangeX 0.3
+	Weapon.BobRangeY 0.5
+	Weapon.BobStyle InverseSmooth
+	Weapon.BobSpeed 2.4
+	Weapon.AmmoUse 0
+	Weapon.AmmoGive 4
+	Weapon.AmmoType "PB_Shell"
+	Inventory.PickupMessage "\cdYou Got The DS-117 \ciCombat Shotgun! (Slot 3)!"
+    Inventory.PickupSound "SHOTPICK"
+	Obituary "%o sucked %k's Combat Shotgun"
+    AttackSound "None"
+    +WEAPON.NOALERT
+    +WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+	+FLOORCLIP
+	+DONTGIB
+	Weapon.SlotNumber 3
+	Weapon.SlotPriority 10
+	Weapon.SelectionOrder 1300
+	Scale .8
+	Tag "DS-117 Combat Shotgun"
+	Inventory.AltHUDIcon "D4SCA0"
+	PB_WeaponBase.respectItem "RespectD2016Shotgun"
+	PB_WeaponBase.UsesWheel 1
+	PB_WeaponBase.WheelInfo "D2016ShotgunWeaponWheel"
+	FloatBobStrength 0.5
+	States
+	{
+	NoAmmo:
+		TNT1 A 0 {
+		     A_PlaySoundEx("weapons/empty", "Weapon");
+		     A_TakeInventory("TriBurstReady", 1);
+		     A_TakeInventory("ExplosiveShotReady",1);
+		     A_TakeInventory("ADSmode", 1);
+		     A_TakeInventory("Reloading", 1);
+		     A_ZoomFactor(1.0);
+		     }
+		TNT1 A 0
+		Goto Ready3
+
+	Ready:
+		SHTS ABCDJKLMNOP 0 // Virtualize Sprites in gzdoom's memory
+		SHTD ABCDJKLMNOP 0
+		SHMS BCDEFGSTUVWX 0
+		SHMD BCDEFGSTUVWX 0
+		SHZA DEFGHIJKLMNO 0
+	    SHZB DEFGHIJKLMNO 0
+		SHT4 DFGHIJKLMN 0
+		SHT6 DFGHIJKLMN 0
+		TNT1 A 0 PB_RespectIfNeeded
+		Goto SelectAnimation
+	WeaponRespect:
+		TNT1 A 0 {
+			 A_Giveinventory("PB_LockScreenTilt",1);
+			 A_PlaySoundEx("weapons/shotgun/equip", "Auto");
+		     }
+		DG41 ABCDEFGHIJKL 1 A_DoPBWeaponAction(WRF_NOBOB)
+		DG41 L 7
+		DG41 MNOPQRSTUXYZ 1
+		DG42 A 1 A_StartSound("weapons/Doom2016SG/PumpOn",0)
+		TNT1 A 0 A_FireCustomMissile("ShotCaseSpawn",0,0,-15,-21)
+	    DG42 B 1 A_DoPBWeaponAction(WRF_NOBOB)
+		DG42 CDD 1 A_DoPBWeaponAction(WRF_NOBOB)
+		DG42 EFGH 1 A_DoPBWeaponAction(WRF_NOBOB)
+		DG41 W 0 A_StartSound("weapons/Doom2016SG/PumpOff",0)
+		DG42 K 1 A_DoPBWeaponAction(WRF_NOBOB)
+		DG42 LMNOPQRS 1 A_DoPBWeaponAction(WRF_NOBOB)
+		Goto Ready3
+	SelectAnimation:	
+        TNT1 A 0 {
+		     A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 Return A_DoPBWeaponAction;
+		     }
+		TNT1 A 0 A_PlaySoundEx("weapons/shotgun/equip", "Auto")
+		DSXS A 0 A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSBS A 0 A_JumpIfInventory("HasBurstMode",1,2)
+		DSGS A 0
+	   "####" EDCBA 1
+	   "####" A 0 {
+			 If(CountInv("ChargeBurstCoolDown") > 1) {
+			 A_OverLay(-95, "BurstTimerCoolDown");
+			 }
+			 If(CountInv("ExplosiveShotCoolDown") > 1) {
+			 A_OverLay(-98, "ExplosiveCoolDown");
+			 }
+		     }
+		TNT1 A 0
+	Ready3:
+		TNT1 A 0 {
+		     A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 if(CountInv("HasBurstMode") >= 1) {
+				PB_HandleCrosshair(75);
+			 }
+			 Else If(CountInv("HasExplosiveMode") >= 1) {
+				PB_HandleCrosshair(76);
+			 }
+			 Else {
+				PB_HandleCrosshair(70);
+			 }
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0
+	CombatShotgunReadyToFire:
+		DSXG A 0
+		DSBG A 0
+		DSGG A 1 {
+		     If (CountInv("CombatShotgunFired") >= 60) { A_GunFlash("CombatShotgunBarrelSmoke");}
+			 If (CountInv("HasBurstMode") >= 1 )       { A_SetWeaponSprite("DSBG");}
+			 If (CountInv("HasExplosiveMode") >= 1 )   { A_SetWeaponSprite("DSXG");}
+			
+			 If (PressingFire() && CountInv("PB_Shell") > 0){
+				 Return State("Fire");
+			 }
+			 Return A_DoPBWeaponAction;	 
+		     }
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		Loop
+    CombatShotgunBarrelSmoke:
+		TNT1 A 1 {
+			 A_FireCustomMissile("GunBarrelSmoke", 0, 0, 0, 0, 0, 0);
+			 A_Takeinventory("CombatShotgunFired",1);
+			 }
+		TNT1 A 0
+		Stop
+
+	Steady:
+		TNT1 A 0
+		Goto SelectAnimation
+
+	WeaponSpecial:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 {
+			 A_TakeInventory("GoWeaponSpecialAbility",1);
+			 A_TakeInventory("Zoomed",1);
+			 A_TakeInventory("ADSmode",1);
+			 A_GiveInventory("PB_LockScreenTilt",1);
+			 A_ZoomFactor(1.0);
+			 A_ClearOverLays(10,11);
+			 }
+		TNT1 A 0
+	  //TNT1 A 0 A_JumpIfInventory("BurstModeUpgrade",1,"SwitchToBurst")
+		SHZA ABCDEFGHIJKLMNOP 0
+		SHZB ABCDEFGHIJKLMNOP 0
+	  //TNT1 A 0 A_Log("WIP")
+		TNT1 A 0 A_JumpIfInventory("D4SGHasAnUpgrade",1,"HandleUpgradeSpecial")
+		Goto Ready3
+	  //Goto HandleUpgradeSpecial
+
+	WheelOverLaySpecial:
+		TNT1 A 1 {
+			 A_TakeInventory("SelectD2016Shotgun_Normal", 1);
+			 A_TakeInventory("SelectD2016Shotgun_Burst", 1);
+			 A_TakeInventory("SelectD2016Shotgun_Explosive", 1);
+			 A_TakeInventory("SelectShotgun_No", 1);
+			 A_TakeInventory("ExplosiveShotReady",1);
+			 }
+		TNT1 A 0
+		Stop
+
+	HandleUpgradeSpecial:
+		TNT1 A 0 {
+			 If (CountInv("SelectShotgun_No") >= 1 ) { 
+				 A_Log("\cjThis Module Is Not \chAvailable");
+				 A_OverLay(-99, "WheelOverLaySpecial");
+				 Return State("Ready3"); 
+			 }
+			 If (CountInv("HasExplosiveMode") >= 1 && CountInv("SelectD2016Shotgun_Explosive") >= 1 ) { 
+				 A_Log("\ciModule Already \cuSelected");
+				 A_OverLay(-99, "WheelOverLaySpecial");
+				 Return State("Ready3"); 
+			 }
+			 If (CountInv("HasBurstMode") >= 1 && CountInv("SelectD2016Shotgun_Burst") >= 1) { 
+				 A_Log("\chModule Already \cdSelected");
+				 A_OverLay(-99, "WheelOverLaySpecial");
+				 Return State("Ready3"); 
+			 }
+			 If (CountInv("HasNormal") && CountInv("SelectD2016Shotgun_Normal") >= 1) { 
+				 A_OverLay(-99, "WheelOverLaySpecial");
+				 Return State("Ready3"); 
+			 }
+			 Return State("");
+		     }
+		TNT1 A 0 {
+			 If (CountInv("SelectD2016Shotgun_Normal") >= 1 ) { 
+				 A_GiveInventory("HasNormal", 1);
+				 A_OverLay(-99, "WheelOverlaySpecial");
+				 Return State("GoBackToNormalHandler");
+			 }
+			 If (CountInv("SelectD2016Shotgun_Burst") >= 1 ) { 
+				 A_GiveInventory("HasBurstMode", 1);
+				 A_TakeInventory("HasNormal", 1);
+				 A_OverLay(-99, "WheelOverlaySpecial");
+				 Return State("ToggleBurst");
+			 }
+			 If (CountInv("SelectD2016Shotgun_Explosive") >= 1 ) { 
+				 A_GiveInventory("HasExplosiveMode", 1);
+				 A_TakeInventory("HasNormal", 1);
+				 A_OverLay(-99, "WheelOverlaySpecial");
+				 Return State("ToggleExplosive");
+			 }
+			     A_OverLay(-99, "WheelOverlaySpecial");
+
+			 Return State("");
+		     }
+		Goto Ready3
+
+	ToggleExplosive:
+		TNT1 A 0 A_JumpIfInventory("HasBurstMode",1,"SwitchFromBurst")
+		Goto NormalSwitchToMod
+
+	ToggleBurst:
+		TNT1 A 0 A_JumpIfInventory("HasExplosiveMode",1,"SwitchFromExplosive")
+		Goto NormalSwitchToMod
+
+	SwitchToBurst:
+		TNT1 A 0 A_GiveInventory("HasBurstMode")
+		TNT1 A 4
+		DSGW AB 1
+		TNT1 A 0 A_StartSound("weapons/Doom2016SG/BurstOn", 0)//PLAYSOUND
+		DSGW CDEFGH 1
+		DSGW II 2
+		DSGW JJ 1 
+		DSGW JJ 1 A_WeaponOffset(0,34) 
+		DSGW JJ 1 A_WeaponOffset(0,33)
+		DSGW JJ 1 A_WeaponOffset(0,32)
+		DSGW KLMNO 1
+		Goto Ready3
+
+	SwitchFromBurst:
+		TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_TakeInventory("HasBurstMode",1)
+		DSGW ONM 1
+		TNT1 A 0 A_StartSound("weapons/Doom2016SG/BurstOn", 0)
+		DSGW LKJJ 1
+		DSGW JJ 1 A_WeaponOffset(0,33) 
+		DSGW JJ 1 A_WeaponOffset(0,34)
+		DSGW JJ 1 A_WeaponOffset(0,32)
+		DSGW II 2
+		DSGW HGFEDC 1
+		DSGW BA 1
+		TNT1 A 4
+		TNT1 A 0 A_Print("\ciSwitch From \cdBurst Mode")
+		TNT1 A 0 A_JumpIfInventory("HasExplosiveMode",1,"SwitchToExplosive")
+	SwitchBackToNormal:
+		TNT1 A 0 {
+			 A_TakeInventory("HasExplosiveMode",1);
+			 A_TakeInventory("HasBurstMode",1);
+			 }
+		DSGS EDCBA 1
+		Goto Ready3
+	SwitchToExplosive:
+		DSWX ABC 1
+		DSWX DEFGH 1
+		DSWX IJKLM 1
+		TNT1 A 0 A_StartSound("weapons/Doom2016SG/ExplosiveOn", 0)
+		DSWX NOPQR 1
+		DSWX R 1 Offset(4,34)
+		DSWX R 2 Offset(8,36)
+		DSWX R 3 Offset(12,38)
+		DSWX R 2 Offset(8,36)
+		DSWX R 1 Offset(4,34)
+		DSWX S 1 A_WeaponOffset(0,32)
+		DSWX TUVWXYZ 1
+		Goto Ready3
+	SwitchToBurst:
+		DSGW AB 1
+		TNT1 A 0 A_StartSound("weapons/Doom2016SG/BurstOn", 0)//PLAYSOUND
+		DSGW CDEFGH 1
+		DSGW II 2
+		DSGW JJ 1 
+		DSGW JJ 1 A_WeaponOffset(0,34) 
+		DSGW JJ 1 A_WeaponOffset(0,33)
+		DSGW JJ 1 A_WeaponOffset(0,32)
+		DSGW KLMNO 1
+		Goto Ready3
+
+	SwitchFromExplosive:
+		TNT1 A 0 A_TakeInventory("HasExplosiveMode",1)
+		TNT1 A 0 A_ZoomFactor(1.0)
+		DSWX ZYXWVUT 1
+		DSWX S 1
+		TNT1 A 0 A_StartSound("weapons/Doom2016SG/ExplosiveOn", 0)
+		DSWX R 1 Offset(4,34)
+		DSWX R 2 Offset(8,36)
+		DSWX R 3 Offset(12,38)
+		DSWX R 2 Offset(8,36)
+		DSWX R 1 Offset(4,34)
+		DSWX RQPON 1 A_WeaponOffset(0,32)
+		DSWX MLKJI 1
+		DSWX HGFED 1
+		DSWX CBA 1
+		TNT1 A 4
+		TNT1 A 0 A_Print("\cdSwitch From \cuExplosive Mode")
+		TNT1 A 0  A_JumpIfInventory("HasBurstMode",1,"SwitchToBurst")
+		Goto SwitchBackToNormal
+
+	NormalSwitchToMod:
+		TNT1 A 0 A_ZoomFactor(1.0)
+		DSGS ABCDE 1
+		TNT1 A 4
+		TNT1 A 0 A_Print("\ciSwitch From \cuNormal Mode")
+		TNT1 A 0 A_JumpIfInventory("HasExplosiveMode",1,"SwitchToExplosive")
+		Goto SwitchToBurst
+
+	GoBackToNormalHandler:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("HasBurstMode",1,"SwitchFromBurst")
+		TNT1 A 0 A_JumpIfInventory("HasExplosiveMode",1,"SwitchFromExplosive")
+		Goto Ready3
+
+//Start of transplant
+
+//End of transplant	
+
+	Deselect:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 A_ClearOverlays(10,11);
+			 if(CountInv("HasBurstMode") >= 1) {
+				PB_HandleCrosshair(75);
+				}
+			 else if(CountInv("HasExplosiveMode") >= 1) {
+				PB_HandleCrosshair(76);
+				}
+			 else {
+				PB_HandleCrosshair(70);
+				}
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 {
+		     A_Takeinventory("ExplosiveShotReady",1);
+		     A_TakeInventory("TriBurstReady",1);
+		     A_TakeInventory("ADSmode",1);
+		     A_SetInventory("BurstCharge",0);
+             A_ZoomFactor(1.0);
+		     }
+		DSXS A 0 A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSBS A 0 A_JumpIfInventory("HasBurstMode",1,2)
+		DSGS A 0
+       "####" ABCDE 1
+		TNT1 A 1 A_Lower
+		Wait
+
+	Select:
+		TNT1 A 0 ACS_NamedExecuteAlways("ToggleShotgunUpgraded",0) //For people who want this weapon to replace another
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 A_ClearOverlays(10,11);
+		     }
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		Goto SelectFirstPersonLegs
+		SelectContinue:
+		TNT1 A 0
+		TNT1 A 0 A_Raise
+		Wait
+
+   Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		     }
+		TNT1 A 0 {
+			 If (CountInv("PB_Shell") >= 1 ) {Return State(1);} 
+			 Return State("NoAmmo");
+			 }
+		DSXF A 0 A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSBF A 0 A_JumpIfInventory("HasBurstMode",1,2)
+		DSGF A 0
+	   "####" A 1 Bright {
+		      A_TakeInventory("PB_Shell", 1, TIF_NOTAKEINFINITE);
+		      A_AlertMonsters;
+		      A_FireCustomMissile("YellowFlareSpawn", 15, 0, 0, 0);
+		      A_FireCustomMissile("YellowFlareSpawn", -15, 0, 0, 0);
+		      A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+		      A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		      A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		      A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		      A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		      A_FireCustomMissile("D2016ShotgunFireSmoke", 0, 0, 0, 0, 0, 0);
+		      A_FireCustomMissile("D2016ShotgunFireSmoke", 0, 0, 0, 0, 0, 0);
+		      A_GiveInventory("CombatShotgunFired",20);
+		      A_GunFlash;
+		      A_StartSound("weapons/Doom2016SG/Fire", CHAN_WEAPON);   
+		      A_FireBullets(2, 2,10,14,"ShotgunPuff",FBF_NORANDOM); 
+		    //Return State("FireAnimBegin");
+		       }
+		"####" B 1
+		"####" C 1 {
+			   A_FireCustomMissile("ShotgunWad",random(-2,2),0,random(-2,2),-4,FPF_NOAUTOAIM,random(-2,2));
+               PB_WeaponRecoil(-1.24,+0.44);
+		       }
+
+		"####" D 1 PB_WeaponRecoil(-1.24,+0.44)
+		"####" EFG 1
+	Pump1:
+		TNT1 A 0 {
+			 A_GiveInventory("PB_LockScreenTilt",1);
+			 A_WeaponOffset(0,32);
+		     }
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSBP A 0 A_JumpIfInventory("HasBurstMode",1,2)
+		DSGP A 0 
+		"####" A 1 A_SetRoll(roll-0.1,SPF_INTERPOLATE)
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,2)
+		DSGP A 0 
+	   "####" BCDEFG 1 A_SetRoll(roll-0.1,SPF_INTERPOLATE)
+	P1Begin:
+	   "####" K 0
+	   "####" K 0 A_StartSound("weapons/Doom2016SG/PumpOn",0)
+	   "####" HI 1 A_SetRoll(roll-0.1,SPF_INTERPOLATE)
+	P1B:
+	   "####" A 0 A_FireCustomMissile("ShotCaseSpawn",0,0,-15,-21)
+	P1C:
+	   "####" J 1 {
+		      A_SetRoll(roll-0.4,SPF_INTERPOLATE);
+		      A_SetPitch(pitch+0.1,SPF_INTERPOLATE);
+		      }
+		"####" K 2
+		"####" L 1 {
+		       A_SetRoll(roll+0.4,SPF_INTERPOLATE);
+		       A_SetPitch(pitch-0.1,SPF_INTERPOLATE);
+		       }
+      //TNT1 A 0 A_JumpIfInventory("PB_Shell", 1,2) //Skip this frame if the chamber isn't empty
+	   "####" M 1 A_SetRoll(roll+0.1,SPF_INTERPOLATE)
+	   "####" A 0 A_StartSound("weapons/Doom2016SG/PumpOff",0)
+	   "####" NOPQRS 1 A_SetRoll(roll+0.1,SPF_INTERPOLATE)
+		DSXP A 0	A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSBP A 0	A_JumpIfInventory("HasBurstMode",1,2)
+		DSGP A 0 
+	   "####" T 1 A_SetRoll(roll+0.1,SPF_INTERPOLATE)
+	P1End: // Pump End for mag & regular.
+	    TNT1 A 0 {
+		     A_SetRoll(0,SPF_INTERPOLATE);
+		     A_Takeinventory("PB_LockScreenTilt",1);
+		     }
+        DSGG A 1 {
+			 A_DoPBWeaponAction;
+			 If (CountInv("HasBurstMode") >= 1 )                  { A_SetWeaponSprite("DSBG"); }
+			 If (CountInv("HasExplosiveMode") >= 1 )                  { A_SetWeaponSprite("DSXG"); }
+		     }
+		TNT1 A 0 A_Refire
+		Goto Ready3
+
+////Magazine Pumping.	
+	
+	FireBurst:
+		TNT1 A 0 {
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 {
+			 If (CountInv("PB_Shell") >= 1 ) {Return State(1);} 
+			 Return State("NoAmmo");
+			}
+//		SH2F A 0 A_JumpIfInventory("HasDragonBreath",1,3)
+//		SH1F A 0 A_JumpIfInventory("HasSlugs",1,2)
+		//SHTF A 0
+		TNT1 A 0 A_GiveInventory("ChargeBurstCoolDown",50)
+		TNT1 A 0 A_overlay(-95, "BurstTimerCoolDown")
+	RepeatBurstFire:
+		DSBA A 1 Bright {
+		     A_TakeInventory("PB_Shell", 1, TIF_NOTAKEINFINITE);
+		     A_TakeInventory("BurstCharge",1);
+		     A_TakeInventory("TriBurstReady");
+		     A_AlertMonsters;
+		     A_FireCustomMissile("YellowFlareSpawn", 0, 0, 0, 0);
+		     A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		     A_FireCustomMissile("D2016ShotgunFireSmoke", 0, 0, 0, 0, 0, 0);
+		     A_FireCustomMissile("D2016ShotgunFireSmoke", 0, 0, 0, 0, 0, 0);
+		     A_GiveInventory("CombatShotgunFired",20);
+		     A_GunFlash;
+		     PB_SpawnCasing("ShotgunCasing", 51, 10, 28.6, frandom(-3,5),frandom(3,7),frandom(3,7));
+		     A_StartSound("weapons/Doom2016SG/BurstFire", CHAN_WEAPON);   
+		     A_FireBullets(2, 2,10,14,"ShotgunPuff",FBF_NORANDOM); 
+	       //Return State("FireAnimBegin");
+		     }
+		DSBA B 1
+		DSBA C 1 {
+			 A_FireCustomMissile("ShotgunWad",random(-2,2),0,random(-2,2),-4,FPF_NOAUTOAIM,random(-2,2));
+             PB_WeaponRecoil(-1.24,+0.44);
+		     }
+		DSBA D 1 PB_WeaponRecoil(-1.24,+0.44)
+		DSBA E 1
+		TNT1 A 0 A_JumpIfInventory("BurstCharge",1,"RepeatBurstFire")
+		DSBA E 1 A_ZoomFactor(1.0, ZOOM_NOSCALETURNING)
+		DSBG A 2
+		Goto Reset		
+	BurstTimerCoolDown:
+		TNT1 A 1 {
+			 if(CountInv("ChargeBurstCoolDown") < 1) {
+				Return State("StopCoolDown");
+			 }
+			 A_TakeInventory("ChargeBurstCoolDown",1);
+			 Return State("");
+		     }
+		TNT1 A 0
+		Loop
+
+	StopCoolDown:
+		TNT1 A 1
+		Stop
+
+	ExplosiveCoolDown:
+		TNT1 A 1 {
+			 If(CountInv("ExplosiveShotCoolDown") < 1) {
+				Return State("StopCoolDown");
+			 }
+			 A_TakeInventory("ExplosiveShotCoolDown",1);
+			 Return State("");
+		     }
+		TNT1 A 0
+		Loop
+
+	AltFire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 A_JumpIfInventory("PB_Shell",1,1)
+		Goto NoAmmo
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("HasExplosiveMode",1, "AltExplosive")
+		TNT1 A 0 A_JumpIfInventory("HasBurstMode",1,"ChargeBurst")
+        Goto Ready3
+	ChargeBurst:
+		TNT1 A 0 A_JumpIfInventory("TriBurstReady",1, "Reset")
+		TNT1 A 0 A_JumpIfInventory("ChargeBurstCooldown",1,"Ready3")
+		TNT1 A 0 A_StartSound("weapons/Doom2016SG/Zoom",0)
+		TNT1 A 0 A_ZoomFactor(1.2, ZOOM_NOSCALETURNING)
+		DSBH AA 1  A_WeaponOffset(0,4, WOF_KEEPX|WOF_ADD)
+	ChargeLoop:
+		TNT1 A 0 A_PlaySound("weapons/doom2016sg/beep",6)
+		TNT1 A 0 A_GiveInventory("BurstCharge",1)
+		DSBH C 0 A_JumpIfInventory("BurstCharge",3,3)
+		DSBH B 0 A_JumpIfInventory("BurstCharge",2,2)
+		DSBH A 0 A_JumpIfInventory("BurstCharge",1,1)
+		DSBH "#####" 1 {
+			 If(GetCvar("pb_toggle_aim_hold")) {
+			 If(!PressingAltfire() || JustReleased(BT_ALTATTACK)){
+				 Return State("Reset");
+			 }
+				 Return State("");
+			 }
+			 Else {
+			 If(JustPressed(BT_ALTATTACK)){
+				Return State("Reset");
+			 }
+			 }
+			 Return State("");
+		     }
+	  "####" "#" 0 {
+			 If(CountInv("BurstCharge") >=3) {
+			 A_GiveInventory("TriBurstReady",1);
+			 Return State("BurstReadyToFire");
+			 }
+			 Return State("");
+		     }
+		TNT1 A 0
+		Loop
+	BurstReadyToFire:
+		DSBH C 1 A_WeaponOffset(0,40, WOF_KEEPX|WOF_INTERPOLATE)
+		DSBH C 0 {
+			 If(!GetCvar("pb_toggle_aim_hold")) {
+			 If (PressingFire() && CountInv("PB_Shell") > 0 ){
+				 Return State("FireBurst");
+			 }
+			 Return A_DoPBWeaponAction(WRF_ALLOWRELOAD);
+			 }
+			 If(GetCvar("pb_toggle_aim_hold")) {
+			 If(!PressingAltfire() || JustReleased(BT_ALTATTACK)){
+				 Return State("Reset");
+			 }
+			 If (PressingFire() && PressingAltfire() && CountInv("PB_Shell") > 0){
+				 Return State("FireBurst");
+			 }
+			 }
+			 Return A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_NOSECONDARY);
+	         }
+		TNT1 A 0
+		Loop
+
+	Reset:
+	  //TNT1 A 0 A_WeaponOffset(0,6, WOF_KEEPX|WOF_INTERPOLATE)
+		TNT1 A 0 A_StartSound("weapons/Doom2016SG/UnZoom",0)
+		TNT1 A 0  A_TakeInventory("TriBurstReady",1)
+		TNT1 A 0 A_ZoomFactor(1.0, ZOOM_NOSCALETURNING)
+		TNT1 A 0 A_WeaponOffset(0,40, WOF_KEEPX|WOF_INTERPOLATE)
+		TNT1 A 0  A_TakeInventory("BurstCharge",3)
+		DSBH AAA 1 A_WeaponOffset(0,-3, WOF_KEEPX|WOF_ADD)
+		DSBH A 1 A_WeaponOffset(0,32, WOF_KEEPX|WOF_INTERPOLATE)
+        Goto Ready3
+
+	NoExplosive:
+		TNT1 A 0 A_Print("\ciExplosive Shot \chOn CoolDown",1)
+		Goto Ready3
+
+	AltExplosive:
+		TNT1 A 0 A_JumpIfInventory("ExplosiveShotCoolDown",1,"NoExplosive")
+		TNT1 A 0 A_JumpIfInventory("ExplosiveShotReady",1,"StopExplosive")
+		TNT1 A 0 A_ZoomFactor(1.2, ZOOM_NOSCALETURNING)
+		TNT1 A 0 A_StartSound("weapons/Doom2016SG/Zoom",0)
+		DSXG AA 1 A_WeaponOffset(0,4, WOF_KEEPX|WOF_ADD)
+		TNT1 A 0 A_GiveInventory("ExplosiveShotReady",1)
+	ExplosiveReadyToFire:
+		DSXG A 1 A_WeaponOffset(0,40, WOF_KEEPX|WOF_INTERPOLATE)
+		DSBH C 0 {
+			 If(!GetCvar("pb_toggle_aim_hold")) {
+			 If (PressingFire() && CountInv("PB_Shell") > 2 ){
+				 Return State("FireExplosive");
+			 }
+			 Return A_DoPBWeaponAction(WRF_ALLOWRELOAD);
+			 }
+			 If(GetCvar("pb_toggle_aim_hold")) {
+			 If(!PressingAltfire() || JustReleased(BT_ALTATTACK)){
+				 A_StartSound("weapons/Doom2016SG/UnZoom",0);
+				 Return State("StopExplosive");
+			 }
+			 If (PressingFire() && PressingAltfire() && CountInv("PB_Shell") > 2){
+				 Return State("FireExplosive");
+			 }
+			 }
+			 Return A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_NOSECONDARY);
+	         }
+	    TNT1 A 0
+		Loop
+	StopExplosive:
+		TNT1 A 0 A_TakeInventory("ExplosiveShotReady")
+		TNT1 A 0 A_StartSound("weapons/Doom2016SG/UnZoom",0)
+		TNT1 A 0 A_ZoomFactor(1.0, ZOOM_NOSCALETURNING)
+		DSXG AAA 1 A_WeaponOffset(0,-3, WOF_KEEPX|WOF_ADD)
+		DSXG A 1 A_WeaponOffset(0,32, WOF_KEEPX|WOF_INTERPOLATE)
+		Goto Ready3
+
+	FireExplosive:
+		TNT1 A 0 {
+			 A_SetRoll(0);
+		   //PB_HandleCrosshair(69);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 A_TakeInventory("ExplosiveShotReady");
+			 A_ZoomFactor(1.0, ZOOM_NOSCALETURNING);
+		     }
+		TNT1 A 0 {
+			 If (CountInv("PB_Shell") >= 3 ) {Return State(1);} 
+			 Return State("NoAmmo");
+			 }
+		DSXA A 1 Bright {
+		     A_TakeInventory("PB_Shell", 3, TIF_NOTAKEINFINITE);
+		     A_AlertMonsters;
+		     A_FireCustomMissile("YellowFlareSpawn", 0, 0, 0, 0);
+		     A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		     A_FireCustomMissile("D2016ShotgunFireSmoke", 0, 0, 0, 0, 0, 0);
+		     A_FireCustomMissile("D2016ShotgunFireSmoke", 0, 0, 0, 0, 0, 0);
+		     A_GiveInventory("CombatShotgunFired",20);
+		     A_GunFlash;
+		     A_GiveInventory("ExplosiveShotCoolDown",90);
+		     A_StartSound("weapons/Doom2016SG/ExplosiveFire", CHAN_WEAPON);   
+		     A_FireCustomMissile("D2016ExplosiveGrenade", 0, False, 0, -3, 0, 0);
+		   //Return State("FireAnimBegin");
+		     }
+		TNT1 A 0 A_Overlay(-98, "ExplosiveCooldown")
+		DSXA B 1
+		DSXA C 1 {
+			 A_FireCustomMissile("ShotgunWad",random(-2,2),0,random(-2,2),-4,FPF_NOAUTOAIM,random(-2,2));
+             PB_WeaponRecoil(-2.24,+0.88);
+		     }
+		DSXA D 1 PB_WeaponRecoil(-2.24,+0.88)
+		DSXA EFG 1
+		DSXA G 1 Offset(0,42)
+		DSXA G 1 Offset(0,43)
+		TNT1 A 0 A_StartSound("weapons/Doom2016SG/PumpOn",0)
+		DSXA G 2 Offset(0,44) PB_SpawnCasing("ShotgunCasing", 51, 10, 30.6, frandom(-3,5),frandom(3,7),frandom(3,7))
+		DSXA G 2 Offset(0,45) 
+		DSXA G 2 Offset(0,47)
+		DSXA G 1 Offset(0,45)
+		TNT1 A 0 A_StartSound("weapons/Doom2016SG/PumpOFF",0)
+		DSXA G 1 Offset(0,42)
+		DSXA G 1 Offset(0,39)
+		DSXA H 1 A_WeaponOffset(0,36)
+		DSXA IJK 1 A_WeaponOffset(0,32)
+		Goto Ready3
+
+	Reload:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 A_ClearOverlays(10,11);
+		     }
+		TNT1 A 0
+	    Goto Ready3
+
+	Spawn:
+		V4SC A 0 NoDelay 
+		D4SC A 10 A_PBVPFramework("V4SC")
+	   "####" "#" 0 A_PbvpInterpolate()
+		Loop
+
+	FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSBP A 0 A_JumpIfInventory("HasBurstMode",1,2)
+		DSGP A 0
+	   "####" A 0 A_WeaponOffset(0,32)
+	   "####" A 1
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,2)
+		DSGP A 0
+	   "####" B 1
+	   "####" D 1
+	   "####" E 1
+	   "####" F 1
+	   "####" G 1
+	   "####" H 6
+	   "####" G 1
+	   "####" F 1
+	   "####" E 1
+	   "####" D 1
+	   "####" B 1
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSBP A 0 A_JumpIfInventory("HasBurstMode",1,2)
+		DSGP A 0
+	   "####" A 1
+		Goto Ready3
+
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSBP A 0 A_JumpIfInventory("HasBurstMode",1,2)
+		DSGP A 0
+	   "####" A 0 A_WeaponOffset(0,32)
+	   "####" A 1
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,2)
+		DSGP A 0
+	   "####" B 1
+	   "####" D 1
+	   "####" E 1
+	   "####" F 1
+	   "####" G 1
+	   "####" H 6
+	   "####" G 1
+	   "####" F 1
+	   "####" E 1
+	   "####" D 1
+	   "####" B 1
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSBP A 0 A_JumpIfInventory("HasBurstMode",1,2)
+		DSGP A 0
+	   "####" A 1
+		Goto Ready3
+
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSBP A 0 A_JumpIfInventory("HasBurstMode",1,2)
+		DSGP A 0
+	   "####" A 1
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,2)
+		DSGP A 0
+	   "####" B 1
+	   "####" D 1
+	   "####" E 1
+	   "####" F 1
+	   "####" G 1
+	   "####" H 13
+	   "####" G 1
+	   "####" F 1
+	   "####" E 1
+	   "####" D 1
+	   "####" B 1
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSBP A 0 A_JumpIfInventory("HasBurstMode",1,2)
+		DSGP A 0
+	   "####" A 1
+		Goto Ready3
+
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSGP A 0
+	   "####" H 1
+	   "####" G 1
+	   "####" F 1
+	   "####" E 1
+	   "####" D 1
+	   "####" B 1
+	   "####" A 1
+		DSBP A 0 A_JumpIfInventory("HasBurstMode",1,3)
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,2)
+		DSGP A 0
+	   "####" A 1
+		Goto Ready3
+
+	FlashPunching:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSBP A 0 A_JumpIfInventory("HasBurstMode",1,2)
+		DSGP A 0
+	   "####" A 0 A_WeaponOffset(0,32)
+	   "####" A 1
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,2)
+		DSGP A 0
+	   "####" B 1
+	   "####" D 1
+	   "####" E 1
+	   "####" F 1
+	   "####" G 1
+	   "####" H 2
+	   "####" G 1
+	   "####" F 1
+	   "####" E 1
+	   "####" D 1
+	   "####" B 1
+		DSXP A 0 A_JumpIfInventory("HasExplosiveMode",1,3)
+		DSBP A 0 A_JumpIfInventory("HasBurstMode",1,2)
+		DSGP A 0
+	   "####" A 1
+		Stop
+
+	}
+}
+
+Actor D2016ExplosiveGrenade
+{
+    Radius 2
+	Height 2
+	speed 65
+	Damage 30
+	DamageType Explosive
+   +MISSILE
+   +BLOODSPLATTER
+   +EXTREMEDEATH
+   +FORCEXYBILLBOARD
+   +CANBOUNCEWATER
+   +DONTBOUNCEONSHOOTABLES
+   +USEBOUNCESTATE
+	Bouncetype "Doom"
+	BounceFactor 0.5
+	Scale .35
+    Gravity 1.0
+    Decal "Scorch"
+    SeeSound ""
+	DeathSound "Explosion"
+	Obituary "$OB_MPROCKET"
+	States
+	{
+	Spawn:
+	  TNT1 A 0 {
+		   If(WaterLevel > 1) {A_SpawnItem ("RocketSmokeTrail52"); }
+		 //Else {A_CustomMissile ("BUBULZ", 0, 0, random (0, 360), 2, random (0, 180));}
+		   A_SpawnItem("YellowFlareSmall",0,0);
+		   }
+	  GRNP A 1 Bright Light("SGL_FRAG")
+	  Loop
+
+	Detonate:
+	  TNT1 A 0
+	  TNT1 A 0 A_PlaySound("Explosion")
+	Bounce:
+	Death:
+    XDeath:
+	  TNT1 A 0 Bright {
+		   A_SpawnItemEx ("RicoChet",0,0,-5,0,0,0,0,SXF_NOCHECKPOSITION,0);
+		   A_SpawnItemEx ("DetectFloorCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+		   A_SpawnItemEx ("DetectCeilCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+		   A_SpawnItemEx ("ExplosionFlareSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+		   A_SpawnItemEx ("ImpactGrenadeExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+		   A_SpawnItemEx ("NewRocketExploFX", 0, 0, 0);
+		   A_CustomMissile ("ExplosionQuake", 1, 0, random (0, 360), 2, random (0, 160));
+		   A_CustomMissile ("MediumExplosionFlames", 0, 0, random (0, 360), 2, random (0, 360));
+		   }
+	  TNT1 A 0 A_PlaySound("FAREXPL",3)
+	  EXPL A 0 {
+		   A_CustomMissile ("ExplosionSmoke", 0, 0, random (0, 360), 2, random (0, 360));
+		   }
+	  TNT1 A 0
+	  Stop
+	}
+}
+
+Actor D2016SGUpgradeSpawner : RandomSpawner
+{
+	DropItem "PB_D16SGBurstUpgrade", 256
+	DropItem "PB_D16SGExplosiveUpgrade", 256
+}

@@ -1,0 +1,314 @@
+// -----------------------------------------------------------
+// MOD NAME: Behold! — Resurrection Add-On for GZDoom
+// CORE FILE: All actors and logic use 'DP_' prefixes
+// Safe to rename prefixes or classnames if needed.
+// Version: 1.0
+// Author: BobQuickSaveSmith
+// -----------------------------------------------------------
+
+// =============================================================
+// Behold! — One-Key with Mode Selector (NO ZSCRIPT)
+// DECORATE + KEYCONF + MENUDEF only
+// =============================================================
+
+// ---------- Enemy pool (stable trio) ----------
+actor DP_RandomFoe : RandomSpawner
+{
+	DropItem "PinkFlowers", 125 
+    	DropItem "BaronOfHell", 75
+    	DropItem "Behemoth", 85 
+	DropItem "DemonPod", 100
+	DropItem "DoomEyeTurret", 115
+    	DropItem "GoreNest2", 115
+    	DropItem "StoneGargoyle", 110 
+	DropItem "Revenant", 110
+    	DropItem "HellKnight", 100
+	DropItem "DeepOne", 100
+	DropItem "EBossCell", 55
+    	DropItem "Pyrodemon", 100
+	DropItem "DarkDisciple", 100
+	DropItem "Director", 25
+	DropItem "Rahovart", 65
+	DropItem "D3HellGuardian", 55
+	DropItem "Overlord", 45
+	DropItem "Hellduke", 35
+}
+
+ // ---------- Mode tokens ----------
+ actor DP_Mode_Quad   : Inventory { Inventory.MaxAmount 1 }
+ actor DP_Mode_More   : Inventory { Inventory.MaxAmount 1 }
+ actor DP_Mode_Random : Inventory { Inventory.MaxAmount 1 }
+ actor DP_Mode_Fury   : Inventory { Inventory.MaxAmount 1 }    // Hell's Fury (up to 10)
+ actor DP_Mode_Apoc   : Inventory { Inventory.MaxAmount 1 }    // Total Apocalypse (up to 12)
+
+// ---------- Give guns + clamp ammo + random active ----------
+actor DP_GiveAndClamp : CustomInventory
+{
+    Inventory.MaxAmount 1
+    +INVENTORY.ALWAYSPICKUP
+    +INVENTORY.AUTOACTIVATE
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        Stop
+    Use:
+        TNT1 A 0 A_GiveInventory("shieldsawammo",1)
+        TNT1 A 0 A_GiveInventory("BattleAxe",1)
+        TNT1 A 0 A_GiveInventory("ThunderCrossbow",1)
+        TNT1 A 0 A_GiveInventory("Fire_and_Ice-DragonSlayer",1)
+        TNT1 A 0 A_GiveInventory("Stormcast",1)
+	TNT1 A 0 A_GiveInventory("DP_GraceGiver",1)
+        // Randomize active weapon
+        TNT1 A 0 A_Jump(128,"RandomWeap")
+        TNT1 A 0 A_SelectWeapon("Fire_and_Ice-DragonSlayer")
+        Stop
+    RandomWeap:
+        TNT1 A 0 A_SelectWeapon("Stormcast")
+        Stop
+    }
+}
+
+// ---------- Brief grace on trigger (about 1 second) ----------
+actor DP_GraceGiver : PowerupGiver
+{
+  +INVENTORY.ALWAYSPICKUP
+  +INVENTORY.AUTOACTIVATE
+  Inventory.MaxAmount 0          // not retained / not stackable
+  Powerup.Type Invulnerable      // standard (non-reflective) invuln
+  Powerup.Duration 175            // ~1 second (35 tics)
+  Powerup.Color "FF4466", 0.15   // subtle tint
+
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    Stop
+  }
+}
+
+// ---------- Master trigger (hybrid: tight + backups + rear + telefrag) ----------
+actor DP_MasterTrigger : CustomInventory
+{
+    Inventory.MaxAmount 1
+    +INVENTORY.ALWAYSPICKUP
+    +INVENTORY.AUTOACTIVATE
+
+    States
+    {
+    Spawn:
+        TNT1 A 0
+        Stop
+
+    Use: 
+	TNT1 A 0 A_GiveInventory("DP_GraceGiver", 1)   // brief grace window
+        // Branch by mode token (default = Quad)
+        TNT1 A 0 A_JumpIfInventory("DP_Mode_Apoc",   1, "DoApoc")
+        TNT1 A 0 A_JumpIfInventory("DP_Mode_Fury",   1, "DoFury")
+        TNT1 A 0 A_JumpIfInventory("DP_Mode_More",   1, "DoMore")
+        TNT1 A 0 A_JumpIfInventory("DP_Mode_Random", 1, "DoRandom")
+        Goto DoQuad
+
+    // =========================
+    // QUAD — tight + rear + telefrag
+    // =========================
+    DoQuad:
+    
+        // primary tight attempts
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 144,   0, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 112,  72, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 112, -72, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",  96,   0, 8)
+
+        // backups (light chance)
+        TNT1 A 0 A_Jump(192, "Q_NoOut1")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 128,  96, 8)
+    Q_NoOut1:
+        TNT1 A 0 A_Jump(192, "Q_NoOut2")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 128, -96, 8)
+    Q_NoOut2:
+
+        // rear (more likely than before, still close to avoid walls)
+        TNT1 A 0 A_Jump(176, "Q_Tele")   // ~31% chance
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", -96, 0, 8)
+
+    Q_Tele:
+        // last‑gasp: guarantee at least one
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 64, 0, 8, 0,0,0,0, SXF_TELEFRAG)
+        Stop
+
+    // =========================
+    // MORE TROUBLE — tight + diagonals + rear + telefrag
+    // =========================
+    DoMore:
+        // inner four
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 192,   0, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",   0, 192, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",-192,   0, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",   0,-192, 8)
+
+        // diagonals (60% each), tightened
+        TNT1 A 0 A_Jump(102, "M_NoDiag1")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 144, 144, 8)
+    M_NoDiag1:
+        TNT1 A 0 A_Jump(102, "M_Out")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",-144,-144, 8)
+    M_Out:
+
+        // outer backups (light)
+        TNT1 A 0 A_Jump(192, "M_NoOut1")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 224,  88, 8)
+    M_NoOut1:
+        TNT1 A 0 A_Jump(192, "M_NoOut2")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 224, -88, 8)
+    M_NoOut2:
+
+        // rear sprinkles (more likely)
+        TNT1 A 0 A_Jump(176, "M_Tele")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", -128,  72, 8)
+        TNT1 A 0 A_Jump(192, "M_Tele")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", -128, -72, 8)
+
+    M_Tele:
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 64, 0, 8, 0,0,0,0, SXF_TELEFRAG)
+        Stop
+
+    // =========================
+    // RANDOM MAYHEM — tight base + flanks + rear + telefrag
+    // =========================
+    DoRandom:
+        // base 3
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 176,   0, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",-104, 160, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",-104,-160, 8)
+
+        // optional flanks (50% each)
+        TNT1 A 0 A_Jump(128, "R_NoFlank1")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 120, 160, 8)
+    R_NoFlank1:
+        TNT1 A 0 A_Jump(128, "R_NoFlank2")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 120,-160, 8)
+    R_NoFlank2:
+
+        // rear (higher chance now)
+        TNT1 A 0 A_Jump(160, "R_Tele")   // ~37.5%
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", -144, 0, 8)
+
+    R_Tele:
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 64, 0, 8, 0,0,0,0, SXF_TELEFRAG)
+        Stop
+
+    // =========================
+    // HELL'S FURY — tight two rings + rear + telefrag
+    // =========================
+    DoFury:
+        // inner 6 (tight hex-ish)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 192,   0, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 120, 160, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",-120, 160, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",-192,   0, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",-120,-160, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 120,-160, 8)
+
+        // outer 4 (60% each), tightened
+        TNT1 A 0 A_Jump(102, "F_NoO1")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 224,  88, 8)
+    F_NoO1:
+        TNT1 A 0 A_Jump(102, "F_NoO2")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 224, -88, 8)
+    F_NoO2:
+        TNT1 A 0 A_Jump(102, "F_NoO3")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 176, 176, 8)
+    F_NoO3:
+        TNT1 A 0 A_Jump(102, "F_Rear")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 176,-176, 8)
+    F_Rear:
+        // rear (more likely)
+        TNT1 A 0 A_Jump(176, "F_Tele")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", -160,  88, 8)
+        TNT1 A 0 A_Jump(192, "F_Tele")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", -160, -88, 8)
+
+    F_Tele:
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 64, 0, 8, 0,0,0,0, SXF_TELEFRAG)
+        Stop
+
+    // =========================
+    // APOCALYPSE — dense two rings + rear + telefrag
+    // =========================
+    DoApoc:
+        // inner 8 (tight 45-ish)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 208,   0, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 144, 144, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",   0, 208, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",-144, 144, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",-208,   0, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",-144,-144, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",   0,-208, 8)
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 144,-144, 8)
+
+        // outer backups (60% each)
+        TNT1 A 0 A_Jump(102, "A_NoO1")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 256,   0, 8)
+    A_NoO1:
+        TNT1 A 0 A_Jump(102, "A_NoO2")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 208, 176, 8)
+    A_NoO2:
+        TNT1 A 0 A_Jump(102, "A_NoO3")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",   0, 256, 8)
+    A_NoO3:
+        TNT1 A 0 A_Jump(102, "A_Rear")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",-208, 176, 8)
+    A_Rear:
+        // 2 rear (more likely)
+        TNT1 A 0 A_Jump(176, "A_Tele")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",-176,  88, 8)
+        TNT1 A 0 A_Jump(192, "A_Tele")
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe",-176, -88, 8)
+
+    A_Tele:
+        TNT1 A 0 A_SpawnItemEx("DP_RandomFoe", 64, 0, 8, 0,0,0,0, SXF_TELEFRAG)
+        Stop
+    }
+}
+// ---------- Reporter: prints the active mode (no scripts) ----------
+actor DP_ModeReporter : CustomInventory
+{
+  +INVENTORY.ALWAYSPICKUP
+  +INVENTORY.AUTOACTIVATE
+  Inventory.MaxAmount 1
+
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    Stop
+
+  Use:
+    TNT1 A 0 A_JumpIfInventory("DP_Mode_Apoc",   1, "SayApoc")
+    TNT1 A 0 A_JumpIfInventory("DP_Mode_Fury",   1, "SayFury")
+    TNT1 A 0 A_JumpIfInventory("DP_Mode_More",   1, "SayMore")
+    TNT1 A 0 A_JumpIfInventory("DP_Mode_Random", 1, "SayRandom")
+    Goto SayQuad
+
+  SayQuad:
+    TNT1 A 0 A_Log("Behold! — Current mode: The Quadrant")
+    Stop
+
+  SayMore:
+    TNT1 A 0 A_Log("Behold! — Current mode: More Trouble")
+    Stop
+
+  SayRandom:
+    TNT1 A 0 A_Log("Behold! — Current mode: Random Mayhem")
+    Stop
+
+  SayFury:
+    TNT1 A 0 A_Log("Behold! — Current mode: Hell's Fury")
+    Stop
+
+  SayApoc:
+    TNT1 A 0 A_Log("Behold! — Current mode: Total Apocalypse")
+    Stop
+  }
+}

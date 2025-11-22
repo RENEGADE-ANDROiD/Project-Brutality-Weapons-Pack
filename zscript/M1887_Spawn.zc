@@ -1,0 +1,14 @@
+class M1887SpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		
+		//Usage:
+        //handler.InjectSpawn(Spawner to inject to, the thing you want to inject, 255, weight);
+        //weight is the probability for this to spawn over others spawns in the spawner, usually a weight of 1 is good enough, this is similar to the dropitem property in randomspawners
+
+		//this adds the M1887 to the all of the tier supershotgun spawns
+		handler.InjectSpawn('PB_ShotSpawnerT1', 'M1887', 255, 3);
+		handler.InjectSpawn('PB_ShotSpawnerT2', 'M1887', 255, 3);
+	}
+}

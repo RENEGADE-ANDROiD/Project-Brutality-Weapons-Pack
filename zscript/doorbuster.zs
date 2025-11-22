@@ -1,0 +1,586 @@
+
+// DoorBuster class by Agent_Ash aka jekyllgrim
+
+// Call The_DoorBuster.DestroyDoor to destroy a door
+// in front of the calling actor.
+// It's a Thinker because if we decide to spawn some
+// extra debris falling from the top of the door,
+// it'll initialize itself to handle those.
+
+class The_DoorBuster : Thinker
+{
+	static const color debrisColors[] =
+	{
+		"1a1a1a",
+		"353535",
+		"2e2321",
+		"24201e",
+		"655f5d",
+		"462f25"
+	};
+
+	// whether it can break locked doors:
+	enum ELockBreaking
+	{
+		LB_None, 		// cannot break locked doors
+		LB_CheckKey,	// can break only if has key
+		LB_All			// can always break locked doors
+	}
+
+	int duration;
+	int init_duration;
+	Vector2 origin;
+	Sector debrisSector;
+	Vector2 doorDelta;
+	double doorLength;
+	double debrisZ;
+	int debrisNum;
+	class<Actor> debrisType;
+
+
+	static bool DestroyDoor(
+			Actor source, 
+			// distance: how far the effect extends. Source's radius is
+			// automatically added to this.
+			double distance = 64, 
+			name newCeilTex = 'BDASHWL', 
+			name newFloorTex = '', 
+			sound sfx = "world/destroywall", 
+			// DebrisDensity: determines the number of debris. For example at 8.0
+			// it'll spawn 1 piece of debris per each 8x8 square of the door
+			// surface area. Smaller values mean MORE debris, but 0 means "do not
+			// spawn". Debris position is still randomized regardless of this.
+			double debrisDensity = 8.0, //= 1 piece per each 16x16 square
+			class<Actor> debrisType = "walldebris",
+			class<Actor> AfterdebrisType = "walldebris2",
+			// spawnAfter: if true, a separate thinker will keep spawning some debris
+			// along the top line of the door, falling down, once it's been destroyed
+			bool spawnAfterDebris = true,
+			// afterDebrisType: if null, uses particles, otherwise uses this actor class
+			class<Actor> afterDebrisType = null,
+			// breakLocks: interaction with locks
+			ELockBreaking breakLocks = LB_NONE,
+			// debug: print debug strings
+			bool debug = false
+		)
+	{
+		if (!source)
+		{
+			if (debug)
+			{
+				Console.Printf("\cKDestoryDoor:\c- no valid source");
+			}
+			return false;
+		}
+		double checkdist = Clamp(distance, source.radius, PLAYERMISSILERANGE);
+		Vector2 checkDir = (source.angle, source.pitch);
+		double checkz = source.height * 0.5;
+		// Adjust vertical offset to match player's aim if source is a player:
+		if (source.player)
+		{
+			let ppawn = PlayerPawn(source.player.mo);
+			if (ppawn)
+			{
+				checkz = ppawn.height * 0.5 - ppawn.floorclip + ppawn.AttackZOffset*ppawn.player.crouchFactor;
+			}
+		}
+
+		FLineTraceData trac;
+		source.LineTrace(checkDir.x, checkdist, checkDir.y, TRF_SOLIDACTORS|TRF_BLOCKUSE|TRF_BLOCKSELF, checkz, source.radius, data: trac);
+		// Hit nothing:
+		if (!trac.HitLine)
+		{
+			if (debug)
+			{
+				Console.Printf("\cKDestoryDoor:\c- couldn't hit a line");
+			}
+			return false;
+		}
+		Line l = trac.HitLine;
+		if (trac.LineSide != Line.front)
+		{
+			if (debug)
+			{
+				Console.Printf("\cKDestoryDoor:\c- hit the back of a line somehow)");
+			}
+			return false; //somehow we hit the back of a line, abort
+		}
+
+	// Detect if a door:
+		bool isDoor = false;
+		switch (l.special)
+		{
+		case Generic_Door:
+		case Door_LockedRaise:
+		case Door_Animated:
+		case Door_Open:
+		case Door_Raise:
+			isDoor = true;
+			break;
+		}
+		if (!isDoor)
+		{
+			if (debug)
+			{
+				Console.Printf("\cKDoorBuster:\c- this is not a door");
+			}
+			return false;
+		}
+		// Detect if locked:
+		int lock = l.locknumber;
+		if (!lock)
+		{
+			switch (l.special)
+			{
+			case Generic_Door:
+				lock = l.Args[4];
+				break;
+			case Door_LockedRaise:
+			case Door_Animated:
+				lock = l.Args[3];
+				break;
+			}
+		}
+		/*if (debug)
+		{
+			Console.Printf("\cKDoorBuster:\c- Line special: \cd%d\c- | Lock: \cd%d\c- | Arguments: \cd%d\c-, \cd%d\c-, \cd%d\c-, \cd%d\c-, \cd%d\c-", 
+				l.special, lock, l.args[0], l.args[1], l.args[2], l.args[3], l.args[4]
+			);
+		}*/
+		if (lock)
+		{
+			if (breakLocks == LB_None)
+			{
+				if (debug)
+					Console.Printf("\cKDoorBuster:\c- hit a locked door but isn't allowed to destroy them");
+				return false;
+			}
+			if (breakLocks == LB_CheckKey && !source.CheckKeys(lock, false, true))
+			{
+				if (debug)
+					Console.Printf("\cKDoorBuster:\c- hit a locked door but has no key for it");
+				if(!nologs)
+					console.printf("Dont have the key");
+				return false;
+			}
+		}
+
+		Sector doorSector = l.backsector;
+		if (!doorSector)
+		{
+			if (debug)
+			{
+				Console.Printf("\cKDoorBuster:\c- couldn't obtain the door sector");
+			}
+			return false;
+		}
+
+		if (doorSector.PlaneMoving(Sector.ceiling))
+		{
+			if (debug)
+			{
+				Console.Printf("\cKDoorBuster:\c- door is currently moving, don't bust");
+			}
+			return false;
+		}
+
+		// Now to detect if this is actually a switch:
+		// If there's a tag attached to the line, it's most likely a switch,
+		// but we'll perform extra checks just in case.
+		// (Generic_Door has an exception where first argument is just a lighttag
+		// if its flags contain 128)
+		if (l.args[0] != 0 && !(l.special == Generic_Door && (l.args[2] & 128))) 
+		{
+			// Iterate through doorsector's tags. Check for an edge case
+			// when for some reason the line HAS a tag, but the sector
+			// with that tag is directly behind it (for example, it opens
+			// multiple sectors at the same time):
+			bool good;
+			int id;
+			for (int i = 0; (id = doorsector.GetTag(i)) != 0; i++)
+			{
+				// If the doorsector's tag matches the line's tag,
+				// we're good:
+				if (id == l.args[0])
+				{
+					good = true;
+					break;
+				}
+			}
+			// Otherwise do not break:
+			if (!good)
+			{
+				if (debug)
+					Console.Printf("\cKDoorBuster:\c- This is most likely a switch, not a door");
+				return false;
+			}
+		}
+
+		// SUCCESS! All checks passed, proceed to door busting.
+
+		// Handle light tag:
+		int lighttag;
+		switch(l.special)
+		{
+		case Door_Raise:
+			lighttag = l.args[3];
+			break;
+		case Generic_Door:
+			lighttag = l.args[0];
+			break;
+		case Door_LockedRaise:
+			lighttag = l.args[4];
+			break;
+		}
+		if (lighttag)
+		{
+			int brightest = doorsector.lightlevel;
+			for (int i = 0; i < doorSector.Lines.Size(); i++)
+			{
+				Line sl = doorSector.Lines[i];
+				if (!sl)
+					continue;
+				
+				Sector bs = sl.frontsector;
+				if (bs && bs.lightlevel > brightest)
+				{
+					brightest = bs.lightlevel;
+				}
+				bs = sl.backsector;
+				if (bs && bs.lightlevel > brightest)
+				{
+					brightest = bs.lightlevel;
+				}
+			}
+			if (debug)
+				Console.Printf("\cKDoorBuster:\c- Found lighttag \cd%d\c- (special \cy%d\c-). Brightness: \cd%d\c-", lighttag, l.special, brightest);
+			for (int i = 0; i < Level.Sectors.Size(); i++)
+			{
+				Sector bs = Level.Sectors[i];
+				if (!bs)
+					continue;
+				int id;
+				for (int s = 0; (id = bs.GetTag(s)) != 0; s++)
+				{
+					if (id == lighttag)
+					{
+						bs.SetLightLevel(brightest);
+					}
+				}
+			}
+		}
+
+		Vector2 checkPos = trac.HitLocation.xy;
+		let special = l.special;
+		double doorFloorZ = doorSector.floorplane.ZAtPoint(checkPos);
+		// The door will only be raised to the lowest neighboring ceiling:
+		double nextLowestCeiling = doorSector.FindLowestCeilingSurrounding();
+		double doorHeight = nextLowestCeiling - doorFloorZ;
+		for (int i = 0; i < doorSector.Lines.Size(); i++)
+		{
+			Line sl = doorSector.Lines[i];
+			if (!sl)
+				continue;
+			// purge door special from all lines of the doorsector
+			// that have it:
+			if (sl.special == special)
+			{
+				sl.special = 0;
+			}
+			// Offset all top textures attached to the door sector
+			// that don't have the Upper Unpegged flag downward,
+			// to keep them in place when the sector moves:
+			if (sl.flags & Line.ML_DONTPEGTOP)
+				continue;
+			Side s = sl.sidedef[Line.front];
+			if (s)
+			{
+				s.SetTextureYOffset(Side.top, -doorHeight);
+			}
+			s = l.sidedef[Line.back];
+			if (s)
+			{
+				s.SetTextureYOffset(Side.top, -doorHeight);
+			}
+		}
+
+		// move plane:
+		doorsector.MoveCeiling(doorHeight, doorsector.ceilingplane.PointToDist(checkpos, nextLowestCeiling), 0, 1, false);
+		// modify textures, if necessary:
+		if (newFloorTex)
+		{
+			TextureID tex = TexMan.CheckForTexture(newFloorTex);
+			if (tex && tex.isValid())
+			{
+				doorsector.SetTexture(Sector.floor, tex);
+			}
+		}
+		if (newCeilTex)
+		{
+			TextureID tex = TexMan.CheckForTexture(newCeilTex);
+			if (tex && tex.isValid())
+			{
+				doorsector.SetTexture(Sector.ceiling, tex);
+			}
+		}
+
+		if (debug)
+		{
+			Console.Printf("\cKDestoryDoor:\c- \cDsuccess!\c- Hit an unlocked door (\cd%d\c-) that was \cd%.1f\c- units away.\n"
+				"New door sector height: \cd%.1f\c-\n"
+				"New textures: %s\n",
+				special, 
+				trac.Distance, 
+				doorSector.ceilingPlane.ZAtPoint(checkPos),
+				TexMan.GetName(doorSector.GetTexture(Sector.ceiling))
+			);
+		}
+		
+		// Need an actor to play the sound:
+		actor q = actor.spawn("QuakerThing",(l.v1.p + l.delta*0.5, source.pos.z + source.height*0.5));
+		if(q)
+		{
+			q.A_Quake(5,12,0,800);
+			
+			if (sfx)
+			{
+				q.A_StartSound(sfx,CHAN_AUTO);
+			}
+		}
+		
+		double doorAngle = atan2(l.delta.y, l.delta.x) + 90; 
+		double doorLength = l.delta.Length();
+		if (debrisDensity > 0)
+		{
+			FSpawnParticleParams junk;
+			class<Actor> debris = debristype;
+			double doorArea = doorLength * doorHeight;
+			int debrisNum = round((doorArea / (debrisDensity**2)));
+			if (debug)
+			{
+				Console.Printf("\cKDestoryDoor:\c-: Spawning debris. Door area: \cg%d\c- (%dx%d). Debris density: \cd1 per %dx%d\c-. Total debris: \cg%d\c-", doorArea, doorLength, doorHeight, debrisDensity, debrisDensity, debrisNum);
+			}
+			if (!debristype)
+			{
+				junk.flags = SPF_ROLL|SPF_REPLACE;
+				junk.style = STYLE_Normal;
+				junk.startalpha = 1.0;
+				junk.accel.z = -Level.Gravity / 800;
+			}
+			for (int i = debrisNum; i > 0; i--)
+			{
+				// Offset alongside the line:
+				vector3 junk_pos = (l.v1.p + l.delta * frandom[dbp](0.1, 0.9), doorFloorZ + doorHeight * frandom[dbp](0.1, 0.9));
+				vector3 junk_vel;
+				junk_vel.xy = Actor.RotateVector((15 * (frandom[dbp](0.05, 1.0)), 0), doorAngle + frandom[dbp](-15, 15));
+				junk_vel.z = junk.vel.xy.Length() * 0.5;
+
+				if (debris)
+				{
+					let deb = Actor.Spawn(debris, junk_pos);
+					if (deb)
+					{
+						deb.vel = junk_vel;
+					}
+				}
+				else
+				{
+					junk.color1 = The_DoorBuster.debrisColors[random[dbp](0, The_DoorBuster.debrisColors.Size()-1)];
+					junk.pos = junk_pos;
+					junk.vel = junk_vel;
+					junk.lifetime = random[dbp](20, 30);
+					junk.size = frandom[dbp](8, 25);
+					junk.sizestep = -(junk.size / junk.lifetime);
+					junk.rollvel = frandom[dbp](-15, 15);
+					Level.SpawnParticle(junk);
+				}
+			}
+		}
+		
+		//smoke fx
+		for(int j = 0; j < random(2,4); j++)
+		{
+			FSpawnParticleParams WALSMK;
+			WALSMK.Texture = TexMan.CheckForTexture("SMO1A0");
+			WALSMK.Style = STYLE_TRANSLUCENT;
+			WALSMK.Color1 = "FFFFFF";
+			//vector3 vls = (random(-2,2),random(-2,2),random(-2,2));
+			vector3 vls;
+			vls.xy = Actor.RotateVector((3 * (frandom[dbp](0.05, 1.0)), 0), doorAngle + frandom[dbp](-15, 15));
+			vls.z = vls.xy.Length() * 0.25;
+			WALSMK.vel = vls;
+			WALSMK.accel = -(vls * frandom(0.05,0.1));
+			WALSMK.Flags = SPF_ROLL;
+			WALSMK.StartRoll = random(0,360);
+			WALSMK.RollVel = random(-3,3);
+			WALSMK.Lifetime = random(24,30);
+			WALSMK.StartAlpha = 0.75;
+			WALSMK.FadeStep = WALSMK.StartAlpha/WALSMK.Lifetime; ///0.021;
+			WALSMK.Size = random(85,100);
+			WALSMK.SizeStep = random(4,6);
+			WALSMK.Pos =(l.v1.p + l.delta * frandom[dbp](0.1, 0.9), doorFloorZ + doorHeight * frandom[dbp](0.1, 0.9));
+			Level.SpawnParticle(WALSMK);
+		}
+		//
+		
+		if (spawnAfterDebris && debrisDensity > 0.0)
+		{
+			if (debug)
+				Console.Printf("\cKDestoryDoor:\c-: spawning lingering debris.");
+			The_DoorBuster.SpawnRemainingDebris(TICRATE * random[gbf](1, 4), doorsector, l.delta, debrisDensity * 10, afterDebrisType);
+		}
+		
+		return true;
+	}
+
+	static void SpawnRemainingDebris(int duration, Sector sec, Vector2 doorDelta, double density, class<Actor> debrisType)
+	{
+		let m = new('The_DoorBuster');
+		if (m)
+		{
+			m.duration = duration;
+			m.init_duration = duration;
+			m.debristype = debristype;
+			m.doorDelta = doorDelta;
+			m.doorLength = doorDelta.Length();
+			m.debrisNum = round(m.doorLength / density);
+			m.debrisSector = sec;
+			m.origin = sec.centerspot;
+			m.debrisZ = sec.ceilingplane.ZAtPoint(m.origin);
+		}
+	}
+	
+	override void Tick()
+	{
+		if (duration <= 0)
+		{
+			Destroy();
+			return;
+		}
+		if (Level.isFrozen())
+		{
+			return;
+		}
+
+		for (int i = debrisNum; i > 0; i--)
+		{
+			vector3 junk_pos = (origin, debrisz);
+			junk_pos.xy += doorDelta * frandom[dbp](-0.5, 0.5);
+
+			if (debrisType)
+			{
+				let def = GetDefaultByType(debrisType);
+				if (def)
+				{
+					Actor.Spawn(debrisType, junk_pos - (0,0,def.height));
+				}
+			}
+			else
+			{
+				FSpawnParticleParams junk;
+				junk.flags = SPF_ROLL|SPF_REPLACE;
+				junk.style = STYLE_Normal;
+				junk.startalpha = 1.0;
+				junk.accel.z = -Level.gravity / 800;
+				junk.lifetime = random[dbp](20, 35);
+				junk.size = frandom[dbp](8, 15);
+				junk.sizestep = -(junk.size / junk.lifetime);
+				// Offset alongside the line:
+				junk.color1 = The_DoorBuster.debrisColors[random[dbp](0, The_DoorBuster.debrisColors.Size()-1)];
+				junk.pos = junk_pos;
+				junk.rollvel = frandom[dbp](-8, 8);
+				Level.SpawnParticle(junk);
+			}
+		}
+		debrisNum = round(debrisNum * (duration / double(init_duration)));
+
+		duration--;
+	}
+}
+
+const STAT_DB_DEBRIS = Thinker.STAT_USER_MAX - 1;	//allows the debris to be cleared with the clear gore/bullets key
+
+Class walldebris : Actor
+{
+	Default
+	{
+		Scale 0.45;
+		Height 2;
+		Radius 2;
+		+noblockmap;
+		bouncefactor 0.20;
+		+rollsprite;
+		+rollcenter;
+		Gravity 0.60;
+		+thruactors;
+		+MOVEWITHSECTOR;
+		+noteleport;
+		+forcexybillboard;
+	}
+	float rollfactor;
+	States
+	{
+		Spawn:
+			TNT1 A 0 nodelay {
+				frame = random(0,11);
+			}
+		
+		StaySpawned:
+			WCHN "#" 1 
+			{
+				Roll = roll + rollfactor;
+				if(pos.z <= floorz)
+					return resolvestate("Floor");
+				return resolvestate(null);
+			}
+			loop;
+		Floor:
+			WCHN "#" 1;
+			loop;
+		
+		LoadSprites:
+			WCHN ABCDEFGHIJKL 0;
+			stop;
+		
+	}
+	override void beginplay()
+	{
+		rollfactor = frandom(-25,25);
+		bxflip = random(0,1);
+		byflip = random(0,1);
+		ChangeStatNum(STAT_DB_DEBRIS);
+		super.beginplay();
+	}
+	
+}
+
+
+CLASS walldebris2 : walldebris
+{
+	Default
+	{
+		Mass 500;
+	}
+	override void postbeginplay()
+	{
+		vel.x = frandom(-0.5,0.5);
+		vel.y = frandom(-0.5,0.5);
+		super.postbeginplay();
+	}
+}
+
+Class QuakerThing : actor
+{
+	default
+	{
+		+nointeraction;
+		radius 1;
+		height 1;
+	}
+	states
+	{
+		spawn:
+			TNT1 A 12;
+			stop;
+	}
+}

@@ -1,0 +1,227 @@
+ACTOR SyphonGrenadeAmmo : Ammo
+{
+	Game Doom
+	Inventory.PickupMessage "Picked up a Syphon Grenade."
+	Inventory.Amount 1
+	Inventory.MaxAmount 20
+	Ammo.BackpackMaxAmount 20
+	Inventory.PickupSound "Zphon/Grab"
+	Inventory.Icon "OPNGRN"
+	Scale 0.3
+	//$Category Ammunition/Explosives
+	States
+	{
+	Spawn:
+		GRND H -1
+		Stop
+	}
+}
+
+
+
+Actor D4SyphonGrenade 
+{
+	var int user_timer;
+	Projectile
+	Speed 60
+	-BOUNCEONWALLS
+	-NOGRAVITY
+	+FORCEXYBILLBOARD
+	+FORCERADIUSDMG
+	+CANBOUNCEWATER
+	+EXTREMEDEATH
+	+BLOODLESSIMPACT
+	Scale 0.45
+	Gravity 0.35
+	Radius 3
+	Height 6
+	Obituary "%o was syphoned off by %k."
+	DamageType "Syphon"
+	States
+	{
+	Spawn:
+		SYPH A 0
+		SYPH A 0 ThrustThingZ(0,abs(velz),0,1)
+		Goto Idle
+		
+	Idle:
+		SYPH A 1 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
+		Loop
+	
+	Death:
+		"####" "#" 0 A_ChangeFlag(THRUACTORS,1)
+		"####" "#" 0 A_PlaySound("GRNBNCE",7)
+		"####" "#" 35 A_Jump(256,"SyphonSound")
+		Goto SyphonSound
+		
+	SyphonSound:
+		"####" "#" 0 A_PlaySound("Special/Syphon/Explosion",2)
+		"####" "#" 35 A_Jump(256,"ExploSP")
+		Goto ExploSP
+		
+	ExploSP:
+		SYPH A 0 A_Explode(4,160,0)
+		SYPH A 0 A_SpawnItemEx("SyphonShockwave",  0,0,0, 0,0,0, 0, SXF_NOCHECKPOSITION)
+		SYPH A 0 A_SpawnItemEx("SyphonShockwave2", 0,0,0, 0,0,0, 0, SXF_NOCHECKPOSITION)
+		
+		TNT1 A 0 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
+		
+		SYPH A 4 Bright A_RadiusGive("SyphonProc",192,RGF_CUBE|RGF_MONSTERS|RGF_PLAYERS)
+		
+		TNT1 A 0 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
+		
+		SYPH A 4 Bright A_SetUserVar(user_timer, user_timer + 1)
+		
+		TNT1 A 0 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
+		
+		TNT1 A 1 A_JumpIf(user_timer <= 10, "ExploSP")
+		Goto End
+		
+	ExploDM:
+		SYPH A 0 A_GiveToTarget("SyphonOwner",1)
+		SYPH A 0 A_SetDamageType("SyphonDM")
+		SYPH A 0 A_SpawnItemEx("SyphonShockwaveDM",  0,0,0, 0,0,0, 0, SXF_NOCHECKPOSITION)
+	ExploDMLooper:
+		SYPH A 0 A_Explode(4,256,0)
+		SYPH A 0 A_SpawnItemEx("SyphonShockwaveBigger",  0,0,0, 0,0,0, 0, SXF_NOCHECKPOSITION)
+		
+		SYPH A 0 Bright A_RadiusGive("SyphonSlower",320,RGF_CUBE|RGF_PLAYERS)
+		
+		TNT1 A 0 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
+		
+		SYPH A 4 Bright A_RadiusGive("SyphonProcDM",320,RGF_CUBE|RGF_PLAYERS)
+		
+		TNT1 A 0 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
+		
+		SYPH A 4 Bright A_SetUserVar(user_timer, user_timer + 1)
+		
+		TNT1 A 0 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
+		
+		TNT1 A 1 A_JumpIf(user_timer <= 10, "ExploDMLooper")
+		Goto End
+		
+	End:
+		TNT1 A 0 A_GiveToTarget("SyphonOwnerEnd",1)
+		TNT1 A 1
+		Stop
+	}
+}
+
+Actor EquipmentToken : Inventory {inventory.maxamount 1}
+Actor SyphonOwner : EquipmentToken {}
+ACTOR SyphonSlowerner : PowerSpeed	{ Speed 0.7 Inventory.Icon "" +POWERSPEED.NOTRAIL }
+ACTOR SyphonSlower : PowerupGiver
+{
+	powerup.duration 11
+	powerup.type "SyphonSlowerner"
+	-COUNTITEM
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ADDITIVETIME
+}
+
+Actor SyphonHealth : Health
+{
+	Inventory.PickupMessage ""
+	Inventory.PickUpSound ""
+	Inventory.Amount 2
+}
+
+Actor SyphonArmor : BasicArmorBonus
+{
+	Inventory.PickupMessage ""
+	Inventory.PickUpSound ""
+	Inventory.Amount 2
+}
+
+Actor SyphonShockwave
+{
+	+NOINTERACTION
+	+BRIGHT
+	+FORCEXYBILLBOARD
+	RenderStyle Add
+	Translation "0:255=%[0,0,0]:[1.0,0.0,0.2]"
+	Scale 2.5
+	DeathSound "Special/Syphon/Hit"
+	States
+	{
+	Spawn:
+		X060 A 0
+		X060 A 0 A_Scream
+	Idle:
+		X060 A 1 A_SetScale(scaleX - 0.24)
+		X060 A 0 A_JumpIf(scaleX < 0.24, "Death")
+		Loop
+	Death:
+		TNT1 A 1
+		Stop
+	}
+}
+
+Actor SyphonShockwaveDM
+{
+	+NOINTERACTION
+	+BRIGHT
+	+FORCEXYBILLBOARD
+	RenderStyle Add
+	Translation "0:255=%[0,0,0]:[2.0,0.0,0.0]"
+	Scale 3.5
+	Alpha 0.99
+	DeathSound "Special/Syphon/Hit"
+	States
+	{
+	Spawn:
+		X060 A 0
+		X060 A 0 A_Scream
+	Idle:
+		X060 A 40
+		X060 A 1 A_SetScale(scaleX - 0.086) 
+		TNT1 A 0 A_FadeOut(0.025)
+		Goto idle+1
+	Death:
+		TNT1 A 1
+		Stop
+	}
+}
+
+Actor SyphonShockwaveBigger : SyphonShockwave { Scale 4 }
+Actor SyphonShockwave2 : SyphonShockwave { DeathSound ""+FORCEYBILLBOARD }
+
+Actor SyphonOwnerEnd : CustomInventory 
+{
+	States
+	{
+	Pickup:
+		TNT1 A 0 
+		TNT1 A 0 A_TakeInventory("SyphonOwner",1)
+		Stop
+	}
+}
+
+Actor SyphonProc : CustomInventory
+{ 
+	States 
+	{ 
+	Pickup:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("IsPlayer",1,"StopElse")
+		TNT1 A 0 A_Pain
+	    TNT1 A 0 A_GiveToTarget("SyphonHealth", 1)
+	StopElse:
+		TNT1 A 0
+		Stop
+	}	
+}
+
+Actor SyphonProcDM : CustomInventory
+{ 
+	States 
+	{ 
+	Pickup:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("SyphonOwner",1,"StopElse")
+		TNT1 A 0 A_Pain
+	    TNT1 AA 0 A_GiveToTarget("SyphonHealth", 1)
+	StopElse:
+		TNT1 A 0
+		Stop
+}	}

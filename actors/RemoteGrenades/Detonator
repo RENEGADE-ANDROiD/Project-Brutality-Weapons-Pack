@@ -1,0 +1,15 @@
+Actor WW_DetonatorSelected : inventory{}
+Actor DetonatorSelected : inventory{}
+Actor RemoteChargeDetonator : Inventory { inventory.maxamount 1 }
+
+Actor DetonatorAmmo : ammo
+{
+	Inventory.Amount 1
+	Inventory.MaxAmount 1
+	Ammo.BackPackAmount 1
+	Ammo.BackPackMaxAmount 1
+	Inventory.PickUpMessage ""
+	Inventory.Icon REMTS0
+	+INVENTORY.IGNORESKILL
+	Scale 0.45
+}

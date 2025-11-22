@@ -1,0 +1,19 @@
+//I Don't thinking about Zscript anymore "inkoalawetrust" how did you do that easily. i.… give up.
+// - ares
+class IN_MGNail : PB_MGNail
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 40;
+		PB_Projectile.RipperCount 5;
+		
+		Damagetype "Nail";
+		DeathSound "Weapons/NailHit";
+		Scale 0.5;
+		Gravity 0.5;
+		Speed 100;
+		RenderStyle "Normal";
+		
+		Obituary "%o was filled with nails by %k.";
+	}
+}

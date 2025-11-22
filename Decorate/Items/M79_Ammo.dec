@@ -1,0 +1,46 @@
+Actor M79Ammo : Ammo
+{
+  Inventory.PickupMessage "Picked Up a M79 Grenades!"
+  Inventory.Amount 1
+  Scale 1.0
+  Inventory.MaxAmount 90
+  Ammo.BackpackMaxAmount 160
+  Inventory.Icon "GLGAB0"
+  inventory.pickupsound "RCKCLIP"
+  States
+  {
+  Spawn:
+    GLGA B -1
+    Stop
+  }
+}
+
+
+Actor M79GrenadesCase : M79Ammo
+{
+Inventory.Amount 16
+Scale 0.8
+Inventory.PickupMessage "You got Small Pack of m79 Grenades!"
+inventory.pickupsound "GNSHCIN"
+  States
+  {
+  Spawn:
+    GR12 A -1
+    Wait
+  }
+}
+
+
+Actor M79GrenadesPack : M79Ammo
+{
+Inventory.Amount 32
+Scale 0.6
+Inventory.PickupMessage "You got Large Pack of m79 Grenades!"
+inventory.pickupsound "GNSHCIN"
+  States
+  {
+  Spawn:
+    GR11 A -1
+    Wait
+  }
+}

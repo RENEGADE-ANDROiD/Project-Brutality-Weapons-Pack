@@ -1,0 +1,48 @@
+//CREDITS//
+----------------------------------------------------
+PB3.0_UAC 50B Bolt-Action Sniper Rifle Updated 12-23-2024
+----------------------------------------------------
+Credit For Bolt-Rifle Port From NotAres / AresFallen
+----------------------------------------------------
+Updated By 517qwerty For The Newest PB 0.2.0 Build Update
+----------------------------------------------------
+Update Changelog 14-03-2023
+----------------------------------------------------
+New ZScripting For Zoom Idle Sprite
+---------------------------------------------------
+New ZScripting For SelectAnimation Sprites Updated
+---------------------------------------------------
+Barrels: GrabbedBarrels Are Now (Fixed)
+---------------------------------------------------
+Reload For Barrel (Fixed)
+---------------------------------------------------
+Reload Full Mag 11 Bullets (Fixed)
+---------------------------------------------------
+Drop Rifle Case-Shell Spawn (Fixed)
+---------------------------------------------------
+Sound Added To Select-Animation
+---------------------------------------------------
+Old Crosshair Code Removed and Placed With PB Handler: Its Own Special Crosshair
+---------------------------------------------------
+Gun Fire Release Puff Of Smoke After Firing and Zoom Firing Added
+---------------------------------------------------
+Gun Fire Release Muzzle Heat Smoke Added
+---------------------------------------------------
+Weapon-Special Barrel Bug: Check Inventory-Jump To Fix Idle Barrel Added: And The Same For Alt-Fire
+---------------------------------------------------
+All Unwanted Code Removed: Bolt-Rifle Code Updated
+---------------------------------------------------
+Deselect Code Updated
+---------------------------------------------------
+Kicking Enemies Updated
+---------------------------------------------------
+SlideKicking Updated
+---------------------------------------------------
+Punching Enemies Updated
+---------------------------------------------------
+GloryKill While Using: (Yes)
+---------------------------------------------------
+Weapon Select-Animation Code and Pick-Up Sound Reorganized and (Fixed)
+---------------------------------------------------
+Weapon-Up Animation and Sound After Using Explosives: Cannons: GloryKill: and Crucible Blade (Fixed)
+---------------------------------------------------

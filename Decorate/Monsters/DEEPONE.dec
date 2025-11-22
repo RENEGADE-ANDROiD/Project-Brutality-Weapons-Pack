@@ -1,0 +1,144 @@
+actor DeepOne 
+{
+  //$Category Monsters/Water
+  //$Title "Deep One"    
+  obituary "%o was driven mad by a Deep One."
+  hitobituary "%o got whiplashed by a Deep One."
+  health 1000
+  radius 30
+  height 88
+  Scale 1.3
+  mass 1000
+  speed 12
+  BloodColor "purple"
+  painchance 80
+  meleedamage 20
+  meleerange 64
+  seesound "deepsee"
+  painsound "deeppn1"
+  deathsound "deepdth"
+  activesound "deepak1"
+  meleesound "deepfhit"
+  MONSTER
+  +FLOORCLIP
+  +BOSSDEATH
+  +MISSILEEVENMORE
+  states
+  {
+Spawn:
+    CUTH DD 6 A_Look
+    loop
+See:
+    CUTH ABCD 6 A_Chase
+    loop
+Melee:
+	CUTH E 0 A_FaceTarget 
+	CUTH E 6 A_PlaySound ("deepgn1") 
+        CUTH F 6 A_FaceTarget
+	CUTH G 2 A_MeleeAttack
+	CUTH HI 2
+	goto See
+Missile:
+    CUTH J 0 A_JumpIfCloser (32,"Melee") 
+//    CUTH J 0 A_Jump (30, "Hide") 
+    CUTH J 8 A_FaceTarget
+	CUTH K 1 A_SpawnProjectile("DeepOneBall",42,15,random(-20,20))
+	CUTH J 0 A_FaceTarget
+	CUTH K 1 A_SpawnProjectile("DeepOneBall",42,15,random(-20,20))
+	CUTH J 0 A_FaceTarget
+	CUTH K 1 A_SpawnProjectile("DeepOneBall",42,15,random(-20,20))
+	CUTH J 0 A_FaceTarget
+	CUTH K 1 A_SpawnProjectile("DeepOneBall",42,15,random(-20,20))
+	CUTH J 0 A_FaceTarget
+	CUTH K 1 A_SpawnProjectile("DeepOneBall",42,15,random(-20,20))
+	CUTH J 0 A_FaceTarget
+	CUTH K 1 A_SpawnProjectile("DeepOneBall",42,15,random(-20,20))
+	CUTH J 0 A_FaceTarget
+	CUTH K 1 A_SpawnProjectile("DeepOneBall",42,15,random(-20,20))
+	CUTH J 0 A_FaceTarget
+	CUTH K 1 A_SpawnProjectile("DeepOneBall",42,15,random(-20,20))
+	
+/*  CUTH K 0 A_CustomMissile("DeepOneBall",42,15)
+	CUTH J 8 A_FaceTarget
+    CUTH K 0 A_CustomMissile("DeepOneBall",42,15)
+	CUTH J 8 A_FaceTarget
+    CUTH K 0 A_CustomMissile("DeepOneBall",42,15) */
+	
+	
+	
+    CUTH K 8 bright A_CPosRefire
+	Goto See
+Pain:
+    CUTH L 0 A_TakeInventory("squidinviso", 255)
+    CUTH L 2 A_SetRenderStyle(1.0, STYLE_Normal)
+    CUTH L 2 A_Pain
+    goto See
+/* Hide:
+    CUTH I 1 A_JumpIfInventory("squidinviso",1,"Unhide")
+    CUTH I 0 A_GiveInventory("squidinviso", 1)
+    CUTH I 2 A_PlaySound ("deepone/stealth")
+    CUTH I 10 A_SetRenderStyle(0.6, STYLE_Subtract)
+    goto See
+Unhide:
+    CUTH D 0 A_TakeInventory("squidinviso", 255)
+	CUTH D 2 A_SetRenderStyle(1.0, STYLE_Normal)
+	CUTH D 2 A_PlaySound ("deepone/stealth")
+    goto See	*/
+Death:
+	CUTH M 0 A_SetRenderStyle(1.0, STYLE_Normal)
+	CUTH M 0 A_Jump(128,"AltDeath")
+    CUTH M 10
+    CUTH N 10 A_Scream
+    CUTH O 10
+    CUTH P 10 A_NoBlocking
+    CUTH Q -1
+    stop
+AltDeath:
+    CUTH R 5
+    CUTH S 5 A_Scream
+    CUTH T 5
+    CUTH U 5 A_NoBlocking
+    CUTH V 5
+	CUTH W -1
+    stop	
+Raise:
+    CUTH PONM 8
+    goto See
+  }
+}
+
+actor DeepOneBall
+{
+  Radius 13
+  Height 8
+  Speed 18
+  Damage 4
+  Projectile
+  +RANDOMIZE
+  +ROCKETTRAIL
+  +SEEKERMISSILE
+  RenderStyle Add
+  Alpha 0.75
+  SeeSound "deepfire"
+  DeathSound "deepfhit"
+  States
+  {
+  Spawn:
+    OLDP AB 3 Bright
+	{
+	A_Tracer;
+	A_BishopMissileWeave;
+	}
+    loop
+  Death:
+    OLDP C 0 A_Scream
+    OLDP CDEF 4 bright 
+    stop
+  }
+}
+
+ACTOR squidinviso : Inventory
+{
+  Inventory.amount 0
+  Inventory.maxamount 1
+}

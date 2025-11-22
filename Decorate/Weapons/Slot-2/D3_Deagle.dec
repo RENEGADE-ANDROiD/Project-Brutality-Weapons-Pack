@@ -1,0 +1,409 @@
+// --------------------------------------------------------------------------
+//
+// Black Deagle Desert 
+//
+// --------------------------------------------------------------------------
+
+ACTOR  B_Deagle : PB_Weapon 25000
+{
+	Weapon.AmmoUse 0
+	Weapon.AmmoGive1 14
+	Weapon.AmmoGive2 0
+	Weapon.AmmoType1 "PB_LowCalMag"
+	Weapon.AmmoType2 "PB_Clip"
+	Obituary "$OB_MPPISTOL"
+	+WEAPON.WIMPY_WEAPON
+    +WEAPON.NOAUTOAIM
+    +WEAPON.NOALERT
+    +WEAPON.NOAUTOFIRE
+	+FORCEXYBILLBOARD
+	+WEAPON.NO_AUTO_SWITCH
+	Weapon.SlotNumber 2
+	Weapon.SlotPriority 2
+	Inventory.PickUpSound "DEAPKG"
+	Weapon.UpSound "RANEQ"
+	Scale 0.8
+	//$Category Weapons/Pistols
+	Inventory.Pickupmessage "You Found the Deagle Desert ;-{Black Desert}-; (Slot 2)"
+	Tag "Deagle - Black Desert"
+	PB_WeaponBase.RespectItem "D3Respect"
+	Radius 20
+	Height 16
+
+	States
+	{
+	
+	Steady:
+		TNT1 A 1
+		Goto Ready
+	
+	Ready:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 PB_RespectIfNeeded
+	WeaponRespect:
+		TNT1 A 0 A_GiveInventory("D3Respect",1)
+		RLGP ABCDE 1 A_DoPBWeaponAction
+		DFAG A 10 A_DoPBWeaponAction
+		TNT1 A 0 A_PlaySound("DE_OUT",1)
+		RLAR QPONMMMMMMMMMM 1 A_DoPBWeaponAction
+		RLAR MNO 1 A_DoPBWeaponAction
+		RLAR P 1 A_DoPBWeaponAction
+		TNT1 A 0 A_PlaySound("DE_IN",2)
+		RLAR Q 2 A_DoPBWeaponAction
+		TNT1 A 0 A_GiveInventory("PB_Clip", 14)
+		TNT1 A 0 A_PlaySound("DE_CL",3)
+		RLAR Q 2 A_DoPBWeaponAction
+		RLGP DE 1 A_DoPBWeaponAction
+		DFAG A 1 A_DoPBWeaponAction
+		Goto Ready3
+	SelectAnimation:
+		TNT1 A 0 A_PlaySound("DSDEAGFW")
+		RLGP ABCDE 1
+		TNT1 AAA 0
+		TNT1 A 0 FAST A_SetPitch(Pitch+0.8)
+		TNT1 AA 0 FAST A_SetPitch(Pitch-0.4)
+		TNT1 A 0 A_SetCrosshair(29)
+	Ready3:
+	RealReady:
+        TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+        TNT1 A 0 A_JumpIfInventory("Zoomed", 1, "Ready2")
+		DFAG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		Goto RealReady
+		
+	Ready2:
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 {
+			A_SetRoll(0);
+			A_SetCrosshair(5);
+			A_TakeInventory("PB_LockScreenTilt",1);
+			}
+		HVPZ A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		Loop
+
+	Deselect:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	RLGP EDCBA 1
+	TNT1 A 0 A_Takeinventory("Zoomed",1)
+	TNT1 A 0 A_ZoomFactor(1.0)
+		PISG AAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Lower
+		Wait
+		
+
+	Select:
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		Goto SelectFirstPersonLegs
+		SelectContinue:
+		PISG AAAAAAAAAAAAAAAAAAAAAAAA 0 A_Raise
+		Wait
+		
+	AltFire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 A_PlaySound("IronSights", 0)
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Zoomout")
+		TNT1 A 0 {
+			A_SetCrosshair(5);
+			A_Giveinventory("Zoomed",1);
+			A_ZoomFactor(1.2);
+			A_Giveinventory("ADSmode",1);
+		}
+		HVPZ XYZ 1
+        Goto Ready2
+		
+	FireNoreload:
+		J2FG A 0 A_JumpIfInventory("PB_LowCalMag",1,"FireNow")
+		Goto NoAmmo
+		
+	FireNow:
+		TNT1 A 0 A_Takeinventory("PB_LowCalMag",1)
+		Goto NormalFire
+	
+	Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			A_TakeInventory("PB_LockScreenTilt",1);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+	    TNT1 A 0 A_JumpIfInventory("PB_Clip",1,2)
+		Goto Reload
+		TNT1 AAA 0
+		
+	NormalFire:
+		//TNT1 A 0 A_JumpIfInventory("D3Mod",1,"IncFire")
+		TNT1 A 0 A_ZoomFactor(0.980)
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Fire2")
+		DEAF A 1 Bright
+		TNT1 A 0 A_PlaySound("BDGL/Fire",1)
+		TNT1 A 0 A_FireCustomMissile("PistolCaseSpawn",5,0,0,-9)
+		TNT1 A 0 {
+			if (CountInv("D3Mod") >=1)
+			{A_FireProjectile("IN_50gsFRLMagnum", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			//A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+			Return State("CountFire");}
+			
+			A_FireProjectile("IN_50gsMagnum", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)); // (2, 2, 1, 28, "ShotgunPuff",0,0,"Tracer",-12)
+			//A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+			Return State("");}
+	CountFire:
+		TNT1 A 0 A_TakeInventory("PB_Clip",1)
+		HVPF A 1 Bright
+		HVPF B 1 PB_WeaponRecoil(-0.70, -0.45) //(-1.0 + pitch)
+		TNT1 A 0 A_ZoomFactor(0.960)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_ZoomFactor(0.980)
+		HVPF C 1
+		TNT1 A 0 A_ZoomFactor(1.0)
+		HVPF DE 1 A_WeaponReady(1)
+		HVPS AAAAAA 1 A_WeaponReady(1)
+		TNT1 A 0 A_WeaponReady(1)
+		Goto RealReady
+		
+	Fire2:
+		TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetCrosshair(5);
+			}
+	    TNT1 A 0 A_JumpIfInventory("PB_Clip",1,1)
+		Goto Reload
+        TNT1 AAAA 0
+		TNT1 A 0 A_AlertMonsters
+		//TNT1 A 0 A_JumpIFInventory("D3Mod", 1, "IncFire2")
+		RIFF A 0 A_FireCustomMissile("DistantFireSoundShotgun", random(-1,1), 0, 0, -12, 0, random(-1,1))
+        TNT1 A 0 A_PlaySound("BDGL/Fire",CHAN_AUTO,0.5,0,2)
+		TNT1 A 0 A_PlaySound("pfire",CHAN_AUTO,0.5,0,2)
+		TNT1 A 0 A_ZoomFactor(1.17)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_Overlay(-3,"Fire2FlashA")
+		HVPZ A 1 BRIGHT {
+			if (CountInv("D3Mod") >= 1)
+			{A_FireProjectile("IN_50gsFRLMagnum", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			//A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+			Return State("CountFire2");}
+			
+			A_FireProjectile("IN_50gsMagnum", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)); // (0.7, 0.7, 1, 28, "ShotgunPuff",0,0,"Tracer",-12)
+			//A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
+			Return State("");}
+	CountFire2:
+		TNT1 A 0 A_ZoomFactor(1.2)
+        TNT1 A 0 A_Takeinventory("PB_Clip",1)
+		HVPZ B 1 PB_WeaponRecoil(-0.30, -0.25) //(-1.0 + pitch)
+		TNT1 A 0 A_FireCustomMissile("PistolCaseSpawn",5,0,0,-9)
+		HVPZ C 1
+		TNT1 A 0 
+		HVPZ D 1 A_WeaponReady(1)
+		TNT1 A 0
+	   Goto Ready2
+	Fire2FlashA:
+		HVZF A 1 BRIGHT
+		stop
+	Fire2FlashB:
+		HVZF A 1 BRIGHT
+		stop
+		Goto Ready2
+		
+	Zoomout:
+		TNT1 A 0 {
+			A_Takeinventory("ADSmode",1);
+			A_Takeinventory("Zoomed",1);
+			A_ZoomFactor(1.0);
+			PB_HandleCrosshair(42);
+			}
+		HVPZ ZYX 1
+        Goto Ready3
+   
+   //Will Cancelled
+	
+	NoAmmo:
+		DFAG A 1 A_PlaySound("DryFire/Pistol")
+	NoReload:
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 A_ZoomFactor(1.0)
+		Goto RealReady
+		
+	WeaponSpecial:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	TNT1 A 0 A_JumpIfInventory ("D3Mod", 1, "Normal")
+	TNT1 A 0 A_GiveInventory("D3Mod")
+	TNT1 A 0 A_Takeinventory("GoWeaponSpecialAbility",1)
+	TNT1 A 0 A_PlaySound ("DSDEAGUP",CHAN_WEAPON)
+	
+	RLGP EDCBABCDE 1
+	TNT1 A 0 A_Print("\cx Incendiary Mode")
+	Goto RealReady
+	
+	Normal:
+	TNT1 A 0 A_TakeInventory("D3Mod")
+	TNT1 A 0 A_Takeinventory("GoWeaponSpecialAbility",1)
+	TNT1 A 0 A_PlaySound ("DSDEAGUP",CHAN_WEAPON)
+	
+	RLGP EDCBABCDE 1
+	TNT1 A 0 A_Print("50. AE Mode")
+	Goto RealReady
+	
+	Reload:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	TNT1 A 0 A_Takeinventory("Reloading",1)
+	TNT1 A 0 A_Takeinventory("Zoomed",1)
+	TNT1 A 0 A_ZoomFactor(1.0)
+    TNT1 A 0 A_JumpIfInventory("PB_Clip",14,"NoReload")
+    TNT1 A 0 A_JumpIfInventory("PB_LowCalMag",1,3)
+    TNT1 A 0 A_JumpIfInventory("D3Unloaded",1,"LoadMags")
+    Goto NoAmmo
+    TNT1 AAA 0
+	TNT1 A 0 A_JumpIfInventory("D3Unloaded",1,"LoadMags")
+	RLAR ABCDEF 1
+	
+	RLAR G 1
+	
+	
+	TNT1 A 0 A_PlaySound("DE_OUT",1)
+	
+	RLAR HIJKL 1
+	
+	RLAR L 3
+LoadMags:
+	RLAR MNO 1
+	
+	RLAR P 1
+	
+	TNT1 A 0 A_PlaySound("DE_IN",2)
+	
+	RLAR Q 2
+
+	ReloadLoop:
+		TNT1 A 0 A_TakeInventory("PB_LowCalMag",1,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_GiveInventory("PB_Clip",1)
+		TNT1 A 0 A_JumpIfInventory("PB_Clip",0,"ReloadFinish")
+		TNT1 A 0 A_JumpIfInventory("PB_LowCalMag",1,"ReloadLoop")
+	ReloadFinish:
+	TNT1 A 0 A_TakeInventory("HasUnloaded",1)
+	TNT1 A 0 A_TakeInventory("D3Unloaded",1)
+	TNT1 A 0 A_PlaySound("DE_CL",3)
+	RLAR Q 2
+	RLGP DE 1
+	DFAG A 1
+	Goto RealReady
+	
+	FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		RLAR ABC 1
+		RLAR D 1
+		
+		RLAR EF 1
+		RLAR FF 2
+		RLAR FE 2
+		
+		RLAR D 2
+		RLAR CBA 1
+		Goto Ready3
+		
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+		RLAR ABC 1
+		RLAR D 1
+		
+		RLAR EF 1
+		RLAR FF 3
+		RLAR FE 2
+		
+		RLAR D 2
+		RLAR CBA 1
+		Goto Ready3
+		
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		RLAR BC 2
+		RLAR DEEEEEEE 2
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		RLAR E 2
+		RLAR DCBA 1
+		Goto Ready3
+		
+	Unload:
+		PIST F 0 A_Takeinventory("Unloading",1)
+		PIST F 0 A_Takeinventory("ADSmode",1)
+		PIST F 0 A_JumpIfInventory("PB_Clip",1,3)
+        Goto NoAmmo
+        TNT1 AAA 0
+		PIST F 0 A_Takeinventory("Zoomed",1)
+        PIST F 0 A_ZoomFactor(1.0)
+		PIST F 0 A_GiveInventory ("Pumping", 1)
+		PIST F 0 A_Takeinventory("Reloading",1)
+        TNT1 A 0 A_PlaySound("DE_OUT",1)
+		RLAR QPONMLGFEDCBA 1
+		PIST F 0 A_Giveinventory("HasUnloaded",1)
+		PIST F 0 A_Giveinventory("D3Unloaded",1)
+		PIST F 0 A_JumpIfInventory("PB_Clip",1,"RemoveBullets")
+
+	RemoveBullets:
+		TNT1 AAAA 0
+		PIST F 0 A_JumpIfInventory("PB_Clip",1,3)
+		Goto Ready3
+        TNT1 AAAAAA 0
+		PIST F 0 A_Takeinventory("PB_Clip",1)
+		PIST F 0 A_Giveinventory("PB_LowCalMag",2)
+		Goto RemoveBullets
+		
+		TNT1 AAAAAAAAAA 0
+		PIST F 0 A_Takeinventory("Reloading",1)
+		
+		PIST F 0 A_Refire
+        Goto Ready3
+		TNT1 AAAA 0
+		PIST F 0 A_Takeinventory("Reloading",1)
+		
+		PIST F 0 A_Refire
+        Goto Ready3
+
+ 	Spawn:
+		BDGF A -1
+		Stop
+	}
+}
+
+ACTOR PB_Clip : Ammo
+{
+	+IGNORESKILL
+	Inventory.MaxAmount 14
+	Inventory.Icon "BDGFA0"
+}
+
+Actor Incendiary50Puff : ShotgunPuff
+{
++RIPPER
+damagetype fire
+}
+
+Actor D3Mod : Inventory {Inventory.MaxAmount 1}
+Actor D3Respect : Inventory {Inventory.MaxAmount 1}
+Actor D3Unloaded : Inventory {Inventory.MaxAmount 1}

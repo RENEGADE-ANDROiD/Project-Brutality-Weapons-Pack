@@ -1,0 +1,3 @@
+Actor WW_AxeSelected : inventory{}
+Actor AxeSelected : inventory{}
+

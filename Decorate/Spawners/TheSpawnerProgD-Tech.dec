@@ -1,0 +1,13 @@
+Actor TechBlasterSpawner : RandomSpawner
+{
+Dropitem "HellPistol", 256, 10
+Dropitem "TechBlaster", 256, 5
+Dropitem "DemonTechMinigun", 256, 4
+Dropitem "DemonTechShotgunGiver", 256, 3
+Dropitem "TechBlasterUpgrade", 256, 1
+}
+
+actor PB_DemonTechZombieDTDrop : PB_DemonTechZombieGK  replaces PB_DemonTechZombieGK 
+{
+	Dropitem "TechBlasterSpawner", 256, 255
+}

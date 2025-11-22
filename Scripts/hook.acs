@@ -1,0 +1,98 @@
+#include "zcommon.acs"
+#library "hook"
+#import "function.acs"
+
+//
+//	Scripts
+//
+
+Script "Hook_Check" Enter
+{
+	while (ClassifyActor(0) & Actor_Alive && GetCVar ("sv_allowhookshot"))
+	{
+		int current_buttons = GetPlayerInput (PlayerNumber(), ModInput_Buttons);
+		int previous_buttons = GetPlayerInput (PlayerNumber(), ModInput_OldButtons);
+//		if ((current_buttons & BT_USER1) && !(previous_buttons & BT_USER1))
+//		{
+//			GiveInventory ("HookShooter", 1);
+//		}
+//		Delay (1);
+	}
+	Delay (1);
+	Restart;
+}
+
+Script "Hook_HitWall" (void)
+{
+	Int HTID = GetActivatorTID ();
+	Int StoredPlayer_TID;
+	SetActivatorToTarget(HTID); // Should be the player, unless something went horribly wrong
+	
+	If (ActivatorTID() != 0)
+	{
+		StoredPlayer_TID = ActivatorTID();
+		Thing_ChangeTID (ActivatorTID(), UniqueTID());
+	}
+	Int PTID = GetActivatorTID ();
+	
+	Int f_Distance = Distance (HTID, PTID);
+	Int b_Angle = ByteAngle (HTID, PTID);
+	Int ZHeight = (ZDistance(PTID, HTID) + 0.5) >> 16;
+	ThrustThing (b_Angle, f_Distance/12, True, PTID);
+	ThrustThingZ (0, (ZHeight/4), 1, PTID);
+	If (StoredPlayer_TID != 0)
+	{
+		SetActivator(PTID);
+		Thing_ChangeTID(PTID, StoredPlayer_TID);
+	}
+}
+
+Script "Hook_HitEnemy" (void)
+{
+	// Get a unique TID for the Hookshot
+	Int HTID = GetActivatorTID ();
+
+	// Rearrange the pointers so that the player is the master, and the target is whatever the Hookshot hit
+	SetPointer(AAPTR_MASTER, 0, AAPTR_TARGET);
+	SetPointer(AAPTR_TARGET, 0, AAPTR_TRACER);
+	
+	// Change activator to player
+	SetActivator(0, AAPTR_MASTER);
+	
+	Int StoredPlayer_TID;
+	
+	// Even if the player has a TID, we need to make sure it is unique
+	if (ActivatorTID() != 0)
+	{
+		StoredPlayer_TID = ActivatorTID(); // Store our TID before we change it
+		Thing_ChangeTID(ActivatorTID(), UniqueTID());
+	}
+	
+	// Get a unique TID for the player if it doesn't have one
+	Int PTID = GetActivatorTID ();
+	
+	// Change activator back to the Hookshot
+	SetActivator(HTID);
+
+	Int f_Distance, b_Angle, ZHeight;
+	
+	// Change activator to target, if it still exists
+	if (SetActivatorToTarget(HTID))
+	{
+		// Calculate how far away the target is from the player
+		f_Distance = (FixedDistance (0, PTID) + 0.5) >> 16;
+		b_Angle = ByteAngle (PTID, 0);
+		ZHeight = (ZDistance(PTID, 0) + 0.5) >> 16;
+		
+		// Then pull them towards you
+		ThrustThing (b_Angle, f_Distance/12, True, 0);
+		ThrustThingZ (0, (ZHeight/2), 0, 0);
+	}
+	
+	// Return our TID to what we originally had
+	if (StoredPlayer_TID != 0)
+	{
+		SetActivator(PTID);
+		Thing_ChangeTID(0, StoredPlayer_TID);
+	}
+}

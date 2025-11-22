@@ -1,0 +1,26 @@
+Credits: 
+- Merged Katana into Argent Sith.  Sprite tweaks on Thrust sprites by Warcarlsson, 
+code modified by RENEGADE ANDROiD 
+
+Credits:
+- Sprite credits: 3D Realms, Vostyok, Banjo Software, Amuscaria, Rogue Entertainment, Captain Toenail, scalliano, David Raven, edits by Craneo
+- Sound credits: Capcom (Megaman X4), Quake 2, Half Life, edits by Craneo
+- Code credits: Sgt_Mark_IV, Dox778, That_One_Doom_Mod, Wh1teFang, Captain Toenail, David Raven, edits by Craneo
+- Project Brutality Team
+
+Credits: Argueta. 
+- Rename all sprites to avoid sprite bugs from the original weapon.
+- Change the type of damage the weapon does.
+- The actor's name is now pb_argentsith.
+- Renamed all the actors so that it was a completely independent weapon from the original.
+
+Credits: Ravik 
+- Changed Inventory.Pickupmessage in decorate. "You got the Argent Sith Energy Beam Katana. (Slot 1)"
+- Changed Obituary in decorate. "Feels Familiar?, Join The Darksiiide!"
+- Changed Tag in decorate. "Argent Sith Energy Beam Katana"
+- Recolor sprites.
+- Sprite repositions.
+- New sounds.
+
+Credits: KaledTheSlayer
+- Added Spawner Injector and ZScript Files

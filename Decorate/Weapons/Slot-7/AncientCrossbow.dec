@@ -1,0 +1,559 @@
+Actor CrossbowNeedsLoading : Inventory {Inventory.MaxAmount 1}
+
+Actor ExplosiveArrowsSelected : Inventory {Inventory.MaxAmount 1}
+
+Actor AncientCrossbow : PB_Weapon
+{
+	Game Doom
+	Weapon.BobRangeX 0.3
+    Weapon.BobRangeY 0.5
+    Weapon.BobStyle InverseSmooth
+    Weapon.BobSpeed 2.0
+	Weapon.AmmoUse1 0
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive1 30
+	Weapon.AmmoGive2 0
+	Weapon.AmmoType1 "PB_DTech"
+	Inventory.Icon "CRB2R0"
+	Inventory.PickupMessage "You got the Ancient Crossbow! (Kick Some Ass)... (Slot 0)!"
+    Inventory.PickupSound "CrossSelect"
+	AttackSound "None"
+	Obituary "Scorched by the Ancient Crossbow!"
+    +WEAPON.NOALERT
+    +WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+	Weapon.SlotNumber 0
+	Weapon.SlotPriority 0
+	Weapon.SelectionOrder 6100
+	Scale 0.9
+	Tag "Ancient Crossbow"
+	Inventory.althudicon "CRB2R0"
+	FloatBobStrength 0.5
+	States
+	{
+    Steady:
+		TNT1 A 0
+		Goto Ready
+
+    Ready:
+	    TNT1 A 0
+    SelectAnimation:
+        TNT1 A 0 A_PlaySoundEx("weapons/rifle/up", "Auto")
+		TNT1 A 0 {
+		     A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 return A_DoPBWeaponAction;
+		     }
+		CRSS EDCBA 1
+		TNT1 A 0 A_PlaySound("CrossSelect")
+		TNT1 A 0 A_JumpIfInventory("CrossbowNeedsLoading", 1, "ReadyEmpty")
+		CR3S A 0 A_JumpIFInventory("ExplosiveArrowsSelected", 1, 2)
+	    TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+	   "####" A 0 A_GunFlash
+	Ready3:
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 PB_HandleCrosshair(39);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 }
+		TNT1 A 0
+	CrossbowReadyToFire:
+        TNT1 A 0 A_JumpIfInventory("CrossbowNeedsLoading", 1, "ReadyEmpty")
+        CRB3 A 0 A_JumpIFInventory("ExplosiveArrowsSelected", 1, 2)
+        CRSB A 0
+       "####" AA 0
+       "####" A 0 A_TakeInventory("Reloading")
+       "####" ABC 3 {
+			 if(CountInv("GoWeaponSpecialAbility") >= 1) {
+             return state("WeaponSpecial");
+             }
+             return A_DoPBWeaponAction(WRF_ALLOWRELOAD);
+             }
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+        Goto Ready3
+
+	Deselect:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 PB_HandleCrosshair(39);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_TakeInventory("Reloading", 1)
+	    TNT1 A 0 A_JumpIfInventory("CrossbowNeedsLoading", 1, 2)
+		Goto DeselectNormal
+		TNT1 A 0
+		CRB2 MNOPQ 1
+		TNT1 A 1 A_Lower
+		Wait
+	DeselectNormal:
+		CR3S A 0 A_JumpIFInventory("ExplosiveArrowsSelected", 1, 2)
+	    CRSS A 0
+	   "####" AA 0
+	   "####" BCDE 1
+		TNT1 A 1 A_Lower
+		Wait
+
+	Select:
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 PB_HandleCrosshair(39);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		Goto SelectFirstPersonLegs
+	    SelectContinue:
+		TNT1 A 0 A_Raise
+		Wait
+
+	 ReadyEmpty:
+        SHTN A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SHTN A 0 A_JumpIfInventory("Unloading",1,"Unload")
+		SHTN A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		CRSB I 1{
+             if(CountInv("GoWeaponSpecialAbility") >= 1) {
+             return state("WeaponSpecial");
+             }
+             return A_DoPBWeaponAction(WRF_ALLOWRELOAD);
+             }
+		TNT1 A 0
+        Goto ReadyEmpty
+
+    Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+// 			A_GiveInventory("PB_LockScreenTilt",1);
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			A_SetCrosshair(39);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+		RIFG A 0 A_JumpIfInventory("PB_DTech",30,2)
+        Goto NoAmmo
+        TNT1 AA 0
+        SHTN A 0 A_TakeInventory("Reloading",1)
+		TNT1 A 0 A_JumpIfInventory("CrossbowNeedsLoading", 1, "Pump1")
+		TNT1 A 0 A_GiveInventory("CrossbowNeedsLoading", 1)
+		CRB4 A 0 A_JumpIFInventory("ExplosiveArrowsSelected", 1, "FireExplosive")
+		SHTN A 0 A_ZoomFactor(0.98)
+        SHTN A 0 A_PlaySound("CrossFire", 1)
+		CRB2 L 1 Bright {
+		     A_FireCustomMissile("ShotgunParticles", random(-12,12), 0, -1, 0, 0, random(-9,9));
+			 A_FireCustomMissile("ShotgunParticles2", random(-12,12), 0, -1, 0, 0, random(-9,9));
+		     A_FireCustomMissile("CrossbowProjectile", 0, 0, 0, -3, 0, 0);
+		     A_FireCustomMissile("CrossbowProjectileSmol", 10, 0, 0, -3, 0, 0);
+		     A_FireCustomMissile("CrossbowProjectileSmol", -10, 0, 0, -3, 0, 0);
+			 A_AlertMonsters;
+			 A_FireCustomMissile("CrossbowSmoke", 0, 0, 0, 0, 0, 0);
+			 }
+		SHTN A 0 A_TakeInventory("PB_DTech",30)
+		CRSB D 1
+		CRSB A 0 A_SetPitch(-3.5 + pitch)
+		CRSB A 0 A_ZoomFactor(1.00)
+		CRSB E 1 A_SetPitch(+1.0 + pitch)
+		CRSB FG 1 A_SetPitch(+1.0 + pitch)
+		CRSB H 1 A_SetPitch(+0.5 + pitch)
+		CRSB I 2 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+		Goto Pump1
+
+	FireExplosive:
+	    RIFG A 0 A_JumpIfInventory("PB_DTech",30,2)
+        Goto NoAmmo
+        TNT1 AA 0
+		SHTN A 0 A_ZoomFactor(0.98)
+        SHTN A 0 A_PlaySound("CrossFire", 1)
+        CRB4 L 1 Bright {
+		     A_FireCustomMissile("ShotgunParticles", random(-12,12), 0, -1, 0, 0, random(-9,9));
+			 A_FireCustomMissile("ShotgunParticles2", random(-12,12), 0, -1, 0, 0, random(-9,9));
+		     A_FireCustomMissile("CrossbowExplosiveProjectile", 0, 0, 0, -3, 0, 0);
+		     A_AlertMonsters;
+			 A_FireCustomMissile("CrossbowSmoke", 0, 0, 0, 0, 0, 0);
+			 }
+		SHTN A 0 A_TakeInventory("PB_DTech",30)
+		CRB3 D 1
+		CRB3 A 0 A_SetPitch(-3.5 + pitch)
+		CRB3 A 0 A_ZoomFactor(1.00)
+		CRSB E 1 A_SetPitch(+1.0 + pitch)
+		CRSB FG 1 A_SetPitch(+1.0 + pitch)
+		CRSB H 1 A_SetPitch(+0.5 + pitch)
+		CRSB I 2 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+		Goto Pump1
+
+   AltFire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 PB_HandleCrosshair(39);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0
+		Goto Ready3
+
+   Reload:
+       TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	   TNT1 A 0 {
+			A_ZoomFactor(1.0);
+			A_TakeInventory("Zoomed",1);
+			A_GiveInventory("PB_LockScreenTilt",1);
+			}
+	   SHTN A 0 A_Takeinventory("Reloading",1)
+	   TNT1 A 0 A_JumpIfInventory("CrossbowNeedsLoading", 1, "Pump1")
+	   Goto Ready3
+   Pump1:
+       RIFG A 0 A_JumpIfInventory("PB_DTech",30,2)
+       Goto NoAmmo
+       TNT1 AA 0
+	   SHTN A 0   
+	   CRSB JKL 1  A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   CRSB MN 1
+	   CRSB O 2
+	   CRSB PQRSTT 1
+	   CRSB U 3
+	   CRSB VW 1
+	   TNT1 A 0 A_PlaySound("CrossReload")
+	   CRSB XYYY 1
+	   CRSB Z 1
+	   TNT1 A 0 A_PlaySound("CrossLit", 3)
+	   TNT1 A 0 A_TakeInventory("CrossbowNeedsLoading", 1)
+	   CRB4 A 0 A_JumpIFInventory("ExplosiveArrowsSelected", 1, 2)
+	   CRB2 A 0
+	  "####" AA 0
+	  "####" AB 1
+	  "####" C 3
+	  "####" DEFGHIJK 1
+	  "####" A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	  "####" A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
+	   Goto Ready3
+
+	NoAmmo:
+	   TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
+	   RIFG A 0 A_TakeInventory("Reloading", 1)
+	   RIFG A 0 A_ZoomFactor(1.0)
+	   TNT1 A 0 A_PlaySound("weapons/empty", 4)
+	NoAmmo2:
+	   RIFG A 0
+	   CRSB I 4 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOPRIMARY)
+	   RIFG A 0 A_JumpIfInventory("Reloading",1,"Reload")
+	   RIFG A 0 A_JumpIfInventory("PB_DTech",30,"Reload")
+	   RIFG A 0 A_JumpIfInventory("FiredPrimary",1,"NoAmmo2")
+	   Goto ReadyEmpty
+
+	Unload:
+	   TNT1 A 0 A_TakeInventory("Unloading", 1)
+	   Goto Ready3
+
+	WeaponSpecial:
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	   TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			PB_HandleCrosshair(39);
+			A_TakeInventory("PB_LockScreenTilt",1);
+			A_TakeInventory("GoWeaponSpecialAbility",1);
+			}
+	   TNT1 A 0
+	   TNT1 A 0 A_JumpIfInventory("CrossbowNeedsLoading", 1, "NoAmmo")
+	   RIFG A 0 A_JumpIfInventory("PB_DTech",30,2)
+       Goto NoAmmo
+       TNT1 AA 0
+	   TNT1 A 0
+	   TNT1 A 0 A_JumpIFInventory("ExplosiveArrowsSelected", 1, "StopExplosiveArrows")
+	   TNT1 A 0 A_GiveInventory("ExplosiveArrowsSelected", 1)
+	   TNT1 A 0 A_Print("Switching to \ciexplosive arrows.", 2)
+	   Goto SwitchingModesAnimation
+
+	StopExplosiveArrows:
+	   TNT1 A 0
+	   TNT1 A 0 A_TakeInventory("ExplosiveArrowsSelected", 1)
+	   TNT1 A 0 A_Print("Switching to \cgpenetrating arrows.", 2)
+	   Goto SwitchingModesAnimation
+
+	SwitchingModesAnimation:
+	   SHTN A 0   
+	   CRSB JKL 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   CRSB MN 1
+	   CRSB O 1
+	   CRSB PQRST 1
+	   CRSB U 1
+	   CRSB VW 1
+	   TNT1 A 0 A_PlaySound("CrossReload")
+	   CRSB XYY 1
+	   CRSB Z 1
+	   TNT1 A 0 A_PlaySound("CrossLit", 3)
+	   CRB4 A 0 A_JumpIFInventory("ExplosiveArrowsSelected", 1, 2)
+	   CRB2 A 0
+	  "####" AA 0
+	  "####" AB 1
+	  "####" C 2
+	  "####" DEFGHIJK 1
+	  "####" A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	  "####" A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
+	   Goto Ready3
+
+	Spawn:
+	   CRB2 R 0 NoDelay
+	   CRB2 R 10 A_PbvpFramework("CRB2")
+	  "####" "#" 0 A_PbvpInterpolate()
+	   Loop
+
+   FlashKicking:
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+	   TNT1 A 0 A_ClearOverlays(10,11)
+	   TNT1 A 0 A_JumpIfInventory("CrossbowNeedsLoading", 1, "KickingFlashNotLoaded")
+	   CRB4 A 0 A_JumpIFInventory("ExplosiveArrowsSelected", 1, 2)
+	   CRB2 A 0 A_DoPBWeaponAction
+	  "####" A 0 //16
+	  "####" A 0
+	  "####" K 1
+	  "####" J 1
+	  "####" I 1
+	  "####" H 1
+	  "####" G 1
+	  "####" F 1
+	  "####" S 6
+	  "####" F 1
+	  "####" G 1
+	  "####" H 1
+	  "####" I 1
+	  "####" J 1
+	  "####" K 1
+	   Goto Ready3
+
+	FlashAirKicking:
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+	   TNT1 A 0 A_ClearOverlays(10,11)
+	   TNT1 A 0 A_JumpIfInventory("CrossbowNeedsLoading", 1, "KickingFlashNotLoaded")
+	   CRB4 A 0 A_JumpIFInventory("ExplosiveArrowsSelected", 1, 2)
+	   CRB2 A 0 A_DoPBWeaponAction
+	  "####" A 0 //16
+	  "####" A 0
+	  "####" K 1
+	  "####" J 1
+	  "####" I 1
+	  "####" H 1
+	  "####" G 1
+	  "####" F 1
+	  "####" S 6
+	  "####" F 1
+	  "####" G 1
+	  "####" H 1
+	  "####" I 1
+	  "####" J 1
+	  "####" K 1
+	   Goto Ready3
+
+    FlashSlideKicking:
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+	   TNT1 A 0 A_ClearOverlays(10,11)
+	   TNT1 A 0 A_JumpIfInventory("CrossbowNeedsLoading", 1, "SlideKickingStartNotLoaded")
+	   CRB4 A 0 A_JumpIFInventory("ExplosiveArrowsSelected", 1, 2)
+	   CRB2 A 0 A_DoPBWeaponAction
+	  "####" A 0 //39 total
+	  "####" A 0
+	  "####" K 1
+	  "####" J 1
+	  "####" I 1
+	  "####" H 1
+	  "####" G 1
+	  "####" F 1
+	  "####" S 13
+	  "####" F 1
+	  "####" G 1
+	  "####" H 1
+	  "####" I 1
+	  "####" J 1
+	  "####" K 1
+	   Goto Ready3
+
+    FlashSlideKickingStop:
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+	   TNT1 A 0 A_ClearOverlays(10,11)
+	   TNT1 A 0 A_JumpIfInventory("CrossbowNeedsLoading", 1, "SlideKickingEndNotLoaded")
+	   CRB4 A 0 A_JumpIFInventory("ExplosiveArrowsSelected", 1, 2)
+	   CRB2 A 0 A_DoPBWeaponAction
+	  "####" K 1 //10
+	   Goto Ready3
+
+    FlashPunching:
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+	   TNT1 A 0 A_ClearOverlays(10,11)
+	   TNT1 A 0 A_JumpIfInventory("CrossbowNeedsLoading", 1, "KickingFlashNotLoaded")
+	   CRB4 A 0 A_JumpIFInventory("ExplosiveArrowsSelected", 1, 2)
+	   CRB2 A 0 A_DoPBWeaponAction
+	  "####" A 0 //16
+	  "####" A 0
+	  "####" K 1
+	  "####" J 1
+	  "####" I 1
+	  "####" H 1
+	  "####" G 1
+	  "####" F 1
+	  "####" S 2
+	  "####" F 1
+	  "####" G 1
+	  "####" H 1
+	  "####" I 1
+	  "####" J 1
+	  "####" K 1
+	   Stop
+
+	FlashPunchingStop:
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+	   TNT1 A 0 A_ClearOverlays(10,11)
+	   TNT1 A 0 A_JumpIfInventory("CrossbowNeedsLoading", 1, "KickingFlashNotLoaded")
+	   CRB4 A 0 A_JumpIFInventory("ExplosiveArrowsSelected", 1, 2)
+	   CRB2 A 0 A_DoPBWeaponAction
+	  "####" K 1 //10
+	   Stop
+	}
+}
+
+Actor CrossbowExplosionSmoke
+{
+    Radius 0
+	Height 0
+	Alpha 0.1
+	Health 99999
+	RenderStyle Translucent
+	Scale 1.2
+	Speed 1
+   +NOBLOCKMAP
+   +NOTELEPORT
+   +DONTSPLASH
+   +MISSILE
+   +FORCEXYBILLBOARD
+   +CLIENTSIDEONLY
+   +NOINTERACTION
+   +NOGRAVITY
+   +DOOMBOUNCE
+   +THRUACTORS
+	BounceFactor 0.5
+	Mass 0
+    States
+    {
+    Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIf(WaterLevel > 1, "Stap")
+		SMK2 AAA 2 A_FadeIn(0.04)
+		SMK2 AAAAAA 2
+		SMK2 AAAAAA 2 A_FadeOut(0.01)
+		Goto Death
+	Death:
+		TNT1 A 0
+		Stop
+	Stap:		
+		TNT1 A 0
+		Stop
+    }
+}
+
+Actor CrossbowSmoke : CrossbowExplosionSmoke
+{
+	Alpha 0.25
+	Scale 0.2
+	Renderstyle Add
+    Speed 8
+    States
+    {
+    Spawn:
+        SMOK A 0
+        Goto Death
+	Death:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256, "Death1", "Death2", "Death3", "Death4")
+
+	Death1:	
+		TNT1 A 0
+		TNT1 A 0 A_CustomMissile("CrossbowSmoke1", 7, 0, 180, 0, 0)
+		Stop
+
+	Death2:	
+		TNT1 A 0
+		TNT1 A 0 A_CustomMissile("CrossbowSmoke2", 7, 0, 180, 0, 0)
+		Stop
+
+	Death3:	
+		TNT1 A 0
+		TNT1 A 0 A_CustomMissile("CrossbowSmoke3", 7, 0, 180, 0, 0)
+		Stop	
+
+	Death4:	
+		TNT1 A 0
+		TNT1 A 0 A_CustomMissile("CrossbowSmoke4", 7, 0, 180, 0, 0)
+		Stop	
+		
+    }
+}
+
+Actor CrossbowSmoke1 : CrossbowSmoke
+{
+	Alpha 0.3
+	Scale 0.2
+	Renderstyle Add
+    Speed 8
+    States
+    {
+    Spawn:
+        SMOK A 0
+        Goto Death
+	Death:
+		TNT1 A 0
+		TNT1 A 0 A_Stop
+		TNT1 A 0 A_Recoil(-2)
+		SMOK ABCDEFGHIJKLM 2 A_SetRoll(Roll+Random(1,5), SPF_INTERPOLATE)
+		SMOK NOPQ 1 A_FadeOut(0.25)
+		Stop
+    }
+}
+
+Actor CrossbowSmoke2 : CrossbowSmoke1
+{
+	Scale -0.21
+}
+
+Actor CrossbowSmoke3 : CrossbowSmoke1
+{
+	XScale -0.21
+	YScale 0.21
+}
+
+Actor CrossbowSmoke4 : CrossbowSmoke1
+{
+	XScale 0.2
+	YScale -0.2
+}

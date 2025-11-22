@@ -1,0 +1,26 @@
+ACTOR PowerDoubleDamage : PowerDamage
+{
+	Damagefactor "normal", 2
+}
+
+ACTOR DoubleSphere : PowerupGiver 19284
+{
+	+COUNTITEM
+	+NOGRAVITY
+	+FLOATBOB
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.MaxAmount 0
+	Inventory.PickUpSound "DOUBLEDA"
+	Powerup.Type DoubleDamage
+	Powerup.Color RedMap
+	Powerup.Duration -30
+	Inventory.PickupMessage "Double Damage!"
+	//$Category PowerUps/Sphere of Power
+	States
+	{
+	Spawn:
+		DDMG ABCB 6 Bright
+		Loop
+	}
+}

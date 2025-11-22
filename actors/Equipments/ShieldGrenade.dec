@@ -1,0 +1,221 @@
+/////SHIELD GRENADE/////////////////////////////////////////////////////////////////////////
+Actor WW_ShieldSelected : inventory{}
+Actor ShieldSelected : inventory{}
+ACTOR ShieldDeathTimer1 : Inventory {Inventory.MaxAmount 200}
+
+ACTOR ShieldGrenade: CustomInventory {
+	Game Doom
+	Scale 0.45
+	+DONTGIB
+	+FLOORCLIP
+	Inventory.PickupMessage "Shield Grenade (Special Grenade)"
+	Inventory.PickupSound "Ammocase/Open"
+	States {
+		Spawn:
+			SHIG A 1 A_SpawnItem("YellowFlareSmall",-1,1)
+			Loop
+		Pickup:
+			TNT1 A 0 A_GiveInventory("ShieldGrenadeAmmo",1) 
+			TNT1 A 20
+			Stop	}}
+			
+ACTOR ShieldGrenadeAmmo : Ammo
+{
+	Inventory.Amount 1
+	Inventory.MaxAmount 3
+	Ammo.BackPackAmount 1
+	Ammo.BackPackMaxAmount 6
+	Inventory.PickUpMessage ""
+	Inventory.Icon SHIGA0
+	+INVENTORY.IGNORESKILL
+	Scale 0.45
+}			
+			
+ACTOR ThrownShieldGrenade {
+	Radius 2
+	Height 3
+	Speed 30
+    Damage 0
+    Gravity 0.7
+	Scale 0.2
+	BounceFactor 0.0
+	WallBounceFactor 0.25
+    Health 5
+	Projectile
+	+MISSILE
+    -NOGRAVITY
+    -BLOODSPLATTER
+	-EXTREMEDEATH
+	+EXPLODEONWATER
+	+SKYEXPLODE
+	+DOOMBOUNCE
+	+FLOORCLIP
+	+DONTGIB
+	+NoExtremeDeath
+	DamageType "Plasma"
+    SeeSound "StunGrenadeBounce"
+	DeathSound "StunGrenadeBounce"
+	Obituary "%o ate %k grenade."
+		States {
+			Spawn:
+				SHIG B 1
+				TNT1 A 0 A_JumpIf(Momx == 0 || Momy == 0 || Momz == 0, "Death")
+				Loop
+			Death:	
+				TNT1 A 0 A_Facetarget
+				TNT1 A 0 A_SpawnItemEx ("ShieldSpawnerPlacedCover", 0, 68, 0, 0, 0, 0, -270, SXF_NOCHECKPOSITION)
+				Stop	}}	
+ACTOR ShieldHit {
+	Scale 0.15
+	Alpha 1
+	RenderStyle Add
+	+NOINTERACTION
+	+NOGRAVITY
+	+FRIENDLY
+	Damagetype "Plasma"
+		States {
+			Spawn:
+				TNT1 A 0
+			Looplet:
+				VINR A 0 A_FadeOut(0.1)
+				VINR A 1 A_SetScale(ScaleX+0.15, ScaleY+0.15)
+				Loop
+			}}
+			
+actor ShieldPart {
+	Radius 8
+	Height 9
+	Scale 0.5
+	Gravity 100
+	Mass 10000
+	RenderStyle None
+	Alpha 0.25
+	BloodType "ShieldHit"
+	+SHOOTABLE
+	+NOTELEPORT
+	+DONTRIP
+	+NOBLOODDECALS
+	+FLOORCLIP
+	+FRIENDLY
+	+REFLECTIVE
+	+SOLID
+	-PUSHABLE
+	+CANPASS
+	+MOVEWITHSECTOR
+	Damagetype "Plasma"
+		States {
+			Spawn:
+				TNT1 A 0
+				NQSH A 3 
+				TNT1 A 0 A_JumpIf(Momx == 0 || Momy == 0 || Momz == 0, "Exist")
+				Loop
+			Exist:
+				TNT1 A 0 A_ChangeFlag("NoGravity",1)
+				TNT1 A 0 A_SpawnItemEx ("ShieldHit", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
+				TNT1 A 0 A_SpawnItemEx ("ShieldPartVisual", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
+				NQSH A 996 bright
+				stop
+			Death:
+				TNT1 A 2
+				stop
+			}}
+			
+actor ShieldPartVisual {
+	Radius 8
+	Height 8
+	Scale 0.5
+	RenderStyle Add
+	Obituary "%o was evaporated by %k's shield, mwahahaha!"
+	Alpha 0.25
+	+NOGRAVITY
+	+CLIENTSIDEONLY
+	+FLOORCLIP
+	+FRIENDLY
+	+MOVEWITHSECTOR
+		States {
+			Spawn:
+				NQSH A 999 bright
+				stop
+			Death:
+				TNT1 A 0 A_SpawnItemEx ("ShieldHit", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
+				TNT1 A 2
+				stop
+			}}
+			
+actor ShieldSpawnerPlacedCover {
+	Radius 60
+	Height 50
+	+NOGRAVITY
+	+NOINTERACTION
+	+SHOOTABLE
+	+NOGRAVITY
+	+NOTELEPORT
+	+NODAMAGE
+	+DONTRIP
+	+NOBLOODDECALS
+	+FLOORCLIP
+	+Solid
+	+FRIENDLY
+	Damagetype "Plasma"
+	BloodType "ShieldHit"
+	+REFLECTIVE
+		States {
+			Spawn:
+				TNT1 A 0
+				TNT1 A 0 A_PlaySound("grenade/activate/shield")
+				TNT1 A 3 
+				TNT1 A 0 {
+					A_SpawnItemEx ("ShieldSpawner4up", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION);
+				}
+				TNT1 A 3 
+				TNT1 A 0 {
+					A_SpawnItemEx ("ShieldSpawner5up", 24, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION);
+					A_SpawnItemEx ("ShieldSpawner5up", -24, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION);
+				}
+				TNT1 A 3 
+				TNT1 A 0 {
+					A_SpawnItemEx ("ShieldSpawner4up", 48, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION);
+					A_SpawnItemEx ("ShieldSpawner4up", -48, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION);
+				}
+				TNT1 A 991
+			Death:
+				TNT1 A 0 A_PlaySound("grenade/spawn/shield")
+				Stop
+			}}
+			
+actor ShieldSpawner5up {
+	Radius 2
+	Height 2
+	+NOGRAVITY
+	+NOINTERACTION
+	+FRIENDLY
+	Damagetype "Plasma"
+		States {
+			Spawn:
+				TNT1 A 0
+				TNT1 A 1
+				TNT1 A 0 A_SpawnItemEx ("ShieldPart", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
+				TNT1 A 0 A_SpawnItemEx ("ShieldPart", 0, 0, 16, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
+				TNT1 A 0 A_SpawnItemEx ("ShieldPart", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
+				TNT1 A 0 A_SpawnItemEx ("ShieldPart", 0, 0, 48, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
+				TNT1 A 0 A_SpawnItemEx ("ShieldPart", 0, 0, 64, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
+				stop
+			}}
+			
+actor ShieldSpawner4up {
+	Radius 2
+	Height 2
+	+NOGRAVITY
+	+NOINTERACTION
+	+FRIENDLY
+	Damagetype "Plasma"
+		States {
+			Spawn:
+				TNT1 A 0
+				TNT1 A 1
+				TNT1 A 0 A_SpawnItemEx ("ShieldPart", 0, 0, 8, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
+				TNT1 A 0 A_SpawnItemEx ("ShieldPart", 0, 0, 24, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
+				TNT1 A 0 A_SpawnItemEx ("ShieldPart", 0, 0, 40, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
+				TNT1 A 0 A_SpawnItemEx ("ShieldPart", 0, 0, 56, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
+				stop
+			}}

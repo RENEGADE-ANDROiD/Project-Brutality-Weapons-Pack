@@ -1,0 +1,127 @@
+class IN_556x45mmM1X : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 25;
+		PB_Projectile.RipperCount 5;
+		Obituary "%o was torn to Munchies Pellets by %k.";
+		Damagetype "Cutless";
+	}
+}
+
+class IN_762x65mmHawk : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 100;
+		PB_Projectile.RipperCount 10;
+		Obituary "%o was Annihilated by %k.";
+		Damagetype "Saw";
+	}
+}
+
+class IN_556x80mmChthon : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 50;
+		PB_Projectile.RipperCount 3;
+		Obituary "%o Didn't see anything as Hit by %k AP.";
+	}
+}
+
+class IN_9x35mmWSMG : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 20;
+		PB_Projectile.RipperCount 1;
+		Obituary "%o Gets Munnies Pellets by %k.";
+	}
+}
+
+class IN_105x68mmMagnum : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 300;
+		PB_Projectile.RipperCount 5;
+		Obituary "%o was Head Death by %k.";
+		Damagetype "Saw";
+	}
+}
+
+class IN_105x68mmHAR : IN_105x68mmMagnum
+{
+	Default
+	{
+		+RIPPER
+		PB_Projectile.RipperCount 10;
+		Obituary "%o was Shot Downed by %k.";
+	}
+}
+
+class IN_885x45mmHAR : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 50;
+		PB_Projectile.RipperCount 5;
+		Obituary "%o was torn to Dead by %k.";
+	}
+}
+
+class IN_765x38mmDarkFate : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 32;
+		PB_Projectile.RipperCount 5;
+		Obituary "%o was torn to shreds by %k.";
+		Damagetype "Saw";
+	}
+}
+
+class IN_50gsMagnum : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 80;
+		PB_Projectile.RipperCount 3;
+		Obituary "%o was Breeding to shreds pellets by %k.";
+		Damagetype "Saw";
+	}
+}
+
+class IN_50gsFRLMagnum : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 12; //Known as Onox who's Nerfed it as too powerful.
+		PB_Projectile.RipperCount 1;
+		Obituary "%o was Burned Down by %k.";
+		Damagetype "Fire";
+	}
+}
+
+class IN_45ACPHarmony : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 30;
+		PB_Projectile.RipperCount 10; //Yep it's dealt More of Ripper causing of Piercers!
+		Obituary "%o was Annihilate Down by %k.";
+		Damagetype "Disintegrate";
+	}
+}
+
+class IN_556x45mmRKX : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 25;
+		PB_Projectile.RipperCount 2;
+		Obituary "%o was Kicked outta an Shadow Song %k.";
+		Damagetype "Shotgun";
+	}
+}

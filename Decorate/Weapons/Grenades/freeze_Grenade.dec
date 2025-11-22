@@ -1,0 +1,227 @@
+//CatsFreezenades
+
+Actor BluePlasmaFireXL : BluePlasmaFire
+{
+
+  +NoGravity
+  RenderStyle Add
+  Scale 2.5
+  Alpha 0.9
+  Speed 0
+  States
+  {
+  Spawn:
+  Death:
+    FIR5 ABCDEFGHIJKLMNOP 1 Bright// A_FadeOut(0.04)
+	//PLAF ABCDEFGHIJKLMNOPQ 1 Bright
+    Stop
+  }
+}
+
+
+ACTOR Freezenade
+{
+	Radius 4
+	Height 4
+	Projectile
+	Speed 30
+    Damage 0
+    Gravity 0.7
+	Scale 0.2
+	Projectile
+	+MISSILE
+    -NOGRAVITY
+    -BLOODSPLATTER
+	-EXTREMEDEATH
+	+EXPLODEONWATER
+	+SKYEXPLODE
+	+BOUNCEONFLOORS
+	+BOUNCEONWALLS
+	+BOUNCEONCEILINGS
+	-NOTELEPORT
+	+THRUSPECIES
+	Species "Marines"
+	BounceFactor 0.5
+	WallBounceFactor 0.25
+    Health 5
+    SeeSound "HGranade/Bounce"
+	DeathSound "none"
+	Obituary "%o ate %k freezenade."
+	States
+	{
+	Spawn:
+		FGND ABCDEFGH 2
+		TNT1 A 0 A_GiveInventory("GrenadeTime", 1)
+		TNT1 A 0 A_JumpIfInventory("GrenadeTime", 3, "Explode")
+		Loop
+	Death:
+		TNT1 A 0
+		TNT1 A 0 A_AlertMonsters(200)
+	    FGND K 16
+		TNT1 A 0 A_GiveInventory("GrenadeTime", 1)
+		TNT1 A 0 A_JumpIfInventory("GrenadeTime", 3, "Explode")
+		Loop
+		
+	Explode:
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_TakeFromTarget("HasFreezerWeapon",1) 
+		TNT1 A 0 A_SpawnItemEx("FreezenadeExplosion", 0, 0 ,2.5)
+		TNT1 AA 0
+		Stop
+	}
+}
+
+
+actor FreezenadeExplosion
+{
++NOBLOCKMAP
++MISSILE
++DONTSPLASH
+Damagetype "Freeze"
+DeathSound "FRZFIRE2"
+Height 32
+RenderStyle Add
+Alpha 0.95
+Scale 2.5
++NODAMAGETHRUST
++FORCEXYBILLBOARD
++FORCERADIUSDMG
+//MissileHeight 8
+Decal "IceScorch"
+
+States    {
+    Spawn:
+	TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx ("BluePlasmaParticleSpawner", 0, 0, -20)
+		TNT1 A 0 A_SpawnItemEx ("BlueFlareSpawn",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	    TNT1 A 0 A_SpawnItemEx ("BlueFlare3",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+        TNT1 AAAAAAAAAA 0 A_CustomMissile ("BluePlasmaFireXL", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 90))
+		TNT1 AAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 90))
+		TNT1 AAAA 0 A_CustomMissile ("RealisticFireSparks1Blue", 0, 0, random (0, 360), 2, random (0, 360))
+	    TNT1 AAAA 0 A_CustomMissile ("RealisticFireSparks1Blue", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAA 0 A_CustomMissile ("BigPlasmaParticleX", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 AAA 0 A_CustomMissile ("BigPlasmaParticleX", 0, 0, random (0, 360), 2, random (0, 360))
+        TNT1 A 0 A_ALertMonsters
+		TNT1 A 0 A_PlaySound("FRZFIRE2", 3, 3)
+		TNT1 A 0 A_SpawnItem("CryoSmoke")
+		BXPL A 0 Bright A_ChangeFlag("ICEDAMAGE", 1)
+		BXPL A 0 Bright A_ChangeFlag("NODAMAGETHRUST", 0)
+		BXPL A 0 Bright A_Explode(30*random(20,50),250)  
+		
+		//Freezerballs
+		
+		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", -10, 0, -1, random(-20,20), random(-20,20), random(-20,40))
+		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", -8, 0, -1, random(-20,20), random(-20,20), random(-20,40))
+		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", -6, 0, -1, random(10,90), random(-20,20), random(-20,40))
+		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", -4, 0, -1, random(-50,10), random(-20,10), random(-20,40))
+		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", -2, 0, -1, random(-20,30), random(-20,40), random(-20,40))
+		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 0, 0, -1, random(-20,20), random(-20,30), random(-20,40))
+		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 1, 0, -1, random(-10,20), random(-20,40), random(-20,40))
+		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 2, 0, -1, random(-20,10), random(-20,20), random(-20,40))
+		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 4, 0, -1, random(-20,30), random(-20,20), random(-20,40))
+		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 6, 0, -1, random(-10,40), random(-20,40), random(-20,40))
+		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 8, 0, -1, random(-30,20), random(-20,40), random(-20,40))
+	    BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 10, 0, -1, random(-25,25), random(-20,40), random(-20,40))
+		
+		BXPL AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION)
+		BXPL AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION)
+		BXPL AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
+		BXPL AAAAAAA 0 Bright A_SpawnItemEx("FreezerTrailSparksSmall", random(5,-5), random(5,-5), random(5,-5), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
+		BXPL AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION)
+		BXPL AAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
+		BXPL AAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
+		BXPL ABCDEFGH 1 Bright
+		BXPL IJKLLM 1 Bright A_FadeOut(0.1)
+       
+	   Stop}
+		
+		}
+		
+
+ACTOR FreezenadeAmmo : Ammo
+{
+	Game Doom
+	Inventory.PickupMessage "Picked up a Freezenade."
+	Inventory.Amount 1
+	Inventory.MaxAmount 20
+	Ammo.BackpackAmount 5
+	Ammo.BackpackMaxAmount 20
+	Inventory.Icon "FZGRN"
+	Scale 0.3
+	States
+	{
+	Spawn:
+		FGND H -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("FreezenadeAmmo", 1)
+		TNT1 A 0 A_JumpIfInventory("Freezenades", 1, 1)
+		TNT1 A 0 A_GiveInventory("Freezenades", 1)
+		Stop
+	}
+}
+
+ACTOR FreezerTrailSparksSmall
+{ 
+    RenderStyle Add
+    Scale 0.008
+    Alpha 0.95
+    +NOINTERACTION
+    +NOGRAVITY
+    +CLIENTSIDEONLY
+    States
+    {
+    Spawn:
+	YA36 B 0 NoDelay A_JumpIf(ScaleX <= 0, "NULL")
+	YA36 B 0 A_SetScale(ScaleX-0.00075)
+    YA36 B 3 bright A_ChangeVelocity (frandom(-0.8, 0.8), frandom(-0.8, 0.8), frandom(-0.8, 0.8), 0)
+    YA36 B 1 bright A_FadeOut(0.05)
+    Loop
+    }
+}
+
+
+
+ACTOR CryoSmoke
+{
+    Radius 2
+    Height 2
+    +NOINTERACTION
+    +FORCEXYBILLBOARD
+    RenderStyle Shaded
+    StencilColor "A0 FF FF"
+    Alpha 0.8
+    Scale 0.85
+    States
+    {
+    Spawn:
+		SMKO A 0
+        SMK2 A 2 A_FadeOut (0.05)
+        Wait
+    }
+}
+
+ACTOR BigCryoSmoke : CryoSmoke
+{
+Scale 1.2
+}
+
+Actor CryoSmoke2 : CryoSmoke { StencilColor "DD DD DD" Scale 0.7 Alpha 0.5 VSpeed 2.5
+	States {
+	Spawn:
+		TNT1 A 0
+		SMK2 A 6 A_FadeOut(0.04)
+		Wait
+	}
+}
+
+Actor CryoSmoke3 : CryoSmoke { StencilColor "AA FF FF" Scale 0.7 Alpha 0.4 VSpeed 2.25
+	States {
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("Weapons/FreezerRecharge")
+		SMK2 A 6 A_FadeOut(0.04)
+		Wait
+	}
+}

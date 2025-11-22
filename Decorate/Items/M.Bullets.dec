@@ -1,0 +1,31 @@
+ACTOR M.Bullets : Ammo 25038
+{
+  Inventory.PickupMessage "Picked up a Magnum Bullets."
+  Inventory.PickupSound "RD4PICK"
+  Inventory.Amount 12
+  Inventory.MaxAmount 130
+  Ammo.BackpackAmount 6
+  Ammo.BackpackMaxAmount 360
+  Scale 0.7
+  Inventory.Icon "RVICB0"
+  States
+  {
+  Spawn:
+    RVIC A -1
+    Stop
+  }
+}
+
+Actor MagnumBullets : M.Bullets
+{
+Inventory.PickupMessage "Picked up Magnum Bullets!"
+Inventory.Amount 6
+inventory.pickupsound "MBLLPK"
+Scale 0.6
+  States
+  {
+  Spawn:
+    RVIC B -1
+    Stop
+  }
+}

@@ -1,0 +1,42 @@
+Server NoArchive Bool sv_allowhookshot = True;
+
+user bool rw_switchEnabled = false;
+user bool rw_lockWeap = false;
+user bool rw_instSwitch = false;
+
+user int rw_DelayMin = 15;
+user int rw_DelayMax = 60;
+
+Server bool ignoreLocks = false;
+server bool nologs = false;
+server bool infinitecharges = false;
+server int busterAmmoChance = 1;
+
+server int ttwcfbex = 25;
+
+User Noarchive Int d16_crosshair = 0;
+
+//===============================================
+//Dusk
+server 	float	dsk_acceleration		= 1.5;
+
+//===============================================
+//Painkiller
+server 	float	pk_acceleration			= 1.0;
+
+//===============================================
+//Build Engine
+server	float	be_jumpanim				= 6.0;
+
+//===============================================
+// Quake
+server	int		q_strafetype			= 0;
+server	float	q_3airaccel				= 0.75;
+server	float	q_1airaccel				= 1.5;
+
+//===============================================
+// Weapon spawners
+//Slot 1
+server int PBSpawnArgentSith = 1;
+//Slot 8
+server int PBSpawnCalamityBlade = 1;

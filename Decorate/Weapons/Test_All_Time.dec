@@ -1,0 +1,16 @@
+Actor SMG_Upgrade_No_Replace : Inventory { inventory.maxamount 1 }
+
+Actor Berreta_Upgrade_No_Replace : Inventory { inventory.maxamount 1 }
+
+
+
+
+
+
+
+
+
+
+
+
+
