@@ -64,7 +64,7 @@ ACTOR ThunderCrossbow : PB_Weapon
 	Weapon.AmmoGive2 16
 	Inventory.PickupSound "7LSPICK"
 	Weapon.AmmoType1 ""
-	Weapon.AmmoType2 "PlasmaAmmo"
+	Weapon.AmmoType2 "PB_Cell"
 	PB_WeaponBase.UnloaderToken "ThunderCrossbowHasUnloaded"
 	Weapon.KickBack 300
 	Inventory.PickupMessage "You got the ThunderCrossbow!"
@@ -418,7 +418,7 @@ ACTOR ThunderCrossbow : PB_Weapon
 			}
 			return state("");
 		}
-		TNT1 A 0 A_JumpIfInventory("PlasmaAmmo", 1, "HasAmmoToFire")
+		TNT1 A 0 A_JumpIfInventory("PB_Cell", 1, "HasAmmoToFire")
 		Goto GunEmpty 
 		
 	HasAmmoToFire:
@@ -430,7 +430,7 @@ ACTOR ThunderCrossbow : PB_Weapon
 			A_FireCustomMissile("Plasma_Ball", 0, 1, 0, 0);
 			A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
 			PB_GunSmoke(0,0,0);
-			A_TakeInventory("PlasmaAmmo", 1); 
+			A_TakeInventory("PB_Cell", 1); 
 			A_GunFlash;
 			PB_WeaponRecoil(-0.24,+0.06);
 			A_Overlay(60, "AmmoCounterTens.Firing");
@@ -451,7 +451,7 @@ ACTOR ThunderCrossbow : PB_Weapon
 			}
 			return state("");
 		}
-		TNT1 A 0 A_JumpIfInventory("PlasmaAmmo", 1, "HasAmmoToReFire")
+		TNT1 A 0 A_JumpIfInventory("PB_Cell", 1, "HasAmmoToReFire")
 		Goto GunEmpty 
 		
 	HasAmmoToReFire:
@@ -476,7 +476,7 @@ ACTOR ThunderCrossbow : PB_Weapon
 			A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
 			A_FireCustomMissile("Plasma_Ball", 0, 1, 0, 0);
 			PB_GunSmoke(0,0,0);
-			A_TakeInventory("PlasmaAmmo", 1); 
+			A_TakeInventory("PB_Cell", 1); 
 			A_GunFlash;
 			PB_WeaponRecoil(-0.24,+0.06);
 			A_Overlay(60, "AmmoCounterTens.Firing");
@@ -498,7 +498,7 @@ ACTOR ThunderCrossbow : PB_Weapon
 			}
 			return state("");
 		}
-		TNT1 A 0 A_JumpIfInventory("PlasmaAmmo", 1, "HasAmmoToFire1")
+		TNT1 A 0 A_JumpIfInventory("PB_Cell", 1, "HasAmmoToFire1")
 		Goto GunEmpty 
 		
 	HasAmmoToFire1:
@@ -524,7 +524,7 @@ ACTOR ThunderCrossbow : PB_Weapon
 			A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
 			A_FireCustomMissile("LightningMissile", 0, 0, 0, 0);
 			PB_GunSmoke(0,0,0);
-			A_TakeInventory("PlasmaAmmo", 1); 
+			A_TakeInventory("PB_Cell", 1); 
 			A_GunFlash;
 			PB_WeaponRecoil(-0.24,+0.06);
 			A_Overlay(60, "AmmoCounterTens.Firing");
@@ -548,13 +548,12 @@ ACTOR ThunderCrossbow : PB_Weapon
 			PB_HandleCrosshair(76);
 			A_TakeInventory("PB_LockScreenTilt",1);
 		    }
-		TNT1 A 0 A_JumpIfInventory("PlasmaAmmo", 10, "HasAmmoForEnhancedAltFire")
+		TNT1 A 0 A_JumpIfInventory("PB_Cell", 10, "HasAmmoForEnhancedAltFire")
 		Goto GunEmpty
 		
 	HasAmmoForEnhancedAltFire:
 			TNT1 A 0 A_JumpIfInventory("Reloading",1,"DeCharge")
 			TNT1 A 0 A_Playsound("pklove/charge",2)
-			FIST L 3 
 			FIST L 3 
 			FIST L 3 
 			FIST M 3 
@@ -576,7 +575,7 @@ ACTOR ThunderCrossbow : PB_Weapon
 		
 	CoolAfterAltFire:
 		TNT1 A 0 PB_WeaponRecoilBasic(-1.15) 
-		TNT1 A 0 A_Takeinventory("PlasmaAmmo",20)
+		TNT1 A 0 A_Takeinventory("PB_Cell",20)
 		
 		W02G A 1 {
 			A_ZoomFactor(0.90);
@@ -597,7 +596,7 @@ ACTOR ThunderCrossbow : PB_Weapon
 		TNT1 A 0 A_StartSound("PLSCOOL",CHAN_VOICE)
 		W02G EFEFEFEFE 2 A_FireCustomMissile("SmokeSpawner",0,0,0,5)
 		W02G GHIGHIGHIHJKLKJKLKJKL 1
-		TNT1 A 0 A_JumpIfInventory("PlasmaAmmo",1,1)
+		TNT1 A 0 A_JumpIfInventory("PB_Cell",1,1)
 		TNT1 A 0 A_PlaySound("BEPBEP")
 		Goto Ready3
 	GunEmpty:
@@ -612,8 +611,8 @@ ACTOR ThunderCrossbow : PB_Weapon
 		TNT1 A 0 A_ClearReFire
 		TNT1 A 0 A_GiveInventory("Reloading", 1)
 		
-		TNT1 A 0 A_JumpIfInventory("PlasmaAmmo", 60, "DontNeedToReload")
-		TNT1 A 0 A_JumpIfInventory("PlasmaAmmo", 1, "HasSomeAmmo")
+		TNT1 A 0 A_JumpIfInventory("PB_Cell", 60, "DontNeedToReload")
+		TNT1 A 0 A_JumpIfInventory("PB_Cell", 1, "HasSomeAmmo")
 		TNT1 A 0 A_JumpIfInventory("PB_Cell", 1, "PerformReload")
 		Goto Ready3
 		
@@ -621,22 +620,22 @@ ACTOR ThunderCrossbow : PB_Weapon
 		Goto InsertBullets4 
 		
 	InsertBullets:
-		TNT1 A 0 A_JumpIfInventory("PlasmaAmmo", 60, "Ready3") 
+		TNT1 A 0 A_JumpIfInventory("PB_Cell", 60, "Ready3") 
 		TNT1 A 0 A_JumpIfInventory("PB_Cell", 1, 1)
 		Goto Ready3
 		TNT1 A 0 {
-			A_GiveInventory("PlasmaAmmo", 1); 
+			A_GiveInventory("PB_Cell", 1); 
 			A_TakeInventory("PB_Cell", 1);
 			A_SetInventory("ThunderCrossbowHasUnloaded", 0); 
 		}
 		Goto InsertBullets
 	
 	InsertBullets4:
-		TNT1 A 0 A_JumpIfInventory("PlasmaAmmo", 60, "InsertBullets5") 
+		TNT1 A 0 A_JumpIfInventory("PB_Cell", 60, "InsertBullets5") 
 		TNT1 A 0 A_JumpIfInventory("PB_Cell", 1, 1)
 		Goto InsertBullets5
 		TNT1 A 0 {
-			A_GiveInventory("PlasmaAmmo", 1); 
+			A_GiveInventory("PB_Cell", 1); 
 			A_TakeInventory("PB_Cell", 1);
 			A_SetInventory("ThunderCrossbowHasUnloaded", 0); 
 		}
@@ -682,13 +681,13 @@ ACTOR ThunderCrossbow : PB_Weapon
 		W02G A 2
 
 	ReloadLoop:
-		TNT1 A 0 A_JumpIfInventory("PlasmaAmmo", 60, "ReloadComplete") 
+		TNT1 A 0 A_JumpIfInventory("PB_Cell", 60, "ReloadComplete") 
 		TNT1 A 0 A_JumpIfInventory("PB_Cell", 1, "AddAmmo") 
 		Goto ReloadComplete 
 		
 	AddAmmo:
 		TNT1 A 0 {
-			A_GiveInventory("PlasmaAmmo", 1);
+			A_GiveInventory("PB_Cell", 1);
 			A_TakeInventory("PB_Cell", 1);
 		}
 		Goto ReloadLoop
@@ -699,12 +698,12 @@ ACTOR ThunderCrossbow : PB_Weapon
 		Goto Ready3
 
 	RemoveBullets:
-		TNT1 A 0 A_JumpIfInventory("PlasmaAmmo", 1, "RemoveSingleBullet")
+		TNT1 A 0 A_JumpIfInventory("PB_Cell", 1, "RemoveSingleBullet")
 		Goto FinishUnload
 		
 	RemoveSingleBullet:
 		TNT1 A 0 {
-			A_TakeInventory("PlasmaAmmo", 1);
+			A_TakeInventory("PB_Cell", 1);
 			A_GiveInventory("PB_Cell", 1);
 		}
 		Goto RemoveBullets
