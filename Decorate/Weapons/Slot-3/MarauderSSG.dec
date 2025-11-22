@@ -118,7 +118,7 @@ Actor MarauderSSG : PB_Weapon
 	 MSSS D 1 {
 		  return A_DoPBWeaponAction;
 		  }
-	 MSSG AAAAAA 3 {
+	 MXSG AAAAAA 3 {
 		  return A_DoPBWeaponAction;
 		  }
 	 MSS2 R 1 {
@@ -252,7 +252,7 @@ Actor MarauderSSG : PB_Weapon
 		     }
 	    TNT1 A 0
   MarauderShotgunReadyToFire:
-	    MSSG A 1 {
+	    MXSG A 1 {
 		     if (CountInv("MarauderShotgunBarrelHeat") >= 60) {
 				 A_Gunflash("MarauderShotgunBarrelSmoke");
 			 }
@@ -392,10 +392,10 @@ Actor MarauderSSG : PB_Weapon
 			A_AlertMonsters;
 			}
 			TNT1 A 0 A_JumpIfInventory("SSGUseClassicReload", 1, "FireRegularClassic")
-			MSSG CD 1 BRIGHT
+			MXSG CD 1 BRIGHT
 			TNT1 A 0 A_SetPitch(pitch-6)
 			TNT1 A 0 A_ZoomFactor(1)
-			MSSG EFGHIJKL 1 A_SetPitch(pitch+0.5)
+			MXSG EFGHIJKL 1 A_SetPitch(pitch+0.5)
 			Goto Reload
 	FireRegularClassic:
 			MSS3 AB 1 BRIGHT
@@ -528,15 +528,15 @@ Actor MarauderSSG : PB_Weapon
 	ReloadNormally:
 		TNT1 A 0 A_JumpIfInventory("MaraudSSGAmmo", 2, "MarauderShotgunReadyToFire")
 		TNT1 A 0 A_JumpIfInventory("SSGUseClassicReload", 1, "ReloadClassic")
-		MSSG MNO 1
+		MXSG MNO 1
 		TNT1 A 0 {
 		     A_PlaySound("MSSOP", 51);
 		     A_FireCustomMissile("SSGCaseSpawner",0,0,-10);
 		     A_FireCustomMissile("SSGCaseSpawner",0,0,-10);
 			 }
-		MSSG PQRSTUVWX 1
+		MXSG PQRSTUVWX 1
 		TNT1 A 0 A_PlaySound("MSSLD", 52)
-		MSSG YZ 1
+		MXSG YZ 1
 		MSS2 ABCDEF 1
 		TNT1 A 0 A_PlaySound("MSSCL", 52)
 		MSS2 GHIJKLMNOPQR 1
@@ -565,15 +565,15 @@ Actor MarauderSSG : PB_Weapon
 	ReloadOneShell:
 		TNT1 A 0 A_JumpIfInventory("MaraudSSGAmmo", 2, "MarauderShotgunReadyToFire")
 		TNT1 A 0 A_JumpIfInventory("SSGUseClassicReload", 1, "ReloadOneClassic")
-		MSSG MNO 1
+		MXSG MNO 1
 		TNT1 A 0 {
 		A_PlaySound("MSSOP", 51);
 		A_FireCustomMissile("ShotCaseSpawn",0,0,-5,-21);
 		}
-		MSSG PQR 1
+		MXSG PQR 1
 		MSS2 STUVWX 1
 		TNT1 A 0 A_PlaySound("MSSLD", 52)
-		MSSG YZ 1
+		MXSG YZ 1
 		MSS2 ABCDEF 1
 		TNT1 A 0 A_PlaySound("MSSCL", 52)
 		MSS2 GHIJKLMNOPQR 1
@@ -643,7 +643,7 @@ Actor MarauderSSG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
 	    TNT1 A 0 A_ClearOverlays(10,11)
-		MSSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		MXSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		MSS5 P 1
 		MSS5 O 1
 		MSS5 N 1
@@ -655,7 +655,7 @@ Actor MarauderSSG : PB_Weapon
 		MSS5 N 1
 		MSS5 O 1
 		MSS5 P 1
-		MSSG A 1
+		MXSG A 1
 		Goto MarauderShotgunReadyToFire
 
 	FlashAirKicking:
@@ -663,7 +663,7 @@ Actor MarauderSSG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
 	    TNT1 A 0 A_ClearOverlays(10,11)
-		MSSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		MXSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		MSS5 P 1
 		MSS5 O 1
 		MSS5 N 1
@@ -675,7 +675,7 @@ Actor MarauderSSG : PB_Weapon
 		MSS5 N 1
 		MSS5 O 1
 		MSS5 P 1
-		MSSG A 1
+		MXSG A 1
 		Goto MarauderShotgunReadyToFire
 
 	FlashSlideKicking:
@@ -683,7 +683,7 @@ Actor MarauderSSG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
 	    TNT1 A 0 A_ClearOverlays(10,11)
-		MSSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		MXSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		MSS5 P 1
 		MSS5 O 1
 		MSS5 N 1
@@ -695,7 +695,7 @@ Actor MarauderSSG : PB_Weapon
 		MSS5 N 1
 		MSS5 O 1
 		MSS5 P 1
-		MSSG A 1
+		MXSG A 1
 		Goto MarauderShotgunReadyToFire
 
 	FlashSlideKickingStop:
@@ -703,7 +703,7 @@ Actor MarauderSSG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
 	    TNT1 A 0 A_ClearOverlays(10,11)
-		MSSG A 1 A_DoPBWeaponAction
+		MXSG A 1 A_DoPBWeaponAction
 		Goto MarauderShotgunReadyToFire
 
 	FlashPunching:
@@ -711,7 +711,7 @@ Actor MarauderSSG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
 	    TNT1 A 0 A_ClearOverlays(10,11)
-		MSSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		MXSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		MSS5 P 1
 		MSS5 O 1
 		MSS5 N 1
@@ -723,7 +723,7 @@ Actor MarauderSSG : PB_Weapon
 		MSS5 N 1
 		MSS5 O 1
 		MSS5 P 1
-		MSSG A 1
+		MXSG A 1
 		Stop
 
 	FlashPunchingStop:
@@ -731,7 +731,7 @@ Actor MarauderSSG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
 	    TNT1 A 0 A_ClearOverlays(10,11)
-		MSSG A 1 A_DoPBWeaponAction
+		MXSG A 1 A_DoPBWeaponAction
 		Stop
 	}
 }
