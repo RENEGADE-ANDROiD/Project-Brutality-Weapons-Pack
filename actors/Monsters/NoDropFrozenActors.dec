@@ -1,0 +1,924 @@
+//By Warcarlsson
+ACTOR NoDrop_FrozenShotgunguy : FrozenEnemyBase replaces FrozenShotgunguy
+{
+States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		FZD2 A -1
+		loop
+		Death.Fire:
+		Death.Flames:
+		Death.Burn:
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_Shotgunguy", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+	TNT1 A 0 A_NoBlocking
+	TNT1 A 0 A_PlaySound ("IceBreakMedium")
+	TNT1 AAAAA 0 A_CustomMissile ("IceDust", 5, 0, random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+	TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_Shotgunguy", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_CustomMissile ("IceBlood", random (5, 25), random (10, -10), random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_CustomMissile ("IceDust", random (5, 25), random (10, -10), random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_CustomMissile ("XDeath1", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath2", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath3", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAA 0 A_CustomMissile ("Instestin", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAA 0 A_CustomMissile ("MuchBlood", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_SpawnItem("PB_Shell")
+		FZD2 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+	TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+	TNT1 A 0 A_SpawnItem("FrozenShotgunguy")
+	Stop
+	}
+}
+
+
+ACTOR NoDrop_FrozenZSpecOp: FrozenEnemyBase replaces FrozenZSpecOp //FrozenShotgunguy
+{
+States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		FZZ2 A -1
+		loop
+		Death.Fire:
+		Death.Flames:
+		Death.Burn:
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_ZSpecOps", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+	TNT1 A 0 A_NoBlocking
+	TNT1 A 0 A_PlaySound ("IceBreakMedium")
+	TNT1 AAAAA 0 A_CustomMissile ("IceDust", 5, 0, random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+	TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_ZSpecOps", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_CustomMissile ("IceBlood", random (5, 25), random (10, -10), random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_CustomMissile ("IceDust", random (5, 25), random (10, -10), random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_CustomMissile ("XDeath1", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath2", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath3", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAA 0 A_CustomMissile ("Instestin", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAA 0 A_CustomMissile ("MuchBlood", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_SpawnItem("PB_HighCalMag")
+		FZD2 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+	TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+	TNT1 A 0 A_SpawnItem("FrozenZSpecOp")
+	Stop
+	}
+}
+
+
+ACTOR NoDrop_FrozenHelmetShotgunguy: FrozenEnemyBase replaces FrozenHelmetShotgunguy //FrozenShotgunguy
+{
+States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		FZQ2 A -1
+		loop
+		Death.Fire:
+		Death.Flames:
+		Death.Burn:
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_ShotgunGuyHelmet", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+	TNT1 A 0 A_NoBlocking
+	TNT1 A 0 A_PlaySound ("IceBreakMedium")
+	TNT1 AAAAA 0 A_CustomMissile ("IceDust", 5, 0, random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+	TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_ShotgunGuyHelmet", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_CustomMissile ("IceBlood", random (5, 25), random (10, -10), random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_CustomMissile ("IceDust", random (5, 25), random (10, -10), random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_CustomMissile ("XDeath1", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath2", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath3", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAA 0 A_CustomMissile ("Instestin", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAA 0 A_CustomMissile ("MuchBlood", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_SpawnItem("PB_Shell")
+		FZD2 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+	TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+	TNT1 A 0 A_SpawnItem("FrozenHelmetShotgunguy")
+	Stop
+	}
+}
+
+
+ACTOR NoDrop_FrozenQuadShotgunguy: FrozenEnemyBase replaces FrozenQuadShotgunguy //FrozenShotgunguy
+{
+States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		FZQ3 A -1
+		loop
+		Death.Fire:
+		Death.Flames:
+		Death.Burn:
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_QSGZombie", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+	TNT1 A 0 A_NoBlocking
+	TNT1 A 0 A_PlaySound ("IceBreakMedium")
+	TNT1 AAAAA 0 A_CustomMissile ("IceDust", 5, 0, random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+	TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_QSGZombie", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_CustomMissile ("IceBlood", random (5, 25), random (10, -10), random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_CustomMissile ("IceDust", random (5, 25), random (10, -10), random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_CustomMissile ("XDeath1", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath2", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath3", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAA 0 A_CustomMissile ("Instestin", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAA 0 A_CustomMissile ("MuchBlood", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_SpawnItem("PB_Shell")
+		FZD2 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+	TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+	TNT1 A 0 A_SpawnItem("FrozenQuadShotgunguy")
+	Stop
+	}
+}
+
+
+ACTOR NoDrop_FrozenAutoShotgunguy: FrozenEnemyBase replaces FrozenAutoShotgunguy //FrozenShotgunguy
+{
+States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		F7D7 A -1
+		loop
+		Death.Fire:
+		Death.Flames:
+		Death.Burn:
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_spawnItemEx("ASGGuy", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+	TNT1 A 0 A_NoBlocking
+	TNT1 A 0 A_PlaySound ("IceBreakMedium")
+	TNT1 AAA 0 A_CustomMissile ("IceBlood", 5, 0, random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+	TNT1 AAAAA 0 A_CustomMissile ("IceDust", 5, 0, random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+	TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("ASGGuy", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_CustomMissile ("IceBlood", random (5, 25), random (10, -10), random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_CustomMissile ("IceDust", random (5, 25), random (10, -10), random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_CustomMissile ("XDeath1", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath2", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath3", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAA 0 A_CustomMissile ("Instestin", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAA 0 A_CustomMissile ("MuchBlood", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_SpawnItem("PB_Shell")
+		FZD2 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+	TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+	TNT1 A 0 A_SpawnItem("FrozenAutoShotgunguy")
+	Stop
+	}
+}
+
+
+ACTOR NoDrop_FrozenZombieman : FrozenEnemyBase replaces FrozenZombieman
+{
+	
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		FZD1 A -1
+		loop
+	Death.Fire:
+	Death.Flames:
+	Death.Burn:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_Zombieman", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_PlaySound ("IceBreakMedium")
+		TNT1 AAAAA 0 A_CustomMissile ("IceDust", 5, 0, random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_Zombieman", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_CustomMissile ("IceBlood", random (5, 25), random (10, -10), random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_CustomMissile ("IceDust", random (5, 25), random (10, -10), random (0, 360), 2, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_CustomMissile ("XDeath1", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath2", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath3", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAA 0 A_CustomMissile ("Instestin", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAAAA 0 A_CustomMissile ("MuchBlood", 48, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_SpawnItem("PB_HighCalMag")
+		FZD1 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+		TNT1 A 0 A_ChangeFlag("SOLID", 0)
+		TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_SpawnItem("FrozenZombieman")
+		Stop
+	}
+}
+
+
+ACTOR NoDrop_FrozenHelmetRifleZombieman : FrozenEnemyBase replaces FrozenHelmetRifleZombieman
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		FZM1 A -1
+		loop
+	Death.Fire:
+	Death.Flames:
+	Death.Burn:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_HelmetZombieMan", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_PlaySound ("IceBreakMedium")
+		TNT1 AAAAA 0 A_SpawnProjectile("IceDust", 5, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_HelmetZombieman", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_SpawnProjectile("IceBlood", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_SpawnProjectile("IceDust", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_SpawnProjectile("PB_XDeath1", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath2", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath3", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAA 0 A_SpawnProjectile("Instestin", 32, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAAAA 0 A_SpawnProjectile("PB_MuchBlood", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 A 0 A_SpawnItem("PB_HighCalMag")
+		FZD1 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+		TNT1 A 0 A_ChangeFlag("SOLID", 0)
+		TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_SpawnItem("FrozenHelmetRifleZombieman")
+	Stop
+	}
+}
+
+
+ACTOR NoDrop_FrozenPistolZombieman : FrozenEnemyBase replaces FrozenPistolZombieman
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		F8C8 A -1
+		loop
+	Death.Fire:
+	Death.Flames:
+	Death.Burn:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_PistolZombieman", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_PlaySound ("IceBreakMedium")
+		TNT1 AAAAA 0 A_SpawnProjectile("IceDust", 5, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_PistolZombieman", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_SpawnProjectile("IceBlood", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_SpawnProjectile("IceDust", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_SpawnProjectile("PB_XDeath1", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath2", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath3", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAA 0 A_SpawnProjectile("Instestin", 32, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAAAA 0 A_SpawnProjectile("PB_MuchBlood", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 A 0 A_SpawnItem("PB_LowCalMag")
+		FZD1 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+		TNT1 A 0 A_ChangeFlag("SOLID", 0)
+		TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_SpawnItem("FrozenPistolZombieman")
+		Stop
+	}
+}
+
+ACTOR NoDrop_FrozenPistolZombieman2 : FrozenEnemyBase replaces FrozenPistolZombieman2
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		F9C9 A -1
+		loop
+	Death.Fire:
+	Death.Flames:
+	Death.Burn:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_PistolZombieMan2", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_PlaySound ("IceBreakMedium")
+		TNT1 AAAAA 0 A_SpawnProjectile("IceDust", 5, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_PistolZombieman2", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_SpawnProjectile("IceBlood", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_SpawnProjectile("IceDust", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_SpawnProjectile("PB_XDeath1", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath2", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath3", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAA 0 A_SpawnProjectile("Instestin", 32, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAAAA 0 A_SpawnProjectile("PB_MuchBlood", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 A 0 A_SpawnItem("PB_LowCalMag")
+		FZD1 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+		TNT1 A 0 A_ChangeFlag("SOLID", 0)
+		TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_SpawnItem("FrozenPistolZombieman2")
+	Stop
+	}
+}
+
+
+ACTOR NoDrop_FrozenHellTrooper: FrozenEnemyBase replaces FrozenHellTrooper
+{
+States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		FZHT A -1
+		loop
+	
+	Death.Fire:
+	Death.Flames:
+	Death.Burn:
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_DemonTechZombie", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_PlaySound ("IceBreakMedium")
+		TNT1 AAAAA 0 A_SpawnProjectile("IceDust", 5, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_DemonTechZombie", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_SpawnProjectile("IceBlood", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_SpawnProjectile("IceDust", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_SpawnProjectile("PB_XDeath1", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath2", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath3", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAA 0 A_SpawnProjectile("Instestin", 32, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAAAA 0 A_SpawnProjectile("PB_MuchBlood", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 A 0 A_SpawnItem("Demonpickup2")
+		FZD2 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+		TNT1 A 0 A_ChangeFlag("SOLID", 0)
+		TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_SpawnItem("FrozenHellTrooper")
+		Stop
+	}
+}
+
+
+
+ACTOR NoDrop_FrozenLabguy : FrozenEnemyBase replaces FrozenLabguy
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		FZDL A -1
+		loop
+	Death.Fire:
+	Death.Flames:
+	Death.Burn:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_ZombieScientist", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_PlaySound ("IceBreakMedium")
+		TNT1 AAAAA 0 A_SpawnProjectile("IceDust", 5, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_ZombieScientist", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_SpawnProjectile("IceBlood", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_SpawnProjectile("IceDust", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_SpawnProjectile("PB_XDeath1", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath2", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath3", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAA 0 A_SpawnProjectile("Instestin", 32, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAAAA 0 A_SpawnProjectile("PB_MuchBlood", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		//TNT1 A 0 A_SpawnItem("DroppedPB_Axe")
+		FZD2 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+		TNT1 A 0 A_ChangeFlag("SOLID", 0)
+		TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_SpawnItem("FrozenLabguy")
+		Stop
+	}
+}
+
+ACTOR NoDrop_FrozenChainsawZombie : FrozenEnemyBase replaces FrozenChainsawZombie
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		F6D6 A -1
+		loop
+	Death.Fire:
+	Death.Flames:
+	Death.Burn:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_ZombieScientistChainsaw", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_PlaySound ("IceBreakMedium")
+		TNT1 AAAAA 0 A_SpawnProjectile("IceDust", 5, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_ZombieScientistChainsaw", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_SpawnProjectile("IceBlood", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_SpawnProjectile("IceDust", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_SpawnProjectile("PB_XDeath1", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath2", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath3", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAA 0 A_SpawnProjectile("Instestin", 32, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAAAA 0 A_SpawnProjectile("PB_MuchBlood", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 A 0 A_SpawnItem("PB_Fuel")
+		FZD2 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+		TNT1 A 0 A_ChangeFlag("SOLID", 0)
+		TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_SpawnItem("FrozenChainsawZombie")
+		Stop
+	}
+}
+
+ACTOR NoDrop_FrozenCarbineZombie : FrozenEnemyBase replaces FrozenCarbineZombie
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		FZC1 A -1
+		loop
+	Death.Fire:
+	Death.Flames:
+	Death.Burn:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_CarbineZombieman", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_PlaySound ("IceBreakMedium")
+		TNT1 AAAAA 0 A_SpawnProjectile("IceDust", 5, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_CarbineZombieman", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_SpawnProjectile("IceBlood", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_SpawnProjectile("IceDust", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_SpawnProjectile("PB_XDeath1", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath2", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath3", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAA 0 A_SpawnProjectile("Instestin", 32, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAAAA 0 A_SpawnProjectile("PB_MuchBlood", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 A 0 A_SpawnItem("PB_HighCalMag")
+		FZD1 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+		TNT1 A 0 A_ChangeFlag("SOLID", 0)
+		TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_SpawnItem("FrozenCarbineZombie")
+		Stop
+	}
+}
+
+
+ACTOR NoDrop_FrozenNailgunMajor: FrozenEnemyBase replaces FrozenNailgunMajor
+{
+States
+	{
+	Spawn:
+		TNT1 A 0 A_Playsound("weapons/CryoRifle/freezeobject")
+		TNT1 AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)		
+		TNT1 AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	Standing:
+		C2FZ A -1
+		loop
+	Death.Fire:
+	Death.Flames:
+	Death.Burn:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+	    TNT1 A 0 A_ChangeFlag("SOLID", 0)
+	    TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_PlaySound ("IceMelt")
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_NailgunMajor", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death.Breakout:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_PlaySound ("IceBreakMedium")
+		TNT1 AAAAAA 0 A_SpawnProjectile("IceDust", 5, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 AA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("IceExplosionImpact", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    TNT1 A 0 A_NoBlocking
+	    TNT1 A 0 A_SpawnItemEx("PB_NailgunMajor", 0, 0, 0, 0, 0, 0, random(1,360), SXF_NOCHECKPOSITION)
+	    Stop
+	Death:	
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_StartSound ("breakfrozenguy/small")
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_NOCHECKPOSITION)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke3", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 A 0 Bright A_SpawnItemEx("CryoSmoke2", random (5, 25), random (10, -10), random (0, 360), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_NOCHECKPOSITION,64)
+		TNT1 AAAAAAAA 0 A_SpawnProjectile("IceBlood", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAAAAAAAAAA 0 A_SpawnProjectile("IceDust", random (5, 25), random (10, -10), random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160), SXF_NOCHECKPOSITION)
+		TNT1 AAA 0 A_SpawnProjectile("PB_XDeath1", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath2", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AA 0 A_SpawnProjectile("PB_XDeath3", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAA 0 A_SpawnProjectile("Instestin", 32, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 AAAAAA 0 A_SpawnProjectile("PB_MuchBlood", 48, 0, random (0, 360), CMF_BADPITCH | CMF_ABSOLUTEPITCH | CMF_AIMDIRECTION, random (0, 160))
+		TNT1 A 0 A_SpawnItem("PB_HighCalMag")
+		FZD2 C 1
+		Goto Super::Death
+	Death.Freeze:
+	Death.Ice:
+	Death.Frost:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+		TNT1 A 0 A_ChangeFlag("SOLID", 0)
+		TNT1 A 0 A_ChangeFlag("COUNTKILL", 0)
+		TNT1 A 0 A_SpawnItem("FrozenNailgunMajor")
+		Stop
+	}
+}
