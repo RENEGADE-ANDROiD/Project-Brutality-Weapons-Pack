@@ -1577,6 +1577,11 @@ class PB_Hud_ZS : BaseStatusBar
 					weaponBarAccent = Font.CR_PURPLE;
 					DrawAmmoBar("BARBACP1", "BARBACP2", "BAMBAR5", "ABAR5", "ABAR5", "AMMOIC5", Font.CR_PURPLE);
 				}
+				else if(WeaponUsesAmmoType("PowerChargeStorm"))
+				{
+					weaponBarAccent = Font.CR_CYAN;
+					DrawAmmoBar("BARBACC1", "BARBACC2", "BAMBAR8", "ABAR8", "ABAR8", "AMMOIC8", Font.CR_CYAN);
+				}
 				else if(WeaponUsesAmmoType("PB_Fuel") && !(CheckWeaponSelected("PB_Chainsaw") || CheckWeaponSelected("PB_Flamethrower")))
 				{
 					weaponBarAccent = Font.CR_ORANGE;

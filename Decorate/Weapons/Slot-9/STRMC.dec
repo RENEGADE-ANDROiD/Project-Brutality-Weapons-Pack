@@ -56,7 +56,7 @@ actor WarpTimer : Inventory
 Inventory.maxamount 200
 }
 
-Actor PowerChargeStorm : Ammo
+Actor PowerChargeStorm : PB_Ammo
 {
 inventory.maxamount 666
 Inventory.Icon "STRMA0"

@@ -35,7 +35,7 @@ TEAM MEMBERS:
 
 - RENEGADE ANDROiD
 
-- Risdar
+- BeefRIce / LovecraftNeko
 
 - Warcarlsson
 

@@ -6,18 +6,18 @@ version "4.11.3"
 // Spawners ZScript
 #include "zscript/MergedSpawner.zc"
 #include "ZScript/ChainsawSpawn.zc"
-#Include "Zscript/CSSG/CSSGEvent.zs"
+#Include "zscript/Weapons/Slot-3/CSSG/CSSGEvent.zs"
 #include "ZSCRIPT/GORENEST.zs"
 
 // Player Pawn Insanity (Testing)
 //#include "ZScript/INPlayer.zc"
 //#include "ZScript/PBMeleePlayer.zc"
-#Include "Zscript/CSSG/CSSG_Wheel.zs"
-#Include "Zscript/D2016SGWHEEL/D2016Shotgun_Wheel.zs"
+#Include "zscript/Weapons/Slot-3/CSSG/CSSG_Wheel.zs"
+#Include "Zscript/D2016Shotgun_Wheel.zs"
 #Include "ZScript/IN_SpecialWheeltest.zs"
 
 // Casings
-#Include "Zscript/CSSG/Casings.zs"
+#Include "zscript/Weapons/Slot-3/CSSG/Casings.zs"
 #Include "Zscript/DukeNukemBulletsSystem.zc"
 #include "ZScript/HASGCasings.zc"
 #include "ZScript/IN_BulletSystem.zc"
@@ -25,13 +25,13 @@ version "4.11.3"
 #include "ZScript/PlasmaRifleAssaultProjectile.zc"
 
 // Weapons & Etc (Testing)
-#include "Zscript/PB_Addons/CalamityBlade.zs"
-#Include "Zscript/CSSG/CSSG.zs"
-#Include "Zscript/CSSG/CSSG_Upgrades.zs"
+#Include "zscript/Weapons/Slot-3/CSSG/CSSG.zs"
+#Include "zscript/Weapons/Slot-3/CSSG/CSSG_Upgrades.zs"
 #include "ZScript/Weapons/Slot-4/HeavySniperRifle.zs"
 #include "ZScript/Weapons/Slot-6/Excavator.zs"
-#include "Zscript/PB_Addons/DemonicExt.zs"
-#include "Zscript/PB_Addons/DemonicExtFunctions.zs"
+#include "zscript/Weapons/Slot-8/CalamityBlade.zs"
+#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExt.zs"
+#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtFunctions.zs"
 Class UNMK_DExtActor : Actor{
 	Default{
 		Species "Marines";
@@ -52,11 +52,11 @@ Class UNMK_DExtFastProjectile : FastProjectile{
 		+FORCERADIUSDMG
 	}
 }
-#include "Zscript/PB_Addons/DemonicExtAttacks.zs"
-#include "Zscript/PB_Addons/DemonicExtProj.zs"
-#include "Zscript/PB_Addons/DemonicExtProj2.zs"
-#include "Zscript/PB_Addons/DemonicExtStuff.zs"
-#include "Zscript/PB_Addons/DemonicExt_Wheel.zs"
+#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtAttacks.zs"
+#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtProj.zs"
+#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtProj2.zs"
+#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtStuff.zs"
+#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExt_Wheel.zs"
 
 //By Warcarlsson
 class NoDrop_PB_CarbineZombieDrop : PB_CarbineZombieDrop replaces PB_CarbineZombieDrop
