@@ -35,13 +35,14 @@ RENEGADE ANDROiD
 Risdar
 
 Warcarlsson
------------------
+
 
 
 Most of these weapons have been around the Project Brutality Discord and former Brutal Repository over these previous years.  
 
 Weapons are currently being made compatible with the latest Project Brutality Staging releases.
 
+-----------------
 ---------------Slot 1 weapons---------------
 
 Argent Sith
