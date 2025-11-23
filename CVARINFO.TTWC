@@ -38,5 +38,64 @@ server	float	q_1airaccel				= 1.5;
 // Weapon spawners
 //Slot 1
 server int PBSpawnArgentSith = 1;
+server int PBSpawnBattleAxe = 1;
+//Slot 2
+server int PBSpawnHellPistol = 1;
+server int PBSpawnHellPistoler = 1;
+server int PBSpawnW_SMG = 1;
+//Slot 3
+server int PBSpawnPB_Doom2016Shotgun = 1;
+server int PBSpawnPB_CryoShotgun = 1;
+server int PBSpawnPB_CSSG = 1;
+server int PBSpawnRotationalSG = 1;
+server int PBSpawnHASG = 1;
+server int PBSpawnDemonTechShotgun = 1;
+server int PBSpawnM1887 = 1;
+server int PBSpawnMarauderSSG = 1;
+//Slot 4
+server int PBSpawnAK47 = 1;
+server int PBSpawnApocalypseKiller = 1;
+server int PBSpawnPB_BoltRifle = 1;
+server int PBSpawnDark_Fate = 1;
+server int PBSpawnHeavySniperRifle = 1;
+server int PBSpawnMagnumSniperRifle = 1;
+server int PBSpawnM41A = 1;
+//Slot 5
+server int PBSpawnFire_and_IceDragonSlayer = 1;
+server int PBSpawnINNailGun = 1;
+server int PBSpawnOldHMG = 1;
+server int PBSpawnD4Machinegun = 1;
+server int PBSpawnINMiniGun = 1;
+server int PBSpawnDukeNukemRipper = 1;
+server int PBSpawnSuperNailgun = 1;
+//Slot 6
+server int PBSpawnChthonicRifle = 1;
+server int PBSpawnCyberdemonsMissileLauncher = 1;
+server int PBSpawnDevastator = 1;
+server int PBSpawnPB_Excavator = 1;
+server int PBSpawnMastermindChaingun = 1;
+server int PBSpawnPaingiver = 1;
+server int PBSpawnD4RocketLauncher = 1;
+server int PBSpawnSuperGrenadeLauncher = 1;
+//Slot 7
+server int PBSpawnPlasmaRifleAssault = 1;
+server int PBSpawnD4PlasmaGun = 1;
+server int PBSpawnThunderCarrierTI = 1;
+server int PBSpawnD4VortexRifle = 1;
 //Slot 8
+server int PBSpawnExtinction_Ray = 1;
 server int PBSpawnCalamityBlade = 1;
+server int PBSpawnPB_GaussCannon = 1;
+server int PBSpawnIon_Heavy = 1;
+server int PBSpawnPB_MancubusFlameCannon = 1;
+//Slot 9
+server int PBSpawnBioAcidLauncher = 1;
+server int PBSpawnBallistagun = 1;
+server int PBSpawnStormcast = 1;
+server int PBSpawnThunderCrossbow = 1;
+//Slot 0
+server int PBSpawnAncientCrossbow = 1;
+server int PBSpawnTechBlaster = 1;
+server int PBSpawnPB_DemonExt = 1;
+server int PBSpawnDemonTechMinigun = 1;
+server int PBSpawnPhaseEradicatorBFG = 1;

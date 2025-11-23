@@ -42,33 +42,34 @@
 #include Decorate/Weapons/Slot-1/ArgentSith.dec
 #include Decorate/Weapons/Slot-1/BattleAxeAndShield.dec
 //Slot-2
-//#include Decorate/Weapons/Slot-2/Berreta.dec //New!
-//#include Decorate/Weapons/Slot-2/Berreta92.dec //For Starting game!
-//#include Decorate/Weapons/Slot-2/W_SMG.dec
+//#include Decorate/Weapons/Slot-2/Berreta.dec 
+//#include Decorate/Weapons/Slot-2/Berreta92.dec 
+#include Decorate/Weapons/Slot-2/W_SMG.dec
 #include Decorate/Weapons/Slot-2/Blood_Stains.dec
 //#include Decorate/Weapons/Slot-2/Magnum.dec
 //#include Decorate/Weapons/Slot-2/D3_Deagle.dec
-//#include Decorate/Weapons/Slot-2/Luger.dec //Decided to remove it.
-#include Decorate/Weapons/Slot-2/HellPistoler(AresMade).dec //New Weapon
+//#include Decorate/Weapons/Slot-2/Luger.dec 
+#include Decorate/Weapons/Slot-2/HellPistoler(AresMade).dec 
 #include Decorate/Weapons/Slot-2/DTPISTOL.dec
 //Slot-3
 //#include Decorate/Weapons/Slot-3/PumpShotgun.dec
 #include Decorate/Weapons/Slot-3/Lady_Golide.dec
-#include Decorate/Weapons/Slot-3/RotationalSG(AresMade).dec //New Weapon
+#include Decorate/Weapons/Slot-3/RotationalSG(AresMade).dec 
 #INCLUDE Decorate/Weapons/Slot-3/D2016SHOTGUN.dec
 #include Decorate/Weapons/Slot-3/DTShotgun.dec
 #include Decorate/Weapons/Slot-3/CryoShotgun.dec
 #include Decorate/Weapons/Slot-3/MarauderSSG.dec
 #include Decorate/Weapons/Slot-3/M1887.dec
 //Slot-4
-//#include Decorate/Weapons/Slot-4/BlackDMR.dec //For Starting game!
-//#include Decorate/Weapons/Slot-4/Adv_Mask_Man_Rifle.dec //New!
+//#include Decorate/Weapons/Slot-4/BlackDMR.dec 
+//#include Decorate/Weapons/Slot-4/Adv_Mask_Man_Rifle.dec 
 //#include Decorate/Weapons/Slot-4/Mask_Man_Rifle.dec
 #include Decorate/Weapons/Slot-4/AK-47.dec
 //#include Decorate/Weapons/Slot-4/M1X.dec
-//#include Decorate/Weapons/Slot-4/AssaultRifle.dec //New!
+//#include Decorate/Weapons/Slot-4/AssaultRifle.dec 
 #include Decorate/Weapons/Slot-4/M41A.dec
 #include Decorate/Weapons/Slot-4/BoltRifle.dec
+#include Decorate/Weapons/Slot-4/Magnum_Sniper_Rifle.dec
 #include Decorate/Weapons/Doom4WeaponPack/D4Machinegun.dec
 //Slot-5
 #include Decorate/Weapons/Slot-5/Dark_Fate.dec
@@ -80,7 +81,6 @@
 #include Decorate/Weapons/Slot-5/DukeNukemRipper.dec
 #include Decorate/Weapons/Slot-5/OLD-HMG.dec
 //Slot-6
-#include Decorate/Weapons/Slot-6/Magnum_Sniper_Rifle.dec
 //#include Decorate/Weapons/Slot-6/Fallen_Hawk.dec
 #include Decorate/Weapons/Slot-6/ChthonicRifle.dec
 #INCLUDE Decorate/Weapons/Slot-6/MastermindChaingun.dec

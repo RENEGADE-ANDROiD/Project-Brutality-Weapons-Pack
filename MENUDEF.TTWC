@@ -1,38 +1,118 @@
 AddOptionMenu "OptionsMenu"
 {
-    Submenu "Top Tier Weapon Collection Settings", "ttwcoptions"
+    Submenu "PB Weapon Collection Settings", "ttwcoptions"
 }
 
 OptionMenu "ttwcoptions"
 {
-	Title "Top Tier Weapon Collection Settings"
+	Title "PB Weapon Collection Settings"
     StaticText ""
-	Submenu "Behold! Fire & Ice Options", "BeholdOptions"
+	Option "Execution with Fire Button", "ttwcfbex", "OnOff"
     StaticText ""
-	submenu "Door buster settings","BusterMenu"
-    StaticText ""
-	submenu "Weapon Visual Options", "ZMoveMenu"
+	Submenu "Weapon Collection Spawn Settings", "WeaponCollectionSpawnSettings"
     StaticText ""
 	Submenu "Random Weapon Switcher", "SwitchItUpOptions"
     StaticText ""
-	Submenu "Weapon spawn settings", "PB03XWeaponSpawnSettings"
+	Submenu "Behold! Summon Enemies and Bosses", "BeholdOptions"
     StaticText ""
-	Option "Execution with Fire Button", "ttwcfbex", "OnOff"
+	submenu "DOORBUSTER","BusterMenu"
 }
 
 
-OptionMenu "PB03XWeaponSpawnSettings"
+OptionMenu "WeaponCollectionSpawnSettings"
 {
-	Title "PB03X weapon spawn settings"
+	Title "Weapon Collection Spawn Settings"
     StaticText ""
 	StaticText "---------------Slot 1 weapons---------------", gold
 	StaticText ""
 	Option "Spawn Argent Sith", "PBSpawnArgentSith", "OnOff"
+	Option "Spawn BattleAxe and Shield", "PBSpawnBattleAxe", "OnOff"
+    StaticText ""
+	StaticText "---------------Slot 2 weapons---------------", gold
+	StaticText ""
+	Option "Spawn Demon Tech Pistol", "PBSpawnHellPistol", "OnOff"
+	Option "Spawn Plasma Annihilator Pistol", "PBSpawnHellPistoler", "OnOff"
+	Option "Spawn Holy Bastard", "PBSpawnW_SMG", "OnOff"
 
     StaticText ""
+	StaticText "---------------Slot 3 weapons---------------", gold
+	StaticText ""
+	Option "Spawn Doom 2016 Shotgun", "PBSpawnPB_Doom2016Shotgun", "OnOff"
+	Option "Spawn Cryo Shotgun", "PBSpawnPB_CryoShotgun", "OnOff"
+	Option "Spawn Commander SSG", "PBSpawnPB_CSSG", "OnOff"
+	Option "Spawn Rotational SG", "PBSpawnRotationalSG", "OnOff"
+	Option "Spawn HASG aka Lady Golide", "PBSpawnHASG", "OnOff"
+	Option "Spawn Demon-Tech Shotgun", "PBSpawnDemonTechShotgun", "OnOff"
+	Option "Spawn M1887 Winchester Lever-Action", "PBSpawnM1887", "OnOff"
+	Option "Spawn Marauder SSG", "PBSpawnMarauderSSG", "OnOff"
+
+    StaticText ""
+	StaticText "---------------Slot 4 weapons---------------", gold
+	StaticText ""
+	Option "Spawn AK-47", "PBSpawnAK-47", "OnOff"
+	Option "Spawn Apocalypse Killer", "PBSpawnApocalypseKiller", "OnOff"
+	Option "Spawn Bolt-Action Sniper", "PBSpawnPB_BoltRifle", "OnOff"
+	Option "Spawn Dark Fate", "PBSpawnDark_Fate", "OnOff"
+	Option "Spawn Heavy Sniper Rifle", "PBSpawnHeavySniperRifle", "OnOff"
+	Option "Spawn Magnum Sniper Rifle", "PBSpawnMagnumSniperRifle", "OnOff"
+	Option "Spawn M41A Aliens Pulse Rifle", "PBSpawnM41A", "OnOff"
+
+    StaticText ""
+	StaticText "---------------Slot 5 weapons---------------", gold
+	StaticText ""
+	Option "Spawn Fire and Ice DragonSlayer Sword", "PBSpawnFire_and_Ice-DragonSlayer", "OnOff"
+	Option "Spawn Gallary Nailgun", "PBSpawnINNailGun", "OnOff"
+	Option "Spawn Old HMG", "PBSpawnOldHMG", "OnOff"
+	Option "Spawn Doom 2016 Machinegun", "PBSpawnD4Machinegun", "OnOff"
+	Option "Spawn Insanity's Nightmare Minigun", "PBSpawnINMiniGun", "OnOff"
+	Option "Spawn Ripper Chaingun", "PBSpawnDukeNukemRipper", "OnOff"
+	Option "Spawn UAC Super Nailgun", "PBSpawnSuperNailgun", "OnOff"
+
+     StaticText ""
+	StaticText "---------------Slot 6 weapons---------------", gold
+	StaticText ""
+	Option "Spawn Chthonic Rifle", "PBSpawnChthonicRifle", "OnOff"
+	Option "Spawn Cyberdemons Rocket Launcher", "PBSpawnCyberdemonsMissileLauncher", "OnOff"
+	Option "Spawn Devastator", "PBSpawnDevastator", "OnOff"
+	Option "Spawn Excavator", "PBSpawnPB_Excavator", "OnOff"
+	Option "Spawn Mastermind Chaingun", "PBSpawnMastermindChaingun", "OnOff"
+	Option "Spawn Paingiver", "PBSpawnPaingiver", "OnOff"
+	Option "Spawn Doom 2016 Rocket Launcher", "PBSpawnD4RocketLauncher", "OnOff"
+	Option "Spawn SuperGrenadeLauncher", "PBSpawnSuperGrenadeLauncher", "OnOff"
+
+     StaticText ""
+	StaticText "---------------Slot 7 weapons---------------", gold
+	StaticText ""
+	Option "Spawn Plasma Assault Rifle", "PBSpawnPlasmaRifleAssault", "OnOff"
+	Option "Spawn Doom 2016 Plasma Gun", "PBSpawnD4PlasmaGun", "OnOff"
+	Option "Spawn Thunder Carrier - Heavy Lust", "PBSpawnThunderCarrierTI", "OnOff"
+	Option "Spawn Doom 2016 Vortex Rifle", "PBSpawnD4VortexRifle", "OnOff"
+
+     StaticText ""
 	StaticText "---------------Slot 8 weapons---------------", gold
 	StaticText ""
+	Option "Spawn Argent Fury", "PBSpawnExtinction_Ray", "OnOff"
 	Option "Spawn Calamity Blade", "PBSpawnCalamityBlade", "OnOff"
+	Option "Spawn Gauss Cannon", "PBSpawnPB_GaussCannon", "OnOff"
+	Option "Spawn Ion Rifle", "PBSpawnIon_Heavy", "OnOff"
+	Option "Spawn MANCUBUS FLAMECANNON", "PBSpawnPB_MancubusFlameCannon", "OnOff"
+
+     StaticText ""
+	StaticText "---------------Slot 9 weapons---------------", gold
+	StaticText ""
+	Option "Spawn Bio-Acid Launcher", "PBSpawnBioAcidLauncher", "OnOff"
+	Option "Spawn Ballista", "PBSpawnBallistagun", "OnOff"
+	Option "Spawn Stormcast from Schism", "PBSpawnStormcast", "OnOff"
+	Option "Spawn Thunder Crossbow", "PBSpawnThunderCrossbow", "OnOff"
+
+     StaticText ""
+	StaticText "---------------Slot 0 weapons---------------", gold
+	StaticText ""
+	Option "Spawn Ancient Crossbow", "PBSpawnAncientCrossbow", "OnOff"
+	Option "Spawn Demon Atomizer", "PBSpawnTechBlaster", "OnOff"
+	Option "Spawn Demon Exterminator", "PBSpawnPB_DemonExt", "OnOff"
+	Option "Spawn Demon-Tech Minigun", "PBSpawnDemonTechMinigun", "OnOff"
+	Option "Spawn Phase Eradicator", "PBSpawnPhaseEradicatorBFG", "OnOff"
 }
 
 
