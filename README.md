@@ -30,7 +30,9 @@ Assembled by RENEGADE ANDROiD using Insanity's Nightmare as a base combined with
 TEAM MEMBERS:
 
 RENEGADE ANDROiD
+
 Risdar
+
 Warcarlsson
 
 
