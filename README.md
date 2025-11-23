@@ -1,4 +1,4 @@
-See PB Weapon Pack Options to configer:
+See PB Weapon Pack Options to configure:
 
 New Toggle On/Off feature: Fatality when clicking Fire for addon weapons in the pack.
 
