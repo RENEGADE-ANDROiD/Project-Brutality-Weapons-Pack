@@ -64,7 +64,7 @@ class IN_PlayerPrawn : PB_PlayerPrawn
         Player.WeaponSlot 7,"PlasmaRifleAssault","PB_M1Plasma","LightningGun","PB_M2Plasma";
         Player.WeaponSlot 8,"PB_CryoRifle","Extinction_Ray","PB_Flamethrower";
         Player.WeaponSlot 9,"ThunderCarrierTI","PB_Railgun","PB_BFG9000";
-        Player.WeaponSlot 0,"Hell_Rifle","BioAcidLauncher","PB_Unmaker","Satan_Scream";
+        Player.WeaponSlot 0,"Hell_Rifle","BioAcidLauncher","PB_Unmaker","Satan_Scream","PB_DemonTech";
 
         //Player.StartItem "PB_PDAWeaponContainer",1;
         Player.StartItem "Black_DMR-RKX";

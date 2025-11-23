@@ -546,6 +546,15 @@ class DukeNukemRipperInjector : PBInjector
 		}
 	}
 }
+class Duke_9x19mmRipper : PB_Projectile //Projectile Code
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 25;
+		PB_Projectile.RipperCount 10;
+		Obituary "%o was filled with Ripper by %k.";
+	}
+}
 
 //Super Nailgun
 class SuperNailgunSpawnerInjector : PBInjector
