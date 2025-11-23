@@ -584,6 +584,9 @@ class ChthonicRifleSpawnerInjector : PBInjector
 }
 
 //CyberdemonRL
+// Beef: 
+// CyberDemonRL already has a spawn mechanic, it drops from cyberdemons and annihilators
+// I think we don't need this
 class CyberdemonsMissileLauncherSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
@@ -640,7 +643,6 @@ class MastermindChaingunSpawnerInjector : PBInjector
 		}
 	}
 }
-
 
 //Paingiver
 class PaingiverSpawnerInjector : PBInjector

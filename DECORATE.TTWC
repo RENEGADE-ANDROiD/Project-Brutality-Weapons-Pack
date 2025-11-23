@@ -25,7 +25,7 @@
 #include actors/Monsters/E1BOSS.dec
 #include actors/Monsters/E1BOSS2.dec
 #include actors/Monsters/GOREN.dec
-#include actors/Monsters/PaingiverHelltrooper.dec
+//#include actors/Monsters/PaingiverHelltrooper.dec Beef: Only load this if you're making a non-GK version
 #include actors/Monsters/PaingiverHelltrooperGK.dec
 #include actors/Monsters/STONEGAR.dec
 
