@@ -26,65 +26,127 @@ Most of these weapons have been around the Project Brutality Discord and former 
 Weapons are currently being made compatible with the latest Project Brutality Staging releases.
 
 ---------------Slot 1 weapons---------------
+
 Argent Sith
+
 BattleAxe and Shield from Schism
+
 ---------------Slot 2 weapons---------------
+
 Demon-Tech Pistol
+
 Plasma Annihilator Pistol
+
 Holy Bastard
+
 ---------------Slot 3 weapons---------------
+
 Doom 2016 Shotgun
+
 Cryo Shotgun
+
 Commander SSG
+
 Rotational SG
+
 HASG aka Lady Golide
+
 Demon-Tech Shotgun
+
 M1887 Winchester Lever-Action
+
 Marauder SSG
+
 ---------------Slot 4 weapons---------------
+
 AK-47
+
 Apocalypse Killer
+
 Bolt-Action Sniper
+
 Dark Fate
+
 Heavy Sniper Rifle
+
 Magnum Sniper Rifle
+
 M41A Aliens Pulse Rifle
+
 ---------------Slot 5 weapons---------------
+
 Fire and Ice DragonSlayer Sword
+
 Gallary Nailgun
+
 Old HMG
+
 Doom 2016 Machinegun
+
 Insanity's Nightmare Minigun
+
 Ripper Chaingun
+
 UAC Super Nailgun
+
 ---------------Slot 6 weapons---------------
+
 Chthonic Rifle
+
 Cyberdemons Rocket Launcher
+
 Devastator
+
 Excavator
+
 Mastermind Chaingun
+
 Paingiver
+
 Doom 2016 Rocket Launcher
+
 SuperGrenadeLauncher
+
 ---------------Slot 7 weapons---------------
+
 Plasma Assault Rifle
+
 Doom 2016 Plasma Gun
+
 Thunder Carrier - Heavy Lust
+
 Doom 2016 Vortex Rifle
+
 ---------------Slot 8 weapons---------------
+
 Argent Fury
+
 Calamity Blade
+
 Gauss Cannon
+
 Ion Rifle
+
 MANCUBUS FLAMECANNON
+
 ---------------Slot 9 weapons---------------
+
 Bio-Acid Launcher
+
 Ballista
+
 Stormcast from Schism
+
 Thunder Crossbow from Brutal Hexen
+
 ---------------Slot 0 weapons---------------
+
 Ancient Crossbow
+
 Demon Atomizer
+
 Demon Exterminator
+
 Demon-Tech Minigun
+
 Phase Eradicator
