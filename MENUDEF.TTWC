@@ -38,7 +38,7 @@ OptionMenu "WeaponPackSpawnSettings"
     StaticText ""
 	StaticText "---------------Slot 3 weapons---------------", gold
 	StaticText ""
-//	Option "Spawn Doom 2016 Shotgun", "PBSpawnPB_Doom2016Shotgun", "OnOff"
+	Option "Spawn Doom 2016 Shotgun", "PBSpawnPB_Doom2016Shotgun", "OnOff"
 	Option "Spawn Cryo Shotgun", "PBSpawnPB_CryoShotgun", "OnOff"
 	Option "Spawn Commander SSG", "PBSpawnPB_CSSG", "OnOff"
 	Option "Spawn Rotational SG", "PBSpawnRotationalSG", "OnOff"
