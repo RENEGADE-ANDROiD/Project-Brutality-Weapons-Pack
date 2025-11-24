@@ -432,3 +432,32 @@ Brightmap Sprite MSNSF0 { map "Brightmaps/Weapons/MS/BMMSNSF0.png" DisableFullbr
 Brightmap Sprite MSNSG0 { map "Brightmaps/Weapons/MS/BMMSNSG0.png" DisableFullbright }
 Brightmap Sprite MSNSH0 { map "Brightmaps/Weapons/MS/BMMSNSH0.png" DisableFullbright }
 Brightmap Sprite MSNSI0 { map "Brightmaps/Weapons/MS/BMMSNSI0.png" DisableFullbright }
+
+//Glorykill Stuff
+    //Deep One
+hardwareshader sprite CXTHL1 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite CXTHL2 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite CXTHL3 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite CXTHL4 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite CXTHL5 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite CXTHL6 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite CXTHL7 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite CXTHL8 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+    //Worm
+hardwareshader sprite PGSSG1 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG2 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG3 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG4 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG5 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG6 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG7 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG8 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+    //StoneGargoyle
+hardwareshader sprite PGSSG1 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG2 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG3 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG4 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG5 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG6 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG7 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+hardwareshader sprite PGSSG8 	{ Shader "shaders/glorykill.shader" Speed 1.0 }

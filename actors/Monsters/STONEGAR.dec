@@ -1,4 +1,4 @@
-Actor StoneGargoyle
+Actor StoneGargoyle : PB_Monster
 {
   //$Category Monsters/Earth
   //$Title "Stone Gargoyle"  
