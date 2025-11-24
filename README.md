@@ -46,6 +46,7 @@ TEAM MEMBERS:
 
 - Argent Sith
 - BattleAxe and Shield from Schism
+- Razorjack from Russian Overkill
 
 ---------------Slot 2 weapons---------------
 
@@ -71,6 +72,7 @@ TEAM MEMBERS:
 - Heavy Sniper Rifle
 - Magnum Sniper Rifle
 - M41A Aliens Pulse Rifle
+- Power Overwhelming from Russian Overkill
 
 ---------------Slot 5 weapons---------------
 
