@@ -59,6 +59,11 @@ class TechBlasterSpawnerInjector : PBInjector
 		//handler.InjectSpawn('PB_PlasSpawnerT2', 'TechBlaster', 255, 1);
 		handler.InjectSpawn('PB_PlasSpawnerT3', 'TechBlaster', 255, 1);
 		handler.InjectSpawn('PB_PlasSpawnerT4', 'TechBlaster', 255, 1);
+
+		//It's Upgrade
+		handler.InjectSpawn('PB_PackSpawnerT2', 'TechBlasterUpgrade', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT3', 'TechBlasterUpgrade', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT4', 'TechBlasterUpgrade', 255, 1);
 		}
 	}
 }
@@ -210,6 +215,7 @@ class P_SMGSpawnerInjector : PBInjector
 //SLOT 3 ===================================================================================== 3 ==
 
 //2016 Shotgun
+
 class PB_Doom2016ShotgunSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
@@ -356,7 +362,7 @@ class PB_AK47SpawnerInjector : PBInjector
 		}
 	}
 }
-
+/*
 //Apocalypse Killer - IN
 class ApocalypseKillerSpawnerInjector : PBInjector
 {
@@ -370,7 +376,7 @@ class ApocalypseKillerSpawnerInjector : PBInjector
 		}
 	}
 }
-
+*/
 //Bolt Action Sniper
 class PB_BoltRifleSpawnerInjector : PBInjector
 {
@@ -685,6 +691,7 @@ class PaingiverSpawnerInjector : PBInjector
 		handler.InjectSpawn('PB_RLSpawnerT3', 'Paingiver', 255, 1);
 		handler.InjectSpawn('PB_RLSpawnerT4', 'Paingiver', 255, 1);
 		handler.InjectSpawn('PB_ChainGuySpawner_T4', 'HellTrooperPaingiver', 255, 1); //This injects the custom monster
+		//If there are more custom monsters we should make a separate injector for them
 		}
 	}
 }
@@ -946,6 +953,20 @@ class Shielsawammo_Injector : PBInjector
 		handler.InjectSpawn('PB_SawSpawnerT2', 'ShieldsawAmmo', 255, 1);
 		handler.InjectSpawn('PB_SawSpawnerT3', 'ShieldsawAmmo', 255, 1);
 		handler.InjectSpawn('PB_SawSpawnerT4', 'ShieldsawAmmo', 255, 1);
+		
+	}
+}
+
+//ShieldSaw =======================================================================================
+class BladeAmmo_Injector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		
+		handler.InjectSpawn('PB_PackSpawnerT1', 'BladeAmmo', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'BladeAmmo', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT3', 'BladeAmmo', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT4', 'BladeAmmo', 255, 1);
 		
 	}
 }

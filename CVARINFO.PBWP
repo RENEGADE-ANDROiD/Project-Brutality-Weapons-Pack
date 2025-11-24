@@ -45,7 +45,7 @@ server int PBSpawnHellPistol = 1;
 server int PBSpawnHellPistoler = 1;
 server int PBSpawnW_SMG = 1;
 //Slot 3
-server int PBSpawnPB_Doom2016Shotgun = 1;
+server int PBSpawnPB_Doom2016Shotgun = 1;	//BORING GUN
 server int PBSpawnPB_CryoShotgun = 1;
 server int PBSpawnPB_CSSG = 1;
 server int PBSpawnRotationalSG = 1;
@@ -55,7 +55,7 @@ server int PBSpawnM1887 = 1;
 server int PBSpawnMarauderSSG = 1;
 //Slot 4
 server int PBSpawnAK47 = 1;
-server int PBSpawnApocalypseKiller = 1;
+//server int PBSpawnApocalypseKiller = 1;	//UNFINISHED SNIPER
 server int PBSpawnPB_BoltRifle = 1;
 server int PBSpawnDark_Fate = 1;
 server int PBSpawnHeavySniperRifle = 1;
@@ -90,7 +90,6 @@ server int PBSpawnCalamityBlade = 1;
 server int PBSpawnPB_GaussCannon = 1;
 server int PBSpawnIon_Heavy = 1;
 server int PBSpawnPB_MancubusFlameCannon = 1;
-server int PBSpawnMancFlameCannonDrop = 1;
 //Slot 9
 server int PBSpawnBioAcidLauncher = 1;
 server int PBSpawnBallistagun = 1;
@@ -102,3 +101,11 @@ server int PBSpawnTechBlaster = 1;
 server int PBSpawnPB_DemonExt = 1;
 server int PBSpawnDemonTechMinigun = 1;
 server int PBSpawnPhaseEradicatorBFG = 1;
+
+//===============================================
+// Monster Drops
+server int PBSpawnALLDTechDrop = 1;
+server int PBSpawnMastermindCGDrop = 1;
+server int PBSpawnCyberdemonRLDrop = 1;
+server int PBSpawnPaingiverDrop = 1;
+server int PBSpawnMancFlameCannonDrop = 1;

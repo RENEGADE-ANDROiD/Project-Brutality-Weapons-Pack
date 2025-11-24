@@ -63,7 +63,7 @@ Actor MastermindChaingun : PB_Weapon
 		     }
 	    TNT1 A 0
   MastermindChaingunReadyToFire:
-	    TNT1 A 0 PB_HandleCrosshair(75);
+	    TNT1 A 0 PB_HandleCrosshair(75)
 	    RMNG F 1 {
 		     if (CountInv("MastermindChaingunFired") >= 60) { A_GunFlash("MastermindChaingunBarrelSmoke");
 		     }

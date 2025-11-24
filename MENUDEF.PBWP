@@ -10,6 +10,8 @@ OptionMenu "ttwcoptions"
 	Option "Fatalities when clicking Fire Button", "ttwcfbex", "OnOff"
     StaticText ""
 	Submenu "Weapon Pack Spawn Settings", "WeaponPackSpawnSettings"
+	StaticText ""
+	Submenu "Monster Drop Weapon Settings", "MonsterDropWeapSett"
     StaticText ""
 	Submenu "Random Weapon Switcher", "SwitchItUpOptions"
     StaticText ""
@@ -18,6 +20,26 @@ OptionMenu "ttwcoptions"
 	submenu "DOORBUSTER","BusterMenu"
 }
 
+OptionMenu "MonsterDropWeapSett"
+{
+	Title "Monster Drop Weapon Settings"
+	StaticText ""
+	StaticText "---------------Specials---------------", gold
+	StaticText ""
+	Option "D-Tech Trooper Spawn All D-Tech Weapons", "PBSpawnALLDTechDrop", "OnOff"
+	
+	StaticText ""
+	StaticText "---------------Slot 6 weapons---------------", gold
+	StaticText ""
+	Option "CyberdemonRL Drop from Cyberdemons", "PBSpawnCyberdemonRLDrop", "OnOff"
+	Option "Mastermind Chaingun Drop from Masterminds", "PBSpawnMastermindCGDrop", "OnOff"
+	Option "Paingiver Drop from Rocket Hell Trooper", "PBSpawnPaingiverDrop", "OnOff"
+
+	StaticText ""
+	StaticText "---------------Slot 8 weapons---------------", gold
+	StaticText ""
+	Option "Mancubus Flame Cannon Drop from Mancubus", "PBSpawnMancFlameCannonDrop", "OnOff"
+}
 
 OptionMenu "WeaponPackSpawnSettings"
 {
@@ -51,7 +73,7 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText "---------------Slot 4 weapons---------------", gold
 	StaticText ""
 	Option "Spawn AK-47", "PBSpawnAK47", "OnOff"
-	Option "Spawn Apocalypse Killer", "PBSpawnApocalypseKiller", "OnOff"
+//	Option "Spawn Apocalypse Killer", "PBSpawnApocalypseKiller", "OnOff"
 	Option "Spawn Bolt-Action Sniper", "PBSpawnPB_BoltRifle", "OnOff"
 	Option "Spawn Dark Fate", "PBSpawnDark_Fate", "OnOff"
 	Option "Spawn Heavy Sniper Rifle", "PBSpawnHeavySniperRifle", "OnOff"
@@ -98,7 +120,6 @@ OptionMenu "WeaponPackSpawnSettings"
 	Option "Spawn Gauss Cannon", "PBSpawnPB_GaussCannon", "OnOff"
 	Option "Spawn Ion Rifle", "PBSpawnIon_Heavy", "OnOff"
 	Option "Spawn MANCUBUS FLAMECANNON", "PBSpawnPB_MancubusFlameCannon", "OnOff"
-	Option "Mancubus Flame Cannon Drop from Mancubus", "PBSpawnMancFlameCannonDrop", "OnOff"
 
      StaticText ""
 	StaticText "---------------Slot 9 weapons---------------", gold
