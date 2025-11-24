@@ -67,7 +67,6 @@ TEAM MEMBERS:
 ---------------Slot 4 weapons---------------
 
 - AK-47
-- Apocalypse Killer
 - Bolt-Action Sniper
 - Dark Fate
 - Heavy Sniper Rifle
