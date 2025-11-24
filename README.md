@@ -72,6 +72,7 @@ TEAM MEMBERS:
 - Heavy Sniper Rifle
 - Magnum Sniper Rifle
 - M41A Aliens Pulse Rifle
+- Power Overwhelming from Russian Overkill
 
 ---------------Slot 5 weapons---------------
 
@@ -80,7 +81,6 @@ TEAM MEMBERS:
 - Old HMG
 - Doom 2016 Machinegun
 - Insanity's Nightmare Minigun
-- Power Overwhelming from Russian Overkill
 - Ripper Chaingun
 - UAC Super Nailgun
 
