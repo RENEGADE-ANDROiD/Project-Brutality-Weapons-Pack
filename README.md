@@ -55,7 +55,6 @@ TEAM MEMBERS:
 
 ---------------Slot 3 weapons---------------
 
-- Doom 2016 Shotgun
 - Cryo Shotgun
 - Commander SSG
 - Rotational SG
