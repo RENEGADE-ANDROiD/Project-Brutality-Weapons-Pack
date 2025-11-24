@@ -1,14 +1,12 @@
 Gameinfo
 {
-	addeventhandlers = "CSSGEvent"
-}
-Gameinfo
-{
-	addeventhandlers = "ExterminatorStuff"
-}
-gameinfo
-{
-	addeventhandlers = "BusterHandler"
+	addeventhandlers = "CSSGEvent",
+	//"PB_DragonSlayerSpawner",
+    //"PB_StormcastSpawner",
+    "RandomWeaponSwitcher",
+    "CyberdemonRLDrop",
+	"ExterminatorStuff",
+	"BusterHandler"
 }
 //gameinfo
 //{

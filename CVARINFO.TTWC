@@ -73,6 +73,7 @@ server int PBSpawnSuperNailgun = 1;
 //Slot 6
 server int PBSpawnChthonicRifle = 1;
 server int PBSpawnCyberdemonsMissileLauncher = 1;
+server int PBSpawnCyberdemonRLDrop = 1;
 server int PBSpawnDevastator = 1;
 server int PBSpawnPB_Excavator = 1;
 server int PBSpawnMastermindChaingun = 1;

@@ -1,5 +1,7 @@
 version "4.11.3"
 
+#include "ZSCRIPT/beefhandler.zs"
+
 // Random Weapon Switch
 #include "zscript/Random Weapon Switcher/ZRWSwitchMenu.zc"
 #include "zscript/Random Weapon Switcher/ZRWSwitcher.zc"

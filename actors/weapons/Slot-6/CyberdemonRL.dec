@@ -288,7 +288,7 @@ ACTOR CyberBallsPlayer: FastProjectile
 }
 
 // Spawn/Drop Code
-ACTOR PB_AnnihilatorRLDrop : PB_AnnihilatorGK replaces PB_AnnihilatorGK
+/*ACTOR PB_AnnihilatorRLDrop : PB_AnnihilatorGK replaces PB_AnnihilatorGK
 {
 	DropItem "CyberdemonsMissileLauncher", 256
 }
@@ -296,4 +296,4 @@ ACTOR PB_AnnihilatorRLDrop : PB_AnnihilatorGK replaces PB_AnnihilatorGK
 ACTOR PB_CyberdemonRLDrop : PB_CyberdemonGK  replaces PB_CyberdemonGK 
 {
 	DropItem "CyberdemonsMissileLauncher", 256
-}
+}*/
