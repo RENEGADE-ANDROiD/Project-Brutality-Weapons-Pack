@@ -137,6 +137,21 @@ class BattleAxeSpawnerInjector : PBInjector
 	}
 }
 
+//Razorjack - RO
+class RazorjackSpawnerInjector : PBInjector
+{
+	override void init(PB_EventHandler handler)
+	{
+	if (PBSpawnRazorjack == 1)
+		{
+		handler.InjectSpawn("PB_SawSpawnerT1", "Razorjack", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT2", "Razorjack", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT3", "Razorjack", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT4", "Razorjack", 255, 1);
+		}
+	}
+}
+
 //SLOT 2 ===================================================================================== 2 ==
 
 //DemonPistol - DTECH

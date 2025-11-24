@@ -1,4 +1,39 @@
-//Power Overwhelming	//4
+//Razorjack - RO
+Razorjack/gun	RAZRGUN
+Razorjack/idle	RAZRIDLE
+Razorjack/iend	RAZRIEND
+
+Razorjack/up	RAZRUP
+Razorjack/loop	RAZRLOOP
+Razorjack/down	RAZRDOWN
+
+$random Razorjack/hit { Razorjack/hit1 Razorjack/hit2 Razorjack/hit3 Razorjack/hit4 }
+Razorjack/hit1	RAZRHIT1
+Razorjack/hit2	RAZRHIT2
+Razorjack/hit3	RAZRHIT3
+Razorjack/hit4	RAZRHIT4
+
+$random Razorjack/flesh { Razorjack/flesh0 Razorjack/flesh1 Razorjack/flesh2 Razorjack/flesh3 Razorjack/flesh4 Razorjack/flesh5 Razorjack/flesh6 Razorjack/flesh7 Razorjack/flesh8 Razorjack/flesh9 }
+Razorjack/flesh0	RAZRFLS0
+Razorjack/flesh1	RAZRFLS1
+Razorjack/flesh2	RAZRFLS2
+Razorjack/flesh3	RAZRFLS3
+Razorjack/flesh4	RAZRFLS4
+Razorjack/flesh5	RAZRFLS5
+Razorjack/flesh6	RAZRFLS6
+Razorjack/flesh7	RAZRFLS7
+Razorjack/flesh8	RAZRFLS8
+Razorjack/flesh9	RAZRFLS9
+
+$random Razorjack/fire { Razorjack/1 Razorjack/2 Razorjack/3 }
+Razorjack/1		RAZRFIR1
+Razorjack/2		RAZRFIR2
+Razorjack/3		RAZRFIR3
+
+Razorjack/BladeWall		RAZRWALL
+Razorjack/BladeBounce	RAZRBNC
+
+//Power Overwhelming - RO
 Overwhelming/Up		 POWOUP
 Overwhelming/Taunt	 POWOTAUN
 Overwhelming/Start	 POWOSTRT

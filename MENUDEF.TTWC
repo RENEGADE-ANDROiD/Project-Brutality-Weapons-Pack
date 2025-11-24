@@ -9,7 +9,7 @@ OptionMenu "ttwcoptions"
     StaticText ""
 	Option "Fatalities when clicking Fire Button", "ttwcfbex", "OnOff"
     StaticText ""
-	Submenu "Weapon Pack Spawn Settings", "WeaponCollectionSpawnSettings"
+	Submenu "Weapon Pack Spawn Settings", "WeaponPackSpawnSettings"
     StaticText ""
 	Submenu "Random Weapon Switcher", "SwitchItUpOptions"
     StaticText ""
@@ -19,14 +19,15 @@ OptionMenu "ttwcoptions"
 }
 
 
-OptionMenu "WeaponCollectionSpawnSettings"
+OptionMenu "WeaponPackSpawnSettings"
 {
-	Title "Weapon Collection Spawn Settings"
+	Title "Weapon Pack Spawn Settings"
     StaticText ""
 	StaticText "---------------Slot 1 weapons---------------", gold
 	StaticText ""
 	Option "Spawn Argent Sith", "PBSpawnArgentSith", "OnOff"
 	Option "Spawn BattleAxe and Shield from Schism", "PBSpawnBattleAxe", "OnOff"
+	Option "Spawn Razorjack from Russian Overkill", "PBSpawnRazorjack", "OnOff"
     StaticText ""
 	StaticText "---------------Slot 2 weapons---------------", gold
 	StaticText ""

@@ -39,6 +39,7 @@ server	float	q_1airaccel				= 1.5;
 //Slot 1
 server int PBSpawnArgentSith = 1;
 server int PBSpawnBattleAxe = 1;
+server int PBSpawnRazorjack = 1;
 //Slot 2
 server int PBSpawnHellPistol = 1;
 server int PBSpawnHellPistoler = 1;
