@@ -62,7 +62,7 @@
 //#include actors/Weapons/Slot-3/PumpShotgun.dec
 #include actors/Weapons/Slot-3/Lady_Golide.dec
 #include actors/Weapons/Slot-3/RotationalSG(AresMade).dec 
-#INCLUDE actors/Weapons/Slot-3/D2016SHOTGUN.dec
+//#INCLUDE actors/Weapons/Slot-3/D2016SHOTGUN.dec	//BORING GUN
 #include actors/Weapons/Slot-3/DTShotgun.dec
 #include actors/Weapons/Slot-3/CryoShotgun.dec
 #include actors/Weapons/Slot-3/MarauderSSG.dec
@@ -83,7 +83,7 @@
 #include actors/Weapons/Slot-5/Dark_Fate.dec
 #include actors/Weapons/Slot-5/Gallary.dec
 #include actors/Weapons/Slot-5/INMinigun.dec
-#include actors/Weapons/Slot-5/Apocalypse_Killer.dec 
+//#include actors/Weapons/Slot-5/Apocalypse_Killer.dec	//UNFINISHED SNIPER
 #include actors/Weapons/Slot-5/DSlayer.dec
 #INCLUDE actors/Weapons/Slot-5/SuperNailgun.dec
 #include actors/Weapons/Slot-5/DukeNukemRipper.dec

@@ -20,7 +20,7 @@ version "4.11.3"
 // Weapon Wheel Stuff
 #include "zscript/Weapons/Slot-3/CSSG/CSSG_Wheel.zs"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExt_Wheel.zs"
-#include "Zscript/D2016Shotgun_Wheel.zs"
+//#include "Zscript/D2016Shotgun_Wheel.zs" //BORING GUN
 #include "zscript/Insanity's Nightmare/IN_SpecialWheeltest.zs"
 
 // Casings
