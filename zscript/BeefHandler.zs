@@ -26,7 +26,7 @@ class BeefRiceWeaponDrop : EventHandler
                 vector3 monsPos = actor.pos;
                 double monsHeight = actor.height;
                 //console.printf("Cyberdemon Killed");
-                actor.Spawn("CyberdemonsMissileLauncher", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
+                actor.Spawn("CyberdemonRLSpawner", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
                 }
                 break;
 
@@ -35,7 +35,7 @@ class BeefRiceWeaponDrop : EventHandler
                 {
                 vector3 monsPos = actor.pos;
                 double monsHeight = actor.height;
-                actor.Spawn("Paingiver", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
+                actor.Spawn("PainGiverSpawner", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
                 }
                 break;
 
@@ -46,7 +46,7 @@ class BeefRiceWeaponDrop : EventHandler
                 {
                 vector3 monsPos = actor.pos;
                 double monsHeight = actor.height;
-                actor.Spawn("MastermindChaingun", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
+                actor.Spawn("MastermindCGSpawner", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
                 }
                 break;
 

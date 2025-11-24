@@ -26,7 +26,7 @@ OptionMenu "MonsterDropWeapSett"
 	StaticText ""
 	StaticText "---------------Specials---------------", gold
 	StaticText ""
-	Option "Should the D-Tech Trooper Spawn All D-Tech Weapons", "PBSpawnALLDTechDrop", "OnOff"
+	Option "D-Tech Trooper Spawn All D-Tech Weapons", "PBSpawnALLDTechDrop", "OnOff"
 	
 	StaticText ""
 	StaticText "---------------Slot 6 weapons---------------", gold

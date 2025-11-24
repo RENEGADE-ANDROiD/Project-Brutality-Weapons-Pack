@@ -1,0 +1,26 @@
+// This file is what the BeefRiceWeaponDrop Handler drops
+// You can change the chances of the drops here
+
+Actor TechBlasterSpawner : RandomSpawner
+{
+    Dropitem "HellPistol", 256, 10
+    Dropitem "TechBlaster", 256, 5
+    Dropitem "DemonTechMinigun", 256, 4
+    Dropitem "DemonTechShotgunGiver", 256, 3
+    Dropitem "TechBlasterUpgrade", 256, 1
+}
+
+Actor CyberdemonRLSpawner : RandomSpawner
+{
+    Dropitem "CyberdemonsMissileLauncher", 256, 256
+}
+
+Actor MastermindCGSpawner : RandomSpawner
+{
+    Dropitem "MastermindChaingun", 256, 256
+}
+
+Actor PainGiverSpawner : RandomSpawner
+{
+    Dropitem "Paingiver", 256, 256
+}

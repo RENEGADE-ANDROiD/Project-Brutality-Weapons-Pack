@@ -30,7 +30,7 @@
 
 // Spawners
 #include actors/Spawners/WeaponSpawners/Weapons_Spawner.dec
-#include actors/Spawners/WeaponSpawners/TheSpawnerProgD-Tech.dec
+#include actors/Spawners/WeaponSpawners/BeefMonsterDrop.dec
 #include actors/Spawners/BEHOLD.dec
 
 // Special
