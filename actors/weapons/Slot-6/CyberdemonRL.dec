@@ -288,9 +288,6 @@ ACTOR CyberBallsPlayer: FastProjectile
 }
 
 // Spawn/Drop Code
-// Beef:
-// Will disable for now until we can agree whether to keep this or use the injector
-/*
 ACTOR PB_AnnihilatorRLDrop : PB_AnnihilatorGK replaces PB_AnnihilatorGK
 {
 	DropItem "CyberdemonsMissileLauncher", 256
@@ -300,4 +297,3 @@ ACTOR PB_CyberdemonRLDrop : PB_CyberdemonGK  replaces PB_CyberdemonGK
 {
 	DropItem "CyberdemonsMissileLauncher", 256
 }
-	*/

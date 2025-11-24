@@ -97,6 +97,7 @@ OptionMenu "WeaponCollectionSpawnSettings"
 	Option "Spawn Gauss Cannon", "PBSpawnPB_GaussCannon", "OnOff"
 	Option "Spawn Ion Rifle", "PBSpawnIon_Heavy", "OnOff"
 	Option "Spawn MANCUBUS FLAMECANNON", "PBSpawnPB_MancubusFlameCannon", "OnOff"
+	Option "Mancubus Flame Cannon Drop from Mancubus", "PBSpawnMancFlameCannonDrop", "OnOff"
 
      StaticText ""
 	StaticText "---------------Slot 9 weapons---------------", gold
