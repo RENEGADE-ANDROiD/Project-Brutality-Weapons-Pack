@@ -46,6 +46,7 @@ TEAM MEMBERS:
 
 - Argent Sith
 - BattleAxe and Shield from Schism
+- Razorjack from Russian Overkill
 
 ---------------Slot 2 weapons---------------
 
@@ -79,6 +80,7 @@ TEAM MEMBERS:
 - Old HMG
 - Doom 2016 Machinegun
 - Insanity's Nightmare Minigun
+- Power Overwhelming from Russian Overkill
 - Ripper Chaingun
 - UAC Super Nailgun
 
