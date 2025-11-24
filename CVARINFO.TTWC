@@ -90,6 +90,7 @@ server int PBSpawnCalamityBlade = 1;
 server int PBSpawnPB_GaussCannon = 1;
 server int PBSpawnIon_Heavy = 1;
 server int PBSpawnPB_MancubusFlameCannon = 1;
+server int PBSpawnMancFlameCannonDrop = 1;
 //Slot 9
 server int PBSpawnBioAcidLauncher = 1;
 server int PBSpawnBallistagun = 1;
