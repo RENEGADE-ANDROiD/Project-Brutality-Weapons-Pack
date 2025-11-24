@@ -6,7 +6,7 @@
 #include actors/Equipments/hook.dec
 #include actors/Weapons/Doom4WeaponPack/ItemsUpgrades.dec
 #include actors/Weapons/Doom4WeaponPack/UpgradeStation.dec
-	// RemoteGrenades
+// RemoteGrenades
 #include actors/Equipments/RemoteGrenades/Prosurv_Swarm.dec
 #include actors/Equipments/RemoteGrenades/AcidCharge.dec
 #include actors/Equipments/RemoteGrenades/LaserCharge.dec
