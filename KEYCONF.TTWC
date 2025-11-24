@@ -44,6 +44,7 @@ alias dp_show_mode "give DP_ModeReporter; use DP_ModeReporter"
 
 Addslotdefault 1 PB_BeamKatana
 addslotdefault 1 BattleAxe
+addslotdefault 1 Razorjack
 addslotdefault 2 W_SMG
 addslotdefault 2 P_SMG
 addslotdefault 2 HellPistoler
