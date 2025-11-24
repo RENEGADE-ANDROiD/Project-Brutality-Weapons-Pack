@@ -110,7 +110,7 @@ Actor PowerOverwhelming : PB_Weapon
 	   TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
 	   TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 	   Goto SelectFirstPersonLegs
-	   SelectContinue:
+SelectContinue:
 	   TNT1 A 0 A_Raise
 	   OVRG A 1 A_Raise(12)
 	   Wait

@@ -171,3 +171,116 @@ Actor EmpoweredRazorblade : Razorblade
 		Loop
 	}
 }
+
+ACTOR RazorbladeTrailA : RazorbladeTrail
+{
+	Alpha 1
+	States
+	{
+	Spawn:
+	SAW5 A 1 A_FadeOut(0.1)
+	Wait
+	}
+}
+
+ACTOR RazorbladeTrailB : RazorbladeTrail
+{
+	Alpha 1
+	States
+	{
+	Spawn:
+	SAW5 B 1 A_FadeOut(0.1)
+	Wait
+	}
+}
+
+ACTOR RazorbladeTrailC : RazorbladeTrail
+{
+	Alpha 1
+	States
+	{
+	Spawn:
+	SAW5 C 1 A_FadeOut(0.1)
+	Wait
+	}
+}
+
+ACTOR RazorbladeTrailD : RazorbladeTrail
+{
+	Alpha 1
+	States
+	{
+	Spawn:
+	SAW5 D 1 A_FadeOut(0.1)
+	Wait
+	}
+}
+
+ACTOR RazorbladeTrailE : RazorbladeTrail
+{
+	Alpha 1
+	States
+	{
+	Spawn:
+	SAW5 E 1 A_FadeOut(0.1)
+	Wait
+	}
+}
+
+ACTOR RazorbladeTrailF : RazorbladeTrail
+{
+	Alpha 1
+	States
+	{
+	Spawn:
+	SAW5 F 1 A_FadeOut(0.1)
+	Wait
+	}
+}
+
+ACTOR RazorbladeTrailG : RazorbladeTrail
+{
+	Alpha 1
+	States
+	{
+	Spawn:
+	SAW5 G 1 A_FadeOut(0.1)
+	Wait
+	}
+}
+
+ACTOR RazorbladeTrailH : RazorbladeTrail
+{
+	Alpha 1
+	States
+	{
+	Spawn:
+	SAW5 H 1 A_FadeOut(0.1)
+	Wait
+	}
+}
+
+Actor BladeAmmo : Ammo
+{
+	radius 6
+	height 8
+	Scale 0.8
+	Inventory.Amount 1
+	Inventory.MaxAmount 20
+	Ammo.BackpackAmount 5
+	Ammo.BackpackMaxAmount 40
+	Inventory.PickupMessage "Picked up a Sawblade."
+	Inventory.PickupSound "blade/pick"
+	Inventory.Icon "BLADE0"
+	States
+	{
+	Spawn:
+		SAW5 A -1
+		Loop
+	}
+}
+
+Actor RazorbladeStruck : BladeAmmo
+{
+	+NoGravity
+}

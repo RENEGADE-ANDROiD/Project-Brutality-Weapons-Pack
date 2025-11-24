@@ -14,6 +14,8 @@ Alt-Fire - Epic Games (Unreal)
 
 Actor RazorType : Inventory { Inventory.MaxAmount 1 }
 
+ACTOR BouncerBladesLoaded : Inventory { Inventory.MaxAmount 1 }
+
 ACTOR Razorjack : PB_Weapon
 { 
     	Game Doom
@@ -36,6 +38,9 @@ ACTOR Razorjack : PB_Weapon
 	Weapon.SelectionOrder 220
 	Weapon.Kickback 10
 	Weapon.SlotNumber 1
+	Weapon.AmmoGive2 10
+	Weapon.AmmoType2 "BladeAmmo"
+	Weapon.AmmoUse2 1
 	Weapon.BobStyle InverseSmooth
 	Weapon.BobSpeed 1.6
 	Weapon.BobRangeY 0.6
@@ -43,10 +48,15 @@ ACTOR Razorjack : PB_Weapon
 	Inventory.AltHUDIcon "RAZGX0"
 	States 
 	{ 
+   	Steady:
+		TNT1 A 1
+		Goto Ready
 	Spawn: 
 		RAZG X -1 
 		Loop
 	Ready:
+	   	TNT1 A 0 A_JumpIfInventory("BladeAmmo",1,1)
+	   	Goto NoAmmoReady
 		TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
 		TNT1 A 0 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
 		TNT1 A 0 A_SetInventory("ChainsawResourceGather",1)
@@ -69,9 +79,23 @@ ACTOR Razorjack : PB_Weapon
 			return A_DoPBWeaponAction(WRF_ALLOWRELOAD);
 		    }
 		TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
-		RAZG A 1 A_WeaponReady 
+		RAZG A 0 A_WeaponReady
+		RAZG A 1 A_DoPBWeaponAction
 		Loop
+	NoAmmoReady:
+       		RAZG A 0 A_TakeInventory("RazorjackEmpower",1)
+       		RAZG A 0 A_StopSoundEx("SoundSlot5")
+	   	RAZG A 0 A_StopSoundEx("SoundSlot6")
+       		RAZG B 1 A_DoPBWeaponAction
+	   	TNT1 A 0 A_JumpIfInventory("BladeAmmo", 1, 1)
+	   	Goto Load
+       		Loop
+	Load:
+	   	RAZR AB 2
+	   	Goto Ready
    Deselect:
+	   	TNT1 A 0 A_JumpIfInventory("BladeAmmo",1,1)
+	   	Goto NoAmmoDeselect
        		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
 	   	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
 	   	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
@@ -87,12 +111,24 @@ ACTOR Razorjack : PB_Weapon
        		RAZG A 0 A_PlaySound("Razorjack/IEnd",6)
        		RAZG A 1 A_Lower(12)
        		Wait 
+   Looper:
+	   	RAZE A 0 A_StopSoundEx("Soundslot5")
+       		RAZG A 0 A_Lower
+       		RAZG A 1 A_Lower
+       		Loop 
+   NoAmmoDeselect:
+   Looper2:
+	   	RAZE A 0 A_StopSoundEx("Soundslot5")
+       		RAZG B 0 A_Lower
+       		RAZG B 1 A_Lower
+       		Loop 
    Select:
 		TNT1 A 0 {
 			A_WeaponOffset(0,32);
 			A_SetRoll(0);
 			PB_HandleCrosshair(90);
 			A_SetInventory("PB_LockScreenTilt",0);
+			A_ClearOverlays(10,11);
 		}
 	   	TNT1 A 0 A_TakeInventory("HasBarrel",1)
 	   	TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
@@ -102,7 +138,8 @@ ACTOR Razorjack : PB_Weapon
 	   	TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 	SelectContinue:
-		TNT1 A 0 A_Raise
+		RAZG A 0 A_JumpIfInventory("BladeAmmo",1,2) 
+		RAZG B 0
        		RAZG A 1 A_Raise(12)
        		Wait
 	OnLoop:
@@ -162,6 +199,9 @@ ACTOR Razorjack : PB_Weapon
         	TNT1 A 0 A_StartSound("DSSAWZIP", CHAN_AUTO)
 		Goto OnLoop
    Fire:
+		TNT1 A 0 A_JumpIfInventory("BladeAmmo",1,1)
+	   	Goto NoAmmoReady
+       		RAZG A 0 A_GiveInventory("RazorjackEmpower",1)
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
@@ -181,6 +221,9 @@ ACTOR Razorjack : PB_Weapon
 		}
 		RAZE ABABAB 2
 	Holding:
+	   	TNT1 A 0 A_JumpIfInventory("BladeAmmo",1,1)
+	   	Goto NoAmmoReady
+       		RAZG A 0 A_GiveInventory("RazorjackEmpower",1)
 		RAZG A 0 {
 			A_StopSound(1);
 			A_PlaySound("Razorjack/Loop",5,1.0,1);
@@ -208,16 +251,22 @@ ACTOR Razorjack : PB_Weapon
 		RAZE AB 4
 		Goto Ready
 	AltFire:
+	   	TNT1 A 0 A_JumpIfInventory("BladeAmmo", 1, 1)
+	   	Goto NoAmmoReady+6
 		RAZE A 0 {
 			A_StopSound(5);
 			A_PlaySoundEx("Razorjack/IEnd",6);
 		}
+       		RAZG A 0 A_JumpIfInventory("RazorjackEmpower",1,"EmpowerAltFire")
 	AltHolder:
+	   	TNT1 A 0 A_JumpIfInventory("BladeAmmo", 1, 1)
+	   	Goto NoAmmoReady+6
 		RAZG A 0 A_PlaySound("Razorjack/Fire",1,0.8)
 		RAZF A 1 A_WeaponOffset(1,33,WOF_INTERPOLATE)
 		RAZF A 1 A_WeaponOffset(3,35,WOF_INTERPOLATE)
 		RAZF B 1 A_WeaponOffset(6,38,WOF_INTERPOLATE)
 		RAZF B 1 A_WeaponOffset(9,41,WOF_INTERPOLATE)
+	   	TNT1 A 0 A_TakeInventory("BladeAmmo", 1)
 		RAZF C 0 A_FireCustomMissile("Razorblade",frandom(1.0,-1.0),0,7,-2,0,frandom(1.0,-1.0))
 		RAZF C 1 A_WeaponOffset(10,42,WOF_INTERPOLATE)
 		RAZF C 1 A_WeaponOffset(9,41,WOF_INTERPOLATE)
@@ -227,9 +276,13 @@ ACTOR Razorjack : PB_Weapon
 		RAZR A 1 A_WeaponOffset(2,34,WOF_INTERPOLATE)
 		RAZR B 1 A_WeaponOffset(1,33,WOF_INTERPOLATE)
 		RAZR B 1 A_WeaponOffset(0,32,WOF_INTERPOLATE)
+	   	TNT1 A 0 A_JumpIfInventory("BladeAmmo", 1, 1)
+	   	Goto NoAmmoReady
 		RAZG A 2 A_ReFire("AltHolder")
 		Goto Ready
     EmpowerAltFire:
+	   	TNT1 A 0 A_JumpIfInventory("BladeAmmo", 1, 1)
+	   	Goto NoAmmoReady+6
 		RAZG A 0 {
 			A_WeaponOffset(0,32,WOF_INTERPOLATE);
 			A_StopSound(5);
@@ -240,6 +293,7 @@ ACTOR Razorjack : PB_Weapon
 		RAZF A 1 A_WeaponOffset(3,35,WOF_INTERPOLATE)
 		RAZF B 1 A_WeaponOffset(6,38,WOF_INTERPOLATE)
 		RAZF B 1 A_WeaponOffset(9,41,WOF_INTERPOLATE)
+	   	TNT1 A 0 A_TakeInventory("BladeAmmo", 1)
 		RAZF C 0 A_FireCustomMissile("EmpoweredRazorblade",frandom(1.0,-1.0),0,7,-2,0,frandom(1.0,-1.0))
 		RAZF C 1 A_WeaponOffset(10,42,WOF_INTERPOLATE)
 		RAZF C 1 A_WeaponOffset(9,41,WOF_INTERPOLATE)
@@ -257,7 +311,16 @@ ACTOR Razorjack : PB_Weapon
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
 		TNT1 A 0 A_ClearOverlays(10,11)
 		RAZE A 0 A_DoPBWeaponAction
-		RAZE A 15
+		RAZK W 1 
+		RAZK X 1 
+		RAZK Y 1 
+		RAZK Y 3 
+		RAZK Z 3
+		RAZK Y 3 
+		RAZK X 1 
+		RAZK W 1 
+		RAZG A 1 
+		RAZG AAA 1 
 		Goto Ready
 
 	FlashAirKicking:
@@ -266,7 +329,16 @@ ACTOR Razorjack : PB_Weapon
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
 		TNT1 A 0 A_ClearOverlays(10,11)
 		RAZE A 0 A_DoPBWeaponAction
-		RAZE A 15
+		RAZK W 1 
+		RAZK X 1 
+		RAZK Y 1 
+		RAZK Y 3 
+		RAZK Z 3
+		RAZK Y 3 
+		RAZK X 1 
+		RAZK W 1 
+		RAZG A 1 
+		RAZG AAA 1 
 		Goto Ready
 
 	FlashSlideKicking:
@@ -275,7 +347,8 @@ ACTOR Razorjack : PB_Weapon
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
 		TNT1 A 0 A_ClearOverlays(10,11)
 		RAZE A 0 A_DoPBWeaponAction
-		RAZE A 15
+		RAZK WX 2 
+		RAZK YYYYYYZZZZZ 2 
 		Goto Ready
 
 	FlashSlideKickingStop:
@@ -285,7 +358,8 @@ ACTOR Razorjack : PB_Weapon
 		TNT1 A 0 A_ClearOverlays(10,11)
 		RAZE A 0 A_JumpIfInventory("SNGUnloaded",1,2)
 		RAZE A 0 A_DoPBWeaponAction
-	   	RAZE A 1
+		RAZK ZYXWW 1 
+		RAZG A 2 
 		Goto Ready
 
 	FlashPunching: 
