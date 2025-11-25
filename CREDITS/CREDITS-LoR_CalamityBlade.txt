@@ -3,3 +3,17 @@ Ported from Legacy of Rust for Not So Vanilla by xxHeavySwagxx.  Found on their 
 THIS MOD WAS REWORKED FOR COMPATIBILITY WITH
 PROJECT BRUTALITY 0.3.X 
 BY RENEGADE ANDROiD
+
+// Original Mod Credits
+Not-So Vanilla Legacy of Rust Weapons by xxHeavy Swagxx/xxSwag Masterxx
+This addon required with Not-So Vanilla by Zdexium
+Added 2 Versions, Replaces only and Random spawners
+
+Incinerator and Calamity Blades Frankensprites by Me
+
+Graphics: id Software, Brutal Doom, TSF (Tesefy), PortuGueseCat67,
+Bugsie, Matthew Little and Amuscaria/Eriance.
+
+Sounds: id Software, pk_doom_sfx, Raven, Sound Ideas, Metal Ops: Premonitions, Slayer Rampage, Abyssal Marine and Rust and Bones.
+
+Codes used: Zdexium and TheAgaures.

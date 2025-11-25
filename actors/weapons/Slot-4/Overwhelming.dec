@@ -25,7 +25,7 @@ Actor DispenserCharge : Inventory { Inventory.MaxAmount 999 }
 
 Actor PowerOverwhelming : PB_Weapon
 {
-    	Game Doom
+    Game Doom
 	//$Category Weapons
 	//$Title Power Overwhelming
 	//$Sprite OVRGX0
@@ -39,7 +39,7 @@ Actor PowerOverwhelming : PB_Weapon
 	Weapon.AmmoType "PB_HighCalMag"
 	Weapon.AmmoGive 100
 	Weapon.AmmoUse 1
-	Weapon.AmmoType2 "SNGAmmo"
+	Weapon.AmmoType2 ""
 	Weapon.AmmoGive2 10
 	Weapon.AmmoUse2 1
 	Weapon.Kickback 50

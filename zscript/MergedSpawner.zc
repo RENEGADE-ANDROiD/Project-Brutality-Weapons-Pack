@@ -928,7 +928,7 @@ class NewEQ_Injector : PBInjector
 
 //Misc
 // Do we even need this??? I just moved it from the zscript file
-// There's not a CVAR for it
+// There's not even a CVAR for it
 class PB_DemontechRifleSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)

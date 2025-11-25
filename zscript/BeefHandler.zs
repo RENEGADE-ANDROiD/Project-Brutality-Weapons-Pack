@@ -23,6 +23,7 @@ class BeefRiceWeaponDrop : EventHandler
         // Check what monster was killed
         switch(actor.GetClassName())
         {
+            // Different Monsters spawn Different Things
             case 'HellTrooperPaingiver':
                 if(PaingiverDrop == 1)
                 {
@@ -105,7 +106,7 @@ class BeefRiceWeaponDrop : EventHandler
                 vector3 monsPos = actor.pos;
                 double monsHeight = actor.height;
                 actor.Spawn("MancubusFlameCannon", (monsPos.x, monsPos.y, monsPos.z)); //Spawn the Weapon
-                actor.destroy(); //Destroy the original actor so there's no duplicates
+                actor.destroy();
                 }
                 break;
         }
