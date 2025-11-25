@@ -1,6 +1,7 @@
 version "4.11.3"
 
-#include "ZSCRIPT/beefhandler.zs"
+// Monster Drop Handler
+#include "zscript/beefhandler.zs"
 
 // Random Weapon Switch
 #include "zscript/Random Weapon Switcher/ZRWSwitchMenu.zc"
@@ -11,7 +12,7 @@ version "4.11.3"
 #include "zscript/Insanity's Nightmare/ChainsawSpawn.zc"
 #include "zscript/Weapons/Slot-3/CSSG/CSSGEvent.zs"
 #include "zscript/NewMonsterSpawner.zs"
-#include "ZSCRIPT/GORENEST.zs"
+#include "zscript/GORENEST.zs"
 
 // Player Pawn Insanity Beef: Will this be added later?
 //#include "zscript/CustomPlayerClass/INPlayer.zc"
@@ -20,7 +21,7 @@ version "4.11.3"
 // Weapon Wheel Stuff
 #include "zscript/Weapons/Slot-3/CSSG/CSSG_Wheel.zs"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExt_Wheel.zs"
-#include "Zscript/D2016Shotgun_Wheel.zs" //BORING GUN
+#include "Zscript/D2016Shotgun_Wheel.zs" //BORING GUN // SKill Issue :cacotroll:
 #include "zscript/Insanity's Nightmare/IN_SpecialWheeltest.zs"
 
 // Casings
@@ -48,14 +49,6 @@ version "4.11.3"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtProj3.zs"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtStuff.zs"
 	// Demonic Exterminator Stuff End
-
-class PB_DemontechRifleSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-		handler.InjectSpawn('PB_MGSpawnerT3', 'PB_Demontech', 255, 1);
-	}
-}
 
 //Doorbuster
 #include "zscript/Doorbuster/doorbuster.zs"

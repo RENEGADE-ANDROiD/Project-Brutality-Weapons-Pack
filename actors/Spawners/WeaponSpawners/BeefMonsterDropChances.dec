@@ -1,0 +1,39 @@
+// This file is what the BeefRiceWeaponDrop Handler drops
+// You can change the chances of the drops here
+// If something isn't here it means its a special case
+
+// Special Cases:
+// Cyberdemon Rocket Launcher
+// Mancubus Flame Cannon
+Actor DTechSpawner : RandomSpawner
+{
+    Dropitem "HellPistol", 256, 10
+    Dropitem "TechBlaster", 256, 5
+    Dropitem "PB_Demontech", 256, 128
+    Dropitem "DemonTechMinigun", 256, 4
+    Dropitem "DemonTechShotgunGiver", 256, 3
+    Dropitem "TechBlasterUpgrade", 256, 1
+}
+
+Actor MastermindCGSpawner : RandomSpawner
+{
+    Dropitem "MastermindChaingun", 256, 256
+}
+
+Actor PainGiverSpawner : RandomSpawner
+{
+    Dropitem "Paingiver", 256, 256
+}
+
+// Monster Pack
+actor MarauderDropSpawner : RandomSpawner
+{
+    Dropitem "MarauderSSG", 256, 256
+    Dropitem "MSSGUpgrade", 256, 5
+}
+
+// Equipments
+actor ShieldGrenadeDrop : RandomSpawner
+{
+    Dropitem "ShieldGrenade", 256, 64
+}
