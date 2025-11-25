@@ -15,8 +15,6 @@ class KatanaSpawnerInjector : PBInjector
 	{
 		handler.InjectSpawn('PB_SawSpawnerT1', 'Katana', 255, 1);
 		handler.InjectSpawn('PB_SawSpawnerT2', 'Katana', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT3', 'Katana', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT4', 'Katana', 255, 1);
 	}
 }
 
@@ -362,21 +360,7 @@ class PB_AK47SpawnerInjector : PBInjector
 		}
 	}
 }
-/*
-//Apocalypse Killer - IN
-class ApocalypseKillerSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-	if (PBSpawnApocalypseKiller == 1)
-		{
-		handler.InjectSpawn('PB_MGSpawnerT2', 'ApocalypseKiller', 255, 1);
-		handler.InjectSpawn('PB_MGSpawnerT3', 'ApocalypseKiller', 255, 1);
-		handler.InjectSpawn('PB_MGSpawnerT4', 'ApocalypseKiller', 255, 1);
-		}
-	}
-}
-*/
+
 //Bolt Action Sniper
 class PB_BoltRifleSpawnerInjector : PBInjector
 {
@@ -805,10 +789,10 @@ class CalamityBladeSpawnerInjector : PBInjector
 	{
 	if (PBSpawnCalamityBlade == 1)
 		{
-		handler.InjectSpawn('PB_BFGSpawnerT1', 'PB_CalamityBlade', 255, 1);
-		handler.InjectSpawn('PB_BFGSpawnerT2', 'PB_CalamityBlade', 255, 1);
-		handler.InjectSpawn('PB_BFGSpawnerT3', 'PB_CalamityBlade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT3', 'PB_CalamityBlade', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT1', 'LoRCalamityBlade', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT2', 'LoRCalamityBlade', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT3', 'LoRCalamityBlade', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT3', 'LoRCalamityBlade', 255, 1);
 		}
 	}
 }

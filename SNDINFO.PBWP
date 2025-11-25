@@ -1,3 +1,9 @@
+//LoR Calamity Blade
+Weapon/HeatwaveUp DSCALMUP
+Weapon/HeatwaveCharge DSHETCHG
+Weapon/HeatwaveFire DSHETSHT
+Weapon/HeatwaveExplosion DSCBHIT
+
 //Razorjack - RO
 Razorjack/gun	RAZRGUN
 Razorjack/idle	RAZRIDLE
@@ -159,7 +165,8 @@ VRTRC VRTRC
 // Calamity Blade
 WP0/FR1 DSWP0FR1
 WP0/FR2 DSWP0FR2
-//MS/Up 				"Sounds/Weapons/MetalSniper/msRaise.ogg"
+
+MS/Up 				"Sounds/Weapons/MetalSniper/msRaise.ogg"
 
 //Winchester Shotgun Sounds//
 weapons/M1887Fire M18Fir

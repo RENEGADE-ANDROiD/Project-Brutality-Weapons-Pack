@@ -108,7 +108,7 @@
 #include actors/Weapons/Slot-8/Extinction_Ray.dec
 #include actors/Weapons/Slot-8/BioAcidLauncher(AresMade).dec
 #include actors/Weapons/Slot-8/TypeAThunderCarrier(AresMade).dec
-//#include actors/Weapons/Slot-8/ThunderCarrier.dec
+#include actors/Weapons/Slot-8/LoRCalamityBlade.dec
 #include actors/Weapons/Slot-8/TechBlaster.dec
 #include actors/Weapons/Slot-8/ThunderCrossbow.dec
 	//Slot-9

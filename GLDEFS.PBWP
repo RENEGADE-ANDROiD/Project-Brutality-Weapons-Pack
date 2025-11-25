@@ -1,5 +1,52 @@
 #INCLUDE Brightmaps.bm
 
+//LoR CalamityBlade
+flickerlight IncineratorFire0
+{
+	color 1.0 0.3 0.0
+	size 24
+	secondarySize 30
+	chance 0.7
+}
+
+
+flickerlight IncineratorFire1
+{
+	color 1.0 0.3 0.0
+	size 48
+	secondarySize 52
+	chance 0.7
+}
+
+flickerlight IncineratorFire2
+{
+	color 1.0 0.3 0.0
+	size 56
+	secondarySize 62
+	chance 0.7
+}
+
+flickerlight IncineratorFire3
+{
+	color 1.0 0.3 0.0
+	size 75
+	secondarySize 78
+	chance 0.7
+}
+
+object NSV_CalamitySlice
+{
+	frame HETBA {light IncineratorFire2}
+	frame HETBB {light IncineratorFire2}
+	frame HETBC {light IncineratorFire3}
+	frame HETBD {light IncineratorFire3}
+	frame HETBE {light IncineratorFire2}
+	frame HETBF {light IncineratorFire2}
+	frame HETBG {light IncineratorFire1}
+	frame HETBH {light IncineratorFire1}
+	frame HETBI {light IncineratorFire0}
+}
+
 //Overwhelming
 object OverwhelmingTracer
 {

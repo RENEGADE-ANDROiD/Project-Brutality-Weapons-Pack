@@ -116,8 +116,8 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText "---------------Slot 8 weapons---------------", gold
 	StaticText ""
 	Option "Spawn Argent Fury", "PBSpawnExtinction_Ray", "OnOff"
-	Option "Spawn Calamity Blade", "PBSpawnCalamityBlade", "OnOff"
-	Option "Spawn Gauss Cannon", "PBSpawnPB_GaussCannon", "OnOff"
+	Option "Spawn Calamity Blade - LoR", "PBSpawnCalamityBlade", "OnOff"
+	Option "Spawn Gauss Cannon", "PBSpawnGaussCannon", "OnOff"
 	Option "Spawn Ion Rifle", "PBSpawnIon_Heavy", "OnOff"
 	Option "Spawn MANCUBUS FLAMECANNON", "PBSpawnPB_MancubusFlameCannon", "OnOff"
 
