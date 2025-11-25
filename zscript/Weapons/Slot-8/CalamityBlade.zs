@@ -92,7 +92,6 @@ class PB_CalamityBlade : PB_Weapon
 		Ready3:
 			WP0G A 1
 		{
-			A_GunIdle();
 			//A_SetInventory("PB_LockScreenTilt",0);
 			//A_SetInventory("CantDoAction",0);
 				PB_CoolDownBarrel(0, 0, 3);

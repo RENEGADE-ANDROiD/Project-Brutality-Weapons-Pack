@@ -1,12 +1,14 @@
 See PB Weapon Pack Options to configure:
 
-- New Toggle On/Off feature: Fatality when clicking Fire for addon weapons in the pack.
+- Toggle On/Off Fatality when clicking Fire for addon weapons in the pack.
 
-- Choose which Weapons Spawn or not!
+- Choose which weapons spawn and how.
 
 - Random Weapon Switcher by BROS_ETT_311:  Allows you to randomize the weapons in your hand at random intervals.
 
 - Behold! by BobQuickSaveSmith: Allows you to revive upon death (works when alive as well); giving you a handful of weapons and random Boss Enemies to battle.
+  
+- DOORBUSTER from BDP - Bust down doors (if you want)
 
 -----------------
 Load order: Mapwad > Project Brutality Staging > Glory Kills addon > PB Monster Pack > PB Weapon Pack
@@ -46,6 +48,7 @@ TEAM MEMBERS:
 
 - Argent Sith
 - BattleAxe and Shield from Schism
+- Razorjack from Russian Overkill
 
 ---------------Slot 2 weapons---------------
 
@@ -55,24 +58,24 @@ TEAM MEMBERS:
 
 ---------------Slot 3 weapons---------------
 
-- Doom 2016 Shotgun
 - Cryo Shotgun
 - Commander SSG
 - Rotational SG
 - HASG aka Lady Golide
 - Demon-Tech Shotgun
+- Doom 2016 Shotgun
 - M1887 Winchester Lever-Action
 - Marauder SSG
 
 ---------------Slot 4 weapons---------------
 
 - AK-47
-- Apocalypse Killer
 - Bolt-Action Sniper
 - Dark Fate
 - Heavy Sniper Rifle
 - Magnum Sniper Rifle
 - M41A Aliens Pulse Rifle
+- Power Overwhelming from Russian Overkill
 
 ---------------Slot 5 weapons---------------
 
@@ -105,7 +108,7 @@ TEAM MEMBERS:
 ---------------Slot 8 weapons---------------
 
 - Argent Fury
-- Calamity Blade
+- Calamity Blade from LoR
 - Gauss Cannon
 - Ion Rifle
 - MANCUBUS FLAMECANNON

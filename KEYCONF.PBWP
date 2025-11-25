@@ -1,0 +1,110 @@
+AddKeySection "Meat Hook Options" Extra_ZDoom_controls
+AddMenuKey "Use Meat Hook" meathook
+alias meathook "puke 6005"
+
+alias SwitchItUp "NetEvent SwitchItUp"
+alias BackItUp "NetEvent SwitchBack"
+
+addkeysection "Random Switch Bind" "RandomSwitchBind"
+addmenukey "Switch It Up" 									"SwitchItUp"
+addmenukey "Back It Up" 									"BackItUp"
+
+alias zmove_reset "zm_wallfriction 0; zm_movetype 0; zm_walkspeed 0.7; zm_crouchspeed 0.5; zm_maxhopspeed 28; zm_maxgroundspeed 12; zm_friction 8.0; zm_strafemodifier 1; zm_setgravity 0.56; zm_jumpheight 5.5; pk_bhopjumpheight 0.85; zm_autojump 1; zm_doublejump 0; zm_doublejumpheight 1.2; zm_rjumpmulti 0.7; zm_elevatorjump 0; zm_ejumpmultiplier 1; zm_dash 0; zm_doubletap 1; zm_maxtaptime 10; zm_dashboost 1.5; zm_dashheight 0.75; zm_airdash 0; zm_adashboost 10; zm_adashfriction 1; zm_wjump 0; zm_wjumpboost 1.5; zm_multipledashes 0; zm_wjumpheight 0.75; zm_wslide 0; zm_wslidevelz 0.9; zm_crouchslide 0; zm_cslidestrength 2.0; zm_cslideduration 13; zm_qslideaccel 6.0; zm_qslideduration 8; zm_ledgegrab 0; zm_hook 0; zm_hookboost 1.5; zm_sway 0; zm_swayspeed 2; zm_swayrange 25; zm_swaydirection 0; zm_offset 0; zm_offsetspeed 2; zm_offsetrange 25; zm_offsetdirection 0; zm_speedometer 0; dsk_acceleration 1.5; pk_acceleration 1.0; zm_landing 0; zm_landingspeed 0.25; zm_minlanding 0.5; zm_landingsens 6.0; be_jumpanim 6.0; q_strafetype 0; q_3airaccel 0.75; q_1airaccel 1.5;"
+alias Dash "NetEvent Dash"
+alias WallSlide "NetEvent WallSlide"
+alias GrapplingHook "NetEvent GrapplingHook"
+
+// Behold! — per‑mode trigger binds (NO Custom Controls section)
+
+alias dp_trigger_now "give DP_ModeReporter; use DP_ModeReporter; resurrect; give DP_GiveAndClamp; use DP_GiveAndClamp; give DP_MasterTrigger; use DP_MasterTrigger"
+
+// Each alias sets a mode and triggers immediately (no console echo here)
+alias dp_quad_go   "give DP_Mode_Quad;   take DP_Mode_More;   take DP_Mode_Random; take DP_Mode_Fury; take DP_Mode_Apoc; dp_trigger_now"
+alias dp_more_go   "take DP_Mode_Quad;   give DP_Mode_More;   take DP_Mode_Random; take DP_Mode_Fury; take DP_Mode_Apoc; dp_trigger_now"
+alias dp_random_go "take DP_Mode_Quad;   take DP_Mode_More;   give DP_Mode_Random; take DP_Mode_Fury; take DP_Mode_Apoc; dp_trigger_now"
+alias dp_fury_go   "take DP_Mode_Quad;   take DP_Mode_More;   take DP_Mode_Random; give DP_Mode_Fury; take DP_Mode_Apoc; dp_trigger_now"
+alias dp_apoc_go   "take DP_Mode_Quad;   take DP_Mode_More;   take DP_Mode_Random; take DP_Mode_Fury; give DP_Mode_Apoc; dp_trigger_now"
+
+alias +dp_fury_key   "dp_fury_go"
+alias -dp_fury_key   ""
+
+alias +dp_apoc_key   "dp_apoc_go"
+alias -dp_apoc_key   ""
+
+alias +dp_quad_key    "dp_quad_go"
+alias -dp_quad_key    ""
+
+alias +dp_more_key    "dp_more_go"
+alias -dp_more_key    ""
+
+alias +dp_random_key  "dp_random_go"
+alias -dp_random_key  ""
+
+alias dp_show_mode "give DP_ModeReporter; use DP_ModeReporter"
+
+Addslotdefault 1 PB_BeamKatana
+addslotdefault 1 BattleAxe
+addslotdefault 1 Razorjack
+addslotdefault 2 W_SMG
+addslotdefault 2 P_SMG
+addslotdefault 2 HellPistoler
+addslotdefault 2 Magnum
+addslotdefault 2 B_Deagle
+addslotdefault 3 BlackRemintong
+addslotdefault 3 HASG
+addslotdefault 3 SSG
+addslotdefault 3 RotationalSG
+addslotdefault 3 PB_CryoShotgun
+//addslotdefault 3 PB_Doom2016Shotgun
+addslotdefault 3 "Demon Tech Shotgun"
+addslotdefault 3 M1887
+addslotdefault 4 AK-47
+addslotdefault 4 MaskMan_Rifle
+addslotdefault 4 AssaultR1
+addslotdefault 4 M1X
+addslotdefault 4 Fallen_Hawk
+addslotdefault 4 HeavySniperRifle
+addslotdefault 4 MagnumSniperRifle
+addslotdefault 4 PB_BoltRifle
+addslotdefault 4 M41A
+addslotdefault 4 PowerOverwhelming
+addslotdefault 5 D4Machinegun
+addslotdefault 5 Dark_Fate
+addslotdefault 5 Heavy_Assault_Rifle
+addslotdefault 5 INMiniGun
+addslotdefault 5 INNailGun
+addslotdefault 5 Fire_and_Ice-DragonSlayer
+addslotdefault 5 DukeNukemRipper
+addslotdefault 5 OLDHMG
+addslotdefault 5 SuperNailgun
+addslotdefault 6 SuperGrenadeLauncher
+addslotdefault 6 PB_Excavator
+addslotdefault 6 CyberdemonsMissileLauncher
+addslotdefault 6 MastermindChaingun
+addslotdefault 6 Paingiver
+addslotdefault 6 D4RocketLauncher
+addslotdefault 7 PhaseEradicatorBFG
+addslotdefault 7 PlasmaRifleAssault
+addslotdefault 7 Ion_Heavy
+addslotdefault 7 Extinction_Ray
+addslotdefault 7 BioAcidLauncher
+addslotdefault 7 ThunderCarrierTI //New
+addslotdefault 7 LightningGun
+addslotdefault 7 AncientCrossbow
+addslotdefault 7 SuperGrenadeLauncher
+addslotdefault 7 PB_GaussCannon
+addslotdefault 7 D4PlasmaGun
+addslotdefault 7 D4VortexRifle
+addslotdefault 8 BioAcidLauncher
+addslotdefault 8 Extinction_Ray
+addslotdefault 8 PlasmaRifleAssault
+addslotdefault 8 TechBlaster
+addslotdefault 8 ThunderCrossbow
+addslotdefault 8 ThunderCarrierTI
+addslotdefault 9 Unmaker64
+addslotdefault 9 Ballistagun
+addslotdefault 9 LoRCalamityBlade
+addslotdefault 9 DemonTechMinigun
+addslotdefault 9 PhaseEradicatorBFG
+addslotdefault 9 Stormcast
+addslotdefault 9 MancubusFlameCannon

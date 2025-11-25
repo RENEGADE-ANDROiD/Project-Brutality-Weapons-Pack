@@ -1,0 +1,29 @@
+Model PB_Doom2016Shotgun
+{
+	Path "MODELS/PBVP"
+	Model 0 "D2016SG.md3"
+	SKIN 0 "MODELS/PBVP/Palettes/D2016SG.pal.png"
+	scale 1 1 1.2
+
+	Frameindex V4SC A 0 0
+}
+
+Model PB_D16SGBurstUpgrade
+{
+	Path "MODELS/PBVP"
+	Model 0 "D2016SG.Burst.md3"
+	SKIN 0 "MODELS/PBVP/Palettes/D2016SG_Burst.png"
+	scale 1 1 1.2
+
+	Frameindex V4SC B 0 0
+}
+
+Model PB_D16SGExplosiveUpgrade
+{
+	Path "MODELS/PBVP"
+	Model 0 "D2016SG.Explosive.md3"
+	SKIN 0 "MODELS/PBVP/Palettes/D2016SG_Explosive.png"
+	scale 1 1 1.2
+
+	Frameindex V4SC C 0 0
+}

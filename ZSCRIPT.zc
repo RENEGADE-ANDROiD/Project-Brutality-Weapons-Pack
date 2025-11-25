@@ -20,7 +20,7 @@ version "4.11.3"
 // Weapon Wheel Stuff
 #include "zscript/Weapons/Slot-3/CSSG/CSSG_Wheel.zs"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExt_Wheel.zs"
-#include "Zscript/D2016Shotgun_Wheel.zs"
+#include "Zscript/D2016Shotgun_Wheel.zs" //BORING GUN
 #include "zscript/Insanity's Nightmare/IN_SpecialWheeltest.zs"
 
 // Casings
@@ -31,13 +31,14 @@ version "4.11.3"
 #include "zscript/Insanity's Nightmare/PlasmaRifleAssaultProjectile.zc"
 
 // Weapons & Etc (Testing)
+
 	// CSSG Stuff Begin
 #include "zscript/Weapons/Slot-3/CSSG/CSSG.zs"
 #include "zscript/Weapons/Slot-3/CSSG/CSSG_Upgrades.zs"
 	// CSSG Stuff End
 #include "ZScript/Weapons/Slot-4/HeavySniperRifle.zs"
 #include "ZScript/Weapons/Slot-6/Excavator.zs"
-#include "zscript/Weapons/Slot-8/CalamityBlade.zs"
+#include "zscript/Weapons/Slot-8/LoRCalamityBlade.zs"
 	// Demonic Exterminator Stuff Begin
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExt.zs"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtFunctions.zs"
@@ -47,18 +48,6 @@ version "4.11.3"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtProj3.zs"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtStuff.zs"
 	// Demonic Exterminator Stuff End
-
-//Axe spawner Beef: Why do we even need this??????
-class PB_AxeSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-		handler.InjectSpawn('PB_SawSpawnerT1', 'PB_Axe', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT2', 'PB_Axe', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT3', 'PB_Axe', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT4', 'PB_Axe', 255, 1);
-	}
-}
 
 class PB_DemontechRifleSpawnerInjector : PBInjector
 {

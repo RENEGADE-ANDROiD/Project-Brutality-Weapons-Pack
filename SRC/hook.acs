@@ -16,7 +16,7 @@ Script "Hook_Check" Enter
 //		{
 //			GiveInventory ("HookShooter", 1);
 //		}
-//		Delay (1);
+		Delay (1);
 	}
 	Delay (1);
 	Restart;

@@ -1,0 +1,14 @@
+Gameinfo
+{
+	addeventhandlers = "CSSGEvent",
+	//"PB_DragonSlayerSpawner",
+    //"PB_StormcastSpawner",
+    "RandomWeaponSwitcher",
+    "BeefRiceWeaponDrop",
+	"ExterminatorStuff",
+	"BusterHandler"
+}
+//gameinfo
+//{
+//	AddPlayerClasses = "PB_PistolPlayerPrawn","PB_MeleePlayerPrawn","IN_PlayerPrawn"
+//}

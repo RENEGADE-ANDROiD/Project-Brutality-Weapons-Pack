@@ -1,0 +1,5 @@
+Ported from Legacy of Rust for Not So Vanilla by xxHeavySwagxx.  Found on their itch.io page.
+
+THIS MOD WAS REWORKED FOR COMPATIBILITY WITH
+PROJECT BRUTALITY 0.3.X 
+BY RENEGADE ANDROiD
