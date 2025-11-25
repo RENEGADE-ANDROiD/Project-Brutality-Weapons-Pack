@@ -8,7 +8,7 @@ See PB Weapon Pack Options to configure:
 
 - Behold! by BobQuickSaveSmith: Allows you to revive upon death (works when alive as well); giving you a handful of weapons and random Boss Enemies to battle.
   
-- DOORBUSTER - Bust down doors (if you want)
+- DOORBUSTER from BDP - Bust down doors (if you want)
 
 -----------------
 Load order: Mapwad > Project Brutality Staging > Glory Kills addon > PB Monster Pack > PB Weapon Pack
@@ -63,6 +63,7 @@ TEAM MEMBERS:
 - Rotational SG
 - HASG aka Lady Golide
 - Demon-Tech Shotgun
+- Doom 2016 Shotgun
 - M1887 Winchester Lever-Action
 - Marauder SSG
 
@@ -107,7 +108,7 @@ TEAM MEMBERS:
 ---------------Slot 8 weapons---------------
 
 - Argent Fury
-- Calamity Blade
+- Calamity Blade from LoR
 - Gauss Cannon
 - Ion Rifle
 - MANCUBUS FLAMECANNON
