@@ -1,6 +1,12 @@
 // This file is what the BeefRiceWeaponDrop Handler drops
 // You can change the chances of the drops here
 
+actor MarauderDropSpawner : RandomSpawner
+{
+    Dropitem "MarauderSSG", 256, 256
+    Dropitem "MSSGUpgrade", 256, 5
+}
+
 Actor TechBlasterSpawner : RandomSpawner
 {
     Dropitem "HellPistol", 256, 10

@@ -104,6 +104,7 @@ server int PBSpawnPhaseEradicatorBFG = 1;
 
 //===============================================
 // Monster Drops
+server int PBSpawnMSSGDrop = 1;
 server int PBSpawnALLDTechDrop = 1;
 server int PBSpawnMastermindCGDrop = 1;
 server int PBSpawnCyberdemonRLDrop = 1;

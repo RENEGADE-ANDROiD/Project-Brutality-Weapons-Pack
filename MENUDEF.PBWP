@@ -29,6 +29,11 @@ OptionMenu "MonsterDropWeapSett"
 	Option "D-Tech Trooper Spawn All D-Tech Weapons", "PBSpawnALLDTechDrop", "OnOff"
 	
 	StaticText ""
+	StaticText "---------------Monster Pack---------------", gold
+	StaticText ""
+	Option "MSSG and its Upgrade Drop from Marauder", "PBSpawnMSSGDrop", "OnOff"
+	
+	StaticText ""
 	StaticText "---------------Slot 6 weapons---------------", gold
 	StaticText ""
 	Option "CyberdemonRL Drop from Cyberdemons", "PBSpawnCyberdemonRLDrop", "OnOff"

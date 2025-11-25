@@ -336,7 +336,7 @@ class MarauderSSGSpawnerInjector : PBInjector
 		handler.InjectSpawn('PB_SSGSpawnerT2', 'MarauderSSG', 255, 1);
 		handler.InjectSpawn('PB_SSGSpawnerT3', 'MarauderSSG', 255, 1);
 		handler.InjectSpawn('PB_SSGSpawnerT4', 'MarauderSSG', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT1', 'MSSGUpgrade', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT1', 'MarauderSSG', 255, 1);
 		handler.InjectSpawn('PB_PackSpawnerT2', 'MSSGUpgrade', 255, 1);
 		handler.InjectSpawn('PB_PackSpawnerT3', 'MSSGUpgrade', 255, 1);
 		handler.InjectSpawn('PB_PackSpawnerT4', 'MSSGUpgrade', 255, 1);
