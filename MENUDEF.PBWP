@@ -29,16 +29,22 @@ OptionMenu "MonsterDropWeapSett"
 	Option "D-Tech Trooper Spawn All D-Tech Weapons", "PBSpawnALLDTechDrop", "OnOff"
 	
 	StaticText ""
+	StaticText "---------------Monster Pack---------------", gold
+	StaticText ""
+	Option "Marauder drop MSSG and its Upgrade", "PBSpawnMSSGDrop", "OnOff"
+	Option "Cyber Satyr drop Shield Grenades", "EQSpawnShieldGR", "OnOff"
+	
+	StaticText ""
 	StaticText "---------------Slot 6 weapons---------------", gold
 	StaticText ""
-	Option "CyberdemonRL Drop from Cyberdemons", "PBSpawnCyberdemonRLDrop", "OnOff"
-	Option "Mastermind Chaingun Drop from Masterminds", "PBSpawnMastermindCGDrop", "OnOff"
-	Option "Paingiver Drop from Rocket Hell Trooper", "PBSpawnPaingiverDrop", "OnOff"
+	Option "Cyberdemons drop Cyberdemon Missile Launcher", "PBSpawnCyberdemonRLDrop", "OnOff"
+	Option "Masterminds drop Mastermind Chaingun", "PBSpawnMastermindCGDrop", "OnOff"
+	Option "Rocket Hell Trooper drop Paingiver", "PBSpawnPaingiverDrop", "OnOff"
 
 	StaticText ""
 	StaticText "---------------Slot 8 weapons---------------", gold
 	StaticText ""
-	Option "Mancubus Flame Cannon Drop from Mancubus", "PBSpawnMancFlameCannonDrop", "OnOff"
+	Option "Mancubus drop Flame Cannon", "PBSpawnMancFlameCannonDrop", "OnOff"
 }
 
 OptionMenu "WeaponPackSpawnSettings"
