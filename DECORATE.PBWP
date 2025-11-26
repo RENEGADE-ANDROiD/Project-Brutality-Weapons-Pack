@@ -4,8 +4,8 @@
 #include actors/Equipments/ElecPod2.dec
 #include actors/Equipments/Axe.dec
 #include actors/Equipments/hook.dec
-#include actors/Weapons/Doom4WeaponPack/ItemsUpgrades.dec
-#include actors/Weapons/Doom4WeaponPack/UpgradeStation.dec
+#include actors/Weapons/Doom4WeaponPack/ItemsUpgrades.dec // What even is this?
+#include actors/Weapons/Doom4WeaponPack/UpgradeStation.dec // This doesn't even work
 // RemoteGrenades
 #include actors/Equipments/RemoteGrenades/Prosurv_Swarm.dec
 #include actors/Equipments/RemoteGrenades/AcidCharge.dec
@@ -29,7 +29,7 @@
 #include actors/Monsters/STONEGAR.dec
 
 // Spawners
-#include actors/Spawners/WeaponSpawners/Weapons_Spawner.dec
+//#include actors/Spawners/WeaponSpawners/Weapons_Spawner.dec // I dont think we need this since there's already the injectors
 #include actors/Spawners/WeaponSpawners/BeefMonsterDropChances.dec
 #include actors/Spawners/BEHOLD.dec
 

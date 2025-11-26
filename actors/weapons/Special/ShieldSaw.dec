@@ -1,7 +1,6 @@
-ACTOR ShieldSawSelected : Inventory
-{
-Inventory.MaxAmount 1
-}
+// Equipment Tokens
+Actor WW_ShieldSawSelected : inventory{}
+Actor ShieldSawSelected : inventory{}
 
 ACTOR SlayerEmpower : Inventory
 {
@@ -12,8 +11,6 @@ ACTOR ShieldIsBack : Inventory
 {
 Inventory.MaxAmount 40
 }
-
-
 
 Actor RespectShieldSaw: Inventory
 {

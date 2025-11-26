@@ -763,7 +763,7 @@ class ElecPodCard : equipmentCard
 	{
 		tags.push("Electric Pod");
 		tokens.push("WW_ElecPodSelected");
-		img.push("graphics/electricpod.png");
+		img.push("graphics/Equipments/electricpod.png");
 		sx.push(0.8);
 		sy.push(0.8);
 	}
@@ -776,8 +776,8 @@ Class StunGrenCard : equipmentCard
 		tags.push("Stun Grenade");
 		tokens.push("WW_StunGrenadeSelected");
 		img.push("graphics/pywheel/Equip_Stun.png");
-		sx.push(1.3);
-		sy.push(1.3);
+		sx.push(0.8);
+		sy.push(0.8);
 	}
 }
 
@@ -788,8 +788,8 @@ Class LeechCard : equipmentCard
 		tags.push("Leech");
 		tokens.push("WW_LeechSelected");
 		img.push("graphics/pywheel/Equip_Leech.png");
-		sx.push(1.3);
-		sy.push(1.3);
+		sx.push(0.8);
+		sy.push(0.8);
 	}
 }
 
@@ -800,8 +800,8 @@ class FragGrenCard : equipmentCard
 		tags.push("Frag Grenade");
 		tokens.push("WW_FragGrenadeSelected");
 		img.push("graphics/pywheel/Equip_Frag.png");
-		sx.push(1.3);
-		sy.push(1.3);
+		sx.push(0.8);
+		sy.push(0.8);
 	}
 }
 
@@ -812,8 +812,8 @@ class ShouldCanCard : equipmentCard
 		tags.push("Shoulder Cannon");
 		tokens.push("WW_RevGunSelected");
 		img.push("graphics/pywheel/Equip_RevGun.png");
-		sx.push(1.3);
-		sy.push(1.3);
+		sx.push(0.8);
+		sy.push(0.8);
 	}
 }
 
@@ -824,8 +824,8 @@ class ShieldGrenadeCard : equipmentCard
 		tags.push("Shield Grenade");
 		tokens.push("WW_ShieldSelected");
 		img.push("graphics/Equipments/shieldgrenade.PNG");
-		sx.push(1.3);
-		sy.push(1.3);
+		sx.push(0.8);
+		sy.push(0.8);
 	}
 }
 
@@ -896,8 +896,8 @@ class AxeCard : equipmentCard
 		tags.push("Axe");
 		tokens.push("WW_AxeSelected");
 		img.push("graphics/Equipments/axe.png");
-		sx.push(0.4);
-		sy.push(0.4);
+		sx.push(0.3);
+		sy.push(0.3);
 	}
 }
 
@@ -905,10 +905,22 @@ class HookCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
 	{
-		tags.push("Hook");
+		tags.push("Meat Hook");
 		tokens.push("WW_HookSelected");
 		img.push("graphics/Equipments/hook.png");
 		sx.push(0.3);
 		sy.push(0.3);
+	}
+}
+
+class ShieldSawCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Shield Saw");
+		tokens.push("WW_ShieldSawSelected");
+		img.push("graphics/Equipments/ShieldSaw.png");
+		sx.push(0.5);
+		sy.push(0.5);
 	}
 }
