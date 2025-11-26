@@ -11,7 +11,7 @@ version "4.11.3"
 #include "zscript/MergedSpawner.zc"
 #include "zscript/Insanity's Nightmare/ChainsawSpawn.zc"
 #include "zscript/Weapons/Slot-3/CSSG/CSSGEvent.zs"
-#include "zscript/NewMonsterSpawner.zs"
+#include "zscript/NoDropMonsterSpawner.zs"
 #include "zscript/GORENEST.zs"
 
 // Player Pawn Insanity Beef: Will this be added later?

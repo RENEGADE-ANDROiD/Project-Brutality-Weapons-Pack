@@ -7,33 +7,33 @@
 // Mancubus Flame Cannon
 Actor DTechSpawner : RandomSpawner
 {
-    Dropitem "HellPistol", 256, 10
-    Dropitem "TechBlaster", 256, 5
-    Dropitem "PB_Demontech", 256, 128
-    Dropitem "DemonTechMinigun", 256, 4
-    Dropitem "DemonTechShotgunGiver", 256, 3
-    Dropitem "TechBlasterUpgrade", 256, 1
+    Dropitem "HellPistol", 255, 10
+    Dropitem "TechBlaster", 255, 5
+    Dropitem "PB_Demontech", 255, 20
+    Dropitem "DemonTechMinigun", 255, 4
+    Dropitem "DemonTechShotgunGiver", 255, 3
+    Dropitem "TechBlasterUpgrade", 255, 1
 }
 
 Actor MastermindCGSpawner : RandomSpawner
 {
-    Dropitem "MastermindChaingun", 256, 256
+    Dropitem "MastermindChaingun", 255, 255
 }
 
 Actor PainGiverSpawner : RandomSpawner
 {
-    Dropitem "Paingiver", 256, 256
+    Dropitem "Paingiver", 255, 255
 }
 
 // Monster Pack
 actor MarauderDropSpawner : RandomSpawner
 {
-    Dropitem "MarauderSSG", 256, 256
-    Dropitem "MSSGUpgrade", 256, 5
+    Dropitem "MSSGUpgrade", 255, 1
+    Dropitem "PB_Shell", 255, 9
 }
 
 // Equipments
 actor ShieldGrenadeDrop : RandomSpawner
 {
-    Dropitem "ShieldGrenade", 256, 64
+    Dropitem "ShieldGrenade", 255, 64
 }

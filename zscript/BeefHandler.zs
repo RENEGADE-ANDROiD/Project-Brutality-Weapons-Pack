@@ -3,22 +3,16 @@ class BeefRiceWeaponDrop : EventHandler
     // Check if something is killed
 	override void WorldThingDied(WorldEvent e)
 	{
+        if (!e || !e.thing) return;
         let  actor = e.Thing;
-        // CVARS
-        CVAR demontechAll = CVar.GetCVAR('PBSpawnALLDTechDrop');
-        CVAR MarauderMSSG = CVar.GetCVAR('PBSpawnMSSGDrop');
-        CVAR mastermindcg = CVar.GetCVAR('PBSpawnMastermindCGDrop');
-        CVAR paingiver = CVar.GetCVAR('PBSpawnPaingiverDrop');
 
-        CVAR ShieldGR = CVar.GetCVAR('EQSpawnShieldGR');
+        // Get CVARs
+        let DTechDrop = CVar.GetCVAR('PBSpawnALLDTechDrop').GetInt();
+        let MSSGDrop = CVar.GetCVAR('PBSpawnMSSGDrop').GetInt();
+        let MastermindCGDrop = CVar.GetCVAR('PBSpawnMastermindCGDrop').GetInt();
+        let PaingiverDrop = CVar.GetCVAR('PBSpawnPaingiverDrop').GetInt();
 
-        // Initialize
-        int MSSGDrop = MarauderMSSG.GetInt();
-        int DTechDrop = demontechAll.GetInt();
-        int MastermindCGDrop = mastermindcg.GetInt();
-        int PaingiverDrop = paingiver.GetInt();
-
-        int ShieldGRDrop = ShieldGR.GetInt();
+        let ShieldGRDrop = CVar.GetCVAR('EQSpawnShieldGR').GetInt();
 
         // Check what monster was killed
         switch(actor.GetClassName())
@@ -34,7 +28,7 @@ class BeefRiceWeaponDrop : EventHandler
                 break;
 
             //case 'PB_JuggernautGK': //Should we make the Juggernaut Drop MastermindCG?
-            case 'PB_MastermindGK': case 'PB_DemolisherGK':
+            case 'PB_MastermindGK': case 'PB_DemolisherGK': case 'PB_Mastermind': case 'PB_Demolisher':
                 if(MastermindCGDrop == 1)
                 {
                 vector3 monsPos = actor.pos;
@@ -43,7 +37,7 @@ class BeefRiceWeaponDrop : EventHandler
                 }
                 break;
 
-            case 'PB_DemonTechZombieGK':
+            case 'PB_DemonTechZombieGK':  case 'PB_DemonTechZombie':
                 if(DTechDrop == 1)
                 {
                 vector3 monsPos = actor.pos;
@@ -68,6 +62,8 @@ class BeefRiceWeaponDrop : EventHandler
                 vector3 monsPos = actor.pos;
                 double monsHeight = actor.height;
                 actor.Spawn("MarauderDropSpawner", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
+                actor.Spawn("MarauderSSG", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
+                actor.Spawn("HoookSpawn", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
                 }
                 break;
 
@@ -75,17 +71,13 @@ class BeefRiceWeaponDrop : EventHandler
         }
 	}
     
-    // Special casse if something is spawned instead of killed
+    // Special cases where something is spawned instead of killed
     override void WorldThingSpawned (WorldEvent e)
     {
         let  actor = e.Thing;
-        // CVARS
-        CVAR MancFlameCN = CVAR.GetCVAR('PBSpawnMancFlameCannonDrop');
-        CVAR cyberdemonRL = CVar.GetCVAR('PBSpawnCyberdemonRLDrop');
-
-        // Initialize
-        int MancFLameCNDrop = MancFlameCN.GetInt();
-        int CyberRLDrop = cyberdemonRL.GetInt();
+        // Get CVARs
+        let MancFLameCNDrop = CVAR.GetCVAR('PBSpawnMancFlameCannonDrop').GetInt();
+        let CyberRLDrop = CVar.GetCVAR('PBSpawnCyberdemonRLDrop').GetInt();
 
         // Check and Spawn
         switch(actor.GetClassName())

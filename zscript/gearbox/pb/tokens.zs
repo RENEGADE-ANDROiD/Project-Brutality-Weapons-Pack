@@ -776,8 +776,8 @@ Class StunGrenCard : equipmentCard
 		tags.push("Stun Grenade");
 		tokens.push("WW_StunGrenadeSelected");
 		img.push("graphics/pywheel/Equip_Stun.png");
-		sx.push(0.8);
-		sy.push(0.8);
+		sx.push(1.0);
+		sy.push(1.0);
 	}
 }
 
@@ -788,8 +788,8 @@ Class LeechCard : equipmentCard
 		tags.push("Leech");
 		tokens.push("WW_LeechSelected");
 		img.push("graphics/pywheel/Equip_Leech.png");
-		sx.push(0.8);
-		sy.push(0.8);
+		sx.push(1.0);
+		sy.push(1.0);
 	}
 }
 
@@ -800,8 +800,8 @@ class FragGrenCard : equipmentCard
 		tags.push("Frag Grenade");
 		tokens.push("WW_FragGrenadeSelected");
 		img.push("graphics/pywheel/Equip_Frag.png");
-		sx.push(0.8);
-		sy.push(0.8);
+		sx.push(1.0);
+		sy.push(1.0);
 	}
 }
 
@@ -812,8 +812,8 @@ class ShouldCanCard : equipmentCard
 		tags.push("Shoulder Cannon");
 		tokens.push("WW_RevGunSelected");
 		img.push("graphics/pywheel/Equip_RevGun.png");
-		sx.push(0.8);
-		sy.push(0.8);
+		sx.push(1.0);
+		sy.push(1.0);
 	}
 }
 
@@ -884,8 +884,8 @@ class DetonatorCard : equipmentCard
 		tags.push("Detonator");
 		tokens.push("WW_DetonatorSelected");
 		img.push("graphics/Equipments/detonator.png");
-		sx.push(0.8);
-		sy.push(0.8);
+		sx.push(1.0);
+		sy.push(1.0);
 	}
 }
 
