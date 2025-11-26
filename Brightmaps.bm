@@ -28,9 +28,20 @@ BrightMap Sprite UNMAZ0 { Map "Brightmaps/bumk1.png" }
 BrightMap Sprite UNMXA0 { Map "Brightmaps/bumk2.png" }
 
 
-//=================================================================//
-//======================= Thunder crossbow ========================//
-//=================================================================//
+//Razorjack
+brightmap sprite RAZEA0 { map "Brightmaps/Weapons/Razorjack/RAZEA0.png" }
+brightmap sprite RAZEB0 { map "Brightmaps/Weapons/Razorjack/RAZEB0.png" }
+brightmap sprite RAZFA0 { map "Brightmaps/Weapons/Razorjack/RAZFA0.png" }
+brightmap sprite RAZFB0 { map "Brightmaps/Weapons/Razorjack/RAZFB0.png" }
+brightmap sprite RAZFC0 { map "Brightmaps/Weapons/Razorjack/RAZFC0.png" }
+brightmap sprite RAZFD0 { map "Brightmaps/Weapons/Razorjack/RAZFD0.png" }
+brightmap sprite RAZGA0 { map "Brightmaps/Weapons/Razorjack/RAZGA0.png" }
+brightmap sprite RAZGB0 { map "Brightmaps/Weapons/Razorjack/RAZGB0.png" }
+brightmap sprite RAZKW0 { map "Brightmaps/Weapons/Razorjack/RAZKW0.png" }
+brightmap sprite RAZRA0 { map "Brightmaps/Weapons/Razorjack/RAZRA0.png" }
+brightmap sprite RAZRB0 { map "Brightmaps/Weapons/Razorjack/RAZRB0.png" }
+
+// Thunder Crossbow
 //Dropped
 BrightMap Sprite WBOWA0 { MAP "brightmaps/Weapons/ThunderCrossbow/BMWBOWA0.png" DisableFullBright }
 //Weapon
