@@ -1,5 +1,7 @@
 Actor WW_HookSelected : inventory{}
 Actor HookSelected : inventory{}
+Actor AlreadyHaveMeatHook : inventory{Inventory.MaxAmount 1}
+
 Actor HookAmmo : ammo
 {
 	Inventory.Amount 1
@@ -7,12 +9,12 @@ Actor HookAmmo : ammo
 	Ammo.BackPackAmount 1
 	Ammo.BackPackMaxAmount 1
 	Inventory.PickUpMessage ""
-	Inventory.Icon BEACA0
+	Inventory.Icon H00K0
 	+INVENTORY.IGNORESKILL
 	Scale 0.45
 }
 
-ACTOR HoookSpawn: CustomInventory 
+ACTOR HookSpawn: CustomInventory 
 {
 	Game Doom
 	//Scale 0.45
@@ -27,8 +29,9 @@ ACTOR HoookSpawn: CustomInventory
 			Loop
 		Pickup:
 			TNT1 A 0 A_GiveInventory("HookAmmo",1) 
+			TNT1 A 0 A_GiveInventory("AlreadyHaveMeatHook",1) 
 			TNT1 A 20
-			Stop	
+			Stop
 	}
 }
 

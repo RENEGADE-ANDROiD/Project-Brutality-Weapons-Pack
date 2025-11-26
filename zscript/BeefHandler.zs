@@ -4,6 +4,7 @@ class BeefRiceWeaponDrop : EventHandler
 	override void WorldThingDied(WorldEvent e)
 	{
         if (!e || !e.thing) return;
+        if (!e.thing.bISMONSTER) return;
         let  actor = e.Thing;
 
         // Get CVARs
@@ -63,7 +64,7 @@ class BeefRiceWeaponDrop : EventHandler
                 double monsHeight = actor.height;
                 actor.Spawn("MarauderDropSpawner", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
                 actor.Spawn("MarauderSSG", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
-                actor.Spawn("HoookSpawn", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
+                actor.Spawn("HookSpawn", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
                 }
                 break;
 
