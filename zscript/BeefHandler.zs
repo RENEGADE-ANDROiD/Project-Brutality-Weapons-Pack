@@ -19,6 +19,8 @@ class BeefRiceWeaponDrop : EventHandler
         switch(actor.GetClassName())
         {
             // Different Monsters spawn Different Things
+
+            // Custom Monsters
             case 'HellTrooperPaingiver':
                 if(PaingiverDrop == 1)
                 {
@@ -62,9 +64,7 @@ class BeefRiceWeaponDrop : EventHandler
                 {
                 vector3 monsPos = actor.pos;
                 double monsHeight = actor.height;
-                actor.Spawn("MarauderDropSpawner", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
-                actor.Spawn("MarauderSSG", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
-                actor.Spawn("HookSpawn", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
+                actor.Spawn("MarauderDropSpawner", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2)); //This 
                 }
                 break;
 

@@ -54,7 +54,7 @@ class TechBlasterSpawnerInjector : PBInjector
 	if (PBSpawnTechBlaster == 1)
 		{
 		//handler.InjectSpawn('PB_PlasSpawnerT1', 'TechBlaster', 255, 1);
-		//handler.InjectSpawn('PB_PlasSpawnerT2', 'TechBlaster', 255, 1);
+		handler.InjectSpawn('PB_PlasSpawnerT2', 'TechBlaster', 255, 1);
 		handler.InjectSpawn('PB_PlasSpawnerT3', 'TechBlaster', 255, 1);
 		handler.InjectSpawn('PB_PlasSpawnerT4', 'TechBlaster', 255, 1);
 
@@ -327,6 +327,7 @@ class DemonTechShotgunGiverSpawnerInjector : PBInjector
 	}
 }
 
+// Hexa Shotgun
 class HexaLionShotgunSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
