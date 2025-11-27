@@ -1,3 +1,15 @@
+//HexaLionShotgunSounds//
+HEXAFIR1 HEXAFIR1
+HEXAFIR2 HEXAFIR2
+HEXAFIR3 HEXAFIR3
+HEXAFIR4 HEXAFIR4
+HEXAFIR5 HEXAFIR5
+HEXAFIR6 HEXAFIR6
+HEXAFIR7 HEXAFIR7
+HEXAOPEN HEXAOPEN
+HEXALOAD HEXALOAD
+HEXACLOS HEXACLOS
+
 //RotatingDoubleBarrel Weapon Sounds//
 weapons/SpinSpin/MINISHOTSPI    "sounds/combat/weapons/slot - 3/RotatingShotgun/MINISHOTSPI"
 weapons/SpinSpin/MINISHOTSPI    "sounds/combat/weapons/slot - 3/RotatingShotgun/MINISHOTSTO"

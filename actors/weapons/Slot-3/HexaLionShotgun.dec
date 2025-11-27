@@ -1,0 +1,602 @@
+Actor HexaLionHasUnloaded : Inventory {Inventory.MaxAmount 1}
+
+Actor HexaLionBoyBarrelHeat: Inventory {Inventory.MaxAmount 200}
+
+Actor RespectHexaLionShotgun : Inventory {Inventory.MaxAmount 1}
+
+Actor HexaLionShotgun : PB_Weapon
+{
+	Game Doom
+    SpawnID 3044
+    Weapon.BobRangeX 0.3
+    Weapon.BobRangeY 0.5
+    Weapon.BobStyle InverseSmooth
+    Weapon.BobSpeed 2.0
+    Weapon.Kickback 76
+	Weapon.AmmoUse1 0
+	Weapon.AmmoGive1 12	
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive2 0
+	Weapon.AmmoType1 "PB_Shell"
+	Weapon.AmmoType2 "HexaLionAmmo"
+    +WEAPON.NOALERT
+	+WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+	+FLOORCLIP
+    +DONTGIB
+	Inventory.PickupMessage "You got the Hexa Lion-Boy Shotgun! (Slot 3)"
+	Obituary "$OB_MPSSHOTGUN"
+    Inventory.PickupSound "CLIPINSS"
+	Weapon.SlotNumber 3
+	Weapon.SelectionOrder 1600
+	Scale 0.55
+	Tag "Hexa Lion-Boy Shotgun"
+	Inventory.AltHudIcon "XSGPA0"
+	PB_WeaponBase.respectItem "RespectHexaLionShotgun"
+    FloatBobStrength 0.5
+	States
+	{
+	Steady:
+	    TNT1 A 0
+	    Goto Ready
+
+	Ready:
+	    TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 PB_RespectIfNeeded
+	WeaponRespect:
+		TNT1 A 0 {
+			 PB_HandleCrosshair(92);
+			 A_GiveInventory("RespectHexaLionShotgun",1);
+			 A_GiveInventory ("HexaLionAmmo", 6);
+			 A_GiveInventory("PB_LockScreenTilt",1);
+			 A_PlaySoundEx("Ironsights", "Auto");
+			 }
+		XSGS FEDCBA 1 {
+			 A_SetRoll(roll+1.5,SPF_INTERPOLATE);
+			 return A_DoPBWeaponAction;
+		     }
+		XSGF TTTTTT 3 {
+			 A_SetRoll(0);
+			 return A_DoPBWeaponAction;
+		     }
+		XSGF T 1 Offset(-2,33)
+		XSGF T 1 Offset(-4,34)
+		XSGF T 1 Offset(-7,36)
+		XSGR ABCDEFG 1 Offset(0,32)
+		XSGR H 4
+		XSGR IJKMOPQR 1
+		TNT1 A 0 A_PlaySound("HEXAOPEN")
+		TNT1 A 0 {
+		     A_FireCustomMissile("SSGCaseSpawner",0,0,-4);
+		     A_FireCustomMissile("SSGCaseSpawner",0,0,-4);
+			 }
+		TNT1 A 0 {
+		     A_FireCustomMissile("SSGCaseSpawner",0,0,-4);
+		     A_FireCustomMissile("SSGCaseSpawner",0,0,-4);
+			 }
+		TNT1 A 0 {
+		     A_FireCustomMissile("SSGCaseSpawner",0,0,-4);
+		     A_FireCustomMissile("SSGCaseSpawner",0,0,-4);
+			 }
+		XSGR S 2 Offset(9,38)
+		XSGR S 1 Offset(5,35)
+		XSGR S 1 Offset(2,33)
+		XSGR S 2 Offset(0,32)
+		XSGR TUVWWXX 1
+		QSGR O 0 A_PlaySound("HEXALOAD")
+		XSGR YZ 1
+		XSR2 A 1
+		XSR2 A 1 Offset(-2,31)
+		XSR2 A 1 Offset(-3,31)
+		XSR2 A 2 Offset(-4,33)
+		XSR2 A 1 Offset(-2,33)
+		XSR2 A 2 Offset(0,32)
+		XSR2 BCDEEFF 1
+		QSGR O 0 A_PlaySound("HEXALOAD")
+		XSR2 GH 1
+		XSR2 I 1 Offset(-1,30)
+		XSR2 I 1 Offset(-2,29)
+		XSR2 I 3 Offset(-4,27)
+		XSR2 I 1 Offset(-3,28)
+		XSR2 I 2 Offset(-1,31)
+		XSR2 JKLMMNN 1 Offset(0,32)
+		QSGR O 0 A_PlaySound("HEXALOAD")
+		XSR2 OPQRSTUVWX 1
+		XSR2 YYYZ 1
+		XSR3 A 1
+		TNT1 A 0 A_PlaySound("HEXACLOS")
+		TNT1 A 0
+	    Goto Ready3
+    SelectAnimation:
+        TNT1 A 0 {
+		     A_WeaponOffset(0,32);
+		     A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 A_PlaySound("HEXAOPEN", 5)
+		XSGS FEDCBA 1 {
+		     A_DoPBWeaponAction(WRF_NOFIRE);
+		     }
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+	Ready3:
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 PB_HandleCrosshair(92);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 }
+	    TNT1 A 0
+	HexaLionBoyReadyToFire:
+		TNT1 A 0 A_GiveInventory("HexaSSGAltCooldown", 2)
+		XSGF T 1 {
+		     if (CountInv("HexaLionBoyBarrelHeat") >= 60) { A_GunFlash("HexaLionBoyBarrelSmoke");
+		     }
+			 if (PressingFire() && CountInv("HexaLionAmmo") > 0){
+		         return state("Fire");
+		     }
+			 return A_DoPBWeaponAction(WRF_ALLOWRELOAD);
+		     }
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		Loop
+    HexaLionBoyBarrelSmoke:
+		TNT1 A 0 {
+			 A_FireCustomMissile("GunBarrelSmoke", 0, 0, -0.9, 0, 0, 0);
+			 A_FireCustomMissile("GunBarrelSmoke", 0, 0, 0.9, 0, 0, 0);
+			 A_TakeInventory("HexaLionBoyBarrelHeat",1);
+		     }
+		TNT1 A 0
+		Stop
+
+	Deselect:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 PB_HandleCrosshair(92);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 A_ZoomFactor(1.0);
+		     }
+		TNT1 A 0
+		TNT1 A 0 A_GiveInventory("HexaSSGAltCooldown", 100)
+		SHTZ A 0 A_TakeInventory("Zoomed",1)
+		XSGS ABCDEF 1
+		TNT1 A 1 A_Lower
+		Wait
+
+	Select:
+		TNT1 A 0 {
+		     A_WeaponOffset(0,32);
+		     A_SetRoll(0);
+		     PB_HandleCrosshair(92);
+		     A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		Goto SelectFirstPersonLegs
+		SelectContinue:
+		TNT1 A 0 A_Raise
+		Wait
+
+	NoAmmo:
+		XSGF T 1 {
+		     A_DoPBWeaponAction(WRF_NOFIRE);
+		     A_ZoomFactor(1.0);
+		     A_TakeInventory("Zoomed",1);
+		     A_TakeInventory("ADSmode",1);
+		     A_PlaySound("weapons/empty", 4);
+		     }
+	NoAmmo2:
+		XSGF T 3 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		SHTZ A 0 A_JumpIfInventory("PB_Shell",2,"Reload")
+		SHTZ A 0 A_JumpIfInventory("FiredPrimary",1,"NoAmmo2")
+		TNT1 A 0 {
+		     A_SelectWeapon("PB_Pistol");
+			 }
+		TNT1 A 0
+		Goto HexaLionBoyReadyToFire
+
+	 NoAmmo3:
+		XSGF T 3 {
+		     A_DoPBWeaponAction(WRF_NOFIRE);
+		     A_ZoomFactor(1.0);
+		     A_TakeInventory("Zoomed",1);
+		     A_TakeInventory("ADSmode",1);
+		     A_PlaySound("weapons/empty", 4);
+		     }
+		TNT1 A 0
+		Goto HexaLionBoyReadyToFire
+
+	 Fire:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 PB_HandleCrosshair(92);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		     }
+		TNT1 A 0 A_GiveInventory("HexaSSGAltCooldown", 50)
+		XSGF T 0 A_TakeInventory("Reloading",1)
+		SHTZ A 0 A_JumpIfInventory("HexaLionAmmo", 0, 1)
+		Goto NoAmmo
+		SHTZ A 0 A_TakeInventory("HexaLionAmmo", 6)
+		SHTZ A 0 A_ZoomFactor(1.5)
+		SHTZ A 0 A_Recoil(13)
+		XSGF ABC 1 Bright {
+			 A_FireCustomMissile("YellowFlareSpawn", 0, 0, 0, 0);
+			 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+			 A_FireBullets (0,0,1,40,"ShotPuff",FBF_NORANDOM,300);
+			 A_AlertMonsters;
+			 PB_GunSmoke(0,0,-0.9);
+			 PB_GunSmoke(0,0,0.9);
+			 }
+		SHTZ A 0 A_ZoomFactor(1.4)
+		TNT1 A 0 A_PlaySound("HEXAFIR1",1)
+		TNT1 A 0 A_PlaySound("HEXAFIR2",2)
+		TNT1 A 0 A_PlaySound("HEXAFIR3",3)
+		TNT1 A 0 A_PlaySound("HEXAFIR4",4)
+		TNT1 A 0 A_PlaySound("HEXAFIR5",5)
+		TNT1 A 0 A_PlaySound("HEXAFIR6",6)
+		TNT1 A 0 A_PlaySound("HEXAFIR7",7)
+        SHTN A 0 A_PlaySound("PAIN1",8)
+		TNT1 A 0 Bright {
+			 A_FireCustomMissile("ShotgunParticles", random(-19,19), 0, -1, 0, 0, random(-9,9));
+		     A_FireCustomMissile("ShotgunParticles2", random(-19,19), 0, -1, 0, 0, random(-9,9));
+		     A_FireBullets (7, 3, 9, 13, "ShotgunPuff", FBF_NORANDOM);
+		     A_FireBullets (3, 5, 9, 13, "ShotgunPuff", FBF_NORANDOM);
+		     A_FireBullets (4, 4, 9, 13, "ShotgunPuff", FBF_NORANDOM);
+		     A_FireBullets (6, 3, 9, 13, "ShotgunPuff", FBF_NORANDOM);
+		     A_FireBullets (5, 5, 9, 13, "ShotgunPuff", FBF_NORANDOM);
+		     A_FireBullets (7, 3, 9, 13, "ShotgunPuff", FBF_NORANDOM);
+		     A_FireBullets (5, 3, 9, 13, "ShotgunPuff", FBF_NORANDOM);
+			 A_AlertMonsters;
+			 PB_GunSmoke(0,0,-0.9);
+			 PB_GunSmoke(0,0,0.9);
+			 A_GunFlash;
+			 A_Giveinventory("HexaLionBoyBarrelHeat",120);
+			 }
+		SHTZ A 0 PB_WeaponRecoil(-10, 0)
+		SHTZ A 0 A_ZoomFactor(1.3)
+		SHTZ A 0 A_ZoomFactor(1.2)
+		SHTZ A 0 PB_WeaponRecoil(-8, 0)
+		SHTZ A 0 A_ZoomFactor(1.00)
+        SHTZ A 0 A_TakeInventory("Reloading",1)
+		XSGF DE 1 PB_WeaponRecoil(-4, 0)
+		XSGF EEEFGH 1 PB_WeaponRecoil(+1, 0)
+		XSGF IJKLMNOPQR 1 PB_WeaponRecoil(+2, 0)
+		XSGF S 1
+		XSGF T 1 Offset(0,34)
+		QSGF AAA 0 PB_WeaponRecoil(+0.5, 0)
+		XSGF TT 1 Offset(0,33)
+		XSGF T 1 Offset(0,32)
+		XSGF T 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_NOBOB)
+		QSGF P 0 A_JumpIfInventory("Reloading",1,"Reload")
+		XSGF T 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_NOBOB)
+		Goto NoAmmo2
+
+	AltFire:
+        TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 PB_HandleCrosshair(92);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 A_JumpIfInventory("PB_Shell", 2, 2)
+		Goto NoAmmo3
+		TNT1 A 0 A_TakeInventory("PB_Shell", 2, 2)
+		TNT1 A 0 A_JumpIfInventory("HexaSSGAltCooldown", 100, 2)
+        XSGF T 1 Offset(-2,33)
+		XSGF T 1 Offset(-4,34)
+		XSGF T 1 Offset(-7,36)
+		TNT1 A 0 Offset(0,32)
+        XS2F OPQRS 1
+		XS2F NMLK 1
+		XS2F J 3
+		SHTZ A 0 A_TakeInventory("Reloading",1)
+		SHTZ A 0 A_JumpIfInventory("PB_Shell", 2, 1)
+		SHTZ A 0 A_TakeInventory("PB_Shell", 2)
+		SHTZ A 0 A_ZoomFactor(1.6)
+		SHTZ A 0 A_JumpIfInventory("PowerStrength", 1, 2)
+		SHTZ A 0 A_Recoil(5)
+        SHO9 A 0 A_PlaySound("SSHFIRE", 5)
+		XS2F AB 1 Bright {
+			 A_FireCustomMissile("YellowFlareSpawn", 0, 0, -2, 0);
+		     A_FireCustomMissile("YellowFlareSpawn", 0, 0, 2, 0);
+			 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+			 A_FireBullets (0,0,1,40,"ShotPuff",FBF_NORANDOM,300);
+			 A_AlertMonsters;
+			 PB_GunSmoke(0,0,-2);
+			 PB_GunSmoke(0,0,2);
+			 }
+		TNT1 A 0 Bright {
+			 A_FireCustomMissile("ShotgunParticles", random(-19,19), 0, -1, 0, 0, random(-9,9));
+		     A_FireCustomMissile("ShotgunParticles2", random(-19,19), 0, -1, 0, 0, random(-9,9));
+			 A_FireBullets (10, 1, 9, 13, "ShotgunPuff", FBF_NORANDOM);
+			 A_FireBullets (6, 3, 9, 13, "ShotgunPuff", FBF_NORANDOM);
+			 A_FireBullets (11, 3, 10, 13, "ShotgunPuff", FBF_NORANDOM);
+			 A_AlertMonsters;
+			 PB_GunSmoke(0,0,-2);
+			 PB_GunSmoke(0,0,2);
+			 }
+		SHTZ A 0 PB_WeaponRecoil(-20, 0)
+		TNT1 AA 0
+		SHTZ A 0 PB_WeaponRecoil(-12, 0)
+		SHTZ A 0 A_ZoomFactor(1.00)
+        SHTZ A 0 A_TakeInventory("Reloading",1)
+		XS2F CDDDDE 1 PB_WeaponRecoil(+2, 0)
+		XS2F EFFGI 1
+		XS2F J 2
+		XS2F KLMN 1
+		TNT1 A 0 {
+		     A_FireCustomMissile("ShotCaseSpawn",0,0,5, -20);
+			 A_FireCustomMissile("ShotCaseSpawn",0,0,5, -20);
+			 }
+		XS2F RQPO 1
+		XSGF T 1 Offset(-7,36)
+		XSGF T 1 Offset(-4,34)
+		XSGF T 1 Offset(-2,33)
+		XSGF T 1 Offset(0,32)
+		TNT1 A 0 A_TakeInventory("HexaSSGAltCooldown",100)
+        Goto HexaLionBoyReadyToFire
+
+	Reload:	
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	    TNT1 A 0 {
+		     A_Takeinventory("PB_LockScreenTilt",1);
+		     }
+		SHTZ A 0
+		SHTZ A 0 A_TakeInventory("Reloading",1)
+		SHTZ A 0 A_JumpIfInventory("HexaLionAmmo", 6, "HexaLionBoyReadyToFire")//Check if still has a shells in barrels
+		
+		SHTZ A 0 A_JumpIfInventory("PB_Shell", 6, 1)//Check if has any ammo left to reload
+		Goto HexaLionBoyReadyToFire
+	  //Reload 6 Barrels
+		TNT1 A 0 Offset(20,48)
+        TNT1 A 0 Offset(0,32)
+		XSGF T 1 Offset(-2,33)
+		XSGF T 1 Offset(-4,34)
+		XSGF T 1 Offset(-7,36)
+		XSGR ABCDEFG 1 Offset(0,32)
+		XSGR H 4 A_GiveInventory("HexaSSGAltCooldown", 2)
+		XSGR IJKMOPQR 1 A_GiveInventory("HexaSSGAltCooldown", 2)
+		TNT1 A 0 A_PlaySound("HEXAOPEN")
+		SHTZ A 0 A_JumpIfInventory("HexaLionHasUnloaded", 1, 7)
+		TNT1 A 0 {
+		     A_FireCustomMissile("SSGCaseSpawner",0,0,-4);
+		     A_FireCustomMissile("SSGCaseSpawner",0,0,-4);
+			 }
+		TNT1 A 0 {
+		     A_FireCustomMissile("SSGCaseSpawner",0,0,-4);
+		     A_FireCustomMissile("SSGCaseSpawner",0,0,-4);
+			 }
+		TNT1 A 0 {
+		     A_FireCustomMissile("SSGCaseSpawner",0,0,-4);
+		     A_FireCustomMissile("SSGCaseSpawner",0,0,-4);
+			 }
+		XSGR S 2 Offset(9,38)
+		XSGR S 1 Offset(5,35)
+		XSGR S 1 Offset(2,33)
+		XSGR S 2 Offset(0,32)
+		XSGR TUVWWXX 1
+		QSGR O 0 A_PlaySound("HEXALOAD")
+		SHTZ A 0 A_TakeInventory("PB_Shell", 2)
+		SHTZ A 0 A_GiveInventory("HexaLionAmmo", 2)
+		XSGR YZ 1
+		XSR2 A 1
+		XSR2 A 1 Offset(-2,31)
+		XSR2 A 1 Offset(-3,31)
+		XSR2 A 2 Offset(-4,33)
+		XSR2 A 1 Offset(-2,33)
+		XSR2 A 2 Offset(0,32)
+		XSR2 BCDEEFF 1
+		QSGR O 0 A_PlaySound("HEXALOAD")
+		SHTZ A 0 A_TakeInventory("PB_Shell", 2)
+		SHTZ A 0 A_GiveInventory("HexaLionAmmo", 2)
+		XSR2 GH 1
+		XSR2 I 1 Offset(-1,30)
+		XSR2 I 1 Offset(-2,29)
+		XSR2 I 3 Offset(-4,27)
+		XSR2 I 1 Offset(-3,28)
+		XSR2 I 2 Offset(-1,31)
+		XSR2 JKLMMNN 1 Offset(0,32)
+		QSGR O 0 A_PlaySound("HEXALOAD")
+		SHTZ A 0 A_TakeInventory("PB_Shell", 2)
+		SHTZ A 0 A_GiveInventory("HexaLionAmmo", 2)
+		XSR2 OPQRSTUVWX 1
+		XSR2 YYYZ 1
+		XSR3 A 1
+		TNT1 A 0 A_PlaySound("HEXACLOS")
+		Goto HexaLionBoyReadyToFire
+
+	Unload:
+		XSGF T 1
+		QSGF P 0 A_ZoomFactor(1.0)
+		QSGF P 0 A_Takeinventory("Unloading",1)
+		QSGF P 0 A_Takeinventory("ADSmode",1)
+		QSGF P 0 A_Takeinventory("Zoomed",1)
+        QSGF P 0 A_JumpIfInventory("HexaLionAmmo",1,3)
+        Goto HexaLionBoyReadyToFire
+        TNT1 AAA 0
+		QSGF P 0 A_Takeinventory("Unloading",1)
+		QSGF P 0 A_Takeinventory("Zoomed",1)
+		QSGF P 0 A_GiveInventory ("Pumping", 1)
+		QSGF P 0 A_Takeinventory("Unloading",1)
+		XSGS ABCDEF 1
+		QSGR H 0 A_PlaySound("HEXAOPEN")
+		Goto RemoveBullets
+
+	RemoveBullets:
+		TNT1 AAAA 0
+		QSGF P 0 A_JumpIfInventory("HexaLionAmmo",1,3)
+		Goto FinishUnload
+        TNT1 AAAAAA 0
+		QSGF P 0 A_Takeinventory("HexaLionAmmo",1)
+		QSGF P 0 A_Giveinventory("PB_Shell",1)
+		Goto RemoveBullets
+
+	FinishUnload:
+        TNT1 A 19
+		XSR2 QRSTUVWX 1
+		XSR2 YYYZ 1
+		XSR3 A 1
+		QSGF P 0 A_GiveInventory("HexaLionHasUnloaded", 1)
+		QSGF P 0 A_Takeinventory("Unloading",1)
+		QSGF P 0 A_GiveInventory ("Pumping", 1)
+        QSGF P 0 A_PlaySound("HEXACLOS")
+        Goto HexaLionBoyReadyToFire
+
+	Spawn:
+		XSGP A -1
+		Stop
+
+	WeaponSpecial:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 A_Takeinventory("GoWeaponSpecialAbility",1);
+			 }
+		TNT1 A 0 A_Print("No Special Available")
+		Goto HexaLionBoyReadyToFire
+
+	FlashKicking:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		XSGF T 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		XMAO A 1 A_DoPBWeaponAction
+		XMAO B 1 A_DoPBWeaponAction
+		XMAO C 1 A_DoPBWeaponAction
+		XMAO D 1 A_DoPBWeaponAction
+		XMAO E 1 A_DoPBWeaponAction
+		XMAO F 6 A_DoPBWeaponAction
+		XMAO E 1 A_DoPBWeaponAction
+		XMAO D 1 A_DoPBWeaponAction
+		XMAO C 1 A_DoPBWeaponAction
+		XMAO B 1 A_DoPBWeaponAction
+		XMAO A 1 A_DoPBWeaponAction
+		XSGF T 1 A_DoPBWeaponAction
+		Goto HexaLionBoyReadyToFire
+
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		XSGF T 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		XMAO A 1 A_DoPBWeaponAction
+		XMAO B 1 A_DoPBWeaponAction
+		XMAO C 1 A_DoPBWeaponAction
+		XMAO D 1 A_DoPBWeaponAction
+		XMAO E 1 A_DoPBWeaponAction
+		XMAO F 7 A_DoPBWeaponAction
+		XMAO E 1 A_DoPBWeaponAction
+		XMAO D 1 A_DoPBWeaponAction
+		XMAO C 1 A_DoPBWeaponAction
+		XMAO B 1 A_DoPBWeaponAction
+		XMAO A 1 A_DoPBWeaponAction
+		XSGF T 1 A_DoPBWeaponAction
+		Goto HexaLionBoyReadyToFire
+
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		XSGF T 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		XMAO A 1 A_DoPBWeaponAction
+		XMAO B 1 A_DoPBWeaponAction
+		XMAO C 1 A_DoPBWeaponAction
+		XMAO D 1 A_DoPBWeaponAction
+		XMAO E 1 A_DoPBWeaponAction
+		XMAO F 13 A_DoPBWeaponAction
+		XMAO E 1 A_DoPBWeaponAction
+		XMAO D 1 A_DoPBWeaponAction
+		XMAO C 1 A_DoPBWeaponAction
+		XMAO B 1 A_DoPBWeaponAction
+		XMAO A 1 A_DoPBWeaponAction
+		XSGF T 1 A_DoPBWeaponAction
+		Goto HexaLionBoyReadyToFire
+
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		XSGF T 1 A_DoPBWeaponAction
+		Goto HexaLionBoyReadyToFire
+
+	FlashPunching:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		XSGR A 1 A_DoPBWeaponAction
+		XSGR B 1 A_DoPBWeaponAction
+		XSGR C 1 A_DoPBWeaponAction
+		XSGR D 1 A_DoPBWeaponAction
+		XSGR E 1 A_DoPBWeaponAction
+		XSGR F 1 A_DoPBWeaponAction
+		XSGR G 2 A_DoPBWeaponAction
+		XSGR F 1 A_DoPBWeaponAction
+		XSGR E 1 A_DoPBWeaponAction
+		XSGR D 1 A_DoPBWeaponAction
+		XSGR C 1 A_DoPBWeaponAction
+		XSGR B 1 A_DoPBWeaponAction
+		XSGR A 1 A_DoPBWeaponAction
+		XSGF T 1 A_DoPBWeaponAction
+		Stop
+
+	FlashPunchingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_ClearOverlays(10,11)
+		XSGF T 1 A_DoPBWeaponAction
+		Stop
+	}
+}
+
+Actor HexaLionAmmo : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 6
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 6
+   Inventory.Icon "XSGPA0"
+}
+
+Actor HexaSSGAltCooldown : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 100
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 100
+}
+
+/*Actor HexaShotgunSpawner : RandomSpawner
+{
+  DropItem "HexaShotgun" 255
+  DropItem "HexaLionShotgun" 255
+}*/

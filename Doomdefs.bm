@@ -1,3 +1,9 @@
+//HexaLionShotgun
+Brightmap Sprite SHF2A0 { Map "Brightmaps/Weapons/HexaLion/XSF2AB.png" DisableFullBright }
+Brightmap Sprite XSGFW0 { Map "Brightmaps/Weapons/HexaLion/XSGFWB.png" DisableFullBright }
+Brightmap Sprite XSGFV0 { Map "Brightmaps/Weapons/HexaLion/XSGFVB.png" DisableFullBright }
+Brightmap Sprite XSGFU0 { Map "Brightmaps/Weapons/HexaLion/XSGFUB.png" DisableFullBright }
+
 //D4 Machine Gun
 brightmap sprite M2GFA0 { map "Brightmaps/Sprites/M2GFA0.png" }
 brightmap sprite M2GFB0 { map "Brightmaps/Sprites/M2GFB0.png" }

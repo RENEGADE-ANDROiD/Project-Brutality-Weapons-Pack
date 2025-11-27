@@ -327,6 +327,20 @@ class DemonTechShotgunGiverSpawnerInjector : PBInjector
 	}
 }
 
+class HexaLionShotgunSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnHexaLionShotgun == 1)
+		{
+		handler.InjectSpawn('PB_SSGSpawnerT1', 'HexaLionShotgun', 255, 1);
+		handler.InjectSpawn('PB_SSGSpawnerT2', 'HexaLionShotgun', 255, 1);
+		handler.InjectSpawn('PB_SSGSpawnerT3', 'HexaLionShotgun', 255, 1);
+		handler.InjectSpawn('PB_SSGSpawnerT4', 'HexaLionShotgun', 255, 1);
+		}
+	}
+}
+
 //Lever-Action
 class M1887SpawnerInjector : PBInjector
 {

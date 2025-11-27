@@ -65,6 +65,7 @@
 #INCLUDE actors/Weapons/Slot-3/D2016SHOTGUN.dec	//BORING GUN // Skill Issue :cacotroll:
 #include actors/Weapons/Slot-3/DTShotgun.dec
 #include actors/Weapons/Slot-3/CryoShotgun.dec
+#include actors/Weapons/Slot-3/HexaLionShotgun.dec
 #include actors/Weapons/Slot-3/MarauderSSG.dec
 #include actors/Weapons/Slot-3/M1887.dec
 #include actors/Weapons/Slot-3/RotatingDoubleBarrel.dec
