@@ -11,18 +11,16 @@ See PB Weapon Pack Options to configure:
 - DOORBUSTER from BDP - Bust down doors (if you want)
 
 -----------------
-Load order: Mapwad > Project Brutality Staging > Glory Kills addon > PB Monster Pack > PB Weapon Pack
+Recommended Load order: Mapwad > Project Brutality Staging > Glory Kills addon > PB Monster Pack > Project Malice Monsters > PB patch for Project Malice > PB Weapon Pack  
 
+While Glory Kills, Monster Pack & Project Malice monsters are not required, they do enhance gameplay experience for some of these powerful weapons.
 
 - Project Brutality Staging - https://github.com/pa1nki113r/Project_Brutality/tree/PB_Staging 
-
 // Click on the green "Code" button, Click to Download Zip, then load the zip as a pk3 mod.
-
-
 - Unofficial Glory Kill Addon Update - https://drive.google.com/file/d/1CdER4BUNFOcBpI2_yVzxsjO0hr6tsjIU/view?usp=drive_link
-
-
 - PB Monster Pack - https://drive.google.com/file/d/15qWzKprNk4XBTJ_N1xbPs2Sd4Gs7V9Mi/view
+- Project Malice Monsters - https://github.com/TheBlueSavior/Project-Malice
+- PB Malice Patch (This version is compatible with both PB Monster Pack and Project Malice, enhancing Glory Kill compatibility) - https://drive.google.com/file/d/1w1PL5v9kECI_83BdbBrvIoaHGWSE0d7B/view?usp=drive_link
 
 
 -----------------
@@ -40,10 +38,8 @@ TEAM MEMBERS:
 - BeefRice / LovecraftNeko
 
 - Warcarlsson
-
-
-
 -----------------
+
 ---------------Slot 1 weapons---------------
 
 - Argent Sith
@@ -53,19 +49,22 @@ TEAM MEMBERS:
 ---------------Slot 2 weapons---------------
 
 - Demon-Tech Pistol
-- Plasma Annihilator Pistol
 - Holy Bastard
+- Johnny Silverhands' Deagle
+- Plasma Annihilator Pistol
 
 ---------------Slot 3 weapons---------------
 
-- Cryo Shotgun
 - Commander SSG
-- Rotational SG
-- HASG aka Lady Golide
+- Cryo Shotgun
 - Demon-Tech Shotgun
 - Doom 2016 Shotgun
+- HASG aka Lady Golide
+- Hexa-Lion Shotgun
 - M1887 Winchester Lever-Action
 - Marauder SSG
+- Rotating Double Barrel
+- Rotational SG
 
 ---------------Slot 4 weapons---------------
 
