@@ -37,82 +37,84 @@ server	float	q_1airaccel				= 1.5;
 //===============================================
 // Weapon spawners
 //Slot 1
-server int PBSpawnArgentSith = 1;
-server int PBSpawnBattleAxe = 1;
-server int PBSpawnRazorjack = 1;
+server bool PBSpawnArgentSith = True;
+server bool PBSpawnBattleAxe = True;
+server bool PBSpawnRazorjack = True;
 //Slot 2
-server int PBSpawnSilverhandsDeagle = 1;
-server int PBSpawnHellPistol = 1;
-server int PBSpawnHellPistoler = 1;
-server int PBSpawnW_SMG = 1;
+server bool PBSpawnSilverhandsDeagle = True;
+server bool PBSpawnHellPistol = True;
+server bool PBSpawnHellPistoler = True;
+server bool PBSpawnW_SMG = True;
 //Slot 3
-server int PBSpawnPB_Doom2016Shotgun = 1;	//BORING GUN
-server int PBSpawnPB_CryoShotgun = 1;
-server int PBSpawnPB_CSSG = 1;
-server int PBSpawnRotationalSG = 1;
-server int PBSpawnHASG = 1;
-server int PBSpawnHexaLionShotgun = 1;
-server int PBSpawnDemonTechShotgun = 1;
-server int PBSpawnM1887 = 1;
-server int PBSpawnMarauderSSG = 1;
-server int PBSpawnRotatingDoubleBarrel = 1;
+server bool PBSpawnPB_Doom2016Shotgun = True;	//BORING GUN // Skill Issue :Cacotroll:
+server bool PBSpawnPB_CryoShotgun = True;
+server bool PBSpawnPB_CSSG = True;
+server bool PBSpawnRotationalSG = True;
+server bool PBSpawnHASG = True;
+server bool PBSpawnHexaLionShotgun = True;
+server bool PBSpawnDemonTechShotgun = True;
+server bool PBSpawnM1887 = True;
+server bool PBSpawnMarauderSSG = True;
+server bool PBSpawnRotatingDoubleBarrel = True;
 //Slot 4
-server int PBSpawnAK47 = 1;
-server int PBSpawnPB_BoltRifle = 1;
-server int PBSpawnDark_Fate = 1;
-server int PBSpawnHeavySniperRifle = 1;
-server int PBSpawnMagnumSniperRifle = 1;
-server int PBSpawnM41A = 1;
-server int PBSpawnPowerOverwhelming = 1;
+server bool PBSpawnAK47 = True;
+server bool PBSpawnPB_BoltRifle = True;
+server bool PBSpawnDark_Fate = True;
+server bool PBSpawnHeavySniperRifle = True;
+server bool PBSpawnMagnumSniperRifle = True;
+server bool PBSpawnM41A = True;
+server bool PBSpawnPowerOverwhelming = True;
 //Slot 5
-server int PBSpawnFire_and_IceDragonSlayer = 1;
-server int PBSpawnINNailGun = 1;
-server int PBSpawnOldHMG = 1;
-server int PBSpawnD4Machinegun = 1;
-server int PBSpawnINMiniGun = 1;
-server int PBSpawnDukeNukemRipper = 1;
-server int PBSpawnSuperNailgun = 1;
+server bool PBSpawnFire_and_IceDragonSlayer = True;
+server bool PBSpawnINNailGun = True;
+server bool PBSpawnOldHMG = True;
+server bool PBSpawnD4Machinegun = True;
+server bool PBSpawnINMiniGun = True;
+server bool PBSpawnDukeNukemRipper = True;
+server bool PBSpawnSuperNailgun = True;
 //Slot 6
-server int PBSpawnChthonicRifle = 1;
-server int PBSpawnCyberdemonsMissileLauncher = 1;
-server int PBSpawnDevastator = 1;
-server int PBSpawnPB_Excavator = 1;
-server int PBSpawnMastermindChaingun = 1;
-server int PBSpawnPaingiver = 1;
-server int PBSpawnD4RocketLauncher = 1;
-server int PBSpawnSuperGrenadeLauncher = 1;
+server bool PBSpawnChthonicRifle = True;
+server bool PBSpawnCyberdemonsMissileLauncher = True;
+server bool PBSpawnDevastator = True;
+server bool PBSpawnPB_Excavator = True;
+server bool PBSpawnMastermindChaingun = True;
+server bool PBSpawnPaingiver = True;
+server bool PBSpawnD4RocketLauncher = True;
+server bool PBSpawnSuperGrenadeLauncher = True;
 //Slot 7
-server int PBSpawnPlasmaRifleAssault = 1;
-server int PBSpawnD4PlasmaGun = 1;
-server int PBSpawnThunderCarrierTI = 1;
-server int PBSpawnD4VortexRifle = 1;
+server bool PBSpawnPlasmaRifleAssault = True;
+server bool PBSpawnD4PlasmaGun = True;
+server bool PBSpawnThunderCarrierTI = True;
+server bool PBSpawnD4VortexRifle = True;
 //Slot 8
-server int PBSpawnExtinction_Ray = 1;
-server int PBSpawnCalamityBlade = 1;
-server int PBSpawnPB_GaussCannon = 1;
-server int PBSpawnIon_Heavy = 1;
-server int PBSpawnPB_MancubusFlameCannon = 1;
+server bool PBSpawnExtinction_Ray = True;
+server bool PBSpawnCalamityBlade = True;
+server bool PBSpawnPB_GaussCannon = True;
+server bool PBSpawnIon_Heavy = True;
+server bool PBSpawnPB_MancubusFlameCannon = True;
 //Slot 9
-server int PBSpawnBioAcidLauncher = 1;
-server int PBSpawnBallistagun = 1;
-server int PBSpawnLegacyUnmaker = 1;
-server int PBSpawnStormcast = 1;
-server int PBSpawnThunderCrossbow = 1;
+server bool PBSpawnBioAcidLauncher = True;
+server bool PBSpawnBallistagun = True;
+server bool PBSpawnLegacyUnmaker = True;
+server bool PBSpawnStormcast = True;
+server bool PBSpawnThunderCrossbow = True;
 //Slot 0
-server int PBSpawnAncientCrossbow = 1;
-server int PBSpawnTechBlaster = 1;
-server int PBSpawnPB_DemonExt = 1;
-server int PBSpawnDemonTechMinigun = 1;
-server int PBSpawnPhaseEradicatorBFG = 1;
+server bool PBSpawnAncientCrossbow = True;
+server bool PBSpawnTechBlaster = True;
+server bool PBSpawnPB_DemonExt = True;
+server bool PBSpawnDemonTechMinigun = True;
+server bool PBSpawnPhaseEradicatorBFG = True;
 
 //===============================================
 // Monster Drops
-server int PBSpawnMSSGDrop = 1;
-server int PBSpawnALLDTechDrop = 1;
-server int PBSpawnMastermindCGDrop = 1;
-server int PBSpawnCyberdemonRLDrop = 1;
-server int PBSpawnPaingiverDrop = 1;
-server int PBSpawnMancFlameCannonDrop = 1;
+server bool FirstTimeLoadingPBWP = true;
+
+server bool PBSpawnMSSGDrop = false;
+server bool PBSpawnALLDTechDrop = false;
+server bool PBSpawnMastermindCGDrop = false;
+server bool PBSpawnCyberdemonRLDrop = false;
+server bool PBSpawnPaingiverDrop = false;
+server bool PBSpawnMancFlameCannonDrop = false;
 
 //Equipments from Monsters
-server int EQSpawnShieldGR = 1;
+server bool EQSpawnShieldGR = false;

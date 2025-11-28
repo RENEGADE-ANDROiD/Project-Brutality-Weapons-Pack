@@ -23,10 +23,12 @@ OptionMenu "ttwcoptions"
 OptionMenu "MonsterDropWeapSett"
 {
 	Title "Monster Drop Weapon Settings"
+	StaticText "By default they are all Off"
 	StaticText ""
 	StaticText "---------------Specials---------------", gold
 	StaticText ""
 	Option "D-Tech Trooper Spawn All D-Tech Weapons", "PBSpawnALLDTechDrop", "OnOff"
+	Option  "PB Monster weapon drops (Default is Just Ammo)","PB_WeaponDrops","MonsterDrops"
 	
 	StaticText ""
 	StaticText "---------------Monster Pack---------------", gold
@@ -59,20 +61,25 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText "IN = Insanity's Nightmare"
 	StaticText "RO = Russian Overkill"
 	StaticText "D2016 = Doom 2016 Weapons Pack"
+
+	StaticText ""
+	StaticText "---------------Specials---------------", gold
+	StaticText ""
+	Command "Enable All", "netevent PBWP_EnableAll"
+	Command "Disable All", "netevent PBWP_DisableAll"
+
+
 	StaticText ""
 	StaticText "---------------Slot 1 weapons---------------", gold
 	StaticText ""
 	Option "Spawn Argent Sith", "PBSpawnArgentSith", "OnOff"
+	Option "Spawn F&I - BattleAxe and Shield", "PBSpawnBattleAxe", "OnOff"
+	Option "Spawn RO - Razorjack", "PBSpawnRazorjack", "OnOff"
 
     StaticText ""
 	StaticText "---------------Slot 2 weapons---------------", gold
 	StaticText ""
-	Option "Spawn Demon-Tech Pistol", "PBSpawnHellPistol", "OnOff"
-	Option "Spawn Plasma Annihilator Pistol", "PBSpawnHellPistoler", "OnOff"
-	Option "Spawn Holy Bastard", "PBSpawnW_SMG", "OnOff"
 	Option "Spawn Johnny Silverhand's Deagle", "PBSpawnSilverhandsDeagle", "OnOff"
-	Option "Spawn F&I - BattleAxe and Shield", "PBSpawnBattleAxe", "OnOff"
-	Option "Spawn RO - Razorjack", "PBSpawnRazorjack", "OnOff"
 	Option "Spawn DTECH - Demon-Tech Pistol", "PBSpawnHellPistol", "OnOff"
 	Option "Spawn IN - Plasma Annihilator Pistol", "PBSpawnHellPistoler", "OnOff"
 	Option "Spawn IN - Holy Bastard", "PBSpawnW_SMG", "OnOff"
@@ -94,7 +101,6 @@ OptionMenu "WeaponPackSpawnSettings"
     StaticText ""
 	StaticText "---------------Slot 4 weapons---------------", gold
 	StaticText ""
-	Option "Spawn AK-47", "PBSpawnAK47", "OnOff"
 	Option "Spawn IN - AK-47", "PBSpawnAK47", "OnOff"
 	Option "Spawn Bolt-Action Sniper", "PBSpawnPB_BoltRifle", "OnOff"
 	Option "Spawn IN - Dark Fate", "PBSpawnDark_Fate", "OnOff"
@@ -139,7 +145,7 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText ""
 	Option "Spawn IN - Argent Fury", "PBSpawnExtinction_Ray", "OnOff"
 	Option "Spawn Calamity Blade - LoR", "PBSpawnCalamityBlade", "OnOff"
-	Option "Spawn Gauss Cannon", "PBSpawnGaussCannon", "OnOff"
+	Option "Spawn Gauss Cannon", "PBSpawnPB_GaussCannon", "OnOff"
 	Option "Spawn IN - Ion Rifle", "PBSpawnIon_Heavy", "OnOff"
 	Option "Spawn MANCUBUS FLAMECANNON", "PBSpawnPB_MancubusFlameCannon", "OnOff"
 

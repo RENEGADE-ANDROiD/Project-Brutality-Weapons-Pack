@@ -1,6 +1,6 @@
-AddKeySection "Meat Hook Options" Extra_ZDoom_controls
+/*AddKeySection "Meat Hook Options" Extra_ZDoom_controls
 AddMenuKey "Use Meat Hook" meathook
-alias meathook "puke 6005"
+alias meathook "puke 6005"*/
 
 alias SwitchItUp "NetEvent SwitchItUp"
 alias BackItUp "NetEvent SwitchBack"
@@ -41,6 +41,76 @@ alias +dp_random_key  "dp_random_go"
 alias -dp_random_key  ""
 
 alias dp_show_mode "give DP_ModeReporter; use DP_ModeReporter"
+
+/*
+alias PBWP_EnableAll "
+           set PBSpawnArgentSith true;
+           set PBSpawnBattleAxe true;
+           set PBSpawnRazorjack true;
+            //Slot 2
+           set PBSpawnSilverhandsDeagle true;
+           set PBSpawnHellPistol true;
+           set PBSpawnHellPistoler true;
+           set PBSpawnW_SMG true;
+            //Slot 3
+           set PBSpawnPB_Doom2016Shotgun true;
+           set PBSpawnPB_CryoShotgun true;
+           set PBSpawnPB_CSSG true;
+           set PBSpawnRotationalSG true;
+           set PBSpawnHASG true;
+           set PBSpawnHexaLionShotgun true;
+           set PBSpawnDemonTechShotgun true;
+           set PBSpawnM1887 true;
+           set PBSpawnMarauderSSG true;
+           set PBSpawnRotatingDoubleBarrel true;
+            //Slot 4
+           set PBSpawnAK47 true;
+           set PBSpawnPB_BoltRifle true;
+           set PBSpawnDark_Fate true;
+           set PBSpawnHeavySniperRifle true;
+           set PBSpawnMagnumSniperRifle true;
+           set PBSpawnM41A true;
+           set PBSpawnPowerOverwhelming true;
+            //Slot 5
+           set PBSpawnFire_and_IceDragonSlayer true;
+           set PBSpawnINNailGun true;
+           set PBSpawnOldHMG true;
+           set PBSpawnD4Machinegun true;
+           set PBSpawnINMiniGun true;
+           set PBSpawnDukeNukemRipper true;
+           set PBSpawnSuperNailgun true;
+            //Slot 6
+           set PBSpawnChthonicRifle true;
+           set PBSpawnCyberdemonsMissileLauncher true;
+           set PBSpawnDevastator true;
+           set PBSpawnPB_Excavator true;
+           set PBSpawnMastermindChaingun true;
+           set PBSpawnPaingiver true;
+           set PBSpawnD4RocketLauncher true;
+           set PBSpawnSuperGrenadeLauncher true;
+            //Slot 7
+           set PBSpawnPlasmaRifleAssault true;
+           set PBSpawnD4PlasmaGun true;
+           set PBSpawnThunderCarrierTI true;
+           set PBSpawnD4VortexRifle true;
+            //Slot 8
+           set PBSpawnExtinction_Ray true;
+           set PBSpawnCalamityBlade true;
+           set PBSpawnPB_GaussCannon true;
+           set PBSpawnIon_Heavy true;
+           set PBSpawnPB_MancubusFlameCannon true;
+            //Slot 9
+           set PBSpawnBioAcidLauncher true;
+           set PBSpawnBallistagun true;
+           set PBSpawnLegacyUnmaker true;
+           set PBSpawnStormcast true;
+           set PBSpawnThunderCrossbow true;
+            //Slot 0
+           set PBSpawnAncientCrossbow true;
+           set PBSpawnTechBlaster true;
+           set PBSpawnPB_DemonExt true;
+           set PBSpawnDemonTechMinigun true;
+           set PBSpawnPhaseEradicatorBFG true;"*/
 
 Addslotdefault 1 PB_BeamKatana
 addslotdefault 1 BattleAxe

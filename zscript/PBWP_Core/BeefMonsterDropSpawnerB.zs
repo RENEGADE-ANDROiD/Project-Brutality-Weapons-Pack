@@ -2,6 +2,21 @@
 // This is the place if you want to add more tiers or more things to spawn
 
 // Marauder SSG
+class HookGiverSpawner : PB_WeaponSpawner 
+{
+    Default
+    {
+        Dropitem "HookGiver", 255, 1;
+    }
+}
+class MarauderSSGSpawner : PB_WeaponSpawner 
+{
+    Default
+    {
+        Dropitem "MarauderSSG", 255, 1;
+    }
+}
+
 class PB_MSSGSpawnerT1 : PB_WeaponSpawner 
 {
     Default
@@ -97,7 +112,6 @@ class PB_DTechAllGRSpawnerT3 : PB_WeaponSpawner
     {
         Dropitem "HellPistol", 255, 10;
         Dropitem "TechBlaster", 255, 20;
-        Dropitem "PB_Demontech", 255, 20;
         Dropitem "DemonTechMinigun", 255, 15;
         Dropitem "DemonTechShotgunGiver", 255, 20;
         Dropitem "TechBlasterUpgrade", 255, 15;
@@ -110,7 +124,6 @@ class PB_DTechAllGRSpawnerT4 : PB_WeaponSpawner
     {
         Dropitem "HellPistol", 255, 1;
         Dropitem "TechBlaster", 255, 1;
-        Dropitem "PB_Demontech", 255, 2;
         Dropitem "DemonTechMinigun", 255, 2;
         Dropitem "DemonTechShotgunGiver", 255, 2;
         Dropitem "TechBlasterUpgrade", 255, 2;
@@ -122,14 +135,14 @@ class PB_ShieldGRSpawnerT1 : PB_WeaponSpawner
 {
     Default
     {
-        Dropitem "Paingiver", 255, 1;
+        Dropitem "ShieldGrenade", 255, 1;
     }
 }
 class PB_ShieldGRSpawnerT2 : PB_WeaponSpawner 
 {
     Default
     {
-        Dropitem "Paingiver", 255, 1;
+        Dropitem "ShieldGrenade", 255, 1;
     }
 }
 
@@ -137,7 +150,7 @@ class PB_ShieldGRSpawnerT3 : PB_WeaponSpawner
 {
     Default
     {
-        Dropitem "Paingiver", 255, 1;
+        Dropitem "ShieldGrenade", 255, 1;
     }
 }
 
@@ -145,6 +158,6 @@ class PB_ShieldGRSpawnerT4 : PB_WeaponSpawner
 {
     Default
     {
-        Dropitem "Paingiver", 255, 1;
+        Dropitem "ShieldGrenade", 255, 1;
     }
 }

@@ -1,9 +1,10 @@
 version "4.11.3"
 
 // Monster Drop Handler
-#include "zscript/beefhandler.zs"
-#include "zscript/BeefMonsterDropSpawnerA.zs"
-#include "zscript/BeefMonsterDropSpawnerB.zs"
+#include "zscript/PBWP_Core/BeefHandler.zs"
+#include "zscript/PBWP_Core/BeefCore.zs"
+#include "zscript/PBWP_Core/BeefMonsterDropSpawnerA.zs"
+#include "zscript/PBWP_Core/BeefMonsterDropSpawnerB.zs"
 
 // Random Weapon Switch
 #include "zscript/Random Weapon Switcher/ZRWSwitchMenu.zc"
@@ -13,7 +14,7 @@ version "4.11.3"
 #include "zscript/MergedSpawner.zc"
 #include "zscript/Insanity's Nightmare/ChainsawSpawn.zc"
 #include "zscript/Weapons/Slot-3/CSSG/CSSGEvent.zs"
-#include "zscript/NoDropMonsterSpawner.zs"
+//#include "zscript/NoDropMonsterSpawner.zs" // We Don't Need This Anymore
 #include "zscript/GORENEST.zs"
 
 // Player Pawn Insanity Beef: Will this be added later?

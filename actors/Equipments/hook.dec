@@ -27,10 +27,9 @@ ACTOR HookGiver : CustomInventory
 	States 
 	{
 		Spawn:
-			H00K A -1 A_SpawnItem("YellowFlareSmall",-1,1)
+			H00K A 1 A_SpawnItem("YellowFlareSmall",-1,1)
 			Loop
 		Pickup:
-			TNT1 A 0 A_JumpIfInventory("AlreadyHaveMeatHook",1,"Death")
 			TNT1 A 0 A_GiveInventory("HookAmmo",1) 
 			TNT1 A 0 A_GiveInventory("AlreadyHaveMeatHook",1) 
 			TNT1 A 20
