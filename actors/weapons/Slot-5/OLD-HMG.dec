@@ -577,7 +577,7 @@ Actor OLDHMG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
 	    TNT1 A 0 A_ClearOverlays(10,11)
 		TNT1 A 0 A_JumpIfInventory("EquippedNailRounds",1,"NailGunFlashKicking")
-		HMAS A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		/*HMAS A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		HMAS B 1 A_DoPBWeaponAction
 		HMAS C 1 A_DoPBWeaponAction
 		HMAS D 3 A_DoPBWeaponAction
@@ -585,7 +585,8 @@ Actor OLDHMG : PB_Weapon
 		HMAS D 3 A_DoPBWeaponAction
 		HMAS C 1 A_DoPBWeaponAction
 		HMAS BA 1 A_DoPBWeaponAction
-		HMAG A 1 A_DoPBWeaponAction
+		HMAG A 1 A_DoPBWeaponAction*/
+		HMAS ABCDDDEEEDDDCBBA 1
 		Goto Ready3
 
    FlashAirKicking:
@@ -594,7 +595,7 @@ Actor OLDHMG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
 	    TNT1 A 0 A_ClearOverlays(10,11)
 		TNT1 A 0 A_JumpIfInventory("EquippedNailRounds",1,"NailGunFlashAirKicking")
-		HMAS A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		/*HMAS A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		HMAS B 1 A_DoPBWeaponAction
 		HMAS C 1 A_DoPBWeaponAction
 		HMAS D 3 A_DoPBWeaponAction
@@ -602,7 +603,8 @@ Actor OLDHMG : PB_Weapon
 		HMAS D 3 A_DoPBWeaponAction
 		HMAS C 1 A_DoPBWeaponAction
 		HMAS BA 1 A_DoPBWeaponAction
-		HMAG A 1 A_DoPBWeaponAction
+		HMAG A 1 A_DoPBWeaponAction*/
+		HMAS ABCDDDEEEDDDCBBA 1
 		Goto Ready3
 
 	FlashSlideKicking:
@@ -611,7 +613,7 @@ Actor OLDHMG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
 	    TNT1 A 0 A_ClearOverlays(10,11)
 		TNT1 A 0 A_JumpIfInventory("EquippedNailRounds",1,"NailGunFlashSlideKicking")
-		HMAS A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		/*HMAS A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		HMAS B 1 A_DoPBWeaponAction
 		HMAS C 1 A_DoPBWeaponAction
 		HMAS D 3 A_DoPBWeaponAction
@@ -619,7 +621,8 @@ Actor OLDHMG : PB_Weapon
 		HMAS D 3 A_DoPBWeaponAction
 		HMAS C 1 A_DoPBWeaponAction
 		HMAS BA 1 A_DoPBWeaponAction
-		HMAG A 1 A_DoPBWeaponAction
+		HMAG A 1 A_DoPBWeaponAction*/
+		HMAS ABCDDDEEEDDDCBBA 1
 		Goto Ready3
 
 	FlashSlideKickingStop:
@@ -628,7 +631,7 @@ Actor OLDHMG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
 	    TNT1 A 0 A_ClearOverlays(10,11)
 		TNT1 A 0 A_JumpIfInventory("EquippedNailRounds",1,"NailGunFlashSlideKickingStop")
-		HMAG A 1 A_DoPBWeaponAction
+		HMAG A 1 //A_DoPBWeaponAction
 		Goto Ready3
 
 	FlashPunching:
@@ -637,15 +640,16 @@ Actor OLDHMG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
 	    TNT1 A 0 A_ClearOverlays(10,11)
 		TNT1 A 0 A_JumpIfInventory("EquippedNailRounds",1,"NailGunFlashPunching")
-		HMAS A 1 A_DoPBWeaponAction
+		/*HMAS A 1 A_DoPBWeaponAction
 		HMAS B 1 A_DoPBWeaponAction
 		HMAS C 1 A_DoPBWeaponAction
 		HMAS D 3 A_DoPBWeaponAction
 		HMAS E 3 A_DoPBWeaponAction
 		HMAS D 3 A_DoPBWeaponAction
 		HMAS C 1 A_DoPBWeaponAction
-		HMAS BA 1 A_DoPBWeaponAction
-		HMAG AAAA 1 A_DoPBWeaponAction
+		HMAS BA 1 A_DoPBWeaponAction*/
+		//HMAG AAAA 1 A_DoPBWeaponAction
+		HMAS ABCDDDEEEDDDCCCBA 1
 		Stop
 
 	NailGunFlashKicking:
@@ -653,7 +657,7 @@ Actor OLDHMG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
 	    TNT1 A 0 A_ClearOverlays(10,11)
-		NLGS A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		/*NLGS A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		NLGS B 1 A_DoPBWeaponAction
 		NLGS C 1 A_DoPBWeaponAction
 		NLGS D 3 A_DoPBWeaponAction
@@ -661,7 +665,8 @@ Actor OLDHMG : PB_Weapon
 		NLGS D 3 A_DoPBWeaponAction
 		NLGS C 1 A_DoPBWeaponAction
 		NLGS BA 1 A_DoPBWeaponAction
-		NLGN A 1 A_DoPBWeaponAction
+		NLGN A 1 A_DoPBWeaponAction*/
+		NLGS ABCDDDEEEDDDCBBA 1
 		Stop
 
 	NailGunFlashAirKicking:
@@ -669,7 +674,7 @@ Actor OLDHMG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
 	    TNT1 A 0 A_ClearOverlays(10,11)
-		NLGS A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		/*NLGS A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		NLGS B 1 A_DoPBWeaponAction
 		NLGS C 1 A_DoPBWeaponAction
 		NLGS D 3 A_DoPBWeaponAction
@@ -677,7 +682,8 @@ Actor OLDHMG : PB_Weapon
 		NLGS D 3 A_DoPBWeaponAction
 		NLGS C 1 A_DoPBWeaponAction
 		NLGS BA 1 A_DoPBWeaponAction
-		NLGN A 1 A_DoPBWeaponAction
+		NLGN A 1 A_DoPBWeaponAction*/
+		NLGS ABCDDDEEEDDDCBBA 1
 		Goto Ready3
 
 	NailGunFlashSlideKicking:
@@ -685,7 +691,7 @@ Actor OLDHMG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
 	    TNT1 A 0 A_ClearOverlays(10,11)
-		NLGS A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		/*NLGS A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		NLGS B 1 A_DoPBWeaponAction
 		NLGS C 1 A_DoPBWeaponAction
 		NLGS D 3 A_DoPBWeaponAction
@@ -693,7 +699,8 @@ Actor OLDHMG : PB_Weapon
 		NLGS D 3 A_DoPBWeaponAction
 		NLGS C 1 A_DoPBWeaponAction
 		NLGS BA 1 A_DoPBWeaponAction
-		NLGN A 1 A_DoPBWeaponAction
+		NLGN A 1 A_DoPBWeaponAction*/
+		NLGS ABCDDDEEEDDDCBBA 1
 		Goto Ready3
 
 	NailGunFlashSlideKickingStop:
@@ -701,7 +708,7 @@ Actor OLDHMG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
 	    TNT1 A 0 A_ClearOverlays(10,11)
-		NLGN A 1 A_DoPBWeaponAction
+		NLGN A 1 //A_DoPBWeaponAction
 		Goto Ready3
 
 	NailGunFlashPunching:
@@ -709,7 +716,7 @@ Actor OLDHMG : PB_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
 	    TNT1 A 0 A_ClearOverlays(10,11)
-		NLGS A 1 A_DoPBWeaponAction
+		/*NLGS A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		NLGS B 1 A_DoPBWeaponAction
 		NLGS C 1 A_DoPBWeaponAction
 		NLGS D 3 A_DoPBWeaponAction
@@ -717,7 +724,8 @@ Actor OLDHMG : PB_Weapon
 		NLGS D 3 A_DoPBWeaponAction
 		NLGS C 1 A_DoPBWeaponAction
 		NLGS BA 1 A_DoPBWeaponAction
-		NLGN A 1 A_DoPBWeaponAction
+		NLGN A 1 A_DoPBWeaponAction*/
+		NLGS ABCDDDEEEDDDCBBA 1
 		Stop
 	}
 }

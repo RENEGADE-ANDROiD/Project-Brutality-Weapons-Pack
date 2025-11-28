@@ -1,0 +1,274 @@
+class BeefRiceWeaponDrop : EventHandler
+{
+    // Check if something is killed
+	override void WorldThingDied(WorldEvent e)
+	{
+        if (!e || !e.thing) return;
+        if (!e.thing.bISMONSTER) return;
+        let  actor = e.Thing;
+
+        // Get CVARs
+        let DTechDrop = CVar.GetCVAR('PBSpawnALLDTechDrop').GetInt();
+        let MSSGDrop = CVar.GetCVAR('PBSpawnMSSGDrop').GetInt();
+        let MastermindCGDrop = CVar.GetCVAR('PBSpawnMastermindCGDrop').GetInt();
+        let PaingiverDrop = CVar.GetCVAR('PBSpawnPaingiverDrop').GetInt();
+
+        let ShieldGRDrop = CVar.GetCVAR('EQSpawnShieldGR').GetInt();
+
+        // Check what monster was killed
+        switch(actor.GetClassName())
+        {
+            // Different Monsters spawn Different Things
+
+            // Custom Monsters
+            case 'HellTrooperPaingiver':
+                if(PaingiverDrop == 1)
+                {
+                vector3 monsPos = actor.pos;
+                double monsHeight = actor.height;
+                actor.Spawn("PainGiverSpawner", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
+                }
+                break;
+
+            //case 'PB_JuggernautGK': //Should we make the Juggernaut Drop MastermindCG?
+            case 'PB_MastermindGK': case 'PB_DemolisherGK': case 'PB_Mastermind': case 'PB_Demolisher':
+                if(MastermindCGDrop == 1)
+                {
+                vector3 monsPos = actor.pos;
+                double monsHeight = actor.height;
+                actor.Spawn("MastermindCGSpawner", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
+                }
+                break;
+
+            case 'PB_DemonTechZombieGK':  case 'PB_DemonTechZombie':
+                if(DTechDrop == 1)
+                {
+                vector3 monsPos = actor.pos;
+                double monsHeight = actor.height;
+                actor.Spawn("DTechSpawner", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
+                }
+                break;
+
+            // Monster Pack Stuff
+            case 'CyberSatyr':
+                if(ShieldGRDrop == 1)
+                {
+                vector3 monsPos = actor.pos;
+                double monsHeight = actor.height;
+                actor.Spawn("ShieldGrenadeDrop", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2));
+                }
+                break;
+
+            case 'PB_Marauder':
+                if(MSSGDrop == 1)
+                {
+                vector3 monsPos = actor.pos;
+                double monsHeight = actor.height;
+                actor.Spawn("MarauderDropSpawner", (monsPos.x, monsPos.y, monsPos.z + monsHeight/2)); //This 
+                }
+                break;
+
+            // PB Monsters 
+            // Add more here 
+        }
+	}
+    
+    // Special cases where something is spawned instead of killed
+    override void WorldThingSpawned (WorldEvent e)
+    {
+        let  actor = e.Thing;
+        // Get CVARs
+        let MancFLameCNDrop = CVAR.GetCVAR('PBSpawnMancFlameCannonDrop').GetInt();
+        let CyberRLDrop = CVar.GetCVAR('PBSpawnCyberdemonRLDrop').GetInt();
+
+        // Check and Spawn
+        switch(actor.GetClassName())
+        {
+            case 'XDeathCyberdemonGun':
+                if(CyberRLDrop == 1)
+                {
+                vector3 monsPos = actor.pos;
+                double monsHeight = actor.height;
+                actor.Spawn("CyberdemonsMissileLauncher", (monsPos.x, monsPos.y, monsPos.z)); //Spawn the Weapon
+                actor.destroy(); //Destroy the original actor so there's no duplicates
+                }
+                break;
+
+            case 'PB_FlamethrowerMancubusGas':
+                if(MancFLameCNDrop == 1)
+                {
+                vector3 monsPos = actor.pos;
+                double monsHeight = actor.height;
+                actor.Spawn("MancubusFlameCannon", (monsPos.x, monsPos.y, monsPos.z)); //Spawn the Weapon
+                actor.destroy();
+                }
+                break;
+        }
+    }
+}
+
+// Sets the PB Monster Drop to Just Ammo on First Time Loading
+class BeefSetNoDropDefault : EventHandler
+{
+    Override void WorldLoaded (WorldEvent e)
+    {
+        if (FirstTimeLoadingPBWP)
+        {
+            CVAR.FindCVar('PB_WeaponDrops').SetInt(0);
+            CVAR.FindCVar('FirstTimeLoadingPBWP').SetBool(false);
+        }
+    }
+}
+
+// Spawn Presets
+// This is a pretty rough implementation and I can probaly use switch cases for this
+// But for now it'll do
+
+class BeefSpawnPresets : StaticEventHandler
+{
+    override void NetworkProcess(ConsoleEvent e)
+    {
+        let LookForPresets = e.Name;
+        if(LookForPresets ~== "PBWP_EnableAll")
+        {
+            CVAR.FindCVar('PBSpawnArgentSith').SetBool(true);
+            CVAR.FindCVar('PBSpawnBattleAxe').SetBool(true);
+            CVAR.FindCVar('PBSpawnRazorjack').SetBool(true);
+            //Slot 2
+            CVAR.FindCVar('PBSpawnSilverhandsDeagle').SetBool(true);
+            CVAR.FindCVar('PBSpawnHellPistol').SetBool(true);
+            CVAR.FindCVar('PBSpawnHellPistoler').SetBool(true);
+            CVAR.FindCVar('PBSpawnW_SMG').SetBool(true);
+            //Slot 3
+            CVAR.FindCVar('PBSpawnPB_Doom2016Shotgun').SetBool(true);
+            CVAR.FindCVar('PBSpawnPB_CryoShotgun').SetBool(true);
+            CVAR.FindCVar('PBSpawnPB_CSSG').SetBool(true);
+            CVAR.FindCVar('PBSpawnRotationalSG').SetBool(true);
+            CVAR.FindCVar('PBSpawnHASG').SetBool(true);
+            CVAR.FindCVar('PBSpawnHexaLionShotgun').SetBool(true);
+            CVAR.FindCVar('PBSpawnDemonTechShotgun').SetBool(true);
+            CVAR.FindCVar('PBSpawnM1887').SetBool(true);
+            CVAR.FindCVar('PBSpawnMarauderSSG').SetBool(true);
+            CVAR.FindCVar('PBSpawnRotatingDoubleBarrel').SetBool(true);
+            //Slot 4
+            CVAR.FindCVar('PBSpawnAK47').SetBool(true);
+            CVAR.FindCVar('PBSpawnPB_BoltRifle').SetBool(true);
+            CVAR.FindCVar('PBSpawnDark_Fate').SetBool(true);
+            CVAR.FindCVar('PBSpawnHeavySniperRifle').SetBool(true);
+            CVAR.FindCVar('PBSpawnMagnumSniperRifle').SetBool(true);
+            CVAR.FindCVar('PBSpawnM41A').SetBool(true);
+            CVAR.FindCVar('PBSpawnPowerOverwhelming').SetBool(true);
+            //Slot 5
+            CVAR.FindCVar('PBSpawnFire_and_IceDragonSlayer').SetBool(true);
+            CVAR.FindCVar('PBSpawnINNailGun').SetBool(true);
+            CVAR.FindCVar('PBSpawnOldHMG').SetBool(true);
+            CVAR.FindCVar('PBSpawnD4Machinegun').SetBool(true);
+            CVAR.FindCVar('PBSpawnINMiniGun').SetBool(true);
+            CVAR.FindCVar('PBSpawnDukeNukemRipper').SetBool(true);
+            CVAR.FindCVar('PBSpawnSuperNailgun').SetBool(true);
+            //Slot 6
+            CVAR.FindCVar('PBSpawnChthonicRifle').SetBool(true);
+            CVAR.FindCVar('PBSpawnCyberdemonsMissileLauncher').SetBool(true);
+            CVAR.FindCVar('PBSpawnDevastator').SetBool(true);
+            CVAR.FindCVar('PBSpawnPB_Excavator').SetBool(true);
+            CVAR.FindCVar('PBSpawnMastermindChaingun').SetBool(true);
+            CVAR.FindCVar('PBSpawnPaingiver').SetBool(true);
+            CVAR.FindCVar('PBSpawnD4RocketLauncher').SetBool(true);
+            CVAR.FindCVar('PBSpawnSuperGrenadeLauncher').SetBool(true);
+            //Slot 7
+            CVAR.FindCVar('PBSpawnPlasmaRifleAssault').SetBool(true);
+            CVAR.FindCVar('PBSpawnD4PlasmaGun').SetBool(true);
+            CVAR.FindCVar('PBSpawnThunderCarrierTI').SetBool(true);
+            CVAR.FindCVar('PBSpawnD4VortexRifle').SetBool(true);
+            //Slot 8
+            CVAR.FindCVar('PBSpawnExtinction_Ray').SetBool(true);
+            CVAR.FindCVar('PBSpawnCalamityBlade').SetBool(true);
+            CVAR.FindCVar('PBSpawnPB_GaussCannon').SetBool(true);
+            CVAR.FindCVar('PBSpawnIon_Heavy').SetBool(true);
+            CVAR.FindCVar('PBSpawnPB_MancubusFlameCannon').SetBool(true);
+            //Slot 9
+            CVAR.FindCVar('PBSpawnBioAcidLauncher').SetBool(true);
+            CVAR.FindCVar('PBSpawnBallistagun').SetBool(true);
+            CVAR.FindCVar('PBSpawnLegacyUnmaker').SetBool(true);
+            CVAR.FindCVar('PBSpawnStormcast').SetBool(true);
+            CVAR.FindCVar('PBSpawnThunderCrossbow').SetBool(true);
+            //Slot 0
+            CVAR.FindCVar('PBSpawnAncientCrossbow').SetBool(true);
+            CVAR.FindCVar('PBSpawnTechBlaster').SetBool(true);
+            CVAR.FindCVar('PBSpawnPB_DemonExt').SetBool(true);
+            CVAR.FindCVar('PBSpawnDemonTechMinigun').SetBool(true);
+            CVAR.FindCVar('PBSpawnPhaseEradicatorBFG').SetBool(true);
+        }
+        else if(LookForPresets ~== "PBWP_DisableAll")
+        {
+            CVAR.FindCVar('PBSpawnArgentSith').SetBool(false);
+            CVAR.FindCVar('PBSpawnArgentSith').SetBool(false);
+            CVAR.FindCVar('PBSpawnBattleAxe').SetBool(false);
+            CVAR.FindCVar('PBSpawnRazorjack').SetBool(false);
+            //Slot 2
+            CVAR.FindCVar('PBSpawnSilverhandsDeagle').SetBool(false);
+            CVAR.FindCVar('PBSpawnHellPistol').SetBool(false);
+            CVAR.FindCVar('PBSpawnHellPistoler').SetBool(false);
+            CVAR.FindCVar('PBSpawnW_SMG').SetBool(false);
+            //Slot 3
+            CVAR.FindCVar('PBSpawnPB_Doom2016Shotgun').SetBool(false);
+            CVAR.FindCVar('PBSpawnPB_CryoShotgun').SetBool(false);
+            CVAR.FindCVar('PBSpawnPB_CSSG').SetBool(false);
+            CVAR.FindCVar('PBSpawnRotationalSG').SetBool(false);
+            CVAR.FindCVar('PBSpawnHASG').SetBool(false);
+            CVAR.FindCVar('PBSpawnHexaLionShotgun').SetBool(false);
+            CVAR.FindCVar('PBSpawnDemonTechShotgun').SetBool(false);
+            CVAR.FindCVar('PBSpawnM1887').SetBool(false);
+            CVAR.FindCVar('PBSpawnMarauderSSG').SetBool(false);
+            CVAR.FindCVar('PBSpawnRotatingDoubleBarrel').SetBool(false);
+            //Slot 4
+            CVAR.FindCVar('PBSpawnAK47').SetBool(false);
+            CVAR.FindCVar('PBSpawnPB_BoltRifle').SetBool(false);
+            CVAR.FindCVar('PBSpawnDark_Fate').SetBool(false);
+            CVAR.FindCVar('PBSpawnHeavySniperRifle').SetBool(false);
+            CVAR.FindCVar('PBSpawnMagnumSniperRifle').SetBool(false);
+            CVAR.FindCVar('PBSpawnM41A').SetBool(false);
+            CVAR.FindCVar('PBSpawnPowerOverwhelming').SetBool(false);
+            //Slot 5
+            CVAR.FindCVar('PBSpawnFire_and_IceDragonSlayer').SetBool(false);
+            CVAR.FindCVar('PBSpawnINNailGun').SetBool(false);
+            CVAR.FindCVar('PBSpawnOldHMG').SetBool(false);
+            CVAR.FindCVar('PBSpawnD4Machinegun').SetBool(false);
+            CVAR.FindCVar('PBSpawnINMiniGun').SetBool(false);
+            CVAR.FindCVar('PBSpawnDukeNukemRipper').SetBool(false);
+            CVAR.FindCVar('PBSpawnSuperNailgun').SetBool(false);
+            //Slot 6
+            CVAR.FindCVar('PBSpawnChthonicRifle').SetBool(false);
+            CVAR.FindCVar('PBSpawnCyberdemonsMissileLauncher').SetBool(false);
+            CVAR.FindCVar('PBSpawnDevastator').SetBool(false);
+            CVAR.FindCVar('PBSpawnPB_Excavator').SetBool(false);
+            CVAR.FindCVar('PBSpawnMastermindChaingun').SetBool(false);
+            CVAR.FindCVar('PBSpawnPaingiver').SetBool(false);
+            CVAR.FindCVar('PBSpawnD4RocketLauncher').SetBool(false);
+            CVAR.FindCVar('PBSpawnSuperGrenadeLauncher').SetBool(false);
+            //Slot 7
+            CVAR.FindCVar('PBSpawnPlasmaRifleAssault').SetBool(false);
+            CVAR.FindCVar('PBSpawnD4PlasmaGun').SetBool(false);
+            CVAR.FindCVar('PBSpawnThunderCarrierTI').SetBool(false);
+            CVAR.FindCVar('PBSpawnD4VortexRifle').SetBool(false);
+            //Slot 8
+            CVAR.FindCVar('PBSpawnExtinction_Ray').SetBool(false);
+            CVAR.FindCVar('PBSpawnCalamityBlade').SetBool(false);
+            CVAR.FindCVar('PBSpawnPB_GaussCannon').SetBool(false);
+            CVAR.FindCVar('PBSpawnIon_Heavy').SetBool(false);
+            CVAR.FindCVar('PBSpawnPB_MancubusFlameCannon').SetBool(false);
+            //Slot 9
+            CVAR.FindCVar('PBSpawnBioAcidLauncher').SetBool(false);
+            CVAR.FindCVar('PBSpawnBallistagun').SetBool(false);
+            CVAR.FindCVar('PBSpawnLegacyUnmaker').SetBool(false);
+            CVAR.FindCVar('PBSpawnStormcast').SetBool(false);
+            CVAR.FindCVar('PBSpawnThunderCrossbow').SetBool(false);
+            //Slot 0
+            CVAR.FindCVar('PBSpawnAncientCrossbow').SetBool(false);
+            CVAR.FindCVar('PBSpawnTechBlaster').SetBool(false);
+            CVAR.FindCVar('PBSpawnPB_DemonExt').SetBool(false);
+            CVAR.FindCVar('PBSpawnDemonTechMinigun').SetBool(false);
+            CVAR.FindCVar('PBSpawnPhaseEradicatorBFG').SetBool(false);
+        }
+    }
+}

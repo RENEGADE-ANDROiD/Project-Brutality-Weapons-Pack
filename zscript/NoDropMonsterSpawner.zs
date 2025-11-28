@@ -1,17 +1,18 @@
-//By Warcarlsson
-class NoDrop_PB_CarbineZombieDrop : PB_CarbineZombieDrop replaces PB_CarbineZombieDrop
+// No Drop Variants ==============================================================================
+// By Warcarlsson
+class NoDrop_PB_CarbineZombieDrop : PB_MonsterDropBase
 {
 	default
 	{
 		PB_MonsterDropBase.weaponDrop "PB_HighCalMag";
 		PB_MonsterDropBase.upgradeDrop "";
 		PB_MonsterDropBase.ammoDrop "PB_HighCalMag";
-		PB_MonsterDropBase.weaponCvar "DisablePB_Carbine";
+		PB_MonsterDropBase.weaponCvar "";
 		PB_MonsterDropBase.UpgradeCvar "";
 	}
 }
 
-Class NoDrop_PB_PlasmaZombieDrop : PB_PlasmaZombieDrop replaces PB_PlasmaZombieDrop
+Class NoDrop_PB_PlasmaZombieDrop : PB_MonsterDropBase
 {
 	default
 	{
@@ -23,31 +24,7 @@ Class NoDrop_PB_PlasmaZombieDrop : PB_PlasmaZombieDrop replaces PB_PlasmaZombieD
 	}
 }
 
-Class NoDrop_PB_ZombieManDrop1 : PB_ZombieManDrop1 replaces PB_ZombieManDrop1
-{
-	default
-	{
-		PB_MonsterDropBase.weaponDrop "PB_HighCalMag";
-		PB_MonsterDropBase.upgradeDrop "PB_D16SGBurstUpgrade";
-		PB_MonsterDropBase.ammoDrop "PB_HighCalMag";
-		PB_MonsterDropBase.weaponCvar "";
-		PB_MonsterDropBase.UpgradeCvar "";
-	}
-}
-
-Class NoDrop_PB_ShotgunGuyDrop1 : PB_ShotgunGuyDrop1 replaces PB_ShotgunGuyDrop1
-{
-	default
-	{
-		PB_MonsterDropBase.weaponDrop "PB_Shell";
-		PB_MonsterDropBase.upgradeDrop "MSSGUpgrade";
-		PB_MonsterDropBase.ammoDrop "PB_Shell";
-		PB_MonsterDropBase.weaponCvar "";
-		PB_MonsterDropBase.UpgradeCvar "";
-	}
-}
-
-Class NoDrop_PB_ChaingunGuyDrop1 : PB_ChaingunGuyDrop1 replaces PB_ChaingunGuyDrop1
+Class NoDrop_PB_ZombieManDrop1 : PB_MonsterDropBase
 {
 	default
 	{
@@ -59,19 +36,44 @@ Class NoDrop_PB_ChaingunGuyDrop1 : PB_ChaingunGuyDrop1 replaces PB_ChaingunGuyDr
 	}
 }
 
-Class NoDrop_PB_ASGGuyDrop : PB_ASGGuyDrop replaces PB_ASGGuyDrop
+Class NoDrop_PB_ShotgunGuyDrop1 : PB_MonsterDropBase
 {
 	default
 	{
 		PB_MonsterDropBase.weaponDrop "PB_Shell";
-		PB_MonsterDropBase.upgradeDrop "HASGdrum";
+		PB_MonsterDropBase.upgradeDrop "";
 		PB_MonsterDropBase.ammoDrop "PB_Shell";
-		PB_MonsterDropBase.weaponCvar "DisablePB_Autoshotgun";
+		PB_MonsterDropBase.weaponCvar "";
 		PB_MonsterDropBase.UpgradeCvar "";
 	}
 }
 
-Class NoDrop_PB_CultistDrop : PB_CultistDrop replaces PB_CultistDrop
+Class NoDrop_PB_ChaingunGuyDrop1 : PB_MonsterDropBase
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_HighCalMag";
+		PB_MonsterDropBase.upgradeDrop "";
+		PB_MonsterDropBase.ammoDrop "PB_HighCalMag";
+		PB_MonsterDropBase.weaponCvar "";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_ASGGuyDrop : PB_MonsterDropBase
+{
+	default
+	{
+		PB_MonsterDropBase.weaponDrop "PB_Shell";
+		//PB_MonsterDropBase.upgradeDrop "HASGdrum"; // ???
+		PB_MonsterDropBase.upgradeDrop "PB_Shell";
+		PB_MonsterDropBase.ammoDrop "PB_Shell";
+		PB_MonsterDropBase.weaponCvar "";
+		PB_MonsterDropBase.UpgradeCvar "";
+	}
+}
+
+Class NoDrop_PB_CultistDrop : PB_MonsterDropBase
 {
 	default
 	{
@@ -84,7 +86,7 @@ Class NoDrop_PB_CultistDrop : PB_CultistDrop replaces PB_CultistDrop
 }
 
 
-Class NoDrop_PB_WolfSSdrop : PB_WolfSSdrop replaces PB_WolfSSdrop
+Class NoDrop_PB_WolfSSdrop : PB_MonsterDropBase
 {
 	default
 	{
@@ -96,19 +98,19 @@ Class NoDrop_PB_WolfSSdrop : PB_WolfSSdrop replaces PB_WolfSSdrop
 	}
 }
 
-Class NoDrop_PB_NailgunGuydrop : PB_NailgunGuydrop replaces PB_NailgunGuydrop
+Class NoDrop_PB_NailgunGuydrop : PB_MonsterDropBase
 {
 	default
 	{
 		PB_MonsterDropBase.weaponDrop "PB_HighCalMag";
 		PB_MonsterDropBase.upgradeDrop "";
 		PB_MonsterDropBase.ammoDrop "PB_HighCalMag";
-		PB_MonsterDropBase.weaponCvar "DisablePB_Nailgun";
+		PB_MonsterDropBase.weaponCvar "";
 		PB_MonsterDropBase.UpgradeCvar "";
 	}
 }
 
-Class NoDrop_PB_QSGZombieDrop : PB_QSGZombieDrop replaces PB_QSGZombieDrop
+Class NoDrop_PB_QSGZombieDrop : PB_MonsterDropBase
 {
 	default
 	{
@@ -116,15 +118,15 @@ Class NoDrop_PB_QSGZombieDrop : PB_QSGZombieDrop replaces PB_QSGZombieDrop
 		PB_MonsterDropBase.upgradeDrop "PB_Shell";
 		PB_MonsterDropBase.ammoDrop "PB_Shell";
 		PB_MonsterDropBase.weaponCvar "";
-		PB_MonsterDropBase.UpgradeCvar "DisablePB_QuadSG";
+		PB_MonsterDropBase.UpgradeCvar "";
 	}
 }
 
-Class NoDrop_PB_RocketZombieDrop : PB_RocketZombieDrop replaces PB_RocketZombieDrop
+Class NoDrop_PB_RocketZombieDrop : PB_MonsterDropBase
 {
 	default
 	{
-		PB_MonsterDropBase.weaponDrop "";
+		PB_MonsterDropBase.weaponDrop "PB_RocketAmmo";
 		PB_MonsterDropBase.upgradeDrop "PB_RocketAmmo";
 		PB_MonsterDropBase.ammoDrop "PB_RocketAmmo";
 		PB_MonsterDropBase.weaponCvar "";
@@ -132,31 +134,32 @@ Class NoDrop_PB_RocketZombieDrop : PB_RocketZombieDrop replaces PB_RocketZombieD
 	}
 }
 
-Class NoDrop_PB_PyroGuyDrop : PB_PyroGuyDrop replaces PB_PyroGuyDrop
+Class NoDrop_PB_PyroGuyDrop : PB_MonsterDropBase
 {
 	default
 	{
 		PB_MonsterDropBase.weaponDrop "PB_Fuel";
-		PB_MonsterDropBase.upgradeDrop "PB_D16SGExplosiveUpgrade";
+		//PB_MonsterDropBase.upgradeDrop "PB_D16SGExplosiveUpgrade"; // ?????
+		PB_MonsterDropBase.upgradeDrop "";
 		PB_MonsterDropBase.ammoDrop "PB_Fuel";
-		PB_MonsterDropBase.weaponCvar "DisablePB_Flamer";
+		PB_MonsterDropBase.weaponCvar "";
 		PB_MonsterDropBase.UpgradeCvar "";
 	}
 }
 
-Class NoDrop_PB_ZSpecSMGDrop : PB_ZSpecSMGDrop replaces PB_ZSpecSMGDrop
+Class NoDrop_PB_ZSpecSMGDrop : PB_MonsterDropBase
 {
 	default
 	{
 		PB_MonsterDropBase.weaponDrop "PB_LowCalMag";
 		PB_MonsterDropBase.upgradeDrop "";
 		PB_MonsterDropBase.ammoDrop "PB_LowCalMag";
-		PB_MonsterDropBase.weaponCvar "DisablePB_SMG";
+		PB_MonsterDropBase.weaponCvar "";
 		PB_MonsterDropBase.UpgradeCvar "";
 	}
 }
 
-Class NoDrop_PB_ScientistAxeDrop : PB_ScientistAxeDrop replaces PB_ScientistAxeDrop
+Class NoDrop_PB_ScientistAxeDrop : PB_MonsterDropBase
 {
 	default
 	{
@@ -168,7 +171,7 @@ Class NoDrop_PB_ScientistAxeDrop : PB_ScientistAxeDrop replaces PB_ScientistAxeD
 	}
 }
 
-Class NoDrop_PB_ScientistSAWDrop : PB_ScientistSAWDrop replaces PB_ScientistSAWDrop
+Class NoDrop_PB_ScientistSAWDrop : PB_MonsterDropBase
 {
 	default
 	{
@@ -180,7 +183,7 @@ Class NoDrop_PB_ScientistSAWDrop : PB_ScientistSAWDrop replaces PB_ScientistSAWD
 	}
 }
 
-Class NoDrop_PB_PistolGuyDrop : PB_PistolGuyDrop replaces PB_PistolGuyDrop
+Class NoDrop_PB_PistolGuyDrop : PB_MonsterDropBase
 {
 	default
 	{

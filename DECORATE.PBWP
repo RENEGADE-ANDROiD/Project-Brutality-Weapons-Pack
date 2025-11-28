@@ -30,7 +30,6 @@
 
 // Spawners
 //#include actors/Spawners/WeaponSpawners/Weapons_Spawner.dec // I dont think we need this since there's already the injectors
-#include actors/Spawners/WeaponSpawners/BeefMonsterDropChances.dec
 #include actors/Spawners/BEHOLD.dec
 
 // Special
