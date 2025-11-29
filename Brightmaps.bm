@@ -3,6 +3,7 @@ brightmap sprite RAZEA0 { map "Brightmaps/Weapons/44PDW/44PAF0.png" }
 brightmap sprite RAZEB0 { map "Brightmaps/Weapons/44PDW/44PAI0.png" }
 brightmap sprite RAZFA0 { map "Brightmaps/Weapons/44PDW/44PFD0.png" }
 
+// //
 BrightMap Sprite UNMAA0 { Map "Brightmaps/bumk1.png" }
 BrightMap Sprite UNMAB0 { Map "Brightmaps/bumk1.png" }
 BrightMap Sprite UNMAC0 { Map "Brightmaps/bumk1.png" }
