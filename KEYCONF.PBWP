@@ -1,6 +1,12 @@
-/*AddKeySection "Meat Hook Options" Extra_ZDoom_controls
+/*
+AddKeySection "Meat Hook Options" Extra_ZDoom_controls
 AddMenuKey "Use Meat Hook" meathook
-alias meathook "puke 6005"*/
+alias meathook "puke 6005"
+
+addkeysection "Universal Sentinel Hammer" SHKeys
+addmenukey "Select Sentinel Hammer" SHSelect
+alias SHSelect "pukename SelectHammer"
+*/
 
 alias SwitchItUp "NetEvent SwitchItUp"
 alias BackItUp "NetEvent SwitchBack"
@@ -115,6 +121,7 @@ alias PBWP_EnableAll "
 Addslotdefault 1 PB_BeamKatana
 addslotdefault 1 BattleAxe
 addslotdefault 1 Razorjack
+addslotdefault 1 SentinelHammer
 addslotdefault 2 44PDW
 addslotdefault 2 W_SMG
 addslotdefault 2 P_SMG

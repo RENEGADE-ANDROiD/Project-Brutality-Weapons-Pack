@@ -749,12 +749,12 @@ ACTOR Stormcast : PB_Weapon
 		Goto Ready
 		
 	Salute:
-	    TNT1 A 0 SetPlayerProperty(0,1,0)
+	    	//TNT1 A 0 SetPlayerProperty(0,1,0)
 		TNT1 A 0 A_ALertMonsters
 		SALU ABCDEDCDEDCDEDCBA 4
 		TNT1 A 0 A_TakeInventory("Salute1",1)
 		TNT1 A 0 A_TakeInventory("Salute2",1)
-		TNT1 A 0 SetPlayerProperty(0,0,0)
+		//TNT1 A 0 SetPlayerProperty(0,0,0)
 		Goto Ready
 ////////	
 	FlashKicking:

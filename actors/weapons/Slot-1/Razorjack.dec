@@ -166,8 +166,8 @@ ACTOR Razorjack : PB_Weapon
 	BloodDrop:
 		RAZE ABCABCABCABC 0
 		RAZE ABCABCABCABC 0
-		RAZE ABCABCABCABC 0
-		TNT1 ABCABCABCABC 1 {
+		RAZE ABCABCABCABC 1
+		TNT1 ABCABCABCABC 0 {
 			A_WeaponReady;
 			if (CountInv("PowerGreenBloodOnVisor") == 1) { A_SetOverlaySprite(-2,"RAZE"); }
 			if (CountInv("PowerBlueBloodOnVisor") == 1) { A_SetOverlaySprite(-2,"RAZE"); }

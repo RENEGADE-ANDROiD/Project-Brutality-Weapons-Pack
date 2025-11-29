@@ -1,0 +1,73 @@
+#library "Hammer"
+#include "zcommon.acs"
+//If anyone want to look here :D
+script "GiveSHCharge" enter {
+
+
+int mnam = GetLevelInfo (LEVELINFO_LEVELNUM);
+    if (mnam == 8) {
+	ActivatorSound("HMUPGR", 127);
+	print(s:"Great, you are in level 8! Now you got an upgrade for your Sentinel Hammer!");
+	delay (60);
+	print(s:"Sentinel Hammer now gives more ammo when killing demons");
+	GiveInventory("SentinelHammerMoreAmmo", 1);
+	}
+	else if (mnam == 16) {
+	ActivatorSound("HMUPGR", 127);
+	print(s:"Great, you are in level 16! Now you got a second upgrade for your Sentinel Hammer!");
+	delay (60);
+	print(s:"Ground attacking is more powerful");
+	GiveInventory("SentinelHammerExplosivePower", 1);
+	}
+	else if (mnam == 24) {
+	ActivatorSound("HMUPGR", 127 );
+	print(s:"Great, you are in level 24! Now you got the last Sentinel Hammer upgrade!");
+	delay (60);
+	print(s:"Ground attack requires 500 charges instead of 600");
+	GiveInventory("SentinelHammerLessGround", 1);
+	}
+
+// Broccoli - added test for previous state to prevent HUD msg from being continually redisplayed
+
+bool SHhudcharged=true;
+bool SHhuddischarged=false;
+
+while (true) {
+	delay(16);
+	
+	GiveInventory("SentinelHammerCharge", 1);
+
+		if (CheckInventory("SentinelHammerCharge") >= 200 && SHhudcharged==true) {
+			SetFont("HAMICO");
+			HudMessage(s:"A"; HUDMSG_FADEOUT,95,CR_UNTRANSLATED, 0.025, 0.600, 6.0, 0.8, 3.7);
+			SHhudcharged=false;
+			SHhuddischarged=true;
+		}
+		if (CheckInventory("SentinelHammerCharge") < 200 && SHhuddischarged==true) {
+			SetFont("HAMICON");
+			HudMessage(s:"A"; HUDMSG_FADEOUT,95,CR_UNTRANSLATED, 0.025, 0.600, 3.0, 0.8, 3.7);
+			SHhuddischarged=false;
+			SHhudcharged=true;
+		}
+	
+}
+}
+
+script "SelectHammer" (void) {
+
+GiveInventory("SentinelHammer", 1);
+//previous code - If I will give Sentinel Hammer in GiveSHCharge script, main menu will be with Sentinel Hammer sprite
+//previous code - Soooo I will put this here
+if (CheckInventory("SentinelHammerCharge") >= 200 && CheckInventory("SentinelHammer") ) {
+	SetWeapon("SentinelHammer");
+	}
+else if (CheckInventory("SentinelHammerCharge") < 200 && CheckInventory("SentinelHammer")) {
+	print(s:"Sentinel Hammer isn't charged yet!");
+	}
+}
+
+script "RedFlashSH" (void) {
+
+SetActivator (0, AAPTR_TARGET);
+FadeRange (255, 0, 0, 0.8, 0, 0, 0, 0.0, 1.0);
+}
