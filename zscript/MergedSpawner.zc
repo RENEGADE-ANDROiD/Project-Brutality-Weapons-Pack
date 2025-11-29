@@ -225,6 +225,36 @@ class P_SMGSpawnerInjector : PBInjector
 	}
 }
 
+//UZI SMG//
+class UZISMGSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnUZISMG)
+		{
+		handler.InjectSpawn('PB_PistolSpawnerT1', 'UZISMG', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT2', 'UZISMG', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT3', 'UZISMG', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT4', 'UZISMG', 255, 1);
+		}
+	}
+}
+
+//44 PDW//
+class PB_44PDWSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawn44PDW)
+		{
+		//handler.InjectSpawn('PB_PistolSpawnerT1', '44PDW', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT2', '44PDW', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT3', '44PDW', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT4', '44PDW', 255, 1);
+		}
+	}
+}
+
 //SLOT 3 ===================================================================================== 3 ==
 
 //2016 Shotgun
@@ -510,6 +540,20 @@ class PowerOverwhelmingSpawnerInjector : PBInjector
 }
 
 //SLOT 5 ===================================================================================== 5 ==
+//AutoCannon//
+class AutoCannonSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnAutoCannon)
+		{
+		//handler.InjectSpawn('PB_MGSpawnerT1', 'AutoCannon', 255, 3);
+		handler.InjectSpawn('PB_MGSpawnerT2', 'AutoCannon', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT3', 'AutoCannon', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT4', 'AutoCannon', 255, 1);
+		}
+	}
+}
 
 //Dragon Slayer - F&I
 class Fire_and_IceDragonSlayerSpawnerInjector : PBInjector

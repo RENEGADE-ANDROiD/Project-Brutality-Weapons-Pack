@@ -1,0 +1,10 @@
+Ported To Project Brutality (3.0) By Jenny / Jeniffer
+--------------------------------------
+Updated By Me Jeniffer/Jenny For New PB3.0 Build Update 2023
+--------------------------------------
+Updated 24-09-2023
+--------------------------------------
+Uzi-SMG: Addon Weapon
+--------------------------------------
+Summon: Summon UZISMG
+--------------------------------------

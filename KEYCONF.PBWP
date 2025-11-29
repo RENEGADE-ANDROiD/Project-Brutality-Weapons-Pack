@@ -121,6 +121,7 @@ addslotdefault 2 P_SMG
 addslotdefault 2 HellPistoler
 addslotdefault 2 Magnum
 addslotdefault 2 SilverhandsDeagle
+addslotdefault 2 UZISMG
 addslotdefault 3 BlackRemintong
 addslotdefault 3 HASG
 addslotdefault 3 HexaLionShotgun
@@ -150,6 +151,7 @@ addslotdefault 5 Fire_and_Ice-DragonSlayer
 addslotdefault 5 DukeNukemRipper
 addslotdefault 5 OLDHMG
 addslotdefault 5 SuperNailgun
+addslotdefault 5 AutoCannon
 addslotdefault 6 SuperGrenadeLauncher
 addslotdefault 6 PB_Excavator
 addslotdefault 6 CyberdemonsMissileLauncher

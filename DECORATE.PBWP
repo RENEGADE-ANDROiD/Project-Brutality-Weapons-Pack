@@ -58,6 +58,7 @@
 //#include actors/Weapons/Slot-2/Luger.dec 
 #include actors/Weapons/Slot-2/HellPistoler(AresMade).dec 
 #include actors/Weapons/Slot-2/DTPISTOL.dec
+#include actors/Weapons/Slot-2/UZISMG.dec
 	//Slot-3
 //#include actors/Weapons/Slot-3/PumpShotgun.dec
 #include actors/Weapons/Slot-3/Lady_Golide.dec
@@ -90,6 +91,7 @@
 #INCLUDE actors/Weapons/Slot-5/SuperNailgun.dec
 #include actors/Weapons/Slot-5/DukeNukemRipper.dec
 #include actors/Weapons/Slot-5/OLD-HMG.dec
+#include actors/Weapons/Slot-5/AutoCannon.dec
 	//Slot-6
 //#include actors/Weapons/Slot-6/Fallen_Hawk.dec
 #include actors/Weapons/Slot-6/ChthonicRifle.dec

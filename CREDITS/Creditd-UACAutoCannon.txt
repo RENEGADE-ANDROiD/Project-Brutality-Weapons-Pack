@@ -1,0 +1,50 @@
+PB3.0_UAC Auto-Cannon Final Updated 06-10-2023
+----------------------------------------
+Updated By Jeniffer/Jenny For New PB3.0 Latest Build Update
+----------------------------------------
+Changelog: 06-10-2023
+----------------------------------------
+Ammo Type (Fixed)
+----------------------------------------
+All Start-Up Errors (Fixed)
+----------------------------------------
+All Bad Numeric Sound Code (Fixed)
+----------------------------------------
+RailAttack Null Code Removed
+----------------------------------------
+Alt-Fire Laser-Dot Code (Fixed)
+----------------------------------------
+Empty Drum Code (Fixed) Now Uses ASG-Drum When Reloading
+----------------------------------------
+Respect Added and Ammo State Ready
+----------------------------------------
+Incorrect Code Sequences/Layout (Fixed)
+----------------------------------------
+Auto-Cannon Now Has Its Own Actor Property For Muzzel Heat Effect
+----------------------------------------
+Muzzel Heat Effect Now On All 3 Gun Barrels and Values Reajusted
+----------------------------------------
+Now You Can See The Heat Haze On All 3 AutoCannon Barrels
+----------------------------------------
+Smoke Effect Values (Fixed)
+----------------------------------------
+Flare Added and Value (Fixed)
+----------------------------------------
+Previous Patch-Notes: 26-02-2023
+----------------------------------------
+Kicking Enemies (Fixed)
+----------------------------------------
+Barrels: Grabbed-Barrels (Fixed)
+----------------------------------------
+SlideKicking (Fixed)
+----------------------------------------
+Kick Reloading (Fixed)
+----------------------------------------
+Punching Enemies (Fixed)
+----------------------------------------
+Fatality Code Tied To The Wrong Actor (Fixed) For GloryKills
+----------------------------------------
+Out-Dated Weapon Selection Code Updated
+----------------------------------------
+GloryKill While Using: (Yes)
+----------------------------------------

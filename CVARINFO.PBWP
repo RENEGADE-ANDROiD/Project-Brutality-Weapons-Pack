@@ -41,7 +41,9 @@ server bool PBSpawnArgentSith = True;
 server bool PBSpawnBattleAxe = True;
 server bool PBSpawnRazorjack = True;
 //Slot 2
+server bool PBSpawn44PDW = True;
 server bool PBSpawnSilverhandsDeagle = True;
+server bool PBSpawnUZISMG = True;
 server bool PBSpawnHellPistol = True;
 server bool PBSpawnHellPistoler = True;
 server bool PBSpawnW_SMG = True;
@@ -65,6 +67,7 @@ server bool PBSpawnMagnumSniperRifle = True;
 server bool PBSpawnM41A = True;
 server bool PBSpawnPowerOverwhelming = True;
 //Slot 5
+server bool PBSpawnAutoCannon = True;
 server bool PBSpawnFire_and_IceDragonSlayer = True;
 server bool PBSpawnINNailGun = True;
 server bool PBSpawnOldHMG = True;

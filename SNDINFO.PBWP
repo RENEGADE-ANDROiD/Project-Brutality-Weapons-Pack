@@ -1,3 +1,20 @@
+//AutoCannon Weapon Sounds//
+ACNIN ACNIN
+Weapons/AutoCannon/BOLTCHARGE ACBOLT
+Weapons/AMrifle/magout MHC_MAGO
+Weapons/AutoCannon/BOXIN	ACNBXIN
+Weapons/AutoCannon/BOXOUT	ACNOUT
+Weapons/AMrifle/magout MHC_MAGO
+Weapons/AMrifle/magin MHC_MAGI
+Weapons/AMrifle/bolt MHC_BOLT
+Weapons/AMrifle/lock MHC_LOCK
+
+//UZI SOUNDS//
+PISFIRE PISFIRE
+RELO1 RELO1
+RELO2 RELO2
+UZICLIP UZICLIP
+
 //44PDW Weapon Sounds//
 44MAGFIR 44MAGFIR
 RELO1 RELO1
