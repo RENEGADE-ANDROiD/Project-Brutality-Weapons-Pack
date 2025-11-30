@@ -348,30 +348,28 @@ OptionMenu "AmmunitionShopSystem"
 
 	Command "Buy Ancient Crossbow (1300 Points)",		"PukeName BuyAncientCrossbow"
 
-		
-// 	Submenu "====HOW TO BE COOL IN COMBAT and challenge list====",			"PB_Instruct"
-	StaticText "---------------- HOW TO BE COOL IN COMBAT AND CHALLENGE LIST ----------------", 1
-	StaticText "---------------- To Be Cool In Combat, You Should Make Weapon Combos. Just Switch Weapons Fast And Kill Demons, You Will Get Health/Armor ----------------", 1
-	StaticText "---------------- Everytime You Finish The Level, You Are Gettin' 75 Combat Points. Because You Are Cool! ----------------", 1
-	StaticText "---------------- Also, You Can Kill Enemies With Specific Weapons. Here's List Of All ''Challenges'' ----------------", 1
+	StaticText "---------------- HOW TO EARN COMBAT POINTS / CHALLENGE LIST ----------------", 1
+	StaticText "- Weapon Combos: Switch Weapons Fast And Kill Demons, You Will Get Health/Armor", 1
+	StaticText "- Earn 75 Points When You Finish a Level", 1
 	StaticText " "
-	StaticText "---------------- Ultimate Slimming - Kill Mancubus With Flamethrower/Unmaker/Demon Tech Rifle ----------------", 1
 	StaticText " "
-	StaticText "---------------- Tomatoes! - Kill Cacodemon By Axe/Chainsaw! ----------------", 1
+	StaticText "- Ultimate Slimming - Kill Mancubus With Flamethrower/Unmaker/Demon Tech Rifle", 1
 	StaticText " "
-	StaticText "---------------- HUGE GUTS! - Kill Cyberdemon With Your Hands! ----------------", 1
+	StaticText "- Tomatoes! - Kill Cacodemon By Axe/Chainsaw", 1
 	StaticText " "
-	StaticText "---------------- I Don't Need That You Have! - Kill Axe Guy Or Chainsaw Guy With Your Hands! ----------------", 1
+	StaticText "- HUGE GUTS! - Kill Cyberdemon With Your Hands", 1
 	StaticText " "
-	StaticText "---------------- You Can't Hide From Me - Kill Archvile Or Hellion Using Railgun 500 Map Units Away ----------------", 1
+	StaticText "- I Don't Need What You Have! - Kill Axe Guy Or Chainsaw Guy With Your Hands", 1
 	StaticText " "
-	StaticText "---------------- BLOODBATH - Kill More Than 3 Enemies At Once ----------------", 1
+	StaticText "- You Can't Hide From Me - Kill Archvile Or Hellion Using Railgun 500 Map Units Away", 1
 	StaticText " "
-	StaticText "---------------- DEATH INCARNATE - Kill More Than 6 Enemies At Once ----------------", 1
+	StaticText "- BLOODBATH - Kill More Than 3 Enemies At Once", 1
 	StaticText " "
-	StaticText "---------------- Now We Cooking With Gas! - Kill Cyber-Baron Using Flamethrower ----------------", 1
+	StaticText "- DEATH INCARNATE - Kill More Than 6 Enemies At Once", 1
 	StaticText " "
-	StaticText "---------------- Deadeye - Kill Any Demon Using Rocket-Launcher 750 Units Away ----------------", 1
+	StaticText "- Now We Cooking With Gas! - Kill Cyber-Baron Using Flamethrower", 1
+	StaticText " "
+	StaticText "- Deadeye - Kill Any Demon Using Rocket-Launcher 750 Units Away", 1
 	StaticText " "
 }
 
