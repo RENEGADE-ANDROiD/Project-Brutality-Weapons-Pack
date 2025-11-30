@@ -125,6 +125,9 @@
 #include actors/Weapons/Slot-9/MancubusFlameCannon.dec
 
 // Tokens
+	// Combat Rating System
+Actor MonsterKilled : Inventory {Inventory.MaxAmount 10}
+Actor PB_Score : Inventory {Inventory.MaxAmount 50000}
 	// BD stuff for some weapons in Fire and Ice
 Actor bd_Token : Inventory
 {

@@ -1,0 +1,180 @@
+#library "Progression"
+#include "zcommon.acs"
+
+
+function int distance (int tid1, int tid2)
+{
+ int x, y, z, d;
+x = GetActorX(tid1) - GetActorX(tid2) >> 16; // Convert fixed point to integer
+	y = GetActorY(tid1) - GetActorY(tid2) >> 16;
+	z = GetActorZ(tid1) - GetActorZ(tid2) >> 16;
+	d = sqrt( x*x + y*y + z*z );
+ return d;
+}
+
+script "KillMonsterIf" KILL //If monster is killed, script will be initiated
+{
+//Get enemy name
+	str MonsterName = GetActorClass(0);
+//If it's not a monster or player uses Sentinel Hammer addon, terminate
+	if(!CheckFlag(0, "ISMONSTER"))
+	{
+		terminate;
+	}
+	
+
+//Get distance from player to demon
+	int DistanceToTarget = distance(0, GetActorProperty(0, APROP_TargetTID));
+	SetActivatorToTarget(0);
+	str WeaponName = GetWeapon();
+	IF (WeaponName == "SentinelHammer")
+		{
+		terminate;
+	}
+	GiveInventory("MonsterKilled", 1);
+	//If Mancubus killed by flamethrower/Demon Tech/Unmaker, make Ultimate slimming challenge!
+	if (MonsterName == "PB_Deadabus" || MonsterName == "PB_Volcabus" || MonsterName == "PB_Mancubus")
+	{
+	if (WeaponName == "Hell_rifle" || WeaponName == "PB_Unmaker" || WeaponName == "PB_Flamethrower")
+	{
+	SetFont("bigfont");
+	HudMessage(s:"Ultimate slimming!"; 1,96,CR_GOLD, 0.025, 0.745, 5.0, 0.8, 2.0);
+	HudMessage(s:"+5 Health"; 1,100,CR_BLUE, 0.025, 0.785, 5.0, 0.8, 2.0);
+	GiveInventory("HealthBonus", 5);
+	}
+	}
+	//Tomatoes! challenge
+	else if (MonsterName == "PB_Cacodemon") {
+	if (WeaponName == "PB_Chainsaw" || WeaponName == "PB_Axe") {
+	SetFont("bigfont");
+	HudMessage(s:"Tomatoes!"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 3.7);
+	HudMessage(s:"+10 Armor AND +75 points"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 3.7);
+	GiveInventory("ArmorBonus", 10);
+	GiveInventory("PB_Score", 75);
+	}
+	}
+	//HUGE GUTS challenge!
+	else if (MonsterName == "PB_Cyberdemon" || MonsterName == "PB_Annihilator") {
+	if (WeaponName == "Melee_Attacks") {
+	SetFont("bigfont");
+	HudMessage(s:"HUGE GUTS!!"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
+	HudMessage(s:"+30 Armor AND +30 Health AND 1000 points"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("ArmorBonus", 30);
+	GiveInventory("HealthBonus", 30);
+	GiveInventory("PB_Score", 1000);
+	}
+	}
+	//I don't need that you have! challenge
+	else if (MonsterName == "PB_ZombieScientistChainsaw" || MonsterName == "PB_ZombieScientist" || MonsterName == "Labguy") {
+	if (WeaponName == "Melee_Attacks") {
+	SetFont("bigfont");
+	HudMessage(s:"I don't need that you have!"; 1,96,CR_GREEN, 0.025, 0.745, 7.0, 0.8, 3.7);
+	HudMessage(s:"+100 points AND +5 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("HealthBonus", 5);
+	GiveInventory("PB_Score", 100);
+	}
+	}
+	//You can't hide from ME! challenge
+	else if (MonsterName == "PB_Archvile" || MonsterName == "PB_Hellion") {
+	if (WeaponName == "PB_Railgun" && DistanceToTarget >= 500) {
+	SetFont("bigfont");
+	HudMessage(s:"You can't hide from ME!"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
+	HudMessage(s:"+750 points AND +25 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("HealthBonus", 25);
+	GiveInventory("PB_Score", 750);
+	}
+	}
+	//Now we cooking with gas!
+	else if (MonsterName == "PB_Cyberbaron" || MonsterName == "PB_CyberKnight" ||  MonsterName == "PB_CyberPaladin") {
+	if (WeaponName == "Hell_rifle" || WeaponName == "PB_Unmaker" || WeaponName == "PB_Flamethrower") {
+	SetFont("bigfont");
+	HudMessage(s:"Now we're cooking with gas!"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
+	HudMessage(s:"+150 points AND +10 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("HealthBonus", 100);
+	GiveInventory("PB_Score", 150);
+	}
+	}
+	//Deadeye
+	else if (WeaponName == "PB_RocketLauncher" && DistanceToTarget >= 750) {
+	SetFont("bigfont");
+	HudMessage(s:"DEADEYE"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
+	HudMessage(s:"+1000 points AND +55 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("HealthBonus", 55);
+	GiveInventory("PB_Score", 1000);
+	}
+	delay(6);
+	TakeInventory("MonsterKilled", 1);
+}
+script "BeginProgression" enter {
+int PlayerButton;
+str WeaponName1;
+GiveInventory("PB_Score", 75);
+str WeaponName2;
+	while (true) {
+			//If player shootin', save a weapon in a variable
+			PlayerButton = GetPlayerInput(-1, INPUT_BUTTONS);
+			if (PlayerButton & (BT_ATTACK)) {
+				WeaponName1 = GetWeapon(); 
+				//After that, give some time to player to
+				//Switch another gun
+				//Shoot
+				SetFont("bigfont");
+				for (int a = 0; a < 70; a++ )  // sid is the sector ID
+					{
+						//I will give him 70 tics OR 2 seconds
+						WeaponName2 = GetWeapon();
+// 						Print(i:a);
+						PlayerButton = GetPlayerInput(-1, INPUT_BUTTONS);
+						//Get player input
+						//If weapon is the same - no result
+						//If monster is killed, giving random reward
+						if (CheckInventory("MonsterKilled") >= 6) {
+							HudMessage(s:"+1250 points AND +65 health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
+							FadeRange (225, 0, 0, 0.4, 0, 0, 0, 0.0, 0.6);
+							HudMessage(s:"DEATH INCARNATE!!"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 2.0);
+							GiveInventory("HealthBonus", 65);
+							GiveInventory("PB_Score", 1250);
+							TakeInventory("MonsterKilled", 10);
+							break;
+						}
+						else if (CheckInventory("MonsterKilled") >= 3) {
+							FadeRange (225, 0, 0, 0.4, 0, 0, 0, 0.0, 0.6);
+							HudMessage(s:"BLOODBATH!"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 2.0);
+							HudMessage(s:"+500 points AND +25 health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
+							GiveInventory("HealthBonus", 25);
+							GiveInventory("PB_Score", 500);
+							TakeInventory("MonsterKilled", 10);
+							break;
+						}
+						else if (WeaponName2 != WeaponName1 && CheckInventory("MonsterKilled")) {
+							SetFont("bigfont");
+							if (Random (1, 3) == 3) {
+							HudMessage(s:"+3 Health"; 1,100,CR_BLUE, 0.025, 0.785, 5, 0.8, 2);
+							FadeRange (0, 0, 200, 0.4, 0, 0, 0, 0.0, 0.6);
+							GiveInventory("HealthBonus", 3);
+							}
+							else if (Random (1, 3) == 2) {
+							HudMessage(s:"+6 Armor points"; 1,100,CR_GREEN, 0.025, 0.785, 5, 0.8, 2);
+							FadeRange (0, 200, 0, 0.4, 0, 0, 0, 0.0, 0.6);
+							GiveInventory("ArmorBonus", 6);
+							}
+							else {
+							HudMessage(s:"+75 points"; 1,100,CR_GOLD, 0.025, 0.785, 7, 0.8, 1);
+							GiveInventory("PB_Score", 75);
+							}
+							TakeInventory("MonsterKilled", 10);
+							break;
+						}
+						delay(1);
+					}
+			}
+			delay(1);
+		}
+}
+
+//Show combat points amount
+script "ShowPoints" (void) {
+int PointCount = CheckInventory("PB_Score");
+SetFont("bigfont");
+HudMessageBold(s:"Combat Points Count Is", i:PointCount; 1,99,CR_GOLD, 0.025, 0.425, 6.0, 0.8, 3.7);
+}

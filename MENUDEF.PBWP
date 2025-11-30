@@ -9,6 +9,8 @@ OptionMenu "ttwcoptions"
     StaticText ""
 	Option "Fatalities can occur when clicking Fire Button", "ttwcfbex", "OnOff"
     StaticText ""
+	SubMenu "Combat Points Weapons Shop", "AmmunitionShopSystem"
+    StaticText ""
 	Submenu "Weapon Pack Spawn Settings", "WeaponPackSpawnSettings"
 	Submenu "Monsters Drop Weapons Settings", "MonsterDropWeapSett"
     StaticText "---------------EXTRAS---------------"
@@ -171,6 +173,207 @@ OptionMenu "WeaponPackSpawnSettings"
 }
 
 
+OptionMenu "AmmunitionShopSystem"
+{
+	Title "Project Brutality Combat Points Weapons Shop"
+	StaticText "---------- Combat Points Weapons Shop ----------", 1
+	StaticText " "
+	Command "Buy 20 Shells (500 Points)",		"PukeName BuyShells"
+	
+	Command "Buy 100 Rifle Ammo (500 Points)",		"PukeName BuyRFLClip"
+
+	Command "Buy 100 Plasma Ammo (750 Points)",		"PukeName BuyCell"
+
+	Command "Buy 12 Rockets (800 Points)",		"PukeName BuyRocket"
+
+	Command "Buy 100 Pistol Bullets (100 Points)",		"PukeName BuyPistolClip"
+
+	Command "Buy SoulSphere (1000 Points)",		"PukeName BuySoulSphere"
+
+	Command "Buy Heavy Armor (750 Points)",		"PukeName BuyBlueArmor"
+
+	Command "Buy MegaSphere (1000 Points)",		"PukeName BuySoulArmor"
+
+	Command "Buy Berserker (1000 Points)",		"PukeName BuyBerserk"
+
+	Command "Buy Random Weapon Upgrade (1500 Points)",		"PukeName BuyRanUpgrade"
+
+	Command "Buy Speed Powerup (1000 Points)",		"PukeName BuySpeedPower"
+
+	Command "Buy Quad-Damage (1250 Points)",		"PukeName BuyQuad"
+	StaticText " "
+			
+
+	StaticText "------------ MELEE WEAPONS ------------", 1
+
+	Command "Buy Beam Katana (1500 Points)",		"PukeName BuyBeamKatana"
+
+	Command "Buy Battle Axe (1200 Points)",		"PukeName BuyBattleAxe"
+
+	Command "Buy Sentinel Hammer (1600 Points)",		"PukeName BuySentinelHammer"
+	StaticText " "
+	
+	StaticText "------------ PISTOLS & SMGs ------------", 1
+
+	Command "Buy 44PDW (800 Points)",		"PukeName Buy44PDW"
+
+	Command "Buy Hell Pistoler (900 Points)",		"PukeName BuyHellPistoler"
+
+	Command "Buy Silverhands Deagle (1100 Points)",		"PukeName BuySilverhandsDeagle"
+
+	Command "Buy W_SMG (750 Points)",		"PukeName BuyW_SMG"
+
+	Command "Buy P_SMG (700 Points)",		"PukeName BuyP_SMG"
+
+	Command "Buy UZI SMG (850 Points)",		"PukeName BuyUZISMG"
+	StaticText " "
+	
+	StaticText "------------ SHOTGUNS ------------", 1
+
+	Command "Buy HASG (950 Points)",		"PukeName BuyHASG"
+
+	Command "Buy HexaLion Shotgun (1200 Points)",		"PukeName BuyHexaLionShotgun"
+
+	Command "Buy SSG (1300 Points)",		"PukeName BuySSG"
+
+	Command "Buy Rotational SG (1400 Points)",		"PukeName BuyRotationalSG"
+
+	Command "Buy Cryo Shotgun (1350 Points)",		"PukeName BuyCryoShotgun"
+
+	Command "Buy Doom 2016 Shotgun (1250 Points)",		"PukeName BuyDoom2016Shotgun"
+
+	Command "Buy Demon Tech Shotgun (1500 Points)",		"PukeName BuyDemonTechShotgun"
+
+	Command "Buy M1887 (1100 Points)",		"PukeName BuyM1887"
+
+	Command "Buy Rotating Double Barrel (1450 Points)",		"PukeName BuyRotatingDoubleBarrel"
+	StaticText " "
+	
+	StaticText "------------ RIFLES ------------", 1
+
+	Command "Buy AK-47 (1000 Points)",		"PukeName BuyAK47"
+
+	Command "Buy Heavy Sniper Rifle (1600 Points)",		"PukeName BuyHeavySniperRifle"
+
+	Command "Buy Magnum Sniper Rifle (1550 Points)",		"PukeName BuyMagnumSniperRifle"
+
+	Command "Buy Bolt Rifle (1200 Points)",		"PukeName BuyBoltRifle"
+
+	Command "Buy M41A (1300 Points)",		"PukeName BuyM41A"
+
+	Command "Buy Heavy Assault Rifle (1250 Points)",		"PukeName BuyHeavyAssaultRifle"
+
+	Command "Buy D4 Machinegun (1400 Points)",		"PukeName BuyD4Machinegun"
+
+	Command "Buy Dark Fate (1350 Points)",		"PukeName BuyDarkFate"
+	StaticText " "
+	
+	StaticText "------------ HEAVY WEAPONS ------------", 1
+
+	Command "Buy IN MiniGun (1800 Points)",		"PukeName BuyINMiniGun"
+
+	Command "Buy IN NailGun (1150 Points)",		"PukeName BuyINNailGun"
+
+	Command "Buy OLD HMG (1300 Points)",		"PukeName BuyOLDHMG"
+
+	Command "Buy Super Nailgun (1400 Points)",		"PukeName BuySuperNailgun"
+
+	Command "Buy Auto Cannon (1600 Points)",		"PukeName BuyAutoCannon"
+
+	Command "Buy Super Grenade Launcher (1550 Points)",		"PukeName BuySuperGrenadeLauncher"
+
+	Command "Buy Excavator (1450 Points)",		"PukeName BuyExcavator"
+
+	Command "Buy Cyberdemons Missile Launcher (1900 Points)",		"PukeName BuyCyberdemonsMissileLauncher"
+
+	Command "Buy Mastermind Chaingun (1850 Points)",		"PukeName BuyMastermindChaingun"
+
+	Command "Buy Paingiver (1500 Points)",		"PukeName BuyPaingiver"
+
+	Command "Buy D4 Rocket Launcher (1650 Points)",		"PukeName BuyD4RocketLauncher"
+	StaticText " "
+	
+	StaticText "------------ ENERGY WEAPONS ------------", 1
+
+	Command "Buy Power Overwhelming (2000 Points)",		"PukeName BuyPowerOverwhelming"
+
+	Command "Buy Phase Eradicator BFG (2200 Points)",		"PukeName BuyPhaseEradicatorBFG"
+
+	Command "Buy Plasma Rifle Assault (1350 Points)",		"PukeName BuyPlasmaRifleAssault"
+
+	Command "Buy Ion Heavy (1600 Points)",		"PukeName BuyIonHeavy"
+
+	Command "Buy Extinction Ray (2100 Points)",		"PukeName BuyExtinctionRay"
+
+	Command "Buy Bio Acid Launcher (1550 Points)",		"PukeName BuyBioAcidLauncher"
+
+	Command "Buy Thunder Carrier TI (1800 Points)",		"PukeName BuyThunderCarrierTI"
+
+	Command "Buy Lightning Gun (1450 Points)",		"PukeName BuyLightningGun"
+
+	Command "Buy Gauss Cannon (1750 Points)",		"PukeName BuyGaussCannon"
+
+	Command "Buy D4 Plasma Gun (1400 Points)",		"PukeName BuyD4PlasmaGun"
+
+	Command "Buy D4 Vortex Rifle (1650 Points)",		"PukeName BuyD4VortexRifle"
+
+	Command "Buy Tech Blaster (1500 Points)",		"PukeName BuyTechBlaster"
+
+	Command "Buy Thunder Crossbow (1550 Points)",		"PukeName BuyThunderCrossbow"
+
+	Command "Buy Unmaker64 (1900 Points)",		"PukeName BuyUnmaker64"
+
+	Command "Buy Ballistagun (1600 Points)",		"PukeName BuyBallistagun"
+
+	Command "Buy LoR Calamity Blade (2000 Points)",		"PukeName BuyLoRCalamityBlade"
+
+	Command "Buy Demon Tech Minigun (1850 Points)",		"PukeName BuyDemonTechMinigun"
+
+	Command "Buy Legacy Unmaker (1950 Points)",		"PukeName BuyLegacyUnmaker"
+
+	Command "Buy Stormcast (1700 Points)",		"PukeName BuyStormcast"
+
+	Command "Buy Mancubus Flame Cannon (1800 Points)",		"PukeName BuyMancubusFlameCannon"
+	StaticText " "
+	
+	StaticText "------------ SPECIAL WEAPONS ------------", 1
+
+	Command "Buy Razorjack (1300 Points)",		"PukeName BuyRazorjack"
+
+	Command "Buy Doom Blaster (1400 Points)",		"PukeName BuyDoomBlaster"
+
+	Command "Buy Dragon Slayer (1700 Points)",		"PukeName BuyDragonSlayer"
+
+	Command "Buy Duke Nukem Ripper (1200 Points)",		"PukeName BuyDukeNukemRipper"
+
+	Command "Buy Ancient Crossbow (1300 Points)",		"PukeName BuyAncientCrossbow"
+
+		
+// 	Submenu "====HOW TO BE COOL IN COMBAT and challenge list====",			"PB_Instruct"
+	StaticText "---------------- HOW TO BE COOL IN COMBAT AND CHALLENGE LIST ----------------", 1
+	StaticText "---------------- To Be Cool In Combat, You Should Make Weapon Combos. Just Switch Weapons Fast And Kill Demons, You Will Get Health/Armor ----------------", 1
+	StaticText "---------------- Everytime You Finish The Level, You Are Gettin' 75 Combat Points. Because You Are Cool! ----------------", 1
+	StaticText "---------------- Also, You Can Kill Enemies With Specific Weapons. Here's List Of All ''Challenges'' ----------------", 1
+	StaticText " "
+	StaticText "---------------- Ultimate Slimming - Kill Mancubus With Flamethrower/Unmaker/Demon Tech Rifle ----------------", 1
+	StaticText " "
+	StaticText "---------------- Tomatoes! - Kill Cacodemon By Axe/Chainsaw! ----------------", 1
+	StaticText " "
+	StaticText "---------------- HUGE GUTS! - Kill Cyberdemon With Your Hands! ----------------", 1
+	StaticText " "
+	StaticText "---------------- I Don't Need That You Have! - Kill Axe Guy Or Chainsaw Guy With Your Hands! ----------------", 1
+	StaticText " "
+	StaticText "---------------- You Can't Hide From Me - Kill Archvile Or Hellion Using Railgun 500 Map Units Away ----------------", 1
+	StaticText " "
+	StaticText "---------------- BLOODBATH - Kill More Than 3 Enemies At Once ----------------", 1
+	StaticText " "
+	StaticText "---------------- DEATH INCARNATE - Kill More Than 6 Enemies At Once ----------------", 1
+	StaticText " "
+	StaticText "---------------- Now We Cooking With Gas! - Kill Cyber-Baron Using Flamethrower ----------------", 1
+	StaticText " "
+	StaticText "---------------- Deadeye - Kill Any Demon Using Rocket-Launcher 750 Units Away ----------------", 1
+	StaticText " "
+}
 
 
 OptionMenu "SwitchItUpOptions" 

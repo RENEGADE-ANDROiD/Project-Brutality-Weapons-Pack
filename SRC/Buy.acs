@@ -1,0 +1,319 @@
+#library "Buy"
+#include "zcommon.acs"
+
+Function Void BuySomething (Int cost, Str buything, Int count)
+{
+If (CheckInventory("PB_Score") >= cost) {
+SetFont("bigfont");
+TakeInventory("PB_Score", cost);
+GiveInventory(buything, count);
+Print(s:"\ciYou Got What You Wanted, Rip And Tear!");
+} Else {
+Print(s:"\cdSorry, Not Enough Combat Points!");
+}
+}
+
+// Original buy scripts
+Script "BuyShells" (Void) { //500, PB_Shell, 20
+BuySomething(500, "PB_Shell", 20);
+}
+
+Script "BuyRFLClip" (Void) { 
+BuySomething(500, "PB_HighCalMag", 100);
+}
+
+Script "BuyCell" (Void) {
+BuySomething(750, "PB_Cell", 100);
+}
+
+Script "BuyRocket" (Void) {
+BuySomething(800, "PB_RocketAmmo", 12);
+}
+
+Script "BuyPistolClip" (Void) {
+BuySomething(100, "PB_LowCalMag", 100);
+}
+
+Script "BuySoulSphere" (Void) {
+BuySomething(750, "PB_SoulSphere", 1);
+}
+
+Script "BuyBlueArmor" (Void) {
+BuySomething(750, "PB_BlueArmor", 1);
+}
+
+Script "BuySoulArmor" (Void) {
+BuySomething(1000, "PB_MegaSphere", 1);
+}
+
+Script "BuyBerserk" (Void) {
+BuySomething(1000, "PB_Berserk", 1);
+}
+
+Script "BuyRanUpgrade" (Void) {
+if (CheckInventory("PB_Score") >= 1500) {
+SetFont("bigfont");
+TakeInventory("PB_Score", 1500);
+SpawnSpot ("UpgradeSpawner", 0);
+Print(s:"\ciYou Got What You Wanted, Rip And Tear!");
+} Else {
+Print(s:"\cdSorry, Not Enough Combat Points!");
+}
+}
+
+Script "BuySpeedPower" (Void) {
+BuySomething(1000, "HasteSphere", 1);
+}
+
+Script "BuyQuad" (Void) {
+BuySomething(1250, "DoubleSphere", 1);
+}
+
+// New weapon buy scripts
+Script "BuyBeamKatana" (Void) {
+BuySomething(1500, "PB_BeamKatana", 1);
+}
+
+Script "BuyBattleAxe" (Void) {
+BuySomething(1200, "BattleAxe", 1);
+}
+
+Script "BuyRazorjack" (Void) {
+BuySomething(1300, "Razorjack", 1);
+}
+
+Script "BuySentinelHammer" (Void) {
+BuySomething(1600, "SentinelHammer", 1);
+}
+
+Script "Buy44PDW" (Void) {
+BuySomething(800, "44PDW", 1);
+}
+
+Script "BuyDoomBlaster" (Void) {
+BuySomething(1400, "DoomBlaster", 1);
+}
+
+Script "BuyW_SMG" (Void) {
+BuySomething(750, "W_SMG", 1);
+}
+
+Script "BuyP_SMG" (Void) {
+BuySomething(700, "P_SMG", 1);
+}
+
+Script "BuyHellPistoler" (Void) {
+BuySomething(900, "HellPistoler", 1);
+}
+
+Script "BuySilverhandsDeagle" (Void) {
+BuySomething(1100, "SilverhandsDeagle", 1);
+}
+
+Script "BuyUZISMG" (Void) {
+BuySomething(850, "UZISMG", 1);
+}
+
+Script "BuyHASG" (Void) {
+BuySomething(950, "HASG", 1);
+}
+
+Script "BuyHexaLionShotgun" (Void) {
+BuySomething(1200, "HexaLionShotgun", 1);
+}
+
+Script "BuySSG" (Void) {
+BuySomething(1300, "SSG", 1);
+}
+
+Script "BuyRotationalSG" (Void) {
+BuySomething(1400, "RotationalSG", 1);
+}
+
+Script "BuyCryoShotgun" (Void) {
+BuySomething(1350, "PB_CryoShotgun", 1);
+}
+
+Script "BuyDoom2016Shotgun" (Void) {
+BuySomething(1250, "PB_Doom2016Shotgun", 1);
+}
+
+Script "BuyDemonTechShotgun" (Void) {
+BuySomething(1500, "Demon Tech Shotgun", 1);
+}
+
+Script "BuyM1887" (Void) {
+BuySomething(1100, "M1887", 1);
+}
+
+Script "BuyRotatingDoubleBarrel" (Void) {
+BuySomething(1450, "RotatingDoubleBarrel", 1);
+}
+
+Script "BuyAK47" (Void) {
+BuySomething(1000, "AK-47", 1);
+}
+
+Script "BuyHeavySniperRifle" (Void) {
+BuySomething(1600, "HeavySniperRifle", 1);
+}
+
+Script "BuyMagnumSniperRifle" (Void) {
+BuySomething(1550, "MagnumSniperRifle", 1);
+}
+
+Script "BuyBoltRifle" (Void) {
+BuySomething(1200, "PB_BoltRifle", 1);
+}
+
+Script "BuyM41A" (Void) {
+BuySomething(1300, "M41A", 1);
+}
+
+Script "BuyPowerOverwhelming" (Void) {
+BuySomething(2000, "PowerOverwhelming", 1);
+}
+
+Script "BuyD4Machinegun" (Void) {
+BuySomething(1400, "D4Machinegun", 1);
+}
+
+Script "BuyDarkFate" (Void) {
+BuySomething(1350, "Dark_Fate", 1);
+}
+
+Script "BuyHeavyAssaultRifle" (Void) {
+BuySomething(1250, "Heavy_Assault_Rifle", 1);
+}
+
+Script "BuyINMiniGun" (Void) {
+BuySomething(1800, "INMiniGun", 1);
+}
+
+Script "BuyINNailGun" (Void) {
+BuySomething(1150, "INNailGun", 1);
+}
+
+Script "BuyDragonSlayer" (Void) {
+BuySomething(1700, "Fire_and_Ice-DragonSlayer", 1);
+}
+
+Script "BuyDukeNukemRipper" (Void) {
+BuySomething(1200, "DukeNukemRipper", 1);
+}
+
+Script "BuyOLDHMG" (Void) {
+BuySomething(1300, "OLDHMG", 1);
+}
+
+Script "BuySuperNailgun" (Void) {
+BuySomething(1400, "SuperNailgun", 1);
+}
+
+Script "BuyAutoCannon" (Void) {
+BuySomething(1600, "AutoCannon", 1);
+}
+
+Script "BuySuperGrenadeLauncher" (Void) {
+BuySomething(1550, "SuperGrenadeLauncher", 1);
+}
+
+Script "BuyExcavator" (Void) {
+BuySomething(1450, "PB_Excavator", 1);
+}
+
+Script "BuyCyberdemonsMissileLauncher" (Void) {
+BuySomething(1900, "CyberdemonsMissileLauncher", 1);
+}
+
+Script "BuyMastermindChaingun" (Void) {
+BuySomething(1850, "MastermindChaingun", 1);
+}
+
+Script "BuyPaingiver" (Void) {
+BuySomething(1500, "Paingiver", 1);
+}
+
+Script "BuyD4RocketLauncher" (Void) {
+BuySomething(1650, "D4RocketLauncher", 1);
+}
+
+Script "BuyPhaseEradicatorBFG" (Void) {
+BuySomething(2200, "PhaseEradicatorBFG", 1);
+}
+
+Script "BuyPlasmaRifleAssault" (Void) {
+BuySomething(1350, "PlasmaRifleAssault", 1);
+}
+
+Script "BuyIonHeavy" (Void) {
+BuySomething(1600, "Ion_Heavy", 1);
+}
+
+Script "BuyExtinctionRay" (Void) {
+BuySomething(2100, "Extinction_Ray", 1);
+}
+
+Script "BuyBioAcidLauncher" (Void) {
+BuySomething(1550, "BioAcidLauncher", 1);
+}
+
+Script "BuyThunderCarrierTI" (Void) {
+BuySomething(1800, "ThunderCarrierTI", 1);
+}
+
+Script "BuyLightningGun" (Void) {
+BuySomething(1450, "LightningGun", 1);
+}
+
+Script "BuyAncientCrossbow" (Void) {
+BuySomething(1300, "AncientCrossbow", 1);
+}
+
+Script "BuyGaussCannon" (Void) {
+BuySomething(1750, "PB_GaussCannon", 1);
+}
+
+Script "BuyD4PlasmaGun" (Void) {
+BuySomething(1400, "D4PlasmaGun", 1);
+}
+
+Script "BuyD4VortexRifle" (Void) {
+BuySomething(1650, "D4VortexRifle", 1);
+}
+
+Script "BuyTechBlaster" (Void) {
+BuySomething(1500, "TechBlaster", 1);
+}
+
+Script "BuyThunderCrossbow" (Void) {
+BuySomething(1550, "ThunderCrossbow", 1);
+}
+
+Script "BuyUnmaker64" (Void) {
+BuySomething(1900, "Unmaker64", 1);
+}
+
+Script "BuyBallistagun" (Void) {
+BuySomething(1600, "Ballistagun", 1);
+}
+
+Script "BuyLoRCalamityBlade" (Void) {
+BuySomething(2000, "LoRCalamityBlade", 1);
+}
+
+Script "BuyDemonTechMinigun" (Void) {
+BuySomething(1850, "DemonTechMinigun", 1);
+}
+
+Script "BuyLegacyUnmaker" (Void) {
+BuySomething(1950, "PB_LegacyUnmaker", 1);
+}
+
+Script "BuyStormcast" (Void) {
+BuySomething(1700, "Stormcast", 1);
+}
+
+Script "BuyMancubusFlameCannon" (Void) {
+BuySomething(1800, "MancubusFlameCannon", 1);
+}

@@ -1,3 +1,7 @@
+
+AddkeySection "PB - Combat Rating Addon" PB_CRSys
+AddMenukey "Show Combat Points" PB_CRSHW
+Alias PB_CRSHW "pukename ShowPoints"
 /*
 AddKeySection "Meat Hook Options" Extra_ZDoom_controls
 AddMenuKey "Use Meat Hook" meathook
@@ -170,8 +174,7 @@ addslotdefault 7 PhaseEradicatorBFG
 addslotdefault 7 PlasmaRifleAssault
 addslotdefault 7 Ion_Heavy
 addslotdefault 7 Extinction_Ray
-addslotdefault 7 BioAcidLauncher
-addslotdefault 7 ThunderCarrierTI //New
+addslotdefault 7 ThunderCarrierTI
 addslotdefault 7 LightningGun
 addslotdefault 7 AncientCrossbow
 addslotdefault 7 SuperGrenadeLauncher
