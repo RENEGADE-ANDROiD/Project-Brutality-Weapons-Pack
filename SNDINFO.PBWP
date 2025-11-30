@@ -1,3 +1,22 @@
+//Sentinel Hammer//
+$random hamexpl { 
+hamexpla
+hamexplb
+hamexplc
+hamexpld 
+hamexple
+}
+hamexpla hamexpla
+hamexplb hamexplb
+hamexplc hamexplc
+hamexpld hamexpld
+hamexple hamexple
+HSLM HSLM
+HMIDLE HMIDLE
+HMSWING HMSWING
+HMUPGR HMUPGR
+HMSLCT HMSLCT
+
 //AutoCannon Weapon Sounds//
 ACNIN ACNIN
 Weapons/AutoCannon/BOLTCHARGE ACBOLT

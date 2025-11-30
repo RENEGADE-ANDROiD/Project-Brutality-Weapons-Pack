@@ -1,22 +1,19 @@
 AddOptionMenu "OptionsMenu"
 {
-    Submenu "PB Weapon Collection Settings", "ttwcoptions"
+    Submenu "Project Brutality Weapon Pack Settings", "ttwcoptions"
 }
 
 OptionMenu "ttwcoptions"
 {
-	Title "PB Weapon Pack Settings"
+	Title "-------PB Weapon Pack Settings-------"
     StaticText ""
 	Option "Fatalities when clicking Fire Button", "ttwcfbex", "OnOff"
     StaticText ""
 	Submenu "Weapon Pack Spawn Settings", "WeaponPackSpawnSettings"
-	StaticText ""
 	Submenu "Monster Drop Weapon Settings", "MonsterDropWeapSett"
-    StaticText ""
+    StaticText "---------------EXTRAS---------------"
 	Submenu "Random Weapon Switcher", "SwitchItUpOptions"
-    StaticText ""
 	Submenu "Behold! Summon Enemies and Bosses", "BeholdOptions"
-    StaticText ""
 	submenu "DOORBUSTER","BusterMenu"
 }
 
@@ -75,6 +72,7 @@ OptionMenu "WeaponPackSpawnSettings"
 	Option "Spawn Argent Sith", "PBSpawnArgentSith", "OnOff"
 	Option "Spawn SCHISM - BattleAxe and Shield", "PBSpawnBattleAxe", "OnOff"
 	Option "Spawn RO - Razorjack", "PBSpawnRazorjack", "OnOff"
+	Option "Spawn Sentinel Hammer", "PBSpawnSentinelHammer", "OnOff"
 
     StaticText ""
 	StaticText "---------------Slot 2 weapons---------------", gold

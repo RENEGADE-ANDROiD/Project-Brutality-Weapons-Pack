@@ -40,6 +40,7 @@ server	float	q_1airaccel				= 1.5;
 server bool PBSpawnArgentSith = True;
 server bool PBSpawnBattleAxe = True;
 server bool PBSpawnRazorjack = True;
+server bool PBSpawnSentinelHammer = True;
 //Slot 2
 server bool PBSpawn44PDW = True;
 server bool PBSpawnSilverhandsDeagle = True;

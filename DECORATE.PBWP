@@ -47,6 +47,7 @@
 #include actors/Weapons/Slot-1/ArgentSith.dec
 #include actors/Weapons/Slot-1/BattleAxeAndShield.dec
 #include actors/Weapons/Slot-1/Razorjack.dec
+#include actors/Weapons/Slot-1/SentinelHammer.dec
 	//Slot-2
 #include actors/Weapons/Slot-2/44PDW.dec
 //#include actors/Weapons/Slot-2/Berreta.dec 

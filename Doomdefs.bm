@@ -1,3 +1,41 @@
+//UZI SMG//
+brightmap sprite SHPQA0 { map "brightmaps/44PAF0.png" disablefullbright }
+brightmap sprite SHPQB0 { map "brightmaps/44PAI0.png" disablefullbright }
+brightmap sprite SHPQC0 { map "brightmaps/44PFD0.png" disablefullbright }
+
+//SentinelHammer//
+brightmap sprite SHPQA0 { map "brightmaps/SHPQA0.png" disablefullbright }
+brightmap sprite SHPQB0 { map "brightmaps/SHPQA0.png" disablefullbright }
+brightmap sprite SHPQC0 { map "brightmaps/SHPQA0.png" disablefullbright }
+brightmap sprite SHPQD0 { map "brightmaps/SHPQA0.png" disablefullbright }
+brightmap sprite SHPQE0 { map "brightmaps/SHPQA0.png" disablefullbright }
+
+brightmap sprite SPBSA0 { map "brightmaps/SHPBA0.png" disablefullbright }
+brightmap sprite SPBSB0 { map "brightmaps/SHPBA0.png" disablefullbright }
+brightmap sprite SPBSC0 { map "brightmaps/SHPBA0.png" disablefullbright }
+brightmap sprite SPBSD0 { map "brightmaps/SHPBA0.png" disablefullbright }
+brightmap sprite SPBSE0 { map "brightmaps/SHPBA0.png" disablefullbright }
+
+//Idle
+brightmap sprite SHPBA0 { map "brightmaps/SHPBA0.png" disablefullbright }
+brightmap sprite SHPBB0 { map "brightmaps/SHPBA0.png" disablefullbright }
+brightmap sprite SHPBC0 { map "brightmaps/SHPBA0.png" disablefullbright }
+brightmap sprite SHPBD0 { map "brightmaps/SHPBA0.png" disablefullbright }
+brightmap sprite SHPBE0 { map "brightmaps/SHPBA0.png" disablefullbright }
+//Attack
+brightmap sprite SHPBF0 { map "brightmaps/SHPBF0.png" disablefullbright }
+brightmap sprite SHPBG0 { map "brightmaps/SHPBG0.png" disablefullbright }
+brightmap sprite SHPBH0 { map "brightmaps/SHPBH0.png" disablefullbright }
+brightmap sprite SHPBI0 { map "brightmaps/SHPBI0.png" disablefullbright }
+brightmap sprite SHPBJ0 { map "brightmaps/SHPBJ0.png" disablefullbright }
+brightmap sprite SHPBK0 { map "brightmaps/SHPBK0.png" disablefullbright }
+brightmap sprite SHPBL0 { map "brightmaps/SHPBL0.png" disablefullbright }
+brightmap sprite SHPBM0 { map "brightmaps/SHPBM0.png" disablefullbright }
+brightmap sprite SHPBN0 { map "brightmaps/SHPBN0.png" disablefullbright }
+brightmap sprite SHPBO0 { map "brightmaps/SHPBO0.png" disablefullbright }
+brightmap sprite SHPBP0 { map "brightmaps/SHPBP0.png" disablefullbright }
+brightmap sprite SHPBQ0 { map "brightmaps/SHPBQ0.png" disablefullbright }
+
 //HexaLionShotgun
 Brightmap Sprite SHF2A0 { Map "Brightmaps/Weapons/HexaLion/XSF2AB.png" DisableFullBright }
 Brightmap Sprite XSGFW0 { Map "Brightmaps/Weapons/HexaLion/XSGFWB.png" DisableFullBright }
