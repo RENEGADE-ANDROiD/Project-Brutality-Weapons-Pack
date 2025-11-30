@@ -51,6 +51,7 @@ TEAM MEMBERS:
 
 - 44 PDW
 - Demon-Tech Pistol
+- Doom Blaster
 - Holy Bastard
 - Johnny Silverhands' Deagle
 - Plasma Annihilator Pistol
