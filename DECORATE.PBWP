@@ -57,6 +57,7 @@
 //#include actors/Weapons/Slot-2/Magnum.dec
 #include actors/Weapons/Slot-2/Deagle.dec
 //#include actors/Weapons/Slot-2/Luger.dec 
+#include actors/Weapons/Slot-2/Blaster_Pistol.dec
 #include actors/Weapons/Slot-2/HellPistoler(AresMade).dec 
 #include actors/Weapons/Slot-2/DTPISTOL.dec
 #include actors/Weapons/Slot-2/UZISMG.dec

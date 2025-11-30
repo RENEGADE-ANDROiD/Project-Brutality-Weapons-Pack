@@ -155,7 +155,37 @@ class RazorjackSpawnerInjector : PBInjector
 	}
 }
 
+//Sentinel Hammer//
+class SentinelHammerSpawnerInjector : PBInjector
+{
+	override void init(PB_EventHandler handler)
+	{
+	if (PBSpawnSentinelHammer)
+		{
+		handler.InjectSpawn("PB_SawSpawnerT1", "SentinelHammer", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT2", "SentinelHammer", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT3", "SentinelHammer", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT4", "SentinelHammer", 255, 1);
+		}
+	}
+}
+
 //SLOT 2 ===================================================================================== 2 ==
+
+//
+class DoomblasterSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnDoomblaster)
+		{
+		handler.InjectSpawn('PB_PistolSpawnerT1', 'Doomblaster', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT2', 'Doomblaster', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT3', 'Doomblaster', 255, 3);
+		handler.InjectSpawn('PB_PistolSpawnerT4', 'Doomblaster', 255, 3);
+		}
+	}
+}
 
 //DemonPistol - DTECH
 class HellPistolSpawnerInjector : PBInjector

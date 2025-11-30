@@ -1,3 +1,13 @@
+//EMG Doomblaster//
+$random D2016Blaster/Fire {PLMF1 PLMF1 PLMF1}
+PLMF1 PLMF1
+D2016Blaster/Select		D4BREDY
+D2016Blaster/Charge		D4BCHR2
+D2016Blaster/Charge/Loop	D4BCHLP
+D2016Blaster/Charge/Click	D4BREDY
+$random D2016Blaster/Charge/Fire { PLMCF1 }
+PLMCF1 PLMCF1
+
 //Sentinel Hammer//
 $random hamexpl { 
 hamexpla

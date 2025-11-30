@@ -1,0 +1,14 @@
+PB_UAC EMG Sidearm Plasma Blaster Updated 12-30-2024
+----------------------------------------
+Special Thanks To XV117 For The More Polished Dual-Wield Sprites
+----------------------------------------
+PB3.0_UAC EMG Sidearm Plasma Blaster v3.2 Final Edition Updated 07-10-2023
+----------------------------------------
+Updated By decibel for the PB 0.2.0 Build
+----------------------------------------
+Summon Command: Summon DoomBlaster
+----------------------------------------
+Summon Command: Summon DualWieldingBlasters
+----------------------------------------
+Bug? [Feature?]: Despite showing a total ammo count of 35, the blaster never runs out!
+----------------------------------------
