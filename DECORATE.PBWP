@@ -1,3 +1,4 @@
+
 // Equipments
 #include actors/Equipments/ShieldGrenade.dec
 #include actors/Equipments/VoidGrenade.dec
@@ -8,6 +9,8 @@
 #include actors/Weapons/Doom4WeaponPack/UpgradeStation.dec // This doesn't even work
 
 //GloryKill Equipment//
+Actor FinisherToken : Inventory
+{ }
 #include actors/GK/Crucible.dec
 #include actors/GK/SOULCUBE.dec
 #include actors/GK/RANDOMAMMO.dec
