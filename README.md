@@ -4,7 +4,7 @@ See PB Weapon Pack Options to configure:
 
 - Choose which weapons spawn and how.
 
-- Merchant Shopkeeper by popguy
+- Combat Points Weapons Shop
 
 - Random Weapon Switcher by BROS_ETT_311:  Allows you to randomize the weapons in your hand at random intervals.
 
@@ -55,7 +55,6 @@ TEAM MEMBERS:
 - Demon-Tech Pistol
 - Doom Blaster
 - Holy Bastard
-- Johnny Silverhands' Deagle
 - Plasma Annihilator Pistol
 - UZI SMG
 
@@ -124,7 +123,6 @@ TEAM MEMBERS:
 - Bio-Acid Launcher
 - Ballista
 - Stormcast from Schism
-- Thunder Crossbow from Brutal Hexen
 
 ---------------Slot 0 weapons---------------
 
