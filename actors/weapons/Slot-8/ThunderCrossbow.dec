@@ -212,7 +212,7 @@ ACTOR ThunderCrossbow : PBWP_Weapon
 			FIST K 1 Offset(6,24)
 			FIST K 1 Offset(4,28)
 			FIST K 1 Offset(2,30)  
-			Goto ClusterFire
+			Goto Ready3
 
 	ShockwaveFire:
 		TNT1 A 0 A_PlayWeaponSound("electrogun/charge2")
