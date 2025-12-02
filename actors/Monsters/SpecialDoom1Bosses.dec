@@ -1,5 +1,5 @@
 
-ACTOR CyberdemonBoss: Cyberdemon 2546
+ACTOR CyberdemonBoss: PB_Monster 2546
 {
 	SpawnID 2450
     damagefactor "BFG", 0.5

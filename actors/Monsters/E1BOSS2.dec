@@ -1,4 +1,4 @@
-ACTOR EBossCell
+ACTOR EBossCell : PB_Monster
 {
   //$Category Monsters/Earth
   Health 6000
