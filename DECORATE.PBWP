@@ -149,6 +149,12 @@ Actor InAction : bd_Token {}
 	// IN thingy
 Actor IsUsingAddictivePackTypeIN : Inventory { Inventory.MaxAmount 1 }
 
+//CombatRatingShop
+ACTOR MonsterKilled : Inventory {
+Inventory.MaxAmount 10 }
+ACTOR PB_Score : Inventory {
+Inventory.MaxAmount 10000 }
+
 // By Warcarlsson
 #include Actors/Weapons/DROPABLES.dec
 #include actors/monsters/NoDropFrozenActors.dec
