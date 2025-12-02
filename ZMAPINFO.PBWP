@@ -1,5 +1,6 @@
 Gameinfo
 {
+	ForceKillScripts = true
 	addeventhandlers = 
 	"CSSGEvent",
     "RandomWeaponSwitcher",
@@ -11,8 +12,4 @@ Gameinfo
 	"ExterminatorStuff",
 	"BusterHandler"
 	// Add More Handlers Here
-}
-gameinfo 
-{
-ForceKillScripts = true
 }
