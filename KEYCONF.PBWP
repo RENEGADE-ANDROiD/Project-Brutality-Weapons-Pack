@@ -6,6 +6,10 @@
 //addmenukey "Select Sentinel Hammer" SHSelect
 //alias SHSelect "pukename SelectHammer"
 
+addkeysection "Combat Rating Points" PB_CRSys
+addmenukey "Show combat points" PB_CRSHW
+   alias PB_CRSHW "pukename ShowPoints"
+
 alias SwitchItUp "NetEvent SwitchItUp"
 alias BackItUp "NetEvent SwitchBack"
 

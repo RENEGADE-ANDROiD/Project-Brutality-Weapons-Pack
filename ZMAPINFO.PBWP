@@ -12,3 +12,7 @@ Gameinfo
 	"BusterHandler"
 	// Add More Handlers Here
 }
+gameinfo 
+{
+ForceKillScripts = true
+}
