@@ -68,7 +68,6 @@ ACTOR PlasmaRifleAssault : PBWP_Weapon 23817
 	  NPPL EDCBA 1
 	  RNLU E 0 A_PlaySound("toolbox/deequip", 5)
 	  TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
-	  TNT1 A 1
       Wait
 	  
    Select:

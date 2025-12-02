@@ -109,17 +109,15 @@ ACTOR Razorjack : PBWP_Weapon
 			A_TakeInventory("PB_LockScreenTilt",1);
 		    }
        		RAZG A 0 A_PlaySound("Razorjack/IEnd",6)
-       		RAZG A 1 A_Lower(12)
+       		RAZG A 1 A_Lower
        		Wait 
    Looper:
 	   	RAZE A 0 A_StopSoundEx("Soundslot5")
-       		RAZG A 0 A_Lower
        		RAZG A 1 A_Lower
        		Loop 
    NoAmmoDeselect:
    Looper2:
 	   	RAZE A 0 A_StopSoundEx("Soundslot5")
-       		RAZG B 0 A_Lower
        		RAZG B 1 A_Lower
        		Loop 
    Select:

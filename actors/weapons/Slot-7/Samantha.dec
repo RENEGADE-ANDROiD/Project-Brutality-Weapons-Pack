@@ -52,7 +52,6 @@ ACTOR SuperGrenadeLauncher : PBWP_Weapon
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
 		SGUP CBA 1 
 		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
-		TNT1 A 1
 		Wait
 		
 	Select:

@@ -163,7 +163,7 @@ Actor HexaLionShotgun : PBWP_Weapon
 		TNT1 A 0 A_GiveInventory("HexaSSGAltCooldown", 100)
 		SHTZ A 0 A_TakeInventory("Zoomed",1)
 		XSGS ABCDEF 1
-		TNT1 A 1 A_Lower
+		TNT1 A 0 A_Lower
 		Wait
 
 	Select:

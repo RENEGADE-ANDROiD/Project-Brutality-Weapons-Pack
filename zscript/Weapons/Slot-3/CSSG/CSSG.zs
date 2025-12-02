@@ -65,7 +65,7 @@ Class PB_CSSG : PBWP_Weapon
 			TNT1 A 0 PB_CheckBarrelPlace1();
 			TNT1 A 0 A_startsound("weapons/changing",60);
 			C0SU DCBA 1;
-			TNT1 A 0 A_Lower(120);
+			TNT1 A 0 A_Lower;
 			wait;
 			
 		WeaponRespect:

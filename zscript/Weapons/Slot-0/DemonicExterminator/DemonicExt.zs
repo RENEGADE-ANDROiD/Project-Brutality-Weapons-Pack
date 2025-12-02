@@ -66,11 +66,11 @@ Class PB_DemonExt : PBWP_Weapon
 			TNT1 A 0 A_stopsound(chan_unmkidle);
 			TNT1 A 0 A_JumpIf(invoker.ExterminatorMode == 2,"DeselectSoul");
 			UNMD ABCDE 1; 
-			TNT1 A 0 A_Lower(120);
+			TNT1 A 0 A_Lower;
 			wait;
 		DeselectSoul:
 			UNMD FGHIJ 1;
-			TNT1 A 0 A_Lower(120);
+			TNT1 A 0 A_Lower;
 			wait;
 		
 		Ready:

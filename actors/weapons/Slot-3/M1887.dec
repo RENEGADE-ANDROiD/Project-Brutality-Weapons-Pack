@@ -152,7 +152,7 @@ Actor M1887 : PBWP_Weapon
 	 M87G A 0 A_TakeInventory("Zoomed",1)
 	 M87G A 0 A_TakeInventory("ADSmode",1)
 	 M87S DCBA 1
-	 TNT1 A 1 A_Lower
+	 TNT1 A 0 A_Lower
 	 Wait
     
 	Select:

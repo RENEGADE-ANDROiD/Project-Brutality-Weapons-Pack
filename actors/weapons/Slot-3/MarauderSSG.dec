@@ -303,7 +303,7 @@ Actor MarauderSSG : PBWP_Weapon
 		TNT1 A 0 A_Takeinventory("Unloading",1)
 		TNT1 A 0 A_TakeInventory("NewPB_MaraudergunSelected",1)	
 		MSSS DCBA 1
-		TNT1 A 1 A_Lower
+		TNT1 A 0 A_Lower
 		Wait
 
 	Select:

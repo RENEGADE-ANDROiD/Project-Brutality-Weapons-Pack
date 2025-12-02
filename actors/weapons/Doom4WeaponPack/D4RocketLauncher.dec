@@ -71,7 +71,7 @@ Actor D4RocketLauncher : PBWP_Weapon
 			 A_TakeInventory("PB_LockScreenTilt",1);
 		     }
 		RKLS CBA 1
-		TNT1 A 1 A_Lower
+		TNT1 A 0 A_Lower
 		Wait
 
 	Select:

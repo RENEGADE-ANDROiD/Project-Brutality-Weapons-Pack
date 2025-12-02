@@ -99,7 +99,7 @@ Actor PB_LegacyUnmaker : PBWP_Weapon
 		TNT1 A 0 A_StopSound(6)
 		TNT1 A 0 A_Takeinventory("HasIncendiaryWeapon",1)
 		UZTS ABCD 1
-		TNT1 A 1 A_Lower
+		TNT1 A 0 A_Lower
 		Wait
 
 	Select:

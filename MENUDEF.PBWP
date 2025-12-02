@@ -283,6 +283,7 @@ OptionMenu "MerchantMenu"
 	FlagOption "Resident Evil", "hdm_skin_item", "OnOff", 0
 	FlagOption "Hobo", "hdm_skin_item", "OnOff", 1
 	FlagOption "[RETRO]Wandering Trader", "hdm_skin_item", "OnOff", 12
+
 }
 
 OptionValue "AmmoStock"

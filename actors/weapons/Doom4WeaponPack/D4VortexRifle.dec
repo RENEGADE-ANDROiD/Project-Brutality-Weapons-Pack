@@ -88,7 +88,7 @@ Actor D4VortexRifle : PBWP_Weapon
 			 A_TakeInventory("PB_LockScreenTilt",1);
 		     }
 		VRTS CBA 1
-		TNT1 A 1 A_Lower
+		TNT1 A 0 A_Lower
 		Wait
 
 	Select:

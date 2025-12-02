@@ -74,7 +74,6 @@ ACTOR SSG : PBWP_Weapon 20196
 		TNT1 A 0 A_TakeInventory("TossGrenade", 1)
 		SHT5 DCBA 1
 		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
-		TNT1 A 1
 		Wait
 		
 	Select:

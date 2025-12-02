@@ -98,7 +98,7 @@ Actor SentinelHammer : PBWP_Weapon {
    	Weapon.BobRangeY 0.5
    	Weapon.BobStyle InverseSmooth
    	Weapon.BobSpeed 2.0
-	Inventory.AltHUDIcon "WFAXA0"
+	Inventory.AltHUDIcon "senthm"
 	Weapon.SlotNumber 1
 	weapon.selectionorder 220
 	Weapon.KickBack 20

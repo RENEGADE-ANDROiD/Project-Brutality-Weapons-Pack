@@ -77,7 +77,7 @@ Class HeavySniperRifle : PBWP_Weapon
 			TNT1 A 0 A_takeinventory("Zoomed",10);
 			TNT1 A 0 setZoom(false);
 			MSND ABCD 1;
-			TNT1 A 0 A_lower(120);
+			TNT1 A 0 A_lower;
 			wait;
 		
 		ChangeNow:
