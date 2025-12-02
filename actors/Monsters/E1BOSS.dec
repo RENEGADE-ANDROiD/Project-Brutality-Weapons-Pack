@@ -1,4 +1,4 @@
-Actor EBossHead 
+Actor EBossHead : PB_Monster
 {
   //$Category Monsters/Earth
   Health 3000
