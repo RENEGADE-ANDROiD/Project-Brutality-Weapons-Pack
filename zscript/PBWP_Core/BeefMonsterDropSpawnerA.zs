@@ -76,7 +76,7 @@ Class MastermindCGSpawner : PBWP_Spawner
 }
 
 // Paingiver
-Class PainGiverSpawner : PB_SpawnerBase
+Class PainGiverSpawner : PBWP_Spawner
 {
     Default
     {
@@ -103,7 +103,7 @@ Class PainGiverSpawner : PB_SpawnerBase
 }
 
 // DemonTech Spawner
-Class DTechSpawner : PB_SpawnerBase
+Class DTechSpawner : PBWP_Spawner
 {
     Default
     {
@@ -138,7 +138,7 @@ Class DTechSpawner : PB_SpawnerBase
 }
 
 // Shield Grenade
-Class ShieldGrenadeDrop : PB_SpawnerBase
+Class ShieldGrenadeDrop : PBWP_Spawner
 {
     Default
     {
