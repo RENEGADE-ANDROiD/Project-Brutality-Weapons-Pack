@@ -24,10 +24,7 @@ server int sv_fuelhud_x = 0;
 server int sv_fuelhud_y = 0;
 server int sv_Flamebelch_Cool = 12;
 server int sv_Icebomb_Cool = 35;
-server bool be_LowHealthAlert = true;
-server int sv_LowHealthValue = 30;
-server bool be_LowArmorAlert = true;
-server int sv_LowArmorValue = 25;
+
 
 //Hook//
 Server NoArchive Bool sv_allowhookshot = True;
