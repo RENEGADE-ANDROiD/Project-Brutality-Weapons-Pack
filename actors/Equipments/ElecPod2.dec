@@ -10,7 +10,6 @@ Actor ElecPodAmmo : ammo
 	Inventory.PickUpMessage ""
 	Inventory.Icon ELPDA0
 	+INVENTORY.IGNORESKILL
-	Scale 0.45
 }
 
 ACTOR ElecPod : CustomInventory
@@ -23,6 +22,7 @@ ACTOR ElecPod : CustomInventory
   //Inventory.Icon "BEACB0"
   Inventory.PickupMessage ""
   Inventory.PickUpSound "BACKPACK"
+  Scale 0.45
   States
   {
 	Spawn:

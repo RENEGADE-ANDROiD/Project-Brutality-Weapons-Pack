@@ -13,6 +13,7 @@ class LoRCalamityBlade : PBWP_Weapon
 		Weapon.AmmoGive2 120;
 		Weapon.AmmoType "PB_Fuel";
 		Weapon.AmmoType2 "PB_DTECH";
+		scale 0.85;
 		+WEAPON.NOAUTOFIRE
 		+WEAPON.NOALERT
 		+DONTGIB
