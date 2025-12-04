@@ -47,11 +47,12 @@ TEAM MEMBERS:
 - Argent Sith
 - BattleAxe and Shield from Schism
 - Razorjack from Russian Overkill
-- Sentinel Hammer
 
 ---------------Slot 2 weapons---------------
 
 - 44 PDW
+- Beretta 92
+- Beretta 92 Silenced
 - Demon-Tech Pistol
 - Doom Blaster
 - Holy Bastard
