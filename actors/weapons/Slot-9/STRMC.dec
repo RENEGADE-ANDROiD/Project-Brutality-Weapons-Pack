@@ -254,8 +254,7 @@ ACTOR Stormcast : PBWP_Weapon
 		}
 		LGQS ABCDE 1
 	HoldLightning:
-		//TNT1 A 0 A_GiveInventory ("PowerChargeStorm", 200) // Why does this give ammo???? // Disabled for testing purposes
-		TNT1 A 0 A_TakeInventory ("PowerChargeStorm", 200) // Delete this later
+		TNT1 A 0 A_TakeInventory ("PowerChargeStorm", 10)
 		LGQS F 1 BRIGHT 		
 		//TNT1 A 0 A_PlaySound("LIGHTN01", 6)
 		TNT1 A 0 A_PlaySound("SPELLC01", CHAN_VOICE) 	
@@ -264,6 +263,7 @@ ACTOR Stormcast : PBWP_Weapon
 		Goto CastQuickZap
 
 	GotoHold:
+		TNT1 A 0 A_TakeInventory ("PowerChargeStorm", 5)
 		LGQS GHI 1 BRIGHT 
 		TNT1 A 0 A_RailAttack(15,10,0,none,"9F 9F FF", RGF_SILENT|RGF_FULLBRIGHT,25,"LightningGunProjectile",3,3,400,5,0.001,3.0,"ElectroBlastTrail2",-15)
 		LGQS JKL 1 BRIGHT
@@ -273,6 +273,7 @@ ACTOR Stormcast : PBWP_Weapon
 	HoldLightning2:
 		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm",15,2)
 		goto Depletion
+		TNT1 A 0 A_TakeInventory ("PowerChargeStorm", 5)
 		TNT1 AAA 0
 		TNT1 A 0 A_PlaySound("SHOCK")		
 		TNT1 A 0 A_JumpIfCloser(100,"RealElectricArc1")
@@ -341,10 +342,7 @@ ACTOR Stormcast : PBWP_Weapon
 		Goto FinishElectricArc
 
 	Fly:
-		//TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 75, "Hold4")
-		//TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 50, "Hold3")
-		//TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 25, "Hold2")
-		//TNT1 A 0 A_GiveInventory("PowerChargeStorm",1)
+		TNT1 A 0 A_GiveInventory("PowerChargeStorm",1)
 		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm",10,2)
 		goto Depletion
 		TNT1 A 0
@@ -353,20 +351,6 @@ ACTOR Stormcast : PBWP_Weapon
 		TNT1 A 0 PB_ReFire("fly")
 		MEDI F 4
 		goto ready
-			
-	Hold2:
-		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 50, "Hold3")
-		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 1)
-		TNT1 A 0 A_GiveInventory("PowerChargeStorm",1)
-		CONE D 1 
-		TNT1 A 0 PB_ReFire
-		
-	Hold3:
-		//TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 50, "Hold3")
-		TNT1 A 0 A_GiveInventory("PowerChargeStorm",1)
-		TNT1 A 0 A_JumpIfInventory("FiredSecondary", 1, "CastPurgatory")
-		CONE E 1 BRIGHT 
-		TNT1 A 0 PB_ReFire 
 		
 	AltFire:
 		TNT1 A 0 A_PlaySound("PZAPCHR2")
@@ -378,7 +362,7 @@ ACTOR Stormcast : PBWP_Weapon
 		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 75, "AltHold4") 
 		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 50, "AltHold3")
 		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 25, "AltHold2")
-		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 5)
+		TNT1 A 0 A_GiveInventory("PowerChargeStorm", 2)
 		
 		TNT1 A 0 A_PlaySound("PZAPHUM", CHAN_WEAPON,2,1) 
 		
@@ -394,7 +378,7 @@ ACTOR Stormcast : PBWP_Weapon
 		TNT1 A 0
 		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 75, "AltHold4")
 		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 50, "AltHold3")
-		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 8)
+		TNT1 A 0 A_GiveInventory("PowerChargeStorm", 4)
 
 		TNT1 A 0 BRIGHT A_JumpIfInventory("FiredPrimary", 1, "CastStunBall")
 		TNT1 A 0 BRIGHT A_JumpIfInventory("TossGrenade",1,"InitializeStunwallSmall")
@@ -410,7 +394,7 @@ ACTOR Stormcast : PBWP_Weapon
 		
 	AltHold3:
 		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 75, "AltHold4")
-		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 6)
+		TNT1 A 0 A_GiveInventory("PowerChargeStorm", 6)
 		SCC3 D 1 BRIGHT A_JumpIfInventory("FiredPrimary", 1, "CastBallLightning")
 		TNT1 A 0 BRIGHT A_JumpIfInventory("TossGrenade",1,"InitializeStunwallSmall")
 		TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1, "InitializeThunderstorm2")
@@ -435,7 +419,7 @@ ACTOR Stormcast : PBWP_Weapon
 		goto discharge
 		
 	AltHold4:
-		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 4)
+		TNT1 A 0 A_GiveInventory("PowerChargeStorm", 8)
 		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 100, "AltHold5")
 		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",20,0,0,0)
 		TNT1 A 0 A_PlaySound("TPortalLoop", CHAN_WEAPON,2,1) 
@@ -457,7 +441,7 @@ ACTOR Stormcast : PBWP_Weapon
 		TNT1 A 0 PB_ReFire("AltHold4")
 	
 	AltHold5:
-		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 4)
+		TNT1 A 0 A_GiveInventory("PowerChargeStorm", 10)
 		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",20,0,0,0)
 		TNT1 A 0 A_PlaySound("TPortalLoop", CHAN_WEAPON,2,1) 
 		SCC4 A 1 BRIGHT A_JumpIfInventory("FiredPrimary", 1, "CastMorgenstern")

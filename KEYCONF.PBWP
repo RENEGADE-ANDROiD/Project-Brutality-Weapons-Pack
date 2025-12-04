@@ -7,7 +7,7 @@
 //alias SHSelect "pukename SelectHammer"
 
 addkeysection "Combat Rating Points" PB_CRSys
-addmenukey "Show combat points" PB_CRSHW
+addmenukey "Show combat points:  " PB_CRSHW
    alias PB_CRSHW "pukename ShowPoints"
 
 alias SwitchItUp "NetEvent SwitchItUp"
@@ -52,11 +52,10 @@ alias dp_show_mode "give DP_ModeReporter; use DP_ModeReporter"
 
 /*
 alias PBWP_EnableAll "
-           set PBSpawnArgentSith true;
+           set PBSpawnPB_ArgentSith true;
            set PBSpawnBattleAxe true;
            set PBSpawnRazorjack true;
             //Slot 2
-           set PBSpawnSilverhandsDeagle true;
            set PBSpawnHellPistol true;
            set PBSpawnHellPistoler true;
            set PBSpawnW_SMG true;
@@ -120,19 +119,18 @@ alias PBWP_EnableAll "
            set PBSpawnDemonTechMinigun true;
            set PBSpawnPhaseEradicatorBFG true;"*/
 
-Addslotdefault 1 PB_BeamKatana
+Addslotdefault 1 PB_ArgentSith
 addslotdefault 1 BattleAxe
 addslotdefault 1 Razorjack
-addslotdefault 1 SentinelHammer
+//addslotdefault 1 SentinelHammer
 addslotdefault 2 44PDW
+addslotdefault 2 IN_Beretta
+addslotdefault 2 B92S
 addslotdefault 2 DoomBlaster
 addslotdefault 2 W_SMG
 addslotdefault 2 P_SMG
 addslotdefault 2 HellPistoler
-addslotdefault 2 Magnum
-addslotdefault 2 SilverhandsDeagle
 addslotdefault 2 UZISMG
-addslotdefault 3 BlackRemintong
 addslotdefault 3 HASG
 addslotdefault 3 HexaLionShotgun
 addslotdefault 3 SSG
@@ -143,10 +141,6 @@ addslotdefault 3 "Demon Tech Shotgun"
 addslotdefault 3 M1887
 addslotdefault 3 RotatingDoubleBarrel
 addslotdefault 4 AK-47
-addslotdefault 4 MaskMan_Rifle
-addslotdefault 4 AssaultR1
-addslotdefault 4 M1X
-addslotdefault 4 Fallen_Hawk
 addslotdefault 4 HeavySniperRifle
 addslotdefault 4 MagnumSniperRifle
 addslotdefault 4 PB_BoltRifle

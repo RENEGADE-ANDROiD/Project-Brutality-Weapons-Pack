@@ -4,8 +4,6 @@
 #include actors/Equipments/ElecPod2.dec
 #include actors/Equipments/Axe.dec
 #include actors/Equipments/hook.dec
-#include actors/Weapons/Doom4WeaponPack/ItemsUpgrades.dec // What even is this?
-#include actors/Weapons/Doom4WeaponPack/UpgradeStation.dec // This doesn't even work
 // RemoteGrenades
 #include actors/Equipments/RemoteGrenades/Prosurv_Swarm.dec
 #include actors/Equipments/RemoteGrenades/AcidCharge.dec
@@ -30,7 +28,6 @@
 #include actors/Monsters/SpecialDoom1Bosses.dec
 
 // Spawners
-//#include actors/Spawners/WeaponSpawners/Weapons_Spawner.dec // I dont think we need this since there's already the injectors
 #include actors/Spawners/BEHOLD.dec
 
 // Special
@@ -48,22 +45,18 @@
 #include actors/Weapons/Slot-1/ArgentSith.dec
 #include actors/Weapons/Slot-1/BattleAxeAndShield.dec
 #include actors/Weapons/Slot-1/Razorjack.dec
-#include actors/Weapons/Slot-1/SentinelHammer.dec
+//#include actors/Weapons/Slot-1/SentinelHammer.dec
 	//Slot-2
 #include actors/Weapons/Slot-2/44PDW.dec
-//#include actors/Weapons/Slot-2/Berreta.dec 
-//#include actors/Weapons/Slot-2/Berreta92.dec 
+#include actors/Weapons/Slot-2/Berreta.dec 
+#include actors/Weapons/Slot-2/Berreta92.dec 
 #include actors/Weapons/Slot-2/W_SMG.dec
 #include actors/Weapons/Slot-2/Blood_Stains.dec
-//#include actors/Weapons/Slot-2/Magnum.dec
-//#include actors/Weapons/Slot-2/Deagle.dec
-//#include actors/Weapons/Slot-2/Luger.dec 
 #include actors/Weapons/Slot-2/Blaster_Pistol.dec
 #include actors/Weapons/Slot-2/HellPistoler(AresMade).dec 
 #include actors/Weapons/Slot-2/DTPISTOL.dec
 #include actors/Weapons/Slot-2/UZISMG.dec
 	//Slot-3
-//#include actors/Weapons/Slot-3/PumpShotgun.dec
 #include actors/Weapons/Slot-3/Lady_Golide.dec
 #include actors/Weapons/Slot-3/RotationalSG(AresMade).dec 
 #INCLUDE actors/Weapons/Slot-3/D2016SHOTGUN.dec	//BORING GUN // Skill Issue :cacotroll:
@@ -74,11 +67,7 @@
 #include actors/Weapons/Slot-3/M1887.dec
 #include actors/Weapons/Slot-3/RotatingDoubleBarrel.dec
 	//Slot-4
-//#include actors/Weapons/Slot-4/BlackDMR.dec 
-//#include actors/Weapons/Slot-4/Adv_Mask_Man_Rifle.dec 
-//#include actors/Weapons/Slot-4/Mask_Man_Rifle.dec
 #include actors/Weapons/Slot-4/AK-47.dec
-//#include actors/Weapons/Slot-4/M1X.dec
 //#include actors/Weapons/Slot-4/AssaultRifle.dec 
 #include actors/Weapons/Slot-4/M41A.dec
 #include actors/Weapons/Slot-4/BoltRifle.dec
@@ -89,14 +78,12 @@
 #include actors/Weapons/Slot-5/Dark_Fate.dec
 #include actors/Weapons/Slot-5/Gallary.dec
 #include actors/Weapons/Slot-5/INMinigun.dec
-//#include actors/Weapons/Slot-5/Apocalypse_Killer.dec	//UNFINISHED SNIPER
 #include actors/Weapons/Slot-5/DSlayer.dec
 #INCLUDE actors/Weapons/Slot-5/SuperNailgun.dec
 #include actors/Weapons/Slot-5/DukeNukemRipper.dec
 #include actors/Weapons/Slot-5/OLD-HMG.dec
 #include actors/Weapons/Slot-5/AutoCannon.dec
 	//Slot-6
-//#include actors/Weapons/Slot-6/Fallen_Hawk.dec
 #include actors/Weapons/Slot-6/ChthonicRifle.dec
 #INCLUDE actors/Weapons/Slot-6/MastermindChaingun.dec
 #include actors/Weapons/Slot-6/Paingiver.dec

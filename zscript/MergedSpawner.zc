@@ -172,7 +172,37 @@ class SentinelHammerSpawnerInjector : PBInjector
 
 //SLOT 2 ===================================================================================== 2 ==
 
-//
+//Beretta92 - IN
+class IN_BerettaSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnIN_Beretta)
+		{
+		handler.InjectSpawn('PB_PistolSpawnerT1', 'IN_Beretta', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT2', 'IN_Beretta', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT3', 'IN_Beretta', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT4', 'IN_Beretta', 255, 1);
+		}
+	}
+}
+
+//Beretta92 Silenced - IN
+class B92SSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnB92S)
+		{
+		handler.InjectSpawn('PB_PistolSpawnerT1', 'B92S', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT2', 'B92S', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT3', 'B92S', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT4', 'B92S', 255, 1);
+		}
+	}
+}
+
+//Doom Blaster
 class DoomblasterSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
@@ -197,21 +227,6 @@ class HellPistolSpawnerInjector : PBInjector
 		handler.InjectSpawn('PB_PistolSpawnerT2', 'HellPistol', 255, 1);
 		handler.InjectSpawn('PB_PistolSpawnerT3', 'HellPistol', 255, 1);
 		handler.InjectSpawn('PB_PistolSpawnerT4', 'HellPistol', 255, 1);
-		}
-	}
-}
-
-//SilverhandsDeagle
-class SilverhandsDeagleSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-	if (PBSpawnSilverhandsDeagle)
-		{
-		handler.InjectSpawn('PB_PistolSpawnerT1', 'SilverhandsDeagle', 255, 1);
-		handler.InjectSpawn('PB_PistolSpawnerT2', 'SilverhandsDeagle', 255, 1);
-		handler.InjectSpawn('PB_PistolSpawnerT3', 'SilverhandsDeagle', 255, 1);
-		handler.InjectSpawn('PB_PistolSpawnerT4', 'SilverhandsDeagle', 255, 1);
 		}
 	}
 }

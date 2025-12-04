@@ -48,9 +48,9 @@ script "KillMonsterIf" KILL //If monster is killed, script will be initiated
 	if (WeaponName == "PB_Chainsaw" || WeaponName == "PB_Axe") {
 	SetFont("bigfont");
 	HudMessage(s:"Tomatoes!"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 3.7);
-	HudMessage(s:"+10 Armor AND +75 points"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 3.7);
+	HudMessage(s:"+10 Armor AND +25 points"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 3.7);
 	GiveInventory("ArmorBonus", 10);
-	GiveInventory("PB_Score", 75);
+	GiveInventory("PB_Score", 25);
 	}
 	}
 	//HUGE GUTS challenge!
@@ -58,10 +58,10 @@ script "KillMonsterIf" KILL //If monster is killed, script will be initiated
 	if (WeaponName == "Melee_Attacks") {
 	SetFont("bigfont");
 	HudMessage(s:"HUGE GUTS!!"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
-	HudMessage(s:"+30 Armor AND +30 Health AND 1000 points"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	HudMessage(s:"+30 Armor AND +30 Health AND 50 points"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
 	GiveInventory("ArmorBonus", 30);
 	GiveInventory("HealthBonus", 30);
-	GiveInventory("PB_Score", 1000);
+	GiveInventory("PB_Score", 50);
 	}
 	}
 	//I don't need that you have! challenge
@@ -69,9 +69,9 @@ script "KillMonsterIf" KILL //If monster is killed, script will be initiated
 	if (WeaponName == "Melee_Attacks") {
 	SetFont("bigfont");
 	HudMessage(s:"I don't need that you have!"; 1,96,CR_GREEN, 0.025, 0.745, 7.0, 0.8, 3.7);
-	HudMessage(s:"+100 points AND +5 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	HudMessage(s:"+25 points AND +5 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
 	GiveInventory("HealthBonus", 5);
-	GiveInventory("PB_Score", 100);
+	GiveInventory("PB_Score", 25);
 	}
 	}
 	//You can't hide from ME! challenge
@@ -79,9 +79,9 @@ script "KillMonsterIf" KILL //If monster is killed, script will be initiated
 	if (WeaponName == "PB_Railgun" && DistanceToTarget >= 500) {
 	SetFont("bigfont");
 	HudMessage(s:"You can't hide from ME!"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
-	HudMessage(s:"+750 points AND +25 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	HudMessage(s:"+75 points AND +25 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
 	GiveInventory("HealthBonus", 25);
-	GiveInventory("PB_Score", 750);
+	GiveInventory("PB_Score", 75);
 	}
 	}
 	//Now we cooking with gas!
@@ -89,18 +89,18 @@ script "KillMonsterIf" KILL //If monster is killed, script will be initiated
 	if (WeaponName == "Hell_rifle" || WeaponName == "PB_Unmaker" || WeaponName == "PB_Flamethrower") {
 	SetFont("bigfont");
 	HudMessage(s:"Now we're cooking with gas!"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
-	HudMessage(s:"+150 points AND +10 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	HudMessage(s:"+25 points AND +10 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
 	GiveInventory("HealthBonus", 100);
-	GiveInventory("PB_Score", 150);
+	GiveInventory("PB_Score", 25);
 	}
 	}
 	//Deadeye
 	else if (WeaponName == "PB_RocketLauncher" && DistanceToTarget >= 750) {
 	SetFont("bigfont");
 	HudMessage(s:"DEADEYE"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
-	HudMessage(s:"+1000 points AND +55 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	HudMessage(s:"+50 points AND +55 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
 	GiveInventory("HealthBonus", 55);
-	GiveInventory("PB_Score", 1000);
+	GiveInventory("PB_Score", 50);
 	}
 	delay(6);
 	TakeInventory("MonsterKilled", 1);
@@ -108,7 +108,7 @@ script "KillMonsterIf" KILL //If monster is killed, script will be initiated
 script "BeginProgression" enter {
 int PlayerButton;
 str WeaponName1;
-GiveInventory("PB_Score", 75);
+GiveInventory("PB_Score", 50);
 str WeaponName2;
 	while (true) {
 			//If player shootin', save a weapon in a variable
@@ -129,20 +129,20 @@ str WeaponName2;
 						//If weapon is the same - no result
 						//If monster is killed, giving random reward
 						if (CheckInventory("MonsterKilled") >= 6) {
-							HudMessage(s:"+1250 points AND +65 health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
+							HudMessage(s:"+75 points AND +65 health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
 							FadeRange (225, 0, 0, 0.4, 0, 0, 0, 0.0, 0.6);
 							HudMessage(s:"DEATH INCARNATE!!"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 2.0);
 							GiveInventory("HealthBonus", 65);
-							GiveInventory("PB_Score", 1250);
+							GiveInventory("PB_Score", 75);
 							TakeInventory("MonsterKilled", 10);
 							break;
 						}
 						else if (CheckInventory("MonsterKilled") >= 3) {
 							FadeRange (225, 0, 0, 0.4, 0, 0, 0, 0.0, 0.6);
 							HudMessage(s:"BLOODBATH!"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 2.0);
-							HudMessage(s:"+500 points AND +25 health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
+							HudMessage(s:"+25 points AND +25 health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
 							GiveInventory("HealthBonus", 25);
-							GiveInventory("PB_Score", 500);
+							GiveInventory("PB_Score", 25);
 							TakeInventory("MonsterKilled", 10);
 							break;
 						}
@@ -159,8 +159,8 @@ str WeaponName2;
 							GiveInventory("ArmorBonus", 6);
 							}
 							else {
-							HudMessage(s:"+75 points"; 1,100,CR_GOLD, 0.025, 0.785, 7, 0.8, 1);
-							GiveInventory("PB_Score", 75);
+							HudMessage(s:"+25 points"; 1,100,CR_GOLD, 0.025, 0.785, 7, 0.8, 1);
+							GiveInventory("PB_Score", 25);
 							}
 							TakeInventory("MonsterKilled", 10);
 							break;
@@ -176,5 +176,5 @@ str WeaponName2;
 script "ShowPoints" (void) {
 int PointCount = CheckInventory("PB_Score");
 SetFont("bigfont");
-HudMessageBold(s:"Combat Points Count Is", i:PointCount; 1,99,CR_GOLD, 0.025, 0.425, 6.0, 0.8, 3.7);
+HudMessageBold(s:"\cf★\c- Combat Points: \cf★\c-  ", i:PointCount; 1,99,CR_GOLD, 0.025, 0.425, 6.0, 0.8, 3.7);
 }

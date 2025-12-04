@@ -224,27 +224,52 @@ Actor SentinelHammer : PBWP_Weapon {
 		TNT1 A 0
 		Goto Ready
 	FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_ClearOverlays(10,11)
+		SPBS A 0 A_DoPBWeaponAction
 		SPBS EDCBA 1
 		SPBS A 4
 		SPBS ABCDE 1
 		Stop
 	FlashPunching:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_ClearOverlays(10,11)
+		SHPQ A 0 A_DoPBWeaponAction
 		SHPQ ABCDE 1
 		SHPQ E 4
 		SHPQ EDCBA 1
 		Stop
 	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_ClearOverlays(10,11)
+		SPBS A 0 A_DoPBWeaponAction
 		SPBS EDCBA 1
 		SPBS A 6
 		SPBS ABCDE 1
 		Stop
 	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_ClearOverlays(10,11)
+		SPBS A 0 A_DoPBWeaponAction
 		SPBS EDCBA 1
 		SPBS A 16
 		SPBS AABCDE 1
 		SHPB A 1
 		Stop
 	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_ClearOverlays(10,11)
+		SPBS A 0 A_DoPBWeaponAction
 		SPBS AABCDE 1
 		SHPB A 1
 		Stop

@@ -222,7 +222,7 @@ Actor PB_ArgentSith : PBWP_Weapon
 			A_SetPitch(-2.0 + pitch);
 			 A_ZoomFactor(0.96);
 			}			
-			KNIF A 0 A_FireCustomMissile("SSawPuff4", 0, 0, 0, 1)
+			KNIF A 0  A_FireCustomMissile("SwordArgentSlash", 0, 1, 0, -5)
 			KTNA U 1 
 			{
 			if (CountInv("PowerGreenBloodOnVisor") >= 1 ) { A_SetWeaponSprite("KTNG"); }
@@ -579,13 +579,6 @@ Actor SwordArgentTrailAlt : SwordArgentSlashAlt
       }
  }
 
-
-/*Actor ChainsawSpawnerNew : RandomSpawner Replaces Chainsaw
-{
-DropItem "PB_Chainsaw", 256, 3
-DropItem "PB_BeamKatana", 256, 1
-}*/
-
 Actor ArgentSithSwitchHands : Ammo
 {
  Inventory.MaxAmount 1
@@ -595,6 +588,7 @@ Actor KatanaShieldSpawner6 //from Realm667's Deployable Shield
 {
   Radius 1
   Height 1
+ +INTERPOLATEANGLES
  +NOGRAVITY
  +NOINTERACTION
   States
@@ -617,8 +611,9 @@ Actor KatanaShieldSpawner6 //from Realm667's Deployable Shield
 
 Actor KatanaShieldSpawner7
 {
-  Radius 1
-  Height 1
+  Radius 2
+  Height 2
+  +INTERPOLATEANGLES
   +NOGRAVITY
   +NOINTERACTION
   States
@@ -640,8 +635,9 @@ Actor KatanaShieldSpawner7
 
 Actor KatanaShieldSpawner8
 {
-  Radius 1
-  Height 1
+  Radius 2
+  Height 2
+ +INTERPOLATEANGLES
  +NOGRAVITY
  +NOINTERACTION
   States
@@ -660,17 +656,19 @@ Actor KatanaShieldSpawner8
 
 Actor KatShieldPart2
 {
-  Radius 10
-  Height 16
+  Radius 20
+  Height 18
   Scale 0.5
   RenderStyle None
   Alpha 0.25
   BloodType "KatanaShieldHit2"
+ +INTERPOLATEANGLES
  +SHOOTABLE
  +NOGRAVITY
  +NOTELEPORT
  +NODAMAGE
  +NORADIUSDMG
+ +REFLECTIVE
  +DONTRIP
  +NOBLOODDECALS
  +FLOORCLIP
@@ -708,8 +706,8 @@ Actor KatShieldPartVisual2
 
 Actor KatanaShieldSpawnerYEET2
 {
-  Radius 1
-  Height 1
+  Radius 2
+  Height 2
  +NOGRAVITY
  +NOINTERACTION
   States

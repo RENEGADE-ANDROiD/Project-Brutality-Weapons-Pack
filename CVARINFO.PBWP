@@ -1,17 +1,3 @@
-//Shopkeeper//
-server bool hdm_debug = false;
-server int hdm_enablebucks = 5;
-server bool hdm_enableslots = true;
-server float hdm_cardscale = 1.0;
-server int hdm_maxmerchants = 1;
-server float hdm_chance_weapon = 0.6;
-server float hdm_chance_ammo = 0.8;
-server float hdm_chance_item = 0.7;
-server int hdm_stock_ammo = 1;
-user int hdm_skin_weapon = 1;
-user int hdm_skin_ammo = 2;
-user int hdm_skin_item = 4064;
-
 //Hook//
 Server NoArchive Bool sv_allowhookshot = True;
 
@@ -44,9 +30,11 @@ User Noarchive Int d16_crosshair = 0;
 server bool PBSpawnArgentSith = True;
 server bool PBSpawnBattleAxe = True;
 server bool PBSpawnRazorjack = True;
-server bool PBSpawnSentinelHammer = True;
+//server bool PBSpawnSentinelHammer = True;
 //Slot 2
 server bool PBSpawn44PDW = True;
+server bool PBSpawnIN_Beretta = True;
+server bool PBSpawnB92S = True;
 server bool PBSpawnDoomBlaster = True;
 server bool PBSpawnSilverhandsDeagle = True;
 server bool PBSpawnUZISMG = True;

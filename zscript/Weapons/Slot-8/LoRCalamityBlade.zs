@@ -298,6 +298,8 @@ class LoRCalamityBlade : PBWP_Weapon
 TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
+			TNT1 A 0 A_ClearOverlays(10,11);
+			TNT1 A 0 A_DoPBWeaponAction;
 			TNT1 ABCDEFGGFEDCBA 1;
 			stop;
 		
@@ -306,6 +308,8 @@ TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
+			TNT1 A 0 A_ClearOverlays(10,11);
+			TNT1 A 0 A_DoPBWeaponAction;
 			HRTG A 14;
 			goto ready;
 			
@@ -314,6 +318,8 @@ TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
+			TNT1 A 0 A_ClearOverlays(10,11);
+			TNT1 A 0 A_DoPBWeaponAction;
 			HRTG A 14;
 			goto ready;
 			
@@ -322,6 +328,8 @@ TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
+			TNT1 A 0 A_ClearOverlays(10,11);
+			TNT1 A 0 A_DoPBWeaponAction;
 			HRTG A 14;
 			goto ready;
 			
@@ -330,6 +338,8 @@ TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
+			TNT1 A 0 A_ClearOverlays(10,11);
+			TNT1 A 0 A_DoPBWeaponAction;
 			HRTG A 7;
 			goto ready;
 		}
