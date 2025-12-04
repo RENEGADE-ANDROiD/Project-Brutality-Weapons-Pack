@@ -50,8 +50,6 @@ Actor Dissapate : Inventory {Inventory.MaxAmount 1}
 
 Actor NoShoot : Inventory {Inventory.MaxAmount 1}
 
-Actor TossGrenade : Inventory {Inventory.MaxAmount 1}
-
 actor WarpTimer : Inventory
 {
 Inventory.maxamount 200
@@ -368,7 +366,7 @@ ACTOR Stormcast : PBWP_Weapon
 		
 		SCC1 ABCDE 1 BRIGHT A_GiveInventory("PowerChargeStorm",1)
 		TNT1 A 0 BRIGHT A_JumpIfInventory("FiredPrimary", 1, "CastPulseBall")
-		TNT1 A 0 BRIGHT A_JumpIfInventory("TossGrenade",1,"InitializeStunwallXS")
+		TNT1 A 0 BRIGHT A_JumpIfInventory("UseEquipment",1,"InitializeStunwallXS")
 		TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1, "InitializeThunderstorm2")
 		TNT1 A 0 PB_ReFire("AltHold")
 
@@ -381,7 +379,7 @@ ACTOR Stormcast : PBWP_Weapon
 		TNT1 A 0 A_GiveInventory("PowerChargeStorm", 4)
 
 		TNT1 A 0 BRIGHT A_JumpIfInventory("FiredPrimary", 1, "CastStunBall")
-		TNT1 A 0 BRIGHT A_JumpIfInventory("TossGrenade",1,"InitializeStunwallSmall")
+		TNT1 A 0 BRIGHT A_JumpIfInventory("UseEquipment",1,"InitializeStunwallSmall")
 		TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1, "InitializeThunderstorm2")
 		TNT1 A 0 A_PlaySound("PZAPHUM", CHAN_WEAPON,2,1) 
 		
@@ -396,7 +394,7 @@ ACTOR Stormcast : PBWP_Weapon
 		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 75, "AltHold4")
 		TNT1 A 0 A_GiveInventory("PowerChargeStorm", 6)
 		SCC3 D 1 BRIGHT A_JumpIfInventory("FiredPrimary", 1, "CastBallLightning")
-		TNT1 A 0 BRIGHT A_JumpIfInventory("TossGrenade",1,"InitializeStunwallSmall")
+		TNT1 A 0 BRIGHT A_JumpIfInventory("UseEquipment",1,"InitializeStunwallSmall")
 		TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1, "InitializeThunderstorm2")
 		TNT1 A 0 A_PlaySound("CHRGEBL", CHAN_WEAPON,2,1) 
 		
@@ -424,7 +422,7 @@ ACTOR Stormcast : PBWP_Weapon
 		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",20,0,0,0)
 		TNT1 A 0 A_PlaySound("TPortalLoop", CHAN_WEAPON,2,1) 
 		SCC4 A 1 BRIGHT A_JumpIfInventory("FiredPrimary", 1, "CastBallLightning")
-		TNT1 A 0 A_JumpIfInventory("TossGrenade",1,"InitializeStunwall")
+		TNT1 A 0 A_JumpIfInventory("UseEquipment",1,"InitializeStunwall")
 		TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1, "InitializeThunderstorm3")
 		TNT1 A 0 A_FireCustomMissile("StormFlareSpawn",25,0,0,0)
 		TNT1 A 0 A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0)
@@ -445,7 +443,7 @@ ACTOR Stormcast : PBWP_Weapon
 		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",20,0,0,0)
 		TNT1 A 0 A_PlaySound("TPortalLoop", CHAN_WEAPON,2,1) 
 		SCC4 A 1 BRIGHT A_JumpIfInventory("FiredPrimary", 1, "CastMorgenstern")
-		TNT1 A 0 BRIGHT A_JumpIfInventory("TossGrenade",1,"InitializeStunwall")
+		TNT1 A 0 BRIGHT A_JumpIfInventory("UseEquipment",1,"InitializeStunwall")
 		TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1, "InitializeThunderstorm4")
 		TNT1 A 0 A_FireCustomMissile("StormFlareSpawn",25,0,0,0)
 		TNT1 A 0 A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0)
@@ -711,7 +709,7 @@ ACTOR Stormcast : PBWP_Weapon
 		TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
 		SCLA BA 3 A_SetPitch(+2.0 + pitch)
 		SCLA AAAAA 3
-		TNT1 A 0 A_TakeInventory("TossGrenade", 1)
+		TNT1 A 0 A_TakeInventory("UseEquipment", 1)
 		Goto Ready
 	
 	InitializeStunwallSmall:
@@ -722,10 +720,10 @@ ACTOR Stormcast : PBWP_Weapon
 		TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
 		SCLA BA 3 A_SetPitch(+2.0 + pitch)
 		SCLA AAAAA 3
-		TNT1 A 0 A_TakeInventory("TossGrenade", 1)
+		TNT1 A 0 A_TakeInventory("UseEquipment", 1)
 		Goto Ready
 	
-	TossGrenade:
+	UseEquipment:
 	InitializeStunwallXS:
 		SCLA EFGHI 2 BRIGHT //A_FireCustomMissile("LostSoulOnHandFireSpawner",random (-40,40),0,0,3)
 		TNT1 A 0 A_PlaySound("TPortalAppear")
@@ -734,7 +732,7 @@ ACTOR Stormcast : PBWP_Weapon
 		TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
 		SCLA BA 3 A_SetPitch(+2.0 + pitch)
 		SCLA AAAAA 3
-		TNT1 A 0 A_TakeInventory("TossGrenade", 1)
+		TNT1 A 0 A_TakeInventory("UseEquipment", 1)
 		Goto Ready
 		
 				
