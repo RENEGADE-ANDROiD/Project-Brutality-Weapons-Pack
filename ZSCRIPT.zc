@@ -1,5 +1,9 @@
 version "4.11.3"
 
+//KillStreak// Not Working :(
+//#include "zscript/Killstreak/KSHandler.zc"
+//#include "zscript/Killstreak/KillStreak.zc"
+
 // Monster Drop Handler
 #include "zscript/PBWP_Core/BeefHandler.zs"
 #include "zscript/PBWP_Core/BeefCore.zs"
