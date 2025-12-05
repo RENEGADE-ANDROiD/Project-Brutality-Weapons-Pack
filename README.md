@@ -36,10 +36,11 @@ Weapons are currently being made compatible with the latest Project Brutality St
 TEAM MEMBERS:
 
 - RENEGADE ANDROiD
-
 - BeefRice / LovecraftNeko
-
 - Warcarlsson
+- Doc
+- JhulkerCraft
+
 -----------------
 
 ---------------Slot 1 weapons---------------
