@@ -1,6 +1,23 @@
 #INCLUDE Brightmaps.bm
 #include "actors/Monsters/EarthEnemyGLDefs.gl"
 
+//KILLSTREAK//
+object KillStreak
+{
+	frame KIST
+	{
+		light GOLDPULSE
+	}
+}
+PulseLight GOLDPULSE
+{
+	color 1.0 0.843 0.0
+	Size 35
+	SecondarySize 45
+	Interval 1.5
+	Offset 0 0 0
+}
+
 //LoR CalamityBlade
 flickerlight IncineratorFire0
 {
@@ -480,40 +497,3 @@ Brightmap Sprite MSNSF0 { map "Brightmaps/Weapons/MS/BMMSNSF0.png" DisableFullbr
 Brightmap Sprite MSNSG0 { map "Brightmaps/Weapons/MS/BMMSNSG0.png" DisableFullbright }
 Brightmap Sprite MSNSH0 { map "Brightmaps/Weapons/MS/BMMSNSH0.png" DisableFullbright }
 Brightmap Sprite MSNSI0 { map "Brightmaps/Weapons/MS/BMMSNSI0.png" DisableFullbright }
-
-//Glorykill Stuff
-    //Deep One
-hardwareshader sprite CXTHL1 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL2 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL3 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL4 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL5 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL6 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL7 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL8 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-    //Worm
-hardwareshader sprite PGSSG1 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG2 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG3 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG4 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG5 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG6 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG7 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG8 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-    //StoneGargoyle
-hardwareshader sprite STRXH1 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite STRXH2H8	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite STRXH3H7	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite STRXH4H6 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite STRXH5 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-    //EBCL
-hardwareshader sprite EBCZA0 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-    //CyberdemonBoss
-hardwareshader sprite HXBDV1 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite HXBDV2 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite HXBDV3 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite HXBDV4 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite HXBDV5 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite HXBDV6 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite HXBDV7 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite HXBDV8 	{ Shader "shaders/glorykill.shader" Speed 1.0 }    
