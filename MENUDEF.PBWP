@@ -58,24 +58,18 @@ OptionMenu "ttwcoptions"
 {
 	Title "-------PB Weapon Pack Settings-------"
     StaticText ""
-	StaticText ""
 	Submenu "$PBWP_WeaponBehaviour_OPTIONS", "WeaponBehavioursSettings"
-	StaticText ""
 	Submenu "$PBWP_WeaponSpawns_OPTIONS", "WeaponPackSpawnSettings"
-	StaticText ""
 	Submenu "$PBWP_MonsterDrop_OPTIONS", "MonsterDropWeapSett"
 	StaticText ""
     StaticText "-------Extras-------"
 	StaticText ""
-	StaticText ""
 	SubMenu "$PBWP_COMBAT_RATING_SHOP", "AmmunitionShopSystem"
-	StaticText ""
 	Submenu "$PBWP_QUICKSWITCHER", "SwitchItUpOptions"
-	StaticText ""
 	Submenu "$PBWP_BEHOLD", "BeholdOptions"
-	StaticText ""
 	submenu "$PBWP_DOORBUSTER","BusterMenu"
 	StaticText ""
+	Command "$PB_GO_TESTMAP", "map PBTEST"
 	StaticText ""
 	StaticText "Project Brutality Weapons Pack Version: 1.7-Release"
 }
@@ -128,8 +122,9 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText "D2016 = Doom 2016 Weapons Pack", white
 
 	StaticText ""
-	StaticText "---------------Specials---------------", gold
-	StaticText ""
+	StaticText "---------------Presets---------------", gold
+	StaticText "Note that you'll have to load a map first for the preset to work", white
+	statictext "It is recommended to go the Test Map first if you want to use these presets", white
 	Command "Enable All", "netevent PBWP_EnableAll"
 	Command "Disable All", "netevent PBWP_DisableAll"
 
