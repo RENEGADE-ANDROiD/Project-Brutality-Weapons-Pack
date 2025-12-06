@@ -785,7 +785,66 @@ ACTOR BattleAxe : PBWP_Weapon
 			//TNT1 A 0 A_PlaySound("PATHETIC",2,4.0)
 			Goto Ready		
 
-	
+	QuickMelee:
+        		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0
+		TNT1 A 0 A_ClearOverlays(3,65)
+		TNT1 A 0 A_GunFlash("Null")
+		TNT1 AAA 1 PB_Execute() // Check if monster can be executed, jump to execution handler instead
+	GoMeleeInstead:
+		TNT1 A 0 A_ChangeFlag("SHIELDREFLECT", TRUE)
+		TNT1 A 0 A_Giveinventory("ReadyToQuickSlash",1)
+		W02C A 1 BRIGHT
+        	"####" A 0 A_PlaySound("Paladin/MediumExert", 2)
+		TNT1 A 0 A_PlaySound("AXSWING")
+		TNT1 A 0
+		W02C BC 2 BRIGHT 
+		
+		//Repulsion
+        	TNT1 A 0 A_Takeinventory("Zoomed",1)
+        	TNT1 A 0 A_ZoomFactor(1.0)
+
+		TNT1 A 0 A_Blast
+		TNT1 A 0 A_FireBullets(0,0,1,40,"shotpuff",FBF_NORANDOM,128)
+		W02C C 1 BRIGHT 
+        	"####" A 0 A_PlaySound("SPELLCS2")
+		TNT1 A 0 A_PlaySound("AXETELE")
+		///////////
+		
+		TNT1 A 0 A_Recoil(-14)
+		TNT1 A 0 A_SpawnItemEx("ShieldDefense", 25,5,15,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		W02C D 1 BRIGHT A_FireCustomMissile("ShieldAttack", 0, 0, 0, -7)
+		TNT1 A 0 A_JumpIfInventory("ShieldBashHappened",1,"SpecialBashConnect")
+		W02C D 1 BRIGHT A_FireCustomMissile("ShieldAttack", 0, 0, 0, -7)
+		TNT1 A 0 A_JumpIfInventory("ShieldBashHappened",1,"SpecialBashConnect")
+		W02C E 1 BRIGHT A_FireCustomMissile("ShieldAttack", 0, 0, 0, -7)
+		TNT1 A 0 A_JumpIfInventory("ShieldBashHappened",1,"SpecialBashConnect")
+		W02C E 1 BRIGHT A_FireCustomMissile("ShieldAttack", 0, 0, 0, -7)
+		TNT1 A 0 A_JumpIfInventory("ShieldBashHappened",1,"SpecialBashConnect")
+	SpecialBashConnect:
+		//TNT1 A 0 SetPlayerProperty(0,0,0)
+		W02C DCB 2 BRIGHT
+		TNT1 A 0 A_ChangeFlag("SHIELDREFLECT", FALSE)
+		TNT1 A 0 A_TakeInventory("ShieldBashHappened",1)
+		TNT1 A 0 A_GiveInventory("BashInhibitor",1)
+		TNT1 A 0 A_JumpIfInventory("Kicking",1,"KickRight")
+		W02C FGH 2 BRIGHT A_WeaponReady
+		TNT1 A 0 A_JumpIfInventory("Kicking",1,"KickRight")
+		TNT1 A 7 {
+			 if(JustPressed(BT_USER2)) {return PB_Execute();}
+			 return state("");
+		     }
+		TNT1 A 0 {
+			 PB_SetUsingMelee(false);
+		     }
+		Goto Ready
 		
 	AltFire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
