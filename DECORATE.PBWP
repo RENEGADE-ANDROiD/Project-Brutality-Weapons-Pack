@@ -1,122 +1,124 @@
 // Equipments
-#include actors/Equipments/ShieldGrenade.dec
-#include actors/Equipments/VoidGrenade.dec
-#include actors/Equipments/ElecPod2.dec
-#include actors/Equipments/Axe.dec
-#include actors/Equipments/hook.dec
+#INCLUDE ACTORs/Equipments/ShieldGrenade.dec
+#INCLUDE ACTORs/Equipments/VoidGrenade.dec
+#INCLUDE ACTORs/Equipments/ElecPod2.dec
+#INCLUDE ACTORs/Equipments/Axe.dec
+#INCLUDE ACTORs/Equipments/hook.dec
 // RemoteGrenades
-#include actors/Equipments/RemoteGrenades/Prosurv_Swarm.dec
-#include actors/Equipments/RemoteGrenades/AcidCharge.dec
-#include actors/Equipments/RemoteGrenades/LaserCharge.dec
-#include actors/Equipments/RemoteGrenades/Detonator.dec
+#INCLUDE ACTORs/Equipments/RemoteGrenades/Prosurv_Swarm.dec
+#INCLUDE ACTORs/Equipments/RemoteGrenades/AcidCharge.dec
+#INCLUDE ACTORs/Equipments/RemoteGrenades/LaserCharge.dec
+#INCLUDE ACTORs/Equipments/RemoteGrenades/Detonator.dec
 
 // FX
-#include actors/Weapons/Doom4WeaponPack/Doom4WeaponPackGunSmokeEffects.dec
-#INCLUDE actors/Weapons/FX/D2016SHOTGUNSMOKE-EFFECTS.dec
-#include actors/Weapons/FX/DistantFireWeapons.dec
-#include actors/Weapons/FX/FLARES.PhaseEra
-#include actors/Weapons/FX/PhaseEraProjectiles.dec
-#include actors/Weapons/FX/PhaseSFX.dec
+#INCLUDE ACTORs/Weapons/Doom4WeaponPack/Doom4WeaponPackGunSmokeEffects.dec
+#INCLUDE ACTORs/Weapons/FX/D2016SHOTGUNSMOKE-EFFECTS.dec
+#INCLUDE ACTORs/Weapons/FX/DistantFireWeapons.dec
+#INCLUDE ACTORs/Weapons/FX/FLARES.PhaseEra
+#INCLUDE ACTORs/Weapons/FX/PhaseEraProjectiles.dec
+#INCLUDE ACTORs/Weapons/FX/PhaseSFX.dec
+#INCLUDE ACTORs/Weapons/FX/CrowbarPuff.dec
 
 // Monsters
-#include actors/Monsters/DEEPONE.dec
-#include actors/Monsters/E1BOSS.dec
-#include actors/Monsters/E1BOSS2.dec
-#include actors/Monsters/BeholdRandomItems.dec
-#include actors/Monsters/PaingiverHelltrooper.dec
-#include actors/Monsters/STONEGAR.dec
-#include actors/Monsters/SpecialDoom1Bosses.dec
+#INCLUDE ACTORs/Monsters/DEEPONE.dec
+#INCLUDE ACTORs/Monsters/E1BOSS.dec
+#INCLUDE ACTORs/Monsters/E1BOSS2.dec
+#INCLUDE ACTORs/Monsters/BeholdRandomItems.dec
+#INCLUDE ACTORs/Monsters/PaingiverHelltrooper.dec
+#INCLUDE ACTORs/Monsters/STONEGAR.dec
+#INCLUDE ACTORs/Monsters/SpecialDoom1Bosses.dec
 
 // Spawners
-#include actors/Spawners/BEHOLD.dec
+#INCLUDE ACTORs/Spawners/BEHOLD.dec
 
 // Special
-#INCLUDE actors/Weapons/Special/AncientCrossbowArrow.dec
-#INCLUDE actors/Weapons/Special/Blaster_Projectile.dec
-#INCLUDE actors/Weapons/Special/Incinerator_Flame.dec
-#INCLUDE actors/Weapons/Special/Incinerator_HellBullet.dec
-#INCLUDE actors/Weapons/Special/ShieldSaw.dec
-#INCLUDE actors/Weapons/Special/Unload_Tokens.dec
-#INCLUDE actors/Weapons/Special/OverwhelmingProjectile.dec
-#INCLUDE actors/Weapons/Special/RazorjackProjectile.dec
+#INCLUDE ACTORs/Weapons/Special/AncientCrossbowArrow.dec
+#INCLUDE ACTORs/Weapons/Special/Blaster_Projectile.dec
+#INCLUDE ACTORs/Weapons/Special/Incinerator_Flame.dec
+#INCLUDE ACTORs/Weapons/Special/Incinerator_HellBullet.dec
+#INCLUDE ACTORs/Weapons/Special/ShieldSaw.dec
+#INCLUDE ACTORs/Weapons/Special/Unload_Tokens.dec
+#INCLUDE ACTORs/Weapons/Special/OverwhelmingProjectile.dec
+#INCLUDE ACTORs/Weapons/Special/RazorjackProjectile.dec
+#INCLUDE ACTORs/Weapons/Special/PickaxeStrike.dec
 
 //MELEE//
-#include actors/Weapons/Melee/JohnnyFlames.dec
+#INCLUDE ACTORs/Weapons/Melee/JohnnyFlames.dec
 
 //Weapons
 	//Slot-1
-#include actors/Weapons/Slot-1/BeamKatana.dec
-#include actors/Weapons/Slot-1/ArgentSith.dec
-#include actors/Weapons/Slot-1/BattleAxeAndShield.dec
-#include actors/Weapons/Slot-1/Razorjack.dec
+#INCLUDE ACTORs/Weapons/Slot-1/BeamKatana.dec
+#INCLUDE ACTORs/Weapons/Slot-1/ArgentSith.dec
+#INCLUDE ACTORs/Weapons/Slot-1/BattleAxeAndShield.dec
+#INCLUDE ACTORs/Weapons/Slot-1/Razorjack.dec
 	//Slot-2
-#include actors/Weapons/Slot-2/44PDW.dec
-#include actors/Weapons/Slot-2/Berreta.dec 
-#include actors/Weapons/Slot-2/W_SMG.dec
-#include actors/Weapons/Slot-2/Blood_Stains.dec
-#include actors/Weapons/Slot-2/Blaster_Pistol.dec
-#include actors/Weapons/Slot-2/HellPistoler(AresMade).dec 
-#include actors/Weapons/Slot-2/DTPISTOL.dec
-#include actors/Weapons/Slot-2/UZISMG.dec
+#INCLUDE ACTORs/Weapons/Slot-2/44PDW.dec
+#INCLUDE ACTORs/Weapons/Slot-2/Berreta.dec 
+#INCLUDE ACTORs/Weapons/Slot-2/W_SMG.dec
+#INCLUDE ACTORs/Weapons/Slot-2/Blood_Stains.dec
+#INCLUDE ACTORs/Weapons/Slot-2/Blaster_Pistol.dec
+#INCLUDE ACTORs/Weapons/Slot-2/HellPistoler(AresMade).dec 
+#INCLUDE ACTORs/Weapons/Slot-2/DTPISTOL.dec
+#INCLUDE ACTORs/Weapons/Slot-2/UZISMG.dec
 	//Slot-3
-#include actors/Weapons/Slot-3/Lady_Golide.dec
-#include actors/Weapons/Slot-3/RotationalSG(AresMade).dec 
-#INCLUDE actors/Weapons/Slot-3/D2016SHOTGUN.dec	//BORING GUN // Skill Issue :cacotroll:
-#include actors/Weapons/Slot-3/DTShotgun.dec
-#include actors/Weapons/Slot-3/CryoShotgun.dec
-#include actors/Weapons/Slot-3/HexaLionShotgun.dec
-#include actors/Weapons/Slot-3/MarauderSSG.dec
-#include actors/Weapons/Slot-3/M1887.dec
-#include actors/Weapons/Slot-3/RotatingDoubleBarrel.dec
+#INCLUDE ACTORs/Weapons/Slot-3/Lady_Golide.dec
+#INCLUDE ACTORs/Weapons/Slot-3/RotationalSG(AresMade).dec 
+#INCLUDE ACTORs/Weapons/Slot-3/D2016SHOTGUN.dec	//BORING GUN // Skill Issue :cacotroll:
+#INCLUDE ACTORs/Weapons/Slot-3/DTShotgun.dec
+#INCLUDE ACTORs/Weapons/Slot-3/CryoShotgun.dec
+#INCLUDE ACTORs/Weapons/Slot-3/HexaLionShotgun.dec
+#INCLUDE ACTORs/Weapons/Slot-3/MarauderSSG.dec
+#INCLUDE ACTORs/Weapons/Slot-3/M1887.dec
+#INCLUDE ACTORs/Weapons/Slot-3/RotatingDoubleBarrel.dec
 	//Slot-4
-#include actors/Weapons/Slot-4/AK-47.dec
-//#include actors/Weapons/Slot-4/AssaultRifle.dec 
-#include actors/Weapons/Slot-4/M41A.dec
-#include actors/Weapons/Slot-4/BoltRifle.dec
-#include actors/Weapons/Slot-4/Magnum_Sniper_Rifle.dec
-#include actors/Weapons/Doom4WeaponPack/D4Machinegun.dec
-#include actors/Weapons/Slot-4/Overwhelming.dec
+#INCLUDE ACTORs/Weapons/Slot-4/AK-47.dec
+//#INCLUDE ACTORs/Weapons/Slot-4/AssaultRifle.dec 
+#INCLUDE ACTORs/Weapons/Slot-4/M41A.dec
+#INCLUDE ACTORs/Weapons/Slot-4/BoltRifle.dec
+#INCLUDE ACTORs/Weapons/Slot-4/Magnum_Sniper_Rifle.dec
+#INCLUDE ACTORs/Weapons/Doom4WeaponPack/D4Machinegun.dec
+#INCLUDE ACTORs/Weapons/Slot-4/Overwhelming.dec
 	//Slot-5
-#include actors/Weapons/Slot-5/Dark_Fate.dec
-#include actors/Weapons/Slot-5/Gallary.dec
-#include actors/Weapons/Slot-5/INMinigun.dec
-#include actors/Weapons/Slot-5/DSlayer.dec
-#INCLUDE actors/Weapons/Slot-5/SuperNailgun.dec
-#include actors/Weapons/Slot-5/DukeNukemRipper.dec
-#include actors/Weapons/Slot-5/OLD-HMG.dec
-#include actors/Weapons/Slot-5/AutoCannon.dec
+#INCLUDE ACTORs/Weapons/Slot-5/Dark_Fate.dec
+#INCLUDE ACTORs/Weapons/Slot-5/Gallary.dec
+#INCLUDE ACTORs/Weapons/Slot-5/INMinigun.dec
+#INCLUDE ACTORs/Weapons/Slot-5/DSlayer.dec
+#INCLUDE ACTORs/Weapons/Slot-5/SuperNailgun.dec
+#INCLUDE ACTORs/Weapons/Slot-5/DukeNukemRipper.dec
+#INCLUDE ACTORs/Weapons/Slot-5/OLD-HMG.dec
+#INCLUDE ACTORs/Weapons/Slot-5/AutoCannon.dec
 	//Slot-6
-#include actors/Weapons/Slot-6/ChthonicRifle.dec
-#INCLUDE actors/Weapons/Slot-6/MastermindChaingun.dec
-#include actors/Weapons/Slot-6/Paingiver.dec
-#include actors/Weapons/Slot-6/Devastator.dec
-#include actors/Weapons/Slot-6/CyberdemonRL.dec
-#include actors/Weapons/Doom4WeaponPack/D4RocketLauncher.dec
+#INCLUDE ACTORs/Weapons/Slot-6/ChthonicRifle.dec
+#INCLUDE ACTORs/Weapons/Slot-6/MastermindChaingun.dec
+#INCLUDE ACTORs/Weapons/Slot-6/Paingiver.dec
+#INCLUDE ACTORs/Weapons/Slot-6/Devastator.dec
+#INCLUDE ACTORs/Weapons/Slot-6/CyberdemonRL.dec
+#INCLUDE ACTORs/Weapons/Doom4WeaponPack/D4RocketLauncher.dec
 	//Slot-7
-#INCLUDE actors/Weapons/Slot-7/AncientCrossbow.dec
-#INCLUDE actors/Weapons/Slot-7/Gauss.dec
-#include actors/Weapons/Slot-7/Samantha.dec 
-#include actors/Weapons/Doom4WeaponPack/D4VortexRifle.dec
-#include actors/Weapons/Doom4WeaponPack/D4PlasmaGun.dec
+#INCLUDE ACTORs/Weapons/Slot-7/AncientCrossbow.dec
+#INCLUDE ACTORs/Weapons/Slot-7/Gauss.dec
+#INCLUDE ACTORs/Weapons/Slot-7/Samantha.dec 
+#INCLUDE ACTORs/Weapons/Doom4WeaponPack/D4VortexRifle.dec
+#INCLUDE ACTORs/Weapons/Doom4WeaponPack/D4PlasmaGun.dec
 	//Slot-8
-#include actors/Weapons/Slot-8/PlasmaRifle.dec
-#include actors/Weapons/Slot-8/Ion_Rifle.dec
-#include actors/Weapons/Slot-8/Extinction_Ray.dec
-#include actors/Weapons/Slot-8/BioAcidLauncher(AresMade).dec
-#include actors/Weapons/Slot-8/TypeAThunderCarrier(AresMade).dec
-#include actors/Weapons/Slot-8/TechBlaster.dec
-//#include actors/Weapons/Slot-8/ThunderCrossbow.dec
+#INCLUDE ACTORs/Weapons/Slot-8/PlasmaRifle.dec
+#INCLUDE ACTORs/Weapons/Slot-8/Ion_Rifle.dec
+#INCLUDE ACTORs/Weapons/Slot-8/Extinction_Ray.dec
+#INCLUDE ACTORs/Weapons/Slot-8/BioAcidLauncher(AresMade).dec
+#INCLUDE ACTORs/Weapons/Slot-8/TypeAThunderCarrier(AresMade).dec
+#INCLUDE ACTORs/Weapons/Slot-8/TechBlaster.dec
+//#INCLUDE ACTORs/Weapons/Slot-8/ThunderCrossbow.dec
 	//Slot-9
-#include actors/Weapons/Slot-9/Ballista.dec
-#include actors/Weapons/Slot-9/DTechMinigun.dec 
-#include actors/Weapons/Slot-9/LegacyUnmaker.dec 
-#include actors/Weapons/Slot-9/STRMC.dec
-#include actors/Weapons/Slot-9/PhaseEradicatorBFG.dec
-#include actors/Weapons/Slot-9/MancubusFlameCannon.dec
+#INCLUDE ACTORs/Weapons/Slot-9/Ballista.dec
+#INCLUDE ACTORs/Weapons/Slot-9/DTechMinigun.dec 
+#INCLUDE ACTORs/Weapons/Slot-9/LegacyUnmaker.dec 
+#INCLUDE ACTORs/Weapons/Slot-9/STRMC.dec
+#INCLUDE ACTORs/Weapons/Slot-9/PhaseEradicatorBFG.dec
+#INCLUDE ACTORs/Weapons/Slot-9/MancubusFlameCannon.dec
 
 // Tokens
 	// BD stuff for some weapons in Fire and Ice
-Actor bd_Token : Inventory
+ACTOR bd_Token : Inventory
 {
     Inventory.MaxAmount 1
     +inventory.Undroppable
@@ -133,10 +135,10 @@ Actor bd_Token : Inventory
     Mass 0
     RenderStyle "None"
 }
-Actor BDWeaponACtion : bd_Token {}
-Actor InAction : bd_Token {}
+ACTOR BDWeaponACtion : bd_Token {}
+ACTOR InAction : bd_Token {}
 	// IN thingy
-Actor IsUsingAddictivePackTypeIN : Inventory { Inventory.MaxAmount 1 }
+ACTOR IsUsingAddictivePackTypeIN : Inventory { Inventory.MaxAmount 1 }
 
 //CombatRatingShop
 ACTOR MonsterKilled : Inventory {
@@ -145,5 +147,6 @@ ACTOR PB_Score : Inventory {
 Inventory.MaxAmount 10000 }
 
 // By Warcarlsson
-#include Actors/Weapons/DROPABLES.dec
-#include actors/monsters/NoDropFrozenActors.dec
+#INCLUDE ACTORs/Weapons/DROPABLES.dec
+#INCLUDE ACTORs/monsters/NoDropFrozenACTORs.dec
+

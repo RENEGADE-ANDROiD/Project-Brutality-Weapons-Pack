@@ -68,6 +68,26 @@ cyber/charge	cybchg
 cyber/melee	cybswg
 cyber/impact	cybimp
 
+//ClawGauntlet//
+gauntlet/draw DSGAUDRW
+$random gauntlet/swing {DSPGFIR1 DSPGFIR2 DSPGFIR3}
+DSPGFIR1 DSPGFIR1
+DSPGFIR2 DSPGFIR2
+DSPGFIR3 DSPGFIR3
+$random gauntlet/miss {DSPGMIS1 DSPGMIS2 DSPGMIS3}
+DSPGMIS1 DSPGMIS1
+DSPGMIS2 DSPGMIS2
+DSPGMIS3 DSPGMIS3
+$random gauntlet/hit {DSPGHIT1 DSPGHIT2 DSPGHIT3}
+DSPGHIT1 DSPGHIT1
+DSPGHIT2 DSPGHIT2
+DSPGHIT3 DSPGHIT3
+
+//Pickaxe//
+PICKHSA		PICKHSA
+PICKHSA2	PICKHSA2
+SWOOSH		SWOOSH
+
 //Beam Katana Sounds//
 CybKatana/Swing           DSKatMis
 CybKatana/Hit             DSKatHit
