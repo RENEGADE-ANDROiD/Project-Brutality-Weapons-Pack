@@ -30,7 +30,7 @@ ACTOR P_SMG : PBWP_Weapon
 	{
 	
 	Steady:
-		TNT1 A 1
+		TNT1 A 0
 		Goto Ready
 
 	SelectReady:

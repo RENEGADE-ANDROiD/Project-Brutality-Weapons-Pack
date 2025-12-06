@@ -1,40 +1,40 @@
-class KillStreak : Inventory
+class KillStreak : PB_Inventory
 {
 
     Default
     {
         //Inventory.PickupMessage "KillStreak Activated!";
-		Inventory.MaxAmount 1;
+        Inventory.MaxAmount 1;
         Inventory.PickupSound "HERELA0";
         +FLOATBOB;
         floatbobstrength .4;
         Scale .15;
         StencilColor "Yellow";
     }
-  override void DoPickupSpecial(actor toucher)	
+  override void DoPickupSpecial(actor toucher)    
   {
-			if (toucher is "PB_PlayerPrawn")
-			{
-				PB_PlayerPrawn plr = PB_PlayerPrawn(toucher);
-				if (!plr.FindInventory("KillStreakActive"))
-					{
-						plr.GiveInventory("KillStreakActive",1);
-						PandHUDMessageHandler.PlainMsg(Owner.PlayerNumber(),"BIGFONT2", "\KillStreak Activated!",(240,120),(480,360),time:(0.2,3,0.5), id:11);
-						// Optionally: play unique sound/message here.
-					}
-			}
-			Super.TryPickup(toucher);
-			return;
-		}
-		
+            if (toucher is "PlayerPawn")
+            {
+                PlayerPawn plr = PlayerPawn(toucher);
+                if (!plr.FindInventory("KillStreakActive"))
+                    {
+                        plr.GiveInventory("KillStreakActive",1);
+                        PandHUDMessageHandler.PlainMsg(Owner.PlayerNumber(),"BIGFONT2", "\KillStreak Activated!",(240,120),(480,360),time:(0.2,3,0.5), id:11);
+                        // Optionally: play unique sound/message here.
+                    }
+            }
+            Super.TryPickup(toucher);
+            return;
+        }
+        
     States
     {
     Spawn:
         KIST ABCDEFGHIJKLMNOPQRST 2;
         Loop;
     }
-	
-	  
+    
+      
 }
 class KillStreakActive : Inventory
 {

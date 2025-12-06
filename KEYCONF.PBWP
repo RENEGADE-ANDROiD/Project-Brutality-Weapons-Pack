@@ -2,10 +2,6 @@
 //AddMenuKey "Use Meat Hook" meathook
 //alias meathook "puke 6005"
 
-//addkeysection "Universal Sentinel Hammer" SHKeys
-//addmenukey "Select Sentinel Hammer" SHSelect
-//alias SHSelect "pukename SelectHammer"
-
 addkeysection "Combat Rating Points" PB_CRSys
 addmenukey "Show combat points:  " PB_CRSHW
    alias PB_CRSHW "pukename ShowPoints"
@@ -119,12 +115,11 @@ alias PBWP_EnableAll "
            set PBSpawnDemonTechMinigun true;
            set PBSpawnPhaseEradicatorBFG true;"*/
 
+Addslotdefault 1 PB_BeamKatana
 Addslotdefault 1 PB_ArgentSith
 addslotdefault 1 BattleAxe
 addslotdefault 1 Razorjack
-//addslotdefault 1 SentinelHammer
 addslotdefault 2 44PDW
-addslotdefault 2 IN_Beretta
 addslotdefault 2 B92S
 addslotdefault 2 DoomBlaster
 addslotdefault 2 W_SMG

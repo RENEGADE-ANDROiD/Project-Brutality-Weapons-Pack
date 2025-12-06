@@ -28,7 +28,7 @@ Actor B92S : PBWP_Weapon
 	+WEAPON.NO_AUTO_SWITCH //You'll need to find something good for you.
 	Obituary "$OB_MPPISTOL"
 	Inventory.Pickupmessage "You picked up the Berreta With an Goodies Components! (Slot 2)"
-	Tag "Berreta - Silent harmony"
+	Tag "Berreta - Silent Harmony"
 	Weapon.SlotNumber 2
 	Weapon.SlotPriority 1.5
 	States

@@ -27,6 +27,7 @@ User Noarchive Int d16_crosshair = 0;
 //===============================================
 // Weapon spawners
 //Slot 1
+server bool PBSpawnPB_BeamKatana = True;
 server bool PBSpawnArgentSith = True;
 server bool PBSpawnBattleAxe = True;
 server bool PBSpawnRazorjack = True;

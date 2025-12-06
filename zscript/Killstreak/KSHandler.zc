@@ -113,73 +113,41 @@ class KillTracker : EventHandler
             case 5:
                 plr.GiveInventory("SpecialGrenadeBox",1);
                 plr.GiveInventory("PowerDoubleDamage", 1);
-                PBHUD_DrawMessages.MsgLine(plr.PlayerNumber(),"BIGFONT2","MultiKill",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PBHUD_DrawMessages.MsgLine(plr.PlayerNumber(),"CONFONT","-  Received a Special Grenade Box and Power Double Damage  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","MultiKill",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received a Special Grenade Box and Power Double Damage  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 10:
                 plr.GiveInventory("HasteSphere",1);
                 plr.GiveInventory("NewCellPack", 10);
-                PBHUD_DrawMessages.MsgLine(plr.PlayerNumber(),"BIGFONT2","Unstoppable",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PBHUD_DrawMessages.MsgLine(plr.PlayerNumber(),"CONFONT","-  Received Haste Sphere and 10 Cell Packs  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Unstoppable",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Haste Sphere and 10 Cell Packs  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 15:
                 plr.GiveInventory("DoubleSphere",1);
                 plr.GiveInventory("ExplosivesCrate", 1);
-                PBHUD_DrawMessages.MsgLine(plr.PlayerNumber(),"BIGFONT2","Ownage",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PBHUD_DrawMessages.MsgLine(plr.PlayerNumber(),"CONFONT","-  Received Double Sphere and Explosives Crate  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Ownage",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Double Sphere and Explosives Crate  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 20:
                 plr.GiveInventory("PB_BlurSphere",1);
                 plr.GiveInventory("PB_Soulsphere",1);
-                PBHUD_DrawMessages.MsgLine(plr.PlayerNumber(),"BIGFONT2","Excellent",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PBHUD_DrawMessages.MsgLine(plr.PlayerNumber(),"CONFONT","-  Received Blur Sphere and Soulsphere  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Excellent",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Blur Sphere and Soulsphere  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 25:
                 plr.GiveInventory("PB_PowerInvul",1);
                 plr.GiveInventory("PB_Backpack", 1);
-                PBHUD_DrawMessages.MsgLine(plr.PlayerNumber(),"BIGFONT2","Wicked Sick",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PBHUD_DrawMessages.MsgLine(plr.PlayerNumber(),"CONFONT","-  Received Invulnerability and Backpack  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Wicked Sick",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Invulnerability and Backpack  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 30:
                 plr.GiveInventory("PB_Berserk",1);
                 plr.GiveInventory("PB_Doomsphere",1);
-                PBHUD_DrawMessages.MsgLine(plr.PlayerNumber(),"BIGFONT2","Godlike",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PBHUD_DrawMessages.MsgLine(plr.PlayerNumber(),"CONFONT","-  Received Berserk and Quad Damage  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);					
+                PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Godlike",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Berserk and Quad Damage  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);					
                 break;
             default:
                 break;
-        }
-    }
-}
-
-
-class RareItemDropped : EventHandler
-{
-bool RareItemDropped;
-    override void WorldLoaded(WorldEvent e)
-    {
-        RareItemDropped = false;
-    }
-
-    override void WorldThingDied(WorldEvent e)
-    {
-        if (!RareItemDropped && e.Thing && e.Thing.bIsMonster)
-        {
-            PB_Monster m = PB_Monster(e.Thing);
-
-            if (Random(1, 100) <= 20) // 20% chance per death
-            {
-                if (m != null)
-                {
-                    m.DropKillstreak();
-                    RareItemDropped = true;
-                }
-                else if (p != null)
-                {
-                    p.DropKillstreak();
-                    RareItemDropped = true;
-                }
-            }
         }
     }
 }

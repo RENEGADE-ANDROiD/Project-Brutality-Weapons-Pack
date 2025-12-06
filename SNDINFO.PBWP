@@ -1,71 +1,87 @@
-//Shopkeeper//
-$alias SlotMachine/WinRegular skeleton/sight
-$alias SlotMachine/WinAss Daina/Default/Buying
-SlotMachine/WinJackpot SLOTJPT1
-
-SlotMachine/Rolling SLOTSPIN
-SlotMachine/Stop SLOTSTOP
-
-Merchant/BuyFailure BUYFAIL
-Merchant/BuySuccess BUYSUCC
-
-$random weapons/pocket	{weapons/pocket1 weapons/pocket2}
-weapons/pocket1 PPOCKET1
-weapons/pocket2 PPOCKET2
-
-ResidentEvil/Buying1 "Sounds/ResidentEvil/Start1.ogg"
-ResidentEvil/Buying2 "Sounds/ResidentEvil/Start2.ogg"
-ResidentEvil/Buying3 "Sounds/ResidentEvil/Start3.ogg"
-ResidentEvil/Buying4 "Sounds/ResidentEvil/Start4.ogg"
-ResidentEvil/Buying5 "Sounds/ResidentEvil/Start5.ogg"
-$random ResidentEvil/Buying
-{
-	ResidentEvil/Buying1
-	ResidentEvil/Buying2
-	ResidentEvil/Buying3
-	ResidentEvil/Buying4
-	ResidentEvil/Buying5
-}
-
-ResidentEvil/GoAway1 "Sounds/ResidentEvil/End1.ogg"
-ResidentEvil/GoAway2 "Sounds/ResidentEvil/End2.ogg"
-ResidentEvil/GoAway3 "Sounds/ResidentEvil/End3.ogg"
-ResidentEvil/GoAway4 "Sounds/ResidentEvil/End4.ogg"
-$random ResidentEvil/GoAway
-{
-	ResidentEvil/GoAway1
-	ResidentEvil/GoAway2
-	ResidentEvil/GoAway3
-	ResidentEvil/GoAway4
-}
-WanderingTrader/Buying1 "Sounds/WanderingTrader/Start1.ogg"
-WanderingTrader/Buying2 "Sounds/WanderingTrader/Start2.ogg"
-WanderingTrader/Buying3 "Sounds/WanderingTrader/Start3.ogg"
-WanderingTrader/Buying4 "Sounds/WanderingTrader/Start4.ogg"
-WanderingTrader/Buying5 "Sounds/WanderingTrader/Start5.ogg"
-$random WanderingTrader/Buying
-{
-	WanderingTrader/Buying1
-	WanderingTrader/Buying2
-	WanderingTrader/Buying3
-	WanderingTrader/Buying4
-	WanderingTrader/Buying5
-}
-
-WanderingTrader/GoAway1 "Sounds/WanderingTrader/End1.ogg"
-WanderingTrader/GoAway2 "Sounds/WanderingTrader/End2.ogg"
-WanderingTrader/GoAway3 "Sounds/WanderingTrader/End3.ogg"
-$random WanderingTrader/GoAway
-{
-	WanderingTrader/GoAway1
-	WanderingTrader/GoAway2
-	WanderingTrader/GoAway3
-}
+//Killstreak
+KillStreak/assasin "SOUNDS/KillStreak/assasin.ogg"
+KillStreak/biggamehunter "SOUNDS/KillStreak/biggamehunter.ogg"
+KillStreak/biohazard "SOUNDS/KillStreak/biohazard.ogg"
+KillStreak/blazeofglory "SOUNDS/KillStreak/blazeofglory.ogg"
+KillStreak/bloodbath "SOUNDS/KillStreak/bloodbath.ogg"
+KillStreak/bluestreak "SOUNDS/KillStreak/bluestreak.ogg"
+KillStreak/bottomfeeder "SOUNDS/KillStreak/bottomfeeder.ogg"
+KillStreak/bullseye "SOUNDS/KillStreak/bullseye.ogg"
+KillStreak/carjacked "SOUNDS/KillStreak/carjacked.ogg"
+KillStreak/comboking "SOUNDS/KillStreak/comboking.ogg"
+KillStreak/denied "SOUNDS/KillStreak/denied.ogg"
+KillStreak/dominating "SOUNDS/KillStreak/dominating.ogg"
+KillStreak/doublekill "SOUNDS/KillStreak/doublekill.ogg"
+KillStreak/eagleeye "SOUNDS/KillStreak/eagleeye.ogg"
+KillStreak/eradication "SOUNDS/KillStreak/eradication.ogg"
+KillStreak/excellent "SOUNDS/KillStreak/excellent.ogg"
+KillStreak/extermination "SOUNDS/KillStreak/extermination.ogg"
+KillStreak/firstblood "SOUNDS/KillStreak/firstblood.ogg"
+KillStreak/flakmaster "SOUNDS/KillStreak/flakmaster.ogg"
+KillStreak/godlike "SOUNDS/KillStreak/godlike.ogg"
+KillStreak/gunslinger "SOUNDS/KillStreak/gunslinger.ogg"
+KillStreak/hattrick "SOUNDS/KillStreak/hattrick.ogg"
+KillStreak/headhunter "SOUNDS/KillStreak/headhunter.ogg"
+KillStreak/headshot "SOUNDS/KillStreak/headshot.ogg"
+KillStreak/hijacked "SOUNDS/KillStreak/hijacked.ogg"
+KillStreak/hitandrun "SOUNDS/KillStreak/hitandrun.ogg"
+KillStreak/impressive "SOUNDS/KillStreak/impressive.ogg"
+KillStreak/jackhammer "SOUNDS/KillStreak/jackhammer.ogg"
+KillStreak/juggernaut "SOUNDS/KillStreak/juggernaut.ogg"
+KillStreak/killingmachine "SOUNDS/KillStreak/killingmachine.ogg"
+KillStreak/killingspree "SOUNDS/KillStreak/killingspree.ogg"
+KillStreak/lastsecondsave "SOUNDS/KillStreak/lastsecondsave.ogg"
+KillStreak/maniac "SOUNDS/KillStreak/maniac.ogg"
+KillStreak/massacre "SOUNDS/KillStreak/massacre.ogg"
+KillStreak/megakill "SOUNDS/KillStreak/megakill.ogg"
+KillStreak/monsterkill "SOUNDS/KillStreak/monsterkill.ogg"
+KillStreak/multikill "SOUNDS/KillStreak/multikill.ogg"
+KillStreak/mutualdestruction "SOUNDS/KillStreak/mutualdestruction.ogg"
+KillStreak/nodebuster "SOUNDS/KillStreak/nodebuster.ogg"
+KillStreak/outstanding "SOUNDS/KillStreak/outstanding.ogg"
+KillStreak/pancake "SOUNDS/KillStreak/pancake.ogg"
+KillStreak/payback "SOUNDS/KillStreak/payback.ogg"
+KillStreak/rampage "SOUNDS/KillStreak/rampage.ogg"
+KillStreak/rejected "SOUNDS/KillStreak/rejected.ogg"
+KillStreak/retribution "SOUNDS/KillStreak/retribution.ogg"
+KillStreak/roadkill "SOUNDS/KillStreak/roadkill.ogg"
+KillStreak/roadrage "SOUNDS/KillStreak/roadrage.ogg"
+KillStreak/roadrampage "SOUNDS/KillStreak/roadrampage.ogg"
+KillStreak/rocketscientist "SOUNDS/KillStreak/rocketscientist.ogg"
+KillStreak/shaftmaster "SOUNDS/KillStreak/shaftmaster.ogg"
+KillStreak/termination "SOUNDS/KillStreak/termination.ogg"
+KillStreak/topgun "SOUNDS/KillStreak/topgun.ogg"
+KillStreak/ultrakill "SOUNDS/KillStreak/ultrakill.ogg"
+KillStreak/unreal "SOUNDS/KillStreak/unreal.ogg"
+KillStreak/unstoppable "SOUNDS/KillStreak/unstoppable.ogg"
+KillStreak/vehicularmanslaughter "SOUNDS/KillStreak/vehicularmanslaughter.ogg"
+KillStreak/vengeance "SOUNDS/KillStreak/vengeance.ogg"
+KillStreak/warpath "SOUNDS/KillStreak/warpath.ogg"
+KillStreak/Holyshit "SOUNDS/KillStreak/Holyshit.mp3"
+KillStreak/triplekill "SOUNDS/KillStreak/triplekill.ogg"
+KillStreak/ownage "SOUNDS/KillStreak/ownage.ogg"
+KillStreak/ludicrouskill "SOUNDS/KillStreak/ludicrouskill.ogg"
+KillStreak/wickedsick "SOUNDS/KillStreak/wickedsick.ogg"
 
 //CyberdemonBoss//
 cyber/charge	cybchg
 cyber/melee	cybswg
 cyber/impact	cybimp
+
+//Beam Katana Sounds//
+CybKatana/Swing           DSKatMis
+CybKatana/Hit             DSKatHit
+CybKatana/Activate        DSKatAct
+CybKatana/SwitchMode      MODESWIT
+// R667 Deployable Shield//
+ForceBarrier/On		DSFRCON
+ForceBarrier/Off	DSFRCOFF
+ForceBarrier/Loop	DSFRCLOP
+DSZAPHT1	DSZAPHT1
+DSZAPHT2	DSZAPHT2
+DSZAPHT3	DSZAPHT3
+$random ForceBarrier/Hit	{ DSZAPHT1 DSZAPHT2 DSZAPHT3 }
+$limit ForceBarrier/Hit	0
 
 //EMG Doomblaster//
 $random D2016Blaster/Fire {PLMF1 PLMF1 PLMF1}
@@ -76,25 +92,6 @@ D2016Blaster/Charge/Loop	D4BCHLP
 D2016Blaster/Charge/Click	D4BREDY
 $random D2016Blaster/Charge/Fire { PLMCF1 }
 PLMCF1 PLMCF1
-
-//Sentinel Hammer//
-$random hamexpl { 
-hamexpla
-hamexplb
-hamexplc
-hamexpld 
-hamexple
-}
-hamexpla hamexpla
-hamexplb hamexplb
-hamexplc hamexplc
-hamexpld hamexpld
-hamexple hamexple
-HSLM HSLM
-HMIDLE HMIDLE
-HMSWING HMSWING
-HMUPGR HMUPGR
-HMSLCT HMSLCT
 
 //AutoCannon Weapon Sounds//
 ACNIN ACNIN
