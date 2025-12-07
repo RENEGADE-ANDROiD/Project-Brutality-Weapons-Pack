@@ -23,7 +23,7 @@ While Glory Kills, Monster Pack & Project Malice monsters are not required, they
 // Click on the green "Code" button, Click to Download Zip, then load the zip as a pk3 mod.
 - Unofficial Glory Kill Addon Update - https://drive.google.com/file/d/1CdER4BUNFOcBpI2_yVzxsjO0hr6tsjIU/view?usp=drive_link
 - PB Monster Pack - https://drive.google.com/file/d/15qWzKprNk4XBTJ_N1xbPs2Sd4Gs7V9Mi/view
-- Project Malice Monsters - https://github.com/TheBlueSavior/Project-Malice
+- Project Malice Monsters (Use Github download instead of Releases) - https://github.com/TheBlueSavior/Project-Malice
 - PB Malice Patch (This version is compatible with both PB Monster Pack and Project Malice, enhancing Glory Kill compatibility) - https://drive.google.com/file/d/1w1PL5v9kECI_83BdbBrvIoaHGWSE0d7B/view?usp=drive_link
 
 
