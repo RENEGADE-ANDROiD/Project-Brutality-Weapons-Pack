@@ -2,21 +2,21 @@
 #include "actors/Monsters/EarthEnemyGLDefs.gl"
 
 //KILLSTREAK//
-object KillStreak
-{
-	frame KIST
-	{
-		light GOLDPULSE
-	}
-}
-PulseLight GOLDPULSE
-{
-	color 1.0 0.843 0.0
-	Size 35
-	SecondarySize 45
-	Interval 1.5
-	Offset 0 0 0
-}
+//object KillStreak
+//{
+//	frame KIST
+//	{
+//		light GOLDPULSE
+//	}
+//}
+//PulseLight GOLDPULSE
+//{
+//	color 1.0 0.843 0.0
+//	Size 35
+//	SecondarySize 45
+//	Interval 1.5
+//	Offset 0 0 0
+//}
 
 //LoR CalamityBlade
 flickerlight IncineratorFire0
@@ -103,10 +103,8 @@ object TankShellBall
     frame TNT1C { light TANKSHELL_X2 }
     frame TNT1D { light TANKSHELL_X3 }
 }
-////////
 
-Object CalamitySlice { Frame WP0B { Light SmallOrangeFlare } }
-
+//LoRCalamityBlade//
 brightmap sprite BLEMA0 { map "Brightmaps/BLEMA0.png" }
 brightmap sprite BLRUA0 { map "Brightmaps/BLRUA0.png" }
 
@@ -281,20 +279,6 @@ Object ShieldSawAmmo
 {
 Frame SHIE { Light ShieldSaw }
 }
-
-pointlight DoomGoreNestLight
-{
-    color 1.0 0 0
-    size 64
-    offset 0 60 0
-}
-
-object DoomGoreNest
-{
-    frame D4GN { light DoomGoreNestLight }
-}
-
-
 
 Pointlight ElectroBlast1
 {
