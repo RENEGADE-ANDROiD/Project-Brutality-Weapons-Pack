@@ -195,10 +195,13 @@ Actor "Demon Tech Shotgun" : PBWP_Weapon
 		GAFR C 1
 		GAFR D 1 A_CustomPunch (20,0,0,"crowbarpuff")
 		GAFR EFG 1
-		TNT1 A 4 A_GiveInventory("swungright",1)
-		TNT1 A 1 A_ReFire
-		GAUG CB 1
-		GAUG A 1 A_TakeInventory("swungright",1)
+		TNT1 A 4 
+		GAFL AB 1
+		GAFL C 1 
+		GAFL D 2 A_CustomPunch (20,0,0,"crowbarpuff2")
+		GAFL EFG 1
+		TNT1 A 4 
+		TNT1 A 0 
 		TNT1 A 7 {
 			 if(JustPressed(BT_USER2)) {return PB_Execute();}
 			 return state("");

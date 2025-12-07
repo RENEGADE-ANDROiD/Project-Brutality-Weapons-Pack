@@ -41,6 +41,7 @@
 #INCLUDE ACTORs/Weapons/Special/OverwhelmingProjectile.dec
 #INCLUDE ACTORs/Weapons/Special/RazorjackProjectile.dec
 #INCLUDE ACTORs/Weapons/Special/PickaxeStrike.dec
+#INCLUDE ACTORs/Weapons/Special/ImpactGauntletPuff.dec
 
 //MELEE//
 #INCLUDE ACTORs/Weapons/Melee/JohnnyFlames.dec
