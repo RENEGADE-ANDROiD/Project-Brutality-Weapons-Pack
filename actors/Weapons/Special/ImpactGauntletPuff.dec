@@ -1,0 +1,29 @@
+ACTOR ImpactorPuff : MeleePuff
+{
+  states
+  {
+  Spawn:
+  Death:
+  Melee:
+  XDeath:
+    PUFF A 0 A_PlaySound("weapons/IMGThunk")
+    EXPL AAAAAA 0 A_CustomMissile ("MeleeSmoke", 0, 0, random (0, 360), 2, random (0, 360))
+	TNT1 A 10
+    stop
+  }
+}
+
+
+Actor GauntletImpact : BlastEffect
+{
+  +NOBLOCKMAP
+  +NOGRAVITY
+  +NOCLIP
+  +NOTELEPORT
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    Stop
+  }
+}

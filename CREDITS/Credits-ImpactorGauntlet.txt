@@ -1,0 +1,22 @@
+Impactor Gauntlet v1.1 for Project Brutality v3.0
+
+Original Author: TheDoomedArchvile
+Original Location: Realm667
+Ported to Project Brutality by: Gemini0
+Animations enhanced by: Icon Of Sin
+
+Description: The Impactor Gauntlet was created with the aim to give space marines
+a perminent powerful melee weapon in case they run out of ammo. This heavy beast
+packs a serious punch which can knock back some foes when up close. This weapon also
+includes a boost thruster which allows the wearer to speed forward a ways to
+cross gaps and hit enemies multiple times, but deals significantly less damage.
+With careful timing, the primary fire can even punch away projectiles!
+
+Changelog:
+
+	v1.0:
+		Initial "full" release. The gauntlet was given new animations and a new sound, and steps were taken towards general improvements.
+
+	v1.1:
+		Revision made shortly after v1.0. Added kick/knife animations, and fixed the Berserk speed-up.
+		Also, damage type changed to "ExtremePunches"... Not that it does anything.
