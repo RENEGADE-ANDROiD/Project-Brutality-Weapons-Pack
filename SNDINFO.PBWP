@@ -83,6 +83,10 @@ DSPGHIT1 DSPGHIT1
 DSPGHIT2 DSPGHIT2
 DSPGHIT3 DSPGHIT3
 
+//Fighter Hammer//
+FighterHammerExWall IMPACT1
+FighterHammerExMonster IMPACT2
+
 //ImpactorGauntlet//
 weapons/IMGRaise	IMGARAIS
 weapons/IMGCok		IMGACOK
