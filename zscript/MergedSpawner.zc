@@ -128,7 +128,7 @@ class PB_ArgentSithSpawnerInjector : PBInjector
 {
 	override void init(PB_EventHandler handler)
 	{
-	if (PBSpawnArgentSith)
+	if (PBSpawnPB_ArgentSith)
 		{
 		handler.InjectSpawn("PB_SawSpawnerT3", "PB_ArgentSith", 255, 1);
 		handler.InjectSpawn("PB_SawSpawnerT4", "PB_ArgentSith", 255, 1);
