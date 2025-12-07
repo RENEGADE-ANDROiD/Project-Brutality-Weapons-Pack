@@ -102,9 +102,9 @@ Actor Razorblade
 	states
 	{
 	Spawn:
-		SAWS A 0 NoDelay A_ChangeVelocity(0,0,2)
+		RAZS A 0 NoDelay A_ChangeVelocity(0,0,2)
 	SpawnMain:
-		SAWS A 1 A_SpawnItemEx("RazorbladeTrail",0,0,0,0,0,0,0,SXF_TRANSFERSPRITEFRAME|SXF_CLIENTSIDE)
+		RAZS A 1 A_SpawnItemEx("RazorbladeTrail",0,0,0,0,0,0,0,SXF_TRANSFERSPRITEFRAME|SXF_CLIENTSIDE)
 		Wait
 	Bounce:
 		"####" "#" 0 {
@@ -167,7 +167,7 @@ Actor EmpoweredRazorblade : Razorblade
 	{
 	Spawn:
 	SpawnMain:
-		SAWS ABCDEFGH 1 A_SpawnItemEx("RazorbladeTrail",0,0,0,0,0,0,0,SXF_TRANSFERSPRITEFRAME|SXF_CLIENTSIDE)
+		RAZS ABCDEFGH 1 A_SpawnItemEx("RazorbladeTrail",0,0,0,0,0,0,0,SXF_TRANSFERSPRITEFRAME|SXF_CLIENTSIDE)
 		Loop
 	}
 }
@@ -178,7 +178,7 @@ ACTOR RazorbladeTrailA : RazorbladeTrail
 	States
 	{
 	Spawn:
-	SAW5 A 1 A_FadeOut(0.1)
+	RAZS A 1 A_FadeOut(0.1)
 	Wait
 	}
 }
@@ -189,7 +189,7 @@ ACTOR RazorbladeTrailB : RazorbladeTrail
 	States
 	{
 	Spawn:
-	SAW5 B 1 A_FadeOut(0.1)
+	RAZS B 1 A_FadeOut(0.1)
 	Wait
 	}
 }
@@ -200,7 +200,7 @@ ACTOR RazorbladeTrailC : RazorbladeTrail
 	States
 	{
 	Spawn:
-	SAW5 C 1 A_FadeOut(0.1)
+	RAZS C 1 A_FadeOut(0.1)
 	Wait
 	}
 }
@@ -211,7 +211,7 @@ ACTOR RazorbladeTrailD : RazorbladeTrail
 	States
 	{
 	Spawn:
-	SAW5 D 1 A_FadeOut(0.1)
+	RAZS D 1 A_FadeOut(0.1)
 	Wait
 	}
 }
@@ -222,7 +222,7 @@ ACTOR RazorbladeTrailE : RazorbladeTrail
 	States
 	{
 	Spawn:
-	SAW5 E 1 A_FadeOut(0.1)
+	RAZS E 1 A_FadeOut(0.1)
 	Wait
 	}
 }
@@ -233,7 +233,7 @@ ACTOR RazorbladeTrailF : RazorbladeTrail
 	States
 	{
 	Spawn:
-	SAW5 F 1 A_FadeOut(0.1)
+	RAZS F 1 A_FadeOut(0.1)
 	Wait
 	}
 }
@@ -244,7 +244,7 @@ ACTOR RazorbladeTrailG : RazorbladeTrail
 	States
 	{
 	Spawn:
-	SAW5 G 1 A_FadeOut(0.1)
+	RAZS G 1 A_FadeOut(0.1)
 	Wait
 	}
 }
@@ -255,7 +255,7 @@ ACTOR RazorbladeTrailH : RazorbladeTrail
 	States
 	{
 	Spawn:
-	SAW5 H 1 A_FadeOut(0.1)
+	RAZS H 1 A_FadeOut(0.1)
 	Wait
 	}
 }
@@ -275,7 +275,7 @@ Actor BladeAmmo : Ammo
 	States
 	{
 	Spawn:
-		SAW5 A -1
+		RAZS A -1
 		Loop
 	}
 }
