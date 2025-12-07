@@ -12,6 +12,8 @@ See PB Weapon Pack Options to configure:
   
 - DOORBUSTER from BDP - Bust down doors (if you want)
 
+--KILLSTREAKS from SHOO KREW PB-Pand Edition--
+
 -----------------
 Recommended Load order: Mapwad > Project Brutality Staging > Glory Kills addon > PB Monster Pack > Project Malice Monsters > PB patch for Project Malice > PB Weapon Pack  
 
@@ -45,7 +47,8 @@ TEAM MEMBERS:
 
 ---------------Slot 1 weapons---------------
 
-- Argent Sith
+- Energy Beam Katana
+- Argent Sith Beam Katana
 - BattleAxe and Shield from Schism
 - Razorjack from Russian Overkill
 
