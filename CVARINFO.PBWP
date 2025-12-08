@@ -18,9 +18,6 @@ server int busterAmmoChance = 1;
 //
 server int bossbarpos = 1;
 
-//Fatalities when clicking Fire//
-server int ttwcfbex = 25;
-
 //
 User Noarchive Int d16_crosshair = 0;
 
@@ -103,8 +100,12 @@ server bool PBSpawnDemonTechMinigun = True;
 server bool PBSpawnPhaseEradicatorBFG = True;
 
 //===============================================
-// Monster Drops
+// Specials
 server bool FirstTimeLoadingPBWP = true;
+server int ttwcfbex = 25;
+server bool CustomMelee = true;
+
+// Monster Drops
 server bool IsUsingStormcastCV = false;
 
 server bool PBSpawnMSSGDrop = false;

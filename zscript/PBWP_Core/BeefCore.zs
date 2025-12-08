@@ -85,4 +85,19 @@ class PBWP_Weapon : PB_Weapon
 		//no barrel
 		return resolvestate(null);
 	}
+
+	Action State PB_CheckBarrelIdle1()
+	{
+		//got nukage barrel
+		if(countinv("GrabbedBarrel")>0)
+			return resolvestate("IdleBarrel");
+		//got flame barrel
+		if(countinv("GrabbedFlameBarrel")>0)
+			return resolvestate("IdleFlameBarrel");
+		//got ice barrel
+		if(countinv("GrabbedIceBarrel")>0)
+			return resolvestate("IdleIceBarrel");
+		//no barrel
+		return resolvestate(null);
+	}
 }
