@@ -192,6 +192,7 @@ Actor ColdKeeperPuff : PlasmaMarauderSGPuff
   Damagetype "Ice"  
   +Ripper
   +NOBOSSRIP
+  RipperLevel 1
 }
 
 Actor ColdKeeperBlast : CryoMarauderSGPuff
@@ -199,12 +200,13 @@ Actor ColdKeeperBlast : CryoMarauderSGPuff
   Damage (Random(40, 39))
   +Ripper
   +NOBOSSRIP
+  RipperLevel 1
 }
 
 Actor IcyShotTracer : MaruderSGFrozenTracer
 { 
   DamageType Shotgun
-  Damage 4
+  Damage (Random(4, 5))
   -DONTSPLASH
 }
 
@@ -213,6 +215,7 @@ Actor IcyShotTracer2 : IcyShotTracer
   Damage (Random(2, 3))
   +Ripper
   +NOBOSSRIP
+  RipperLevel 1
 }
 
 Actor MarauderShotgunBarrelHeat: Inventory
