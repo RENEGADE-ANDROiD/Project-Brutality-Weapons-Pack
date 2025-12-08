@@ -11,6 +11,7 @@ version "4.14.3"
 #include "zscript/PBWP_Core/BeefHandler.zs"
 #include "zscript/PBWP_Core/BeefCore.zs"
 #include "zscript/PBWP_Core/BeefJMod.zs"
+#include "zscript/PBWP_Core/BeefEquipment.zs"
 #include "zscript/PBWP_Core/BeefMonsterDropSpawnerA.zs"
 #include "zscript/PBWP_Core/BeefMonsterDropSpawnerB.zs"
 

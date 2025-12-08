@@ -1,5 +1,6 @@
 class QuickDetonator : Inventory {}
 class GoThrowAxe : Inventory {}
+class TossGrenade : Inventory {}
 class AlreadyThrownShieldSaw : Inventory {Default{Inventory.MaxAmount 1;}}
 
 class PB_RevLauncherFireCount : Inventory{Default{Inventory.MaxAmount 3;}}
@@ -40,7 +41,6 @@ extend class PB_WeaponBase
 			TNT1 A 0 A_JumpIfInventory("SwarmerSelected", 1, "ThrowSwarmer");
 			TNT1 A 0 A_JumpIfInventory("LaserChargeSelected", 1, "ThrowLaserCharge");
 			TNT1 A 0 A_JumpIfInventory("AcidChargeSelected", 1, "ThrowAcidCharge");
-			TNT1 A 0 A_JumpIfInventory("DetonatorSelected", 1, "Detonator");
 			TNT1 A 0 A_JumpIfInventory("AxeSelected", 1, "ThrowAxe");
 			TNT1 A 0 A_JumpIfInventory("HookSelected", 1, "ThrowHook");
 			TNT1 A 0 A_JumpIfInventory("ShieldSawSelected", 1, "ThrowShieldSaw");
@@ -61,7 +61,6 @@ extend class PB_WeaponBase
 				A_SetInventory("WW_SwarmerSelected",0);
 				A_SetInventory("WW_LaserChargeSelected",0);
 				A_SetInventory("WW_AcidChargeSelected",0);
-				A_SetInventory("WW_DetonatorSelected",0);
 				A_SetInventory("WW_AxeSelected",0);
 				A_SetInventory("WW_HookSelected",0);
 				A_SetInventory("WW_ShieldSawSelected",0);
@@ -93,8 +92,6 @@ extend class PB_WeaponBase
 					{A_Print("Equipment already selected: Laser Charge"); return ResolveState("WheelCancelEquipment");}
 				if(CountInv("WW_AcidChargeSelected") && CountInv("AcidChargeSelected") >=1)
 					{A_Print("Equipment already selected: Acid Charge"); return ResolveState("WheelCancelEquipment");}	
-				if(CountInv("WW_DetonatorSelected") && CountInv("DetonatorSelected") >=1)
-					{A_Print("Equipment already selected: Detonator"); return ResolveState("WheelCancelEquipment");}	
 				if(CountInv("WW_AxeSelected") && CountInv("AxeSelected") >=1)
 					{A_Print("Equipment already selected: Axe"); return ResolveState("WheelCancelEquipment");}
 				if(CountInv("WW_HookSelected") && CountInv("HookSelected") >=1)
@@ -141,26 +138,6 @@ extend class PB_WeaponBase
 					if(CountInv("VoidGrenadeAmmo") <=0)
 						{A_Print("No Void Grenades Available"); return ResolveState("WheelCancelEquipment");}
 					}
-				if(CountInv("WW_SwarmerSelected") >=1)
-					{
-					if(CountInv("SwarmerAmmo") <=0)
-						{A_Print("No Swarm Pod Available"); return ResolveState("WheelCancelEquipment");}
-					}
-				if(CountInv("WW_LaserChargeSelected") >=1)
-					{
-					if(CountInv("LaserChargeAmmo") <=0)
-						{A_Print("No Laser Charge Available"); return ResolveState("WheelCancelEquipment");}
-					}
-				if(CountInv("WW_AcidChargeSelected") >=1)
-					{
-					if(CountInv("AcidChargeAmmo") <=0)
-						{A_Print("No Acid Charge Available"); return ResolveState("WheelCancelEquipment");}	
-					}	
-				if(CountInv("WW_DetonatorSelected") >=1)
-					{
-					if(CountInv("DetonatorAmmo") <=0)
-						{A_Print("No Detonator Available"); return ResolveState("WheelCancelEquipment");}
-					}	
 				if(CountInv("WW_AxeSelected") >=1)
 					{
 					if(CountInv("PB_Axe") <=0)
@@ -194,7 +171,6 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",0);
 							A_SetInventory("LaserChargeSelected",0);
 							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",0);
 							A_SetInventory("HookSelected",0);
 							A_SetInventory("ShieldSawSelected",0);
@@ -215,7 +191,6 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",0);
 							A_SetInventory("LaserChargeSelected",0);
 							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",0);
 							A_SetInventory("HookSelected",0);
 							A_SetInventory("ShieldSawSelected",0);
@@ -236,7 +211,6 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",0);
 							A_SetInventory("LaserChargeSelected",0);
 							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",0);
 							A_SetInventory("HookSelected",0);
 							A_SetInventory("ShieldSawSelected",0);
@@ -257,7 +231,6 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",0);
 							A_SetInventory("LaserChargeSelected",0);
 							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",0);
 							A_SetInventory("HookSelected",0);
 							A_SetInventory("ShieldSawSelected",0);
@@ -278,7 +251,6 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",0);
 							A_SetInventory("LaserChargeSelected",0);
 							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",0);
 							A_SetInventory("HookSelected",0);
 							A_SetInventory("ShieldSawSelected",0);
@@ -299,7 +271,6 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",0);
 							A_SetInventory("LaserChargeSelected",0);
 							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",0);
 							A_SetInventory("HookSelected",0);
 							A_SetInventory("ShieldSawSelected",0);
@@ -320,7 +291,6 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",0);
 							A_SetInventory("LaserChargeSelected",0);
 							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",0);
 							A_SetInventory("HookSelected",0);
 							A_SetInventory("ShieldSawSelected",0);
@@ -341,7 +311,6 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",0);
 							A_SetInventory("LaserChargeSelected",0);
 							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",0);
 							A_SetInventory("HookSelected",0);
 							A_SetInventory("ShieldSawSelected",0);
@@ -350,7 +319,7 @@ extend class PB_WeaponBase
 						}
 					if(CountInv("WW_SwarmerSelected") >=1)
 						{ 
-							A_Print("Equipment Selected: Swarm Pod"); 
+							A_Print("Equipment Selected: Swarm Pod / Detonator"); 
 							A_SetInventory("ProximityMineSelected",0);
 							A_SetInventory("ElecPodSelected",0);
 							A_SetInventory("StunGrenadeSelected",0);
@@ -362,7 +331,6 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",1);
 							A_SetInventory("LaserChargeSelected",0);
 							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",0);
 							A_SetInventory("HookSelected",0);
 							A_SetInventory("ShieldSawSelected",0);
@@ -371,7 +339,7 @@ extend class PB_WeaponBase
 						}				
 					if(CountInv("WW_LaserChargeSelected") >=1)
 						{ 
-							A_Print("Equipment Selected: Laser Charge"); 
+							A_Print("Equipment Selected: Laser Charge / Detonator"); 
 							A_SetInventory("ProximityMineSelected",0);
 							A_SetInventory("ElecPodSelected",0);
 							A_SetInventory("StunGrenadeSelected",0);
@@ -383,7 +351,6 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",0);
 							A_SetInventory("LaserChargeSelected",1);
 							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",0);
 							A_SetInventory("HookSelected",0);
 							A_SetInventory("ShieldSawSelected",0);
@@ -392,7 +359,7 @@ extend class PB_WeaponBase
 						}
 					if(CountInv("WW_AcidChargeSelected") >=1)
 						{ 
-							A_Print("Equipment Selected: Acid Charge"); 
+							A_Print("Equipment Selected: Acid Charge / Detonator"); 
 							A_SetInventory("ProximityMineSelected",0);
 							A_SetInventory("ElecPodSelected",0);
 							A_SetInventory("StunGrenadeSelected",0);
@@ -404,34 +371,12 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",0);
 							A_SetInventory("LaserChargeSelected",0);
 							A_SetInventory("AcidChargeSelected",1);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",0);
 							A_SetInventory("HookSelected",0);
 							A_SetInventory("ShieldSawSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}	
-					if(CountInv("WW_DetonatorSelected") >=1)
-						{ 
-							A_Print("Equipment Selected: Detonator"); 
-							A_SetInventory("ProximityMineSelected",0);
-							A_SetInventory("ElecPodSelected",0);
-							A_SetInventory("StunGrenadeSelected",0);
-							A_SetInventory("LeechSelected",0);
-							A_SetInventory("RevGunSelected",0);
-							A_SetInventory("FragGrenadeSelected",0);
-							A_SetInventory("ShieldSelected",0);
-							A_SetInventory("VoidGrenadeSelected",0);
-							A_SetInventory("SwarmerSelected",0);
-							A_SetInventory("LaserChargeSelected",0);
-							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",1);
-							A_SetInventory("AxeSelected",0);
-							A_SetInventory("HookSelected",0);
-							A_SetInventory("ShieldSawSelected",0);
-							A_StartSound("GRNPIN", 3);
-							return ResolveState("WheelCancelEquipment");
-						}
 					if(CountInv("WW_AxeSelected") >=1)
 						{ 
 							A_Print("Equipment Selected: Axe"); 
@@ -446,7 +391,6 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",0);
 							A_SetInventory("LaserChargeSelected",0);
 							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",1);
 							A_SetInventory("HookSelected",0);
 							A_SetInventory("ShieldSawSelected",0);
@@ -467,7 +411,6 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",0);
 							A_SetInventory("LaserChargeSelected",0);
 							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",0);
 							A_SetInventory("HookSelected",1);
 							A_SetInventory("ShieldSawSelected",0);
@@ -488,7 +431,6 @@ extend class PB_WeaponBase
 							A_SetInventory("SwarmerSelected",0);
 							A_SetInventory("LaserChargeSelected",0);
 							A_SetInventory("AcidChargeSelected",0);
-							A_SetInventory("DetonatorSelected",0);
 							A_SetInventory("AxeSelected",0);
 							A_SetInventory("HookSelected",0);
 							A_SetInventory("ShieldSawSelected",1);
@@ -692,9 +634,7 @@ extend class PB_WeaponBase
 				A_TakeInventory("ADSMode", 1);
 				A_TakeInventory("UseEquipment", 1);
 			}
-			TNT1 A 0 A_JumpIfInventory("AcidChargeAmmo", 1, 2);
-			TNT1 A 0 A_Print("No Acid Charge left");
-			Goto GoingToReady;
+			TNT1 A 0 A_JumpIf(CountInv("AcidChargeAmmo") < 1, "Detonator");
 			
 			REMT ABCD 1;
 			REMT EFG 1{
@@ -730,9 +670,7 @@ extend class PB_WeaponBase
 				A_TakeInventory("ADSMode", 1);
 				A_TakeInventory("UseEquipment", 1);
 			}
-			TNT1 A 0 A_JumpIfInventory("LaserChargeAmmo", 1, 2);
-			TNT1 A 0 A_Print("No Laser Charge left");
-			Goto GoingToReady;
+			TNT1 A 0 A_JumpIf(CountInv("LaserChargeAmmo") < 1, "Detonator");
 			
 			LSRC ABCD 1;
 			LSRC EFG 1{
@@ -768,10 +706,8 @@ extend class PB_WeaponBase
 				A_TakeInventory("ADSMode", 1);
 				A_TakeInventory("UseEquipment", 1);
 			}
-			TNT1 A 0 A_JumpIfInventory("SwarmerAmmo", 1, 2);
-			TNT1 A 0 A_Print("No Swarm Pods left");
-			Goto GoingToReady;
-		
+			TNT1 A 0 A_JumpIf(CountInv("SwarmerAmmo") < 1, "Detonator");
+
 			SWRM ABCD 1;
 			SWRM EFG 1{
 			// Check during animation — if player presses again, flag UseEquipment

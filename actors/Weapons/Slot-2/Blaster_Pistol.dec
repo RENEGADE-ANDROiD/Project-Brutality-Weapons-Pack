@@ -217,10 +217,13 @@ Actor DoomBlaster : PBWP_Weapon
 		AX22 ABCDEF 0
 		AX23 ABCDEF 0
 		TNT1 A 0 {
+			A_Overlay(PSP_FLASH, "FlashPunching");
+			A_TakeInventory("Zoomed",1);
+			A_ZoomFactor(1.0);
 			A_PlaySound("AXSWING");
+			A_TakeInventory("ADSmode",1);
 			A_SetRoll(0);
-			A_SetInventory("AxeSequence1", 0);
-			A_SetInventory("AxeSequence2", 1);
+			A_Overlay(-10, "FirstPersonLegsStand");
 		}
 		AX20 ABC 1 {
 			if (CountInv("PowerGreenBloodOnVisor") >= 1 ) { A_SetWeaponSprite("AX23"); }
@@ -264,7 +267,7 @@ Actor DoomBlaster : PBWP_Weapon
 	TNT1 A 0 {
 			PB_SetUsingMelee(false);
 			}
-	TNT1 A 0 
+	TNT1 A 0 PB_CheckBarrelIdle1()
 	Goto Ready
 
 	AltFire:
