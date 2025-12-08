@@ -279,47 +279,42 @@ class LoRCalamityBlade : PBWP_Weapon
 		////////////////////////////////////////////////////////////////////////
 		
 		FlashPunching:
-			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
+			TNT1 A 0 A_ClearOverlays(10,11);
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_ClearOverlays(10,11);
-			TNT1 A 0 A_DoPBWeaponAction;
 			TNT1 ABCDEFGGFEDCBA 1;
 			stop;
 		
 		FlashKicking:
-			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
+			TNT1 A 0 A_ClearOverlays(10,11);
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_ClearOverlays(10,11);
-			TNT1 A 0 A_DoPBWeaponAction;
 			HRTG A 14;
 			goto ready;
 			
 		FlashAirKicking:
-			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
+			TNT1 A 0 A_ClearOverlays(10,11);
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_ClearOverlays(10,11);
-			TNT1 A 0 A_DoPBWeaponAction;
 			HRTG A 14;
 			goto ready;
 			
 		FlashSlideKicking:
-			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
+			TNT1 A 0 A_ClearOverlays(10,11);
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_ClearOverlays(10,11);
-			TNT1 A 0 A_DoPBWeaponAction;
 			HRTG A 14;
 			goto ready;
 			
 		FlashSlideKickingStop:
-			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
+			TNT1 A 0 A_ClearOverlays(10,11);
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_ClearOverlays(10,11);
-			TNT1 A 0 A_DoPBWeaponAction;
 			HRTG A 7;
 			goto ready;
 		}

@@ -169,18 +169,12 @@ Actor Devastator : PBWP_Weapon
 		TNT1 A 0 A_GunFlash("Null")
 		TNT1 AAA 1 PB_Execute() // Check if monster can be executed, jump to execution handler instead
 	GoMeleeInstead:
-		GAFR AB 1
-		PUFF A 0 A_PlaySound("player/cyborg/fist", 3)
-		GAFR C 1
-		GAFR D 1 A_CustomPunch (20,0,0,"crowbarpuff")
-		GAFR EFG 1
-		TNT1 A 4 
-		GAFL AB 1
-		GAFL C 1 
-		GAFL D 2 A_CustomPunch (20,0,0,"crowbarpuff2")
-		GAFL EFG 1
-		TNT1 A 4 
-		TNT1 A 0 
+		TNT1 A 0 A_PlaySound("HMSWING", 50)
+		TNT1 A 0 A_PlaySound("AXSWING", 45)
+		SHPB M 1 A_SetAngle(angle+5)
+		TNT1 A 0 A_FireCustomMissile("AxeAttack", 0, 0)
+		SHPB NOPQ 1 A_SetAngle(angle+5)
+		TNT1 AAAAAA 1 A_SetAngle(angle-1,5)
 		TNT1 A 7 {
 			 if(JustPressed(BT_USER2)) {return PB_Execute();}
 			 return state("");

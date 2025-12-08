@@ -367,14 +367,12 @@ ACTOR Stormcast : PBWP_Weapon
 		TNT1 A 0 A_GunFlash("Null")
 		TNT1 AAA 1 PB_Execute() // Check if monster can be executed, jump to execution handler instead
 	GoMeleeInstead:
-		TNT1 A 0 A_PlaySound("MULTIC01", 1) 
-		TNT1 A 0 
-		SCLA AB 2 BRIGHT
-		TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
-		SCLA C 2 BRIGHT A_FireCustomMissile("LightningMissile4",0,0,0,0)
-		SCLA DF 1 BRIGHT 
-		TNT1 A 0 A_PlaySound("PZAPFIRE",6)  //A_PlaySound("ZAP", CHAN_WEAPON,2) 
-		SCLA GHIIJJ 1 BRIGHT
+		TNT1 A 0 A_PlaySound("HMSWING", 50)
+		TNT1 A 0 A_PlaySound("AXSWING", 45)
+		SHPB M 1 A_SetAngle(angle+5)
+		TNT1 A 0 A_FireCustomMissile("AxeAttack", 0, 0)
+		SHPB NOPQ 1 A_SetAngle(angle+5)
+		TNT1 AAAAAA 1 A_SetAngle(angle-1,5)
 		TNT1 A 7 {
 			 if(JustPressed(BT_USER2)) {return PB_Execute();}
 			 return state("");
