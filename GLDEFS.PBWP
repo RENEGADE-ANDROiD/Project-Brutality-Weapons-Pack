@@ -2,21 +2,21 @@
 #include "actors/Monsters/EarthEnemyGLDefs.gl"
 
 //KILLSTREAK//
-//object KillStreak
-//{
-//	frame KIST
-//	{
-//		light GOLDPULSE
-//	}
-//}
-//PulseLight GOLDPULSE
-//{
-//	color 1.0 0.843 0.0
-//	Size 35
-//	SecondarySize 45
-//	Interval 1.5
-//	Offset 0 0 0
-//}
+object KillStreak
+{
+	frame KIST
+	{
+		light GOLDPULSE
+	}
+}
+PulseLight GOLDPULSE
+{
+	color 1.0 0.843 0.0
+	Size 35
+	SecondarySize 45
+	Interval 1.5
+	Offset 0 0 0
+}
 
 //LoR CalamityBlade
 flickerlight IncineratorFire0

@@ -1,11 +1,11 @@
 version "4.14.3"
 
 //PBWPHUDMessage//
-//#include "zscript/PBWPHUDMessage.zs"
+#include "zscript/PBWPHUDMessage.zs"
 
 //KillStreak// 
-//#include "zscript/Killstreak/KSHandler.zc"
-//#include "zscript/Killstreak/KillStreak.zc"
+#include "zscript/Killstreak/KSHandler.zc"
+#include "zscript/Killstreak/KillStreak.zc"
 
 // Monster Drop Handler
 #include "zscript/PBWP_Core/BeefHandler.zs"

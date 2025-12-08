@@ -9,9 +9,9 @@ Gameinfo
 	"BeefSetNoDropDefault",
 	"BeefSpawnPresets",
 	"ShieldSawFixAmmo",
-	"ExterminatorStuff"
-	//"BusterHandler",
-	//"KillTracker",
-	//"RareItemDropped"
+	"ExterminatorStuff",
+	"BusterHandler",
+	"KillTracker",
+	"RareItemDropped"
 	// Add More Handlers Here
 }

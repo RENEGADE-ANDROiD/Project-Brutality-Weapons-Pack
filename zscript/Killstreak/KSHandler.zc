@@ -57,6 +57,7 @@ class KillTracker : EventHandler
         if (e.Thing && (e.Inflictor is "PlayerPawn" || e.Thing is "PB_PlayerPrawn"))
         {
             PB_PlayerPrawn plr = PB_PlayerPrawn(e.Thing);
+			if(!plr) return;
             int playernum = plr.PlayerNumber();
             lastKillCounts[playernum] = players[playernum].killcount;
 			plr.A_startsound("DSPLDETH");
