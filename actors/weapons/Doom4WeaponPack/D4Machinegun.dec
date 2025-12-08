@@ -281,7 +281,7 @@ Actor D4Machinegun : PBWP_Weapon
 		Goto Ready2
 
 	QuickMelee:
-        "####" A 0 {
+        	"####" A 0 {
 				A_StopSound(CHAN_WEAPON);
 				A_StopSound(CHAN_VOICE);
 				A_StopSound(CHAN_6);
