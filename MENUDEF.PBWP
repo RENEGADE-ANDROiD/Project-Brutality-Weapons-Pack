@@ -78,6 +78,7 @@ OptionMenu "WeaponBehavioursSettings"
 {
 	Title "Weapon Behaviour Settings"
 	Option "Primary fire will trigger executions", "ttwcfbex", "OnOff"
+	Option "Custom Melee Animation for Certain Weapons", "CustomMelee", "OnOff"
 }
 
 OptionMenu "MonsterDropWeapSett"

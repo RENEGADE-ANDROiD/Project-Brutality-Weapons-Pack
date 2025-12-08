@@ -21,11 +21,10 @@ While Glory Kills, Monster Pack & Project Malice monsters are not required, they
 
 - Project Brutality Staging - https://github.com/pa1nki113r/Project_Brutality/tree/PB_Staging 
 // Click on the green "Code" button, Click to Download Zip, then load the zip as a pk3 mod.
-- Unofficial Glory Kill Addon Update - https://drive.google.com/file/d/1CdER4BUNFOcBpI2_yVzxsjO0hr6tsjIU/view?usp=drive_link
+- Unofficial Glory Kill Addon Update - https://drive.google.com/file/d/1jELeHdBo8X55n0r42by8CjdPbwyJxR5T/view?usp=drive_link
 - PB Monster Pack - https://drive.google.com/file/d/15qWzKprNk4XBTJ_N1xbPs2Sd4Gs7V9Mi/view
 - Project Malice Monsters (Use Github download instead of Releases) - https://github.com/TheBlueSavior/Project-Malice
-- PB Malice Patch (This version is compatible with both PB Monster Pack and Project Malice, enhancing Glory Kill compatibility) - https://drive.google.com/file/d/1w1PL5v9kECI_83BdbBrvIoaHGWSE0d7B/view?usp=drive_link
-
+- PB Malice Patch (This version is compatible with both PB Monster Pack and Project Malice, enhancing Glory Kill compatibility) - https://drive.google.com/file/d/1CTyqHng7joSrBWIEwQg6ZkZiCIu_jcp2/view?usp=drive_link
 
 -----------------
 Assembled by RENEGADE ANDROiD using Insanity's Nightmare as a base combined with Demon-Tech & Fire & Ice Power Fantasy.
