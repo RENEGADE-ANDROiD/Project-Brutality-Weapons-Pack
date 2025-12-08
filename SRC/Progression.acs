@@ -31,29 +31,30 @@ script "KillMonsterIf" KILL //If monster is killed, script will be initiated
 		{
 		terminate;
 	}
-	GiveInventory("MonsterKilled", 1);
-	//If Mancubus killed by flamethrower/Demon Tech/Unmaker, make Ultimate slimming challenge!
+GiveInventory("MonsterKilled", 1);
+
+	//If Mancubus killed by flamethrower/Demon Tech/Unmaker, make Ultimate slimming CHALLENGE!
 	if (MonsterName == "PB_Deadabus" || MonsterName == "PB_Volcabus" || MonsterName == "PB_Mancubus")
 	{
 	if (WeaponName == "Hell_rifle" || WeaponName == "PB_Unmaker" || WeaponName == "PB_Flamethrower")
 	{
 	SetFont("bigfont");
 	HudMessage(s:"Ultimate slimming!"; 1,96,CR_GOLD, 0.025, 0.745, 5.0, 0.8, 2.0);
-	HudMessage(s:"+5 Health"; 1,100,CR_BLUE, 0.025, 0.785, 5.0, 0.8, 2.0);
-	GiveInventory("HealthBonus", 5);
+	HudMessage(s:"+25 Health"; 1,100,CR_BLUE, 0.025, 0.785, 5.0, 0.8, 2.0);
+	GiveInventory("HealthBonus", 25);
 	}
 	}
-	//Tomatoes! challenge
+	//Tomatoes! CHALLENGE
 	else if (MonsterName == "PB_Cacodemon") {
 	if (WeaponName == "PB_Chainsaw" || WeaponName == "PB_Axe") {
 	SetFont("bigfont");
 	HudMessage(s:"Tomatoes!"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 3.7);
-	HudMessage(s:"+10 Armor AND +25 points"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 3.7);
-	GiveInventory("ArmorBonus", 10);
+	HudMessage(s:"+25 Armor AND +25 points"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 3.7);
+	GiveInventory("ArmorBonus", 25);
 	GiveInventory("PB_Score", 25);
 	}
 	}
-	//HUGE GUTS challenge!
+	//HUGE GUTS CHALLENGE!
 	else if (MonsterName == "PB_Cyberdemon" || MonsterName == "PB_Annihilator") {
 	if (WeaponName == "Melee_Attacks") {
 	SetFont("bigfont");
@@ -64,17 +65,17 @@ script "KillMonsterIf" KILL //If monster is killed, script will be initiated
 	GiveInventory("PB_Score", 50);
 	}
 	}
-	//I don't need that you have! challenge
+	//I don't need that you have! CHALLENGE
 	else if (MonsterName == "PB_ZombieScientistChainsaw" || MonsterName == "PB_ZombieScientist" || MonsterName == "Labguy") {
 	if (WeaponName == "Melee_Attacks") {
 	SetFont("bigfont");
 	HudMessage(s:"I don't need that you have!"; 1,96,CR_GREEN, 0.025, 0.745, 7.0, 0.8, 3.7);
-	HudMessage(s:"+25 points AND +5 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
-	GiveInventory("HealthBonus", 5);
+	HudMessage(s:"+25 points AND +25 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("HealthBonus", 25);
 	GiveInventory("PB_Score", 25);
 	}
 	}
-	//You can't hide from ME! challenge
+	//You can't hide from ME! CHALLENGE
 	else if (MonsterName == "PB_Archvile" || MonsterName == "PB_Hellion") {
 	if (WeaponName == "PB_Railgun" && DistanceToTarget >= 500) {
 	SetFont("bigfont");
@@ -89,8 +90,8 @@ script "KillMonsterIf" KILL //If monster is killed, script will be initiated
 	if (WeaponName == "Hell_rifle" || WeaponName == "PB_Unmaker" || WeaponName == "PB_Flamethrower") {
 	SetFont("bigfont");
 	HudMessage(s:"Now we're cooking with gas!"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
-	HudMessage(s:"+25 points AND +10 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
-	GiveInventory("HealthBonus", 100);
+	HudMessage(s:"+25 points AND +30 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("HealthBonus", 30);
 	GiveInventory("PB_Score", 25);
 	}
 	}

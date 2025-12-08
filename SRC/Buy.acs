@@ -15,23 +15,23 @@ Print(s:"\cdSorry, Not Enough Combat Points!");
 
 // Original buy scripts
 Script "BuyShells" (Void) { //500, PB_Shell, 20
-BuySomething(50, "PB_Shell", 20);
+BuySomething(100, "PB_Shell", 20);
 }
 
 Script "BuyRFLClip" (Void) { 
-BuySomething(50, "PB_HighCalMag", 100);
+BuySomething(100, "PB_HighCalMag", 100);
 }
 
 Script "BuyCell" (Void) {
-BuySomething(75, "PB_Cell", 100);
+BuySomething(150, "PB_Cell", 100);
 }
 
 Script "BuyRocket" (Void) {
-BuySomething(80, "PB_RocketAmmo", 12);
+BuySomething(150, "PB_RocketAmmo", 12);
 }
 
 Script "BuyPistolClip" (Void) {
-BuySomething(50, "PB_LowCalMag", 100);
+BuySomething(100, "PB_LowCalMag", 100);
 }
 
 Script "BuySoulSphere" (Void) {
@@ -43,17 +43,17 @@ BuySomething(750, "PB_BlueArmor", 1);
 }
 
 Script "BuySoulArmor" (Void) {
-BuySomething(500, "PB_MegaSphere", 1);
+BuySomething(1000, "PB_MegaSphere", 1);
 }
 
 Script "BuyBerserk" (Void) {
-BuySomething(500, "PB_Berserk", 1);
+BuySomething(800, "PB_Berserk", 1);
 }
 
 Script "BuyRanUpgrade" (Void) {
-if (CheckInventory("PB_Score") >= 1000) {
+if (CheckInventory("PB_Score") >= 1500) {
 SetFont("bigfont");
-TakeInventory("PB_Score", 1000);
+TakeInventory("PB_Score", 1500);
 SpawnSpot ("UpgradeSpawner", 0);
 Print(s:"\ciYou Got What You Wanted, Rip And Tear!");
 } Else {
@@ -62,7 +62,7 @@ Print(s:"\cdSorry, Not Enough Combat Points!");
 }
 
 Script "BuySpeedPower" (Void) {
-BuySomething(500, "HasteSphere", 1);
+BuySomething(800, "HasteSphere", 1);
 }
 
 Script "BuyQuad" (Void) {
@@ -75,51 +75,43 @@ BuySomething(500, "PB_BeamKatana", 1);
 }
 
 Script "BuyBattleAxe" (Void) {
-BuySomething(500, "BattleAxe", 1);
+BuySomething(650, "BattleAxe", 1);
 }
 
 Script "BuyRazorjack" (Void) {
-BuySomething(500, "Razorjack", 1);
-}
-
-Script "BuySentinelHammer" (Void) {
-BuySomething(500, "SentinelHammer", 1);
+BuySomething(650, "Razorjack", 1);
 }
 
 Script "Buy44PDW" (Void) {
 BuySomething(500, "44PDW", 1);
 }
 
+Script "BuyB92S" (Void) {
+BuySomething(300, "DoomB92S", 1);
+}
+
 Script "BuyDoomBlaster" (Void) {
-BuySomething(500, "DoomBlaster", 1);
+BuySomething(400, "DoomBlaster", 1);
 }
 
 Script "BuyW_SMG" (Void) {
 BuySomething(500, "W_SMG", 1);
 }
 
-Script "BuyP_SMG" (Void) {
-BuySomething(500, "P_SMG", 1);
-}
-
 Script "BuyHellPistoler" (Void) {
-BuySomething(500, "HellPistoler", 1);
-}
-
-Script "BuySilverhandsDeagle" (Void) {
-BuySomething(500, "SilverhandsDeagle", 1);
+BuySomething(800, "HellPistoler", 1);
 }
 
 Script "BuyUZISMG" (Void) {
-BuySomething(500, "UZISMG", 1);
+BuySomething(450, "UZISMG", 1);
 }
 
 Script "BuyHASG" (Void) {
-BuySomething(500, "HASG", 1);
+BuySomething(800, "HASG", 1);
 }
 
 Script "BuyHexaLionShotgun" (Void) {
-BuySomething(500, "HexaLionShotgun", 1);
+BuySomething(750, "HexaLionShotgun", 1);
 }
 
 Script "BuySSG" (Void) {
@@ -127,11 +119,11 @@ BuySomething(500, "SSG", 1);
 }
 
 Script "BuyRotationalSG" (Void) {
-BuySomething(500, "RotationalSG", 1);
+BuySomething(800, "RotationalSG", 1);
 }
 
 Script "BuyCryoShotgun" (Void) {
-BuySomething(500, "PB_CryoShotgun", 1);
+BuySomething(650, "PB_CryoShotgun", 1);
 }
 
 Script "BuyDoom2016Shotgun" (Void) {
@@ -139,27 +131,27 @@ BuySomething(500, "PB_Doom2016Shotgun", 1);
 }
 
 Script "BuyDemonTechShotgun" (Void) {
-BuySomething(500, "Demon Tech Shotgun", 1);
+BuySomething(800, "Demon Tech Shotgun", 1);
 }
 
 Script "BuyM1887" (Void) {
-BuySomething(500, "M1887", 1);
+BuySomething(300, "M1887", 1);
 }
 
 Script "BuyRotatingDoubleBarrel" (Void) {
-BuySomething(500, "RotatingDoubleBarrel", 1);
+BuySomething(700, "RotatingDoubleBarrel", 1);
 }
 
 Script "BuyAK47" (Void) {
-BuySomething(500, "AK-47", 1);
+BuySomething(300, "AK-47", 1);
 }
 
 Script "BuyHeavySniperRifle" (Void) {
-BuySomething(500, "HeavySniperRifle", 1);
+BuySomething(800, "HeavySniperRifle", 1);
 }
 
 Script "BuyMagnumSniperRifle" (Void) {
-BuySomething(500, "MagnumSniperRifle", 1);
+BuySomething(350, "MagnumSniperRifle", 1);
 }
 
 Script "BuyBoltRifle" (Void) {
@@ -167,7 +159,7 @@ BuySomething(500, "PB_BoltRifle", 1);
 }
 
 Script "BuyM41A" (Void) {
-BuySomething(500, "M41A", 1);
+BuySomething(650, "M41A", 1);
 }
 
 Script "BuyPowerOverwhelming" (Void) {
@@ -175,7 +167,7 @@ BuySomething(500, "PowerOverwhelming", 1);
 }
 
 Script "BuyD4Machinegun" (Void) {
-BuySomething(500, "D4Machinegun", 1);
+BuySomething(400, "D4Machinegun", 1);
 }
 
 Script "BuyDarkFate" (Void) {
@@ -183,23 +175,23 @@ BuySomething(500, "Dark_Fate", 1);
 }
 
 Script "BuyHeavyAssaultRifle" (Void) {
-BuySomething(500, "Heavy_Assault_Rifle", 1);
+BuySomething(600, "Heavy_Assault_Rifle", 1);
 }
 
 Script "BuyINMiniGun" (Void) {
-BuySomething(500, "INMiniGun", 1);
+BuySomething(700, "INMiniGun", 1);
 }
 
 Script "BuyINNailGun" (Void) {
-BuySomething(500, "INNailGun", 1);
+BuySomething(650, "INNailGun", 1);
 }
 
 Script "BuyDragonSlayer" (Void) {
-BuySomething(500, "Fire_and_Ice-DragonSlayer", 1);
+BuySomething(900, "Fire_and_Ice-DragonSlayer", 1);
 }
 
 Script "BuyDukeNukemRipper" (Void) {
-BuySomething(500, "DukeNukemRipper", 1);
+BuySomething(800, "DukeNukemRipper", 1);
 }
 
 Script "BuyOLDHMG" (Void) {
@@ -211,7 +203,7 @@ BuySomething(500, "SuperNailgun", 1);
 }
 
 Script "BuyAutoCannon" (Void) {
-BuySomething(500, "AutoCannon", 1);
+BuySomething(650, "AutoCannon", 1);
 }
 
 Script "BuySuperGrenadeLauncher" (Void) {
@@ -219,19 +211,19 @@ BuySomething(500, "SuperGrenadeLauncher", 1);
 }
 
 Script "BuyExcavator" (Void) {
-BuySomething(500, "PB_Excavator", 1);
+BuySomething(800, "PB_Excavator", 1);
 }
 
 Script "BuyCyberdemonsMissileLauncher" (Void) {
-BuySomething(500, "CyberdemonsMissileLauncher", 1);
+BuySomething(900, "CyberdemonsMissileLauncher", 1);
 }
 
 Script "BuyMastermindChaingun" (Void) {
-BuySomething(500, "MastermindChaingun", 1);
+BuySomething(600, "MastermindChaingun", 1);
 }
 
 Script "BuyPaingiver" (Void) {
-BuySomething(500, "Paingiver", 1);
+BuySomething(700, "Paingiver", 1);
 }
 
 Script "BuyD4RocketLauncher" (Void) {
@@ -239,81 +231,81 @@ BuySomething(500, "D4RocketLauncher", 1);
 }
 
 Script "BuyPhaseEradicatorBFG" (Void) {
-BuySomething(500, "PhaseEradicatorBFG", 1);
+BuySomething(800, "PhaseEradicatorBFG", 1);
 }
 
 Script "BuyPlasmaRifleAssault" (Void) {
-BuySomething(500, "PlasmaRifleAssault", 1);
+BuySomething(800, "PlasmaRifleAssault", 1);
 }
 
 Script "BuyIonHeavy" (Void) {
-BuySomething(500, "Ion_Heavy", 1);
+BuySomething(600, "Ion_Heavy", 1);
 }
 
 Script "BuyExtinctionRay" (Void) {
-BuySomething(500, "Extinction_Ray", 1);
+BuySomething(750, "Extinction_Ray", 1);
 }
 
 Script "BuyBioAcidLauncher" (Void) {
-BuySomething(500, "BioAcidLauncher", 1);
+BuySomething(850, "BioAcidLauncher", 1);
 }
 
 Script "BuyThunderCarrierTI" (Void) {
-BuySomething(500, "ThunderCarrierTI", 1);
-}
-
-Script "BuyLightningGun" (Void) {
-BuySomething(500, "LightningGun", 1);
+BuySomething(900, "ThunderCarrierTI", 1);
 }
 
 Script "BuyAncientCrossbow" (Void) {
-BuySomething(500, "AncientCrossbow", 1);
+BuySomething(550, "AncientCrossbow", 1);
 }
 
 Script "BuyGaussCannon" (Void) {
-BuySomething(500, "PB_GaussCannon", 1);
+BuySomething(800, "PB_GaussCannon", 1);
 }
 
 Script "BuyD4PlasmaGun" (Void) {
-BuySomething(500, "D4PlasmaGun", 1);
+BuySomething(600, "D4PlasmaGun", 1);
 }
 
 Script "BuyD4VortexRifle" (Void) {
-BuySomething(500, "D4VortexRifle", 1);
+BuySomething(700, "D4VortexRifle", 1);
 }
 
 Script "BuyTechBlaster" (Void) {
-BuySomething(500, "TechBlaster", 1);
+BuySomething(800, "TechBlaster", 1);
 }
 
-Script "BuyThunderCrossbow" (Void) {
-BuySomething(500, "ThunderCrossbow", 1);
-}
+//Script "BuyThunderCrossbow" (Void) {
+//BuySomething(500, "ThunderCrossbow", 1);
+//}
 
 Script "BuyUnmaker64" (Void) {
-BuySomething(500, "Unmaker64", 1);
+BuySomething(900, "Unmaker64", 1);
 }
 
 Script "BuyBallistagun" (Void) {
-BuySomething(500, "Ballistagun", 1);
+BuySomething(800, "Ballistagun", 1);
 }
 
 Script "BuyLoRCalamityBlade" (Void) {
-BuySomething(500, "LoRCalamityBlade", 1);
+BuySomething(700, "LoRCalamityBlade", 1);
 }
 
 Script "BuyDemonTechMinigun" (Void) {
-BuySomething(500, "DemonTechMinigun", 1);
+BuySomething(800, "DemonTechMinigun", 1);
 }
 
 Script "BuyLegacyUnmaker" (Void) {
-BuySomething(500, "PB_LegacyUnmaker", 1);
+BuySomething(1200, "PB_LegacyUnmaker", 1);
+}
+
+Script "BuyDemonicExterminator" (Void) {
+BuySomething(1500, "PB_DemonExt", 1);
 }
 
 Script "BuyStormcast" (Void) {
-BuySomething(500, "Stormcast", 1);
+BuySomething(2000, "Stormcast", 1);
 }
 
 Script "BuyMancubusFlameCannon" (Void) {
-BuySomething(500, "MancubusFlameCannon", 1);
+BuySomething(1500, "MancubusFlameCannon", 1);
 }
