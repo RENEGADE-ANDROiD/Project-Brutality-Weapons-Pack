@@ -83,6 +83,20 @@ DSPGHIT1 DSPGHIT1
 DSPGHIT2 DSPGHIT2
 DSPGHIT3 DSPGHIT3
 
+//Katana//
+Katana/Miss	KTMIS
+Katana/DeSelect	KTDES
+Katana/Select	KTSEL
+Katana/Swing	KTSW
+Katana/Hit		KTHIT
+$random Katana/Thrust { Katana/Thrust1 Katana/Thrust2 Katana/Thrust3 Katana/Thrust4 Katana/Thrust5 Katana/Thrust6 }
+Katana/Thrust1 KTSB01
+Katana/Thrust2 KTSB02
+Katana/Thrust3 KTSB03
+Katana/Thrust4 KTSB04
+Katana/Thrust5 KTSB05
+Katana/Thrust6 KTSB06
+
 //SentinelHammer//
 HMSWING HMSWING
 

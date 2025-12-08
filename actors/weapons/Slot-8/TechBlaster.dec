@@ -192,12 +192,97 @@ Deselecting:
 		TNT1 A 0 A_GunFlash("Null")
 		TNT1 AAA 1 PB_Execute() // Check if monster can be executed, jump to execution handler instead
 	GoMeleeInstead:
-		TNT1 A 0 A_PlaySound("HMSWING", 50)
-		TNT1 A 0 A_PlaySound("AXSWING", 45)
-		SHPB M 1 A_SetAngle(angle+5)
-		TNT1 A 0 A_FireCustomMissile("AxeAttack", 0, 0)
-		SHPB NOPQ 1 A_SetAngle(angle+5)
-		TNT1 AAAAAA 1 A_SetAngle(angle-1,5)
+		TNT1 A 0 {
+				A_PlaySound("Katana/Swing");
+				A_SetRoll(0);
+				A_GiveInventory("KatanaSequence1");
+			}
+		KTNA I 1 
+		KTNA JK 1
+		TNT1 A 0 {
+				if (CountInv("PB_PowerStrength") >= 1 ) {
+					A_Saw("", "", 16, "AxePuffs", 0, 120, 0,16);
+					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);			
+					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);
+				}
+				else {
+					A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16);
+					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);
+				}			
+			}
+		KTNA LMNO 1 
+		{
+				A_Setroll(roll-1.0, SPF_INTERPOLATE);
+				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
+		}		
+		TNT1 AAA 1 
+		{
+				A_Setroll(roll+1.0, SPF_INTERPOLATE);
+				A_SetAngle(angle-0.5, SPF_INTERPOLATE);
+			}
+		TNT1 AAA 1 
+		{
+				A_Setroll(roll+1.0, SPF_INTERPOLATE);
+				A_SetAngle(angle-0.5, SPF_INTERPOLATE);
+				return A_DoPBWeaponAction;
+			}
+		KTNA ABC 1
+		TNT1 A 0 {
+				A_PlaySound("Katana/Swing");
+				A_SetRoll(0);
+				A_TakeInventory("KatanaSequence1");
+				A_GiveInventory("KatanaSequence2");
+			}	
+		KTBA JK 1
+		TNT1 A 0 {
+				if (CountInv("PB_PowerStrength") >= 1 ) {
+					A_Saw("", "", 16, "AxePuffs", 0, 120, 0,16);
+					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);			
+					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);
+				}
+				else {
+					A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16);
+					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);
+				}			
+			}
+		KTBA LMNO 1
+		{
+				A_Setroll(roll+1.0, SPF_INTERPOLATE);
+				A_SetAngle(angle-0.5, SPF_INTERPOLATE);
+			}
+		TNT1 AAA 1 {
+				A_Setroll(roll-1.0, SPF_INTERPOLATE);
+				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
+			}
+		TNT1 AAA 1 {
+				A_Setroll(roll-1.0, SPF_INTERPOLATE);
+				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
+				return A_DoPBWeaponAction;
+			}
 		TNT1 A 7 {
 			 if(JustPressed(BT_USER2)) {return PB_Execute();}
 			 return state("");
