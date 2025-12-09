@@ -17,8 +17,8 @@ class ShieldGrenadeCard : equipmentCard
 		tags.push("Shield Grenade");
 		tokens.push("WW_ShieldSelected");
 		img.push("graphics/Equipments/shieldgrenade.PNG");
-		sx.push(1.0);
-		sy.push(1.0);
+		sx.push(1.1);
+		sy.push(1.1);
 	}
 }
 
@@ -77,8 +77,8 @@ class AxeCard : equipmentCard
 		tags.push("Axe");
 		tokens.push("WW_AxeSelected");
 		img.push("graphics/Equipments/axe.png");
-		sx.push(0.3);
-		sy.push(0.3);
+		sx.push(0.5);
+		sy.push(0.5);
 	}
 }
 
