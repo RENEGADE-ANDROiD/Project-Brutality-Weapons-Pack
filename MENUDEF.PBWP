@@ -243,6 +243,10 @@ OptionMenu "WeaponPackSpawnSettings"
 OptionMenu "AmmunitionShopSystem"
 {
 	Title "Project Brutality Combat Rating Menu"
+	StaticText "Don't forget to bind the Show combat points key in the settings", white
+	StaticText " "
+	Control "Show combat points:  ", "+PB_CRSHW"
+	StaticText " "
 	StaticText "------------ Shop For Buying Ammunition ------------", 1
 	StaticText " "
 	Command "Buy 20 Shells (100 Points)",		"PukeName BuyShells"
