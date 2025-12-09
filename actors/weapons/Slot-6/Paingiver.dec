@@ -204,6 +204,7 @@ Actor Paingiver : PBWP_Weapon
 		TNT1 A 0 {
 			 PB_SetUsingMelee(false);
 		     }
+		TNT1 A 0 PB_CheckBarrelIdle1()
 		Goto Ready
 
 	AltFire:

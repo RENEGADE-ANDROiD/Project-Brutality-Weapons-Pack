@@ -179,13 +179,7 @@ ACTOR ThunderCarrierTI : PBWP_Weapon
 		TNT1 A 0 {
 			 PB_SetUsingMelee(false);
 		     }
-		Goto Ready		TNT1 A 7 {
-			 if(JustPressed(BT_USER2)) {return PB_Execute();}
-			 return state("");
-		     }
-		TNT1 A 0 {
-			 PB_SetUsingMelee(false);
-		     }
+		TNT1 A 0 PB_CheckBarrelIdle1()
 		Goto Ready
 
 	AltFire:

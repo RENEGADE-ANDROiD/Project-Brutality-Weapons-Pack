@@ -358,6 +358,7 @@ ACTOR Extinction_Ray : PBWP_Weapon //Flamethrower?
 		TNT1 A 0 {
 			 PB_SetUsingMelee(false);
 		     }
+		TNT1 A 0 PB_CheckBarrelIdle1()
 		Goto Ready
 
 	AltFire:

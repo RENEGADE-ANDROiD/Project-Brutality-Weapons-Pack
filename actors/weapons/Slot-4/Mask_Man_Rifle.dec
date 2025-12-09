@@ -284,7 +284,7 @@ ACTOR MaskMan_Rifle : PBWP_Weapon 26051
 		TNT1 A 0 {
 			 PB_SetUsingMelee(false);
 		     }
-		TNT1 A 0 
+		TNT1 A 0 PB_CheckBarrelIdle1()
 		Goto Ready
 
     AltFire:
