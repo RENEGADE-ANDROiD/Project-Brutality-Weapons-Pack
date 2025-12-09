@@ -63,6 +63,7 @@
 #INCLUDE ACTORs/Weapons/Slot-2/DTPISTOL.dec
 #INCLUDE ACTORs/Weapons/Slot-2/UZISMG.dec
 	//Slot-3
+#INCLUDE ACTORs/Weapons/Slot-3/Prosurv_LeverAction.dec
 #INCLUDE ACTORs/Weapons/Slot-3/Lady_Golide.dec
 #INCLUDE ACTORs/Weapons/Slot-3/RotationalSG(AresMade).dec 
 #INCLUDE ACTORs/Weapons/Slot-3/D2016SHOTGUN.dec	//BORING GUN // Skill Issue :cacotroll:

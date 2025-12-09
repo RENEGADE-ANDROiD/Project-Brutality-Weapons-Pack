@@ -53,6 +53,7 @@ TEAM MEMBERS:
 
 ---------------Slot 2 weapons---------------
 
+- Plasma Blaster
 - 44 PDW
 - Beretta 92
 - Beretta 92 Silenced
@@ -65,6 +66,7 @@ TEAM MEMBERS:
 
 ---------------Slot 3 weapons---------------
 
+- ProSurv Shotgun
 - Commander SSG
 - Cryo Shotgun
 - Demon-Tech Shotgun
@@ -78,6 +80,8 @@ TEAM MEMBERS:
 
 ---------------Slot 4 weapons---------------
 
+- LeverAction Rifle
+- Ballista
 - AK-47
 - Bolt-Action Sniper
 - Dark Fate

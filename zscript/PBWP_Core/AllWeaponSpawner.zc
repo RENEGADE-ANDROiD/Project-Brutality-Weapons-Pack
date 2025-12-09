@@ -282,9 +282,7 @@ class PB_44PDWSpawnerInjector : PBInjector
 }
 
 //SLOT 3 ===================================================================================== 3 ==
-
 //2016 Shotgun
-
 class PB_Doom2016ShotgunSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
@@ -448,6 +446,21 @@ class RotatingDoubleBarrelSpawnerInjector : PBInjector
 }
 
 //SLOT 4 ===================================================================================== 4 ==
+
+//Prosurv LeverAction
+class LeverActionSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnProsurv_LeverAction)
+		{
+		handler.InjectSpawn('PB_ShotSpawnerT1', 'Prosurv_LeverAction', 255, 1);
+		handler.InjectSpawn('PB_ShotSpawnerT2', 'Prosurv_LeverAction', 255, 1);
+		handler.InjectSpawn('PB_ShotSpawnerT3', 'Prosurv_LeverAction', 255, 1);
+		handler.InjectSpawn('PB_ShotSpawnerT4', 'Prosurv_LeverAction', 255, 1);
+		}
+	}
+}
 
 //AK-47 - IN
 class PB_AK47SpawnerInjector : PBInjector

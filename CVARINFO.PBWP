@@ -29,6 +29,7 @@ server bool PBSpawnPB_ArgentSith = True;
 server bool PBSpawnBattleAxe = True;
 server bool PBSpawnRazorjack = True;
 //Slot 2
+server bool PBSpawnProsurv_PlasmaBlaster = true;
 server bool PBSpawn44PDW = True;
 server bool PBSpawnIN_Beretta = True;
 server bool PBSpawnB92S = True;
@@ -39,6 +40,7 @@ server bool PBSpawnHellPistol = True;
 server bool PBSpawnHellPistoler = True;
 server bool PBSpawnW_SMG = True;
 //Slot 3
+server bool PBSpawnProsurv_Shotgun = true;
 server bool PBSpawnPB_Doom2016Shotgun = True;	//BORING GUN // Skill Issue :Cacotroll:
 server bool PBSpawnPB_CryoShotgun = True;
 server bool PBSpawnPB_CSSG = True;
@@ -50,6 +52,8 @@ server bool PBSpawnM1887 = True;
 server bool PBSpawnMarauderSSG = True;
 server bool PBSpawnRotatingDoubleBarrel = True;
 //Slot 4
+server bool PBSpawnProsurv_LeverAction = true;
+server bool PBSpawnProsurv_Ballista = true;
 server bool PBSpawnAK47 = True;
 server bool PBSpawnPB_BoltRifle = True;
 server bool PBSpawnDark_Fate = True;
