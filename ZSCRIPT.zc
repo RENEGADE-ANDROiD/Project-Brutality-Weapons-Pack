@@ -38,7 +38,7 @@ version "4.14.3"
 #include "zscript/Weapons/Slot-3/CSSG/CSSG_Wheel.zs"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExt_Wheel.zs"
 #include "zscript/Insanity's Nightmare/IN_SpecialWheeltest.zs"
-#include "Zscript/PBWP_Misc/Individual_WeaponWheels/D2016Shotgun_Wheel.zs" //BORING GUN // SKill Issue :cacotroll:
+#include "Zscript/PBWP_Misc/Individual_WeaponWheels/D2016Shotgun_Wheel.zs" 
 #include "Zscript/PBWP_Misc/Individual_WeaponWheels/ASG_Wheel.zs"
 // Casings
 #include "zscript/Weapons/Slot-3/CSSG/Casings.zs"
