@@ -48,7 +48,7 @@ TEAM MEMBERS:
 ---------------Slot 1 weapons---------------
 
 - Energy Beam Katana
-- Argent Sith Beam Katana
+- Argent Sith Beam Katana (upgrades over Energy Beam)
 - BattleAxe and Shield from Schism
 - Razorjack from Russian Overkill
 
@@ -56,12 +56,10 @@ TEAM MEMBERS:
 
 - Plasma Blaster
 - 44 PDW
-- Beretta 92
 - Beretta 92 Silenced
 - Demon-Tech Pistol
 - Doom Blaster
 - Holy Bastard
-- Johnny Silverhands' Deagle
 - Plasma Annihilator Pistol
 - UZI SMG
 
@@ -132,7 +130,6 @@ TEAM MEMBERS:
 - Bio-Acid Launcher
 - Ballista
 - Stormcast from Schism
-- Thunder Crossbow from Brutal Hexen
 
 ---------------Slot 0 weapons---------------
 
