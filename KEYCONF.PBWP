@@ -122,6 +122,7 @@ Addslotdefault 1 PB_ArgentSith
 addslotdefault 1 BattleAxe
 addslotdefault 1 Razorjack
 // Slot 2
+addslotdefault 2 ProSurv_BlasterPistol
 addslotdefault 2 44PDW
 addslotdefault 2 B92S
 addslotdefault 2 DoomBlaster
@@ -130,6 +131,7 @@ addslotdefault 2 P_SMG
 addslotdefault 2 HellPistoler
 addslotdefault 2 UZISMG
 // Slot 3
+addslotdefault 3 Prosurv_LeverAction
 addslotdefault 3 HASG
 addslotdefault 3 HexaLionShotgun
 addslotdefault 3 SSG
@@ -140,7 +142,7 @@ addslotdefault 3 "Demon Tech Shotgun"
 addslotdefault 3 M1887
 addslotdefault 3 RotatingDoubleBarrel
 // Slot 4
-addslotdefault 4 Prosurv_LeverAction
+addslotdefault 4 Prosurv_Ballista
 addslotdefault 4 AK-47
 addslotdefault 4 HeavySniperRifle
 addslotdefault 4 MagnumSniperRifle

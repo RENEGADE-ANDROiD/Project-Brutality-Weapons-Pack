@@ -66,7 +66,7 @@ TEAM MEMBERS:
 
 ---------------Slot 3 weapons---------------
 
-- ProSurv Shotgun
+- LeverAction Rifle
 - Commander SSG
 - Cryo Shotgun
 - Demon-Tech Shotgun
@@ -80,7 +80,6 @@ TEAM MEMBERS:
 
 ---------------Slot 4 weapons---------------
 
-- LeverAction Rifle
 - Ballista
 - AK-47
 - Bolt-Action Sniper
