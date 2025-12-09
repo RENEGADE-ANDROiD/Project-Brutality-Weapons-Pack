@@ -6,13 +6,13 @@ See PB Weapon Pack Options to configure:
 
 - Combat Points Weapons Shop
 
+- KILLSTREAKS from SHOO KREW PB-Pand Edition
+
 - Random Weapon Switcher by BROS_ETT_311:  Allows you to randomize the weapons in your hand at random intervals.
 
 - Behold! by BobQuickSaveSmith: Allows you to revive upon death (works when alive as well); giving you a handful of weapons and random Boss Enemies to battle.
   
 - DOORBUSTER from BDP - Bust down doors (if you want)
-
---KILLSTREAKS from SHOO KREW PB-Pand Edition--
 
 -----------------
 Recommended Load order: Mapwad > Project Brutality Staging > Glory Kills addon > PB Monster Pack > Project Malice Monsters > PB patch for Project Malice > PB Weapon Pack  
@@ -41,6 +41,7 @@ TEAM MEMBERS:
 - Warcarlsson
 - Doc
 - JhulkerCraft
+- Runner
 
 -----------------
 
