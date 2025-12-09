@@ -87,7 +87,7 @@ BuySomething(500, "44PDW", 1);
 }
 
 Script "BuyB92S" (Void) {
-BuySomething(300, "DoomB92S", 1);
+BuySomething(300, "B92S", 1);
 }
 
 Script "BuyDoomBlaster" (Void) {
