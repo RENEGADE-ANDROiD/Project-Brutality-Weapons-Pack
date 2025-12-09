@@ -127,6 +127,15 @@ Katana/Thrust6 KTSB06
 //SentinelHammer//
 HMSWING HMSWING
 
+//Shurikens//
+STRCLNK STRCLNK
+PULL	PULL
+PUNCH	PUNCH
+TACK1	TACK1
+$random sticky { sticky1 sticky2 }
+sticky1 STICKY1R
+sticky2 STICKY2R
+
 //ImpactorGauntlet//
 weapons/IMGRaise	IMGARAIS
 weapons/IMGCok		IMGACOK

@@ -46,6 +46,7 @@
 //MELEE//
 #INCLUDE ACTORs/Weapons/Melee/JohnnyFlames.dec
 #INCLUDE ACTORs/Weapons/Melee/Katana.dec
+#INCLUDE ACTORs/Weapons/Melee/Shurikens.dec
 
 //Weapons
 	//Slot-1
