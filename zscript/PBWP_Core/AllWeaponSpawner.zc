@@ -5,6 +5,7 @@ GLOSSARY:
 * DTECH = Demon Tech Weapons Pack
 * SCHISM & F&I = Schism / Fire & Ice
 * D2016 = Doom 2016 Weapon's Pack
+* ProSurv = Project Survival
 =================================================*/
 
 //UNUSED
@@ -168,6 +169,21 @@ class RazorjackSpawnerInjector : PBInjector
 
 //SLOT 2 ===================================================================================== 2 ==
 
+// ProSurv - Plasma Blaster
+class BlasterPistolSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if(PBSpawnProsurv_PlasmaBlaster)
+		{
+			handler.InjectSpawn('PB_PistolSpawnerT1', 'ProSurv_BlasterPistol', 255, 1);
+			handler.InjectSpawn('PB_PistolSpawnerT2', 'ProSurv_BlasterPistol', 255, 1);
+			handler.InjectSpawn('PB_PistolSpawnerT3', 'ProSurv_BlasterPistol', 255, 1);
+			handler.InjectSpawn('PB_PistolSpawnerT4', 'ProSurv_BlasterPistol', 255, 1);
+		}
+	}
+}
+
 //Beretta92 Silenced - IN
 class B92SSpawnerInjector : PBInjector
 {
@@ -283,8 +299,22 @@ class PB_44PDWSpawnerInjector : PBInjector
 
 //SLOT 3 ===================================================================================== 3 ==
 
-//2016 Shotgun
+//Prosurv LeverAction
+class LeverActionSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnProsurv_LeverAction)
+		{
+		handler.InjectSpawn('PB_ShotSpawnerT1', 'Prosurv_LeverAction', 255, 1);
+		handler.InjectSpawn('PB_ShotSpawnerT2', 'Prosurv_LeverAction', 255, 1);
+		handler.InjectSpawn('PB_ShotSpawnerT3', 'Prosurv_LeverAction', 255, 1);
+		handler.InjectSpawn('PB_ShotSpawnerT4', 'Prosurv_LeverAction', 255, 1);
+		}
+	}
+}
 
+//2016 Shotgun
 class PB_Doom2016ShotgunSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
@@ -448,6 +478,21 @@ class RotatingDoubleBarrelSpawnerInjector : PBInjector
 }
 
 //SLOT 4 ===================================================================================== 4 ==
+
+//ProSurv - Ballista
+class BallistaSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		if(PBSpawnProsurv_Ballista)
+		{
+			handler.InjectSpawn('PB_MGSpawnerT1', 'Prosurv_Ballista', 255, 1);
+			handler.InjectSpawn('PB_MGSpawnerT2', 'Prosurv_Ballista', 255, 1);
+			handler.InjectSpawn('PB_MGSpawnerT3', 'Prosurv_Ballista', 255, 1);
+			handler.InjectSpawn('PB_MGSpawnerT4', 'DemonicBallista', 255, 1);
+		}
+	}
+}
 
 //AK-47 - IN
 class PB_AK47SpawnerInjector : PBInjector

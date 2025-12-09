@@ -83,6 +83,33 @@ DSPGHIT1 DSPGHIT1
 DSPGHIT2 DSPGHIT2
 DSPGHIT3 DSPGHIT3
 
+// ProSurv Weapons
+// Ballista
+weapons/ballista/raise "sounds/combat/weapons/ProSurv - Ballista/ballista_raise.ogg"
+weapons/ballista/firebolt "sounds/combat/weapons/ProSurv - Ballista/ballista_fire_bolt.ogg"
+weapons/ballista/firedemonic "sounds/combat/weapons/ProSurv - Ballista/ballista_fire_demonic.ogg"
+weapons/ballista/firerazor "sounds/combat/weapons/ProSurv - Ballista/ballista_fire_razor.ogg"
+weapons/ballista/drawstring "sounds/combat/weapons/ProSurv - Ballista/ballista_draw_string.ogg"
+weapons/ballista/razor "sounds/combat/weapons/ProSurv - Ballista/ballista_razor.ogg"
+weapons/ballista/boltin "sounds/combat/weapons/ProSurv - Ballista/ballista_bolt_in.ogg"
+weapons/ballista/boltout "sounds/combat/weapons/ProSurv - Ballista/ballista_bolt_out.ogg"
+weapons/ballista/boltinoutdemonic "sounds/combat/weapons/ProSurv - Ballista/ballista_bolt_in_out_demonic.ogg"
+
+// Plasma Blaster
+weapons/blasterpistol/ready "sounds/combat/weapons/ProSurv - BlasterPistol/blaster_pistol_ready.ogg"
+weapons/blasterpistol/recharge "sounds/combat/weapons/ProSurv - BlasterPistol/blaster_pistol_recharge.ogg"
+weapons/blasterpistol/fire "sounds/combat/weapons/ProSurv - BlasterPistol/blaster_pistol_fire.ogg"
+
+// Lever Action
+weapons/leveraction/raise "sounds/combat/weapons/ProSurv - LeverAction/lever_action_raise.ogg"
+weapons/leveraction/inspect "sounds/combat/weapons/ProSurv - LeverAction/lever_action_inspect.ogg"
+weapons/leveraction/flip "sounds/combat/weapons/ProSurv - LeverAction/lever_action_flip.ogg"
+weapons/leveraction/openchamber "sounds/combat/weapons/ProSurv - LeverAction/lever_action_openchamber.ogg"
+weapons/leveraction/rechamber "sounds/combat/weapons/ProSurv - LeverAction/lever_action_rechamber.ogg"
+weapons/leveraction/loadshell "sounds/combat/weapons/ProSurv - LeverAction/lever_action_loadshell.ogg"
+weapons/leveraction/fire "sounds/combat/weapons/ProSurv - LeverAction/lever_action_fire.ogg"
+weapons/leveraction/magfire "sounds/combat/weapons/ProSurv - LeverAction/lever_action_magfire.ogg"
+
 //Katana//
 Katana/Miss	KTMIS
 Katana/DeSelect	KTDES
