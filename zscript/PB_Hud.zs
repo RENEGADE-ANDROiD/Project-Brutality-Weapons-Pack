@@ -1412,7 +1412,7 @@ class PB_Hud_ZS : BaseStatusBar
 						PBHud_DrawString(mDefaultFont, Formatnumber(GetAmount("PB_RocketAmmo")), (-207, -90), DI_TEXT_ALIGN_RIGHT, Font.CR_RED);
 						break;
 					case 'Prosurv_Ballista':
-						if(!CheckInventory("BallistaDemonicMode"))
+						if(CheckInventory("BallistaDemonicMode"))
 						{
 							PBHud_DrawImage("BARBACZ3", (-90, -71), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
 							PBHud_DrawBar("ABAR6", "BGBARL", GetAmount("PB_Fuel"), GetMaxAmount("PB_Fuel"),
