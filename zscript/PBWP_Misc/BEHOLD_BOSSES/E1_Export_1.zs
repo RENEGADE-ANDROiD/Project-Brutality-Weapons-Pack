@@ -1,3 +1,22 @@
+class E1Boss : Actor
+{
+	Default {
+		Radius 8;
+		Height 16;
+		RenderRadius 128;
+		+SOLID;
+		-SHOOTABLE;
+		+NODAMAGE;
+		+NOGRAVITY;
+	}
+	
+		States {
+		Spawn:
+			NO3D A 35;
+			Loop;
+	}
+}
+
 Class E1_Export_1 : Actor {
 	Default {
 		Radius 8;

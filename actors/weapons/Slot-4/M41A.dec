@@ -58,7 +58,7 @@ Actor EmptyM309Clip : EmptyMagBase
    }
 }
 
-ACTOR M41AGrenade
+ACTOR M41AGrenade : PB_Projectile
 {
 	Radius 4
 	Height 4

@@ -1,71 +1,76 @@
 class KillTracker : EventHandler
 {
     int lastKillCounts[MAXPLAYERS]; // Track killstreak for each player
-
     override void WorldLoaded(WorldEvent e)
     {
-        for (int i = 0; i < MAXPLAYERS; i++)
+        if(KillstreakIsOn)
         {
-            lastKillCounts[i] = players[i].mo ? players[i].killcount : 0;
-
-            // Remove all KillStreak tokens
-            if (players[i].mo)
+            for (int i = 0; i < MAXPLAYERS; i++)
             {
-                PB_PlayerPrawn plr = PB_PlayerPrawn(players[i].mo);
-                Inventory token;
-                while ((token = plr.FindInventory("KillStreakActive")))
-                    token.Destroy();
-                while ((token = plr.FindInventory("KillStreak")))
-                    token.Destroy();
+                lastKillCounts[i] = players[i].mo ? players[i].killcount : 0;
+
+                // Remove all KillStreak tokens
+                if (players[i].mo)
+                {
+                    PB_PlayerPrawn plr = PB_PlayerPrawn(players[i].mo);
+                    Inventory token;
+                    while ((token = plr.FindInventory("KillStreakActive")))
+                        token.Destroy();
+                    while ((token = plr.FindInventory("KillStreak")))
+                        token.Destroy();
+                }
             }
         }
     }
 
     override void WorldThingDied(WorldEvent e)
     {
-        // Only consider monsters, not decorations or friendlies
-        if (e.Thing && e.Thing.bIsMonster && !(e.Thing is "SwitchableDecoration"))
+        if(KillstreakIsOn)
         {
-            PB_PlayerPrawn killer = null;
-            // Use Inflictor if possible, else fallback to target
-            if (e.Inflictor && (e.Inflictor is "PlayerPawn" || e.Inflictor is "PB_PlayerPrawn"))
+            // Only consider monsters, not decorations or friendlies
+            if (e.Thing && e.Thing.bIsMonster && !(e.Thing is "SwitchableDecoration"))
             {
-                killer = PB_PlayerPrawn(e.Inflictor);
+                PB_PlayerPrawn killer = null;
+                // Use Inflictor if possible, else fallback to target
+                if (e.Inflictor && (e.Inflictor is "PlayerPawn" || e.Inflictor is "PB_PlayerPrawn"))
+                {
+                    killer = PB_PlayerPrawn(e.Inflictor);
+                }
+                else if (e.Thing.target && (e.Inflictor is "PlayerPawn" || e.Thing.target is "PB_PlayerPrawn"))
+                {
+                    killer = PB_PlayerPrawn(e.Thing.target);
+                }
+
+                if (killer && killer.FindInventory("KillStreakActive"))
+                {
+                    int playernum = killer.PlayerNumber();
+                    int lastCount = lastKillCounts[playernum];
+                    int currentCount = lastCount + 1;
+
+                    String streakSound = GetStreakSound(currentCount);
+                    if (streakSound != "")
+                        killer.A_StartSound(streakSound, CHAN_AUTO);
+                    if (currentCount % 5 == 0)
+                        GiveKillReward(killer, currentCount);
+
+                    lastKillCounts[playernum] = currentCount;
+                }
             }
-            else if (e.Thing.target && (e.Inflictor is "PlayerPawn" || e.Thing.target is "PB_PlayerPrawn"))
+
+            // If a player died: clear their tokens and reset streak
+            if (e.Thing && (e.Inflictor is "PlayerPawn" || e.Thing is "PB_PlayerPrawn"))
             {
-                killer = PB_PlayerPrawn(e.Thing.target);
+                PB_PlayerPrawn plr = PB_PlayerPrawn(e.Thing);
+                if(!plr) return;
+                int playernum = plr.PlayerNumber();
+                lastKillCounts[playernum] = players[playernum].killcount;
+                plr.A_startsound("DSPLDETH");
+                Inventory token;
+                while ((token = plr.FindInventory("KillStreakActive")))
+                    token.Destroy();
+                while ((token = plr.FindInventory("KillStreak")))
+                    token.Destroy();
             }
-
-            if (killer && killer.FindInventory("KillStreakActive"))
-            {
-                int playernum = killer.PlayerNumber();
-                int lastCount = lastKillCounts[playernum];
-                int currentCount = lastCount + 1;
-
-                String streakSound = GetStreakSound(currentCount);
-                if (streakSound != "")
-                    killer.A_StartSound(streakSound, CHAN_AUTO);
-                if (currentCount % 5 == 0)
-                    GiveKillReward(killer, currentCount);
-
-                lastKillCounts[playernum] = currentCount;
-            }
-        }
-
-        // If a player died: clear their tokens and reset streak
-        if (e.Thing && (e.Inflictor is "PlayerPawn" || e.Thing is "PB_PlayerPrawn"))
-        {
-            PB_PlayerPrawn plr = PB_PlayerPrawn(e.Thing);
-			if(!plr) return;
-            int playernum = plr.PlayerNumber();
-            lastKillCounts[playernum] = players[playernum].killcount;
-			plr.A_startsound("DSPLDETH");
-            Inventory token;
-            while ((token = plr.FindInventory("KillStreakActive")))
-                token.Destroy();
-            while ((token = plr.FindInventory("KillStreak")))
-                token.Destroy();
         }
     }
 
@@ -138,7 +143,7 @@ class KillTracker : EventHandler
             case 25:
                 plr.GiveInventory("PB_PowerInvul",1);
                 plr.GiveInventory("PB_Backpack", 1);
-PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Wicked Sick",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
+                PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Wicked Sick",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
                 PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Invulnerability and Backpack  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 30:
@@ -164,24 +169,27 @@ bool RareItemDropped;
 
     override void WorldThingDied(WorldEvent e)
     {
-        if (!RareItemDropped && e.Thing && e.Thing.bIsMonster)
+        if(KillstreakIsOn)
         {
-            PB_Monster m = PB_Monster(e.Thing);
-            //PandMonster p = PandMonster(e.Thing);
-
-            if (Random(1, 100) <= 20) // 20% chance per death
+            if (!RareItemDropped && e.Thing && e.Thing.bIsMonster)
             {
-                if (m != null)
+                PB_Monster m = PB_Monster(e.Thing);
+                //PandMonster p = PandMonster(e.Thing);
+
+                if (Random(1, 100) <= 20) // 20% chance per death
                 {
-                    //m.DropKillstreak();
-					m.Spawn("Killstreak", m.pos, NO_REPLACE);
-                    RareItemDropped = true;
+                    if (m != null)
+                    {
+                        //m.DropKillstreak();
+                        m.Spawn("Killstreak", m.pos, NO_REPLACE);
+                        RareItemDropped = true;
+                    }
+                    /*else if (p != null)
+                    {
+                        p.DropKillstreak();
+                        RareItemDropped = true;
+                    }*/
                 }
-                /*else if (p != null)
-                {
-                    p.DropKillstreak();
-                    RareItemDropped = true;
-                }*/
             }
         }
     }

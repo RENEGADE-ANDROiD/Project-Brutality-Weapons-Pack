@@ -56,13 +56,13 @@ ListMenu "MainMenu"
 
 OptionMenu "ttwcoptions"
 {
-	Title "-------PB Weapon Pack Settings-------"
+	Title "PB Weapon Pack Settings"
     StaticText ""
-	Submenu "$PBWP_WeaponBehaviour_OPTIONS", "WeaponBehavioursSettings"
+	Submenu "$PBWP_General_OPTIONS", "GeneralSettings"
 	Submenu "$PBWP_WeaponSpawns_OPTIONS", "WeaponPackSpawnSettings"
 	Submenu "$PBWP_MonsterDrop_OPTIONS", "MonsterDropWeapSett"
 	StaticText ""
-    StaticText "-------Extras-------"
+    StaticText "Extras"
 	StaticText ""
 	SubMenu "$PBWP_COMBAT_RATING_SHOP", "AmmunitionShopSystem"
 	Submenu "$PBWP_QUICKSWITCHER", "SwitchItUpOptions"
@@ -74,11 +74,12 @@ OptionMenu "ttwcoptions"
 	StaticText "Project Brutality Weapons Pack Version: 1.7-Release"
 }
 
-OptionMenu "WeaponBehavioursSettings"
+OptionMenu "GeneralSettings"
 {
-	Title "Weapon Behaviour Settings"
+	Title "General Settings"
 	Option "Primary fire will trigger executions", "ttwcfbex", "OnOff"
 	Option "Custom Melee Animation for Certain Weapons", "CustomMelee", "OnOff"
+	Option "Killstreak is enabled", "KillstreakIsOn", "OnOff"
 }
 
 OptionMenu "MonsterDropWeapSett"
