@@ -1,7 +1,7 @@
 [enu default]
 
 // MENU STUFFS
-PBWP_WeaponBehaviour_OPTIONS = "\ch⍟\c- Weapon Behaviour Settings";
+PBWP_General_OPTIONS = "\ch⍟\c- General Settings";
 PBWP_WeaponSpawns_OPTIONS = "\cg☠\c- Weapon Spawn Settings";
 PBWP_MonsterDrop_OPTIONS = "\cv⛧\c- Monster Drop Settings";
 PBWP_COMBAT_RATING_SHOP = "\cf★\c- Combat Rating Weapons Shop";
