@@ -2,6 +2,12 @@
 //AddMenuKey "Use Meat Hook" meathook
 //alias meathook "puke 6005"
 
+//MeleeMenu
+addkeysection "PBWP Keys" PBWP_KEY
+   Alias +pbwp_meleemenu 				   "event pb_melee_wheel"
+   Alias -pbwp_meleemenu 				   "event pb_melee_wheel_up"
+AddMenuKey "$PBWP_TOGGLE_MELEE_MENU"   +pbwp_meleemenu
+
 addkeysection "Combat Rating Points" PB_CRSys
 addmenukey "Show combat points:  " PB_CRSHW
    alias PB_CRSHW "pukename ShowPoints"

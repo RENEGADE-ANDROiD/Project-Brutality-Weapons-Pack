@@ -18,6 +18,8 @@ class PBWP_Spawner : PB_SpawnerBase
 // Credits to Jaih1r0 again for this functions from the HeavySniper, CSSG, and DemonExt mod
 class PBWP_Weapon : PB_Weapon
 {
+	action bool PressingUser2(){return player.cmd.buttons & BT_USER2;}
+
     //If ammo is less than min, go to state. Default is "Reload:" state
     Action state PB_CheckAmmoFire(int min = 1, statelabel Relstate = "Reload")
 	{
