@@ -46,8 +46,9 @@ Actor PB_ArgentSith : PBWP_Weapon
 	    Goto Ready
 
    Ready:
-        	TNT1 A 0
+        TNT1 A 0
 		TNT1 A 0 A_TakeInventory("PB_BeamKatana",99)
+		TNT1 A 0 A_GiveInventory("AlreadyHaveArgentSith",1)
    SelectAnimation:
 	    	TNT1 A 0 {
 			A_SetRoll(0);

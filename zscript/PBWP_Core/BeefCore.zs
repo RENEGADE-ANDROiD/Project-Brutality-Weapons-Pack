@@ -8,9 +8,9 @@ class PBWP_Spawner : PB_SpawnerBase
     // See example in the marauder spawner
     action bool PlayerAlreadyHas(string inv)
 	{
-		PlayerInfo p = players[0];
+		let p = players[0];
     	if (p && p.mo)
-        return p.mo.FindInventory(inv) != null;
+        return p.mo.CountInv(inv);
         return false;
     }
 }

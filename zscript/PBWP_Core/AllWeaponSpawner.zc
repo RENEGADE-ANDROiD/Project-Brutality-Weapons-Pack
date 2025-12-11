@@ -118,8 +118,8 @@ class PB_BeamKatanaSpawnerInjector : PBInjector
 	{
 	if (PBSpawnPB_BeamKatana)
 		{
-		handler.InjectSpawn("PB_SawSpawnerT1", "PB_BeamKatana", 255, 1);
-		handler.InjectSpawn("PB_SawSpawnerT2", "PB_BeamKatana", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT1", "BeamKatanaSpawner", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT2", "BeamKatanaSpawner", 255, 1);
 		}
 	}
 }
