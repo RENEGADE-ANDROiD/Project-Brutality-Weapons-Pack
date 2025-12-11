@@ -18,12 +18,13 @@ Class MarauderDropSpawner : PBWP_Spawner
 		Spawn:
 		GivePermanentThings:
 			TNT1 A 0 A_print("Succesfully Initialized GivePermanent");
-			TNT1 A 0 A_Jumpif(PlayerAlreadyHas("AlreadyHaveMeatHook"),"GiveNoHook"); 
+			//TNT1 A 0 A_JumpIfInventory("AlreadyHaveMeathook", 1, "GiveNoHook", AAPTR_PLAYER0);
+			TNT1 A 0 A_JumpIf(players[consoleplayer].mo.CountInv("AlreadyHaveMeatHook") == 1,"GiveNoHook"); 
             TNT1 A 0 PB_SpawnerSpawn("HookGiverSpawner");
 			TNT1 A 0 PB_SpawnerSpawn("MarauderSSGSpawner");
 			Goto StartChoose; //ALWAYS GO TO THIS AFTER REPLACING SPAWN:
 		GiveNoHook:
-			TNT1 A 0 A_print("Succesfully Checked Inventory");
+			//TNT1 A 0 A_print("Succesfully Checked Inventory");
 			TNT1 A 0 PB_SpawnerSpawn("MarauderSSGSpawner");
 			Goto StartChoose;
 		Tier4:
@@ -61,13 +62,15 @@ Class MastermindCGSpawner : PBWP_Spawner
     }
     States
 	{
-		Tier4:
+		Tier2:
+		Tier1:
 			TNT1 A 0;
-			TNT1 A 0 A_SpawnItemEx("PB_MMCGSpawnerT4");
+			TNT1 A 0 A_SpawnItemEx("PB_RocketBoxSpawnerT1");
 			Stop;
+		Tier4:
 		Tier3:
 			TNT1 A 0;
-			TNT1 A 0 A_SpawnItemEx("PB_MMCGSpawnerT3");
+			TNT1 A 0 A_SpawnItemEx("PB_MMCGSpawner");
 			Stop;
 		Death:
 			TNT1 A 0;
@@ -88,13 +91,15 @@ Class PainGiverSpawner : PBWP_Spawner
     }
     States
 	{
-		Tier4:
+		Tier2:
+		Tier1:
 			TNT1 A 0;
-			TNT1 A 0 A_SpawnItemEx("PB_PainGiverSpawnerT4");
+			TNT1 A 0 A_SpawnItemEx("PB_RocketBoxSpawnerT1");
 			Stop;
+		Tier4:
 		Tier3:
 			TNT1 A 0;
-			TNT1 A 0 A_SpawnItemEx("PB_PainGiverSpawnerT3");
+			TNT1 A 0 A_SpawnItemEx("PB_PainGiverSpawner");
 			Stop;
 		Death:
 			TNT1 A 0;
@@ -151,20 +156,11 @@ Class ShieldGrenadeDrop : PBWP_Spawner
     States
 	{
 		Tier4:
-			TNT1 A 0;
-			TNT1 A 0 A_SpawnItemEx("PB_ShieldGRSpawnerT4");
-			Stop;
 		Tier3:
-			TNT1 A 0;
-			TNT1 A 0 A_SpawnItemEx("PB_ShieldGRSpawnerT3");
-			Stop;
 		Tier2:
-			TNT1 A 0;
-			TNT1 A 0 A_SpawnItemEx("PB_ShieldGRSpawnerT2");
-			Stop;
 		Tier1:
 			TNT1 A 0;
-			TNT1 A 0 A_SpawnItemEx("PB_ShieldGRSpawnerT1");
+			TNT1 A 0 A_SpawnItemEx("PB_ShieldGRSpawner");
 			Stop;
 		Death:
 			TNT1 A 0;

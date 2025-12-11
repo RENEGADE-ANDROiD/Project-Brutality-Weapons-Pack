@@ -22,7 +22,7 @@ class PB_MSSGSpawnerT1 : PB_WeaponSpawner
     Default
     {
         Dropitem "MSSGUpgrade", 255, 1;
-        Dropitem "ColdKeeperUpgrade", 255, 1;
+        //Dropitem "ColdKeeperUpgrade", 255, 1;
         Dropitem "PB_Shell", 255, 9;
     }
 }
@@ -31,7 +31,7 @@ class PB_MSSGSpawnerT2 : PB_WeaponSpawner
     Default
     {
         Dropitem "MSSGUpgrade", 255, 2;
-        Dropitem "ColdKeeperUpgrade", 255, 1;
+        //Dropitem "ColdKeeperUpgrade", 255, 1;
         Dropitem "PB_Shell", 255, 8;
     }
 }
@@ -56,15 +56,7 @@ class PB_MSSGSpawnerT4 : PB_WeaponSpawner
 }
 
 // Mastermind Chaingun
-class PB_MMCGSpawnerT3 : PB_WeaponSpawner 
-{
-    Default
-    {
-        Dropitem "MastermindChaingun", 255, 1;
-    }
-}
-
-class PB_MMCGSpawnerT4 : PB_WeaponSpawner 
+class PB_MMCGSpawner : PB_WeaponSpawner 
 {
     Default
     {
@@ -73,15 +65,7 @@ class PB_MMCGSpawnerT4 : PB_WeaponSpawner
 }
 
 // PainGiver
-class PB_PainGiverSpawnerT3 : PB_WeaponSpawner 
-{
-    Default
-    {
-        Dropitem "Paingiver", 255, 1;
-    }
-}
-
-class PB_PainGiverSpawnerT4 : PB_WeaponSpawner 
+class PB_PainGiverSpawner : PB_WeaponSpawner 
 {
     Default
     {
@@ -135,30 +119,7 @@ class PB_DTechAllGRSpawnerT4 : PB_WeaponSpawner
 }
 
 // ShieldGrenade
-class PB_ShieldGRSpawnerT1 : PB_WeaponSpawner 
-{
-    Default
-    {
-        Dropitem "ShieldGrenade", 255, 1;
-    }
-}
-class PB_ShieldGRSpawnerT2 : PB_WeaponSpawner 
-{
-    Default
-    {
-        Dropitem "ShieldGrenade", 255, 1;
-    }
-}
-
-class PB_ShieldGRSpawnerT3 : PB_WeaponSpawner 
-{
-    Default
-    {
-        Dropitem "ShieldGrenade", 255, 1;
-    }
-}
-
-class PB_ShieldGRSpawnerT4 : PB_WeaponSpawner 
+class PB_ShieldGRSpawner : PB_WeaponSpawner 
 {
     Default
     {

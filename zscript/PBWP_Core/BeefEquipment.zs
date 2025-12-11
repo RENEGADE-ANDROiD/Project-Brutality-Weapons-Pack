@@ -93,3 +93,15 @@ class HookCard : equipmentCard
 		sy.push(0.3);
 	}
 }
+
+class ShieldSawCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Shield Saw");
+		tokens.push("WW_ShieldSawSelected");
+		img.push("graphics/Equipments/ShieldSaw.png");
+		sx.push(0.8);
+		sy.push(0.8);
+	}
+}
