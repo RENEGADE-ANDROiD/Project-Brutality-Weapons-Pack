@@ -1,0 +1,196 @@
+class KillTracker : EventHandler
+{
+    int lastKillCounts[MAXPLAYERS]; // Track killstreak for each player
+    override void WorldLoaded(WorldEvent e)
+    {
+        if(KillstreakIsOn)
+        {
+            for (int i = 0; i < MAXPLAYERS; i++)
+            {
+                lastKillCounts[i] = players[i].mo ? players[i].killcount : 0;
+
+                // Remove all KillStreak tokens
+                if (players[i].mo)
+                {
+                    PB_PlayerPrawn plr = PB_PlayerPrawn(players[i].mo);
+                    Inventory token;
+                    while ((token = plr.FindInventory("KillStreakActive")))
+                        token.Destroy();
+                    while ((token = plr.FindInventory("KillStreak")))
+                        token.Destroy();
+                }
+            }
+        }
+    }
+
+    override void WorldThingDied(WorldEvent e)
+    {
+        if(KillstreakIsOn)
+        {
+            // Only consider monsters, not decorations or friendlies
+            if (e.Thing && e.Thing.bIsMonster && !(e.Thing is "SwitchableDecoration"))
+            {
+                PB_PlayerPrawn killer = null;
+                // Use Inflictor if possible, else fallback to target
+                if (e.Inflictor && (e.Inflictor is "PlayerPawn" || e.Inflictor is "PB_PlayerPrawn"))
+                {
+                    killer = PB_PlayerPrawn(e.Inflictor);
+                }
+                else if (e.Thing.target && (e.Inflictor is "PlayerPawn" || e.Thing.target is "PB_PlayerPrawn"))
+                {
+                    killer = PB_PlayerPrawn(e.Thing.target);
+                }
+
+                if (killer && killer.FindInventory("KillStreakActive"))
+                {
+                    int playernum = killer.PlayerNumber();
+                    int lastCount = lastKillCounts[playernum];
+                    int currentCount = lastCount + 1;
+
+                    String streakSound = GetStreakSound(currentCount);
+                    if (streakSound != "")
+                        killer.A_StartSound(streakSound, CHAN_AUTO);
+                    if (currentCount % 5 == 0)
+                        GiveKillReward(killer, currentCount);
+
+                    lastKillCounts[playernum] = currentCount;
+                }
+            }
+
+            // If a player died: clear their tokens and reset streak
+            if (e.Thing && (e.Inflictor is "PlayerPawn" || e.Thing is "PB_PlayerPrawn"))
+            {
+                PB_PlayerPrawn plr = PB_PlayerPrawn(e.Thing);
+                if(!plr) return;
+                int playernum = plr.PlayerNumber();
+                lastKillCounts[playernum] = players[playernum].killcount;
+                plr.A_startsound("DSPLDETH");
+                Inventory token;
+                while ((token = plr.FindInventory("KillStreakActive")))
+                    token.Destroy();
+                while ((token = plr.FindInventory("KillStreak")))
+                    token.Destroy();
+            }
+        }
+    }
+
+    String GetStreakSound(int count)
+    {
+        switch(count)
+        {
+            case 1: return "KillStreak/firstblood";
+            case 2: return "KillStreak/doublekill";
+            case 3: return "KillStreak/triplekill";
+            case 4: return "KillStreak/gunslinger";
+            case 5: return "KillStreak/multikill";
+            case 6: return "KillStreak/rampage";
+            case 7: return "KillStreak/killingspree";
+            case 8: return "KillStreak/dominating";
+            case 9: return "KillStreak/impressive";
+            case 10: return "KillStreak/unstoppable";
+            case 11: return "KillStreak/outstanding";
+            case 12: return "KillStreak/megakill";
+            case 13: return "KillStreak/ultrakill";
+            case 14: return "KillStreak/eagleeye";
+            case 15: return "KillStreak/ownage";
+            case 16: return "KillStreak/comboking";
+            case 17: return "KillStreak/maniac";
+            case 18: return "KillStreak/ludicrouskill";
+            case 19: return "KillStreak/bullseye";
+            case 20: return "KillStreak/excellent";
+            case 21: return "KillStreak/pancake";
+            case 22: return "KillStreak/headhunter";
+            case 23: return "KillStreak/unreal";
+            case 24: return "KillStreak/assasin";
+            case 25: return "KillStreak/wickedsick";
+            case 26: return "KillStreak/massacre";
+            case 27: return "KillStreak/killingmachine";
+            case 28: return "KillStreak/monsterkill";
+            case 29: return "KillStreak/Holyshit";
+            case 30: return "KillStreak/godlike";
+            default: return "";
+        }
+    }
+
+    void GiveKillReward(PB_PlayerPrawn plr, int count)
+    {
+        switch (count)
+        {
+            case 5:
+                plr.GiveInventory("SpecialGrenadeBox",1);
+                plr.GiveInventory("PowerDoubleDamage", 1);
+                PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","MultiKill",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received a Special Grenade Box and Power Double Damage  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                break;
+            case 10:
+                plr.GiveInventory("HasteSphere",1);
+                plr.GiveInventory("NewCellPack", 10);
+                PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Unstoppable",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Haste Sphere and 10 Cell Packs  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                break;
+            case 15:
+                plr.GiveInventory("DoubleSphere",1);
+                plr.GiveInventory("ExplosivesCrate", 1);
+                PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Ownage",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Double Sphere and Explosives Crate  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                break;
+            case 20:
+                plr.GiveInventory("PB_BlurSphere",1);
+                plr.GiveInventory("PB_Soulsphere",1);
+                PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Excellent",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Blur Sphere and Soulsphere  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                break;
+            case 25:
+                plr.GiveInventory("PB_PowerInvul",1);
+                plr.GiveInventory("PB_Backpack", 1);
+                PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Wicked Sick",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Invulnerability and Backpack  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                break;
+            case 30:
+                plr.GiveInventory("PB_Berserk",1);
+                plr.GiveInventory("PB_Doomsphere",1);
+                PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Godlike",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Berserk and Quad Damage  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);					
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
+class RareItemDropped : EventHandler
+{
+bool RareItemDropped;
+    override void WorldLoaded(WorldEvent e)
+    {
+        RareItemDropped = false;
+    }
+
+    override void WorldThingDied(WorldEvent e)
+    {
+        if(KillstreakIsOn)
+        {
+            if (!RareItemDropped && e.Thing && e.Thing.bIsMonster)
+            {
+                PB_Monster m = PB_Monster(e.Thing);
+                //PandMonster p = PandMonster(e.Thing);
+
+                if (Random(1, 100) <= 20) // 20% chance per death
+                {
+                    if (m != null)
+                    {
+                        //m.DropKillstreak();
+                        m.Spawn("Killstreak", m.pos, NO_REPLACE);
+                        RareItemDropped = true;
+                    }
+                    /*else if (p != null)
+                    {
+                        p.DropKillstreak();
+                        RareItemDropped = true;
+                    }*/
+                }
+            }
+        }
+    }
+}

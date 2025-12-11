@@ -1,36 +1,50 @@
-version "4.11.3"
+version "4.14.2"
 
-//KillStreak// Not Working :(
-//#include "zscript/Killstreak/KSHandler.zc"
-//#include "zscript/Killstreak/KillStreak.zc"
+// PBWP_Core
+#include "zscript/PBWP_Core/BeefCore.zs"
+#include "zscript/PBWP_Core/BeefMisc.zs"
+//#include "zscript/PBWP_Core/BeefCore_Replacement.zs"
+//#include "zscript/PBWP_Core/BeefCore_Melee.zs"
+#include "zscript/PBWP_Core/BeefJMod.zs"
+#include "zscript/PBWP_Core/BeefEquipment.zs"
+#include "zscript/PBWP_Core/AllWeaponSpawner.zc"
+#include "zscript/PBWP_Core/PBWP_Projectiles.zs"
+
 
 // Monster Drop Handler
 #include "zscript/PBWP_Core/BeefHandler.zs"
-#include "zscript/PBWP_Core/BeefCore.zs"
 #include "zscript/PBWP_Core/BeefMonsterDropSpawnerA.zs"
 #include "zscript/PBWP_Core/BeefMonsterDropSpawnerB.zs"
 
+
+// PBWP_Systems
+// KillStreak// 
+#include "zscript/PBWP_Systems/Killstreak/KSHandler.zc"
+#include "zscript/PBWP_Systems/Killstreak/KillStreak.zc"
+#include "zscript/PBWP_Systems/Killstreak/PBWPHUDMessage.zs"
 // Random Weapon Switch
-#include "zscript/Random Weapon Switcher/ZRWSwitchMenu.zc"
-#include "zscript/Random Weapon Switcher/ZRWSwitcher.zc"
+#include "zscript/PBWP_Systems/Random Weapon Switcher/ZRWSwitchMenu.zc"
+#include "zscript/PBWP_Systems/Random Weapon Switcher/ZRWSwitcher.zc"
+// Doorbuster
+#include "zscript/PBWP_Systems/Doorbuster/doorbuster.zs"
+#include "zscript/PBWP_Systems/Doorbuster/doorbuster_handler.zs"
 
-// Spawners ZScript
-#include "zscript/MergedSpawner.zc"
-#include "zscript/Insanity's Nightmare/ChainsawSpawn.zc"
-#include "zscript/Weapons/Slot-3/CSSG/CSSGEvent.zs"
-#include "zscript/GORENEST.zs"
-
+// PBWP_Misc
+#include "zscript/PBWP_Misc/GORENEST.zs"
+// ElementalismBoss
+#include "zscript/PBWP_Misc/BEHOLD_BOSSES/E1_Export_1.zs"
 // Player Pawn Insanity Beef: Will this be added later?
 //#include "zscript/CustomPlayerClass/INPlayer.zc"
 //#include "ZScript/CustomPlayerClass/PBMeleePlayer.zc"
-
+// Spawners ZScript
+#include "zscript/Insanity's Nightmare/ChainsawSpawn.zc"
+#include "zscript/Weapons/Slot-3/CSSG/CSSGEvent.zs"
 // Weapon Wheel Stuff
 #include "zscript/Weapons/Slot-3/CSSG/CSSG_Wheel.zs"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExt_Wheel.zs"
 #include "zscript/Insanity's Nightmare/IN_SpecialWheeltest.zs"
-#include "Zscript/Individual_WeaponWheels/D2016Shotgun_Wheel.zs" //BORING GUN // SKill Issue :cacotroll:
-#include "Zscript/Individual_WeaponWheels/ASG_Wheel.zs"
-
+#include "Zscript/PBWP_Misc/Individual_WeaponWheels/D2016Shotgun_Wheel.zs" 
+#include "Zscript/PBWP_Misc/Individual_WeaponWheels/ASG_Wheel.zs"
 // Casings
 #include "zscript/Weapons/Slot-3/CSSG/Casings.zs"
 #include "zscript/Insanity's Nightmare/HASGCasings.zc"
@@ -56,29 +70,3 @@ version "4.11.3"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtProj3.zs"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtStuff.zs"
 	// Demonic Exterminator Stuff End
-
-//Doorbuster
-#include "zscript/Doorbuster/doorbuster.zs"
-#include "zscript/Doorbuster/doorbuster_handler.zs"
-
-//MonsterStuff//
-//ElementalismBoss
-#include "zscript/BEHOLD_BOSSES/E1_Export_1.zs"
-class E1Boss : Actor
-{
-	Default {
-		Radius 8;
-		Height 16;
-		RenderRadius 128;
-		+SOLID;
-		-SHOOTABLE;
-		+NODAMAGE;
-		+NOGRAVITY;
-	}
-	
-		States {
-		Spawn:
-			NO3D A 35;
-			Loop;
-	}
-}

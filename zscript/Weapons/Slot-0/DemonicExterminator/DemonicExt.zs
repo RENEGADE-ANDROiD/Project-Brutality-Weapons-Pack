@@ -262,6 +262,118 @@ Class PB_DemonExt : PBWP_Weapon
 				}
 			}
 			goto ready3;
+/*
+	QuickMelee:
+        	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel");
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel");
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel");
+		TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		     }
+		TNT1 A 0 ;
+		TNT1 A 0 A_ClearOverlays(3,65);
+		TNT1 A 0 A_GunFlash("Null");
+		TNT1 AAA 1 PB_Execute(); 
+	GoMeleeInstead:
+		FHMR C 1 Bright Offset(20,65);
+		FHMR C 1 Bright Offset(30,50);
+		FHMR C 1 Bright Offset(40,32);
+		FHMR B 1 Offset(35,40);
+		FHMR B 1 Offset(45,30);
+		FHMR B 1 Offset(65,25);
+		FHMR B 1 Offset(65,22);
+		FHMR B 2 Offset(65,20);
+		FHMR B 1 Offset(45,22);
+		FHMR B 1 Offset(43,25);
+		FHMR C 1 Offset(40,40) A_StartSound("FighterHammerMiss",1);
+		TNT1 A 0 {
+			SetPlayerProperty(0,1,PROP_GODMODE);
+		}
+		TNT1 A 0 A_JumpIfInventory("FighterFalling",4,"Falling");
+		FHMR D 1 Offset(35,51) {
+//			A_CheckSolidFooting("HammerQuake");
+			A_ChangeVelocity(0,0,-64,CVF_REPLACE);
+		}
+		FHMR D 1 Offset(36,52);// A_CheckSolidFooting("HammerQuake")
+		FHMR D 1 Offset(37,53);// A_CheckSolidFooting("HammerQuake")
+		FHMR D 1 Offset(38,54);// A_CheckSolidFooting("HammerQuake")
+		FHMR D 1 Offset(39,55);// A_CheckSolidFooting("HammerQuake")
+		FHMR D 1 Offset(38,54);// A_CheckSolidFooting("HammerQuake")
+		FHMR D 1 Offset(37,53);// A_CheckSolidFooting("HammerQuake")
+		FHMR D 1 Offset(36,52) {
+//			A_CheckSolidFooting("HammerQuake");
+			A_GiveInventory("FighterFalling");
+		}
+		TNT1 A 0 {
+			SetPlayerProperty(0,0,PROP_GODMODE);
+			A_TakeInventory("FighterFalling",4);
+		}
+		FHMR D 1 Offset(35,61) {
+//			A_CheckSolidFooting("HammerQuake");
+			A_ChangeVelocity(0,0,-64,CVF_REPLACE);
+		}
+		FHMR D 1 Offset(36,72);// A_CheckSolidFooting("HammerQuake");
+		FHMR D 1 Offset(37,83);// A_CheckSolidFooting("HammerQuake");
+		FHMR D 1 Offset(38,94);// A_CheckSolidFooting("HammerQuake");
+		FHMR D 1 Offset(39,105);// A_CheckSolidFooting("HammerQuake");
+		FHMR D 1 Offset(38,114);// A_CheckSolidFooting("HammerQuake");
+		FHMR D 1 Offset(37,123);// A_CheckSolidFooting("HammerQuake");
+		FHMR D 1 Offset(36,132) {
+//			A_CheckSolidFooting("HammerQuake");
+			A_GiveInventory("FighterFalling");
+		}
+		TNT1 A 1 Bright Offset(-35,131) {
+//			A_CheckSolidFooting("HammerQuake");
+			A_ChangeVelocity(0,0,-64,CVF_REPLACE);
+		}
+		TNT1 A 1 Bright Offset(-36,132);// A_CheckSolidFooting("HammerQuake");
+		TNT1 A 1 Bright Offset(-37,133);// A_CheckSolidFooting("HammerQuake");
+		TNT1 A 1 Bright Offset(-38,134);// A_CheckSolidFooting("HammerQuake");
+		TNT1 A 1 Bright Offset(-39,135);// A_CheckSolidFooting("HammerQuake");
+		TNT1 A 1 Bright Offset(-38,134);// A_CheckSolidFooting("HammerQuake");
+		TNT1 A 1 Bright Offset(-37,133);// A_CheckSolidFooting("HammerQuake");
+		TNT1 A 1 Bright Offset(-36,132);// A_CheckSolidFooting("HammerQuake");
+		FHMR E 1 Offset(50,32) {
+			A_Explode(64,128, 0);
+			A_Quake(1,12,0,64,0);
+			A_Blast(0,128,128,5,"FHammerPuff","none");
+			A_StartSound("FighterHammerHitWall",1);
+			A_ChangeVelocity(0,0,0,CVF_REPLACE);
+			SetPlayerProperty(0,0,PROP_GODMODE);
+			A_TakeInventory("FighterFalling",4);
+		}
+		FHMR E 1 Offset(55,34);
+		FHMR E 1 Offset(50,38);
+		FHMR E 1 Offset(50,38);
+		FHMR E 1 Offset(50,42);
+		FHMR E 1 Offset(52,42);
+		FHMR E 1 Offset(52,36);
+		FHMR E 1 Offset(52,32);
+		FHMR E 1 Offset(50,32);
+		FHMR E 1 Offset(50,32);
+		FHMR E 1 Offset(50,34);
+		FHMR E 1 Offset(50,34);
+		FHMR E 1 Offset(45,50);
+		FHMR E 1 Offset(50,50);
+		FHMR E 1 Offset(55,50);
+		FHMR D 1 Offset(30,60);
+		FHMR D 1 Offset(40,50);
+		FHMR D 1 Offset(50,40);
+		FHMR D 1 Offset(55,30);
+		FHMR D 1 Offset(60,40);
+		FHMR D 1 Offset(65,50);
+		FHMR D 1 Offset(70,60);
+		TNT1 A 7 {
+		    if(JustPressed(BT_USER2)) {return PB_Execute();}
+		    return ResolveState("Ready");  
+		}
+		TNT1 A 0 {
+			 PB_SetUsingMelee(false);
+		     }
+		Goto Ready;
+*/
 		AltFire:
 			TNT1 A 0 PB_CheckBarrelPlace1();
 			//TNT1 A 0 A_JumpIf(PressingReload() && PressingAltFire(),"Altfire.Soul");
@@ -561,5 +673,34 @@ Class PB_DemonExt : PBWP_Weapon
 			DB26 IJKLMNOPQRSTUV 1 bright;
 			stop;
 			*/
+}}
+class FighterFalling : Inventory
+{
+	Default
+	{
+		Inventory.MaxAmount 4;
+	}
+}
+
+// Hammer Puff (also used by fist) ------------------------------------------
+
+class FHammerPuff : Actor
+{
+	Default
+	{
+		+NOBLOCKMAP +NOGRAVITY
+		+PUFFONACTORS
+		RenderStyle "Translucent";
+		Alpha 0.6;
+		VSpeed 0.8;
+		SeeSound "FighterHammerHitThing";
+		AttackSound "FighterHammerHitWall";
+		ActiveSound "FighterHammerMiss";
+	}
+	States
+	{
+	Spawn:
+		FXFX ABCDEFGHIJ 2 A_FadeOut();
+		Stop;
 	}
 }

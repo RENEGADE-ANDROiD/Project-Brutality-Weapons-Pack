@@ -10,6 +10,8 @@ Gameinfo
 	"BeefSpawnPresets",
 	"ShieldSawFixAmmo",
 	"ExterminatorStuff",
-	"BusterHandler"
+	"BusterHandler",
+	"KillTracker",
+	"RareItemDropped"
 	// Add More Handlers Here
 }

@@ -8,9 +8,9 @@ class PBWP_Spawner : PB_SpawnerBase
     // See example in the marauder spawner
     action bool PlayerAlreadyHas(string inv)
 	{
-		PlayerInfo p = players[0];
+		let p = players[0];
     	if (p && p.mo)
-        return p.mo.FindInventory(inv) != null;
+        return p.mo.CountInv(inv);
         return false;
     }
 }
@@ -18,6 +18,8 @@ class PBWP_Spawner : PB_SpawnerBase
 // Credits to Jaih1r0 again for this functions from the HeavySniper, CSSG, and DemonExt mod
 class PBWP_Weapon : PB_Weapon
 {
+	action bool PressingUser2(){return player.cmd.buttons & BT_USER2;}
+
     //If ammo is less than min, go to state. Default is "Reload:" state
     Action state PB_CheckAmmoFire(int min = 1, statelabel Relstate = "Reload")
 	{
@@ -82,6 +84,21 @@ class PBWP_Weapon : PB_Weapon
 		//got ice barrel
 		if(countinv("GrabbedIceBarrel")>0)
 			return resolvestate("PlaceIceBarrel");
+		//no barrel
+		return resolvestate(null);
+	}
+
+	Action State PB_CheckBarrelIdle1()
+	{
+		//got nukage barrel
+		if(countinv("GrabbedBarrel")>0)
+			return resolvestate("IdleBarrel");
+		//got flame barrel
+		if(countinv("GrabbedFlameBarrel")>0)
+			return resolvestate("IdleFlameBarrel");
+		//got ice barrel
+		if(countinv("GrabbedIceBarrel")>0)
+			return resolvestate("IdleIceBarrel");
 		//no barrel
 		return resolvestate(null);
 	}

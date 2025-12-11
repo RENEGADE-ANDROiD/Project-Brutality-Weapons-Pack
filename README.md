@@ -6,6 +6,8 @@ See PB Weapon Pack Options to configure:
 
 - Combat Points Weapons Shop
 
+- KILLSTREAKS from SHOO KREW PB-Pand Edition
+
 - Random Weapon Switcher by BROS_ETT_311:  Allows you to randomize the weapons in your hand at random intervals.
 
 - Behold! by BobQuickSaveSmith: Allows you to revive upon death (works when alive as well); giving you a handful of weapons and random Boss Enemies to battle.
@@ -19,11 +21,10 @@ While Glory Kills, Monster Pack & Project Malice monsters are not required, they
 
 - Project Brutality Staging - https://github.com/pa1nki113r/Project_Brutality/tree/PB_Staging 
 // Click on the green "Code" button, Click to Download Zip, then load the zip as a pk3 mod.
-- Unofficial Glory Kill Addon Update - https://drive.google.com/file/d/1CdER4BUNFOcBpI2_yVzxsjO0hr6tsjIU/view?usp=drive_link
+- Unofficial Glory Kill Addon Update - https://drive.google.com/file/d/1jELeHdBo8X55n0r42by8CjdPbwyJxR5T/view?usp=drive_link
 - PB Monster Pack - https://drive.google.com/file/d/15qWzKprNk4XBTJ_N1xbPs2Sd4Gs7V9Mi/view
-- Project Malice Monsters - https://github.com/TheBlueSavior/Project-Malice
-- PB Malice Patch (This version is compatible with both PB Monster Pack and Project Malice, enhancing Glory Kill compatibility) - https://drive.google.com/file/d/1w1PL5v9kECI_83BdbBrvIoaHGWSE0d7B/view?usp=drive_link
-
+- Project Malice Monsters (Use Github download instead of Releases) - https://github.com/TheBlueSavior/Project-Malice
+- PB Malice Patch (This version is compatible with both PB Monster Pack and Project Malice, enhancing Glory Kill compatibility) - https://drive.google.com/file/d/1CTyqHng7joSrBWIEwQg6ZkZiCIu_jcp2/view?usp=drive_link
 
 -----------------
 Assembled by RENEGADE ANDROiD using Insanity's Nightmare as a base combined with Demon-Tech & Fire & Ice Power Fantasy.
@@ -40,29 +41,31 @@ TEAM MEMBERS:
 - Warcarlsson
 - Doc
 - JhulkerCraft
+- Runner
 
 -----------------
 
 ---------------Slot 1 weapons---------------
 
-- Argent Sith
+- Energy Beam Katana
+- Argent Sith Beam Katana (upgrades over Energy Beam)
 - BattleAxe and Shield from Schism
 - Razorjack from Russian Overkill
 
 ---------------Slot 2 weapons---------------
 
+- Plasma Blaster
 - 44 PDW
-- Beretta 92
 - Beretta 92 Silenced
 - Demon-Tech Pistol
 - Doom Blaster
 - Holy Bastard
-- Johnny Silverhands' Deagle
 - Plasma Annihilator Pistol
 - UZI SMG
 
 ---------------Slot 3 weapons---------------
 
+- LeverAction Rifle
 - Commander SSG
 - Cryo Shotgun
 - Demon-Tech Shotgun
@@ -76,6 +79,7 @@ TEAM MEMBERS:
 
 ---------------Slot 4 weapons---------------
 
+- Ballista
 - AK-47
 - Bolt-Action Sniper
 - Dark Fate
@@ -126,7 +130,6 @@ TEAM MEMBERS:
 - Bio-Acid Launcher
 - Ballista
 - Stormcast from Schism
-- Thunder Crossbow from Brutal Hexen
 
 ---------------Slot 0 weapons---------------
 

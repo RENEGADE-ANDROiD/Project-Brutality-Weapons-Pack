@@ -1406,6 +1406,29 @@ class PB_Hud_ZS : BaseStatusBar
 							PBHud_DrawString(mDefaultFont, Formatnumber(GetAmount("PB_RocketAmmo")), (-207, -90), DI_TEXT_ALIGN_RIGHT, Font.CR_RED);
 						}
 						break;
+					case 'M41A':
+						PBHud_DrawImage("BARBACR3", (-90, -71), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+						PBHud_DrawBar("ABAR4", "BGBARL", GetAmount("PB_RocketAmmo"), GetMaxAmount("PB_RocketAmmo"), (-100, -72), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+						PBHud_DrawString(mDefaultFont, Formatnumber(GetAmount("PB_RocketAmmo")), (-207, -90), DI_TEXT_ALIGN_RIGHT, Font.CR_RED);
+						break;
+					case 'Prosurv_Ballista':
+						if(CheckInventory("BallistaDemonicMode"))
+						{
+							PBHud_DrawImage("BARBACZ3", (-90, -71), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+							PBHud_DrawBar("ABAR6", "BGBARL", GetAmount("PB_Fuel"), GetMaxAmount("PB_Fuel"),
+								(-100, -72), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+							PBHud_DrawString(mDefaultFont, FormatNumber(GetAmount("PB_Fuel")),
+								(-207, -90), DI_TEXT_ALIGN_RIGHT, Font.CR_ORANGE);
+						}
+						else
+						{
+							PBHud_DrawImage("BARBACR3", (-90, -71), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+							PBHud_DrawBar("ABAR4", "BGBARL", GetAmount("PB_RocketAmmo"), GetMaxAmount("PB_RocketAmmo"),
+								(-100, -72), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+							PBHud_DrawString(mDefaultFont, FormatNumber(GetAmount("PB_RocketAmmo")),
+								(-207, -90), DI_TEXT_ALIGN_RIGHT, Font.CR_RED);
+						}
+						break;
 					default:
 						break;
 				}
@@ -1563,7 +1586,7 @@ class PB_Hud_ZS : BaseStatusBar
 					weaponBarAccent = Font.CR_TAN;
 					DrawAmmoBar("BARBACT1", "BARBACT2", "BAMBAR2", "ABAR2", "ABAR2", "AMMOIC2", Font.CR_TAN);
 				}
-				else if(WeaponUsesAmmoType("PB_HighCalMag") && !(CheckWeaponSelected("PB_MG42")))
+				else if(WeaponUsesAmmoType("PB_HighCalMag") && !(CheckWeaponSelected("PB_MG42"))  && !(CheckWeaponSelected("Prosurv_Ballista")))
 				{
 					weaponBarAccent = Font.CR_YELLOW;
 					DrawAmmoBar("BARBACY1", "BARBACY2", "BAMBAR1", "ABAR1", "ABAR1", "AMMOIC1", Font.CR_YELLOW);
@@ -1598,7 +1621,11 @@ class PB_Hud_ZS : BaseStatusBar
 					weaponBarAccent = Font.CR_DARKRED;
 					DrawAmmoBar("BARBACZ1", "BARBACZ2", "BAMBAR7", "ABAR7", "ABAR7", "AMMOIC7", Font.CR_DARKRED);
 				}
-				else if(WeaponUsesPBAmmoType1() && !CheckWeaponSelected("PB_Unmaker") && !CheckWeaponSelected("PB_Chainsaw") && !CheckWeaponSelected("PB_Flamethrower") && !CheckWeaponSelected("PB_MG42") && !CheckWeaponSelected("PB_TauntWeapon") ){
+				else if(WeaponUsesPBAmmoType1() 
+				&& !CheckWeaponSelected("PB_Unmaker") && !CheckWeaponSelected("PB_Chainsaw") 
+				&& !CheckWeaponSelected("ProSurv_Ballista") && !CheckWeaponSelected("PB_Flamethrower") 
+				&& !CheckWeaponSelected("PB_MG42") && !CheckWeaponSelected("PB_TauntWeapon"))
+				{
 					weaponBarAccent = Font.CR_CYAN;
 					DrawAmmoBar("BARBACC1", "BARBACC2", "BAMBAR8", "ABAR8", "ABAR8", "AMMOIC8", Font.CR_CYAN);
 				}
@@ -1619,6 +1646,38 @@ class PB_Hud_ZS : BaseStatusBar
 				
 				switch(CPlayer.ReadyWeapon.GetClassName())
 				{
+					case 'ProSurv_Ballista':
+						if (!CheckInventory("BallistaDemonicMode")) 
+						{
+							// --- Normal Ballista HUD ---
+						PBHud_DrawImage("BARBACY1", (-72, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+						PBHud_DrawImage("BARBACY2", (-73, -50), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+							// Bars
+						PBHud_DrawBar("ABAR1", "BGBARL", Secondary.Amount, Secondary.MaxAmount, (-112, -51), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+						PBHud_DrawBar("ABAR1", "BGBARL", Primary.Amount, Primary.MaxAmount, (-112, -30), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+							// Numbers
+						PBHud_DrawString(mDefaultFont, FormatNumber(Secondary.Amount), (-207, -69), DI_TEXT_ALIGN_RIGHT, Font.CR_YELLOW);
+						PBHud_DrawString(mDefaultFont, FormatNumber(Primary.Amount), (-207, -48), DI_TEXT_ALIGN_RIGHT, Font.CR_YELLOW);
+							// Icon + color
+						PBHud_DrawImage("AMMOIC1", (-77, -24), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, 1, (27, 19));
+						weaponBarAccent = Font.CR_YELLOW;
+						}	
+						else 
+						{
+							// --- Upgraded Ballista HUD ---
+						PBHud_DrawImage("BARBACZ1", (-72, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+						PBHud_DrawImage("BARBACZ2", (-73, -50), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+							// Bars
+						PBHud_DrawBar("ABAR7", "BGBARL", Secondary.Amount, Secondary.MaxAmount, (-112, -51), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+						PBHud_DrawBar("ABAR7", "BGBARL", GetAmount("PB_DTech"), GetMaxAmount("PB_DTech"), (-112, -30), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+							// Numbers
+						PBHud_DrawString(mDefaultFont, FormatNumber(Secondary.Amount), (-207, -69), DI_TEXT_ALIGN_RIGHT, Font.CR_DARKRED);
+						PBHud_DrawString(mDefaultFont, FormatNumber(GetAmount("PB_DTech")), (-207, -48), DI_TEXT_ALIGN_RIGHT, Font.CR_DARKRED);
+							// Icon + color
+						PBHud_DrawImage("AMMOIC7", (-77, -24), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, 1, (27, 19));
+						weaponBarAccent = Font.CR_DARKRED;
+						}
+					break;
 					case 'PB_Unmaker':
 						PBHud_DrawImage("BARBACZ1", (-72, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
 						PBHud_DrawImage("BARBACZ2", (-73, -50), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
@@ -1693,6 +1752,7 @@ class PB_Hud_ZS : BaseStatusBar
 
 		}
 	}
+
 	bool WeaponUsesPBAmmoType(){return WeaponUsesPBAmmoType1() || WeaponUsesPBAmmoType2();}
 	bool WeaponUsesPBAmmoType1(){
 		if (CPlayer == null) return false;

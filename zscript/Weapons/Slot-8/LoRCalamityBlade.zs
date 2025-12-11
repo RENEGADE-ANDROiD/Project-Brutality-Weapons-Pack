@@ -78,7 +78,6 @@ class LoRCalamityBlade : PBWP_Weapon
 		HRTG A 1 A_WeaponOffset(0, 33,WOF_INTERPOLATE);
 		HRTG A 1 A_WeaponOffset(0, 66,WOF_INTERPOLATE);
 		HRTG A 1 A_WeaponOffset(0, 99,WOF_INTERPOLATE);
-		TNT1 A 3;
 		TNT1 A 0 A_lower;
 		wait;
 	Ready:
@@ -180,20 +179,6 @@ class LoRCalamityBlade : PBWP_Weapon
 		TNT1 A 0 A_Refire();
 		Goto Ready;
 
-/*
-	Unleash:
-		HEFT A 0 A_CalamityBladeFire();
-		HEFT A 0 A_AlertMonsters;
-		HEFT A 0 A_ClearOverlays();	
-		HEFT A 0 A_Quake(5,6,0,1,"none");
-		HRTF A 2 bright A_GunFlash();
-		HRTF B 3 Bright;
-		HRTG EEEEEEDDCC 2;
-		HRTG B 1 A_CheckReload();
-		HRTG BBBBBFFGGAAHHHHHHA 1;
-		HRTG A 0 A_Refire();
-		Goto Ready;
-*/
 	Dryfire:
 		HRTG A 1
 		{
@@ -298,8 +283,6 @@ class LoRCalamityBlade : PBWP_Weapon
 TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_ClearOverlays(10,11);
-			TNT1 A 0 A_DoPBWeaponAction;
 			TNT1 ABCDEFGGFEDCBA 1;
 			stop;
 		
@@ -308,8 +291,6 @@ TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_ClearOverlays(10,11);
-			TNT1 A 0 A_DoPBWeaponAction;
 			HRTG A 14;
 			goto ready;
 			
@@ -318,8 +299,6 @@ TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_ClearOverlays(10,11);
-			TNT1 A 0 A_DoPBWeaponAction;
 			HRTG A 14;
 			goto ready;
 			
@@ -328,8 +307,6 @@ TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_ClearOverlays(10,11);
-			TNT1 A 0 A_DoPBWeaponAction;
 			HRTG A 14;
 			goto ready;
 			
@@ -338,8 +315,6 @@ TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
 			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_ClearOverlays(10,11);
-			TNT1 A 0 A_DoPBWeaponAction;
 			HRTG A 7;
 			goto ready;
 		}
