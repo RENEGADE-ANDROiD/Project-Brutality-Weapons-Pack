@@ -75,7 +75,7 @@ BuySomething(500, "PB_BeamKatana", 1);
 }
 
 Script "BuyBattleAxe" (Void) {
-BuySomething(650, "BattleAxe", 1);
+BuySomething(850, "BattleAxe", 1);
 }
 
 Script "BuyRazorjack" (Void) {
