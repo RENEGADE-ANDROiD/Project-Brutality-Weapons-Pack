@@ -768,13 +768,13 @@ class ProxMinCard : equipmentCard
 		img.push("graphics/pywheel/Equip_Mine.png");
 		sx.push(1.3);
 		sy.push(1.3);
-		slot.push(0);
+		slot.push(2);
 		relAmmo.push("PB_ProxMineAmmo");
 	}
 	
 	override int getdestSlot()
 	{
-		return 0;
+		return 2;
 	}
 	
 	override double getpriority()
@@ -792,13 +792,13 @@ Class StunGrenCard : equipmentCard
 		img.push("graphics/pywheel/Equip_Stun.png");
 		sx.push(1.3);
 		sy.push(1.3);
-		slot.push(0);
+		slot.push(2);
 		relAmmo.push("PB_StunGrenadeAmmo");
 	}
 	
 	override int getdestSlot()
 	{
-		return 0;
+		return 2;
 	}
 	
 	override double getpriority()
@@ -840,13 +840,13 @@ class FragGrenCard : equipmentCard
 		img.push("graphics/pywheel/Equip_Frag.png");
 		sx.push(1.3);
 		sy.push(1.3);
-		slot.push(0);
+		slot.push(1);
 		relAmmo.push("PB_GrenadeAmmo");
 	}
 	
 	override int getdestSlot()
 	{
-		return 0;
+		return 1;
 	}
 	
 	override double getpriority()
@@ -864,13 +864,13 @@ class ShouldCanCard : equipmentCard
 		img.push("graphics/pywheel/Equip_RevGun.png");
 		sx.push(1.3);
 		sy.push(1.3);
-		slot.push(0);
+		slot.push(1);
 		relAmmo.push("PB_QuickLauncherAmmo");
 	}
 	
 	override int getdestSlot()
 	{
-		return 0;
+		return 1;
 	}
 	
 	override double getpriority()
@@ -889,13 +889,13 @@ class ElecPodCard : equipmentCard
 		img.push("graphics/Equipments/electricpod.png");
 		sx.push(1.0);
 		sy.push(1.0);
-		slot.push(0);
+		slot.push(2);
 		relAmmo.push("ElecPodAmmo");
 	}
 	
 	override int getdestSlot()
 	{
-		return 0;
+		return 2;
 	}
 	
 	override double getpriority()
@@ -913,13 +913,13 @@ class ShieldGrenadeCard : equipmentCard
 		img.push("graphics/Equipments/shieldgrenade.PNG");
 		sx.push(1.1);
 		sy.push(1.1);
-		slot.push(0);
+		slot.push(2);
 		relAmmo.push("ShieldGrenadeAmmo");
 	}
 	
 	override int getdestSlot()
 	{
-		return 0;
+		return 2;
 	}
 	
 	override double getpriority()
@@ -937,13 +937,13 @@ class VoidGrenadeCard : equipmentCard
 		img.push("graphics/Equipments/voidgrenade.png");
 		sx.push(1.0);
 		sy.push(1.0);
-		slot.push(0);
+		slot.push(1);
 		relAmmo.push("VoidGrenadeAmmo");
 	}
 	
 	override int getdestSlot()
 	{
-		return 0;
+		return 1;
 	}
 	
 	override double getpriority()
@@ -961,13 +961,13 @@ class SwarmerCard : equipmentCard
 		img.push("graphics/Equipments/swarmer.png");
 		sx.push(1.0);
 		sy.push(1.0);
-		slot.push(1);
+		slot.push(3);
 		relAmmo.push("SwarmerAmmo");
 	}
 	
 	override int getdestSlot()
 	{
-		return 1;
+		return 3;
 	}
 	
 	override double getpriority()
@@ -985,13 +985,13 @@ class LaserChargeCard : equipmentCard
 		img.push("graphics/Equipments/lasercharge.png");
 		sx.push(1.0);
 		sy.push(1.0);
-		slot.push(1);
+		slot.push(3);
 		relAmmo.push("LaserChargeAmmo");
 	}
 	
 	override int getdestSlot()
 	{
-		return 1;
+		return 3;
 	}
 	
 	override double getpriority()
@@ -1009,13 +1009,13 @@ class AcidChargeCard : equipmentCard
 		img.push("graphics/Equipments/acidcharge.png");
 		sx.push(1.0);
 		sy.push(1.0);
-		slot.push(1);
+		slot.push(3);
 		relAmmo.push("AcidChargeAmmo");
 	}
 	
 	override int getdestSlot()
 	{
-		return 1;
+		return 3;
 	}
 	
 	override double getpriority()
@@ -1033,13 +1033,13 @@ class AxeCard : equipmentCard
 		img.push("graphics/Equipments/axe.png");
 		sx.push(0.5);
 		sy.push(0.5);
-		slot.push(2);
+		slot.push(4);
 		relAmmo.push("PB_Axe");
 	}
 	
 	override int getdestSlot()
 	{
-		return 2;
+		return 4;
 	}
 	
 	override double getpriority()
@@ -1057,13 +1057,13 @@ class HookCard : equipmentCard
 		img.push("graphics/Equipments/hook.png");
 		sx.push(0.3);
 		sy.push(0.3);
-		slot.push(3);
+		slot.push(0);
 		relAmmo.push("");
 	}
 	
 	override int getdestSlot()
 	{
-		return 3;
+		return 0;
 	}
 	
 	override double getpriority()
@@ -1081,13 +1081,13 @@ class ShieldSawCard : equipmentCard
 		img.push("graphics/Equipments/ShieldSaw.png");
 		sx.push(0.8);
 		sy.push(0.8);
-		slot.push(4);
+		slot.push(0);
 		relAmmo.push("");
 	}
 	
 	override int getdestSlot()
 	{
-		return 4;
+		return 0;
 	}
 	
 	override double getpriority()
@@ -1143,8 +1143,8 @@ class ImpactorGauntletCard : meleeCard
 		tags.push("Impactor Gauntlet");
 		tokens.push("WW_ImpactorMeleeSelected");
 		img.push("graphics/CustomMelee/impactgauntlet.png");
-		sx.push(1.0);
-		sy.push(1.0);
+		sx.push(1.3);
+		sy.push(1.3);
 	}
 }
 
