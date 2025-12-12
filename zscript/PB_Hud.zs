@@ -1320,10 +1320,6 @@ class PB_Hud_ZS : BaseStatusBar
 					PBHud_DrawImage("HACIDY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("AcidChargeAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
 				}
-				else if(CheckInventory("DetonatorSelected")) {
-					PBHud_DrawImage("HDETOY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
-					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("DetonatorAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
-				}
 				else if(CheckInventory("ElecPodSelected")) {
 					PBHud_DrawImage("HELECY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("ElecPodAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
