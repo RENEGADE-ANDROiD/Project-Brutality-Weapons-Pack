@@ -1,5 +1,3 @@
-Version "4.8.2"
-
 // Dragon Sector Item Magnet
 // Container Object for Storing items that can't be picked up right now.
 class itemInfo : Object 
