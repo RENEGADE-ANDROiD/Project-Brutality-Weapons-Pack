@@ -3,7 +3,7 @@ extend class PBWP_Weapon
 	States
 	{
     //Melee Wheel Stuff
-	SelectFirstPersonLegs:
+		SelectFirstPersonLegs:
 			TNT1 A 0 {
 				A_StopSound(1);
 				A_StopSound(CHAN_VOICE);
@@ -35,6 +35,20 @@ extend class PBWP_Weapon
 				return ResolveState("SwitchMelee");
 			return ResolveState(null);
 			}
+			Loop;
+		GoingToReady2:
+			TNT1 A 0 {
+				A_TakeInventory("KeepLaserDeactivated",1);
+				A_TakeInventory("ToggleEquipment",1);
+				A_TakeInventory("ToggleMelee",1);
+				PB_SetUsingMelee(false);
+				PB_SetUsingEquipment(false);
+				A_Overlay(-10, "FirstPersonLegsStand");
+				A_ClearReFire();
+			}
+			TNT1 A 0 A_JumpIfInventory("SawSelected", 1, "OnLoop");
+			TNT1 AAAA 0 A_Jump(256, "SelectAnimation");
+			TNT1 AAAA 1 A_Jump(256, "Ready");
 			Loop;
 	}
 }

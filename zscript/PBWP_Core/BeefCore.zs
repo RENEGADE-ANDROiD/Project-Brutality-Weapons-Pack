@@ -16,7 +16,7 @@ class PBWP_Spawner : PB_SpawnerBase
 }
 
 // Credits to Jaih1r0 again for this functions from the HeavySniper, CSSG, and DemonExt mod
-class PBWP_Weapon : PB_Weapon
+class PBWP_Weapon : PB_Weapon replaces PB_Weapon
 {
 	action bool PressingUser2(){return player.cmd.buttons & BT_USER2;}
 
