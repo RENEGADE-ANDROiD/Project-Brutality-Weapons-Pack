@@ -10,6 +10,7 @@ Gameinfo
 	"BeefSpawnPresets",
 	"ShieldSawFixAmmo",
 	"ExterminatorStuff",
+	"DS_MagnetHandler",
 	"BusterHandler",
 	"KillTracker",
 	"RareItemDropped"
