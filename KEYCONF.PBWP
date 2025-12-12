@@ -12,6 +12,11 @@ addkeysection "Combat Rating Points" PB_CRSys
 addmenukey "Show combat points:  " PB_CRSHW
    alias PB_CRSHW "pukename ShowPoints"
 
+AddMenuKey "Toggle Magnet Mode" +ToggleMagnetMode
+alias +ToggleMagnetMode "netevent mag_pull_weapons"
+alias -ToggleMagnetMode "netevent mag_dont_pull_weapons"
+defaultbind M +ToggleMagnetMode
+
 alias SwitchItUp "NetEvent SwitchItUp"
 alias BackItUp "NetEvent SwitchBack"
 
