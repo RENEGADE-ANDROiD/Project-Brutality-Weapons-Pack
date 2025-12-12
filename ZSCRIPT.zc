@@ -28,6 +28,8 @@ version "4.14.2"
 // Doorbuster
 #include "zscript/PBWP_Systems/Doorbuster/doorbuster.zs"
 #include "zscript/PBWP_Systems/Doorbuster/doorbuster_handler.zs"
+// Magnets
+#include "zscript/PBWP_Systems/Magnets/Magnets.zs
 
 // PBWP_Misc
 #include "zscript/PBWP_Misc/GORENEST.zs"

@@ -14,7 +14,15 @@ Print(s:"\cdSorry, Not Enough Combat Points!");
 }
 
 // Original buy scripts
-Script "BuyShells" (Void) { //500, PB_Shell, 20
+Script "BuyItemMagnet" (Void) { 
+BuySomething(750, "DS_ItemMagnet", 1);
+}
+
+Script "BuyItemMagnetUpgrade" (Void) { 
+BuySomething(1500, "DS_ItemMagnetUpgrade", 1);
+}
+
+Script "BuyShells" (Void) { 
 BuySomething(100, "PB_Shell", 20);
 }
 
@@ -82,6 +90,10 @@ Script "BuyRazorjack" (Void) {
 BuySomething(650, "Razorjack", 1);
 }
 
+Script "BuyProSurv_BlasterPistol" (Void) {
+BuySomething(400, "ProSurv_BlasterPistol", 1);
+}
+
 Script "Buy44PDW" (Void) {
 BuySomething(500, "44PDW", 1);
 }
@@ -104,6 +116,14 @@ BuySomething(800, "HellPistoler", 1);
 
 Script "BuyUZISMG" (Void) {
 BuySomething(450, "UZISMG", 1);
+}
+
+Script "BuyProsurv_LeverAction" (Void) {
+BuySomething(500, "Prosurv_LeverAction", 1);
+}
+
+Script "BuyProsurv_Ballista" (Void) {
+BuySomething(650, "Prosurv_Ballista", 1);
 }
 
 Script "BuyHASG" (Void) {
@@ -187,7 +207,7 @@ BuySomething(650, "INNailGun", 1);
 }
 
 Script "BuyDragonSlayer" (Void) {
-BuySomething(900, "Fire_and_Ice-DragonSlayer", 1);
+BuySomething(1000, "Fire_and_Ice-DragonSlayer", 1);
 }
 
 Script "BuyDukeNukemRipper" (Void) {
