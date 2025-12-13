@@ -1,20 +1,14 @@
 version "4.14.2"
 
 // PBWP_Core
+#include "zscript/PBWP_Core/BeefHandler.zs"
 #include "zscript/PBWP_Core/BeefCore.zs"
-#include "zscript/PBWP_Core/BeefMisc.zs"
-#include "zscript/PBWP_Core/BeefCore_Replacement.zs"
-#include "zscript/PBWP_Core/BeefCore_Melee.zs"
 #include "zscript/PBWP_Core/BeefJMod.zs"
 #include "zscript/PBWP_Core/BeefMelee.zs"
 #include "zscript/PBWP_Core/AllWeaponSpawner.zc"
 #include "zscript/PBWP_Core/PBWP_Projectiles.zs"
-
-
-// Monster Drop Handler
-#include "zscript/PBWP_Core/BeefHandler.zs"
-#include "zscript/PBWP_Core/BeefMonsterDropSpawnerA.zs"
-#include "zscript/PBWP_Core/BeefMonsterDropSpawnerB.zs"
+#include "zscript/PBWP_Core/BeefMonsterSpawnerA.zs"
+#include "zscript/PBWP_Core/BeefMonsterSpawnerB.zs"
 
 
 // PBWP_Systems

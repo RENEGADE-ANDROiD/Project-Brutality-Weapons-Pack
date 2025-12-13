@@ -126,3 +126,20 @@ class PB_ShieldGRSpawner : PB_WeaponSpawner
         Dropitem "ShieldGrenade", 255, 1;
     }
 }
+
+// Beam Katana Stuff
+class ArgentSithAmmoSpawner : PB_WeaponSpawner 
+{
+    Default
+    {
+        Dropitem "PB_DTechLarge", 255, 1;
+    }
+}
+
+class PB_BeamKatanaSpawner : PB_WeaponSpawner 
+{
+    Default
+    {
+        Dropitem "PB_BeamKatana", 255, 2;
+    }
+}

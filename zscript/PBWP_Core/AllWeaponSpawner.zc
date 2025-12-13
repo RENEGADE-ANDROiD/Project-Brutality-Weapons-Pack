@@ -31,6 +31,23 @@ class Unmaker64SpawnerInjector : PBInjector
 }
 */
 
+// TEMPORARY FIX
+class PB_PackSpawnerT1 : PB_AmmoSpawner
+{
+	Default
+	{
+		Dropitem "UpgradeSpawner", 255, 1;
+	}
+}
+
+class PB_PackSpawnerT2 : PB_AmmoSpawner
+{
+	Default
+	{
+		Dropitem "UpgradeSpawner", 255, 1;
+	}
+}
+
 //SLOT 0 ===================================================================================== 0 ==
 //Ancient Crossbow
 class AncientCrossbowSpawnerInjector : PBInjector
@@ -61,8 +78,8 @@ class TechBlasterSpawnerInjector : PBInjector
 
 		//It's Upgrade
 		handler.InjectSpawn('PB_PackSpawnerT2', 'TechBlasterUpgrade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT3', 'TechBlasterUpgrade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT4', 'TechBlasterUpgrade', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'TechBlasterUpgrade', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'TechBlasterUpgrade', 255, 1);
 		}
 	}
 }
@@ -326,9 +343,9 @@ class PB_Doom2016ShotgunSpawnerInjector : PBInjector
 		//handler.InjectSpawn('PB_SSGSpawnerT4', 'PB_Doom2016Shotgun', 255, 1);
 		
 		//handler.InjectSpawn('PB_PackSpawnerT2', 'PB_D16SGBurstUpgrade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT3', 'PB_D16SGExplosiveUpgrade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT4', 'PB_D16SGBurstUpgrade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT4', 'PB_D16SGExplosiveUpgrade', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'PB_D16SGExplosiveUpgrade', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'PB_D16SGBurstUpgrade', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'PB_D16SGExplosiveUpgrade', 255, 1);
 		}
 	}
 }
@@ -360,9 +377,9 @@ class CSSG_Injector : PBInjector
 		handler.InjectSpawn('PB_SSGSpawnerT4', 'PB_CSSG', 255, 1);
 		
 		handler.InjectSpawn('PB_PackSpawnerT2', 'DanmakuShellsUpgrade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT3', 'WPShellsUpgrade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT4', 'ExplosiveShellsUpgrade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT4', 'DoomShellsUpgrade', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'WPShellsUpgrade', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ExplosiveShellsUpgrade', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'DoomShellsUpgrade', 255, 1);
 		}
 	}
 }
@@ -394,8 +411,8 @@ class HASGSpawnerInjector : PBInjector
 		handler.InjectSpawn('PB_SSGSpawnerT4', 'HASG', 255, 1);
 		
 		//handler.InjectSpawn('PB_PackSpawnerT2', 'HASGDrum', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT3', 'HASGDrum', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT4', 'HASGDrum', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'HASGDrum', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'HASGDrum', 255, 1);
 		}
 	}
 }
@@ -453,11 +470,11 @@ class MarauderSSGSpawnerInjector : PBInjector
 		handler.InjectSpawn('PB_SSGSpawnerT3', 'MarauderSSG', 255, 1);
 		handler.InjectSpawn('PB_SSGSpawnerT4', 'MarauderSSG', 255, 1);
 		handler.InjectSpawn('PB_PackSpawnerT2', 'MSSGUpgrade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT3', 'MSSGUpgrade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT4', 'MSSGUpgrade', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'MSSGUpgrade', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'MSSGUpgrade', 255, 1);
 		handler.InjectSpawn('PB_PackSpawnerT2', 'ColdKeeperUpgrade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT3', 'ColdKeeperUpgrade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT4', 'ColdKeeperUpgrade', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ColdKeeperUpgrade', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ColdKeeperUpgrade', 255, 1);
 		}
 	}
 }
@@ -580,8 +597,8 @@ class M41ASpawnerInjector : PBInjector
 		handler.InjectSpawn('PB_MGSpawnerT4', 'M41A', 255, 1);
 		handler.InjectSpawn('PB_PackSpawnerT1', 'M41A', 255, 1);
 		handler.InjectSpawn('PB_PackSpawnerT2', 'M41A', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT3', 'M41A', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT4', 'M41A', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'M41A', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'M41A', 255, 1);
 		}
 	}
 }
@@ -696,8 +713,8 @@ class MachineGunUpgradeSpawnerInjector : PBInjector //Upgrade Injector
         //this adds the machine gun upgrade to the pack spawner
         handler.InjectSpawn('PB_PackSpawnerT1', 'MachinegunUpgrade', 255, 2);
         handler.InjectSpawn('PB_PackSpawnerT2', 'MachinegunUpgrade', 255, 1);
-        handler.InjectSpawn('PB_PackSpawnerT3', 'MachinegunUpgrade', 255, 1);
-        handler.InjectSpawn('PB_PackSpawnerT4', 'MachinegunUpgrade', 255, 1);
+        handler.InjectSpawn('PB_UpgradeSpawnerT3', 'MachinegunUpgrade', 255, 1);
+        handler.InjectSpawn('PB_UpgradeSpawnerT4', 'MachinegunUpgrade', 255, 1);
 	}
 }
 
@@ -712,8 +729,8 @@ class INMiniGunSpawnerInjector : PBInjector
 		handler.InjectSpawn('PB_MGSpawnerT3', 'INMiniGun', 255, 1);
 		handler.InjectSpawn('PB_MGSpawnerT4', 'INMiniGun', 255, 1);
         	handler.InjectSpawn('PB_PackSpawnerT2', 'MGExplosiveUpgrade', 255, 1);
-        	handler.InjectSpawn('PB_PackSpawnerT3', 'MGExplosiveUpgrade', 255, 1);
-        	handler.InjectSpawn('PB_PackSpawnerT4', 'MGExplosiveUpgrade', 255, 1);
+        	handler.InjectSpawn('PB_UpgradeSpawnerT3', 'MGExplosiveUpgrade', 255, 1);
+        	handler.InjectSpawn('PB_UpgradeSpawnerT4', 'MGExplosiveUpgrade', 255, 1);
 		}
 	}
 }
@@ -809,7 +826,7 @@ class PBExcavatorInjector : PBInjector
 		{
 		handler.InjectSpawn('PB_RLSpawnerT3', 'PB_Excavator', 255, 1);
 		handler.InjectSpawn('PB_RLSpawnerT4', 'PB_Excavator', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT3', 'PB_Excavator', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'PB_Excavator', 255, 1);
 		}
 	}
 }
@@ -955,7 +972,7 @@ class CalamityBladeSpawnerInjector : PBInjector
 		handler.InjectSpawn('PB_BFGSpawnerT1', 'LoRCalamityBlade', 255, 1);
 		handler.InjectSpawn('PB_BFGSpawnerT2', 'LoRCalamityBlade', 255, 1);
 		handler.InjectSpawn('PB_BFGSpawnerT3', 'LoRCalamityBlade', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT3', 'LoRCalamityBlade', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'LoRCalamityBlade', 255, 1);
 		}
 	}
 }
@@ -1085,9 +1102,9 @@ class NewEQ_Injector : PBInjector
     {
         handler.InjectSpawn('PB_PackSpawnerT1', 'ShieldGrenade', 255, 2);
 		handler.InjectSpawn('PB_PackSpawnerT2', 'ShieldGrenade', 255, 2);
-		handler.InjectSpawn('PB_PackSpawnerT3', 'ShieldGrenade', 255, 2);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ShieldGrenade', 255, 2);
 		
-        handler.InjectSpawn('PB_PackSpawnerT4', 'VoidGrenade', 255, 1);
+        handler.InjectSpawn('PB_UpgradeSpawnerT4', 'VoidGrenade', 255, 1);
 		
 		handler.InjectSpawn('PB_RocketBoxSpawnerT2', 'AcidCharge', 255, 1);
 		handler.InjectSpawn('PB_RocketBoxSpawnerT3', 'AcidCharge', 255, 1);
@@ -1099,8 +1116,8 @@ class NewEQ_Injector : PBInjector
 		handler.InjectSpawn('PB_RocketBoxSpawnerT3', 'SwarmCharge', 255, 1);
 		handler.InjectSpawn('PB_RocketBoxSpawnerT4', 'SwarmCharge', 255, 1);
 		
-		handler.InjectSpawn('PB_PackSpawnerT3', 'ElecPod', 255, 1);
-        handler.InjectSpawn('PB_PackSpawnerT4', 'ElecPod', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ElecPod', 255, 1);
+        handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ElecPod', 255, 1);
     }
 }
 
@@ -1135,8 +1152,8 @@ class BladeAmmo_Injector : PBInjector
 		
 		handler.InjectSpawn('PB_PackSpawnerT1', 'BladeAmmo', 255, 1);
 		handler.InjectSpawn('PB_PackSpawnerT2', 'BladeAmmo', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT3', 'BladeAmmo', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT4', 'BladeAmmo', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'BladeAmmo', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'BladeAmmo', 255, 1);
 		
 	}
 }

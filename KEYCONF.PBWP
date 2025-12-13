@@ -2,7 +2,7 @@
 //AddMenuKey "Use Meat Hook" meathook
 //alias meathook "puke 6005"
 
-//PDWP Keybinds
+//PBWP Keybinds
 addkeysection "PB Weapons Pack Keybinds" PBWP_KEY
    Alias +pbwp_meleemenu 				   "event pb_melee_wheel"
    Alias -pbwp_meleemenu 				   "event pb_melee_wheel_up"
@@ -12,10 +12,10 @@ AddMenuKey "$PBWP_TOGGLE_MELEE_MENU"   +pbwp_meleemenu
 addmenukey "Show Combat Points" PB_CRSHW
    alias PB_CRSHW "pukename ShowPoints"
 
-AddMenuKey "Toggle Magnet Mode" +ToggleMagnetMode
-alias +ToggleMagnetMode "netevent mag_pull_weapons"
-alias -ToggleMagnetMode "netevent mag_dont_pull_weapons"
-defaultbind M +ToggleMagnetMode
+AddMenuKey "Toggle Magnet Mode" MagnetModeOff
+alias MagnetModeOn "netevent MagnetModeOn; rebind MagnetModeOff"
+alias MagnetModeOff "netevent MagnetModeOff; rebind MagnetModeOn"
+defaultbind M MagnetModeOff
 
 alias SwitchItUp "NetEvent SwitchItUp"
 alias BackItUp "NetEvent SwitchBack"

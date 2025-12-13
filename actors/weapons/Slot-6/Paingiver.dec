@@ -175,45 +175,6 @@ Actor Paingiver : PBWP_Weapon
 		W17A A 1 A_DoPBWeaponAction
 		Goto PaingiverReadyToFire
 
-	QuickMelee:
-        	"####" A 0 {
-				A_StopSound(CHAN_WEAPON);
-				A_StopSound(CHAN_VOICE);
-				A_StopSound(CHAN_6);
-				A_StopSound(CHAN_7);
-			}
-			TNT1 A 0 A_JumpIfInventory("CantDoAction",1,"FailOverlay")
-			TNT1 A 0 A_JumpIfHealthLower(0, "FailOverlay")
-			TNT1 A 0 A_JumpIf(!CustomMelee, "Super::GoMeleeInstead")
-			TNT1 A 0 {
-				A_ClearOverlays(-10,65);
-				A_Gunflash("Null");
-			}
-		"####" AAA 0 PB_Execute()
-	GoMeleeInstead:
-		TNT1 A 0 {
-			A_Overlay(PSP_FLASH, "FlashPunching");
-			A_TakeInventory("Zoomed",1);
-			A_ZoomFactor(1.0);
-			A_TakeInventory("ADSmode",1);
-			A_SetRoll(0);
-			A_Overlay(-10, "FirstPersonLegsStand");
-		}
-		TNT1 A 0 A_PlaySound("HMSWING", 50)
-		TNT1 A 0 A_PlaySound("AXSWING", 45)
-		SHPB M 1 A_SetAngle(angle+5)
-		TNT1 A 0 A_FireCustomMissile("AxeAttack", 0, 0)
-		SHPB NOPQ 1 A_SetAngle(angle+5)
-		TNT1 AAAAAA 1 A_SetAngle(angle-1,5)
-		TNT1 A 7 {
-			 if(JustPressed(BT_USER2)) {return PB_Execute();}
-			 return state("");
-		     }
-		TNT1 A 0 {
-			 PB_SetUsingMelee(false);
-		     }
-		TNT1 A 0 PB_CheckBarrelIdle1()
-		Goto Ready
 
 	AltFire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")

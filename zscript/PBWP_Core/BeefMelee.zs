@@ -1,7 +1,11 @@
+// TOKENSSSSSSS
 class ToggleMelee : Inventory{Default{Inventory.MaxAmount 1;}}
 
 class WW_StandardMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class StandardMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
+class WW_BladeMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class BladeMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
 class WW_MeleeAxeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class MeleeAxeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
