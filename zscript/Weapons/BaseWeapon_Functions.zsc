@@ -1502,25 +1502,25 @@ extend class PB_WeaponBase
 		
 		switch(enemy){
 			// Zombieman
-			case 'PB_Zombieman':
+			case 'PB_Zombieman': case 'PB_ZombiemanGK':
 				return PB_ExecuteZombieMan();
-			case 'PB_PistolZombieman1':
+			case 'PB_PistolZombieman1': case 'PB_PistolZombieman1GK':
 				return PB_ExecuteZombieMan();
-			case 'PB_HelmetZombieman':
+			case 'PB_HelmetZombieman': case 'PB_HelmetZombiemanGK':
 				return PB_ExecuteZombieMan();
-			case 'PB_PistolZombieman2':
+			case 'PB_PistolZombieman2': case 'PB_PistolZombieman2GK':
 				return PB_ExecuteZombieMan();
 			
 			// Imp
-			case 'PB_Imp1':
+			case 'PB_Imp1': case 'PB_Imp1GK':
 				return PB_ExecuteImp();
 				
 			//Shotgun Guy
-			case 'PB_ShotgunGuy':
+			case 'PB_ShotgunGuy': case 'PB_ShotgunGuyGK':
 				return PB_ExecuteShotguny();
 				
 			//Cacodemon
-			case 'PB_Cacodemon':
+			case 'PB_Cacodemon': case 'PB_CacodemonGK':
 				return PB_ExecuteCacodemon();
 				
 			default:
@@ -1649,6 +1649,72 @@ extend class PB_WeaponBase
 							monster.A_Die("Execution");
 							return ResolveState(st);
 						}
+					}
+				}
+// 			}
+		}
+		return null;
+	}
+
+	action state PB_ExecuteGK() {
+		if(CountInv("GrabbedBarrel") >= 1 || CountInv("GrabbedFlameBarrel") >= 1 || CountInv("GrabbedIceBarrel") >= 1) { return null; }
+	
+//         CVar experimental_settings = CVar.FindCVar('pb_experimental');
+		
+// 		if(experimental_settings.GetBool()){
+			//
+			if(GetPointer(AAPTR_PLAYER_GETTARGET) != NULL)
+			{
+				
+				if(GetPointer(AAPTR_PLAYER_GETTARGET).bCountKill)
+				{
+					LookExParams look;
+					look.FOV = 360;
+					
+					Actor monster = GetPointer(AAPTR_PLAYER_GETTARGET);
+
+					if (monster.IsVisible(self, true, look) && Distance3D(monster) < 200 ){
+						
+						int targetMaxHealth = monster.spawnHealth();
+						int targetCurrentHealth = monster.health;
+						
+						//if (actorCanBeExecuted(monster)) {
+							
+							// Move Monster and Player toward each other
+							monster.A_Stop();
+							double spd = 27.;
+							vector3 delta = ( monster.pos.x - pos.x, monster.pos.y - pos.y, monster.pos.z - pos.z );
+							double angleToMonster = AngleTo(monster);
+							double pitchToMonster = VectorAngle( sqrt(delta.y * delta.y + delta.x * delta.x), delta.z );
+							monster.A_SetPitch(pitchToMonster, SPF_INTERPOLATE);
+							monster.A_SetAngle(angleToMonster+180,SPF_INTERPOLATE);
+							
+							vector3 neworigin = Vec3Offset(cos(angleToMonster) * spd,  sin(angleToMonster) * spd, sin(pitchToMonster) * spd);
+							monster.SetOrigin(neworigin,true);
+							
+							// Set Player View and Properties
+							int colorGreen = -16711936;
+							int colorBlue = -16776961;
+// 							A_LogInt(monster.BloodColor);
+							if(monster.BloodColor == colorGreen)
+							{
+								PB_SetExecutionGreenBlood(true);
+							}
+							
+							if(monster.BloodColor == colorBlue)
+							{
+								PB_SetExecutionBlueBlood(true);
+							}
+							
+							A_SetAngle(AngleTo(monster));
+							pitchToMonster = VectorAngle( sqrt(delta.y * delta.y + delta.x * delta.x), delta.z );
+							A_SetPitch(-pitchToMonster);
+							PB_SetPlayerExecutionProperties();
+							
+							StateLabel st = PB_ExecutionHandlerString(monster);
+							monster.A_Die("Execution");
+							return ResolveState(st);
+						//}
 					}
 				}
 // 			}
@@ -2296,7 +2362,7 @@ action int getReadyFlags(int weapflags, bool noReload)
 
 	action state A_DoPBWeaponAction(int weapflags = WRF_ALLOWRELOAD, int pbFlags = 0, string unloadtoken = "HasUnloaded", bool noReload = false)
 	{
-		A_Overlay(-780, "Melee_Toggle_Handler_Overlay",true);
+		A_Overlay(-780, "Melee_Toggle_Handler_Overlay",true); // Sets MeleeWheel
 		bool initialWRF_ALLOWRELOAD = false;
 		if (weapflags & WRF_ALLOWRELOAD) initialWRF_ALLOWRELOAD = true;
 		weapFlags &= ~(WRF_ALLOWRELOAD);
@@ -2326,7 +2392,15 @@ action int getReadyFlags(int weapflags, bool noReload)
 			"Steady", "QuickPunch", //"LedgeClimb",
 			"DoKick", "Taunt", "Salute", "Salute",
 			"UseEquipment", "SwitchEquipment", "DualWieldBaby",
-			"NoDualWield", "WeaponSpecial", "ReadyBarrel", "ReadyBarrel",
+			"NoDualWield", "WeaponSpecial", 
+			//PBWP
+			"SwitchMelee",
+
+			//GloryKill
+			"GloryMelee", "FireShoulderCannon",
+
+			// Barrels
+			"ReadyBarrel", "ReadyBarrel",
 			"ReadyFlameBarrel", "ThrowBarrel", "ThrowIceBarrel", 
 			"ThrowFlameBarrel", "IdleBarrel", "IdleIceBarrel", 
 			"IdleFlameBarrel"
@@ -2362,6 +2436,15 @@ action int getReadyFlags(int weapflags, bool noReload)
 		{
 			return ResolveState("ReadyIceBarrel");
 		}
+		//GK STUFF
+		/*if (CountInv("DoGloryMelee")>=1) 
+		{
+			return ResolveState("GloryMelee");
+		}
+		if (CountInv("DoShoulderCannon")>=1) 
+		{
+			return ResolveState("FireShoulderCannon");
+		}*/
 		if (CountInv("Unloading")>=1 && ResolveState("Unload") && !(pbFlags & PBWEAP_UNLOADED) && CountInv(invoker.UnloaderToken) != 1)
 		{
 			A_TakeInventory("Unloading",0);

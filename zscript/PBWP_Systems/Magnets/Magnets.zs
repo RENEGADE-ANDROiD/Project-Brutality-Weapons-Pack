@@ -22,7 +22,15 @@ Class DS_ItemMagnet : Inventory
 	property PullSpeed : PullSpeed;
 	array <Inventory> FoundItems; // Dynamic Array to store potentially pullable items into.
 	Array<itemInfo> CantPickupForNow; // Items that couldn't be picked up are added here for a time.
+	bool IsMagnetOn;
 
+	// Set Magnet On
+	/*override void BeginPlay()
+	{
+		super.BeginPlay();
+		IsMagnetOn = true;
+	}*/
+	
 	static const Name ExcludeReplaced[] = // Items the Vacuum will not pull.
 	{
 		'SoulSphere', 'MegaSphere', 'BlurSphere', 'BlueArmor', 'GreenArmor', 'Medikit', 'StimPack', 'RadSuit',
@@ -122,6 +130,8 @@ Class DS_ItemMagnet : Inventory
 	{
 		if (!owner)
 			return;
+		if(!IsMagnetOn)
+			return;
 
 		if (FoundItems.Size() == 0)
 			return;
@@ -185,7 +195,7 @@ Class DS_ItemMagnet : Inventory
 			return;
 			
 		let barmor = BasicArmor(owner.FindInventory("BasicArmor"));
-		if (barmor && barmor.Amount > 0)
+		if (barmor && barmor.Amount > 0 && IsMagnetOn == true)
 		{
 			if (level.time % 2 == 0) // Poll for items every 2 tics.
 			{

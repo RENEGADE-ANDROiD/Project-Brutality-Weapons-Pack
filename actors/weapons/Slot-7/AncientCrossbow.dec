@@ -195,49 +195,6 @@ Actor AncientCrossbow : PBWP_Weapon
 		CRSB I 2 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
 		Goto Pump1
 
-	QuickMelee:
-        	"####" A 0 {
-				A_StopSound(CHAN_WEAPON);
-				A_StopSound(CHAN_VOICE);
-				A_StopSound(CHAN_6);
-				A_StopSound(CHAN_7);
-			}
-			TNT1 A 0 A_JumpIfInventory("CantDoAction",1,"FailOverlay")
-			TNT1 A 0 A_JumpIfHealthLower(0, "FailOverlay")
-			TNT1 A 0 A_JumpIf(!CustomMelee, "Super::GoMeleeInstead")
-			TNT1 A 0 {
-				A_ClearOverlays(-10,65);
-				A_Gunflash("Null");
-			}
-		"####" AAA 0 PB_Execute()
-	GoMeleeInstead:
-		TNT1 A 0 {
-			A_Overlay(PSP_FLASH, "FlashPunching");
-			A_TakeInventory("Zoomed",1);
-			A_ZoomFactor(1.0);
-			A_TakeInventory("ADSmode",1);
-			A_SetRoll(0);
-			A_Overlay(-10, "FirstPersonLegsStand");
-		}
-		PCKA I 3
-		PCKA J 5
-		PCKA J 1
-		TNT1 A 0 A_PlaySound("SWOOSH", 1)
-		PCKA K 2 A_FireCustomMissile("PickaxeMeleeStrike", 1)
-		PCKA L 2
-		PCKA MMM 2
-		PCKA L 2
-		PCKA K 2
-		PCKA A 3
-		TNT1 A 7 {
-			 if(JustPressed(BT_USER2)) {return PB_Execute();}
-			 return state("");
-		     }
-		TNT1 A 0 {
-			 PB_SetUsingMelee(false);
-		     }
-		TNT1 A 0 PB_CheckBarrelIdle1()
-		Goto Ready
 
    AltFire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")

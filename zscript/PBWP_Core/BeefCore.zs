@@ -1,11 +1,16 @@
-// Inventory Tokens that the PlayerAlreadyHas will look for
-class AlreadyHaveMeatHook : inventory{default{inventory.maxamount 1;}}
-
 // Make all Spawners inherit this
 class PBWP_Spawner : PB_SpawnerBase
 {
+    Default
+    {
+        scale 0.45;
+		-COUNTKILL; 
+		+NOTIMEFREEZE;
+		-ISMONSTER;
+		Species "PBWPSpawner";
+    }
     // This function is the checker for inventory tokens
-    // See example in the marauder spawner
+    // THIS DOESNT WORK LOL
     action bool PlayerAlreadyHas(string inv)
 	{
 		let p = players[0];

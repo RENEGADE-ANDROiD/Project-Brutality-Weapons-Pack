@@ -106,8 +106,8 @@ server bool PBSpawnPhaseEradicatorBFG = True;
 // Specials
 server bool FirstTimeLoadingPBWP = true;
 server int ttwcfbex = 25;
-server bool CustomMelee = true;
 server bool KillstreakIsOn = true;
+server bool GKLoaded = false;
 
 // Monster Drops
 server bool IsUsingStormcastCV = false;

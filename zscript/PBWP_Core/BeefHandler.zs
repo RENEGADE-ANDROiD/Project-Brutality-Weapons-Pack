@@ -97,9 +97,50 @@ class BeefRiceWeaponDrop : EventHandler
     }
 }
 
-// Sets the PB Monster Drop to Just Ammo on First Time Loading
-class BeefSetNoDropDefault : EventHandler
+class BeefModDetector : EventHandler
 {
+    Override void WorldLoaded (WorldEvent e)
+    {
+        string gkcompat = "ASGGuyGK";
+        class <actor> isgkcompat = gkcompat;
+        if(isgkcompat)
+        {
+            CVAR.FindCVar('GKLoaded').SetBool(true);
+        }
+        else
+        {
+            CVAR.FindCVar('GKLoaded').SetBool(false);
+        }
+    }
+}
+
+class BeefMiscHandler : EventHandler
+{
+    // Toggle Magnets
+    override void NetworkProcess(ConsoleEvent e)
+    {
+        let pmo = players[consoleplayer].mo;
+        if (e.Name == "MagnetModeOn")
+		{
+			let mag = DS_ItemMagnet(pmo.FindInventory("DS_ItemMagnet"));
+			if (mag)
+			{
+                console.printf("Magnet Enabled");
+				mag.IsMagnetOn = true;
+			}
+		}
+		if (e.Name == "MagnetModeOff")
+		{
+			let mag = DS_ItemMagnet(pmo.FindInventory("DS_ItemMagnet"));
+			if (mag)
+			{
+                console.printf("Magnet Disabled");
+				mag.IsMagnetOn = false;
+			}
+		}
+    }
+
+    // Sets the PB Monster Drop to Just Ammo on First Time Loading
     Override void WorldLoaded (WorldEvent e)
     {
         if (FirstTimeLoadingPBWP)
@@ -109,11 +150,8 @@ class BeefSetNoDropDefault : EventHandler
             destroy();
         }
     }
-}
 
-// Fix the ShieldSaw bug
-class ShieldSawFixAmmo : EventHandler
-{
+    // Fix the ShieldSaw bug
     Override void PlayerEntered(PlayerEvent e)
     {
         let pm = players[e.PlayerNumber].mo;

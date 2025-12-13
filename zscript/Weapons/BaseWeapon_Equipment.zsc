@@ -1,5 +1,6 @@
+#include "zscript/Weapons/BaseWeapon_EquipmentAnims.zs"
+
 class QuickDetonator : Inventory {}
-class GoThrowAxe : Inventory {}
 class TossGrenade : Inventory {}
 class AlreadyThrownShieldSaw : Inventory {Default{Inventory.MaxAmount 1;}}
 
@@ -535,9 +536,7 @@ extend class PB_WeaponBase
 				if (CountInv("PowerBloodOnVisor") >= 1 ) { A_SetWeaponSprite("AX11"); }
 				A_Setroll(roll-1.0, SPF_INTERPOLATE);
 				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
-				if (JustPressed(BT_USER1)) A_GiveInventory("GoThrowAxe", 1);
 			}
-			TNT1 A 0 A_JumpIfInventory("GoThrowAxe", 1, "ThrowAxe2");
 			TNT1 A 0 {
 				if (CountInv("PB_PowerStrength") >= 1 ) {
 					A_Saw("", "", 30, "AxePuffs", 0, 120, 0,16);
@@ -563,9 +562,7 @@ extend class PB_WeaponBase
 				if (CountInv("PowerBloodOnVisor") >= 1 ) { A_SetWeaponSprite("AX11"); }
 				A_Setroll(roll-1.0, SPF_INTERPOLATE);
 				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
-				if (JustPressed(BT_USER1)) A_GiveInventory("GoThrowAxe", 1);
 			}
-			TNT1 A 0 A_JumpIfInventory("GoThrowAxe", 1, "ThrowAxe2");
 			TNT1 AAA 1 {
 				A_Setroll(roll+1.0, SPF_INTERPOLATE);
 				A_SetAngle(angle-0.5, SPF_INTERPOLATE);
@@ -598,7 +595,6 @@ extend class PB_WeaponBase
 			}
 			}
 			TNT1 A 0 A_TakeInventory("PB_Axe", 1);
-			TNT1 A 0 A_TakeInventory("GoThrowAxe", 1);
 			TNT1 A 0 A_JumpIf(PressingUser1(), "UseEquipment");
 			Goto GoingToReady2;
 		

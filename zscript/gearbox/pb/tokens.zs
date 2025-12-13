@@ -759,54 +759,7 @@ class equipmentCard abstract //made it abstract so it doesnt get pushed into the
 	}
 }
 
-class ProxMinCard : equipmentCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
-	{
-		tags.push("Proximity Mine");
-		tokens.push("WW_ProximityMineSelected");
-		img.push("graphics/pywheel/Equip_Mine.png");
-		sx.push(1.3);
-		sy.push(1.3);
-		slot.push(2);
-		relAmmo.push("PB_ProxMineAmmo");
-	}
-	
-	override int getdestSlot()
-	{
-		return 2;
-	}
-	
-	override double getpriority()
-	{
-		return 0.5;
-	}
-}
-
-Class StunGrenCard : equipmentCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
-	{
-		tags.push("Stun Grenade");
-		tokens.push("WW_StunGrenadeSelected");
-		img.push("graphics/pywheel/Equip_Stun.png");
-		sx.push(1.3);
-		sy.push(1.3);
-		slot.push(2);
-		relAmmo.push("PB_StunGrenadeAmmo");
-	}
-	
-	override int getdestSlot()
-	{
-		return 2;
-	}
-	
-	override double getpriority()
-	{
-		return 0.5;
-	}
-}
-
+// SLot 0
 Class LeechCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -819,235 +772,9 @@ Class LeechCard : equipmentCard
 		slot.push(0);
 		relAmmo.push("HasLeech"); //PB_Dtech is its actual ammo
 	}
-	
-	override int getdestSlot()
-	{
-		return 0;
-	}
-	
-	override double getpriority()
-	{
-		return 0.5;
-	}
+	override int getdestSlot(){return 0;}
+	override double getpriority(){return 0.5;}
 }
-
-class FragGrenCard : equipmentCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
-	{
-		tags.push("Frag Grenade");
-		tokens.push("WW_FragGrenadeSelected");
-		img.push("graphics/pywheel/Equip_Frag.png");
-		sx.push(1.3);
-		sy.push(1.3);
-		slot.push(1);
-		relAmmo.push("PB_GrenadeAmmo");
-	}
-	
-	override int getdestSlot()
-	{
-		return 1;
-	}
-	
-	override double getpriority()
-	{
-		return 0.5;
-	}
-}
-
-class ShouldCanCard : equipmentCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
-	{
-		tags.push("Quick Launcher");
-		tokens.push("WW_RevGunSelected");
-		img.push("graphics/pywheel/Equip_RevGun.png");
-		sx.push(1.3);
-		sy.push(1.3);
-		slot.push(1);
-		relAmmo.push("PB_QuickLauncherAmmo");
-	}
-	
-	override int getdestSlot()
-	{
-		return 1;
-	}
-	
-	override double getpriority()
-	{
-		return 0.5;
-	}
-}
-
-
-class ElecPodCard : equipmentCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
-	{
-		tags.push("Electric Pod");
-		tokens.push("WW_ElecPodSelected");
-		img.push("graphics/Equipments/electricpod.png");
-		sx.push(1.0);
-		sy.push(1.0);
-		slot.push(2);
-		relAmmo.push("ElecPodAmmo");
-	}
-	
-	override int getdestSlot()
-	{
-		return 2;
-	}
-	
-	override double getpriority()
-	{
-		return 0.5;
-	}
-}
-
-class ShieldGrenadeCard : equipmentCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
-	{
-		tags.push("Shield Grenade");
-		tokens.push("WW_ShieldSelected");
-		img.push("graphics/Equipments/shieldgrenade.PNG");
-		sx.push(1.1);
-		sy.push(1.1);
-		slot.push(2);
-		relAmmo.push("ShieldGrenadeAmmo");
-	}
-	
-	override int getdestSlot()
-	{
-		return 2;
-	}
-	
-	override double getpriority()
-	{
-		return 0.5;
-	}
-}
-
-class VoidGrenadeCard : equipmentCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
-	{
-		tags.push("Void Grenade");
-		tokens.push("WW_VoidGrenadeSelected");
-		img.push("graphics/Equipments/voidgrenade.png");
-		sx.push(1.0);
-		sy.push(1.0);
-		slot.push(1);
-		relAmmo.push("VoidGrenadeAmmo");
-	}
-	
-	override int getdestSlot()
-	{
-		return 1;
-	}
-	
-	override double getpriority()
-	{
-		return 0.5;
-	}
-}
-
-class SwarmerCard : equipmentCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
-	{
-		tags.push("Swarmer");
-		tokens.push("WW_SwarmerSelected");
-		img.push("graphics/Equipments/swarmer.png");
-		sx.push(1.0);
-		sy.push(1.0);
-		slot.push(3);
-		relAmmo.push("SwarmerAmmo");
-	}
-	
-	override int getdestSlot()
-	{
-		return 3;
-	}
-	
-	override double getpriority()
-	{
-		return 0.5;
-	}
-}
-
-class LaserChargeCard : equipmentCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
-	{
-		tags.push("Laser Charge");
-		tokens.push("WW_LaserChargeSelected");
-		img.push("graphics/Equipments/lasercharge.png");
-		sx.push(1.0);
-		sy.push(1.0);
-		slot.push(3);
-		relAmmo.push("LaserChargeAmmo");
-	}
-	
-	override int getdestSlot()
-	{
-		return 3;
-	}
-	
-	override double getpriority()
-	{
-		return 0.5;
-	}
-}
-
-class AcidChargeCard : equipmentCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
-	{
-		tags.push("Acid Charge");
-		tokens.push("WW_AcidChargeSelected");
-		img.push("graphics/Equipments/acidcharge.png");
-		sx.push(1.0);
-		sy.push(1.0);
-		slot.push(3);
-		relAmmo.push("AcidChargeAmmo");
-	}
-	
-	override int getdestSlot()
-	{
-		return 3;
-	}
-	
-	override double getpriority()
-	{
-		return 0.5;
-	}
-}
-
-class AxeCard : equipmentCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
-	{
-		tags.push("Axe");
-		tokens.push("WW_AxeSelected");
-		img.push("graphics/Equipments/axe.png");
-		sx.push(0.5);
-		sy.push(0.5);
-		slot.push(4);
-		relAmmo.push("PB_Axe");
-	}
-	
-	override int getdestSlot()
-	{
-		return 4;
-	}
-	
-	override double getpriority()
-	{
-		return 0.5;
-	}
-}
-
 class HookCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -1060,18 +787,9 @@ class HookCard : equipmentCard
 		slot.push(0);
 		relAmmo.push("");
 	}
-	
-	override int getdestSlot()
-	{
-		return 0;
-	}
-	
-	override double getpriority()
-	{
-		return 0.5;
-	}
+	override int getdestSlot(){return 0;}
+	override double getpriority(){return 0.5;}
 }
-
 class ShieldSawCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -1084,16 +802,181 @@ class ShieldSawCard : equipmentCard
 		slot.push(0);
 		relAmmo.push("");
 	}
-	
-	override int getdestSlot()
+	override int getdestSlot() {return 0;}
+	override double getpriority() {return 0.5;}
+}
+
+// Slot 1
+class FragGrenCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
 	{
-		return 0;
+		tags.push("Frag Grenade");
+		tokens.push("WW_FragGrenadeSelected");
+		img.push("graphics/pywheel/Equip_Frag.png");
+		sx.push(1.3);
+		sy.push(1.3);
+		slot.push(1);
+		relAmmo.push("PB_GrenadeAmmo");
 	}
-	
-	override double getpriority()
+	override int getdestSlot(){return 1;}
+	override double getpriority(){return 0.5;}
+}
+class ShouldCanCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
 	{
-		return 0.5;
+		tags.push("Quick Launcher");
+		tokens.push("WW_RevGunSelected");
+		img.push("graphics/pywheel/Equip_RevGun.png");
+		sx.push(1.3);
+		sy.push(1.3);
+		slot.push(1);
+		relAmmo.push("PB_QuickLauncherAmmo");
 	}
+	override int getdestSlot(){return 1;}
+	override double getpriority(){return 0.5;}
+}
+class VoidGrenadeCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Void Grenade");
+		tokens.push("WW_VoidGrenadeSelected");
+		img.push("graphics/Equipments/voidgrenade.png");
+		sx.push(1.0);
+		sy.push(1.0);
+		slot.push(1);
+		relAmmo.push("VoidGrenadeAmmo");
+	}
+	override int getdestSlot(){return 1;}
+	override double getpriority(){return 0.5;}
+}
+
+// Slot 2
+class ProxMinCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Proximity Mine");
+		tokens.push("WW_ProximityMineSelected");
+		img.push("graphics/pywheel/Equip_Mine.png");
+		sx.push(1.3);
+		sy.push(1.3);
+		slot.push(2);
+		relAmmo.push("PB_ProxMineAmmo");
+	}
+	override int getdestSlot(){return 2;}
+	override double getpriority(){return 0.5;}
+}
+Class StunGrenCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Stun Grenade");
+		tokens.push("WW_StunGrenadeSelected");
+		img.push("graphics/pywheel/Equip_Stun.png");
+		sx.push(1.3);
+		sy.push(1.3);
+		slot.push(2);
+		relAmmo.push("PB_StunGrenadeAmmo");
+	}
+	override int getdestSlot(){return 2;}
+	override double getpriority(){return 0.5;}
+}
+class ElecPodCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Electric Pod");
+		tokens.push("WW_ElecPodSelected");
+		img.push("graphics/Equipments/electricpod.png");
+		sx.push(1.0);
+		sy.push(1.0);
+		slot.push(2);
+		relAmmo.push("ElecPodAmmo");
+	}
+	override int getdestSlot(){return 2;}
+	override double getpriority(){return 0.5;}
+}
+class ShieldGrenadeCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Shield Grenade");
+		tokens.push("WW_ShieldSelected");
+		img.push("graphics/Equipments/shieldgrenade.PNG");
+		sx.push(1.1);
+		sy.push(1.1);
+		slot.push(2);
+		relAmmo.push("ShieldGrenadeAmmo");
+	}
+	override int getdestSlot(){return 2;}
+	override double getpriority(){return 0.5;}
+}
+
+// Slot 3
+class SwarmerCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Swarmer");
+		tokens.push("WW_SwarmerSelected");
+		img.push("graphics/Equipments/swarmer.png");
+		sx.push(1.0);
+		sy.push(1.0);
+		slot.push(3);
+		relAmmo.push("SwarmerAmmo");
+	}
+	override int getdestSlot(){return 3;}
+	override double getpriority(){return 0.5;}
+}
+class LaserChargeCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Laser Charge");
+		tokens.push("WW_LaserChargeSelected");
+		img.push("graphics/Equipments/lasercharge.png");
+		sx.push(1.0);
+		sy.push(1.0);
+		slot.push(3);
+		relAmmo.push("LaserChargeAmmo");
+	}
+	override int getdestSlot(){return 3;}
+	override double getpriority(){return 0.5;}
+}
+class AcidChargeCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Acid Charge");
+		tokens.push("WW_AcidChargeSelected");
+		img.push("graphics/Equipments/acidcharge.png");
+		sx.push(1.0);
+		sy.push(1.0);
+		slot.push(3);
+		relAmmo.push("AcidChargeAmmo");
+	}
+	override int getdestSlot(){return 3;}
+	override double getpriority(){return 0.5;}
+}
+
+// Slot 4
+class AxeCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Axe");
+		tokens.push("WW_AxeSelected");
+		img.push("graphics/Equipments/axe.png");
+		sx.push(0.5);
+		sy.push(0.5);
+		slot.push(4);
+		relAmmo.push("PB_Axe");
+	}
+	override int getdestSlot(){return 4;}
+	override double getpriority(){return 0.5;}
 }
 
 /////////////////////
@@ -1116,11 +999,23 @@ class DefaultMeleeCard : meleeCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
 	{
-		tags.push("Blade");
+		tags.push("Default");
 		tokens.push("WW_StandardMeleeSelected");
 		img.push("graphics/CustomMelee/defaultmelee.png");
-		sx.push(0.7);
-		sy.push(0.7);
+		sx.push(0.4);
+		sy.push(0.4);
+	}
+}
+
+class BladeMeleeCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Blade");
+		tokens.push("WW_BladeMeleeSelected");
+		img.push("graphics/CustomMelee/blade.png");
+		sx.push(0.6);
+		sy.push(0.6);
 	}
 }
 
@@ -1143,8 +1038,8 @@ class ImpactorGauntletCard : meleeCard
 		tags.push("Impactor Gauntlet");
 		tokens.push("WW_ImpactorMeleeSelected");
 		img.push("graphics/CustomMelee/impactgauntlet.png");
-		sx.push(1.3);
-		sy.push(1.3);
+		sx.push(1.0);
+		sy.push(1.0);
 	}
 }
 
@@ -1155,8 +1050,8 @@ class KatanaCard : meleeCard
 		tags.push("Katana");
 		tokens.push("WW_KatanaMeleeSelected");
 		img.push("graphics/CustomMelee/katana.png");
-		sx.push(1.0);
-		sy.push(1.0);
+		sx.push(0.6);
+		sy.push(0.6);
 	}
 }
 
@@ -1167,8 +1062,8 @@ class PickAxeCard : meleeCard
 		tags.push("Pick Axe");
 		tokens.push("WW_PickAxeMeleeSelected");
 		img.push("graphics/CustomMelee/pickaxe.png");
-		sx.push(1.0);
-		sy.push(1.0);
+		sx.push(1.3);
+		sy.push(1.3);
 	}
 }
 
@@ -1191,7 +1086,7 @@ class ClawCard : meleeCard
 		tags.push("Claw Gauntlet");
 		tokens.push("WW_ClawGauntletMeleeSelected");
 		img.push("graphics/CustomMelee/clawgauntlet.png");
-		sx.push(0.5);
-		sy.push(0.5);
+		sx.push(1.0);
+		sy.push(1.0);
 	}
 }

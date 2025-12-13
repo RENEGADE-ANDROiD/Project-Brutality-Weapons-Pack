@@ -1,5 +1,6 @@
-#include "zscript/Weapons/BaseWeapon_CustomMelee.zs"
 #include "zscript/Weapons/BaseWeapon_PBWP.zs"
+#include "zscript/Weapons/BaseWeapon_MeleeSystem.zs"
+#include "zscript/Weapons/BaseWeapon_MeleeAnimations.zs"
 
 extend class PB_WeaponBase
 {
