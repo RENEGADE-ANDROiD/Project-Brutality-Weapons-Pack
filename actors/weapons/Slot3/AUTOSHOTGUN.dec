@@ -683,11 +683,11 @@ ACTOR PB_Autoshotgun  : PB_Weapon
 			A_Takeinventory("ZOOMToggle",1);
 		}
 		    TNT1 A 0 A_JumpIfInventory ("ZOOMMode", 1, "noGIVES")
-		    TNT1 A 0 A_Print("Zoom Selected")
+		    TNT1 A 0 A_Print("Zoom AltFire")
 		    TNT1 A 0 A_Giveinventory("ZOOMMode")
 			Goto Ready3
 		noGIVES:
-		    TNT1 A 0 A_Print("Zoom Deselected")
+		    TNT1 A 0 A_Print("Flak AltFire")
 		    TNT1 A 0 A_takeinventory("ZOOMMode")
 			Goto Ready3
 		SwitchToDualWield:
