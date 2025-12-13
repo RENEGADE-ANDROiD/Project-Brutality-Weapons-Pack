@@ -2,22 +2,27 @@
 //AddMenuKey "Use Meat Hook" meathook
 //alias meathook "puke 6005"
 
-//MeleeMenu
-addkeysection "PBWP Keys" PBWP_KEY
+//PDWP Keybinds
+addkeysection "PB Weapons Pack Keybinds" PBWP_KEY
    Alias +pbwp_meleemenu 				   "event pb_melee_wheel"
    Alias -pbwp_meleemenu 				   "event pb_melee_wheel_up"
 AddMenuKey "$PBWP_TOGGLE_MELEE_MENU"   +pbwp_meleemenu
 
-addkeysection "Combat Rating Points" PB_CRSys
-addmenukey "Show combat points:  " PB_CRSHW
+//addkeysection "Combat Rating Points" PB_CRSys
+addmenukey "Show Combat Points" PB_CRSHW
    alias PB_CRSHW "pukename ShowPoints"
+
+AddMenuKey "Toggle Magnet Mode" +ToggleMagnetMode
+alias +ToggleMagnetMode "netevent mag_pull_weapons"
+alias -ToggleMagnetMode "netevent mag_dont_pull_weapons"
+defaultbind M +ToggleMagnetMode
 
 alias SwitchItUp "NetEvent SwitchItUp"
 alias BackItUp "NetEvent SwitchBack"
 
-addkeysection "Random Switch Bind" "RandomSwitchBind"
-addmenukey "Switch It Up" 									"SwitchItUp"
-addmenukey "Back It Up" 									"BackItUp"
+//addkeysection "Random Weapon Switch Bind" "RandomSwitchBind"
+addmenukey "Switch It Up: Random Weapon Select" 									"SwitchItUp"
+addmenukey "Back It Up: Previous Weapon" 									"BackItUp"
 
 alias zmove_reset "zm_wallfriction 0; zm_movetype 0; zm_walkspeed 0.7; zm_crouchspeed 0.5; zm_maxhopspeed 28; zm_maxgroundspeed 12; zm_friction 8.0; zm_strafemodifier 1; zm_setgravity 0.56; zm_jumpheight 5.5; pk_bhopjumpheight 0.85; zm_autojump 1; zm_doublejump 0; zm_doublejumpheight 1.2; zm_rjumpmulti 0.7; zm_elevatorjump 0; zm_ejumpmultiplier 1; zm_dash 0; zm_doubletap 1; zm_maxtaptime 10; zm_dashboost 1.5; zm_dashheight 0.75; zm_airdash 0; zm_adashboost 10; zm_adashfriction 1; zm_wjump 0; zm_wjumpboost 1.5; zm_multipledashes 0; zm_wjumpheight 0.75; zm_wslide 0; zm_wslidevelz 0.9; zm_crouchslide 0; zm_cslidestrength 2.0; zm_cslideduration 13; zm_qslideaccel 6.0; zm_qslideduration 8; zm_ledgegrab 0; zm_hook 0; zm_hookboost 1.5; zm_sway 0; zm_swayspeed 2; zm_swayrange 25; zm_swaydirection 0; zm_offset 0; zm_offsetspeed 2; zm_offsetrange 25; zm_offsetdirection 0; zm_speedometer 0; dsk_acceleration 1.5; pk_acceleration 1.0; zm_landing 0; zm_landingspeed 0.25; zm_minlanding 0.5; zm_landingsens 6.0; be_jumpanim 6.0; q_strafetype 0; q_3airaccel 0.75; q_1airaccel 1.5;"
 alias Dash "NetEvent Dash"

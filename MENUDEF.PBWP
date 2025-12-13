@@ -434,23 +434,29 @@ OptionMenu "AmmunitionShopSystem"
 	StaticText " "
 	StaticText "------ Here's List Of All ''Challenges'' ------", 1
 	StaticText " "
-	StaticText "- Ultimate Slimming - Kill Mancubus With Flamethrower/Unmaker/Demon Tech Rifle", 1
+	StaticText "- ANTI-FASCIST - Kill a Nazi with Axe/Chainsaw/Hands", 1
 	StaticText " "
-	StaticText "- Tomatoes! - Kill Cacodemon By Axe/Chainsaw", 1
-	StaticText " "
-	StaticText "- HUGE GUTS! - Kill Cyberdemon With Your Hands", 1
-	StaticText " "
-	StaticText "- I Don't Need That You Have! - Kill Axe Guy Or Chainsaw Guy With Your Hands", 1
-	StaticText " "
-	StaticText "- You Can't Hide From Me - Kill Archvile Or Hellion Using Railgun 500 Map Units Away", 1
+	StaticText "- Archvile SLASHER - Kill an Archvile with Chainsaw", 1
 	StaticText " "
 	StaticText "- BLOODBATH - Kill More Than 3 Enemies At Once", 1
 	StaticText " "
+	StaticText "- Deadeye - Kill Any Demon Using Rocket-Launcher 750 Units Away", 1
+	StaticText " "
 	StaticText "- DEATH INCARNATE - Kill More Than 6 Enemies At Once", 1
+	StaticText " "
+	StaticText "- I Don't Need That You Have! - Kill Axe Guy Or Chainsaw Guy With Your Hands", 1
+	StaticText " "
+	StaticText "- Tomatoes! - Kill Cacodemon By Axe/Chainsaw", 1
+	StaticText " "
+	StaticText "- HUGE GUTS! - Kill Cyberdemon's With Your Hands", 1
+	StaticText " "
+	StaticText "- KNIGHT SLAYER! - Kill Hellknight's With Your Hands", 1
 	StaticText " "
 	StaticText "- Now We Cooking With Gas! - Kill Cyber-Baron Using Flamethrower", 1
 	StaticText " "
-	StaticText "- Deadeye - Kill Any Demon Using Rocket-Launcher 750 Units Away", 1
+	StaticText "- Ultimate Slimming - Kill Mancubus With Flamethrower/Unmaker/Demon Tech Rifle", 1
+	StaticText " "
+	StaticText "- You Can't Hide From Me - Kill Archvile Or Hellion Using Railgun 500 Map Units Away", 1
 	StaticText " "
 }
 ////////
