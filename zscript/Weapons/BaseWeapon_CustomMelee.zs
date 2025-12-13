@@ -1,7 +1,14 @@
-extend class PBWP_Weapon
+extend class PB_WeaponBase
 {	
     States
     {
+    Melee_Toggle_Handler_Overlay:
+			TNT1 A 1 {
+			if (CountInv("ToggleMelee")==1) 
+				return ResolveState("SwitchMelee");
+			return ResolveState(null);
+			}
+			Loop;
     // The Use Melee
     QuickMelee:
         "####" A 0 {

@@ -37,7 +37,7 @@ class ArgentSithAmmoSpawner : PB_WeaponSpawner
 {
     Default
     {
-        Dropitem "PB_DTech", 255, 1;
+        Dropitem "PB_DTechLarge", 255, 1;
     }
 }
 
