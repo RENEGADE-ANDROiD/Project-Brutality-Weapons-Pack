@@ -1,0 +1,141 @@
+ACTOR KatanaPickup : CustomInventory {
+	Game Doom
+	Inventory.PickupSound "Ammocase/Open"
+    Inventory.Amount 1
+	Inventory.PickupMessage "Katana"
+	Scale 0.9
+	+Inventory.AlwaysPickUp
+	+FLOORCLIP
+	+DONTGIB
+		States {
+			Spawn:
+				KATA N -1 
+				Stop
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("KatanaDurability",50)
+				Stop	}
+}
+
+ACTOR PickAxePickup : CustomInventory {
+	Game Doom
+	Inventory.PickupSound "Ammocase/Open"
+    Inventory.Amount 1
+	Inventory.PickupMessage "Pick Axe"
+	Scale 0.9
+	+Inventory.AlwaysPickUp
+	+FLOORCLIP
+	+DONTGIB
+		States {
+			Spawn:
+				PCKA N -1 
+				Stop
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("PickAxeDurability",35)
+				Stop	}
+}
+
+ACTOR ImpactorChargesPickup : CustomInventory {
+	Game Doom
+	Inventory.PickupSound "Ammocase/Open"
+    Inventory.Amount 1
+	Inventory.PickupMessage "Impactor Charges"
+	Scale 0.9
+	+Inventory.AlwaysPickUp
+	+FLOORCLIP
+	+DONTGIB
+		States {
+			Spawn:
+				IMPA Z -1 
+				Stop
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("ImpactorCharges",10)
+				Stop	}
+}
+
+ACTOR ClawChargesPickup : CustomInventory {
+	Game Doom
+	Inventory.PickupSound "Ammocase/Open"
+    Inventory.Amount 1
+	Inventory.PickupMessage "Claw Charges"
+	Scale 0.9
+	+Inventory.AlwaysPickUp
+	+FLOORCLIP
+	+DONTGIB
+		States {
+			Spawn:
+				GAFL H -1 
+				Stop
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("ImpactorCharges",20)
+				Stop	}
+}
+
+ACTOR SentinelHammerChargePickup : CustomInventory {
+	Game Doom
+	Inventory.PickupSound "Ammocase/Open"
+    Inventory.Amount 1
+	Inventory.PickupMessage "Sentinel Hammer Charges"
+	Scale 0.9
+	+Inventory.AlwaysPickUp
+	+FLOORCLIP
+	+DONTGIB
+		States {
+			Spawn:
+				SHPB Z -1 
+				Stop
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("SentinelhammerCharges",10)
+				Stop	}
+}
+
+ACTOR JohnnyHandsPickup : CustomInventory {
+	Game Doom
+	Inventory.PickupSound "Ammocase/Open"
+    Inventory.Amount 1
+	Inventory.PickupMessage "Johnny Hands Charges"
+	Scale 0.9
+	+Inventory.AlwaysPickUp
+	+FLOORCLIP
+	+DONTGIB
+		States {
+			Spawn:
+				SFCE A -1 
+				Stop
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("ExplosiveHandCharges",10)
+				Stop	}
+}
+
+// ProSurv
+ACTOR Wrench : CustomInventory {
+	Game Doom
+	Inventory.PickupSound "ammocase/open"
+	Inventory.PickupMessage "Wrench"
+	Scale 0.9
+	+Inventory.AlwaysPickUp
+	+FLOORCLIP
+	+DONTGIB
+		States {
+			Spawn:
+				WRNP A -1 
+				Stop
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("WrenchDurability",30)
+				Stop	}}	
+
+ACTOR Crowbar : CustomInventory {
+	Game Doom
+	Inventory.PickupSound "Ammocase/Open"
+    Inventory.Amount 1
+	Inventory.PickupMessage "Crowbar"
+	Scale 0.9
+	+Inventory.AlwaysPickUp
+	+FLOORCLIP
+	+DONTGIB
+		States {
+			Spawn:
+				CBAP A -1 
+				Stop
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("CrowbarDurability",35)
+				Stop	}}

@@ -44,7 +44,12 @@
 #INCLUDE ACTORs/Weapons/Special/ImpactGauntletPuff.dec
 
 //MELEE//
+#INCLUDE ACTORs/CustomMelee/MeleePickupItems.dec
+#INCLUDE ACTORs/CustomMelee/MeleeDurability.dec
 #INCLUDE ACTORs/CustomMelee/JohnnyFlames.dec
+#INCLUDE ACTORs/CustomMelee/AxeMelee.dec
+#INCLUDE ACTORs/CustomMelee/Crowbar.dec
+#INCLUDE ACTORs/CustomMelee/Wrench.dec
 #INCLUDE ACTORs/CustomMelee/Katana.dec
 
 //Weapons

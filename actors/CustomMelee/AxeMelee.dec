@@ -1,0 +1,14 @@
+///FIRE AXE////////////////////////////////////////////////////////////////////
+
+ACTOR AxeDurabilityCounter : Ammo {
+	Game Doom
+    Inventory.Amount 0
+    Inventory.MaxAmount 40
+    Ammo.BackPackAmount 0
+    Ammo.BackPackMaxAmount 40
+}
+
+// GOTTA MAKE THE AXE TAKE DURABLIITY ON SWING HIT INSTEAD OF ARBITRARILY DECREASING IT
+ACTOR SuperAxeSwing : AxeAttack {
+	PB_Projectile.BaseDamage 70
+}

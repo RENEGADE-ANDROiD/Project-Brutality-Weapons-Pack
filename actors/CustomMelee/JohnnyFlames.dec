@@ -1,14 +1,4 @@
-Actor ExplosiveHandCharges : ammo
-{
-	Inventory.Amount 1
-	Inventory.MaxAmount 3
-	Ammo.BackPackAmount 1
-	Ammo.BackPackMaxAmount 5
-	Inventory.PickUpMessage ""
-	Inventory.Icon SHURX0
-	+INVENTORY.IGNORESKILL
-	Scale 0.45
-}
+
 
 ACTOR JohnnyFlames
 {

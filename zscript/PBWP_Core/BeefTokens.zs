@@ -1,14 +1,19 @@
 // Melee Tokens
 class ToggleMelee : Inventory{Default{Inventory.MaxAmount 1;}}
 
+// Two Handed Melee
+class WW_MeleeAxeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class MeleeAxeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
+class WW_MeleeCrowbarSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class MeleeCrowbarSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
+// One Handed Melee
 class WW_StandardMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class StandardMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
 class WW_BladeMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class BladeMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
-
-class WW_MeleeAxeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
-class MeleeAxeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
 class WW_ImpactorMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class ImpactorMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
