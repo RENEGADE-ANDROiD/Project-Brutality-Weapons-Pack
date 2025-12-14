@@ -5,7 +5,7 @@ Actor ShurikenAmmo : ammo
 	Ammo.BackPackAmount 1
 	Ammo.BackPackMaxAmount 10
 	Inventory.PickUpMessage ""
-	Inventory.Icon REMTS0
+	Inventory.Icon SHURX0
 	+INVENTORY.IGNORESKILL
 	Scale 0.45
 }

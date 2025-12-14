@@ -3,6 +3,24 @@ extend class PB_WeaponBase
 	States
 	{
      // The Actual Custom Melee Animations
+	ExplosiveHands:
+		TNT1 A 0 A_ClearOverlays(PSP_FLASH);
+		JSML ABCDEF 1;
+		PUFF A 0 A_PlaySound("player/cyborg/fist", 3);
+		TNT1 A 0 {
+		     A_FireCustomMissile("JohnnyFlames", 20, 0);
+		     A_FireCustomMissile("JohnnyFlames", -20, 0);
+		     A_FireCustomMissile("JohnnyFlames", 10, 0, 0, 10);
+		     A_FireCustomMissile("JohnnyFlames", -10, 0, 0, -10);
+		     A_FireCustomMissile("JohnnyFlames", -15, 0, 0, -15);
+		     A_FireCustomMissile("JohnnyFlames", -8, 0, 0, -8);
+		     }
+		JSML FGHIJKLMNOP 1;
+		
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto Ready;
     MeleeKatana:
         TNT1 A 0 {
 				A_PlaySound("Katana/Swing");

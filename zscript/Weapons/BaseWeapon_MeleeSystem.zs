@@ -35,7 +35,7 @@ extend class PB_WeaponBase
 			A_SetRoll(0);
 			A_Overlay(-10, "FirstPersonLegsStand");
 		}
-        // Add Tokens Here
+    // Add Tokens Here
         TNT1 A 0 A_JumpIfInventory("StandardMeleeSelected", 1, "StandardMelee");
         TNT1 A 0 A_JumpIfInventory("BladeMeleeSelected", 1, "MeleeBlade");
 		TNT1 A 0 A_JumpIfInventory("MeleeAxeSelected", 1, "MeleeAxe");
@@ -44,6 +44,7 @@ extend class PB_WeaponBase
         TNT1 A 0 A_JumpIfInventory("PickAxeMeleeSelected", 1, "MeleePickAxe");
         TNT1 A 0 A_JumpIfInventory("SentinelHammerMeleeSelected", 1, "MeleeSentinelHammer");
         TNT1 A 0 A_JumpIfInventory("ClawGauntletMeleeSelected", 1, "MeleeClaw");
+        TNT1 A 0 A_JumpIfInventory("JohnnyHandsMeleeSelected", 1, "ExplosiveHands");
 		
 			Goto GoingToReady;
     // Reset Melee Wheel Tokens
@@ -58,6 +59,7 @@ extend class PB_WeaponBase
             A_SetInventory("WW_PickAxeMeleeSelected",0);
             A_SetInventory("WW_SentinelHammerMeleeSelected",0);
             A_SetInventory("WW_ClawGauntletMeleeSelected",0);
+            A_SetInventory("WW_JohnnyHandsMeleeSelected",0);
             A_SetInventory("CantWeaponSpecial",0);
             }
         goto Melee_Toggle_Handler_Overlay;
@@ -82,13 +84,20 @@ extend class PB_WeaponBase
                 {A_Print("Melee already selected: Sentinel Hammer"); return ResolveState("WheelCancelMelee");}
             if(CountInv("WW_ClawGauntletMeleeSelected") && CountInv("ClawGauntletMeleeSelected") >=1)
                 {A_Print("Melee already selected: Claw Gauntlets"); return ResolveState("WheelCancelMelee");}
-    
+            if(CountInv("WW_JohnnyHandsMeleeSelected") && CountInv("JohnnyHandsMeleeSelected") >=1)
+                {A_Print("Melee already selected: Explosive Hands"); return ResolveState("WheelCancelMelee");}
+
     
         // If you dont have the selected melee
             if(CountInv("WW_MeleeAxeSelected") >=1)
                 {
                 if(CountInv("PB_Axe") <=0)
                     {A_Print("You Don't Have any Axe"); return ResolveState("WheelCancelMelee");}
+                }
+            if(CountInv("WW_JohnnyHandsMeleeSelected") >=1)
+                {
+                if(CountInv("ExplosiveHandCharges") <=0)
+                    {A_Print("You Don't Have any Charges"); return ResolveState("WheelCancelMelee");}
                 }
 
             return ResolveState(null);
@@ -106,6 +115,7 @@ extend class PB_WeaponBase
                         A_SetInventory("PickAxeMeleeSelected",0);
                         A_SetInventory("SentinelHammerMeleeSelected",0);
                         A_SetInventory("ClawGauntletMeleeSelected",0);
+                        A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -120,6 +130,7 @@ extend class PB_WeaponBase
                         A_SetInventory("PickAxeMeleeSelected",0);
                         A_SetInventory("SentinelHammerMeleeSelected",0);
                         A_SetInventory("ClawGauntletMeleeSelected",0);
+                        A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }		
@@ -134,6 +145,7 @@ extend class PB_WeaponBase
                         A_SetInventory("PickAxeMeleeSelected",0);
                         A_SetInventory("SentinelHammerMeleeSelected",0);
                         A_SetInventory("ClawGauntletMeleeSelected",0);
+                        A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -148,6 +160,7 @@ extend class PB_WeaponBase
                         A_SetInventory("PickAxeMeleeSelected",0);
                         A_SetInventory("SentinelHammerMeleeSelected",0);
                         A_SetInventory("ClawGauntletMeleeSelected",0);
+                        A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -162,6 +175,7 @@ extend class PB_WeaponBase
                         A_SetInventory("PickAxeMeleeSelected",0);
                         A_SetInventory("SentinelHammerMeleeSelected",0);
                         A_SetInventory("ClawGauntletMeleeSelected",0);
+                        A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }	
@@ -176,6 +190,7 @@ extend class PB_WeaponBase
                         A_SetInventory("PickAxeMeleeSelected",1);
                         A_SetInventory("SentinelHammerMeleeSelected",0);
                         A_SetInventory("ClawGauntletMeleeSelected",0);
+                        A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }	
@@ -190,6 +205,7 @@ extend class PB_WeaponBase
                         A_SetInventory("PickAxeMeleeSelected",0);
                         A_SetInventory("SentinelHammerMeleeSelected",1);
                         A_SetInventory("ClawGauntletMeleeSelected",0);
+                        A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }	
@@ -204,9 +220,27 @@ extend class PB_WeaponBase
                         A_SetInventory("PickAxeMeleeSelected",0);
                         A_SetInventory("SentinelHammerMeleeSelected",0);
                         A_SetInventory("ClawGauntletMeleeSelected",1);
+                        A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
-                    }			
+                    }	
+                if(CountInv("WW_JohnnyHandsMeleeSelected") >=1)
+                    { 
+                        A_Print("Melee Selected: Explosive Hands"); 
+                        A_SetInventory("StandardMeleeSelected",0);
+                        A_SetInventory("BladeMeleeSelected",0);
+                        A_SetInventory("MeleeAxeSelected",0);
+                        A_SetInventory("ImpactorMeleeSelected",0);
+                        A_SetInventory("KatanaMeleeSelected",0);
+                        A_SetInventory("PickAxeMeleeSelected",0);
+                        A_SetInventory("SentinelHammerMeleeSelected",0);
+                        A_SetInventory("ClawGauntletMeleeSelected",0);
+                        A_SetInventory("JohnnyHandsMeleeSelected",1);
+                        A_StartSound("GRNPIN", 3);
+                        return ResolveState("WheelCancelMelee");
+                    }
+                    
+            // End
             return ResolveState(null);
             }
         goto Melee_Toggle_Handler_Overlay;

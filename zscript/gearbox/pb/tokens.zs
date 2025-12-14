@@ -969,11 +969,11 @@ class ShurikenCard : equipmentCard
 	{
 		tags.push("Shurikens");
 		tokens.push("WW_ShurikenSelected");
-		img.push("graphics/custommelee/default.png");
+		img.push("graphics/Equipments/shurikens.png");
 		sx.push(1.0);
 		sy.push(1.0);
 		slot.push(4);
-		relAmmo.push("");
+		relAmmo.push("ShurikenAmmo");
 	}
 	override int getdestSlot(){return 4;}
 	override double getpriority(){return 0.5;}
@@ -1101,6 +1101,18 @@ class ClawCard : meleeCard
 		tags.push("Claw Gauntlet");
 		tokens.push("WW_ClawGauntletMeleeSelected");
 		img.push("graphics/CustomMelee/clawgauntlet.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}
+
+class JohnnyHandsCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Explosive Hands");
+		tokens.push("WW_JohnnyHandsMeleeSelected");
+		img.push("graphics/CustomMelee/default.png");
 		sx.push(1.0);
 		sy.push(1.0);
 	}

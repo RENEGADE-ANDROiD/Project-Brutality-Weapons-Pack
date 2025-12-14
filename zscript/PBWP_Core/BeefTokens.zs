@@ -25,6 +25,9 @@ class SentinelHammerMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class WW_ClawGauntletMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class ClawGauntletMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
+class WW_JohnnyHandsMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class JohnnyHandsMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
 // Equipment Tokens
 // Slot 0 Misc.
 class WW_HookSelected : Inventory{Default{Inventory.MaxAmount 1;}}
@@ -33,9 +36,6 @@ class HookSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 // Slot 1 Damage
 class WW_VoidGrenadeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class VoidGrenadeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
-
-class WW_JohnnyHandsSelected : Inventory{Default{Inventory.MaxAmount 1;}}
-class JohnnyHandsSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
 // Slot 2 Utility
 class WW_ElecPodSelected : Inventory{Default{Inventory.MaxAmount 1;}}
