@@ -1,5 +1,4 @@
-Actor WW_ElecPodSelected : inventory{}
-Actor ElecPodSelected : inventory{}
+
 
 Actor ElecPodAmmo : ammo
 {

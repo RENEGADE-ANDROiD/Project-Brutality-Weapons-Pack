@@ -1,3 +1,6 @@
+//Melee
+meleeweapon/break "sounds/combat/meleeweapons/meleeweapon_break"
+
 //Killstreak
 KillStreak/assasin "SOUNDS/KillStreak/assasin.ogg"
 KillStreak/biggamehunter "SOUNDS/KillStreak/biggamehunter.ogg"

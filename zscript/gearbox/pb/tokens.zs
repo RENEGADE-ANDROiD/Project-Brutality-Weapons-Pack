@@ -759,7 +759,7 @@ class equipmentCard abstract //made it abstract so it doesnt get pushed into the
 	}
 }
 
-// SLot 0
+// SLot 0 Misc.
 Class LeechCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -790,23 +790,8 @@ class HookCard : equipmentCard
 	override int getdestSlot(){return 0;}
 	override double getpriority(){return 0.5;}
 }
-class ShieldSawCard : equipmentCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
-	{
-		tags.push("Shield Saw");
-		tokens.push("WW_ShieldSawSelected");
-		img.push("graphics/Equipments/ShieldSaw.png");
-		sx.push(0.8);
-		sy.push(0.8);
-		slot.push(0);
-		relAmmo.push("");
-	}
-	override int getdestSlot() {return 0;}
-	override double getpriority() {return 0.5;}
-}
 
-// Slot 1
+// Slot 1 Damage
 class FragGrenCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -853,7 +838,7 @@ class VoidGrenadeCard : equipmentCard
 	override double getpriority(){return 0.5;}
 }
 
-// Slot 2
+// Slot 2 Utility
 class ProxMinCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -915,7 +900,7 @@ class ShieldGrenadeCard : equipmentCard
 	override double getpriority(){return 0.5;}
 }
 
-// Slot 3
+// Slot 3 Remote Charges
 class SwarmerCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -962,7 +947,7 @@ class AcidChargeCard : equipmentCard
 	override double getpriority(){return 0.5;}
 }
 
-// Slot 4
+// Slot 4 Throwables
 class AxeCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -977,6 +962,36 @@ class AxeCard : equipmentCard
 	}
 	override int getdestSlot(){return 4;}
 	override double getpriority(){return 0.5;}
+}
+class ShurikenCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Shurikens");
+		tokens.push("WW_ShurikenSelected");
+		img.push("graphics/Equipments/shurikens.png");
+		sx.push(1.0);
+		sy.push(1.0);
+		slot.push(4);
+		relAmmo.push("ShurikenAmmo");
+	}
+	override int getdestSlot(){return 4;}
+	override double getpriority(){return 0.5;}
+}
+class ShieldSawCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Shield Saw");
+		tokens.push("WW_ShieldSawSelected");
+		img.push("graphics/Equipments/ShieldSaw.png");
+		sx.push(0.8);
+		sy.push(0.8);
+		slot.push(4);
+		relAmmo.push("");
+	}
+	override int getdestSlot() {return 4;}
+	override double getpriority() {return 0.5;}
 }
 
 /////////////////////
@@ -994,7 +1009,128 @@ class meleeCard
 		return;
 	}
 }
+class DefaultMeleeCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Default");
+		tokens.push("WW_StandardMeleeSelected");
+		img.push("graphics/CustomMelee/melee-default.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}
 
+class BladeMeleeCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Blade");
+		tokens.push("WW_BladeMeleeSelected");
+		img.push("graphics/CustomMelee/melee-doom-blade.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}
+
+class MeleeAxeCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Axe");
+		tokens.push("WW_MeleeAxeSelected");
+		img.push("graphics/CustomMelee/melee-axe.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}
+
+class ImpactorGauntletCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Impactor Gauntlet");
+		tokens.push("WW_ImpactorMeleeSelected");
+		img.push("graphics/CustomMelee/melee-impact-gauntlet.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}
+
+class KatanaCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Katana");
+		tokens.push("WW_KatanaMeleeSelected");
+		img.push("graphics/CustomMelee/melee-katana.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}
+
+class PickAxeCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Pick Axe");
+		tokens.push("WW_PickAxeMeleeSelected");
+		img.push("graphics/CustomMelee/melee-pick-axe.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}
+
+class SentinelHammerCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Sentinel Hammer");
+		tokens.push("WW_SentinelHammerMeleeSelected");
+		img.push("graphics/CustomMelee/melee-sentinel-hammer.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}
+
+class ClawCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Claw Gauntlet");
+		tokens.push("WW_ClawGauntletMeleeSelected");
+		img.push("graphics/CustomMelee/melee-claw-gauntlet.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}
+
+class JohnnyHandsCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Explosive Hands");
+		tokens.push("WW_JohnnyHandsMeleeSelected");
+		img.push("graphics/CustomMelee/melee-doomguy-head.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}
+
+class CrowbarCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Crowbar");
+		tokens.push("WW_MeleeCrowbarSelected");
+		img.push("graphics/CustomMelee/melee-crowbar.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}
+
+
+/*
 class DefaultMeleeCard : meleeCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
@@ -1090,3 +1226,28 @@ class ClawCard : meleeCard
 		sy.push(1.0);
 	}
 }
+
+class JohnnyHandsCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Explosive Hands");
+		tokens.push("WW_JohnnyHandsMeleeSelected");
+		img.push("graphics/CustomMelee/default.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}
+
+class CrowbarCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Crowbar");
+		tokens.push("WW_MeleeCrowbarSelected");
+		img.push("graphics/CustomMelee/crowbar.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}*/
+

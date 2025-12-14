@@ -1,5 +1,3 @@
-Actor WW_DetonatorSelected : inventory{}
-Actor DetonatorSelected : inventory{}
 Actor RemoteChargeDetonator : Inventory { inventory.maxamount 1 }
 
 Actor DetonatorAmmo : ammo

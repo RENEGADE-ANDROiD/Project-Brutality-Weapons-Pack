@@ -3,8 +3,7 @@
 //Actor PickedUpRemoteCharge : Inventory {inventory.maxamount 1}
 //Actor PrepRemoteCharge : Inventory {inventory.maxamount 1}
 
-Actor WW_AcidChargeSelected : inventory{}
-Actor AcidChargeSelected : inventory{}
+
 
 Actor AcidChargeAmmo : ammo
 {
