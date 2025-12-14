@@ -1,6 +1,5 @@
 /////SHIELD GRENADE/////////////////////////////////////////////////////////////////////////
-Actor WW_ShieldSelected : inventory{}
-Actor ShieldSelected : inventory{}
+
 ACTOR ShieldDeathTimer1 : Inventory {Inventory.MaxAmount 200}
 
 ACTOR ShieldGrenade: CustomInventory {

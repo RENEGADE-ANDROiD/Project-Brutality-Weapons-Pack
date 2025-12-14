@@ -5,10 +5,7 @@
 Actor RemoteChargeDetonator : Inventory { inventory.maxamount 1 }
 Actor SwarmDroneLifetime : Inventory {inventory.maxamount 30}
 
-Actor WW_SwarmerSelected : inventory{}
 
-//the token pb sets as "actually using this equipment"
-Actor SwarmerSelected : inventory{}
 
 //this is just ammo for the equipment itself
 Actor SwarmerAmmo : ammo

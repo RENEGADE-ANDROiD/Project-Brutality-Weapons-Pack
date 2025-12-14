@@ -1,0 +1,65 @@
+Actor ExplosiveHandCharges : ammo
+{
+	Inventory.Amount 10
+	Inventory.MaxAmount 10
+	Ammo.BackPackAmount 10
+	Ammo.BackPackMaxAmount 10
+	Inventory.PickUpMessage ""
+}
+
+ACTOR KatanaDurability : Ammo {
+	Game Doom
+    Inventory.Amount 30
+    Inventory.MaxAmount 30
+    Ammo.BackPackAmount 30
+    Ammo.BackPackMaxAmount 30
+}
+
+ACTOR ImpactorCharges : Ammo {
+	Game Doom
+    Inventory.Amount 10
+    Inventory.MaxAmount 10
+    Ammo.BackPackAmount 10
+    Ammo.BackPackMaxAmount 10
+}   
+
+ACTOR ClawCharges : Ammo {
+	Game Doom
+    Inventory.Amount 20
+    Inventory.MaxAmount 20
+    Ammo.BackPackAmount 20
+    Ammo.BackPackMaxAmount 20
+}  
+
+ACTOR PickAxeDurability : Ammo {
+	Game Doom
+    Inventory.Amount 35
+    Inventory.MaxAmount 35
+    Ammo.BackPackAmount 35
+    Ammo.BackPackMaxAmount 35
+}   
+
+ACTOR SentinelhammerCharges : Ammo {
+	Game Doom
+    Inventory.Amount 10
+    Inventory.MaxAmount 10
+    Ammo.BackPackAmount 10
+    Ammo.BackPackMaxAmount 10
+}   
+
+// ProSurv
+ACTOR CrowbarDurability : Ammo {
+	Game Doom
+    Inventory.Amount 35
+    Inventory.MaxAmount 35
+    Ammo.BackPackAmount 35
+    Ammo.BackPackMaxAmount 35
+}	
+
+ACTOR WrenchDurability : Ammo {
+	Game Doom
+    Inventory.Amount 30
+    Inventory.MaxAmount 30
+    Ammo.BackPackAmount 30
+    Ammo.BackPackMaxAmount 30
+}		

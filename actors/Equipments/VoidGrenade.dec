@@ -3,8 +3,7 @@
 //Actor PickedUpVoidGrenade : Inventory {inventory.maxamount 1}
 //Actor PrepVoidGrenade : Inventory {inventory.maxamount 1}
 
-Actor WW_VoidGrenadeSelected : inventory{}
-Actor VoidGrenadeSelected : inventory{}
+
 
 //this is just ammo for the equipment itself
 Actor VoidGrenadeAmmo : ammo
