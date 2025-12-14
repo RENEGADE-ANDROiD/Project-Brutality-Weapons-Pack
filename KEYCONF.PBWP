@@ -9,7 +9,7 @@ addkeysection "PB Weapons Pack Keybinds" PBWP_KEY
 AddMenuKey "$PBWP_TOGGLE_MELEE_MENU"   +pbwp_meleemenu
 
 //addkeysection "Combat Rating Points" PB_CRSys
-addmenukey "Show Combat Points" PB_CRSHW
+addmenukey "Show Combat Points: " PB_CRSHW
    alias PB_CRSHW "pukename ShowPoints"
 
 AddMenuKey "Toggle Magnet Mode" MagnetModeOff

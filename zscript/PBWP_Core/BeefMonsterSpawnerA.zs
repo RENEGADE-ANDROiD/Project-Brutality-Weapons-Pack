@@ -6,6 +6,33 @@
 class AlreadyHaveMeatHook : inventory{default{inventory.maxamount 1;}}
 class AlreadyHaveArgentSith : inventory{default{inventory.maxamount 1;}}
 
+// MELEE
+Class MeleeDropSpawner : PBWP_Spawner
+{
+    States
+	{
+		Tier4:
+			TNT1 A 0;
+			TNT1 A 0 A_SpawnItemEx("PB_MeleeDropSpawnerT1");
+			Stop;
+		Tier3:
+			TNT1 A 0;
+			TNT1 A 0 A_SpawnItemEx("PB_MeleeDropSpawnerT2");
+			Stop;
+		Tier2:
+			TNT1 A 0;
+			TNT1 A 0 A_SpawnItemEx("PB_MeleeDropSpawnerT3");
+			Stop;
+		Tier1:
+			TNT1 A 0;
+			TNT1 A 0 A_SpawnItemEx("PB_MeleeDropSpawnerT4");
+			Stop;
+		Death:
+			TNT1 A 0;
+			Goto Spawn;
+	}
+}
+
 // Marauder SSG
 Class MarauderDropSpawner : PBWP_Spawner 
 {

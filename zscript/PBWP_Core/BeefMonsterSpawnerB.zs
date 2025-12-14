@@ -1,6 +1,50 @@
 // This is SpawnerB, this is what SpawnerA spawns
 // This is the place if you want to add more tiers or more things to spawn
 
+// MELEE
+class PB_MeleeDropSpawnerT1 : PB_WeaponSpawner 
+{
+    Default
+    {
+        Dropitem "PB_Axe", 255, 1;
+        Dropitem "Crowbar", 255, 1;
+        Dropitem "Wrench", 255, 1;
+    }
+}
+class PB_MeleeDropSpawnerT2 : PB_WeaponSpawner 
+{
+    Default
+    {
+        Dropitem "PB_Axe", 255, 1;
+        Dropitem "PickAxePickup", 255, 1;
+        Dropitem "Crowbar", 255, 1;
+        Dropitem "Wrench", 255, 1;
+        Dropitem "KatanaPickup", 255, 1;
+    }
+}
+class PB_MeleeDropSpawnerT3 : PB_WeaponSpawner 
+{
+    Default
+    {
+        Dropitem "PB_Axe", 255, 1;
+        Dropitem "PickAxePickup", 255, 1;
+        Dropitem "SentinelHammerChargePickup", 255, 1;
+        Dropitem "ClawChargesPickup", 255, 1;
+        Dropitem "KatanaPickup", 255, 1;
+    }
+}
+class PB_MeleeDropSpawnerT4 : PB_WeaponSpawner 
+{
+    Default
+    {
+        Dropitem "ImpactorChargesPickup", 255, 1;
+        Dropitem "JohnnyHandsPickup", 255, 1;
+        Dropitem "SentinelHammerChargePickup", 255, 1;
+        Dropitem "ClawChargesPickup", 255, 1;
+        Dropitem "KatanaPickup", 255, 1;
+    }
+}
+
 // Marauder SSG
 class HookGiverSpawner : PB_WeaponSpawner 
 {

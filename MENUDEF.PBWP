@@ -247,9 +247,48 @@ OptionMenu "AmmunitionShopSystem"
 	StaticText "Don't forget to bind the Show combat points key in the settings", white
 	StaticText " "
 	Control "Show combat points", "+PB_CRSHW"
-
 	StaticText " "
-	StaticText "------------ Special Items ------------", 1
+ 	StaticText "[ HOW TO EARN COMBAT POINTS / HEALTH / ARMOR / GADGETS / EQUIPMENTS / MELEE WEAPONS ]", white
+	StaticText "", 1
+	StaticText "- Weapon Combos: Switch Weapons Fast And Kill Demons, You Will Get Health/Armor", 1
+	StaticText " "
+	StaticText "---------- List Of CHALLENGES ----------", white
+	StaticText " "
+	StaticText "- ANTI-FASCIST - Kill a Nazi with Axe/Chainsaw/Hands", 1
+	StaticText " "
+	StaticText "- Archvile SLASHER - Kill an Archvile with an Axe/Chainsaw", 1
+	StaticText " "
+	StaticText "- Baron BASHER - Kill any Baron with your Hands", 1
+	StaticText " "
+	StaticText "- BLOODBATH - Kill More Than 3 Enemies At Once", 1
+	StaticText " "
+	StaticText "- CHAINGUNNER SURPRISE - Kill Any Chaingunner with MiniGuns/Nailguns", 1
+	StaticText " "
+	StaticText "- Deadeye - Kill Any Demon 750 Units Away Using Any Rocket-Launcher or Railgun Type Weapons", 1
+	StaticText " "
+	StaticText "- DEATH INCARNATE - Kill More Than 6 Enemies At Once", 1
+	StaticText " "
+	StaticText "- HUGE GUTS! - Kill Cyberdemon's With Your Hands", 1
+	StaticText " "
+	StaticText "- I Don't Need What You Have! - Kill Axe Guy Or Chainsaw Guy With Your Hands", 1
+	StaticText " "
+	StaticText "- IMP-ALER! - Kill Tougher Imp's with any Melee or Nailgun Weapon", 1
+	StaticText " "
+	StaticText "- KNIGHT SLAYER! - Kill Hellknight's With Your Axe/Chainsaw/Hands", 1
+	StaticText " "
+	StaticText "- Now We're Cooking With Gas! - Kill Cyber-Baron Using Flamethrower", 1
+	StaticText " "
+	StaticText "- DICED TOMATOES - Kill Cacodemon with an Axe/Chainsaw", 1
+	StaticText " "
+	StaticText "- Ultimate Slimming - Kill Mancubus With Flamethrower/Unmaker/Demon Tech Rifle", 1
+	StaticText " "
+	StaticText "- You Can't Hide From Me - Kill Archvile Or Hellion Using Railgun 500 Map Units Away", 1
+	StaticText " "
+	StaticText "- ZOMBIE APOCALYPSE SURVIVOR - Kill Tougher Zombies with an ", 1
+	StaticText "AK-47, BoltRifle, MagnumSniper, AncientCrossbow and Project Survival Weapons", 1
+	StaticText " "
+	StaticText " "
+	StaticText "------------ Special Items ------------", gold
 	StaticText " "
 	Command "Buy Item Magnet (750 Points)",		"PukeName BuyItemMagnet"
 	StaticText " "
@@ -270,7 +309,7 @@ OptionMenu "AmmunitionShopSystem"
 	Command "Buy Speed Powerup (800 Points)",		"PukeName BuySpeedPower"
 
 	StaticText " "
-	StaticText "------------ Ammunition Shop ------------", 1
+	StaticText "------------ Ammunition Shop ------------", gold
 	StaticText " "
 	Command "Buy 20 Shells (100 Points)",		"PukeName BuyShells"
 	StaticText " "
@@ -284,7 +323,7 @@ OptionMenu "AmmunitionShopSystem"
 	StaticText " "
 
 	// New Weapon Categories
-	StaticText "------------ SPECIAL WEAPONS ------------", 1
+	StaticText "------------ SPECIAL WEAPONS ------------", gold
 	StaticText " "
 	Command "Buy Ancient Crossbow (500 Points)",		"PukeName BuyAncientCrossbow"
 	StaticText " "
@@ -300,7 +339,7 @@ OptionMenu "AmmunitionShopSystem"
 	StaticText " "
 	Command "Buy Stormcast (2000 Points)",		"PukeName BuyStormcast"
 
-	StaticText "------------ MELEE WEAPONS ------------", 1
+	StaticText "------------ MELEE WEAPONS ------------", gold
 	StaticText " "
 	Command "Buy Battle Axe & Shield (850 Points)",		"PukeName BuyBattleAxe"
 	StaticText " "
@@ -311,7 +350,7 @@ OptionMenu "AmmunitionShopSystem"
 	Command "Buy Razorjack (650 Points)",		"PukeName BuyRazorjack"
 	StaticText " "
 	
-	StaticText "------------ PISTOLS & SMGs ------------", 1
+	StaticText "------------ PISTOLS & SMGs ------------", gold
 	StaticText " "
 	Command "Buy 44PDW (500 Points)",		"PukeName Buy44PDW"
 	StaticText " "
@@ -330,7 +369,7 @@ OptionMenu "AmmunitionShopSystem"
 	Command "Buy UZI SMG (450 Points)",		"PukeName BuyUZISMG"
 	StaticText " "
 	
-	StaticText "------------ SHOTGUNS ------------", 1
+	StaticText "------------ SHOTGUNS ------------", gold
 	StaticText " "
 	Command "Buy Ballista Crossbow (650 Points)",		"PukeName BuyProsurv_Ballista"
 	StaticText " "
@@ -353,7 +392,7 @@ OptionMenu "AmmunitionShopSystem"
 	Command "Buy SSG (500 Points)",		"PukeName BuySSG"
 	StaticText " "
 	
-	StaticText "------------ RIFLES ------------", 1
+	StaticText "------------ RIFLES ------------", gold
 	StaticText " "
 	Command "Buy AK-47 (300 Points)",		"PukeName BuyAK47"
 	StaticText " "
@@ -372,7 +411,7 @@ OptionMenu "AmmunitionShopSystem"
 	Command "Buy Magnum Sniper Rifle (350 Points)",		"PukeName BuyMagnumSniperRifle"
 	StaticText " "
 	
-	StaticText "------------ HEAVY WEAPONS ------------", 1
+	StaticText "------------ HEAVY WEAPONS ------------", gold
 	StaticText " "
 	Command "Buy Auto Cannon (650 Points)",		"PukeName BuyAutoCannon"
 	StaticText " "
@@ -401,7 +440,7 @@ OptionMenu "AmmunitionShopSystem"
 	Command "Buy Super Nailgun (500 Points)",		"PukeName BuySuperNailgun"
 	StaticText " "
 	
-	StaticText "------------ ENERGY WEAPONS ------------", 1
+	StaticText "------------ ENERGY WEAPONS ------------", gold
 	StaticText " "
 	Command "Buy Ballista (800 Points)",		"PukeName BuyBallistagun"
 	StaticText " "
@@ -428,49 +467,6 @@ OptionMenu "AmmunitionShopSystem"
 	//Command "Buy Thunder Crossbow (650 Points)",		"PukeName BuyThunderCrossbow"
 	StaticText " "
 
-	StaticText " "
-// 	Submenu "====HOW TO EARN COMBAT POINTS/HEALTH/ARMOR/MELEE WEAPONS====",			"PB_Instruct"
-	StaticText "", 1
-	StaticText "- Weapon Combos: Switch Weapons Fast And Kill Demons, You Will Get Health/Armor", 1
-	StaticText " "
-	StaticText "------ Here's List Of All ''Challenges'' ------", 1
-	StaticText " "
-	StaticText "- ANTI-FASCIST - Kill a Nazi with Axe/Chainsaw/Hands", 1
-	StaticText " "
-	StaticText "- Archvile SLASHER - Kill an Archvile with an Axe/Chainsaw", 1
-	StaticText " "
-	StaticText "- Baron BASHER - Kill any Baron with your Hands", 1
-	StaticText " "
-	StaticText "- BLOODBATH - Kill More Than 3 Enemies At Once", 1
-	StaticText " "
-	StaticText "- CHAINGUNNER SURPRISE - Kill Any Chaingunner with MiniGuns/Nailguns", 1
-	StaticText " "
-	StaticText "- Deadeye - Kill Any Demon 750 Units Away Using Any Rocket-Launcher or Railgun Type Weapons", 1
-	StaticText " "
-	StaticText "- DEATH INCARNATE - Kill More Than 6 Enemies At Once", 1
-	StaticText " "
-	StaticText "- HUGE GUTS! - Kill Cyberdemon's With Your Hands", 1
-	StaticText " "
-	StaticText "- I Don't Need What You Have! - Kill Axe Guy Or Chainsaw Guy With Your Hands", 1
-	StaticText " "
-	StaticText "- IMP-ALER! - Kill Tougher Imp's with any Melee or Nailgun Weapon", 1
-	StaticText " "
-	StaticText "- KNIGHT SLAYER! - Kill Hellknight's With Your Axe/Chainsaw/Hands", 1
-	StaticText " "
-	StaticText "- Now We're Cooking With Gas! - Kill Cyber-Baron Using Flamethrower", 1
-	StaticText " "
-	StaticText "- Tomatoes! - Kill Cacodemon with an Axe/Chainsaw", 1
-	StaticText " "
-	StaticText "- Ultimate Slimming - Kill Mancubus With Flamethrower/Unmaker/Demon Tech Rifle", 1
-	StaticText " "
-	StaticText "- You Can't Hide From Me - Kill Archvile Or Hellion Using Railgun 500 Map Units Away", 1
-	StaticText " "
-	StaticText "- ZOMBIE APOCALYPSE SURVIVOR - Kill Tougher Zombies with an ", 1
-	StaticText "AK-47, BoltRifle, MagnumSniper, AncientCrossbow and Project Survival Weapons", 1
-	StaticText " "
-	StaticText " "
-	StaticText " "
-	StaticText " "
 }
 ////////
 OptionMenu "SwitchItUpOptions" 
