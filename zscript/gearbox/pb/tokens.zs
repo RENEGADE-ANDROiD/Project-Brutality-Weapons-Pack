@@ -759,7 +759,7 @@ class equipmentCard abstract //made it abstract so it doesnt get pushed into the
 	}
 }
 
-// SLot 0
+// SLot 0 Misc.
 Class LeechCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -790,23 +790,8 @@ class HookCard : equipmentCard
 	override int getdestSlot(){return 0;}
 	override double getpriority(){return 0.5;}
 }
-class ShieldSawCard : equipmentCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
-	{
-		tags.push("Shield Saw");
-		tokens.push("WW_ShieldSawSelected");
-		img.push("graphics/Equipments/ShieldSaw.png");
-		sx.push(0.8);
-		sy.push(0.8);
-		slot.push(0);
-		relAmmo.push("");
-	}
-	override int getdestSlot() {return 0;}
-	override double getpriority() {return 0.5;}
-}
 
-// Slot 1
+// Slot 1 Damage
 class FragGrenCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -853,7 +838,7 @@ class VoidGrenadeCard : equipmentCard
 	override double getpriority(){return 0.5;}
 }
 
-// Slot 2
+// Slot 2 Utility
 class ProxMinCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -915,7 +900,7 @@ class ShieldGrenadeCard : equipmentCard
 	override double getpriority(){return 0.5;}
 }
 
-// Slot 3
+// Slot 3 Remote Charges
 class SwarmerCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -962,7 +947,7 @@ class AcidChargeCard : equipmentCard
 	override double getpriority(){return 0.5;}
 }
 
-// Slot 4
+// Slot 4 Throwables
 class AxeCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -977,6 +962,36 @@ class AxeCard : equipmentCard
 	}
 	override int getdestSlot(){return 4;}
 	override double getpriority(){return 0.5;}
+}
+class ShurikenCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Shurikens");
+		tokens.push("WW_ShurikenSelected");
+		img.push("graphics/custommelee/default.png");
+		sx.push(1.0);
+		sy.push(1.0);
+		slot.push(4);
+		relAmmo.push("");
+	}
+	override int getdestSlot(){return 4;}
+	override double getpriority(){return 0.5;}
+}
+class ShieldSawCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Shield Saw");
+		tokens.push("WW_ShieldSawSelected");
+		img.push("graphics/Equipments/ShieldSaw.png");
+		sx.push(0.8);
+		sy.push(0.8);
+		slot.push(4);
+		relAmmo.push("");
+	}
+	override int getdestSlot() {return 4;}
+	override double getpriority() {return 0.5;}
 }
 
 /////////////////////

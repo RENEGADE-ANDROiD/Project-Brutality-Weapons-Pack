@@ -2,6 +2,41 @@ extend class PB_WeaponBase
 {
 	States
 	{
+		// Shurikens
+		ThrowShuriken:
+			TNT1 A 0 {
+				A_WeaponOffset(0,32);
+				A_SetRoll(0);
+				PB_HandleCrosshair(90);
+			}
+			TNT1 A 0 A_SetInventory("PB_LockScreenTilt",1);
+			TNT1 A 0 A_JumpIfInventory("ShurikenAmmo", 1, 2);
+			TNT1 A 0 A_Print("You Don't Have any Shurikens");
+			Goto GoingToReady;
+			TNT1 A 0 A_Overlay(799,"FlashPunching");
+
+			SH1R A 1;
+			SH1R B 1;
+			SH1R C 1;
+			SH1R KLMNML 2;
+			SH1R D 1;
+			SH1R E 1{ 
+				A_FireCustomMissile("PowerSHURiken", -3, 0, -3);
+				A_FireCustomMissile("PowerSHURiken", 0, 1, 0, 2);
+				A_FireCustomMissile("PowerSHURiken", 3, 0, 3);
+				A_TakeInventory("ShurikenAmmo", 1);
+				A_PlaySound("PUNCH");
+				}
+			SH1R F 1;
+			SH1R G 1;
+        	SH1R H 1;
+
+			TNT1 A 0 {
+				A_TakeInventory("UseEquipment", 1);
+				A_TakeInventory("ToggleEquipment", 1);
+			}
+			TNT1 A 0 A_JumpIf(PressingUser1(), "UseEquipment");
+			Goto GoingToReady2;
 		//ShieldSaw
 		ThrowShieldSaw:
 			TNT1 A 0 {

@@ -4,12 +4,11 @@ version "4.14.2"
 #include "zscript/PBWP_Core/BeefHandler.zs"
 #include "zscript/PBWP_Core/BeefCore.zs"
 #include "zscript/PBWP_Core/BeefJMod.zs"
-#include "zscript/PBWP_Core/BeefMelee.zs"
+#include "zscript/PBWP_Core/BeefTokens.zs"
 #include "zscript/PBWP_Core/AllWeaponSpawner.zc"
 #include "zscript/PBWP_Core/PBWP_Projectiles.zs"
 #include "zscript/PBWP_Core/BeefMonsterSpawnerA.zs"
 #include "zscript/PBWP_Core/BeefMonsterSpawnerB.zs"
-
 
 // PBWP_Systems
 #include "zscript/PBWP_Systems/Magnets/Magnets.zs"

@@ -1,3 +1,15 @@
+Actor ShurikenAmmo : ammo
+{
+	Inventory.Amount 1
+	Inventory.MaxAmount 10
+	Ammo.BackPackAmount 1
+	Ammo.BackPackMaxAmount 10
+	Inventory.PickUpMessage ""
+	Inventory.Icon REMTS0
+	+INVENTORY.IGNORESKILL
+	Scale 0.45
+}
+
 //-------------------SH1Riker Projectile--------------------------------------//
 ACTOR SHURiken
 {

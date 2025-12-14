@@ -2,8 +2,7 @@
 //Actor LaserChargeEquipped : Inventory {inventory.maxamount 1}
 //Actor PickedUpLaserCharge : Inventory {inventory.maxamount 1}
 //Actor PrepLaserCharge : Inventory {inventory.maxamount 1}
-Actor WW_LaserChargeSelected : inventory{}
-Actor LaserChargeSelected : inventory{}
+
 
 Actor LaserChargeAmmo : ammo
 {
