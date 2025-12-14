@@ -27,19 +27,19 @@ script "KillMonsterIf" KILL //If monster is killed, script will be initiated
 	int DistanceToTarget = distance(0, GetActorProperty(0, APROP_TargetTID));
 	SetActivatorToTarget(0);
 	str WeaponName = GetWeapon();
-	IF (WeaponName == "SentinelHammer")
-		{
-		terminate;
-	}
+//	IF (WeaponName == "SentinelHammer")
+//		{
+//		terminate;
+//	}
 GiveInventory("MonsterKilled", 1);
 	//Archvile SLASHER
 	if (MonsterName == "PB_Archvile" || MonsterName == "PB_Hellion") {
-	if (WeaponName == "PB_Chainsaw") {
+	if (WeaponName == "PB_Chainsaw" || WeaponName == "PB_Axe") {
 	SetFont("bigfont");
 	HudMessage(s:"Archvile SLASHER!"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
-	HudMessage(s:"+100 points AND +25 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	HudMessage(s:"+25 points AND +25 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
 	GiveInventory("HealthBonus", 25);
-	GiveInventory("PB_Score", 100);
+	GiveInventory("PB_Score", 25);
 	}
 	}
 	//If Mancubus killed by flamethrower/Demon Tech/Unmaker, make Ultimate slimming CHALLENGE!
@@ -58,9 +58,9 @@ GiveInventory("MonsterKilled", 1);
 	if (WeaponName == "PB_Chainsaw" || WeaponName == "PB_Axe") {
 	SetFont("bigfont");
 	HudMessage(s:"Tomatoes!"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 3.7);
-	HudMessage(s:"+25 Armor AND +25 points"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 3.7);
-	GiveInventory("ArmorBonus", 25);
-	GiveInventory("PB_Score", 25);
+	HudMessage(s:"+10 Armor AND +15 points"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 3.7);
+	GiveInventory("ArmorBonus", 10);
+	GiveInventory("PB_Score", 15);
 	}
 	}
 	//HUGE GUTS CHALLENGE!
@@ -74,15 +74,15 @@ GiveInventory("MonsterKilled", 1);
 	GiveInventory("PB_Score", 50);
 	}
 	}
-	//KNIGHTSLAYER!
+	//KNIGHT SLAYER!
 	else if (MonsterName == "PB_Knight" || MonsterName == "PB_CyberKnight" || MonsterName == "PB_CyberPaladin") {
-	if (WeaponName == "Melee_Attacks") {
+	if (WeaponName == "Melee_Attacks" || WeaponName == "PB_Chainsaw" || WeaponName == "PB_Axe") {
 	SetFont("bigfont");
 	HudMessage(s:"KNIGHT SLAYER!"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
-	HudMessage(s:"+35 Armor AND +35 Health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
-	GiveInventory("ArmorBonus", 30);
-	GiveInventory("HealthBonus", 30);
-	GiveInventory("PB_Score", 50);
+	HudMessage(s:"+25 Points AND +25 Armor AND +25 Health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("ArmorBonus", 25);
+	GiveInventory("HealthBonus", 25);
+	GiveInventory("PB_Score", 25);
 	}
 	}
 	//ANTI-FASCIST
@@ -90,10 +90,65 @@ GiveInventory("MonsterKilled", 1);
 	if (WeaponName == "Melee_Attacks" || WeaponName == "PB_Chainsaw" || WeaponName == "PB_Axe") {
 	SetFont("bigfont");
 	HudMessage(s:"ANTI-FASCIST"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
-	HudMessage(s:"+35 Armor AND +35 Health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
-	GiveInventory("ArmorBonus", 10);
-	GiveInventory("HealthBonus", 10);
-	GiveInventory("PB_Score", 100);
+	HudMessage(s:"+50 Score AND +25 Armor AND +35 Health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("ArmorBonus", 25);
+	GiveInventory("HealthBonus", 25);
+	GiveInventory("PB_Score", 50);
+	}
+	}
+	//CHAINGUNNER SURPRISE
+	else if (MonsterName == "PB_NailgunMajor" || MonsterName == "PB_HelmetCommando" || MonsterName == "PB_ZSpecOps" || MonsterName == "PB_DemonTechZombie" || MonsterName == "PB_Commando") {
+	if (WeaponName == "INMiniGun" || WeaponName == "PB_Minigun" || WeaponName == "Dark_Fate" || WeaponName == "INNailGun" || WeaponName == "DukeNukemRipper" || WeaponName == "SuperNailgun" || WeaponName == "PB_Nailgun") {
+	SetFont("bigfont");
+	HudMessage(s:"CHAINGUNNER SURPRISE"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
+	HudMessage(s:"+15 Points AND +15 Armor AND +15 Health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("ArmorBonus", 15);
+	GiveInventory("HealthBonus", 15);
+	GiveInventory("PB_Score", 15);
+	}
+	}
+	//BARON BASHER
+	else if (MonsterName == "PB_Baron" || MonsterName == "PB_CyberBaron" || MonsterName == "PB_Belphegor" || MonsterName == "PB_Infernus") {
+	if (WeaponName == "Melee_Attacks") {
+	SetFont("bigfont");
+	HudMessage(s:"BARON BASHER"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
+	HudMessage(s:"+25 Points AND +25 Armor AND +25 Health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("ArmorBonus", 25);
+	GiveInventory("HealthBonus", 25);
+	GiveInventory("PB_Score", 25);
+	}
+	}
+	//ZOMBIE APOCALYPSE SURVIVOR
+	else if (MonsterName == "PB_PlasmaZombie" || MonsterName == "PB_ZombieScientistChainsaw" || MonsterName == "PB_CarbineZombieman" || MonsterName == "PB_RocketZombie" || MonsterName == "PB_QSGZombie" || MonsterName == "PB_RiotShieldGuy" || MonsterName == "ASGGuy") {
+	if (WeaponName == "Prosurv_Ballista" || WeaponName == "Prosurv_LeverAction" || WeaponName == "ProSurv_BlasterPistol" || WeaponName == "AK-47" || WeaponName == "MagnumSniperRifle" || WeaponName == "PB_BoltRifle" || WeaponName == "AncientCrossbow") {
+	SetFont("bigfont");
+	HudMessage(s:"ZOMBIE APOCALYPSE SURVIVOR"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
+	HudMessage(s:"+15 Points AND +15 Armor AND +15 Health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("ArmorBonus", 15);
+	GiveInventory("HealthBonus", 15);
+	GiveInventory("PB_Score", 15);
+	}
+	}
+	//IMP-ALER
+	else if (MonsterName == "PB_InfectedImp" || MonsterName == "PB_DarkImpST" || MonsterName == "PB_DarkImpNami" || MonsterName == "PB_DarkImpVoid" || MonsterName == "PB_DarkImpNether") {
+	if (WeaponName == "Melee_Attacks" || WeaponName == "PB_Chainsaw" || WeaponName == "PB_Axe" || WeaponName == "PB_BeamKatana" || WeaponName == "PB_ArgentSith" || WeaponName == "BattleAxe" || WeaponName == "Razorjack" || WeaponName == "Fire_and_Ice-DragonSlayer" || WeaponName == "INNailGun" || WeaponName == "SuperNailgun" || WeaponName == "PB_Nailgun") {
+	SetFont("bigfont");
+	HudMessage(s:"IMP-ALER"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
+	HudMessage(s:"+15 Points AND +15 Armor AND +15 Health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("ArmorBonus", 15);
+	GiveInventory("HealthBonus", 15);
+	GiveInventory("PB_Score", 15);
+	}
+	}
+	//IMP-ALER
+	else if (MonsterName == "" || MonsterName == "" || MonsterName == "" || MonsterName == "" || MonsterName == "PB_DarkImpNether") {
+	if (WeaponName == "Melee_Attacks" || WeaponName == "PB_Chainsaw" || WeaponName == "PB_Axe" || WeaponName == "PB_BeamKatana" || WeaponName == "PB_ArgentSith" || WeaponName == "BattleAxe" || WeaponName == "Razorjack" || WeaponName == "Fire_and_Ice-DragonSlayer" || WeaponName == "INNailGun" || WeaponName == "SuperNailgun" || WeaponName == "PB_Nailgun") {
+	SetFont("bigfont");
+	HudMessage(s:"IMP-ALER"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
+	HudMessage(s:"+15 Points AND +15 Armor AND +15 Health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("ArmorBonus", 15);
+	GiveInventory("HealthBonus", 15);
+	GiveInventory("PB_Score", 15);
 	}
 	}
 	//I don't need that you have! CHALLENGE
@@ -127,12 +182,12 @@ GiveInventory("MonsterKilled", 1);
 	}
 	}
 	//Deadeye
-	else if (WeaponName == "PB_RocketLauncher" && DistanceToTarget >= 750) {
+	else if (WeaponName == "PB_RocketLauncher" || WeaponName == "Paingiver" || WeaponName == "Ballistagun" || WeaponName == "PB_GaussCannon" || WeaponName == "PB_Excavator" || WeaponName == "D4RocketLauncher" || WeaponName == "PB_Railgun" && DistanceToTarget >= 750) {
 	SetFont("bigfont");
 	HudMessage(s:"DEADEYE"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
-	HudMessage(s:"+50 points AND +55 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
-	GiveInventory("HealthBonus", 55);
-	GiveInventory("PB_Score", 50);
+	HudMessage(s:"+10 points AND +10 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
+	GiveInventory("HealthBonus", 10);
+	GiveInventory("PB_Score", 10);
 	}
 	delay(6);
 	TakeInventory("MonsterKilled", 1);
@@ -160,16 +215,7 @@ str WeaponName2;
 						//Get player input
 						//If weapon is the same - no result
 						//If monster is killed, giving random reward
-						if (CheckInventory("MonsterKilled") >= 6) {
-							HudMessage(s:"+75 points AND +65 health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
-							FadeRange (225, 0, 0, 0.4, 0, 0, 0, 0.0, 0.6);
-							HudMessage(s:"DEATH INCARNATE!!"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 2.0);
-							GiveInventory("HealthBonus", 65);
-							GiveInventory("PB_Score", 75);
-							TakeInventory("MonsterKilled", 6);
-							break;
-						}
-						else if (CheckInventory("MonsterKilled") >= 3) {
+						if (CheckInventory("MonsterKilled") >= 3) {
 							FadeRange (225, 0, 0, 0.4, 0, 0, 0, 0.0, 0.6);
 							HudMessage(s:"BLOODBATH!"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 2.0);
 							HudMessage(s:"+25 points AND +25 health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
@@ -178,13 +224,59 @@ str WeaponName2;
 							TakeInventory("MonsterKilled", 3);
 							break;
 						}
+						else if (CheckInventory("MonsterKilled") >= 6) {
+							HudMessage(s:"+50 points AND +65 health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
+							FadeRange (225, 0, 0, 0.4, 0, 0, 0, 0.0, 0.6);
+							HudMessage(s:"DEATH INCARNATE! 6 Unlucky Enemies"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 2.0);
+							GiveInventory("HealthBonus", 65);
+							GiveInventory("PB_Score", 50);
+							TakeInventory("MonsterKilled", 6);
+							break;
+						}
+						else if (CheckInventory("MonsterKilled") >= 10) {
+							FadeRange (225, 0, 0, 0.4, 0, 0, 0, 0.0, 0.6);
+							HudMessage(s:"THRASHER! 10 Enemy WIPEOUT"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 2.0);
+							HudMessage(s:"+75 points AND +75 health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
+							GiveInventory("HealthBonus", 75);
+							GiveInventory("PB_Score", 75);
+							TakeInventory("MonsterKilled", 10);
+							break;
+						}
+						else if (CheckInventory("MonsterKilled") >= 15) {
+							FadeRange (225, 0, 0, 0.4, 0, 0, 0, 0.0, 0.6);
+							HudMessage(s:"GOD LIKE! 15 Enemies VANQUISHED"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 2.0);
+							HudMessage(s:"+100 points AND +100 health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
+							GiveInventory("HealthBonus", 100);
+							GiveInventory("PB_Score", 100);
+							TakeInventory("MonsterKilled", 15);
+							break;
+						}
 						else if (CheckInventory("MonsterKilled") >= 20) {
 							FadeRange (225, 0, 0, 0.4, 0, 0, 0, 0.0, 0.6);
-							HudMessage(s:"DIMENSIONAL COLLAPSE"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 2.0);
-							HudMessage(s:"+250 points AND +250 health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
-							GiveInventory("HealthBonus", 250);
-							GiveInventory("PB_Score", 250);
+							HudMessage(s:"DIMENSIONAL COLLAPSE! 20 Enemies EVAPORATED"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 2.0);
+							HudMessage(s:"+200 points AND +200 health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
+							GiveInventory("HealthBonus", 200);
+							GiveInventory("PB_Score", 200);
 							TakeInventory("MonsterKilled", 20);
+							break;
+						}
+							else if (CheckInventory("MonsterKilled") >= 25) {
+							FadeRange (225, 0, 0, 0.4, 0, 0, 0, 0.0, 0.6);
+							HudMessage(s:"NUCLEAR OPTION! 25 Enemies NUKED"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 2.0);
+							HudMessage(s:"+250 Points AND +250 Armor"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
+							GiveInventory("ArmorBonus", 250);
+							GiveInventory("PB_Score", 250);
+							TakeInventory("MonsterKilled", 25);
+							break;
+						}
+							else if (CheckInventory("MonsterKilled") >= 30) {
+							FadeRange (225, 0, 0, 0.4, 0, 0, 0, 0.0, 0.6);
+							HudMessage(s:"THANOS SNAP! 30 Demons Turned to Ash"; 1,96,CR_RED, 0.025, 0.745, 5.0, 0.8, 2.0);
+							HudMessage(s:"+300 Points AND +250 Armor AND +250 Health"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 2.0);
+							GiveInventory("ArmorBonus", 250);
+							GiveInventory("HealthBonus", 250);
+							GiveInventory("PB_Score", 300);
+							TakeInventory("MonsterKilled", 30);
 							break;
 						}
 						else if (WeaponName2 != WeaponName1 && CheckInventory("MonsterKilled")) {

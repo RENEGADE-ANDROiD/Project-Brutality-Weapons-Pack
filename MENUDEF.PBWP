@@ -429,7 +429,7 @@ OptionMenu "AmmunitionShopSystem"
 	StaticText " "
 
 	StaticText " "
-// 	Submenu "====HOW TO EARN COMBAT POINTS====",			"PB_Instruct"
+// 	Submenu "====HOW TO EARN COMBAT POINTS/HEALTH/ARMOR/MELEE WEAPONS====",			"PB_Instruct"
 	StaticText "", 1
 	StaticText "- Weapon Combos: Switch Weapons Fast And Kill Demons, You Will Get Health/Armor", 1
 	StaticText " "
@@ -437,27 +437,39 @@ OptionMenu "AmmunitionShopSystem"
 	StaticText " "
 	StaticText "- ANTI-FASCIST - Kill a Nazi with Axe/Chainsaw/Hands", 1
 	StaticText " "
-	StaticText "- Archvile SLASHER - Kill an Archvile with Chainsaw", 1
+	StaticText "- Archvile SLASHER - Kill an Archvile with an Axe/Chainsaw", 1
+	StaticText " "
+	StaticText "- Baron BASHER - Kill any Baron with your Hands", 1
 	StaticText " "
 	StaticText "- BLOODBATH - Kill More Than 3 Enemies At Once", 1
 	StaticText " "
-	StaticText "- Deadeye - Kill Any Demon Using Rocket-Launcher 750 Units Away", 1
+	StaticText "- CHAINGUNNER SURPRISE - Kill Any Chaingunner with MiniGuns/Nailguns", 1
+	StaticText " "
+	StaticText "- Deadeye - Kill Any Demon 750 Units Away Using Any Rocket-Launcher or Railgun Type Weapons", 1
 	StaticText " "
 	StaticText "- DEATH INCARNATE - Kill More Than 6 Enemies At Once", 1
 	StaticText " "
-	StaticText "- I Don't Need That You Have! - Kill Axe Guy Or Chainsaw Guy With Your Hands", 1
-	StaticText " "
-	StaticText "- Tomatoes! - Kill Cacodemon By Axe/Chainsaw", 1
-	StaticText " "
 	StaticText "- HUGE GUTS! - Kill Cyberdemon's With Your Hands", 1
 	StaticText " "
-	StaticText "- KNIGHT SLAYER! - Kill Hellknight's With Your Hands", 1
+	StaticText "- I Don't Need What You Have! - Kill Axe Guy Or Chainsaw Guy With Your Hands", 1
 	StaticText " "
-	StaticText "- Now We Cooking With Gas! - Kill Cyber-Baron Using Flamethrower", 1
+	StaticText "- IMP-ALER! - Kill Tougher Imp's with any Melee or Nailgun Weapon", 1
+	StaticText " "
+	StaticText "- KNIGHT SLAYER! - Kill Hellknight's With Your Axe/Chainsaw/Hands", 1
+	StaticText " "
+	StaticText "- Now We're Cooking With Gas! - Kill Cyber-Baron Using Flamethrower", 1
+	StaticText " "
+	StaticText "- Tomatoes! - Kill Cacodemon with an Axe/Chainsaw", 1
 	StaticText " "
 	StaticText "- Ultimate Slimming - Kill Mancubus With Flamethrower/Unmaker/Demon Tech Rifle", 1
 	StaticText " "
 	StaticText "- You Can't Hide From Me - Kill Archvile Or Hellion Using Railgun 500 Map Units Away", 1
+	StaticText " "
+	StaticText "- ZOMBIE APOCALYPSE SURVIVOR - Kill Tougher Zombies with an ", 1
+	StaticText "AK-47, BoltRifle, MagnumSniper, AncientCrossbow and Project Survival Weapons", 1
+	StaticText " "
+	StaticText " "
+	StaticText " "
 	StaticText " "
 }
 ////////
