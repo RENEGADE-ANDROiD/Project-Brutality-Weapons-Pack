@@ -2,8 +2,8 @@
 #INCLUDE ACTORs/Equipments/ShieldGrenade.dec
 #INCLUDE ACTORs/Equipments/VoidGrenade.dec
 #INCLUDE ACTORs/Equipments/ElecPod2.dec
-#INCLUDE ACTORs/Equipments/Axe.dec
 #INCLUDE ACTORs/Equipments/hook.dec
+#INCLUDE ACTORs/Equipments/shurikens.dec
 // RemoteGrenades
 #INCLUDE ACTORs/Equipments/RemoteGrenades/Prosurv_Swarm.dec
 #INCLUDE ACTORs/Equipments/RemoteGrenades/AcidCharge.dec
@@ -46,7 +46,6 @@
 //MELEE//
 #INCLUDE ACTORs/Weapons/Melee/JohnnyFlames.dec
 #INCLUDE ACTORs/Weapons/Melee/Katana.dec
-#INCLUDE ACTORs/Weapons/Melee/Shurikens.dec
 
 //Weapons
 	//Slot-1
