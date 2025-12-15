@@ -9,7 +9,7 @@ Actor ExplosiveHandCharges : ammo
 
 ACTOR KatanaDurability : Ammo {
 	Game Doom
-    Inventory.Amount 30
+    Inventory.Amount 30 
     Inventory.MaxAmount 30
     Ammo.BackPackAmount 30
     Ammo.BackPackMaxAmount 30
@@ -62,4 +62,12 @@ ACTOR WrenchDurability : Ammo {
     Inventory.MaxAmount 30
     Ammo.BackPackAmount 30
     Ammo.BackPackMaxAmount 30
-}		
+}
+
+ACTOR HammerDurability : Ammo {
+	Game Doom
+    Inventory.Amount 40
+    Inventory.MaxAmount 40
+    Ammo.BackPackAmount 40
+    Ammo.BackPackMaxAmount 40
+}	

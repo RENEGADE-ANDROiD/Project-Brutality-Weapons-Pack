@@ -23,13 +23,3 @@ Actor crowbarpuff2 : crowbarpuff
 decal "slash2"
 }  
 
-//Swings//
-actor swungRight : Inventory
-{
-inventory.maxamount 1
-}
-
-actor swungLeft : Inventory
-{
-inventory.maxamount 1
-}

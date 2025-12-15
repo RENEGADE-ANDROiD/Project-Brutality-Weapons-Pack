@@ -1,5 +1,5 @@
 ///WRENCH//////////////////////////////////////////////////////////////////////
-ACTOR WrenchSwing : FastProjectile {
+ACTOR WrenchSwing : PB_ProjectileAlt {
 	Radius 6
 	Height 6
 	Projectile 
@@ -7,7 +7,7 @@ ACTOR WrenchSwing : FastProjectile {
 	+NOEXTREMEDEATH
 	+BLOODSPLATTER
 	+NODAMAGETHRUST
-	Damage 20
+	PB_Projectile.BaseDamage 20
 	Speed 20
 	Decal "SawDecalNew1"
 	States {
@@ -30,5 +30,5 @@ ACTOR WrenchSwing : FastProjectile {
 			Stop	}}
 ACTOR SuperWrenchSwing : WrenchSwing {
 	DamageType "ExtremePunches"
-	Damage 40
+	PB_Projectile.BaseDamage 40
 }

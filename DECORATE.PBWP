@@ -17,7 +17,6 @@
 #INCLUDE ACTORs/Weapons/FX/FLARES.PhaseEra
 #INCLUDE ACTORs/Weapons/FX/PhaseEraProjectiles.dec
 #INCLUDE ACTORs/Weapons/FX/PhaseSFX.dec
-#INCLUDE ACTORs/Weapons/FX/CrowbarPuff.dec
 
 // Monsters
 #INCLUDE ACTORs/Monsters/DEEPONE.dec
@@ -40,8 +39,7 @@
 #INCLUDE ACTORs/Weapons/Special/Unload_Tokens.dec
 #INCLUDE ACTORs/Weapons/Special/OverwhelmingProjectile.dec
 #INCLUDE ACTORs/Weapons/Special/RazorjackProjectile.dec
-#INCLUDE ACTORs/Weapons/Special/PickaxeStrike.dec
-#INCLUDE ACTORs/Weapons/Special/ImpactGauntletPuff.dec
+
 
 //MELEE//
 #INCLUDE ACTORs/CustomMelee/MeleePickupItems.dec
@@ -51,6 +49,12 @@
 #INCLUDE ACTORs/CustomMelee/Crowbar.dec
 #INCLUDE ACTORs/CustomMelee/Wrench.dec
 #INCLUDE ACTORs/CustomMelee/Katana.dec
+#INCLUDE ACTORs/CustomMelee/ClawGauntlet.dec
+#INCLUDE ACTORs/CustomMelee/ProSurv_Saw.dec
+#INCLUDE ACTORs/CustomMelee/Baton.dec
+#INCLUDE ACTORs/CustomMelee/Hammer.dec
+#INCLUDE ACTORs/CustomMelee/PickaxeStrike.dec
+#INCLUDE ACTORs/CustomMelee/ImpactGauntletPuff.dec
 
 //Weapons
 	//Slot-1

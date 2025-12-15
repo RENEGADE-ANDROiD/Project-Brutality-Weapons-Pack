@@ -8,7 +8,22 @@ ACTOR AxeDurabilityCounter : Ammo {
     Ammo.BackPackMaxAmount 40
 }
 
+ACTOR AxeSwing2 : AxeAttack { // The Actual Attack that take durability
+    DamageType Saw
+	PB_Projectile.BaseDamage 0
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+		Death:
+		Crash:
+		XDeath:
+			TNT1 A 0 A_GiveToTarget("AxeDurabilityCounter",1)
+			Stop	}}
+
 // GOTTA MAKE THE AXE TAKE DURABLIITY ON SWING HIT INSTEAD OF ARBITRARILY DECREASING IT
+// .... DONE
 ACTOR SuperAxeSwing : AxeAttack {
 	PB_Projectile.BaseDamage 70
 }

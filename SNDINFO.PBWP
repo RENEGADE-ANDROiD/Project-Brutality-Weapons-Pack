@@ -1,5 +1,14 @@
 //Melee
-meleeweapon/break "sounds/combat/meleeweapons/meleeweapon_break"
+meleeweapon/break "SOUNDS/COMBAT/MeleeWeapons/meleeweapon_break"
+
+shockbaton/activate "sounds/combat/Weapons/ShockBaton/shock_baton_activate.ogg"
+shockbaton/swing1 "sounds/combat/Weapons/ShockBaton/shock_baton_swing1.ogg"
+shockbaton/swing2 "sounds/combat/Weapons/ShockBaton/shock_baton_swing2.ogg"
+shockbaton/swingloop "sounds/combat/Weapons/ShockBaton/shock_baton_swing_loop.ogg"
+
+demonicsword/swing "sounds/combat/Weapons/Sword/demonic_sword_swing.ogg"
+demonicsword/hit "sounds/combat/Weapons/Sword/demonic_sword_hit.ogg"
+demonicsword/activate "sounds/combat/Weapons/Sword/demonic_sword_activate.ogg"
 
 //Killstreak
 KillStreak/assasin "SOUNDS/KillStreak/assasin.ogg"

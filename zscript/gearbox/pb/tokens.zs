@@ -1129,125 +1129,51 @@ class CrowbarCard : meleeCard
 	}
 }
 
-
-/*
-class DefaultMeleeCard : meleeCard
+class WrenchCard : meleeCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
 	{
-		tags.push("Default");
-		tokens.push("WW_StandardMeleeSelected");
-		img.push("graphics/CustomMelee/defaultmelee.png");
-		sx.push(0.4);
-		sy.push(0.4);
-	}
-}
-
-class BladeMeleeCard : meleeCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
-	{
-		tags.push("Blade");
-		tokens.push("WW_BladeMeleeSelected");
-		img.push("graphics/CustomMelee/blade.png");
-		sx.push(0.6);
-		sy.push(0.6);
-	}
-}
-
-class MeleeAxeCard : meleeCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
-	{
-		tags.push("Axe");
-		tokens.push("WW_MeleeAxeSelected");
-		img.push("graphics/Equipments/axe.png");
-		sx.push(0.5);
-		sy.push(0.5);
-	}
-}
-
-class ImpactorGauntletCard : meleeCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
-	{
-		tags.push("Impactor Gauntlet");
-		tokens.push("WW_ImpactorMeleeSelected");
-		img.push("graphics/CustomMelee/impactgauntlet.png");
+		tags.push("Wrench");
+		tokens.push("WW_WrenchMeleeSelected");
+		img.push("graphics/CustomMelee/melee-wrench.png");
 		sx.push(1.0);
 		sy.push(1.0);
 	}
 }
 
-class KatanaCard : meleeCard
+class ChainsawMelee : meleeCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
 	{
-		tags.push("Katana");
-		tokens.push("WW_KatanaMeleeSelected");
-		img.push("graphics/CustomMelee/katana.png");
-		sx.push(0.6);
-		sy.push(0.6);
-	}
-}
-
-class PickAxeCard : meleeCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
-	{
-		tags.push("Pick Axe");
-		tokens.push("WW_PickAxeMeleeSelected");
-		img.push("graphics/CustomMelee/pickaxe.png");
-		sx.push(1.3);
-		sy.push(1.3);
-	}
-}
-
-class SentinelHammerCard : meleeCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
-	{
-		tags.push("Sentinel Hammer");
-		tokens.push("WW_SentinelHammerMeleeSelected");
-		img.push("graphics/CustomMelee/sentinelhammer.png");
-		sx.push(0.5);
-		sy.push(0.5);
-	}
-}
-
-class ClawCard : meleeCard
-{
-	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
-	{
-		tags.push("Claw Gauntlet");
-		tokens.push("WW_ClawGauntletMeleeSelected");
-		img.push("graphics/CustomMelee/clawgauntlet.png");
+		tags.push("Chainsaw");
+		tokens.push("WW_SawMeleeSelected");
+		img.push("graphics/CustomMelee/melee-chainsaw.png");
 		sx.push(1.0);
 		sy.push(1.0);
 	}
 }
 
-class JohnnyHandsCard : meleeCard
+class BatonMelee : meleeCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
 	{
-		tags.push("Explosive Hands");
-		tokens.push("WW_JohnnyHandsMeleeSelected");
-		img.push("graphics/CustomMelee/default.png");
+		tags.push("Shock baton");
+		tokens.push("WW_BatonMeleeSelected");
+		img.push("graphics/CustomMelee/melee-baton.png");
 		sx.push(1.0);
 		sy.push(1.0);
 	}
 }
 
-class CrowbarCard : meleeCard
+class SledgeHammerMelee : meleeCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
 	{
-		tags.push("Crowbar");
-		tokens.push("WW_MeleeCrowbarSelected");
-		img.push("graphics/CustomMelee/crowbar.png");
+		tags.push("Sledge Hammer");
+		tokens.push("WW_HammerMeleeSelected");
+		img.push("graphics/CustomMelee/melee-sledgehammer.png");
 		sx.push(1.0);
 		sy.push(1.0);
 	}
-}*/
+}
 

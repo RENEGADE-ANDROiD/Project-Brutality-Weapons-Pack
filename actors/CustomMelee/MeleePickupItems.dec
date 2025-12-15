@@ -139,3 +139,19 @@ ACTOR Crowbar : CustomInventory {
 			Pickup:
 				TNT1 A 0 A_GiveInventory ("CrowbarDurability",35)
 				Stop	}}
+
+ACTOR SledgeHammer : CustomInventory {
+	Game Doom
+	Inventory.PickupSound "AXSWING"
+	Inventory.PickupMessage "Sledge Hammer"
+	Scale 0.7
+	+Inventory.AlwaysPickUp
+	+FLOORCLIP
+	+DONTGIB
+		States {
+			Spawn:
+				2UBR A -1 
+				Stop
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("HammerDurability",40)
+				Stop	}}
