@@ -1,50 +1,35 @@
-See PB Weapon Pack Options to configure:
+[Click on the green "Code" button, Click to Download Zip, then load the zip as a pk3 mod]
 
+Load order: Mapwad > Project Brutality Staging > PB Weapons Pack (last if you use other addons)
+
+YOU WILL NEED:
+Project Brutality Staging - https://github.com/pa1nki113r/Project_Brutality/tree/PB_Staging 
+
+-----------------
+See Weapon Pack Options to configure:
 - Toggle On/Off Fatality when clicking Fire for addon weapons in the pack.
-
-- Choose which weapons spawn and how.
-
-- Combat Points Weapons Shop
-
-- KILLSTREAKS from SHOO KREW PB-Pand Edition
-
-- Random Weapon Switcher by BROS_ETT_311:  Allows you to randomize the weapons in your hand at random intervals.
-
-- Behold! by BobQuickSaveSmith: Allows you to revive upon death (works when alive as well); giving you a handful of weapons and random Boss Enemies to battle.
-  
-- DOORBUSTER from BDP - Bust down doors (if you want)
-
------------------
-Recommended Load order: Mapwad > Project Brutality Staging > Glory Kills addon > PB Monster Pack > Project Malice Monsters > PB patch for Project Malice > PB Weapon Pack  
-
-While Glory Kills, Monster Pack & Project Malice monsters are not required, they do enhance gameplay experience for some of these powerful weapons.
-
-- Project Brutality Staging - https://github.com/pa1nki113r/Project_Brutality/tree/PB_Staging 
-// Click on the green "Code" button, Click to Download Zip, then load the zip as a pk3 mod.
-- Unofficial Glory Kill Addon Update - https://drive.google.com/file/d/1jELeHdBo8X55n0r42by8CjdPbwyJxR5T/view?usp=drive_link
-- PB Monster Pack - https://drive.google.com/file/d/15qWzKprNk4XBTJ_N1xbPs2Sd4Gs7V9Mi/view
-- Project Malice Monsters (Use Github download instead of Releases) - https://github.com/TheBlueSavior/Project-Malice
-- PB Malice Patch (This version is compatible with both PB Monster Pack and Project Malice, enhancing Glory Kill compatibility) - https://drive.google.com/file/d/1CTyqHng7joSrBWIEwQg6ZkZiCIu_jcp2/view?usp=drive_link
-
------------------
-Assembled by RENEGADE ANDROiD using Insanity's Nightmare as a base combined with Demon-Tech & Fire & Ice Power Fantasy.
-
-Most of these weapons have been around the Project Brutality Discord and former Brutal Repository over these previous years.  
-
-Weapons are currently being made compatible with the latest Project Brutality Staging releases.
-
+- Toggle On/Off KILLSTREAKS from SHOO KREW PB-Pand Edition by John & Kole
+- Over 60 firearms!  Choose which weapons spawn and how for custom playthroughs.
+- Gadgets & Equipments including Meat Hook, Shieldsaw, Shurikens & more by BeefRice/LovecraftNeko
+- Combat Point Weapons Shop: Earn points and gear with Combat Challenges!
+- Melee Weapon Wheel with over 12 melee weapon options by BeefRice from ThePopeOfDope's mod Project Survival!
+- Melee Weapon Durability System!  They break after so many uses.  Earn more through Combat Challenges & monster drops.
+- Item Magnet & Upgrade: Buy from Combat Point Shop, bind key to enable or disable.  From DRAGON SECTOR!
+- Random Weapon Switcher:  Allows you to randomize the weapons in your hand at random intervals by BROS_ETT_311
+- Behold!: Revive upon death giving you a handful of weapons and random Boss enemies to battle, by BobQuickSaveSmith
+- DOORBUSTER from Brutal Doom Platinum - Bust down doors (if you want)
 -----------------
 TEAM MEMBERS:
-
 - RENEGADE ANDROiD
 - BeefRice / LovecraftNeko
 - Warcarlsson
 - Doc
 - JhulkerCraft
 - Runner
-
 -----------------
-
+Originally assembled by RENEGADE ANDROiD using Insanity's Nightmare as a base combined with Demon-Tech, Gadgets & Equipments (GEM) & Fire and Ice Power Fantasy, then Project Survival and every other functioning weapon addon we could find.  Most of these weapons have been around the Project Brutality Discord and former Brutal Repository over these previous years.  BeefRice aka LovecraftNeko has taken implemented complex systems that help make this mod the complete, refined package that it is.  
+We gathered permission for most everything included and have provided credits for everything inside the package.
+-----------------
 ---------------Slot 1 weapons---------------
 
 - Energy Beam Katana
@@ -127,14 +112,15 @@ TEAM MEMBERS:
 
 ---------------Slot 9 weapons---------------
 
-- Bio-Acid Launcher
+- Ancient Crossbow
 - Ballista
+- Bio-Acid Launcher
+- Legacy Unmaker
 - Stormcast from Schism
 
 ---------------Slot 0 weapons---------------
 
-- Ancient Crossbow
 - Demon Atomizer
-- Demon Exterminator
+- Demonic Exterminator
 - Demon-Tech Minigun
 - Phase Eradicator
