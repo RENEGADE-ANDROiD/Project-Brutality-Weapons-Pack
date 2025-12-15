@@ -796,7 +796,7 @@ ACTOR BattleAxe : PBWP_Weapon
 			}
 			TNT1 A 0 A_JumpIfInventory("CantDoAction",1,"FailOverlay")
 			TNT1 A 0 A_JumpIfHealthLower(0, "FailOverlay")
-			TNT1 A 0 A_JumpIf(!CustomMelee, "Super::GoMeleeInstead")
+			//TNT1 A 0 A_JumpIf(!CustomMelee, "Super::GoMeleeInstead")
 			TNT1 A 0 {
 				A_ClearOverlays(-10,65);
 				A_Gunflash("Null");
