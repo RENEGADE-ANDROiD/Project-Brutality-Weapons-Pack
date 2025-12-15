@@ -2603,6 +2603,144 @@ action StateLabel PB_ExecutionCrackodemon() {
 			case 'PB_Cacodemon': case 'PB_CacodemonGK':
 				return PB_ExecuteCacodemon();
 				
+///////////////////////Monsters Pack Execution//////////////////////////////////////////////////////////////
+			//HellDuke
+			case 'HellDuke':
+				return PB_ExecutionHellDuke();
+
+			//Dark Lord
+			case 'DarkLord':
+				return PB_ExecutionDarkLord();
+
+			//Director
+			case 'Director':
+				return PB_ExecutionDirector();
+
+			//Etheral soul
+			case 'ESoul':
+				return PB_ExecutionESoul();
+		
+			//ObsidianRavager
+			case 'ObsidianRavager':
+				return PB_ExecutionObsidianRavager();
+
+			//IceDemon
+			case 'IceDemon':
+				return PB_ExecutionIceDemon();
+
+			//Marauder
+			case 'PB_Marauder':
+				return PB_ExecutionMarauder();
+
+			//FleshWizard
+			case 'PB_FleshWizard':
+				return PB_ExecutionFleshWizard();
+
+			//D3Seeker
+			case 'D3Seeker':
+				return PB_ExecutionD3Seeker();
+
+			//CyberSatyr
+			case 'CyberSatyr':
+				return PB_ExecutionCyberSatyr();
+				
+			//Satyr
+			case 'Satyr':
+				return PB_ExecutionSatyr();
+
+            //Zombiefresh
+			case 'PB_FreshHorrorspawn':
+				return PB_ExecutionZombiefresh();
+				
+			//Zombiefodder
+			case 'PB_Horrorspawn1':
+				return PB_ExecutionZombieFodder();
+
+			//PB_HorrorspawnDecap
+			case 'PB_HorrorspawnDecap':
+				return PB_ExecutionPB_HorrorspawnDecap();
+
+			//Unwilling
+			case 'Unwilling':
+				return PB_ExecutionUnwilling();
+				
+			//ZombieScreamer
+			case 'PB_HorrorspawnScreamer':
+				return PB_ExecutionZombieFodder();
+
+			//Unwilling
+			case 'Unwilling':
+				return PB_ExecutionUnwilling();
+				
+			//WeakWilledOne
+			case 'WeakWilledOne':
+				return PB_ExecutionUnwilling();
+			
+			//Hunger
+			case 'Hunger':
+				return PB_ExecutionHunger();
+				
+			//Hungry
+			case 'Hungry':
+				return PB_ExecutionHunger();
+				
+			//CyberFodder
+			case 'CyberFodder':
+				return PB_ExecutionCyberFodder();	
+				
+				
+			//MeleeZombie
+			case 'MeleeZombie':
+				return PB_ExecuteZombieMan();
+				
+			  //MeleeSergeant	
+			case 'MeleeSergeant':
+			    return PB_ExecuteShotguny();
+				
+			//Helelemental 
+			case 'Helemental':
+				return PB_ExecutionHelemental();
+				
+			//DarkDisciple
+			case 'DarkDisciple':
+				return PB_ExecutionDarkDisciple();	
+				
+			//PyroDemon
+			case 'Pyrodemon':
+				return PB_ExecutionPyroDemon();
+				
+			//Terminator
+			case 'Terminator':
+				return PB_ExecutionTerminator();
+				
+			case 'FriendlyTerminator':
+				return PB_ExecutionTerminator();		
+				
+			//Crackodemon
+			case 'Crackodemon':
+				return PB_ExecutionCrackodemon();
+							
+			//Behemoth
+			case 'Behemoth':
+				return PB_ExecutionBehemoth();	
+
+			//D3HellGuardian
+			case 'D3HellGuardian':
+				return PB_ExecutionD3HellGuardian();	
+
+			//D3Maledict
+			case 'D3Maledict':
+				return PB_ExecutionD3Maledict();	
+
+			//Rahovart
+			case 'Rahovart':
+				return PB_ExecutionRahovart();	
+
+			//OverLord
+			case 'OverLord':
+				return PB_ExecutionOverLord();	
+///////////////////////////The End/////////////////////////////////////////////////////////////////////////
+
 			default:
 // 				A_Print("Execution Failed");
 				return PB_ExecuteGeneric();

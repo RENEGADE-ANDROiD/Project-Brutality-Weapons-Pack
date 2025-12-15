@@ -44,6 +44,8 @@ GiveInventory("MonsterKilled", 1);
 	GiveInventory("PickAxePickup", 1);
 	GiveInventory("Crowbar", 5);
 	GiveInventory("Wrench", 5);
+	GiveInventory("ShockBaton", 5);
+	GiveInventory("Prosurv_SawSwing", 1);
 	GiveInventory("KatanaPickup", 1);
 	GiveInventory("SentinelHammerChargePickup", 1);
 	GiveInventory("ClawChargesPickup", 1);
@@ -75,6 +77,8 @@ GiveInventory("MonsterKilled", 1);
 	GiveInventory("PickAxePickup", 1);
 	GiveInventory("Crowbar", 1);
 	GiveInventory("Wrench", 1);
+	GiveInventory("ShockBaton", 5);
+	GiveInventory("Prosurv_SawSwing", 1);
 	}
 	}
 	//HUGE GUTS CHALLENGE!
@@ -90,6 +94,8 @@ GiveInventory("MonsterKilled", 1);
 	GiveInventory("PickAxePickup", 1);
 	GiveInventory("Crowbar", 1);
 	GiveInventory("Wrench", 1);
+	GiveInventory("ShockBaton", 5);
+	GiveInventory("Prosurv_SawSwing", 1);
 	GiveInventory("KatanaPickup", 1);
 	GiveInventory("SentinelHammerChargePickup", 1);
 	GiveInventory("ClawChargesPickup", 1);
@@ -177,6 +183,7 @@ GiveInventory("MonsterKilled", 1);
 	GiveInventory("PB_Score", 25);
 	GiveInventory("PB_Axe", 1);
 	GiveInventory("PB_Chainsaw", 1);
+	GiveInventory("Prosurv_SawSwing", 1);
 	}
 	}
 	//You can't hide from ME! CHALLENGE

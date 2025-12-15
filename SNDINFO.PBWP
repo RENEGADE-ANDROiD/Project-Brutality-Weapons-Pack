@@ -1681,17 +1681,16 @@ HeatBlastLV2 plaswarm
 HeatBlastLVMax plashot
 ReleasedHeatBlast plasaltf
 
-//Heavy Sniper Rifle
-MS/Fire 			"SOUNDS/COMBAT/Weapons/Slot-6/HeavySniper/msFire.ogg"
-MS/Button 			"SOUNDS/COMBAT/Weapons/Slot-6/HeavySniper/msButton.ogg"
-MS/InsertMag 		"SOUNDS/COMBAT/Weapons/Slot-6/HeavySniper/msMagIn.ogg"
-MS/TakeMag			"SOUNDS/COMBAT/Weapons/Slot-6/HeavySniper/msMagOut.ogg"
-MS/BoltDown 		"SOUNDS/COMBAT/Weapons/Slot-6/HeavySniper/msBoltDown.ogg"
-MS/BoltUp 			"SOUNDS/COMBAT/Weapons/Slot-6/HeavySniper/msBoltUp.ogg"
-MS/Grenade 			"SOUNDS/COMBAT/Weapons/Slot-6/HeavySniper/msGrenFire.ogg"
-MS/GrenOpen 		"SOUNDS/COMBAT/Weapons/Slot-6/HeavySniper/msGrenOpen.ogg"
-MS/GrenClose 		"SOUNDS/COMBAT/Weapons/Slot-6/HeavySniper/msGrenClose.ogg"
-MS/Up 				"SOUNDS/COMBAT/Weapons/Slot-6/HeavySniper/msRaise.ogg"
+MS/Fire 			"SOUNDS/Weapons/DM/msFire.ogg"
+MS/Button 			"SOUNDS/Weapons/DM/msButton.ogg"
+MS/InsertMag 		"SOUNDS/Weapons/DM/msMagIn.ogg"
+MS/TakeMag			"SOUNDS/Weapons/DM/msMagOut.ogg"
+MS/BoltDown 		"SOUNDS/Weapons/DM/msBoltDown.ogg"
+MS/BoltUp 			"SOUNDS/Weapons/DM/msBoltUp.ogg"
+MS/Grenade 			"SOUNDS/Weapons/DM/msGrenFire.ogg"
+MS/GrenOpen 		"SOUNDS/Weapons/DM/msGrenOpen.ogg"
+MS/GrenClose 		"SOUNDS/Weapons/DM/msGrenClose.ogg"
+MS/Up 				"SOUNDS/Weapons/DM/msRaise.ogg"
 
 ///////// Intro Sound /////////
 
