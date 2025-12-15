@@ -1,0 +1,36 @@
+ACTOR PickaxeMeleeStrike : PB_ProjectileAlt
+{
+	Height 6
+	Radius 8
+	DamageType Shotgun
+	Projectile 
+	+FORCEXYBILLBOARD
+	+NOEXTREMEDEATH
+	+BLOODSPLATTER
+	PB_Projectile.BaseDamage 45
+	Speed 45
+	ProjectileKickBack 300
+	DeathSound "PICKHSA"
+	Decal "Crack"
+	States
+	{
+	Spawn:
+		TNT1 A 1 BRIGHT
+		Stop
+	XDeath:
+	Crash:
+	Death:
+		PUFF A 3 A_PlaySound("PICKHSA")
+		TNT1 A 0 A_Explode(1,75,0)
+		TNT1 A 0 A_TakeFromTarget("PickAxeDurability", 1)
+		PUFF BCD 3
+		Stop
+	}
+}
+
+ACTOR PickaxeMeleeStrike2 : PickaxeMeleeStrike
+{
+	Radius 6
+	PB_Projectile.BaseDamage 50
+}
+

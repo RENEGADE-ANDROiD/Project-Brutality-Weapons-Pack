@@ -3,11 +3,22 @@ extend class PB_WeaponBase
 	States
 	{
     // The Actual Custom Melee Animations
+	// What the Melee will default to when Broken
+	SwaptoMeleeCells:
+		TNT1 A 0 A_Print("You Ran Out of Energy Cells");
+		Goto SwapToStandardMelee;
+	SwaptoMeleeFuel:
+		TNT1 A 0 A_Print("You Ran Out of Fuel");
+		Goto SwapToStandardMelee;
+	SwaptoMeleeCharges:
+		TNT1 A 0 A_Print("You Ran Out of Charges");
+		Goto SwapToStandardMelee;
+	SwaptoMeleeBroken:
+		TNT1 A 0 A_Print("Your Weapon Broke");
 	SwapToStandardMelee:
 		TNT1 A 0{
-			A_Print("Your Weapon was Broken"); 
-			A_SetInventory("StandardMeleeSelected",1);
-			A_SetInventory("BladeMeleeSelected",0);
+			A_SetInventory("StandardMeleeSelected",1); // ALWAYS UPDATE THIS ACCORDING TO THE SELECTED DEFAULT MELEE
+            A_SetInventory("BladeMeleeSelected",0);
 			A_SetInventory("MeleeAxeSelected",0);
 			A_SetInventory("ImpactorMeleeSelected",0);
 			A_SetInventory("KatanaMeleeSelected",0);
@@ -16,11 +27,443 @@ extend class PB_WeaponBase
 			A_SetInventory("ClawGauntletMeleeSelected",0);
 			A_SetInventory("JohnnyHandsMeleeSelected",0);
 			A_SetInventory("MeleeCrowbarSelected",0);
+			A_SetInventory("WrenchMeleeSelected",0);
+			A_SetInventory("SawMeleeSelected",0);
+			A_SetInventory("BatonMeleeSelected",0);
+			A_SetInventory("HammerMeleeSelected",0);
 			A_StartSound("GRNPIN", 3);
 		}
 		Goto StandardMelee;
 //////////////////////////////////////////////// TWO HANDED ////////////////////////////////////////////////
-//////////////////////////////////////////////// Crowbar COMBO START ////////////////////////////////////////////////
+//////////////////////////////////////////////// SLEDGE HAMMER COMBO START ////////////////////////////////////////////////
+	HammerComboDecider:
+		TNT1 A 0 A_JumpIfInventory("HammerDurability",1,1);
+		Goto HammerBreak;
+		TNT1 A 3;
+		TNT1 A 0 A_Jump(72, "HammerCombo3");
+		TNT1 A 0 A_Jump(256, "HammerCombo1", "HammerCombo2");
+	
+	HammerCombo1:
+		TNT1 A 0 A_JumpIfInventory("HammerDurability",1,1);
+		Goto HammerBreak;
+		TNT1 A 2;
+		0UBR ABCD 1 A_SetPitch(-.2 + pitch, SPF_INTERPOLATE);
+        TNT1 AAA 1 A_SetPitch(-2 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 A_PlaySound("AXSWING", 5);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, 8); }
+			else { A_FireCustomMissile("HammerSwing", 0, 0, 0, 8); }
+		}
+        0UBR EF 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("HammerSwing", 0, 0, 0, 0); }
+			A_FireCustomMissile("HammerSwing2", 0, 0, 0, 0);
+		}
+		0UBR GH 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, -8); }
+			else { A_FireCustomMissile("HammerSwing", 0, 0, 0, -8); }
+		}
+		0UBR I 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 1 A_JumpIf(PressingUser2(), "HammerComboDecider");
+		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+	
+	HammerCombo2:
+		TNT1 A 0 A_JumpIfInventory("HammerDurability",1,1);
+		Goto HammerBreak;
+		TNT1 A 2;
+		TNT1 A 0 A_PlaySound("AXSWING", 5);
+		0UBR JK 1 A_SetRoll(roll-1.2, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", -15, 0, 0, 0); }
+			else { A_FireCustomMissile("HammerSwing", -15, 0, 0, 0); }
+		}
+		0UBR LM 1 A_SetRoll(roll-1.2, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("HammerSwing", 0, 0, 0, 0); }
+			A_FireCustomMissile("HammerSwing2", 0, 0, 0, 0);
+		}
+        0UBR NO 1;
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 15, 0, 0, 0); }
+			else { A_FireCustomMissile("HammerSwing", 15, 0, 0, 0); }
+		}
+		0UBR PQ 1;
+		TNT1 AAAA 1 A_SetRoll(roll+1.2, SPF_INTERPOLATE);
+		TNT1 A 1 A_JumpIf(PressingUser2(), "HammerComboDecider");
+		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+		
+	HammerCombo3:
+		TNT1 A 0 A_JumpIfInventory("HammerDurability",1,1);
+		Goto HammerBreak;
+		TNT1 A 2;
+		TNT1 A 0 A_PlaySound("AXSWING", 5);
+		0UBR RS 1 A_SetRoll(roll+1.2, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", -15, 0, 0, 0); }
+			else { A_FireCustomMissile("HammerSwing", -15, 0, 0, 0); }
+		}
+		0UBR TU 1 A_SetRoll(roll+1.2, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("HammerSwing", 0, 0, 0, 0); }
+			A_FireCustomMissile("HammerSwing2", 0, 0, 0, 0);
+		}
+        0UBR VW 1;
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 15, 0, 0, 0); }
+			else { A_FireCustomMissile("HammerSwing", 15, 0, 0, 0); }
+		}
+		0UBR XY 1;
+		TNT1 AAAA 1 A_SetRoll(roll-1.2, SPF_INTERPOLATE);
+		TNT1 A 1 A_JumpIf(PressingUser2(), "HammerComboDecider");
+		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+		
+	HammerBreak:
+		TNT1 A 0{
+			A_CustomMissile ("MetalShard1", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_CustomMissile ("MetalShard2", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_CustomMissile ("MetalShard3", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_TakeInventory("SledgeHammer",1);
+			A_Startsound("meleeweapon/break");
+			PB_SetUsingMelee(false);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+			}
+		Goto SwaptoMeleeBroken;
+		
+
+//////////////////////////////////////////////// AXE COMBO START ////////////////////////////////////////////////
+	AxeComboDecider:
+		TNT1 A 0 A_JumpIf(CountInv("AxeDurabilityCounter") == 40, "AxeBreak");
+		TNT1 A 8;
+		TNT1 A 0 A_Jump(72, "AxeCombo3");
+		TNT1 A 0 A_Jump(256, "AxeCombo1", "AxeCombo2");
+
+	AxeCombo1:
+		TNT1 A 2;
+		0AXE ABCD 1 A_SetPitch(-.2 + pitch, SPF_INTERPOLATE);
+        TNT1 AAA 1 A_SetPitch(-2 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 A_PlaySound("AXSWING", 5);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { 
+				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, 8); } // SUPER SWING DOES NOT TAKE DURABILITY
+			else { A_FireCustomMissile("AxeAttack", 0, 0, 0, 8); }
+		}
+        0AXE EF 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { 
+				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("AxeSwing2", 0, 0, 0, 0); } // TAKE DURABILITY
+		}
+		0AXE GH 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { 
+				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, -8); }
+			else { A_FireCustomMissile("AxeAttack", 0, 0, 0, -8); }
+		}
+		0AXE I 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 10 A_JumpIf(PressingUser2(), "AxeComboDecider");
+		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+	
+	AxeCombo2:
+		TNT1 A 2 ;
+		TNT1 A 0 A_PlaySound("AXSWING", 5);
+		0AXE JK 1 A_SetRoll(roll-1.2, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { 
+				A_FireCustomMissile("SuperAxeSwing", -15, 0, 0, 0); }
+			else { A_FireCustomMissile("AxeAttack", -15, 0, 0, 0); }
+		}
+		0AXE LM 1 A_SetRoll(roll-1.2, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { 
+				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("AxeSwing2", 0, 0, 0, 0); } // TAKE DURABILITY
+		}
+        0AXE NO 1;
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { 
+				A_FireCustomMissile("SuperAxeSwing", 15, 0, 0, 0); }
+			else { A_FireCustomMissile("AxeAttack", 15, 0, 0, 0); }
+		}
+		0AXE PQ 1;
+		TNT1 AAAA 1 A_SetRoll(roll+1.2, SPF_INTERPOLATE);
+		TNT1 A 10 A_JumpIf(PressingUser2(), "AxeComboDecider");
+		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+		
+	AxeCombo3: // Combo Start, Dont ask me ask why
+		TNT1 A 0 A_JumpIf(CountInv("AxeDurabilityCounter") == 40, "AxeBreak");
+		TNT1 A 2;
+		TNT1 A 0 A_PlaySound("AXSWING", 5);
+		0AXE RS 1 A_SetRoll(roll+1.2, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { 
+				A_FireCustomMissile("SuperAxeSwing", -15, 0, 0, 0);} 
+			else { A_FireCustomMissile("AxeAttack", -15, 0, 0, 0); }
+		}
+		0AXE TU 1 A_SetRoll(roll+1.2, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { 
+				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("AxeSwing2", 0, 0, 0, 0); }
+		}
+        0AXE VW 1 ;
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { 
+				A_FireCustomMissile("SuperAxeSwing", 15, 0, 0, 0); }
+			else { A_FireCustomMissile("AxeAttack", 15, 0, 0, 0); }
+		}
+		0AXE XY 1;
+		TNT1 AAAA 1 A_SetRoll(roll-1.2, SPF_INTERPOLATE);
+		TNT1 A 10 A_JumpIf(PressingUser2(), "AxeComboDecider");
+		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+
+	AxeBreak:
+		TNT1 A 0{
+			A_CustomMissile ("MetalShard1", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_CustomMissile ("MetalShard2", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_CustomMissile ("MetalShard3", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_TakeInventory("PB_Axe",1);
+			A_Startsound("meleeweapon/break");
+			PB_SetUsingMelee(false);
+			A_TakeInventory("ToggleMelee", 1);
+			A_SetInventory("AxeDurabilityCounter", 0);
+			PB_CheckBarrelIdle1();
+			}
+		Goto SwaptoMeleeBroken;
+//////////////////////////////////////////////// JOHNNY HANDS ////////////////////////////////////////////////
+	ExplosiveHands:
+		TNT1 A 0 A_JumpIfInventory("ExplosiveHandCharges", 1, 2);
+		TNT1 A 0 A_Print("No Charges Left");
+		Goto GoingToReady;
+		JSML ABCDEF 1;
+		PUFF A 0 A_PlaySound("player/cyborg/fist", 3);
+		TNT1 A 0 {
+				A_FireCustomMissile("JohnnyFlames", 20, 0);
+				A_FireCustomMissile("JohnnyFlames", -20, 0);
+				A_FireCustomMissile("JohnnyFlames", 10, 0, 0, 10);
+				A_FireCustomMissile("JohnnyFlames", -10, 0, 0, -10);
+				A_FireCustomMissile("JohnnyFlames", -15, 0, 0, -15);
+				A_FireCustomMissile("JohnnyFlames", -8, 0, 0, -8);
+			}
+		TNT1 A 0 A_TakeInventory("ExplosiveHandCharges", 1);
+		JSML FGHIJKLMNOP 1;
+		
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto Ready3;
+//////////////////////////////////////////////// KATANA COMBO START ////////////////////////////////////////////////
+    MeleeKatana:
+		TNT1 A 0 A_JumpIfInventory("KatanaDurability", 1, 1);
+		Goto KatanaBreak;
+        TNT1 A 0 {
+				A_PlaySound("Katana/Swing");
+				A_SetRoll(0);
+			}
+		KTNA I 1; 
+		KTNA JK 1;
+		TNT1 A 0 {
+				if (CountInv("PB_PowerStrength") >= 1 ) {
+					A_Saw("", "", 16, "AxePuffs", 0, 120, 0,16);
+					A_FireCustomMissile("KatanaAttackTakeDurability", 0, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);			
+					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);
+				}
+				else { 
+					A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16);
+					A_FireCustomMissile("KatanaAttackTakeDurability", 0, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);
+				}			
+			}
+		KTNA LMNO 1 
+		{
+				A_Setroll(roll-1.0, SPF_INTERPOLATE);
+				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
+		}		
+		TNT1 AAA 1 
+		{
+				A_Setroll(roll+1.0, SPF_INTERPOLATE);
+				A_SetAngle(angle-0.5, SPF_INTERPOLATE);
+		}
+		TNT1 AAA 1 
+		{
+				A_Setroll(roll+1.0, SPF_INTERPOLATE);
+				A_SetAngle(angle-0.5, SPF_INTERPOLATE);
+		}
+		TNT1 A 0 A_JumpIfInventory("KatanaDurability", 1, 1);
+		Goto KatanaBreak;
+		TNT1 A 5 A_JumpIf(PressingUser2(), "MeleeKatana2");
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+	MeleeKatana2:
+		TNT1 A 0 A_JumpIfInventory("KatanaDurability", 1, 1);
+		Goto KatanaBreak;
+		KTNA ABC 1;
+		TNT1 A 0 {
+				A_PlaySound("Katana/Swing");
+				A_SetRoll(0);
+			}	
+		KTBA JK 1;
+		TNT1 A 0 {
+				if (CountInv("PB_PowerStrength") >= 1 ) {
+					A_Saw("", "", 16, "AxePuffs", 0, 120, 0,16);
+					A_FireCustomMissile("KatanaAttackTakeDurability", 0, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);			
+					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);
+				}
+				else { 
+					A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16);
+					A_FireCustomMissile("KatanaAttackTakeDurability", 0, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
+					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);
+				}				
+			}
+		KTBA LMNO 1
+		{
+				A_Setroll(roll+1.0, SPF_INTERPOLATE);
+				A_SetAngle(angle-0.5, SPF_INTERPOLATE);
+			}
+		TNT1 AAA 1 {
+				A_Setroll(roll-1.0, SPF_INTERPOLATE);
+				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
+			}
+		TNT1 AAA 1 {
+				A_Setroll(roll-1.0, SPF_INTERPOLATE);
+				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
+			}
+		TNT1 A 0 A_JumpIfInventory("KatanaDurability", 1, 1);
+		Goto KatanaBreak;
+        TNT1 A 5 A_JumpIf(PressingUser2(), "MeleeKatana");
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+	KatanaBreak:
+		TNT1 A 0{
+			A_CustomMissile ("MetalShard1", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_CustomMissile ("MetalShard2", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_CustomMissile ("MetalShard3", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_Startsound("meleeweapon/break");
+			PB_SetUsingMelee(false);
+			A_TakeInventory("KatanaPickup", 1);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+			}
+		Goto SwaptoMeleeBroken;
+//////////////////////////////////////////////// SAW COMBO START ////////////////////////////////////////////////
+	SawComboStart:
+		TNT1 A 0 A_TakeInventory("SawHasHit",1);
+		TNT1 A 5;
+		TNT1 A 0 A_StartSound("DSSAWZIP");
+		0SAW ABCDE 1 A_SetRoll(roll-.5, SPF_INTERPOLATE);
+		0SAW FGHIJ 1;
+		TNT1 AAAAA 1 A_SetRoll(roll+.5, SPF_INTERPOLATE);
+		TNT1 A 5;
+		TNT1 A 0 A_JumpIfInventory("PB_Fuel",1,"SawCombo1");
+		TNT1 A 0 A_StartSound("weapons/chainsaw/stop");
+		Goto SwaptoMeleeFuel;
+
+	SawCombo1:
+		TNT1 A 0 {
+			A_TakeInventory("SawHasHit",1);
+			A_TakeInventory("PB_Fuel",1);
+			A_StartSound("sawswing");
+		}
+		1SAW EF 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
+		TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", -20, 0, 0, 0);
+		TNT1 A 0 A_TakeInventory("PB_Fuel",1);
+		1SAW G 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
+		TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", -10, 0, 0, 0);
+		TNT1 A 0 A_TakeInventory("PB_Fuel",1);
+        1SAW HI 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
+		TNT1 A 0 A_JumpIfInventory("SawHasHit",1,"SawComboStuck");
+		Goto SawCombo2;
+		
+	SawComboStuck:
+		TNT1 A 0 A_JumpIfInventory("PB_Fuel",3,1);
+		Goto SawCombo2;
+		TNT1 A 0 {
+			A_TakeInventory("SawHasHit",1);
+			A_PlaySound("Weapons/Chainsaw/Loop",7);
+		}
+		1SAW O 1 A_ZoomFactor(1.03);
+		TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", 0, 0, 0, 0);
+		TNT1 A 0 A_TakeInventory("PB_Fuel",1);
+		1SAW P 1 A_ZoomFactor(1.045);
+		1SAW Q 1 A_ZoomFactor(1.055);
+		TNT1 A 0 A_JumpIfInventory("SawHasHit",1,"SawComboStuck");
+	SawCombo2:
+		TNT1 A 0 A_Stopsound(7);
+		TNT1 A 0 A_StartSound("weapons/chainsaw/stop");
+		1SAW JK 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
+		TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", 10, 0, 0, 0);
+		TNT1 A 0 A_TakeInventory("PB_Fuel",1);
+		1SAW LM 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
+		TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", 20, 0, 0, 0);
+		TNT1 A 0 A_TakeInventory("PB_Fuel",1);
+		1SAW N 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
+		TNT1 AAAAAAAAAA 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			A_Takeinventory("PB_LockScreenTilt",1);
+			A_TakeInventory("SawHasHit",1);
+			A_SetRoll(0);
+		}
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+
+//////////////////////////////////////////////// ONE HANDED ////////////////////////////////////////////////
+//////////////////////////////////////////////// CROWBAR COMBO START ////////////////////////////////////////////////
 	CrowbarComboDecider:
 		TNT1 A 0 A_JumpIfInventory("CrowbarDurability",1,1);
 		Goto CrowbarBreak;
@@ -98,269 +541,145 @@ extend class PB_WeaponBase
 			A_TakeInventory("ToggleMelee", 1);
 			PB_CheckBarrelIdle1();
 			}
-		Goto SwapToStandardMelee;
+		Goto SwaptoMeleeBroken;
+//////////////////////////////////////////////// BATON ////////////////////////////////////////////////
+	BatonComboStart:
+		TNT1 A 0 A_TakeInventory("SawHasHit",1);
+		TNT1 A 5;
+		TNT1 A 0 A_StartSound("ammocase/open", 5);
+		BATN FGHIJ 1 A_SetRoll(roll-.5, SPF_INTERPOLATE);
+		TNT1 A 0 A_JumpIfInventory("PB_Cell",1,"BatonCombo1");
+		TNT1 A 0 A_StartSound("weapons/m2plasma/screenon", 5);
+		BATN JIHGF 1 A_SetRoll(roll+.5, SPF_INTERPOLATE);
+		Goto SwaptoMeleeCells;
 
-//////////////////////////////////////////////// AXE COMBO START ////////////////////////////////////////////////
-	AxeComboDecider:
-		TNT1 A 0 A_JumpIf(CountInv("AxeDurabilityCounter") == 40, "AxeBreak");
-		TNT1 A 8;
-		TNT1 A 0 A_Jump(72, "AxeCombo3");
-		TNT1 A 0 A_Jump(256, "AxeCombo1", "AxeCombo2");
-
-	AxeCombo1:
+	BatonCombo1:
+		TNT1 A 0 {
+			A_TakeInventory("SawHasHit",1);
+			A_StartSound("shockbaton/activate", 5);
+		}
+		BATN KLMKLMKLMKLMKLM 1;
+		TNT1 A 0 A_StartSound("shockbaton/swing1", 5);
+		BATN K 1 A_SetRoll(roll+.5, SPF_INTERPOLATE);
+		TNT1 A 0 A_TakeInventory("PB_Cell",1);
+		BATN N 1 A_SetRoll(roll+.5, SPF_INTERPOLATE);
+		TNT1 A 0 A_TakeInventory("PB_Cell",1);
+		TNT1 A 0 A_FireCustomMissile("BatonSwing", 0, 0, 0, 0);
+        BATN O 1 A_SetRoll(roll+.5, SPF_INTERPOLATE);
+		TNT1 A 0 A_TakeInventory("PB_Cell",1);
+		TNT1 A 0 A_JumpIfInventory("SawHasHit",1,"BatonComboStuck");
+		Goto BatonCombo2;
+		
+	BatonComboStuck:
+		TNT1 A 0 A_JumpIfInventory("PB_Cell",3,1);
+		Goto BatonCombo2;
+		TNT1 A 0 {
+			A_TakeInventory("SawHasHit",1);
+			A_PlaySound("shockbaton/swingloop",7);
+		}
+		BATN Q 1 A_ZoomFactor(1.03);
+		TNT1 A 0 A_FireCustomMissile("BatonSwing", 0, 0, 0, 0);
+		TNT1 A 0 A_TakeInventory("PB_Cell",1);
+		BATN R 1 A_ZoomFactor(1.045);
+		BATN P 1 A_ZoomFactor(1.055);
+		TNT1 A 0 A_JumpIfInventory("SawHasHit",1,"BatonComboStuck");
+	BatonCombo2:
+		TNT1 A 0 A_Stopsound(7);
+		TNT1 A 0 A_StartSound("shockbaton/swing2", 5);
+		BATN ST 1 A_SetRoll(roll+.5, SPF_INTERPOLATE);
+		TNT1 A 0 A_TakeInventory("PB_Cell",1);
+		BATN UV 1 A_SetRoll(roll+.5, SPF_INTERPOLATE);
+		TNT1 A 0 A_TakeInventory("PB_Cell",1);
+		TNT1 AAA 1 A_SetRoll(roll+.5, SPF_INTERPOLATE);
+		TNT1 AAAAA 1 A_SetRoll(roll-.5, SPF_INTERPOLATE);
+		TNT1 AAAAA 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			A_Takeinventory("PB_LockScreenTilt",1);
+			A_TakeInventory("SawHasHit",1);
+			A_SetRoll(0);
+		}
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+//////////////////////////////////////////////// WRENCH ////////////////////////////////////////////////
+	WrenchComboDecider:
+		TNT1 A 0 A_JumpIfInventory("WrenchDurability",1,1);
+		Goto WrenchBreak;
+		TNT1 A 3;
+		TNT1 A 0 A_Jump(72, "WrenchCombo3");
+		TNT1 A 0 A_Jump(256, "WrenchCombo1", "WrenchCombo2");
+	
+	WrenchCombo1:
+		TNT1 A 0 A_JumpIfInventory("CrowbarDurability",1,1);
+		Goto WrenchBreak;
 		TNT1 A 2;
-		0AXE ABCD 1 A_SetPitch(-.2 + pitch, SPF_INTERPOLATE);
-        TNT1 AAA 1 A_SetPitch(-2 + pitch, SPF_INTERPOLATE);
-		TNT1 A 0 A_PlaySound("AXSWING", 5);
+		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
+		WRNC ABCD 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			A_GiveInventory("AxeDurabilityCounter", 1);
-			if (CountInv("PowerStrength") == 1 ) { 
-				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, 8); }
-			else { A_FireCustomMissile("AxeAttack", 0, 0, 0, 8); }
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("WrenchSwing", 0, 0, 0, 0); }
 		}
-        0AXE EF 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
-		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
-				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, 0); }
-			else { A_FireCustomMissile("AxeAttack", 0, 0, 0, 0); }
-		}
-		0AXE GH 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
-		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
-				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, -8); }
-			else { A_FireCustomMissile("AxeAttack", 0, 0, 0, -8); }
-		}
-		0AXE I 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
-		TNT1 A 10 A_JumpIf(PressingUser2(), "AxeComboDecider");
+        WRNC EFG 1 ;
+		TNT1 AAAA 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
+		TNT1 A 1 A_JumpIf(PressingUser2(), "WrenchComboDecider");
 		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
 		TNT1 A 0 PB_SetUsingMelee(false);
         TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
 		TNT1 A 0 PB_CheckBarrelIdle1();
 		Goto GoingToReady2;
 	
-	AxeCombo2:
-		TNT1 A 2 ;
-		TNT1 A 0 A_PlaySound("AXSWING", 5);
-		0AXE JK 1 A_SetRoll(roll-1.2, SPF_INTERPOLATE);
-		TNT1 A 0 {
-			A_GiveInventory("AxeDurabilityCounter", 1);
-			if (CountInv("PowerStrength") == 1 ) { 
-				A_FireCustomMissile("SuperAxeSwing", -15, 0, 0, 0); }
-			else { A_FireCustomMissile("AxeAttack", -15, 0, 0, 0); }
-		}
-		0AXE LM 1 A_SetRoll(roll-1.2, SPF_INTERPOLATE);
-		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
-				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, 0); }
-			else { A_FireCustomMissile("AxeAttack", 0, 0, 0, 0); }
-		}
-        0AXE NO 1;
-		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
-				A_FireCustomMissile("SuperAxeSwing", 15, 0, 0, 0); }
-			else { A_FireCustomMissile("AxeAttack", 15, 0, 0, 0); }
-		}
-		0AXE PQ 1;
-		TNT1 AAAA 1 A_SetRoll(roll+1.2, SPF_INTERPOLATE);
-		TNT1 A 10 A_JumpIf(PressingUser2(), "AxeComboDecider");
-		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
-		TNT1 A 0 PB_SetUsingMelee(false);
-        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
-		TNT1 A 0 PB_CheckBarrelIdle1();
-		Goto GoingToReady2;
-		
-	AxeCombo3: // Combo Start, Dont ask me ask why
-		TNT1 A 0 A_JumpIf(CountInv("AxeDurabilityCounter") == 40, "AxeBreak");
+	WrenchCombo2:
+		TNT1 A 0 A_JumpIfInventory("CrowbarDurability",1,1);
+		Goto WrenchBreak;
 		TNT1 A 2;
-		TNT1 A 0 A_PlaySound("AXSWING", 5);
-		0AXE RS 1 A_SetRoll(roll+1.2, SPF_INTERPOLATE);
+		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
+		WRNC HIJK 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			A_GiveInventory("AxeDurabilityCounter", 1);
-			if (CountInv("PowerStrength") == 1 ) { 
-				A_FireCustomMissile("AxeAttack", -15, 0, 0, 0);
-				A_FireCustomMissile("AxeAttack", -15, 0, 0, 0); }
-			else { A_FireCustomMissile("AxeAttack", -15, 0, 0, 0); }
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("WrenchSwing", 0, 0, 0, 0); }
 		}
-		0AXE TU 1 A_SetRoll(roll+1.2, SPF_INTERPOLATE);
-		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
-				A_FireCustomMissile("AxeAttack", 0, 0, 0, 0); 
-				A_FireCustomMissile("AxeAttack", 0, 0, 0, 0);}
-			else { A_FireCustomMissile("AxeAttack", 0, 0, 0, 0); }
-		}
-        0AXE VW 1 ;
-		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
-				A_FireCustomMissile("AxeAttack", 15, 0, 0, 0);
-				A_FireCustomMissile("AxeAttack", 15, 0, 0, 0); }
-			else { A_FireCustomMissile("AxeAttack", 15, 0, 0, 0); }
-		}
-		0AXE XY 1;
-		TNT1 AAAA 1 A_SetRoll(roll-1.2, SPF_INTERPOLATE);
-		TNT1 A 10 A_JumpIf(PressingUser2(), "AxeComboDecider");
+        WRNC LMN 1;
+		TNT1 AAAA 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
+		TNT1 A 1 A_JumpIf(PressingUser2(), "WrenchComboDecider");
 		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
 		TNT1 A 0 PB_SetUsingMelee(false);
         TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
 		TNT1 A 0 PB_CheckBarrelIdle1();
 		Goto GoingToReady2;
-
-	AxeBreak:
-		TNT1 A 0{
-			A_CustomMissile ("MetalShard1", 5, 0, random (-10, -20), 2, random (0, 30));
-			A_CustomMissile ("MetalShard2", 5, 0, random (-10, -20), 2, random (0, 30));
-			A_CustomMissile ("MetalShard3", 5, 0, random (-10, -20), 2, random (0, 30));
-			A_TakeInventory("PB_Axe",1);
-			A_Startsound("meleeweapon/break");
-			PB_SetUsingMelee(false);
-			A_TakeInventory("ToggleMelee", 1);
-			A_SetInventory("AxeDurabilityCounter", 0);
-			PB_CheckBarrelIdle1();
-			}
-		Goto SwapToStandardMelee;
-//////////////////////////////////////////////// JOHNNY HANDS ////////////////////////////////////////////////
-	ExplosiveHands:
-		TNT1 A 0 A_JumpIfInventory("ExplosiveHandCharges", 1, 2);
-		TNT1 A 0 A_Print("No Charges Left");
-		Goto GoingToReady;
-		JSML ABCDEF 1;
-		PUFF A 0 A_PlaySound("player/cyborg/fist", 3);
-		TNT1 A 0 {
-		     A_FireCustomMissile("JohnnyFlames", 20, 0);
-		     A_FireCustomMissile("JohnnyFlames", -20, 0);
-		     A_FireCustomMissile("JohnnyFlames", 10, 0, 0, 10);
-		     A_FireCustomMissile("JohnnyFlames", -10, 0, 0, -10);
-		     A_FireCustomMissile("JohnnyFlames", -15, 0, 0, -15);
-		     A_FireCustomMissile("JohnnyFlames", -8, 0, 0, -8);
-			 A_TakeInventory("ExplosiveHandCharges", 1);
-		     }
-		JSML FGHIJKLMNOP 1;
 		
-		TNT1 A 0 PB_SetUsingMelee(false);
-        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
-		TNT1 A 0 PB_CheckBarrelIdle1();
-		Goto Ready3;
-
-//////////////////////////////////////////////// ONE HANDED ////////////////////////////////////////////////
-//////////////////////////////////////////////// KATANA COMBO START ////////////////////////////////////////////////
-    MeleeKatana:
-		TNT1 A 0 A_JumpIfInventory("KatanaDurability", 1, 1);
-		Goto KatanaBreak;
-		TNT1 A 0 A_TakeInventory("KatanaDurability",1);
-        TNT1 A 0 {
-				A_PlaySound("Katana/Swing");
-				A_SetRoll(0);
-			}
-		KTNA I 1; 
-		KTNA JK 1;
+	WrenchCombo3: 
+		TNT1 A 0 A_JumpIfInventory("CrowbarDurability",1,1);
+		Goto WrenchBreak;
+		TNT1 A 1;
+		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
 		TNT1 A 0 {
-				if (CountInv("PB_PowerStrength") >= 1 ) {
-					A_Saw("", "", 16, "AxePuffs", 0, 120, 0,16);
-					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);			
-					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);
-				}
-				else {
-					A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16);
-					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);
-				}			
-			}
-		KTNA LMNO 1 
-		{
-				A_Setroll(roll-1.0, SPF_INTERPOLATE);
-				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
-		}		
-		TNT1 AAA 1 
-		{
-				A_Setroll(roll+1.0, SPF_INTERPOLATE);
-				A_SetAngle(angle-0.5, SPF_INTERPOLATE);
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("WrenchSwing", 0, 0, 0, 0); }
 		}
-		TNT1 AAA 1 
-		{
-				A_Setroll(roll+1.0, SPF_INTERPOLATE);
-				A_SetAngle(angle-0.5, SPF_INTERPOLATE);
-		}
-		TNT1 A 0 A_JumpIfInventory("KatanaDurability", 1, 1);
-		Goto KatanaBreak;
-		TNT1 A 5 A_JumpIf(PressingUser2(), "MeleeKatana2");
+		TNT1 AAA 1 A_SetPitch(+.2 + pitch, SPF_INTERPOLATE);
+		TNT1 AAA 1;
+        WRNC RSTUV 1 A_SetPitch(-.2 + pitch, SPF_INTERPOLATE);
+		TNT1 AA 1 A_SetPitch(+.2 + pitch, SPF_INTERPOLATE);
+		TNT1 A 1 A_JumpIf(PressingUser2(), "WrenchComboDecider");
+		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
 		TNT1 A 0 PB_SetUsingMelee(false);
         TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
 		TNT1 A 0 PB_CheckBarrelIdle1();
 		Goto GoingToReady2;
-	MeleeKatana2:
-		TNT1 A 0 A_JumpIfInventory("KatanaDurability", 1, 1);
-		Goto KatanaBreak;
-		TNT1 A 0 A_TakeInventory("KatanaDurability",1);
-		KTNA ABC 1;
-		TNT1 A 0 {
-				A_PlaySound("Katana/Swing");
-				A_SetRoll(0);
-			}	
-		KTBA JK 1;
-		TNT1 A 0 {
-				if (CountInv("PB_PowerStrength") >= 1 ) {
-					A_Saw("", "", 16, "AxePuffs", 0, 120, 0,16);
-					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);			
-					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);
-				}
-				else {
-					A_Saw("", "", 3, "AxePuffs", 0, 120, 0,16);
-					A_FireCustomMissile("KatanaAttack", 0, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", 20, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", -20, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", 40, 0, 0, 0);
-					A_FireCustomMissile("KatanaAttack", -40, 0, 0, 0);
-				}			
-			}
-		KTBA LMNO 1
-		{
-				A_Setroll(roll+1.0, SPF_INTERPOLATE);
-				A_SetAngle(angle-0.5, SPF_INTERPOLATE);
-			}
-		TNT1 AAA 1 {
-				A_Setroll(roll-1.0, SPF_INTERPOLATE);
-				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
-			}
-		TNT1 AAA 1 {
-				A_Setroll(roll-1.0, SPF_INTERPOLATE);
-				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
-			}
-		TNT1 A 0 A_JumpIfInventory("KatanaDurability", 1, 1);
-		Goto KatanaBreak;
-        TNT1 A 5 A_JumpIf(PressingUser2(), "MeleeKatana");
-		TNT1 A 0 PB_SetUsingMelee(false);
-        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
-		TNT1 A 0 PB_CheckBarrelIdle1();
-		Goto GoingToReady2;
-	KatanaBreak:
+		
+	WrenchBreak:
 		TNT1 A 0{
 			A_CustomMissile ("MetalShard1", 5, 0, random (-10, -20), 2, random (0, 30));
 			A_CustomMissile ("MetalShard2", 5, 0, random (-10, -20), 2, random (0, 30));
 			A_CustomMissile ("MetalShard3", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_TakeInventory("Wrench",1);
 			A_Startsound("meleeweapon/break");
 			PB_SetUsingMelee(false);
 			A_TakeInventory("ToggleMelee", 1);
 			PB_CheckBarrelIdle1();
 			}
-		Goto SwapToStandardMelee;
+		Goto SwaptoMeleeBroken;
 //////////////////////////////////////////////// PICK AXE ////////////////////////////////////////////////
     MeleePickAxe:
 		TNT1 A 0 A_JumpIfInventory("PickAxeDurability", 1, 2);
@@ -372,13 +691,10 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_PlaySound("SWOOSH", 1);
 		PCKA K 2 A_FireCustomMissile("PickaxeMeleeStrike", 1);
 		PCKA L 2;
-		TNT1 A 0 A_TakeInventory("PickAxeDurability", 1);
 		PCKA MMM 2;
 		PCKA L 2;
 		PCKA K 2;
 		PCKA A 3;
-		//TNT1 A 0 A_JumpIfInventory("PickAxeDurability", 1, 1);
-		//Goto PickAxeBreak;
         TNT1 A 0 PB_SetUsingMelee(false);
         TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
 		TNT1 A 0 PB_CheckBarrelIdle1();
@@ -391,18 +707,19 @@ extend class PB_WeaponBase
 			A_Startsound("meleeweapon/break");
 			PB_SetUsingMelee(false);
 			A_TakeInventory("ToggleMelee", 1);
+			A_TakeInventory("PickAxePickup", 1);
 			PB_CheckBarrelIdle1();
 			}
-		Goto SwapToStandardMelee;
+		Goto SwaptoMeleeBroken;
 //////////////////////////////////////////////// SENTINEL HAMMER ////////////////////////////////////////////////
     MeleeSentinelHammer:
 		TNT1 A 0 A_JumpIfInventory("SentinelhammerCharges", 1, 2);
 		TNT1 A 0 A_Print("No Charges Left");
-		Goto SwapToStandardMelee;
+		Goto SwaptoMeleeCharges;
         TNT1 A 0 A_PlaySound("HMSWING", 50);
 		TNT1 A 0 A_PlaySound("AXSWING", 45);
 		SHPB M 1 A_SetAngle(angle+5);
-		TNT1 A 0 A_FireCustomMissile("AxeAttack", 0, 0);
+		TNT1 A 0 A_FireCustomMissile("AxeAttack", 0, 0); // WILL ALWAYS TAKE CHARGE
 		SHPB NOPQ 1 A_SetAngle(angle+5);
 		TNT1 AAAAAA 1 A_SetAngle(angle-1,5);
 		TNT1 A 0 A_TakeInventory("SentinelhammerCharges", 1);
@@ -414,13 +731,13 @@ extend class PB_WeaponBase
     MeleeClaw:
 		TNT1 A 0 A_JumpIfInventory("ClawCharges", 1, 2);
 		TNT1 A 0 A_Print("No Charges Left");
-		Goto SwapToStandardMelee;
+		Goto SwaptoMeleeCharges;
         GAFR AB 1;
 		PUFF A 0 A_PlaySound("player/cyborg/fist", 3);
 		GAFR C 1;
-		GAFR D 1 A_CustomPunch (20,0,0,"crowbarpuff");
+		GAFR D 1 A_CustomPunch (20,0,0,"crowbarpuff"); 
 		GAFR EFG 1;
-		TNT1 A 0 A_TakeInventory("ClawCharges",1);
+		TNT1 A 0 A_TakeInventory("ClawCharges",1); // WILL ALWAYS TAKE CHARGE
 		TNT1 A 5 A_JumpIf(PressingUser2(), "MeleeClaw2");
 		TNT1 A 0 PB_SetUsingMelee(false);
         TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
@@ -429,7 +746,7 @@ extend class PB_WeaponBase
 	MeleeClaw2:
 		TNT1 A 0 A_JumpIfInventory("ClawCharges", 1, 2);
 		TNT1 A 0 A_Print("No Charges Left");
-		Goto SwapToStandardMelee;
+		Goto SwaptoMeleeCharges;
 		TNT1 A 4;
 		GAFL AB 1;
 		GAFL C 1;
@@ -446,7 +763,7 @@ extend class PB_WeaponBase
     MeleeImpactor:
 		TNT1 A 0 A_JumpIfInventory("ImpactorCharges", 1, 2);
 		TNT1 A 0 A_Print("No Charges Left");
-		Goto SwapToStandardMelee;
+		Goto SwaptoMeleeCharges;
         TNT1 A 0 A_PlaySound("weapons/IMGCok");
 		IMPA KLM 1;
 		TNT1 A 0 A_CustomPunch (10 * random(10, 55),1,CPF_NOTURN ,"ImpactorPuff",92, 0, 0, "PB_ArmorBonus", "weapons/IMGHit", "weapons/IMGMiss");
@@ -455,7 +772,7 @@ extend class PB_WeaponBase
 		IMPA NOP 1;
 		IMPA Q 6;
 		IMPA RRSSTTUU 1;
-		TNT1 A 0 A_TakeInventory("ImpactorCharges", 1);
+		TNT1 A 0 A_TakeInventory("ImpactorCharges", 1); // WILL ALWAYS TAKE CHARGE
 		TNT1 A 0 PB_SetUsingMelee(false);
         TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
 		TNT1 A 0 PB_CheckBarrelIdle1();
@@ -633,6 +950,7 @@ extend class PB_WeaponBase
 
 		// Swap Animations
 		SwapToMeleeAxe:
+		TNT1 A 5;
 		3AXE ABCDEEEEEEDCBA 1;
 		stop;
 	}

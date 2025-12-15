@@ -37,29 +37,35 @@ extend class PB_WeaponBase
     // Add Tokens Here
         // Two Handed Melee
         TNT1 A 0 A_JumpIfInventory("MeleeAxeSelected", 1, "PrepDualHandsAxe");
+        TNT1 A 0 A_JumpIfInventory("KatanaMeleeSelected", 1, "PrepDualHands");
         TNT1 A 0 A_JumpIfInventory("JohnnyHandsMeleeSelected", 1, "ExplosiveHands");
+        TNT1 A 0 A_JumpIfInventory("SawMeleeSelected", 1, "SawComboStart");
+        TNT1 A 0 A_JumpIfInventory("HammerMeleeSelected", 1, "PrepDualHands");
         // One Handed Malee
         TNT1 A 0 A_Overlay(PSP_FLASH, "FlashPunching");
         TNT1 A 0 A_JumpIfInventory("StandardMeleeSelected", 1, "StandardMelee");
         TNT1 A 0 A_JumpIfInventory("BladeMeleeSelected", 1, "MeleeBlade");
         TNT1 A 0 A_JumpIfInventory("ImpactorMeleeSelected", 1, "MeleeImpactor");
-        TNT1 A 0 A_JumpIfInventory("KatanaMeleeSelected", 1, "MeleeKatana");
         TNT1 A 0 A_JumpIfInventory("PickAxeMeleeSelected", 1, "MeleePickAxe");
         TNT1 A 0 A_JumpIfInventory("SentinelHammerMeleeSelected", 1, "MeleeSentinelHammer");
         TNT1 A 0 A_JumpIfInventory("ClawGauntletMeleeSelected", 1, "MeleeClaw");
         TNT1 A 0 A_JumpIfInventory("MeleeCrowbarSelected", 1, "CrowbarCombo1");
-		
+        TNT1 A 0 A_JumpIfInventory("WrenchMeleeSelected", 1, "WrenchCombo1");
+        TNT1 A 0 A_JumpIfInventory("BatonMeleeSelected", 1, "BatonComboStart");
+
+		// Add more Here
 			Goto GoingToReady;
     PrepDualHands:
     // Two Handed Only
         EQPR ABCD 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
 		EQPR EJK 1;
 		TNT1 AAAA 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
-        TNT1 A 0 A_JumpIfInventory("MeleeAxeSelected", 1, "AxeCombo3");
+        TNT1 A 0 A_JumpIfInventory("KatanaMeleeSelected", 1, "MeleeKatana");
+        TNT1 A 0 A_JumpIfInventory("HammerMeleeSelected", 1, "HammerCombo3");
         
     PrepDualHandsAxe: // Special Case since you can have 10 axes (carrot pls fix)
         TNT1 A 0 A_JumpIfInventory("PB_Axe", 1, 2);
-		TNT1 A 0 A_Print("You Don't Have Axe");
+		TNT1 A 0 A_Print("You Don't Have any Axe");
 		Goto GoingToReady;
         EQPR ABCD 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
 		EQPR EJK 1;
@@ -81,6 +87,10 @@ extend class PB_WeaponBase
             A_SetInventory("WW_ClawGauntletMeleeSelected",0);
             A_SetInventory("WW_JohnnyHandsMeleeSelected",0);
             A_SetInventory("WW_MeleeCrowbarSelected",0);
+            A_SetInventory("WW_WrenchMeleeSelected",0);
+            A_SetInventory("WW_SawMeleeSelected",0);
+            A_SetInventory("WW_BatonMeleeSelected",0);
+            A_SetInventory("WW_HammerMeleeSelected",0);
             A_SetInventory("CantWeaponSpecial",0);
             }
         goto Melee_Toggle_Handler_Overlay;
@@ -110,9 +120,16 @@ extend class PB_WeaponBase
                 {A_Print("Melee already selected: Explosive Hands"); return ResolveState("WheelCancelMelee");}
             if(CountInv("WW_MeleeCrowbarSelected") && CountInv("MeleeCrowbarSelected") >=1)
                 {A_Print("Melee already selected: Crowbar"); return ResolveState("WheelCancelMelee");}
-
+            if(CountInv("WW_WrenchMeleeSelected") && CountInv("WrenchMeleeSelected") >=1)
+                {A_Print("Melee already selected: Wrench"); return ResolveState("WheelCancelMelee");}
+            if(CountInv("WW_SawMeleeSelected") && CountInv("SawMeleeSelected") >=1)
+                {A_Print("Melee already selected: Chainsaw"); return ResolveState("WheelCancelMelee");}
+            if(CountInv("WW_BatonMeleeSelected") && CountInv("BatonMeleeSelected") >=1)
+                {A_Print("Melee already selected: Shock Baton"); return ResolveState("WheelCancelMelee");}
+            if(CountInv("WW_HammerMeleeSelected") && CountInv("HammerMeleeSelected") >=1)
+                {A_Print("Melee already selected: Sledge Hammer"); return ResolveState("WheelCancelMelee");}
     
-        // Charges/Durability Checker
+        // Ammo/Charges/Durability Checker
             if(CountInv("WW_MeleeAxeSelected") >=1)
                 {
                 if(CountInv("PB_Axe") <=0)
@@ -153,6 +170,26 @@ extend class PB_WeaponBase
                 if(CountInv("ClawCharges") <=0)
                     {A_Print("You Don't Have any Claw Charges"); return ResolveState("WheelCancelMelee");}
                 }
+            if(CountInv("WW_WrenchMeleeSelected") >=1)
+                {
+                if(CountInv("WrenchDurability") <=0)
+                    {A_Print("You Don't Have any Wrench"); return ResolveState("WheelCancelMelee");}
+                }
+             if(CountInv("WW_SawMeleeSelected") >=1)
+                {
+                if(CountInv("PB_Fuel") <=0 && CountInv("PB_Chainsaw") <= 0)
+                    {A_Print("You Don't Have any Chainsaw/Fuel"); return ResolveState("WheelCancelMelee");}
+                }
+            if(CountInv("WW_BatonMeleeSelected") >=1)
+                {
+                if(CountInv("PB_Cell") <=0)
+                    {A_Print("You Don't Have any Energy Cells"); return ResolveState("WheelCancelMelee");}
+                }
+            if(CountInv("WW_HammerMeleeSelected") >=1)
+                {
+                if(CountInv("HammerDurability") <=0)
+                    {A_Print("You Don't Have any Sledge Hammer"); return ResolveState("WheelCancelMelee");}
+                }
 
             return ResolveState(null);
             }
@@ -171,6 +208,10 @@ extend class PB_WeaponBase
                         A_SetInventory("ClawGauntletMeleeSelected",0);
                         A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_SetInventory("MeleeCrowbarSelected",0);
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        A_SetInventory("HammerMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -187,6 +228,10 @@ extend class PB_WeaponBase
                         A_SetInventory("ClawGauntletMeleeSelected",0);
                         A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_SetInventory("MeleeCrowbarSelected",0);
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        A_SetInventory("HammerMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }		
@@ -203,9 +248,14 @@ extend class PB_WeaponBase
                         A_SetInventory("ClawGauntletMeleeSelected",0);
                         A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_SetInventory("MeleeCrowbarSelected",0);
-                        //A_Overlay(801,"SwapToMeleeAxe");
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        //A_Overlay(PSP_FLASH,"SwapToMeleeAxe");
+                        A_SetInventory("HammerMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
+                        //return ResolveState("SwapToMeleeAxe");
                     }
                 if(CountInv("WW_ImpactorMeleeSelected") >=1)
                     { 
@@ -220,6 +270,10 @@ extend class PB_WeaponBase
                         A_SetInventory("ClawGauntletMeleeSelected",0);
                         A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_SetInventory("MeleeCrowbarSelected",0);
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        A_SetInventory("HammerMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -236,6 +290,10 @@ extend class PB_WeaponBase
                         A_SetInventory("ClawGauntletMeleeSelected",0);
                         A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_SetInventory("MeleeCrowbarSelected",0);
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        A_SetInventory("HammerMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }	
@@ -252,6 +310,10 @@ extend class PB_WeaponBase
                         A_SetInventory("ClawGauntletMeleeSelected",0);
                         A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_SetInventory("MeleeCrowbarSelected",0);
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        A_SetInventory("HammerMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }	
@@ -268,6 +330,10 @@ extend class PB_WeaponBase
                         A_SetInventory("ClawGauntletMeleeSelected",0);
                         A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_SetInventory("MeleeCrowbarSelected",0);
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        A_SetInventory("HammerMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }	
@@ -284,6 +350,10 @@ extend class PB_WeaponBase
                         A_SetInventory("ClawGauntletMeleeSelected",1);
                         A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_SetInventory("MeleeCrowbarSelected",0);
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        A_SetInventory("HammerMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }	
@@ -300,6 +370,10 @@ extend class PB_WeaponBase
                         A_SetInventory("ClawGauntletMeleeSelected",0);
                         A_SetInventory("JohnnyHandsMeleeSelected",1);
                         A_SetInventory("MeleeCrowbarSelected",0);
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        A_SetInventory("HammerMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -316,6 +390,90 @@ extend class PB_WeaponBase
                         A_SetInventory("ClawGauntletMeleeSelected",0);
                         A_SetInventory("JohnnyHandsMeleeSelected",0);
                         A_SetInventory("MeleeCrowbarSelected",1);
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        A_SetInventory("HammerMeleeSelected",0);
+                        A_StartSound("GRNPIN", 3);
+                        return ResolveState("WheelCancelMelee");
+                    }
+                if(CountInv("WW_WrenchMeleeSelected") >=1)
+                    { 
+                        A_Print("Melee Selected: Wrench"); 
+                        A_SetInventory("StandardMeleeSelected",0);
+                        A_SetInventory("BladeMeleeSelected",0);
+                        A_SetInventory("MeleeAxeSelected",0);
+                        A_SetInventory("ImpactorMeleeSelected",0);
+                        A_SetInventory("KatanaMeleeSelected",0);
+                        A_SetInventory("PickAxeMeleeSelected",0);
+                        A_SetInventory("SentinelHammerMeleeSelected",0);
+                        A_SetInventory("ClawGauntletMeleeSelected",0);
+                        A_SetInventory("JohnnyHandsMeleeSelected",0);
+                        A_SetInventory("MeleeCrowbarSelected",0);
+                        A_SetInventory("WrenchMeleeSelected",1);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        A_SetInventory("HammerMeleeSelected",0);
+                        A_StartSound("GRNPIN", 3);
+                        return ResolveState("WheelCancelMelee");
+                    }
+                if(CountInv("WW_SawMeleeSelected") >=1)
+                    { 
+                        A_Print("Melee Selected: Chainsaw"); 
+                        A_SetInventory("StandardMeleeSelected",0);
+                        A_SetInventory("BladeMeleeSelected",0);
+                        A_SetInventory("MeleeAxeSelected",0);
+                        A_SetInventory("ImpactorMeleeSelected",0);
+                        A_SetInventory("KatanaMeleeSelected",0);
+                        A_SetInventory("PickAxeMeleeSelected",0);
+                        A_SetInventory("SentinelHammerMeleeSelected",0);
+                        A_SetInventory("ClawGauntletMeleeSelected",0);
+                        A_SetInventory("JohnnyHandsMeleeSelected",0);
+                        A_SetInventory("MeleeCrowbarSelected",0);
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",1);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        A_SetInventory("HammerMeleeSelected",0);
+                        A_StartSound("GRNPIN", 3);
+                        return ResolveState("WheelCancelMelee");
+                    }
+                if(CountInv("WW_BatonMeleeSelected") >=1)
+                    { 
+                        A_Print("Melee Selected: Shock Baton"); 
+                        A_SetInventory("StandardMeleeSelected",0);
+                        A_SetInventory("BladeMeleeSelected",0);
+                        A_SetInventory("MeleeAxeSelected",0);
+                        A_SetInventory("ImpactorMeleeSelected",0);
+                        A_SetInventory("KatanaMeleeSelected",0);
+                        A_SetInventory("PickAxeMeleeSelected",0);
+                        A_SetInventory("SentinelHammerMeleeSelected",0);
+                        A_SetInventory("ClawGauntletMeleeSelected",0);
+                        A_SetInventory("JohnnyHandsMeleeSelected",0);
+                        A_SetInventory("MeleeCrowbarSelected",0);
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",1);
+                        A_SetInventory("HammerMeleeSelected",0);
+                        A_StartSound("GRNPIN", 3);
+                        return ResolveState("WheelCancelMelee");
+                    }
+                if(CountInv("WW_HammerMeleeSelected") >=1)
+                    { 
+                        A_Print("Melee Selected: Sledge Hammer"); 
+                        A_SetInventory("StandardMeleeSelected",0);
+                        A_SetInventory("BladeMeleeSelected",0);
+                        A_SetInventory("MeleeAxeSelected",0);
+                        A_SetInventory("ImpactorMeleeSelected",0);
+                        A_SetInventory("KatanaMeleeSelected",0);
+                        A_SetInventory("PickAxeMeleeSelected",0);
+                        A_SetInventory("SentinelHammerMeleeSelected",0);
+                        A_SetInventory("ClawGauntletMeleeSelected",0);
+                        A_SetInventory("JohnnyHandsMeleeSelected",0);
+                        A_SetInventory("MeleeCrowbarSelected",0);
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        A_SetInventory("HammerMeleeSelected",1);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }

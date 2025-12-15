@@ -758,6 +758,16 @@ class PB_Hud_ZS : BaseStatusBar
 		"ALISTSTN, PB_StunGrenadeAmmo, Cyan, Equipment",
 		"ALISTREV, PB_QuickLauncherAmmo, LightBlue, Equipment",
 		"ALISTMIN, PB_ProxMineAmmo, Purple, Equipment"
+		"ALISTACD, AcidChargeAmmo, Green, Equipment"
+		"ALISTAXE, PB_Axe, Red, Equipment"
+		"ALISTEPD, ElecPodAmmo, Yellow, Equipment"
+		"ALISTHOK, HookAmmo, DarkRed, Equipment"
+		"ALISTLST, LaserChargeAmmo, Red, Equipment"
+		"ALISTSHG, ShieldGrenadeAmmo, Orange, Equipment"
+		"ALISTSHR, ShurikenAmmo, Purple, Equipment"
+		"ALISTSRM, SwarmerAmmo, Orange, Equipment"
+		"ALISTSSW, ShieldSawAmmo, DarkRed, Equipment"
+		
 	};
 	
 	void PB_AmmoListDrawer(vector2 initialpos, int step = 12) 
@@ -1276,6 +1286,64 @@ class PB_Hud_ZS : BaseStatusBar
 			
 			if(CPlayer.ReadyWeapon)
 			{   
+				// MELEE
+				//PBHud_DrawImage("EQUPBOMP", (-15, -250), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+				
+				if(CheckInventory("MeleeAxeSelected")) {
+					PBHud_DrawImage("HFAXEY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("AxeDurabilityCounter")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("MeleeCrowbarSelected")) {
+					PBHud_DrawImage("HCRWBY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("CrowbarDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("JohnnyHandsMeleeSelected")) {
+					PBHud_DrawImage("HDGUYY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("ExplosiveHandCharges")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("BatonMeleeSelected")) {
+					PBHud_DrawImage("HBATNY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("PB_Cell")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("SawMeleeSelected")) {
+					PBHud_DrawImage("HCHNSY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("PB_Fuel")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("ClawGauntletMeleeSelected")) {
+					PBHud_DrawImage("HCLAWY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("ClawCharges")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("ImpactorMeleeSelected")) {
+					PBHud_DrawImage("HIMPAY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("ImpactorCharges")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("KatanaMeleeSelected")) {
+					PBHud_DrawImage("HKTAY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("KatanaDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("PickAxeMeleeSelected")) {
+					PBHud_DrawImage("HPICKY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("PickAxeDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("SentinelHammerMeleeSelected")) {
+					PBHud_DrawImage("HSENTY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("SentinelhammerCharges")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("HammerMeleeSelected")) {
+					PBHud_DrawImage("HSLEDY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("HammerDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("WrenchMeleeSelected")) {
+					PBHud_DrawImage("HWRNCY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("WrenchDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("BladeMeleeSelected")) {
+					PBHud_DrawImage("HDBLDY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+				}
+				else if(CheckInventory("StandardMeleeSelected")) {
+					PBHud_DrawImage("HFISTY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+				}
+
 				//Equipment
 				PBHud_DrawImage("EQUPBO", (-15, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
 				

@@ -8,6 +8,15 @@ class MeleeAxeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class WW_MeleeCrowbarSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class MeleeCrowbarSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
+class WW_SawMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class SawMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
+class WW_HammerMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class HammerMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
+class WW_JohnnyHandsMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class JohnnyHandsMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
 // One Handed Melee
 class WW_StandardMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class StandardMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
@@ -30,8 +39,11 @@ class SentinelHammerMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class WW_ClawGauntletMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class ClawGauntletMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
-class WW_JohnnyHandsMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
-class JohnnyHandsMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class WW_WrenchMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class WrenchMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
+class WW_BatonMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class BatonMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
 // Equipment Tokens
 // Slot 0 Misc.

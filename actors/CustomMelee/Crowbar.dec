@@ -1,7 +1,7 @@
 ///CROWBAR///////////////////////////////////////////////////////////////////////
 
 					
-ACTOR CrowbarSwing : FastProjectile {
+ACTOR CrowbarSwing : PB_ProjectileAlt {
 	Radius 6
 	Height 6
 	Projectile 
@@ -10,7 +10,7 @@ ACTOR CrowbarSwing : FastProjectile {
 	+NOEXTREMEDEATH
 	+BLOODSPLATTER
 	+NODAMAGETHRUST
-	Damage 25
+	PB_Projectile.BaseDamage 25
 	Speed 20
 	Decal "SawDecalNew1"
 	States {
@@ -31,7 +31,7 @@ ACTOR CrowbarSwing : FastProjectile {
 			TNT1 A 0 Radius_Quake (2, 6, 0, 5, 0)
 			TNT1 A 1
 			Stop	}}
-ACTOR SuperCrowbarSwing : KnifeSwing {
+ACTOR SuperCrowbarSwing : CrowbarSwing {
 	DamageType "ExtremePunches"
-	Damage 50
+	PB_Projectile.BaseDamage 50
 }

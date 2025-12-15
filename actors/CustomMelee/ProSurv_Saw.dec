@@ -1,0 +1,36 @@
+///POWER SAW/////////////////////////////////////////////////////////////////
+Actor SawHasHit : Inventory { inventory.maxamount 1 } 
+
+ACTOR Prosurv_SawSwing : PB_ProjectileAlt 
+{
+	Radius 6
+	Height 6
+	DamageType "Cut"
+	Projectile 
+	+FORCEXYBILLBOARD
+	+NOEXTREMEDEATH
+	+BLOODSPLATTER
+	+NODAMAGETHRUST
+	PB_Projectile.BaseDamage 10
+	Speed 40
+	Decal "SawDecalNew1"
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+		XDeath:
+			TNT1 A 0 A_PlaySound("Machete/Yum", 3)
+			TNT1 A 0 A_GiveToTarget("SawHasHit", 1)
+			TNT1 A 0 Radius_Quake (2, 6, 0, 5, 0)
+			TNT1 A 1
+			Stop
+		Death:
+		Crash:
+			TNT1 A 0 A_SpawnItemEx("SSawPuff3",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+			TNT1 A 0 Radius_Quake (2, 6, 0, 5, 0)
+			TNT1 A 1
+			Stop	}}
+ACTOR SuperSawSwing : Prosurv_SawSwing {
+	PB_Projectile.BaseDamage 20
+}

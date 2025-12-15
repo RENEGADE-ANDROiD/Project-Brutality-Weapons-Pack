@@ -1,6 +1,6 @@
 
 
-ACTOR JohnnyFlames
+ACTOR JohnnyFlames : PB_ProjectileAlt
 {
 //For HellFire attack
 //Yes it's from Man of hell
