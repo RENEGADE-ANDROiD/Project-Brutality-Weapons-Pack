@@ -9,11 +9,15 @@ Project Brutality Staging - https://github.com/pa1nki113r/Project_Brutality/tree
 See Weapon Pack Options to configure:
 - Toggle On/Off Fatality when clicking Fire for addon weapons in the pack.
 - Toggle On/Off KILLSTREAKS from SHOO KREW PB-Pand Edition by John & Kole
-- Choose which weapons spawn and how for custom playthroughs.
-- Combat Points Weapons Shop: Earn points and gear with Combat Challenges!
+- Over 60 firearms!  Choose which weapons spawn and how for custom playthroughs.
+- Gadgets & Equipments including Meat Hook, Shieldsaw, Shurikens & more by BeefRice/LovecraftNeko
+- Combat Point Weapons Shop: Earn points and gear with Combat Challenges!
+- Melee Weapon Wheel with over 12 melee weapon options by BeefRice from ThePopeOfDope's mod Project Survival!
+- Melee Weapon Durability System!  They break after so many uses.  Earn more through Combat Challenges & monster drops.
+- Item Magnet & Upgrade: Buy from Combat Point Shop, bind key to enable or disable.  From DRAGON SECTOR!
 - Random Weapon Switcher:  Allows you to randomize the weapons in your hand at random intervals by BROS_ETT_311
 - Behold!: Revive upon death giving you a handful of weapons and random Boss enemies to battle, by BobQuickSaveSmith
-- DOORBUSTER from BDP - Bust down doors (if you want)
+- DOORBUSTER from Brutal Doom Platinum - Bust down doors (if you want)
 -----------------
 TEAM MEMBERS:
 - RENEGADE ANDROiD
