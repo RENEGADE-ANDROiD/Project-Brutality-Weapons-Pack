@@ -1291,7 +1291,7 @@ class PB_Hud_ZS : BaseStatusBar
 				
 				if(CheckInventory("MeleeAxeSelected")) {
 					PBHud_DrawImage("HFAXEY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
-					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("AxeDurabilityCounter")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("AxeDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
 				}
 				else if(CheckInventory("MeleeCrowbarSelected")) {
 					PBHud_DrawImage("HCRWBY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
@@ -1702,7 +1702,10 @@ class PB_Hud_ZS : BaseStatusBar
 				else if(WeaponUsesPBAmmoType1() 
 				&& !CheckWeaponSelected("PB_Unmaker") && !CheckWeaponSelected("PB_Chainsaw") 
 				&& !CheckWeaponSelected("ProSurv_Ballista") && !CheckWeaponSelected("PB_Flamethrower") 
-				&& !CheckWeaponSelected("PB_MG42") && !CheckWeaponSelected("PB_TauntWeapon"))
+				&& !CheckWeaponSelected("PB_MG42") && !CheckWeaponSelected("PB_TauntWeapon")
+				
+				// ADD MORE EXCEPTIONS HERE
+				)
 				{
 					weaponBarAccent = Font.CR_CYAN;
 					DrawAmmoBar("BARBACC1", "BARBACC2", "BAMBAR8", "ABAR8", "ABAR8", "AMMOIC8", Font.CR_CYAN);

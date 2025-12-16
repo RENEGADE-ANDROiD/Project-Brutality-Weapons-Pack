@@ -133,7 +133,7 @@ extend class PB_WeaponBase
         // Ammo/Charges/Durability Checker
             if(CountInv("WW_MeleeAxeSelected") >=1)
                 {
-                if(CountInv("PB_Axe") <=0)
+                if(CountInv("PB_Axe") <=0)//&& CountInv("AxeDurability") <= 0)
                     {A_Print("You Don't Have any Axe"); return ResolveState("WheelCancelMelee");}
                 }
             if(CountInv("WW_JohnnyHandsMeleeSelected") >=1)

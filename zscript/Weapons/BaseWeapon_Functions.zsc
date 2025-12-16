@@ -2574,14 +2574,14 @@ action int getReadyFlags(int weapflags, bool noReload)
 			return ResolveState("ReadyIceBarrel");
 		}
 		// GK STUFF
-		if (CountInv("DoGloryMelee")>=1) 
+		/*if (CountInv("DoGloryMelee")>=1) 
 		{
 			return ResolveState("GloryMelee");
 		}
 		if (CountInv("DoShoulderCannon")>=1) 
 		{
 			return ResolveState("FireShoulderCannon");
-		}
+		}*/
 		if (CountInv("Unloading")>=1 && ResolveState("Unload") && !(pbFlags & PBWEAP_UNLOADED) && CountInv(invoker.UnloaderToken) != 1)
 		{
 			A_TakeInventory("Unloading",0);
