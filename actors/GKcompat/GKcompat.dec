@@ -1,3 +1,9 @@
+Actor PainSoundToken : Inventory
+{ }
+
+Actor FinisherToken : Inventory
+{ }
+
 ACTOR Fear : PowerFrightener
 {
   +NEVERTARGET

@@ -7,11 +7,11 @@
 #INCLUDE ACTORs/Equipments/ElecPod2.dec
 #INCLUDE ACTORs/Equipments/hook.dec
 #INCLUDE ACTORs/Equipments/shurikens.dec
+#INCLUDE ACTORs/Equipments/caltrops.dec
 // RemoteGrenades
 #INCLUDE ACTORs/Equipments/RemoteGrenades/Prosurv_Swarm.dec
 #INCLUDE ACTORs/Equipments/RemoteGrenades/AcidCharge.dec
 #INCLUDE ACTORs/Equipments/RemoteGrenades/LaserCharge.dec
-#INCLUDE ACTORs/Equipments/RemoteGrenades/Detonator.dec
 
 // FX
 #INCLUDE ACTORs/Weapons/Doom4WeaponPack/Doom4WeaponPackGunSmokeEffects.dec
@@ -57,6 +57,7 @@
 #INCLUDE ACTORs/CustomMelee/Hammer.dec
 #INCLUDE ACTORs/CustomMelee/PickaxeStrike.dec
 #INCLUDE ACTORs/CustomMelee/ImpactGauntletPuff.dec
+#INCLUDE ACTORs/CustomMelee/DemonicSword.dec
 
 //Weapons
 	//Slot-1

@@ -729,11 +729,11 @@ Class PB_RocketLauncherWheel : wheelinfocontainer
 }
 
 
-/////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //	equipments 
 //
-/////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class equipmentCard abstract //made it abstract so it doesnt get pushed into the actual wheel
 {
@@ -759,7 +759,7 @@ class equipmentCard abstract //made it abstract so it doesnt get pushed into the
 	}
 }
 
-// SLot 0 Misc.
+//////////////////////////////////////////////// SLOT 0 MISC. ////////////////////////////////////////////////
 Class LeechCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -838,7 +838,22 @@ class VoidGrenadeCard : equipmentCard
 	override double getpriority(){return 0.5;}
 }
 
-// Slot 2 Utility
+//////////////////////////////////////////////// SLOT 2 UTILITY ////////////////////////////////////////////////
+class CaltropsCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Caltrops");
+		tokens.push("WW_CaltropsSelected");
+		img.push("graphics/Equipments/caltrops.png");
+		sx.push(0.7);
+		sy.push(0.7);
+		slot.push(2);
+		relAmmo.push("CaltropsAmmo");
+	}
+	override int getdestSlot() {return 2;}
+	override double getpriority() {return 0.5;}
+}
 class ProxMinCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -900,7 +915,7 @@ class ShieldGrenadeCard : equipmentCard
 	override double getpriority(){return 0.5;}
 }
 
-// Slot 3 Remote Charges
+//////////////////////////////////////////////// SLOT 3 REMOTE CHARGES ////////////////////////////////////////////////
 class SwarmerCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -947,7 +962,7 @@ class AcidChargeCard : equipmentCard
 	override double getpriority(){return 0.5;}
 }
 
-// Slot 4 Throwables
+//////////////////////////////////////////////// SLOT 4 THROWABLES ////////////////////////////////////////////////
 class AxeCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -970,8 +985,8 @@ class ShurikenCard : equipmentCard
 		tags.push("Shurikens");
 		tokens.push("WW_ShurikenSelected");
 		img.push("graphics/Equipments/shurikens.png");
-		sx.push(1.0);
-		sy.push(1.0);
+		sx.push(0.7);
+		sy.push(0.7);
 		slot.push(4);
 		relAmmo.push("ShurikenAmmo");
 	}
@@ -994,16 +1009,14 @@ class ShieldSawCard : equipmentCard
 	override double getpriority() {return 0.5;}
 }
 
-/////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //	melee 
 //
-/////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class meleeCard
 {
-	//this function fills the respective arrays to correctly display the equipments in the wheel
- 	//if any new equipment is added, create a new class inheriting from this class for the handler to catch it
 	virtual void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
 	{
 		return;
@@ -1063,7 +1076,7 @@ class KatanaCard : meleeCard
 	{
 		tags.push("Katana");
 		tokens.push("WW_KatanaMeleeSelected");
-		img.push("graphics/CustomMelee/melee-katana.png");
+		img.push("graphics/CustomMelee/melee-demonic-katana.png");
 		sx.push(1.0);
 		sy.push(1.0);
 	}

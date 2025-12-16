@@ -58,6 +58,12 @@ class VoidGrenadeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class WW_ElecPodSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class ElecPodSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
+class WW_ShieldSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class ShieldSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
+class WW_CaltropsSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class CaltropsSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
 // Slot 3 Remote Charges
 class WW_SwarmerSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class SwarmerSelected : Inventory{Default{Inventory.MaxAmount 1;}}
@@ -72,8 +78,8 @@ class AcidChargeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class WW_AxeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class AxeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
-class WW_ShieldSelected : Inventory{Default{Inventory.MaxAmount 1;}}
-class ShieldSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class WW_ShieldSawSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class ShieldSawSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
 class WW_ShurikenSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class ShurikenSelected : Inventory{Default{Inventory.MaxAmount 1;}}

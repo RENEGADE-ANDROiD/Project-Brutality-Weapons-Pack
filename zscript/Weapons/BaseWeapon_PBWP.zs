@@ -1,4 +1,6 @@
 #include "ZScript/PBWP_Misc/BDPmath.zsc" // FORCE LOAD THE BDPMATH
+#include "zscript/Weapons/BaseWeapon_MonsterPackCompat.zs"
+#include "zscript/Weapons/BaseWeapon_GKCompat.zs"
 
 // Credits to Jaih1r0 again for this functions from the HeavySniper, CSSG, and DemonExt mod
 extend class PB_WeaponBase
