@@ -1,3 +1,6 @@
+// GK COMPAT
+#INCLUDE ACTORs/GKcompat/GKcompat.dec
+
 // Equipments
 #INCLUDE ACTORs/Equipments/ShieldGrenade.dec
 #INCLUDE ACTORs/Equipments/VoidGrenade.dec
@@ -39,7 +42,6 @@
 #INCLUDE ACTORs/Weapons/Special/Unload_Tokens.dec
 #INCLUDE ACTORs/Weapons/Special/OverwhelmingProjectile.dec
 #INCLUDE ACTORs/Weapons/Special/RazorjackProjectile.dec
-
 
 //MELEE//
 #INCLUDE ACTORs/CustomMelee/MeleePickupItems.dec
