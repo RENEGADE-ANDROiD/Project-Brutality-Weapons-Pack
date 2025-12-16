@@ -1,5 +1,5 @@
 // GK COMPAT
-#INCLUDE ACTORs/GKcompat/GKcompat.dec
+//#INCLUDE ACTORs/GKcompat/GKcompat.dec
 
 // Equipments
 #INCLUDE ACTORs/Equipments/ShieldGrenade.dec
