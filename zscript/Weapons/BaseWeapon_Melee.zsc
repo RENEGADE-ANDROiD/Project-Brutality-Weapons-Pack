@@ -1,4 +1,3 @@
-#include "zscript/Weapons/BaseWeapon_PBWP.zs"
 #include "zscript/Weapons/BaseWeapon_MeleeSystem.zs"
 #include "zscript/Weapons/BaseWeapon_MeleeAnimations.zs"
 

@@ -87,6 +87,11 @@ class BeefRiceWeaponDrop : EventHandler
                     self.destroy(); 
                 } 
                 break;
+            // SPECIAL CASE FOR THE AXE
+           /* case 'PB_Axe':
+                self.spawnThings("AxePickup", monsPos);
+                //self.destroy();
+                break;*/
         }
     }
 

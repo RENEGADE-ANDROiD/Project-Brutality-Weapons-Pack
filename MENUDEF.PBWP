@@ -81,6 +81,7 @@ OptionMenu "GeneralSettings"
 	Option "Killstreak is enabled", "KillstreakIsOn", "OnOff"
 	Control "Show combat points", "PB_CRSHW"
 	Control "Toggle Magnet", "MagnetModeOff"
+	Control "Switch Melee Key", "+pbwp_meleemenu"
 }
 
 OptionMenu "MonsterDropWeapSett"
