@@ -97,23 +97,6 @@ class BeefRiceWeaponDrop : EventHandler
     }
 }
 
-class BeefModDetector : EventHandler
-{
-    Override void WorldLoaded (WorldEvent e)
-    {
-        string gkcompat = "ASGGuyGK";
-        class <actor> isgkcompat = gkcompat;
-        if(isgkcompat)
-        {
-            CVAR.FindCVar('GKLoaded').SetBool(true);
-        }
-        else
-        {
-            CVAR.FindCVar('GKLoaded').SetBool(false);
-        }
-    }
-}
-
 class BeefMiscHandler : EventHandler
 {
     // Toggle Magnets
@@ -140,14 +123,27 @@ class BeefMiscHandler : EventHandler
 		}
     }
 
-    // Sets the PB Monster Drop to Just Ammo on First Time Loading
+    // Sets CVARs and Check Loaded Mods
     Override void WorldLoaded (WorldEvent e)
     {
+        string gkcompat = "ASGGuyGK";
+        class <actor> isgkcompat = gkcompat;
+
+        // Sets the PB Monster Drop to Just Ammo on First Time Loading
         if (FirstTimeLoadingPBWP)
         {
             CVAR.FindCVar('PB_WeaponDrops').SetInt(0);
             CVAR.FindCVar('FirstTimeLoadingPBWP').SetBool(false);
             destroy();
+        }
+        // Check if GloryKill is loaded
+        if(isgkcompat)
+        {
+            CVAR.FindCVar('GKLoaded').SetBool(true);
+        }
+        else
+        {
+            CVAR.FindCVar('GKLoaded').SetBool(false);
         }
     }
 

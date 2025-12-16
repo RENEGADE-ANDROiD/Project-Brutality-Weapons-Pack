@@ -4,6 +4,9 @@ extend class PB_WeaponBase
 	{
     // The Actual Custom Melee Animations
 	// What the Melee will default to when Broken
+	SwaptoMeleeEnergy:
+		TNT1 A 0 A_Print("You Ran Out of Demonic Energy");
+		Goto SwapToStandardMelee;
 	SwaptoMeleeCells:
 		TNT1 A 0 A_Print("You Ran Out of Energy Cells");
 		Goto SwapToStandardMelee;
@@ -282,6 +285,7 @@ extend class PB_WeaponBase
 		Goto Ready3;
 //////////////////////////////////////////////// KATANA COMBO START ////////////////////////////////////////////////
     MeleeKatana:
+		TNT1 A 0 A_JumpIfInventory("HasDemonicKatana",1,"SwordCombo1");
 		TNT1 A 0 A_JumpIfInventory("KatanaDurability", 1, 1);
 		Goto KatanaBreak;
         TNT1 A 0 {
@@ -399,6 +403,134 @@ extend class PB_WeaponBase
 			PB_CheckBarrelIdle1();
 			}
 		Goto SwaptoMeleeBroken;
+
+//////////////////////////////////////////////// DEMONIC KATANA COMBO START ////////////////////////////////////////////////
+	SwordComboDecider:
+		TNT1 A 0 A_JumpIfInventory("PB_DTech",1,1);
+		Goto SwaptoMeleeEnergy;
+		TNT1 A 5;
+		TNT1 A 0 A_Jump(256, "SwordCombo1", "SwordCombo2", "SwordCombo3", "SwordCombo4");
+	
+	SwordCombo1:
+		TNT1 A 0 A_JumpIfInventory("PB_DTech", 1, 1);
+		Goto SwaptoMeleeEnergy;
+		TNT1 AA 1;
+		1KAT ABC 1 A_SetRoll(roll+0.5, SPF_INTERPOLATE);
+		TNT1 A 0 A_PlaySound("demonicsword/swing", 5);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperSwordSwing", 0, 0, 0, 8); }
+			else { A_FireCustomMissile("SwordSwing", 0, 0, 0, 8); }
+		}
+        1KAT D 1 A_SetRoll(roll+0.5, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperSwordSwing", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("SwordSwing", 0, 0, 0, 0); }
+			A_FireCustomMissile("SwordSwing2", 0, 0, 0, 0);
+		}
+		1KAT E 1 A_SetRoll(roll+0.5, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperSwordSwing", 0, 0, 0, -8); }
+			else { A_FireCustomMissile("SwordSwing", 0, 0, 0, -8); }
+		}
+		1KAT FGH 1 A_SetRoll(roll+0.5, SPF_INTERPOLATE);
+		1KAT I 1;
+		TNT1 AAAA 1 A_SetRoll(roll-1.0, SPF_INTERPOLATE);
+		TNT1 A 1 A_JumpIf(PressingUser2(), "SwordComboDecider");
+		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+	
+	SwordCombo2:
+		TNT1 A 0 A_JumpIfInventory("PB_DTech", 1, 1);
+		Goto SwaptoMeleeEnergy;
+		TNT1 AA 1;
+		2KAT ABC 1 A_SetRoll(roll-0.5, SPF_INTERPOLATE);
+		TNT1 A 0 A_PlaySound("demonicsword/swing", 5);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperSwordSwing", 0, 0, 0, 8); }
+			else { A_FireCustomMissile("SwordSwing", 0, 0, 0, 8); }
+		}
+        2KAT D 1 A_SetRoll(roll-0.5, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperSwordSwing", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("SwordSwing", 0, 0, 0, 0); }
+			A_FireCustomMissile("SwordSwing2", 0, 0, 0, 0);
+		}
+		2KAT E 1 A_SetRoll(roll-0.5, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperSwordSwing", 0, 0, 0, -8); }
+			else { A_FireCustomMissile("SwordSwing", 0, 0, 0, -8); }
+		}
+		2KAT FGH 1 A_SetRoll(roll-0.5, SPF_INTERPOLATE);
+		2KAT I 1;
+		TNT1 AAAA 1 A_SetRoll(roll+1.0, SPF_INTERPOLATE);
+		TNT1 A 1 A_JumpIf(PressingUser2(), "SwordComboDecider");
+		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+		
+	SwordCombo3:
+		TNT1 A 0 A_JumpIfInventory("PB_DTech", 1, 1);
+		Goto SwaptoMeleeEnergy;
+		TNT1 A 1 A_SetPitch(+0.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 A_PlaySound("demonicsword/swing", 5);
+		4KAT AB 1 A_SetPitch(+0.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperSwordSwing", 0, 0, 0, 8); }
+			else { A_FireCustomMissile("SwordSwing", 0, 0, 0, 8); }
+		}
+		4KAT CD 1 A_SetPitch(+0.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperSwordSwing", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("SwordSwing", 0, 0, 0, 0); }
+			A_FireCustomMissile("SwordSwing2", 0, 0, 0, 0);
+		}
+        4KAT EF 1 A_SetPitch(+0.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperSwordSwing", 0, 0, 0, -8); }
+			else { A_FireCustomMissile("SwordSwing", 0, 0, 0, -8); }
+		}
+		TNT1 AAAAAAA 1 A_SetPitch(-0.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 1 A_JumpIf(PressingUser2(), "SwordComboDecider");
+		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+		
+	SwordCombo4:
+		TNT1 A 0 A_JumpIfInventory("PB_DTech", 1, 1);
+		Goto SwaptoMeleeEnergy;
+		TNT1 A 1 A_SetPitch(+0.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 A_PlaySound("demonicsword/swing", 5);
+		3KAT AB 1 A_SetPitch(+0.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperSwordSwing", 0, 0, 0, 8); }
+			else { A_FireCustomMissile("SwordSwing", 0, 0, 0, 8); }
+		}
+		3KAT CD 1 A_SetPitch(+0.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperSwordSwing", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("SwordSwing", 0, 0, 0, 0); }
+			A_FireCustomMissile("SwordSwing2", 0, 0, 0, 0);
+		}
+        3KAT EF 1 A_SetPitch(+0.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperSwordSwing", 0, 0, 0, -8); }
+			else { A_FireCustomMissile("SwordSwing", 0, 0, 0, -8); }
+		}
+		TNT1 AAAAAAA 1 A_SetPitch(-0.5 + pitch, SPF_INTERPOLATE);
+		TNT1 A 1 A_JumpIf(PressingUser2(), "SwordComboDecider");
+		TNT1 A 0 A_Takeinventory("PB_LockScreenTilt",1);
+		TNT1 A 0 PB_SetUsingMelee(false);
+        TNT1 A 0 A_TakeInventory("ToggleMelee", 1);
+		TNT1 A 0 PB_CheckBarrelIdle1();
+		Goto GoingToReady2;
+		
 //////////////////////////////////////////////// SAW COMBO START ////////////////////////////////////////////////
 	SawComboStart:
 		TNT1 A 0 A_TakeInventory("SawHasHit",1);
@@ -792,12 +924,6 @@ extend class PB_WeaponBase
 					double mostlyred = (BR - (BG + BB));
 					double mostlygreen = (BG - (BB + BR));
 					double mostlyblue = (BB - (BR + BG));
-					if(mostlyred > 0)
-						A_overlay(overlayID() + 2,"BloodyKnife_Red");
-					else if(mostlygreen > 0)
-						A_overlay(overlayID() + 2,"BloodyKnife_Green");
-					else if(mostlyblue > 0)
-						A_overlay(overlayID() + 2,"BloodyKnife_Blue");
 					A_Overlayrotate(overlayID() + 2,knifeRoll);
 				}
 				
@@ -823,21 +949,6 @@ extend class PB_WeaponBase
             PB_UseLine(64);
             flinetracedata t;
             linetrace(angle,64,pitch,0,player.mo.height * 0.5 - player.mo.floorclip + player.mo.AttackZOffset*player.crouchFactor,data:t);
-            if(t.hitactor != null && !t.hitactor.bnoblood)
-            {
-                if(t.hitactor.bloodcolor == 0)	//has no blood color defined, use default bloodcolor
-                {
-                    invoker.curBlood.x = gameinfo.defaultbloodcolor.r / 255.0;
-                    invoker.curBlood.y = gameinfo.defaultbloodcolor.g / 255.0;
-                    invoker.curBlood.z = gameinfo.defaultbloodcolor.b / 255.0;
-                }
-                else
-                {
-                    invoker.curBlood.x = t.hitactor.bloodcolor.r / 255.0;
-                    invoker.curBlood.y = t.hitactor.bloodcolor.g / 255.0;
-                    invoker.curBlood.z = t.hitactor.bloodcolor.b / 255.0;
-                }
-            }
         }
         BXMD EF 1 {
             if(JustPressed(BT_USER2)) return PB_Execute();
