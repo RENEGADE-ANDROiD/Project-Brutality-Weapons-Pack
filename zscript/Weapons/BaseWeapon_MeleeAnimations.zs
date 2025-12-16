@@ -51,18 +51,18 @@ extend class PB_WeaponBase
         TNT1 AAA 1 A_SetPitch(-2 + pitch, SPF_INTERPOLATE);
 		TNT1 A 0 A_PlaySound("AXSWING", 5);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, 8); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, 8); }
 			else { A_FireCustomMissile("HammerSwing", 0, 0, 0, 8); }
 		}
         0UBR EF 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, 0); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, 0); }
 			else { A_FireCustomMissile("HammerSwing", 0, 0, 0, 0); }
 			A_FireCustomMissile("HammerSwing2", 0, 0, 0, 0);
 		}
 		0UBR GH 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, -8); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, -8); }
 			else { A_FireCustomMissile("HammerSwing", 0, 0, 0, -8); }
 		}
 		0UBR I 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
@@ -80,18 +80,18 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_PlaySound("AXSWING", 5);
 		0UBR JK 1 A_SetRoll(roll-1.2, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", -15, 0, 0, 0); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", -15, 0, 0, 0); }
 			else { A_FireCustomMissile("HammerSwing", -15, 0, 0, 0); }
 		}
 		0UBR LM 1 A_SetRoll(roll-1.2, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, 0); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, 0); }
 			else { A_FireCustomMissile("HammerSwing", 0, 0, 0, 0); }
 			A_FireCustomMissile("HammerSwing2", 0, 0, 0, 0);
 		}
         0UBR NO 1;
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 15, 0, 0, 0); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 15, 0, 0, 0); }
 			else { A_FireCustomMissile("HammerSwing", 15, 0, 0, 0); }
 		}
 		0UBR PQ 1;
@@ -110,18 +110,18 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_PlaySound("AXSWING", 5);
 		0UBR RS 1 A_SetRoll(roll+1.2, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", -15, 0, 0, 0); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", -15, 0, 0, 0); }
 			else { A_FireCustomMissile("HammerSwing", -15, 0, 0, 0); }
 		}
 		0UBR TU 1 A_SetRoll(roll+1.2, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, 0); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, 0); }
 			else { A_FireCustomMissile("HammerSwing", 0, 0, 0, 0); }
 			A_FireCustomMissile("HammerSwing2", 0, 0, 0, 0);
 		}
         0UBR VW 1;
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 15, 0, 0, 0); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 15, 0, 0, 0); }
 			else { A_FireCustomMissile("HammerSwing", 15, 0, 0, 0); }
 		}
 		0UBR XY 1;
@@ -160,19 +160,19 @@ extend class PB_WeaponBase
         TNT1 AAA 1 A_SetPitch(-2 + pitch, SPF_INTERPOLATE);
 		TNT1 A 0 A_PlaySound("AXSWING", 5);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
+			if (CountInv("PB_PowerStrength") == 1 ) { 
 				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, 8); } // SUPER SWING DOES NOT TAKE DURABILITY
 			else { A_FireCustomMissile("AxeAttack", 0, 0, 0, 8); }
 		}
         0AXE EF 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
+			if (CountInv("PB_PowerStrength") == 1 ) { 
 				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, 0); }
 			else { A_FireCustomMissile("AxeSwing2", 0, 0, 0, 0); } // TAKE DURABILITY
 		}
 		0AXE GH 1 A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
+			if (CountInv("PB_PowerStrength") == 1 ) { 
 				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, -8); }
 			else { A_FireCustomMissile("AxeAttack", 0, 0, 0, -8); }
 		}
@@ -189,19 +189,19 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_PlaySound("AXSWING", 5);
 		0AXE JK 1 A_SetRoll(roll-1.2, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
+			if (CountInv("PB_PowerStrength") == 1 ) { 
 				A_FireCustomMissile("SuperAxeSwing", -15, 0, 0, 0); }
 			else { A_FireCustomMissile("AxeAttack", -15, 0, 0, 0); }
 		}
 		0AXE LM 1 A_SetRoll(roll-1.2, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
+			if (CountInv("PB_PowerStrength") == 1 ) { 
 				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, 0); }
 			else { A_FireCustomMissile("AxeSwing2", 0, 0, 0, 0); } // TAKE DURABILITY
 		}
         0AXE NO 1;
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
+			if (CountInv("PB_PowerStrength") == 1 ) { 
 				A_FireCustomMissile("SuperAxeSwing", 15, 0, 0, 0); }
 			else { A_FireCustomMissile("AxeAttack", 15, 0, 0, 0); }
 		}
@@ -220,19 +220,19 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_PlaySound("AXSWING", 5);
 		0AXE RS 1 A_SetRoll(roll+1.2, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
+			if (CountInv("PB_PowerStrength") == 1 ) { 
 				A_FireCustomMissile("SuperAxeSwing", -15, 0, 0, 0);} 
 			else { A_FireCustomMissile("AxeAttack", -15, 0, 0, 0); }
 		}
 		0AXE TU 1 A_SetRoll(roll+1.2, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
+			if (CountInv("PB_PowerStrength") == 1 ) { 
 				A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, 0); }
 			else { A_FireCustomMissile("AxeSwing2", 0, 0, 0, 0); }
 		}
         0AXE VW 1 ;
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { 
+			if (CountInv("PB_PowerStrength") == 1 ) { 
 				A_FireCustomMissile("SuperAxeSwing", 15, 0, 0, 0); }
 			else { A_FireCustomMissile("AxeAttack", 15, 0, 0, 0); }
 		}
@@ -478,7 +478,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
 		CBAR ABCD 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
 			else { A_FireCustomMissile("CrowbarSwing", 0, 0, 0, 0); }
 		}
         CBAR EFG 1;
@@ -497,7 +497,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
 		CBAR HIJK 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
 			else { A_FireCustomMissile("CrowbarSwing", 0, 0, 0, 0); }
 		}
         CBAR LMN 1;
@@ -516,7 +516,7 @@ extend class PB_WeaponBase
 		TNT1 A 1;
 		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
 			else { A_FireCustomMissile("CrowbarSwing", 0, 0, 0, 0); }
 		}
 		TNT1 AAA 1 A_SetPitch(+.2 + pitch, SPF_INTERPOLATE);
@@ -617,7 +617,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
 		WRNC ABCD 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
 			else { A_FireCustomMissile("WrenchSwing", 0, 0, 0, 0); }
 		}
         WRNC EFG 1 ;
@@ -636,7 +636,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
 		WRNC HIJK 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
 			else { A_FireCustomMissile("WrenchSwing", 0, 0, 0, 0); }
 		}
         WRNC LMN 1;
@@ -654,7 +654,7 @@ extend class PB_WeaponBase
 		TNT1 A 1;
 		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
 		TNT1 A 0 {
-			if (CountInv("PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperWrenchSwing", 0, 0, 0, 0); }
 			else { A_FireCustomMissile("WrenchSwing", 0, 0, 0, 0); }
 		}
 		TNT1 AAA 1 A_SetPitch(+.2 + pitch, SPF_INTERPOLATE);
