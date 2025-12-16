@@ -10,8 +10,17 @@ extend class PB_WeaponBase
 			return ResolveState(null);
 			}
 			Loop;
+    // Shoulder Cannon Handler
+    GKShoulder_Handler_Overlay:
+			TNT1 A 1 {
+			if (CountInv("DoShoulderCannon")==1) 
+				return ResolveState("FireShoulderCannon");
+			return ResolveState(null);
+			}
+			Loop;
     // The Use Melee
     QuickMelee:
+        TNT1 A 0 A_JumpIf(GKLoaded, "QuickMeleeGK");
         "####" A 0 {
             A_StopSound(CHAN_WEAPON);
             A_StopSound(CHAN_VOICE);

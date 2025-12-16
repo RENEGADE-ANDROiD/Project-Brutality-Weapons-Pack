@@ -1076,9 +1076,7 @@ class KatanaCard : meleeCard
 	{
 		tags.push("Katana");
 		tokens.push("WW_KatanaMeleeSelected");
-		if(demonickatana){
-			img.push("graphics/CustomMelee/melee-demonic-katana.png");}
-		else {img.push("graphics/CustomMelee/melee-katana.png");}
+		img.push("graphics/CustomMelee/melee-demonic-katana.png");
 		sx.push(1.0);
 		sy.push(1.0);
 	}

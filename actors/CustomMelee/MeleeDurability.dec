@@ -70,4 +70,12 @@ ACTOR HammerDurability : Ammo {
     Inventory.MaxAmount 40
     Ammo.BackPackAmount 40
     Ammo.BackPackMaxAmount 40
+}
+
+ACTOR SwordDurability : Ammo {
+	Game Doom
+    Inventory.Amount 40
+    Inventory.MaxAmount 40
+    Ammo.BackPackAmount 40
+    Ammo.BackPackMaxAmount 40
 }	

@@ -108,7 +108,6 @@ server bool FirstTimeLoadingPBWP = true;
 server int ttwcfbex = 25;
 server bool KillstreakIsOn = true;
 server bool GKLoaded = false;
-server bool demonickatana = false;
 
 // Monster Drops
 server bool IsUsingStormcastCV = false;

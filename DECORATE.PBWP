@@ -57,6 +57,7 @@
 #INCLUDE ACTORs/CustomMelee/Hammer.dec
 #INCLUDE ACTORs/CustomMelee/PickaxeStrike.dec
 #INCLUDE ACTORs/CustomMelee/ImpactGauntletPuff.dec
+#INCLUDE ACTORs/CustomMelee/DemonicSword.dec
 
 //Weapons
 	//Slot-1
