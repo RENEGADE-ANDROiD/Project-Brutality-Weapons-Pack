@@ -40,12 +40,10 @@ GiveInventory("MonsterKilled", 1);
 	HudMessage(s:"Unlocks All Melee Weapons AND +25 points AND +25 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
 	GiveInventory("HealthBonus", 25);
 	GiveInventory("PB_Score", 25);
-	GiveInventory("PB_Axe", 1);
+	GiveInventory("ShockBaton", 1);
 	GiveInventory("PickAxePickup", 1);
 	GiveInventory("Crowbar", 5);
 	GiveInventory("Wrench", 5);
-	GiveInventory("ShockBaton", 5);
-	GiveInventory("Prosurv_SawSwing", 1);
 	GiveInventory("KatanaPickup", 1);
 	GiveInventory("SentinelHammerChargePickup", 1);
 	GiveInventory("ClawChargesPickup", 1);
@@ -73,12 +71,10 @@ GiveInventory("MonsterKilled", 1);
 	HudMessage(s:"Basic Melee Weapons AND +10 Armor AND +15 points"; 1,100,CR_GOLD, 0.025, 0.785, 5.0, 0.8, 3.7);
 	GiveInventory("ArmorBonus", 10);
 	GiveInventory("PB_Score", 15);
-	GiveInventory("PB_Axe", 1);
 	GiveInventory("PickAxePickup", 1);
 	GiveInventory("Crowbar", 1);
 	GiveInventory("Wrench", 1);
-	GiveInventory("ShockBaton", 5);
-	GiveInventory("Prosurv_SawSwing", 1);
+	GiveInventory("ShockBaton", 1);
 	}
 	}
 	//HUGE GUTS CHALLENGE!
@@ -90,11 +86,10 @@ GiveInventory("MonsterKilled", 1);
 	GiveInventory("ArmorBonus", 30);
 	GiveInventory("HealthBonus", 30);
 	GiveInventory("PB_Score", 25);
-	GiveInventory("PB_Axe", 1);
 	GiveInventory("PickAxePickup", 1);
 	GiveInventory("Crowbar", 1);
 	GiveInventory("Wrench", 1);
-	GiveInventory("ShockBaton", 5);
+	GiveInventory("ShockBaton", 1);
 	GiveInventory("Prosurv_SawSwing", 1);
 	GiveInventory("KatanaPickup", 1);
 	GiveInventory("SentinelHammerChargePickup", 1);
@@ -183,7 +178,6 @@ GiveInventory("MonsterKilled", 1);
 	GiveInventory("PB_Score", 25);
 	GiveInventory("PB_Axe", 1);
 	GiveInventory("PB_Chainsaw", 1);
-	GiveInventory("Prosurv_SawSwing", 1);
 	}
 	}
 	//You can't hide from ME! CHALLENGE
