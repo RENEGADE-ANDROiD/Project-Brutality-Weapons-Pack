@@ -47,6 +47,14 @@ ACTOR SentinelhammerCharges : Ammo {
     Ammo.BackPackMaxAmount 10
 }   
 
+ACTOR AxeDurability : Ammo { // SPECIAL CASE DUE TO HOW PB_AXE WORKS
+	Game Doom
+    Inventory.Amount 0
+    Inventory.MaxAmount 40
+    Ammo.BackPackAmount 0
+    Ammo.BackPackMaxAmount 40
+}
+
 // ProSurv
 ACTOR CrowbarDurability : Ammo {
 	Game Doom

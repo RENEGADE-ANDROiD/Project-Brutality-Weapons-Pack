@@ -23,3 +23,4 @@ class PBWP_Spawner : PB_SpawnerBase
 // Placeholder
 class PBWP_Weapon : PB_Weapon 
 {}
+
