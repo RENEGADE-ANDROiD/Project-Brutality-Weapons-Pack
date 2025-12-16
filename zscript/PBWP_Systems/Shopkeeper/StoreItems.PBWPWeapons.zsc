@@ -99,19 +99,19 @@ class PBHellPistolerStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Pistols & SMGs"; }
 	override Name GetItem() { return 'HellPistoler'; }
-	override string GetIcon() { return "D4BPA0"; }
+	override string GetIcon() { return "ARMZA0"; }
 	override string GetDisplayName() { return "Hell Pistoler"; }
 	override int GetBasePrice() { return 270; }
 	override string GetFlavorText() { return ""; }
 }
 
-class PBSilverhandsDeagleStore : StoreItem
+class PBProSurv_BlasterPistolStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Pistols & SMGs"; }
-	override Name GetItem() { return 'SilverhandsDeagle'; }
-	override string GetIcon() { return "D4E0Z0"; }
-	override string GetDisplayName() { return "Silverhands Deagle"; }
+	override Name GetItem() { return 'ProSurv_BlasterPistol'; }
+	override string GetIcon() { return "BRPIA0"; }
+	override string GetDisplayName() { return "Project Survival Blaster Pistol"; }
 	override int GetBasePrice() { return 330; }
 	override string GetFlavorText() { return ""; }
 }
@@ -121,7 +121,7 @@ class PBW_SMGStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Pistols & SMGs"; }
 	override Name GetItem() { return 'W_SMG'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "SMGZA0"; }
 	override string GetDisplayName() { return "W_SMG"; }
 	override int GetBasePrice() { return 225; }
 	override string GetFlavorText() { return ""; }
@@ -132,7 +132,7 @@ class PBUZISMGStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Pistols & SMGs"; }
 	override Name GetItem() { return 'UZIRM0'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "UZIRM0"; }
 	override string GetDisplayName() { return "UZI SMG"; }
 	override int GetBasePrice() { return 255; }
 	override string GetFlavorText() { return ""; }
@@ -142,12 +142,34 @@ class PBUZISMGStore : StoreItem
 // SHOTGUNS
 // ==============================
 
+class PBProsurv_LeverActionStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Project Brutality Shotguns"; }
+	override Name GetItem() { return 'Prosurv_LeverAction'; }
+	override string GetIcon() { return "LVR4E0"; }
+	override string GetDisplayName() { return "Lever Action"; }
+	override int GetBasePrice() { return 390; }
+	override string GetFlavorText() { return ""; }
+}
+
+class PBProsurv_BallistaStore : StoreItem
+{
+	override int GetType() { return SType_Weapon; }
+	override string GetCategory() { return "Project Brutality Shotguns"; }
+	override Name GetItem() { return 'Prosurv_Ballista'; }
+	override string GetIcon() { return "CBOWS0"; }
+	override string GetDisplayName() { return "Project Survival Ballista"; }
+	override int GetBasePrice() { return 390; }
+	override string GetFlavorText() { return ""; }
+}
+
 class PBPB_CSSGStore : StoreItem
 {
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Shotguns"; }
 	override Name GetItem() { return 'PB_CSSG'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "SG43A0"; }
 	override string GetDisplayName() { return "Commander SSG"; }
 	override int GetBasePrice() { return 390; }
 	override string GetFlavorText() { return ""; }
@@ -169,7 +191,7 @@ class PBDemonTechShotgunStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Shotguns"; }
 	override Name GetItem() { return 'DemonTechShotgun'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "ERAGA0"; }
 	override string GetDisplayName() { return "Demon Tech Shotgun"; }
 	override int GetBasePrice() { return 450; }
 	override string GetFlavorText() { return ""; }
@@ -213,7 +235,7 @@ class PBM1887Store : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Shotguns"; }
 	override Name GetItem() { return 'M1887'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "M87PA0"; }
 	override string GetDisplayName() { return "M1887"; }
 	override int GetBasePrice() { return 330; }
 	override string GetFlavorText() { return ""; }
@@ -257,7 +279,7 @@ class PBSSGStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Shotguns"; }
 	override Name GetItem() { return 'SSG'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "SGN2A0"; }
 	override string GetDisplayName() { return "SSG"; }
 	override int GetBasePrice() { return 390; }
 	override string GetFlavorText() { return ""; }
@@ -272,7 +294,7 @@ class PBAK47Store : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Rifles"; }
 	override Name GetItem() { return 'AK-47'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "S94PA0"; }
 	override string GetDisplayName() { return "AK-47"; }
 	override int GetBasePrice() { return 300; }
 	override string GetFlavorText() { return ""; }
@@ -316,7 +338,7 @@ class PBHeavySniperRifleStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Rifles"; }
 	override Name GetItem() { return 'HeavySniperRifle'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "MSNWA0"; }
 	override string GetDisplayName() { return "Heavy Sniper Rifle"; }
 	override int GetBasePrice() { return 480; }
 	override string GetFlavorText() { return ""; }
@@ -327,7 +349,7 @@ class PBMagnumSniperRifleStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Rifles"; }
 	override Name GetItem() { return 'MagnumSniperRifle'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "SNPXA0"; }
 	override string GetDisplayName() { return "Magnum Sniper Rifle"; }
 	override int GetBasePrice() { return 465; }
 	override string GetFlavorText() { return ""; }
@@ -365,7 +387,7 @@ class PBDemonTechMinigunStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Heavy Weapons"; }
 	override Name GetItem() { return 'DemonTechMinigun'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "DTM0Z0"; }
 	override string GetDisplayName() { return "Demon Tech Minigun"; }
 	override int GetBasePrice() { return 555; }
 	override string GetFlavorText() { return ""; }
@@ -409,7 +431,7 @@ class PBMastermindChaingunStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Heavy Weapons"; }
 	override Name GetItem() { return 'MastermindChaingun'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "RMN1H0"; }
 	override string GetDisplayName() { return "Mastermind Chaingun"; }
 	override int GetBasePrice() { return 555; }
 	override string GetFlavorText() { return ""; }
@@ -420,8 +442,8 @@ class PBINMiniGunStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Heavy Weapons"; }
 	override Name GetItem() { return 'INMiniGun'; }
-	override string GetIcon() { return ""; }
-	override string GetDisplayName() { return "IN MiniGun"; }
+	override string GetIcon() { return "CRICA0"; }
+	override string GetDisplayName() { return "Lady Hungry"; }
 	override int GetBasePrice() { return 540; }
 	override string GetFlavorText() { return ""; }
 }
@@ -431,7 +453,7 @@ class PBINNailGunStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Heavy Weapons"; }
 	override Name GetItem() { return 'INNailGun'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "NGUNA0"; }
 	override string GetDisplayName() { return "IN NailGun"; }
 	override int GetBasePrice() { return 345; }
 	override string GetFlavorText() { return ""; }
@@ -486,7 +508,7 @@ class PBSuperGrenadeLauncherStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Heavy Weapons"; }
 	override Name GetItem() { return 'SuperGrenadeLauncher'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "GLAUZ0"; }
 	override string GetDisplayName() { return "Super Grenade Launcher"; }
 	override int GetBasePrice() { return 465; }
 	override string GetFlavorText() { return ""; }
@@ -545,7 +567,7 @@ class PBExtinctionRayStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Energy Weapons"; }
 	override Name GetItem() { return 'Extinction_Ray'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "HP2PA0"; }
 	override string GetDisplayName() { return "Extinction Ray"; }
 	override int GetBasePrice() { return 630; }
 	override string GetFlavorText() { return ""; }
@@ -567,7 +589,7 @@ class PBIonHeavyStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Energy Weapons"; }
 	override Name GetItem() { return 'Ion_Heavy'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "PLAKA0"; }
 	override string GetDisplayName() { return "Ion Heavy"; }
 	override int GetBasePrice() { return 480; }
 	override string GetFlavorText() { return ""; }
@@ -578,7 +600,7 @@ class PBPhaseEradicatorBFGStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Energy Weapons"; }
 	override Name GetItem() { return 'PhaseEradicatorBFG'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "PRDCZ0"; }
 	override string GetDisplayName() { return "Phase Eradicator BFG"; }
 	override int GetBasePrice() { return 660; }
 	override string GetFlavorText() { return ""; }
@@ -589,7 +611,7 @@ class PBPlasmaRifleAssaultStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Energy Weapons"; }
 	override Name GetItem() { return 'PlasmaRifleAssault'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "NPLZA0"; }
 	override string GetDisplayName() { return "Plasma Rifle Assault"; }
 	override int GetBasePrice() { return 405; }
 	override string GetFlavorText() { return ""; }
@@ -600,31 +622,9 @@ class PBThunderCarrierTIStore : StoreItem
 	override int GetType() { return SType_Weapon; }
 	override string GetCategory() { return "Project Brutality Energy Weapons"; }
 	override Name GetItem() { return 'ThunderCarrierTI'; }
-	override string GetIcon() { return ""; }
+	override string GetIcon() { return "CDLPA0"; }
 	override string GetDisplayName() { return "Thunder Carrier TI"; }
 	override int GetBasePrice() { return 540; }
-	override string GetFlavorText() { return ""; }
-}
-
-class PBThunderCrossbowStore : StoreItem
-{
-	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Project Brutality Energy Weapons"; }
-	override Name GetItem() { return 'ThunderCrossbow'; }
-	override string GetIcon() { return "WBOWA0"; }
-	override string GetDisplayName() { return "Thunder Crossbow"; }
-	override int GetBasePrice() { return 465; }
-	override string GetFlavorText() { return ""; }
-}
-
-class PBUnmaker64Store : StoreItem
-{
-	override int GetType() { return SType_Weapon; }
-	override string GetCategory() { return "Project Brutality Energy Weapons"; }
-	override Name GetItem() { return 'Unmaker64'; }
-	override string GetIcon() { return ""; }
-	override string GetDisplayName() { return "Unmaker64"; }
-	override int GetBasePrice() { return 570; }
 	override string GetFlavorText() { return ""; }
 }
 
