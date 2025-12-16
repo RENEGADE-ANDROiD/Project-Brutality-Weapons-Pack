@@ -1,6 +1,6 @@
 ACTOR HellPistolerFirer : HellBullet
 {
-Damage 35
+Damage 20
 Speed 100
 DamageType Fire
 }
@@ -8,7 +8,7 @@ DamageType Fire
 ACTOR HellPistolerFirerSingle : HellBullet
 {
 +Ripper
-Damage 50
+Damage 35
 Speed 350
 DamageType Fire
 }
@@ -16,7 +16,7 @@ DamageType Fire
 ACTOR HellPistolerFirerCharge : HellBullet
 {
 +Ripper
-Damage 250
+Damage 150
 DamageType Fire
 Speed 350
 Scale 1.5

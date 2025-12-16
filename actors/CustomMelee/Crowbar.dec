@@ -2,7 +2,7 @@
 
 					
 ACTOR CrowbarSwing : PB_ProjectileAlt {
-	Radius 6
+	Radius 8
 	Height 6
 	Projectile 
 	DamageType "ExtremePunches"
