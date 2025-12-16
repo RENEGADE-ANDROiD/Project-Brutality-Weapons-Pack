@@ -71,7 +71,7 @@ OptionMenu "ttwcoptions"
 	StaticText ""
 	Command "$PB_GO_TESTMAP", "map PBTEST"
 	StaticText ""
-	StaticText "Project Brutality Weapons Pack Version: 1.7-Release"
+	StaticText "Project Brutality Weapons Pack Version: 1.9-Release"
 }
 
 OptionMenu "GeneralSettings"
