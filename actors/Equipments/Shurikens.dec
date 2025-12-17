@@ -1,0 +1,172 @@
+
+//-------------------SH1Riker Projectile--------------------------------------//
+ACTOR SHURiken : PB_ProjectileAlt
+{
+	Radius 4
+	Height 4
+	Speed 60
+	scale 0.3
+	PB_Projectile.BaseDamage 3
+	Projectile
+	BloodType "BrutalBlood"
+	DamageType "Saw"
+	+RANDOMIZE
+	+NOGRAVITY
+	+BLOODSPLATTER
+	+ACTIVATEIMPACT
+	+ACTIVATEPCROSS  
+	States
+	{
+	Spawn: 
+		PSHR ABCD 1
+		Loop
+	Death:
+		PSHR A 1 A_playsound("STRCLNK")
+		PSHR A 0 A_SpawnItem("SHuRikenOnMap")
+		Stop
+	XDeath:
+		PSHR A 1
+		Stop	
+	}
+}
+ACTOR PowerSHURiken : SHURiken
+{
+	PB_Projectile.BaseDamage 6
+	States
+	{
+	Spawn: 
+		PSHR IJKL 1 BRIGHT
+		Loop
+	Death:
+		PSHR I 1 BRIGHT A_playsound("STRCLNK")
+		PSHR A 0 A_SpawnItemEx("PowerSHuRikenOnMap")
+		PSHR A 0 A_SpawnItemEx("FlameTrailsShuriken")
+		Stop
+	XDeath:
+		PSHR J 1 A_SpawnItemEx("FlameTrailsShuriken")
+		Stop	
+	}
+}
+//----------------------------------------------------------------------------//
+
+//-------If Projectile Death(not hiting actor), to spawn on map---------------//
+Actor SHuRikenOnMap : CustomInventory
+{
+	scale 0.2
+	Radius 10
+	Height 10
+	Inventory.PickupSound "sticky"
+	Inventory.PickupMessage "A shuriken !"
+	+NOGRAVITY 
+	+INVENTORY.NOSCREENFLASH
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		PSHR A 1 A_Jump(256, "S1", "S2", "S3", "S4")
+	S1:
+		PSHR A -1
+		Stop
+	S2:
+		PSHR B -1
+		Stop
+	S3:
+		PSHR C -1
+		Stop
+	S4:
+		PSHR D -1
+		Stop
+	Pickup:
+		NULL A 1
+		NULL A 0 A_GiveInventory("ShurikenAmmo")
+		Stop
+	}
+}
+
+Actor PowerSHuRikenOnMap : SHuRikenOnMap
+{
+	States
+	{
+	Spawn:
+		PSHR A 1 A_Jump(256, "S1", "S2", "S3", "S4")
+	S1:
+		PSHR IIIIIIIIIIMMMMMMMM 10 bright A_CustomMissile ("SmallSmoke", 25, 0, random (0, 360), 2, random (70, 110))
+		PSHR A -1
+		Stop
+	S2:
+		PSHR JJJJJJJJJJNNNNNNNN 10 bright A_CustomMissile ("SmallSmoke", 25, 0, random (0, 360), 2, random (70, 110))
+		PSHR B -1
+		Stop
+	S3:
+		PSHR KKKKKKKKKOOOOOOOOO 10 bright A_CustomMissile ("SmallSmoke", 25, 0, random (0, 360), 2, random (70, 110))
+		PSHR C -1
+		Stop
+	S4:
+		PSHR LLLLLLLLLPPPPPPPPP 10 bright A_CustomMissile ("SmallSmoke", 25, 0, random (0, 360), 2, random (70, 110))
+		PSHR D -1
+		Stop
+	Pickup:
+		NULL A 1
+		NULL A 0 A_GiveInventory("ShurikenAmmo")
+		Stop
+	}
+}
+//----------------------------------------------------------------------------//
+ACTOR FlameTrailsShuriken: SmallFlameTrails
+{
+	Scale 0.2
+	Speed 1
+	RenderStyle "Add"
+	alpha 0.8
+	damage 5
+	States
+	{
+	Spawn:
+		TNT1 A 1 A_Explode(10,40)
+		FRPR ABC 1 BRIGHT A_Explode(10,40)
+		TNT1 A 0 A_Jump(128, 2)
+		TNT1 A 0 A_CustomMissile ("OldschoolRocketSmokeTrail2", 2, 0, random (160, 210), 2, random (-30, 30))
+		FRPR DEF 1 BRIGHT
+		Stop
+	}
+}
+//Special Inventory for Player Code Animation//
+
+ACTOR ShurikenAmmo : Ammo
+{
+    //$Category Ammo
+	Inventory.PickupMessage "A shuriken !"
+	Inventory.PickupSound "sticky"
+	Inventory.Icon "SHURI0"
+	Inventory.Amount 20
+	Inventory.MaxAmount 20
+	Ammo.BackPackAmount 20
+	Ammo.BackPackMaxAmount 20
+	+INVENTORY.IGNORESKILL
+	Scale 0.45
+	scale 0.3
+	States
+	{
+	Spawn:
+		SHUR I -1
+		Stop
+	}
+}
+ACTOR ShurikenAmmoPack : ShurikenAmmo 
+{
+
+	Inventory.PickupMessage "You found a pack of shuriken !"
+	Inventory.Amount 50
+	Scale 0.3
+	+FORCEXYBILLBOARD
+	-CANNOTPUSH
+	States
+	{
+	Spawn:
+		SHUR X 0
+		SHUR X -1
+		Stop
+	}
+}
+
+

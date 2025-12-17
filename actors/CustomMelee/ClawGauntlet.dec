@@ -1,0 +1,25 @@
+Actor crowbarpuff
+{
++NOBLOCKMAP
++NOGRAVITY
++NOEXTREMEDEATH
++PUFFONACTORS
+RenderStyle SoulTrans
+SeeSound "gauntlet/hit"
+AttackSound "gauntlet/miss"
+ActiveSound "gauntlet/swing"
+decal "slash1"
+VSpeed 0
+States
+{
+Spawn:
+MPUF ABCD 2
+Stop
+}
+}
+
+Actor crowbarpuff2 : crowbarpuff
+{
+decal "slash2"
+}  
+

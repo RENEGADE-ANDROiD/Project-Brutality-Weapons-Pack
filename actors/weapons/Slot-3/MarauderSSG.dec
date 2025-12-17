@@ -1,20 +1,5 @@
-Actor AltFireCooldownTimer : Inventory
-{
-    Inventory.MaxAmount 1
-    +INVENTORY.UNDROPPABLE
-    +INVENTORY.AUTOACTIVATE
-    States
-    {
-    Spawn:
-        TNT1 A 175 // Wait 5 seconds (175 ticks)
-        TNT1 A 0 A_TakeInventory("AltFireCooldown", 1)
-        TNT1 A 0 A_TakeInventory("AltFireCooldownTimer", 1)
-        Stop
-    Use:
-        TNT1 A 0
-        Stop
-    }
-}
+Actor HookCooldown : Inventory {
+Inventory.MaxAmount 30 }
 
 Actor SSGDFlakShotLeaded : Inventory {
 Inventory.MaxAmount 1 }
@@ -192,6 +177,7 @@ Actor ColdKeeperPuff : PlasmaMarauderSGPuff
   Damagetype "Ice"  
   +Ripper
   +NOBOSSRIP
+  RipperLevel 1
 }
 
 Actor ColdKeeperBlast : CryoMarauderSGPuff
@@ -204,7 +190,7 @@ Actor ColdKeeperBlast : CryoMarauderSGPuff
 Actor IcyShotTracer : MaruderSGFrozenTracer
 { 
   DamageType Shotgun
-  Damage 4
+  Damage (Random(4, 5))
   -DONTSPLASH
 }
 
@@ -213,6 +199,7 @@ Actor IcyShotTracer2 : IcyShotTracer
   Damage (Random(2, 3))
   +Ripper
   +NOBOSSRIP
+  RipperLevel 1
 }
 
 Actor MarauderShotgunBarrelHeat: Inventory
@@ -407,6 +394,11 @@ Actor MarauderSSG : PBWP_Weapon
 		     return A_DoPBWeaponAction(WRF_NOFIRE);
 		     }
 	    TNT1 A 0
+		"####" A 0 {
+			 If(CountInv("HookCooldown") > 1) {
+			 A_OverLay(-95, "HookTimerCooldown");
+			 }
+		     }
 	    TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
 	Ready3:
 	    TNT1 A 0 {
@@ -675,10 +667,9 @@ Actor MarauderSSG : PBWP_Weapon
 			MSSF DDECFGH 1 A_SetPitch(pitch+0.5)
 			Goto Reload*/
 
+
 AltFire:
-    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
-    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
-    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+    TNT1 A 0 PB_CheckBarrelPlace1()
     TNT1 A 0 {
         A_WeaponOffset(0,32);
         A_SetRoll(0);
@@ -700,11 +691,7 @@ AltFire:
     Goto Ready3
 
 	AltFireHook:
-    		TNT1 A 0 A_JumpIfInventory("AltFireCooldown", 1, "CooldownActive")
-    
-    		// Start cooldown
-    		TNT1 A 0 A_GiveInventory("AltFireCooldown", 1)
-    		TNT1 A 0 A_GiveInventory("AltFireCooldownTimer", 1)
+    	TNT1 A 0 A_JumpIfInventory("HookCooldown",1,"NoHook")
 		TNT1 A 0 {
 		A_SpawnItem("YellowFlareSpawn",0,0,-3,0);
 		A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
@@ -720,7 +707,30 @@ AltFire:
 		TNT1 A 0 A_SetPitch(pitch-6)
 		TNT1 A 0 A_ZoomFactor(1)
 		MSSF EFGH 1 A_SetPitch(pitch+0.5)
+		TNT1 A 0 A_GiveInventory("HookCooldown", 40)
+		TNT1 A 0 A_overlay(-95, "HookTimerCooldown")
 		Goto Reload
+	
+	NoHook:
+	TNT1 A 0 A_Print("\ci Hook on Cooldown",1)
+		Goto Ready3
+		
+	HookTimerCooldown:
+		TNT1 A 1 {
+			 if(CountInv("HookCooldown") < 1) {
+				Return State("StopCoolDown");
+			 }
+			 A_TakeInventory("HookCooldown",1);
+			 Return State("");
+		     }
+		TNT1 A 0
+		Loop
+
+	StopCoolDown:
+		TNT1 A 1
+		Stop
+
+
 
 	AltFireHookChunks:
 		TNT1 A 0 {

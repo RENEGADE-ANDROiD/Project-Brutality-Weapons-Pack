@@ -398,6 +398,7 @@ ACTOR ChthonicRifle : PBWP_Weapon  //Daller-Faust's Won't use the Sprites. But I
     		SR2G A 2 A_PlaySound("SRBOLT")
 	    	Goto ReadyInZoom
 
+
         AltFire:
 	        TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")

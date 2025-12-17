@@ -1,5 +1,4 @@
-Actor WW_HookSelected : inventory{}
-Actor HookSelected : inventory{}
+
 
 Actor HookAmmo : ammo
 {

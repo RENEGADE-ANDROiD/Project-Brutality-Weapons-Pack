@@ -1,0 +1,37 @@
+///CROWBAR///////////////////////////////////////////////////////////////////////
+
+					
+ACTOR CrowbarSwing : PB_ProjectileAlt {
+	Radius 8
+	Height 6
+	Projectile 
+	DamageType "ExtremePunches"
+	+FORCEXYBILLBOARD
+	+NOEXTREMEDEATH
+	+BLOODSPLATTER
+	+NODAMAGETHRUST
+	PB_Projectile.BaseDamage 25
+	Speed 20
+	Decal "SawDecalNew1"
+	States {
+		Spawn:
+			TNT1 A 0
+			TNT1 A 1
+			Stop
+		XDeath:
+			TNT1 A 0 A_PlaySound("player/cyborg/fist", 3)
+			TNT1 A 0 A_TakeFromTarget("CrowbarDurability",1)
+			TNT1 A 0 Radius_Quake (2, 6, 0, 5, 0)
+			TNT1 A 1
+			Stop
+		Death:
+		Crash:
+			TNT1 A 0 A_TakeFromTarget("CrowbarDurability",1)
+			TNT1 A 0 A_SpawnItemEx("SSawPuff3",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+			TNT1 A 0 Radius_Quake (2, 6, 0, 5, 0)
+			TNT1 A 1
+			Stop	}}
+ACTOR SuperCrowbarSwing : CrowbarSwing {
+	DamageType "ExtremePunches"
+	PB_Projectile.BaseDamage 50
+}

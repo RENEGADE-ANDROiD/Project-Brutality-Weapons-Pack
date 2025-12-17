@@ -212,6 +212,8 @@ ACTOR Razorjack : PBWP_Weapon
 		RAZG A 0 A_PlaySound("Razorjack/Idle",6,1.0,1)
 		RAZE AB 4
 		Goto Ready
+
+
 	AltFire:
 	   	TNT1 A 0 A_JumpIfInventory("BladeAmmo", 1, 1)
 	   	Goto NoAmmoReady+6

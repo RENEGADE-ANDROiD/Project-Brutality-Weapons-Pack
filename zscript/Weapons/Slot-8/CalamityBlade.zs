@@ -82,7 +82,6 @@ class PB_CalamityBlade : PBWP_Weapon
 		WP0G A 1 A_WeaponOffset(0, 33,WOF_INTERPOLATE);
 		WP0G A 1 A_WeaponOffset(0, 66,WOF_INTERPOLATE);
 		WP0G A 1 A_WeaponOffset(0, 99,WOF_INTERPOLATE);
-		TNT1 A 3;
 			TNT1 A 0 A_lower;
 			wait;
 		

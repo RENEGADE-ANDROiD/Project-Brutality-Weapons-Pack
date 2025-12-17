@@ -101,6 +101,7 @@ ACTOR CyberdemonsMissileLauncher : PBWP_Weapon
 		TNT1 A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,7)
 		Goto Ready
 		
+
 	AltFire:
         CYBF I 0 A_JumpIfInventory("PB_RocketAmmo",1,2)
         Goto NoAmmo

@@ -2,20 +2,27 @@
 //AddMenuKey "Use Meat Hook" meathook
 //alias meathook "puke 6005"
 
-//addkeysection "Universal Sentinel Hammer" SHKeys
-//addmenukey "Select Sentinel Hammer" SHSelect
-//alias SHSelect "pukename SelectHammer"
+//PBWP Keybinds
+addkeysection "PB Weapons Pack Keybinds" PBWP_KEY
+   Alias +pbwp_meleemenu 				   "event pb_melee_wheel"
+   Alias -pbwp_meleemenu 				   "event pb_melee_wheel_up"
+AddMenuKey "$PBWP_TOGGLE_MELEE_MENU"   +pbwp_meleemenu
 
-addkeysection "Combat Rating Points" PB_CRSys
-addmenukey "Show combat points:  " PB_CRSHW
+//addkeysection "Combat Rating Points" PB_CRSys
+addmenukey "Show Combat Points" PB_CRSHW
    alias PB_CRSHW "pukename ShowPoints"
+
+AddMenuKey "Toggle Magnet Mode" MagnetModeOff
+alias MagnetModeOn "netevent MagnetModeOn; rebind MagnetModeOff"
+alias MagnetModeOff "netevent MagnetModeOff; rebind MagnetModeOn"
+defaultbind M MagnetModeOff
 
 alias SwitchItUp "NetEvent SwitchItUp"
 alias BackItUp "NetEvent SwitchBack"
 
-addkeysection "Random Switch Bind" "RandomSwitchBind"
-addmenukey "Switch It Up" 									"SwitchItUp"
-addmenukey "Back It Up" 									"BackItUp"
+//addkeysection "Random Weapon Switch Bind" "RandomSwitchBind"
+addmenukey "Switch It Up: Random Weapon Select" 									"SwitchItUp"
+addmenukey "Back It Up: Previous Weapon" 									"BackItUp"
 
 alias zmove_reset "zm_wallfriction 0; zm_movetype 0; zm_walkspeed 0.7; zm_crouchspeed 0.5; zm_maxhopspeed 28; zm_maxgroundspeed 12; zm_friction 8.0; zm_strafemodifier 1; zm_setgravity 0.56; zm_jumpheight 5.5; pk_bhopjumpheight 0.85; zm_autojump 1; zm_doublejump 0; zm_doublejumpheight 1.2; zm_rjumpmulti 0.7; zm_elevatorjump 0; zm_ejumpmultiplier 1; zm_dash 0; zm_doubletap 1; zm_maxtaptime 10; zm_dashboost 1.5; zm_dashheight 0.75; zm_airdash 0; zm_adashboost 10; zm_adashfriction 1; zm_wjump 0; zm_wjumpboost 1.5; zm_multipledashes 0; zm_wjumpheight 0.75; zm_wslide 0; zm_wslidevelz 0.9; zm_crouchslide 0; zm_cslidestrength 2.0; zm_cslideduration 13; zm_qslideaccel 6.0; zm_qslideduration 8; zm_ledgegrab 0; zm_hook 0; zm_hookboost 1.5; zm_sway 0; zm_swayspeed 2; zm_swayrange 25; zm_swaydirection 0; zm_offset 0; zm_offsetspeed 2; zm_offsetrange 25; zm_offsetdirection 0; zm_speedometer 0; dsk_acceleration 1.5; pk_acceleration 1.0; zm_landing 0; zm_landingspeed 0.25; zm_minlanding 0.5; zm_landingsens 6.0; be_jumpanim 6.0; q_strafetype 0; q_3airaccel 0.75; q_1airaccel 1.5;"
 alias Dash "NetEvent Dash"
@@ -50,87 +57,23 @@ alias -dp_random_key  ""
 
 alias dp_show_mode "give DP_ModeReporter; use DP_ModeReporter"
 
-/*
-alias PBWP_EnableAll "
-           set PBSpawnPB_ArgentSith true;
-           set PBSpawnBattleAxe true;
-           set PBSpawnRazorjack true;
-            //Slot 2
-           set PBSpawnHellPistol true;
-           set PBSpawnHellPistoler true;
-           set PBSpawnW_SMG true;
-            //Slot 3
-           set PBSpawnPB_Doom2016Shotgun true;
-           set PBSpawnPB_CryoShotgun true;
-           set PBSpawnPB_CSSG true;
-           set PBSpawnRotationalSG true;
-           set PBSpawnHASG true;
-           set PBSpawnHexaLionShotgun true;
-           set PBSpawnDemonTechShotgun true;
-           set PBSpawnM1887 true;
-           set PBSpawnMarauderSSG true;
-           set PBSpawnRotatingDoubleBarrel true;
-            //Slot 4
-           set PBSpawnAK47 true;
-           set PBSpawnPB_BoltRifle true;
-           set PBSpawnDark_Fate true;
-           set PBSpawnHeavySniperRifle true;
-           set PBSpawnMagnumSniperRifle true;
-           set PBSpawnM41A true;
-           set PBSpawnPowerOverwhelming true;
-            //Slot 5
-           set PBSpawnFire_and_IceDragonSlayer true;
-           set PBSpawnINNailGun true;
-           set PBSpawnOldHMG true;
-           set PBSpawnD4Machinegun true;
-           set PBSpawnINMiniGun true;
-           set PBSpawnDukeNukemRipper true;
-           set PBSpawnSuperNailgun true;
-            //Slot 6
-           set PBSpawnChthonicRifle true;
-           set PBSpawnCyberdemonsMissileLauncher true;
-           set PBSpawnDevastator true;
-           set PBSpawnPB_Excavator true;
-           set PBSpawnMastermindChaingun true;
-           set PBSpawnPaingiver true;
-           set PBSpawnD4RocketLauncher true;
-           set PBSpawnSuperGrenadeLauncher true;
-            //Slot 7
-           set PBSpawnPlasmaRifleAssault true;
-           set PBSpawnD4PlasmaGun true;
-           set PBSpawnThunderCarrierTI true;
-           set PBSpawnD4VortexRifle true;
-            //Slot 8
-           set PBSpawnExtinction_Ray true;
-           set PBSpawnCalamityBlade true;
-           set PBSpawnPB_GaussCannon true;
-           set PBSpawnIon_Heavy true;
-           set PBSpawnPB_MancubusFlameCannon true;
-            //Slot 9
-           set PBSpawnBioAcidLauncher true;
-           set PBSpawnBallistagun true;
-           set PBSpawnLegacyUnmaker true;
-           set PBSpawnStormcast true;
-           set PBSpawnThunderCrossbow true;
-            //Slot 0
-           set PBSpawnAncientCrossbow true;
-           set PBSpawnTechBlaster true;
-           set PBSpawnPB_DemonExt true;
-           set PBSpawnDemonTechMinigun true;
-           set PBSpawnPhaseEradicatorBFG true;"*/
-
+// Slot Defaults
+// Slot 1
+Addslotdefault 1 PB_BeamKatana
 Addslotdefault 1 PB_ArgentSith
 addslotdefault 1 BattleAxe
 addslotdefault 1 Razorjack
-//addslotdefault 1 SentinelHammer
+// Slot 2
+addslotdefault 2 ProSurv_BlasterPistol
 addslotdefault 2 44PDW
-addslotdefault 2 IN_Beretta
 addslotdefault 2 B92S
 addslotdefault 2 DoomBlaster
 addslotdefault 2 W_SMG
 addslotdefault 2 P_SMG
 addslotdefault 2 HellPistoler
 addslotdefault 2 UZISMG
+// Slot 3
+addslotdefault 3 Prosurv_LeverAction
 addslotdefault 3 HASG
 addslotdefault 3 HexaLionShotgun
 addslotdefault 3 SSG
@@ -140,12 +83,15 @@ addslotdefault 3 PB_Doom2016Shotgun
 addslotdefault 3 "Demon Tech Shotgun"
 addslotdefault 3 M1887
 addslotdefault 3 RotatingDoubleBarrel
+// Slot 4
+addslotdefault 4 Prosurv_Ballista
 addslotdefault 4 AK-47
 addslotdefault 4 HeavySniperRifle
 addslotdefault 4 MagnumSniperRifle
 addslotdefault 4 PB_BoltRifle
 addslotdefault 4 M41A
 addslotdefault 4 PowerOverwhelming
+// Slot 5
 addslotdefault 5 D4Machinegun
 addslotdefault 5 Dark_Fate
 addslotdefault 5 Heavy_Assault_Rifle
@@ -156,12 +102,14 @@ addslotdefault 5 DukeNukemRipper
 addslotdefault 5 OLDHMG
 addslotdefault 5 SuperNailgun
 addslotdefault 5 AutoCannon
+// Slot 6
 addslotdefault 6 SuperGrenadeLauncher
 addslotdefault 6 PB_Excavator
 addslotdefault 6 CyberdemonsMissileLauncher
 addslotdefault 6 MastermindChaingun
 addslotdefault 6 Paingiver
 addslotdefault 6 D4RocketLauncher
+// Slot 7
 addslotdefault 7 PhaseEradicatorBFG
 addslotdefault 7 PlasmaRifleAssault
 addslotdefault 7 Ion_Heavy
@@ -173,12 +121,14 @@ addslotdefault 7 SuperGrenadeLauncher
 addslotdefault 7 PB_GaussCannon
 addslotdefault 7 D4PlasmaGun
 addslotdefault 7 D4VortexRifle
+// Slot 8
 addslotdefault 8 BioAcidLauncher
 addslotdefault 8 Extinction_Ray
 addslotdefault 8 PlasmaRifleAssault
 addslotdefault 8 TechBlaster
 addslotdefault 8 ThunderCrossbow
 addslotdefault 8 ThunderCarrierTI
+// Slot 9
 addslotdefault 9 Unmaker64
 addslotdefault 9 Ballistagun
 addslotdefault 9 LoRCalamityBlade

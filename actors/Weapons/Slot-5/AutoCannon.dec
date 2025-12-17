@@ -442,6 +442,7 @@ Actor AutoCannon : PBWP_Weapon
 		TNT1 A 0
 		Goto Ready3
 
+
 	AltFire:
 	LaserOn:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")

@@ -758,6 +758,16 @@ class PB_Hud_ZS : BaseStatusBar
 		"ALISTSTN, PB_StunGrenadeAmmo, Cyan, Equipment",
 		"ALISTREV, PB_QuickLauncherAmmo, LightBlue, Equipment",
 		"ALISTMIN, PB_ProxMineAmmo, Purple, Equipment"
+		"ALISTACD, AcidChargeAmmo, Green, Equipment"
+		"ALISTAXE, PB_Axe, Red, Equipment"
+		"ALISTEPD, ElecPodAmmo, Yellow, Equipment"
+		"ALISTHOK, HookAmmo, DarkRed, Equipment"
+		"ALISTLST, LaserChargeAmmo, Red, Equipment"
+		"ALISTSHG, ShieldGrenadeAmmo, Orange, Equipment"
+		"ALISTSHR, ShurikenAmmo, Purple, Equipment"
+		"ALISTSRM, SwarmerAmmo, Orange, Equipment"
+		"ALISTSSW, ShieldSawAmmo, DarkRed, Equipment"
+		
 	};
 	
 	void PB_AmmoListDrawer(vector2 initialpos, int step = 12) 
@@ -1276,7 +1286,71 @@ class PB_Hud_ZS : BaseStatusBar
 			
 			if(CPlayer.ReadyWeapon)
 			{   
-				//Equipment
+				// MELEE ////////////////////////////////////////////////////////////////////////
+				//PBHud_DrawImage("EQUPBOMP", (-15, -250), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+				
+				if(CheckInventory("MeleeAxeSelected")) {
+					PBHud_DrawImage("HFAXEY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("AxeDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("MeleeCrowbarSelected")) {
+					PBHud_DrawImage("HCRWBY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("CrowbarDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("JohnnyHandsMeleeSelected")) {
+					PBHud_DrawImage("HDGUYY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("ExplosiveHandCharges")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("BatonMeleeSelected")) {
+					PBHud_DrawImage("HBATNY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("PB_Cell")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("SawMeleeSelected")) {
+					PBHud_DrawImage("HCHNSY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("PB_Fuel")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("ClawGauntletMeleeSelected")) {
+					PBHud_DrawImage("HCLAWY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("ClawCharges")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("ImpactorMeleeSelected")) {
+					PBHud_DrawImage("HIMPAY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("ImpactorCharges")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("KatanaMeleeSelected")) {
+					if(CheckInventory("HasDemonicKatana")){
+					PBHud_DrawImage("HKATAX", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("PB_DTech")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+					}
+					else{
+					PBHud_DrawImage("HKTAY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("KatanaDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+					}
+				}
+				else if(CheckInventory("PickAxeMeleeSelected")) {
+					PBHud_DrawImage("HPICKY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("PickAxeDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("SentinelHammerMeleeSelected")) {
+					PBHud_DrawImage("HSENTY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("SentinelhammerCharges")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("HammerMeleeSelected")) {
+					PBHud_DrawImage("HSLEDY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("HammerDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("WrenchMeleeSelected")) {
+					PBHud_DrawImage("HWRNCY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("WrenchDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("BladeMeleeSelected")) {
+					PBHud_DrawImage("HDBLDY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+				}
+				else if(CheckInventory("StandardMeleeSelected")) {
+					PBHud_DrawImage("HFISTY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+				}
+
+				// EQUIPMENT ////////////////////////////////////////////////////////////////////////
 				PBHud_DrawImage("EQUPBO", (-15, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
 				
 				if(CheckInventory("FragGrenadeSelected")) {
@@ -1299,7 +1373,7 @@ class PB_Hud_ZS : BaseStatusBar
 					PBHud_DrawImage("HLECHY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("PB_DTech")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
 				}
-				//PB_GEM
+				// PB_GEM ////////////////////////////////////////////////////////////////////////
 				else if(CheckInventory("ShieldSelected")) {
 					PBHud_DrawImage("HSHLDY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("ShieldGrenadeAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
@@ -1320,10 +1394,6 @@ class PB_Hud_ZS : BaseStatusBar
 					PBHud_DrawImage("HACIDY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("AcidChargeAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
 				}
-				else if(CheckInventory("DetonatorSelected")) {
-					PBHud_DrawImage("HDETOY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
-					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("DetonatorAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
-				}
 				else if(CheckInventory("ElecPodSelected")) {
 					PBHud_DrawImage("HELECY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("ElecPodAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
@@ -1331,6 +1401,14 @@ class PB_Hud_ZS : BaseStatusBar
 				else if(CheckInventory("AxeSelected")) {
 					PBHud_DrawImage("HAXE1Y", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("PB_Axe")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("ShurikenSelected")) {
+					PBHud_DrawImage("HSH1RY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("ShurikenAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("CaltropsSelected")) {
+					PBHud_DrawImage("HCALTY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("CaltropsAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
 				}
 				else if(CheckInventory("HookSelected")) {
 					PBHud_DrawImage("HHOOKY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
@@ -1404,6 +1482,29 @@ class PB_Hud_ZS : BaseStatusBar
 							
 							PBHud_DrawBar("ABAR4", "BGBARL", IntAmmoLeft, GetMaxAmount("PB_RocketAmmo"), (-100, -72), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
 							PBHud_DrawString(mDefaultFont, Formatnumber(GetAmount("PB_RocketAmmo")), (-207, -90), DI_TEXT_ALIGN_RIGHT, Font.CR_RED);
+						}
+						break;
+					case 'M41A':
+						PBHud_DrawImage("BARBACR3", (-90, -71), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+						PBHud_DrawBar("ABAR4", "BGBARL", GetAmount("PB_RocketAmmo"), GetMaxAmount("PB_RocketAmmo"), (-100, -72), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+						PBHud_DrawString(mDefaultFont, Formatnumber(GetAmount("PB_RocketAmmo")), (-207, -90), DI_TEXT_ALIGN_RIGHT, Font.CR_RED);
+						break;
+					case 'Prosurv_Ballista':
+						if(CheckInventory("BallistaDemonicMode"))
+						{
+							PBHud_DrawImage("BARBACZ3", (-90, -71), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+							PBHud_DrawBar("ABAR6", "BGBARL", GetAmount("PB_Fuel"), GetMaxAmount("PB_Fuel"),
+								(-100, -72), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+							PBHud_DrawString(mDefaultFont, FormatNumber(GetAmount("PB_Fuel")),
+								(-207, -90), DI_TEXT_ALIGN_RIGHT, Font.CR_ORANGE);
+						}
+						else
+						{
+							PBHud_DrawImage("BARBACR3", (-90, -71), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+							PBHud_DrawBar("ABAR4", "BGBARL", GetAmount("PB_RocketAmmo"), GetMaxAmount("PB_RocketAmmo"),
+								(-100, -72), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+							PBHud_DrawString(mDefaultFont, FormatNumber(GetAmount("PB_RocketAmmo")),
+								(-207, -90), DI_TEXT_ALIGN_RIGHT, Font.CR_RED);
 						}
 						break;
 					default:
@@ -1563,7 +1664,7 @@ class PB_Hud_ZS : BaseStatusBar
 					weaponBarAccent = Font.CR_TAN;
 					DrawAmmoBar("BARBACT1", "BARBACT2", "BAMBAR2", "ABAR2", "ABAR2", "AMMOIC2", Font.CR_TAN);
 				}
-				else if(WeaponUsesAmmoType("PB_HighCalMag") && !(CheckWeaponSelected("PB_MG42")))
+				else if(WeaponUsesAmmoType("PB_HighCalMag") && !(CheckWeaponSelected("PB_MG42"))  && !(CheckWeaponSelected("Prosurv_Ballista")))
 				{
 					weaponBarAccent = Font.CR_YELLOW;
 					DrawAmmoBar("BARBACY1", "BARBACY2", "BAMBAR1", "ABAR1", "ABAR1", "AMMOIC1", Font.CR_YELLOW);
@@ -1598,7 +1699,14 @@ class PB_Hud_ZS : BaseStatusBar
 					weaponBarAccent = Font.CR_DARKRED;
 					DrawAmmoBar("BARBACZ1", "BARBACZ2", "BAMBAR7", "ABAR7", "ABAR7", "AMMOIC7", Font.CR_DARKRED);
 				}
-				else if(WeaponUsesPBAmmoType1() && !CheckWeaponSelected("PB_Unmaker") && !CheckWeaponSelected("PB_Chainsaw") && !CheckWeaponSelected("PB_Flamethrower") && !CheckWeaponSelected("PB_MG42") && !CheckWeaponSelected("PB_TauntWeapon") ){
+				else if(WeaponUsesPBAmmoType1() 
+				&& !CheckWeaponSelected("PB_Unmaker") && !CheckWeaponSelected("PB_Chainsaw") 
+				&& !CheckWeaponSelected("ProSurv_Ballista") && !CheckWeaponSelected("PB_Flamethrower") 
+				&& !CheckWeaponSelected("PB_MG42") && !CheckWeaponSelected("PB_TauntWeapon")
+				
+				// ADD MORE EXCEPTIONS HERE
+				)
+				{
 					weaponBarAccent = Font.CR_CYAN;
 					DrawAmmoBar("BARBACC1", "BARBACC2", "BAMBAR8", "ABAR8", "ABAR8", "AMMOIC8", Font.CR_CYAN);
 				}
@@ -1619,6 +1727,38 @@ class PB_Hud_ZS : BaseStatusBar
 				
 				switch(CPlayer.ReadyWeapon.GetClassName())
 				{
+					case 'ProSurv_Ballista':
+						if (!CheckInventory("BallistaDemonicMode")) 
+						{
+							// --- Normal Ballista HUD ---
+						PBHud_DrawImage("BARBACY1", (-72, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+						PBHud_DrawImage("BARBACY2", (-73, -50), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+							// Bars
+						PBHud_DrawBar("ABAR1", "BGBARL", Secondary.Amount, Secondary.MaxAmount, (-112, -51), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+						PBHud_DrawBar("ABAR1", "BGBARL", Primary.Amount, Primary.MaxAmount, (-112, -30), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+							// Numbers
+						PBHud_DrawString(mDefaultFont, FormatNumber(Secondary.Amount), (-207, -69), DI_TEXT_ALIGN_RIGHT, Font.CR_YELLOW);
+						PBHud_DrawString(mDefaultFont, FormatNumber(Primary.Amount), (-207, -48), DI_TEXT_ALIGN_RIGHT, Font.CR_YELLOW);
+							// Icon + color
+						PBHud_DrawImage("AMMOIC1", (-77, -24), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, 1, (27, 19));
+						weaponBarAccent = Font.CR_YELLOW;
+						}	
+						else 
+						{
+							// --- Upgraded Ballista HUD ---
+						PBHud_DrawImage("BARBACZ1", (-72, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+						PBHud_DrawImage("BARBACZ2", (-73, -50), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+							// Bars
+						PBHud_DrawBar("ABAR7", "BGBARL", Secondary.Amount, Secondary.MaxAmount, (-112, -51), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+						PBHud_DrawBar("ABAR7", "BGBARL", GetAmount("PB_DTech"), GetMaxAmount("PB_DTech"), (-112, -30), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+							// Numbers
+						PBHud_DrawString(mDefaultFont, FormatNumber(Secondary.Amount), (-207, -69), DI_TEXT_ALIGN_RIGHT, Font.CR_DARKRED);
+						PBHud_DrawString(mDefaultFont, FormatNumber(GetAmount("PB_DTech")), (-207, -48), DI_TEXT_ALIGN_RIGHT, Font.CR_DARKRED);
+							// Icon + color
+						PBHud_DrawImage("AMMOIC7", (-77, -24), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, 1, (27, 19));
+						weaponBarAccent = Font.CR_DARKRED;
+						}
+					break;
 					case 'PB_Unmaker':
 						PBHud_DrawImage("BARBACZ1", (-72, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
 						PBHud_DrawImage("BARBACZ2", (-73, -50), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
@@ -1693,6 +1833,7 @@ class PB_Hud_ZS : BaseStatusBar
 
 		}
 	}
+
 	bool WeaponUsesPBAmmoType(){return WeaponUsesPBAmmoType1() || WeaponUsesPBAmmoType2();}
 	bool WeaponUsesPBAmmoType1(){
 		if (CPlayer == null) return false;

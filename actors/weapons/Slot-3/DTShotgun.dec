@@ -176,6 +176,7 @@ Actor "Demon Tech Shotgun" : PBWP_Weapon
     TNT1 A 0 PB_ReFire
     Goto Ready3
     
+
   AltFire:
     TNT1 A 0 PB_CheckBarrelPlace1
     TNT1 A 0 {

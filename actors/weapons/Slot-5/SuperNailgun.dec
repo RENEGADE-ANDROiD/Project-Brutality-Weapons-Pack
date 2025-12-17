@@ -395,6 +395,7 @@ Actor SuperNailgun : PBWP_Weapon {
 		TNT1 A 0 PB_ReFire("FireHoldFlame")
 		Goto SpinAfterFire
 
+
 	AltFire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")

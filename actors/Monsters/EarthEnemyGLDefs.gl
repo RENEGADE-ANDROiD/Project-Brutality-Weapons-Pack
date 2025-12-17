@@ -1,85 +1,4 @@
 
-// Phantasm GLDEFs
-flickerlight PHANTASM
-{
-    color 0.0 1.0 0.0
-    size 56
-    secondarysize 64
-    chance 0.1
-}
-
-flickerlight PHANTASM_X1
-{
-    color 0.0 1.0 0.0
-    size 72
-    secondarySize 80
-    chance 0.25
-}
-
-flickerlight PHANTASM_X2
-{
-    color 0.0 0.8 0.0
-    size 88
-    secondarySize 96
-    chance 0.25
-}
-
-flickerlight PHANTASM_X3
-{
-    color 0.0 0.5 0.0
-    size 104
-    secondarySize 112
-    chance 0.25
-}
-
-flickerlight PHANTASM_X4
-{
-    color 0.0 0.2 0.0
-    size 112
-    secondarySize 120
-    chance 0.25
-}
-
-object Phantasm
-{
-    frame PHNTA { light PHANTASM    }
-    frame PHNTB { light PHANTASM    }
-    frame PHNTC { light PHANTASM    }
-    frame PHNTD { light PHANTASM    }
-    frame PHNTE { light PHANTASM    }
-    frame PHNTF { light PHANTASM    }
-    frame PHNTG { light PHANTASM    }
-
-    frame PHNTH { light PHANTASM_X1 }
-    frame PHNTI { light PHANTASM_X2 }
-    frame PHNTJ { light PHANTASM_X3 }
-    frame PHNTK { light PHANTASM_X4 }
-}
-
-
-//light for Phantasm puff; recolored bullet puff light
-flickerlight PHANTASMPUFF1
-{
-    color 0.0 0.0 0.5
-    size 6
-    secondarySize 8
-    chance 0.8
-}
-
-flickerlight PHANTASMPUFF2
-{
-    color 0.0 0.0 0.5
-    size 3
-    secondarySize 4
-    chance 0.8
-}
-
-object PhantasmPuff
-{
-    frame PUFFA { light PHANTASMPUFF1 }
-    frame PUFFB { light PHANTASMPUFF2 }
-}
-
 //Earth boss
 
 pointlight EBOSSNECKDEATH
@@ -136,26 +55,6 @@ flickerlight HECTFIREBALL_X3
     secondarySize 156
     chance 0.3
 	attenuate 1
-}
-
-object HecteballImp
-{
-    frame HECFA { light HECTFIREBALL   }
-    frame HECFB { light HECTFIREBALL   }
-
-    frame HECFC { light HECTFIREBALL_X1 }
-    frame HECFD { light HECTFIREBALL_X2 }
-    frame HECFE { light HECTFIREBALL_X3 }
-}
-
-object HecteballDemon
-{
-    frame HECFA { light HECTFIREBALL   }
-    frame HECFB { light HECTFIREBALL   }
-
-    frame HECFC { light HECTFIREBALL_X1 }
-    frame HECFD { light HECTFIREBALL_X2 }
-    frame HECFE { light HECTFIREBALL_X3 }
 }
 
 object HecteballGargoyle

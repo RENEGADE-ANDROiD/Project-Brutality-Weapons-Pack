@@ -6,10 +6,12 @@ Gameinfo
     "RandomWeaponSwitcher",
     "BeefRiceWeaponDrop",
 	//"BeefCustomAmmoDrop",
-	"BeefSetNoDropDefault",
 	"BeefSpawnPresets",
-	"ShieldSawFixAmmo",
+	"BeefMiscHandler",
 	"ExterminatorStuff",
-	"BusterHandler"
+	"DS_MagnetHandler",
+	"BusterHandler",
+	"KillTracker",
+	"RareItemDropped"
 	// Add More Handlers Here
 }
