@@ -9,7 +9,7 @@ Project Brutality Staging - https://github.com/pa1nki113r/Project_Brutality/tree
 See Weapon Pack Options to configure:
 - Toggle On/Off Fatality when clicking Fire for addon weapons in the pack.
 - Toggle On/Off KILLSTREAKS from SHOO KREW PB-Pand Edition by John & Kole
-- Over 70 firearms!  Choose which weapons spawn and how for custom playthroughs.
+- Over 75 firearms!  Choose which weapons spawn and how for custom playthroughs.
 - Gadgets & Equipments including Meat Hook, Shieldsaw, Shurikens & more by BeefRice/LovecraftNeko
 - Combat Point Weapons Shop: Earn points and gear with Combat Challenges!
 - Melee Weapon Wheel with over 12 melee weapon options by BeefRice from ThePopeOfDope's mod Project Survival!
