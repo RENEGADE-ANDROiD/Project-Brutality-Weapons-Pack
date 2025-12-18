@@ -85,6 +85,7 @@ Fire:
 				 A_WeaponOffset(0,32);
 				 A_SetRoll(0);
 				 A_TakeInventory("PB_LockScreenTilt",1);
+				 A_BDPmeleestart;
 			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
 				return PB_Execute();
 			}
@@ -94,6 +95,7 @@ TNT1 A 0 A_JumpIfInventory("SubSwordModeToken1",1,"Fire2")
 TNT1 A 0 A_JumpIfInventory("SubSwordModeToken2",1,"Fire3")
 SBSW BC 2
 Refire:
+TNT1 A 0 A_BDPMelee(200, "NULL", -7, TRUE)
 TNT1 A 0 A_PlaySound("Mainyu/Sword",1)
 TNT1 A 0 A_Quake(4,10,0,10,0)
 SBSW DEFGHI 1
@@ -105,10 +107,12 @@ Goto Done
 
 Fire2:
 TNT1 A 0 A_JumpIfInventory("PB_DTech",30,"Fire2Continue")
+TNT1 A 0 A_BDPmeleestart
 Goto Ready
 Fire2Continue:
 SBSW BC 2
 Refire2:
+TNT1 A 0 A_BDPMelee(200, "NULL", -7, TRUE)
 TNT1 A 0 A_PlaySound("Mainyu/Sword",1)
 TNT1 A 0 A_Quake(4,20,0,10,0)
 SBS2 AABBCCDDEEFF 1
@@ -125,10 +129,12 @@ Goto Done
 
 Fire3:
 TNT1 A 0 A_JumpIfInventory("PB_DTech",50,"Fire3Continue")
+TNT1 A 0 A_BDPmeleestart
 Goto Ready
 Fire3Continue:
 SBSW BC 2
 Refire3:
+TNT1 A 0 A_BDPMelee(200, "NULL", -7, TRUE)
 TNT1 A 0 A_PlaySound("Mainyu/Sword",1)
 TNT1 A 0 A_Quake(4,20,0,10,0)
 TNT1 A 0 A_TakeInventory("PB_DTech",50,TIF_NOTAKEINFINITE)
