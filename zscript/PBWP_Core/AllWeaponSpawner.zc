@@ -65,7 +65,7 @@ class EnragedLegendaryBFGSpawnerInjector : PBInjector
 	{
 	if (PBSpawnEnragedLegendaryBFG)
 		{
-		handler.InjectSpawn('PB_PlasSpawnerT4', 'EnragedLegendaryBFG', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT4', 'EnragedLegendaryBFG', 255, 1);
 		}
 	}
 }
@@ -75,7 +75,7 @@ class GodEnragedBFGSpawnerInjector : PBInjector
 	{
 	if (PBSpawnGodEnragedBFG)
 		{
-		handler.InjectSpawn('PB_PlasSpawnerT4', 'GodEnragedBFG', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT4', 'GodEnragedBFG', 255, 1);
 		}
 	}
 }
@@ -85,17 +85,8 @@ class LegendaryAssaultShotgunSpawnerInjector : PBInjector
 	{
 	if (PBSpawnLegendaryAssaultShotgun)
 		{
-		handler.InjectSpawn('PB_PlasSpawnerT4', 'LegendaryAssaultShotgun', 255, 1);
-		}
-	}
-}
-class LegendaryBFG10KSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-	if (PBSpawnLegendaryBFG10K)
-		{
-		handler.InjectSpawn('PB_PlasSpawnerT4', 'LegendaryBFG10K', 255, 1);
+		handler.InjectSpawn('PB_SSGSpawnerT3', 'LegendaryAssaultShotgun', 255, 1);
+		handler.InjectSpawn('PB_SSGSpawnerT4', 'LegendaryAssaultShotgun', 255, 1);
 		}
 	}
 }
@@ -105,7 +96,9 @@ class LegendaryChainsawSpawnerInjector : PBInjector
 	{
 	if (PBSpawnLegendaryChainsaw)
 		{
-		handler.InjectSpawn('PB_PlasSpawnerT4', 'LegendaryChainsaw', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT2', 'LegendaryChainsaw', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT3', 'LegendaryChainsaw', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'LegendaryChainsaw', 255, 1);
 		}
 	}
 }
@@ -125,7 +118,7 @@ class NemesisBFGSpawnerInjector : PBInjector
 	{
 	if (PBSpawnNemesisBFG)
 		{
-		handler.InjectSpawn('PB_PlasSpawnerT4', 'NemesisBFG', 255, 1);
+		handler.InjectSpawn('PB_BFGSpawnerT4', 'NemesisBFG', 255, 1);
 		}
 	}
 }
@@ -135,7 +128,8 @@ class NemesisLMGSpawnerInjector : PBInjector
 	{
 	if (PBSpawnNemesisLMG)
 		{
-		handler.InjectSpawn('PB_PlasSpawnerT4', 'NemesisLMG', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT3', 'NemesisLMG', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT4', 'NemesisLMG', 255, 1);
 		}
 	}
 }
@@ -145,7 +139,8 @@ class PB_SBSwordSpawnerInjector : PBInjector
 	{
 	if (PBSpawnPB_SBSword)
 		{
-		handler.InjectSpawn('PB_PlasSpawnerT4', 'PB_SBSword', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT3', 'PB_SBSword', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'PB_SBSword', 255, 1);
 		}
 	}
 }
