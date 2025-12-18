@@ -106,7 +106,6 @@ server bool PBSpawnDevastador = True;
 server bool PBSpawnEnragedLegendaryBFG = True;
 server bool PBSpawnGodEnragedBFG = True;
 server bool PBSpawnLegendaryAssaultShotgun = True;
-server bool PBSpawnLegendaryBFG10K = True;
 server bool PBSpawnLegendaryChainsaw = True;
 server bool PBSpawnLegendaryPlasmaticRifle = True;
 server bool PBSpawnNemesisBFG = True;
