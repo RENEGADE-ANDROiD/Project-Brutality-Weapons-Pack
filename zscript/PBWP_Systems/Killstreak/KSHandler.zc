@@ -171,7 +171,7 @@ bool RareItemDropped;
             PB_Monster m = PB_Monster(e.Thing);
             //PandMonster p = PandMonster(e.Thing);
 
-            if (Random(1, 100) <= 14) // 14% chance per death
+            if (Random(1, 100) <= 12) // 12% chance per death
             {
                 if (m != null)
                 {

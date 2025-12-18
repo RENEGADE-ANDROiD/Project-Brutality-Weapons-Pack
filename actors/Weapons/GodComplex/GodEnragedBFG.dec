@@ -1,0 +1,1235 @@
+ACTOR GuruCharge : Inventory
+{
+Inventory.MaxAmount 5
+}
+//--------------------------------------------------------
+//
+// Doom God Complex Enraged Legendary BFG by Ultra Violence (Author Doom God Complex.)
+//
+//--------------------------------------------------------
+Actor GodEnragedBFG : PBWP_Weapon
+{
+game doom
+TAG "God Enraged Legendary BFG"
+Inventory.PickupMessage "\c[W8]GOD Enraged BFG! Perfect Hatred."
+obituary "%o was rekt off the planet with k's Legendary BFG."
+Weapon.SelectionOrder 580
+Weapon.AmmoGive 100
+Weapon.AmmoType "PB_Cell"
+Weapon.AmmoUse 0
+Weapon.AmmoUse2 0
+Weapon.AmmoType2 "PB_Cell"
+Weapon.KickBack 90
+Weapon.UpSound "EBFG/Pickup"
+Inventory.PickupSound "EBFG/Pickup"
++NOAUTOFIRE
++WEAPON.NOAUTOAIM
+    Weapon.SlotNumber 8
+	Weapon.SlotPriority 1.2
+ // Weapon.SlotNumber 9
+ // Weapon.SlotPriority 0
+Tag "God Enraged Legendary BFG"
+states
+{
+
+
+Spawn:
+UVBG A -1
+Loop
+
+Ready:
+TNT1 A 0 A_PlaySound("EBFG/Pickup")
+Ready3:
+TNT1 A 0 {
+				A_TakeInventory("PB_LockScreenTilt",1);
+				PB_HandleCrosshair(39);
+				}
+RealReady:
+TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+TNT1 A 0 A_JumpIfInventory("AmmoPB_Cell",1,"LoadedReady")
+TNT1 A 0 A_stopsound(5)
+TNT1 A 0 A_stopsound(6)
+TNT1 A 0 A_stopsound(7)
+ENBG A 1 A_DoPBWeaponAction
+Goto Ready3
+
+LoadedReady:
+TNT1 A 0
+ENBG A 0 A_PlaySound("EBFG/Idle",5,1.0,1)
+ENBG ABCDE 1 A_DoPBWeaponAction
+Goto Ready3
+
+
+NoAmmo:
+ENBG A 1 A_PlaySound("seeker",7)
+goto ready3
+
+Deselect:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+TNT1 A 0 {
+	A_WeaponOffset(0,32);
+	A_SetRoll(0);
+	PB_HandleCrosshair(52);
+	A_TakeInventory("PB_LockScreenTilt",1);
+}
+TNT1 A 0 A_StopSound(5)
+TNT1 A 0 A_StopSound(6)
+TNT1 A 0 A_StopSound(7)
+B27U FEDCBA 1
+		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+		ENBG A 0 A_Lower
+		Wait
+
+
+Select:
+		TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			PB_HandleCrosshair(52);
+			A_TakeInventory("PB_LockScreenTilt",1);
+		}
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		
+		Goto SelectFirstPersonLegs
+		SelectContinue:
+		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Raise
+		TNT1 AAAAAAAA 0 A_Raise
+		Wait
+
+
+Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			A_TakeInventory("PB_LockScreenTilt",1);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+TNT1 A 0
+TNT1 A 0 A_JumpifInventory("PB_Cell",100,"Firing")
+Goto NoAmmo
+
+Firing:
+ENBG A 0 A_PlaySound("EBFG/Trigger",1)
+ENBG ABCDEF 1 BRIGHT
+ENBG A 0 A_PlaySound("EBFG/Charge1",7,0.9)
+ENBG ABCDEF 1 BRIGHT
+ENBG A 0 A_GiveInventory("GuruCharge",5)
+Gurucharger:
+ENBG A 0 A_TakeInventory("GuruCharge",1)
+ENBG ABCDEF 1 Bright A_Quake (4, 2, 0, 2,"none")
+ENBG A 0 A_JumpIfInventory("GuruCharge",1,"Gurucharger")
+ENBG ABCDEF 1 Bright A_Quake (4, 2, 0, 2,"none")
+ENBG FFGGHHIIJJKKLLMMNNOOPPQRSTTUUU 1 BRIGHT
+ENBG A 0 A_StopSound(5)
+ENBG A 0 A_StopSound(6)
+ENBG A 0 A_PlaySound("EBFG/Fire1",6,0.9)
+TNT1 A 0 A_TakeInventory("PB_Cell",100,TIF_NOTAKEINFINITE)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", 25, 0, 0, 0)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", 20, 0, 0, 0)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", 10, 0, 0, 0)
+ENBG AA 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", 0, 0, 0, 0)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", -10, 1, 0, 0)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", -20, 0, 0, 0)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", -25, 0, 0, 0)
+TNT1 A 0 Radius_Quake(6,60,0,100,0)
+ENBG VWXYZ 1 BRIGHT
+ENBG A 0 A_GunFlash
+ENBG A 0 A_SetBlend("RED",0.5,60)
+ENBG A 0 A_SetBlend("White",0.25,60)
+ENBG A 0 A_ZoomFactor(0.975)
+ENBG A 4 Bright //Offset(2,34)
+ENBG A 0 A_ZoomFactor(0.95)
+ENBG A 4 Bright //Offset(4,36)
+ENBG B 4 Bright A_ZoomFactor(0.955)
+ENBG C 4 Bright A_ZoomFactor(0.96)
+ENBG D 5 Bright A_ZoomFactor(0.965)
+ENBG E 5 Bright A_ZoomFactor(0.97)
+ENBG F 5 Bright A_ZoomFactor(0.975)
+ENBG A 6 Bright A_ZoomFactor(0.98)
+ENBG B 6 Bright A_ZoomFactor(0.99)
+ENBG C 6 Bright A_ZoomFactor(1)
+Goto Ready3
+
+
+Altfire:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+TNT1 A 0 {
+	A_WeaponOffset(0,32);
+	A_SetRoll(0);
+	PB_HandleCrosshair(52);
+	A_TakeInventory("PB_LockScreenTilt",1);
+	A_ClearOverlays(10,11);
+}
+TNT1 A 0
+TNT1 A 0 A_JumpifInventory("PB_Cell",75,"Firing2")
+Goto NoAmmo
+
+Firing2:
+ENBG A 0 A_PlaySound("EBFG/Charge2",4,0.9)
+ENBG ZYXWVUTSRQPONMLKJJJJIIIIHHHHGG 1 BRIGHT
+ENBG A 0 A_StopSound(5)
+ENBG A 0 A_StopSound(6)
+ENBG A 0 A_PlaySound("EBFG/Fire2",3,0.9)
+TNT1 A 0 A_FireCustomMissile("GodPlayerEnragedDTBFG10KBall",0,1,0,0,0,10)
+TNT1 A 0 A_TakeInventory("PB_Cell",75,TIF_NOTAKEINFINITE)
+TNT1 A 0 Radius_Quake(4,60,0,100,0)
+ENBG A 0 A_GunFlash
+ENBG A 0 A_SetBlend("Red",0.25,35)
+ENBG A 0 A_SetBlend("White",0.125,35)
+ENBG A 0 A_ZoomFactor(0.975)
+ENBG A 4 Bright //Offset(2,34)
+ENBG A 0 A_ZoomFactor(0.95)
+ENBG B 4 Bright //Offset(4,36)
+ENBG C 4 Bright A_ZoomFactor(0.955)
+ENBG D 4 Bright A_ZoomFactor(0.96)
+ENBG E 5 Bright A_ZoomFactor(0.965)
+ENBG F 5 Bright A_ZoomFactor(0.97)
+ENBG A 5 Bright A_ZoomFactor(0.975)
+ENBG B 6 Bright A_ZoomFactor(0.98)
+ENBG C 6 Bright A_ZoomFactor(0.99)
+ENBG D 6 Bright A_ZoomFactor(1)
+Goto Ready3
+
+
+Flash:
+TNT1 A 7 bright A_Light2
+TNT1 A 4 bright A_Light1
+TNT1 A 0 bright A_Light0
+stop
+
+Reload:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+TNT1 A 0 A_JumpIfInventory ("HasBarrel", 1, "IdleBarrel")
+TNT1 A 0 A_JumpIfInventory ("HasFlameBarrel", 1, "IdleFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("HasIceBarrel", 1, "IdleIceBarrel")
+Goto Ready3
+
+WeaponSpecial:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+Goto Ready3
+ 
+FlashKicking:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+	TNT1 A 0
+	Goto Ready3
+	
+FlashAirKicking:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+	TNT1 A 0
+	Goto Ready3
+	
+FlashSlideKicking:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+	TNT1 A 0
+FlashSlideKickingStop:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+	TNT1 A 0
+	Goto Ready3
+   }
+}
+
+ACTOR GodPlayerEnragedGuruBall : FastProjectile
+{
+Radius 11
+Height 6
+Speed 35
+Damage 70
+Projectile
+Alpha 1
+Renderstyle Add
++FORCERADIUSDMG
++FOILINVUL
++RIPPER
++BLOODLESSIMPACT
++DONTBLAST
++SKYEXPLODE
++NOTIMEFREEZE
++PAINLESS
++NODAMAGETHRUST
++Thruspecies
++Mthruspecies
+Scale 0.7
+//MissileType "PlayerEnragedGuruBallTrail"
+Species "Player"
+DamageType "PlayerEnraged"
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_PlaySound("Weapons/GuruFly",5,1.0,1)
+TNT1 A 0 A_Explode(90,350,0,1)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+EPRO A 1 Bright A_SpawnItemEx("EnragedLightningSpark",0,0,0,random(1,10),0,random(1,10),random(0,359),129) 
+TNT1 A 0 A_Explode(90,350,0,1)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+EPRO B 1 Bright A_SpawnItemEx("EnragedLightningSpark",0,0,0,random(1,10),0,random(1,10),random(0,359),129) 
+TNT1 A 0 A_Explode(90,350,0,1)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+EPRO C 1 Bright A_SpawnItemEx("EnragedLightningSpark",0,0,0,random(1,10),0,random(1,10),random(0,359),129) 
+TNT1 A 0 A_Explode(90,350,0,1)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+EPRO D 1 Bright A_SpawnItemEx("EnragedLightningSpark",0,0,0,random(1,10),0,random(1,10),random(0,359),129) 
+TNT1 A 0 A_Explode(90,350,0,1)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+EPRO E 1 Bright A_SpawnItemEx("EnragedLightningSpark",0,0,0,random(1,10),0,random(1,10),random(0,359),129) 
+TNT1 A 0 A_Jump(220,"Spawn")
+TNT1 a 0 A_ChangeFlag(PAINLESS,0)
+Loop
+
+Death:
+TNT1 A 0 A_PlaySound("Weapons/GuruBlast3",5)
+//TNT1 AAAA 0 A_BFGSpray("EnragedGuruSpray",15,20)
+TNT1 A 0 A_CustomMissile("PlayerERedStrikeBolt",41,0,random(-124,224))
+TNT1 AAAAAAAAAAAAAAAAAAA 0 A_CustomMissile("PlayerEnragedLegDevastatorBolt",random(2,10),random(70,-70),random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(0,180))
+TNT1 AAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("EnragedLightningSpark",0,0,0,random(1,10),0,random(1,10),random(0,359),129) 
+TNT1 AAAAAAAAAAAAAA 0 A_SpawnItemEx("EnragedGuruStruckGlowX",0,0,10,0,0,0,0,128,0)
+TNT1 AAAAAAAAAA 0 A_SpawnItemEx("EnragedGuruStruckGlowY",0,0,10,0,0,0,0,128,0)
+TNT1 A 0 A_SpawnItemEx("ELegendaryStrikeN")
+TNT1 AAAAAAA 0 A_CustomMissile("EKaboomLN", 0, 0, random(0,360), 2, random(0,360))
+TNT1 AAA 0 A_CustomMissile("SmokeFX", 0, 0, random(0,360), 2, random(0,360))
+TNT1 AA 0 A_SpawnItemEx("EnragedParticleSpawner", 0, 0, 0, 0, 0, 0, 0, 128) 
+TNT1 AA 0 A_SpawnItemEx("EnragedParticleSpawner", 0, 0, 0, 0, 0, 0, 0, 128) 
+TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("EnragedGuruChunkSpark",random(126,-126),random(126,-126),random(66,-66),0,0,0,0,0,0)
+TNT1 AAAAAAAAAAAAAAAAAAA 2 A_SpawnItemEx("EnragedGuruChunkSpark",random(126,-126),random(126,-126),random(66,-66),0,0,0,0,0,0)
+Stop
+}
+}
+
+
+ACTOR GodPlayerEnragedDTBFG10KBall
+{
+Radius 20 
+Height 30
+Speed 17
+Alpha 0.95
+Renderstyle Add
+Scale 1
+Damage 20
+Damagetype "FYourResistance"
+Species "Player"
+DeathSound "BFG9K/Explode"
+Projectile
+WallBounceFactor 0.25
+BounceFactor 0.36
+Gravity 0.2
++EXPLODEONWATER
+-NoGravity
++DOOMBOUNCE
++NODAMAGETHRUST
++FRIENDLY
++FORCERADIUSDMG
++Ripper
++FOILINVUL
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Jump(128,"DTBFGSFX")
+TNT1 A 0 A_PlaySoundEx("weapons/dtech10kball","Voice",1)
+TNT1 A 0 A_SpawnItemEx("EBFGParticle",Random(-12,12),Random(-12,12),Random(12,22),Random(-2,2),Random(-2,2),Random(-2,2),Random(-20,20),128)
+ERS1 A 1 Bright A_CustomMissile("PlayerDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+ERS1 B 1 Bright A_SpawnItemEx("EBFGParticle",Random(-12,12),Random(-12,12),Random(12,22),Random(-2,2),Random(-2,2),Random(-2,2),Random(-20,20),128)
+TNT1 C 0 A_SpawnItemEx("EBFGParticle",Random(-12,12),Random(-12,12),Random(12,22),Random(-2,2),Random(-2,2),Random(-2,2),Random(-20,20),128)
+ERS1 D 1 Bright A_CustomMissile("PlayerDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+ERS1 A 1 Bright A_SpawnItemEx("EBFGParticle",Random(-12,12),Random(-12,12),Random(12,22),Random(-2,2),Random(-2,2),Random(-2,2),Random(-20,20),128)
+TNT1 B 0 A_Jump(180,"DTBFGSFX") 
+TNT1 D 0 A_Jump(40,"Predeath")
+Loop
+
+DTBFGSFX:
+TNT1 A 0 A_PlaySoundEx("weapons/dtech10kball","Voice",1)
+TNT1 A 0 A_SpawnItemEx("EBFGParticle",Random(-12,12),Random(-12,12),Random(12,22),Random(-2,2),Random(-2,2),Random(-2,2),Random(-20,20),128)
+ERS1 A 1 Bright A_CustomMissile("PlayerDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+ERS1 B 1 Bright A_SpawnItemEx("EBFGParticle",Random(-12,12),Random(-12,12),Random(12,22),Random(-2,2),Random(-2,2),Random(-2,2),Random(-20,20),128)
+TNT1 A 0 A_SpawnItemEx("DTBFGLightningRed",Random(6,-6),Random(6,-6),Random(16,8),0,0,0,0,128)
+TNT1 A 0 A_SpawnItemEx("EBFGParticle",Random(-12,12),Random(-12,12),Random(12,22),Random(-2,2),Random(-2,2),Random(-2,2),Random(-20,20),128)
+ERS1 C 1 Bright A_CustomMissile("PlayerDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+ERS1 D 1 Bright A_SpawnItemEx("EBFGParticle",Random(-12,12),Random(-12,12),Random(12,22),Random(-2,2),Random(-2,2),Random(-2,2),Random(-20,20),128)
+Goto Spawn
+
+Predeath:
+TNT1 A 0
+TNT1 A 0 A_Jump(128,"DTBFGSFX")
+TNT1 A 0 A_PlaySoundEx("weapons/dtech10kball","Voice",1)
+TNT1 A 0 A_SpawnItemEx("EBFGParticle",Random(-12,12),Random(-12,12),Random(12,22),Random(-2,2),Random(-2,2),Random(-2,2),Random(-20,20),128)
+ERS1 A 1 Bright A_CustomMissile("PlayerDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+ERS1 B 1 Bright A_SpawnItemEx("EBFGParticle",Random(-12,12),Random(-12,12),Random(12,22),Random(-2,2),Random(-2,2),Random(-2,2),Random(-20,20),128)
+TNT1 A 0 A_SpawnItemEx("EBFGParticle",Random(-12,12),Random(-12,12),Random(12,22),Random(-2,2),Random(-2,2),Random(-2,2),Random(-20,20),128)
+ERS1 C 1 Bright A_CustomMissile("PlayerDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+ERS1 DABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCD 1 Bright A_SpawnItemEx("EBFGParticle",Random(-12,12),Random(-12,12),Random(12,22),Random(-2,2),Random(-2,2),Random(-2,2),Random(-20,20),128)
+TNT1 A 0 A_Jump(256,"Death")
+Death:
+TNT1 A 0
+TNT1 A 0 A_SetTranslucent(0.75,1)
+TNT1 A 0 Radius_Quake(5,60,0,10,0)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,0,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,5,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-5,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-10,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,10,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,15,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-15,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,20,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-20,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,25,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-25,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,30,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-35,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,40,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-40,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,45,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-45,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,55,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-55,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,70,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-70,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,90,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-90,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,110,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-110,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,135,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-135,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,150,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-150,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,180,CMF_ABSOLUTEPITCH)
+TNT1 A 0 Bright A_CustomMissile("EnragedBFGWave",36,10,-180,CMF_ABSOLUTEPITCH)
+TNT1 A 0 A_CustomMissile("PlayerERedStrikeBolt",41,0,random(-124,124))
+TNT1 A 0 A_CustomMissile("PlayerERedStrikeBolt",41,0,random(-124,124))
+TNT1 A 0 A_CustomMissile("PlayerERedStrikeBolt",41,0,random(-124,124))
+TNT1 A 0 A_CustomMissile("PlayerERedStrikeBolt",41,0,random(-124,124))
+TNT1 A 0 A_CustomMissile("PlayerERedStrikeBolt",41,0,random(-124,124))
+TNT1 A 0 A_CustomMissile("PlayerERedStrikeBolt",41,0,random(-124,124))
+TNT1 A 0 A_CustomMissile("PlayerERedStrikeBolt",41,0,random(-124,124))
+//TNT1 A 0 A_SpawnItemEx("ELegendaryCannonProjBomb",Random(-8,8),Random(-8,8),Random(-8,8),Random(45,70),0,Random(-3,3),Random(170,190),SXF_NOCHECKPOSITION)
+TNT1 A 0 A_SpawnItemEx("DTBFGLightningRedSpawner", 0, 0, 15, 0, 0, 0, 0, 128)
+ERS1 ABCD 6 Bright A_SpawnItemEx("Enraged10KShockwaveBIG", 0, 0, 15, 0, 0, 0, 0, 128)
+TNT1 A 0 A_Explode(200,500)
+TNT1 A 0 A_StopSoundEx("Voice")
+TNT1 A 0 Radius_Quake(15,20,0,20,0)
+TNT1 A 0 A_PlaySound("weapons/dtech10kexplode")
+TNT1 A 0 A_SpawnItemEx("Enraged10KShockwaveBIG", 0, 0, 15, 0, 0, 0, 0, 128)
+TNT1 A 20 A_SpawnItem("EnragedDTBFGExBIG",0,-10)
+Stop
+}
+}
+
+Actor EnragedLightningSpark
+{
+Speed 3
+Height 2
+Radius 1
+Mass 0
++Missile 
++CLIENTSIDEONLY
++NOCLIP
++LOWGRAVITY
++NOTIMEFREEZE
+RenderStyle Add
+Scale 0.5
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Jump(80,4)
+ESPR ABC 2 Bright
+Loop
+ESPR DEF 4 Bright A_FadeOut(0.25)
+Stop
+Death:
+ESPR DEF 4 Bright A_FadeOut(0.25)
+Stop
+}
+}
+
+
+Actor PlayerERedStrikeBolt : CacodemonBall
+{
+Damage 20
+Speed 6
+Radius 15
+Height 8
+SeeSound "Null"
+YScale 4.0
+XScale 2.0
+ReactionTime 35
+Species "Player"
+Damagetype "PlayerEnraged"
++Friendly
++FloorHugger
++HexenBounce
++Ripper
+-NoGravity
+-StrifeDamage
++NOTIMEFREEZE
++Thruspecies
++Mthruspecies
++SEEKERMISSILE
++NODAMAGETHRUST
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Jump(64,"Homing")
+EFX2 F 0 ThrustThing(random(0,255),1,0,0)
+EFX2 FGHI 1 Bright A_Explode(16,100)
+TNT1 A 0 A_CountDown
+Goto Spawn+2
+
+Homing:
+EFX2 F 1 Bright A_Explode(16,100)
+EFX2 F 0 A_SeekerMissile(2,2)
+EFX2 G 1 Bright A_Explode(16,100)
+EFX2 F 0 A_SeekerMissile(2,2)
+EFX2 H 1 Bright A_Explode(16,100)
+EFX2 F 0 A_SeekerMissile(2,2)
+EFX2 I 1 Bright A_Explode(16,100)
+EFX2 F 0 A_SeekerMissile(2,2)
+EFX2 J 0 Bright A_CountDown
+Loop
+
+Death:
+TNT1 A 0 A_FadeOut(0.2)
+EFX2 F 2 Bright A_Explode(32,128)
+TNT1 A 0 A_FadeOut(0.2)
+EFX2 G 2 Bright A_Explode(32,128)
+TNT1 A 0 A_FadeOut(0.2)
+EFX2 H 2 Bright A_Explode(32,128)
+TNT1 A 0 A_FadeOut(0.2)
+EFX2 I 2 Bright A_Explode(32,128)
+Stop
+}
+}
+
+
+ACTOR PlayerEnragedLegDevastatorBolt
+{
+Speed 35
+Radius 6
+Height 6
+Alpha 0.8
+Projectile
++SEEKERMISSILE
++DONTREFLECT
++BRIGHT
+ReactionTime 170
+RenderStyle Add
+DeathSound "bolt/explode"
+Damage 25
+Damagetype "LegendaryGuruPlayer"
+Species "Player"
++NODAMAGETHRUST
++SCREENSEEKER
++THRUSPECIES
++MTHRUSPECIES
++DONTHURTSPECIES
++DONTHARMSPECIES
+States
+{
+Spawn:
+DVS1 A 0 A_Seekermissile(25,25,SMF_LOOK)
+DVS1 A 1 A_SpawnItem("EnragedBoltTrail")
+Loop
+ 
+Death:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx("EnragedBFGParticleSpawner",0,0,0,0,0,0,0,128)
+TNT1 AAAA 0 A_CustomMissile("EnragedDevBoltKaboom",0,0,random(0,360),2,random(0,360))
+DVS1 LMN 2
+Stop
+}
+}
+
+
+Actor EnragedBoltTrail
+{
++NOBLOCKMAP 
++NOINTERACTION
++CLIENTSIDEONLY
+Renderstyle Add
+States
+{
+Spawn:
+TNT1 A 0
+DVS1 GHIJK 1 Bright A_FadeOut (0.05)
+TNT1 A 0
+Stop
+}
+}
+
+
+Actor EnragedBFGParticleSpawner
+{
++CLIENTSIDEONLY
++NOGRAVITY
++NOTELEPORT
++DONTSPLASH
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+TNT1 AAAAAA 0 A_SpawnItemEx("EnragedBFGParticle",0,0,0,frandom(-4,4),frandom(-4,4),frandom(-4,4),0,SXF_CLIENTSIDE)
+TNT1 A 1
+Stop
+}
+}
+
+
+Actor EnragedBFGParticle
+{
+Scale 0.05 
+Height 0
+Radius 0
+Mass 0
+Damage 0
++THRUACTORS
++NOTELEPORT
++DONTSPLASH
++DOOMBOUNCE
++CLIENTSIDEONLY
++MISSILE
++NOBLOCKMAP
++FORCEXYBILLBOARD
++NOINTERACTION
+RenderStyle Add
+BounceFactor 0.5
+Gravity 0.4
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A Random(5,7)
+SpawnLoop:
+SPKR A 2 Bright A_FadeOut(0.08)
+Loop
+}
+}
+
+
+Actor EnragedDevBoltKaboom
+{
+Radius 1
+Height 1
+Damage 0
+Renderstyle Add
+Alpha 0.75
+Projectile
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
++NOGRAVITY
++MISSILE
++FORCEXYBILLBOARD
++CLIENTSIDEONLY
++NOINTERACTION
++NOCLIP
+Speed 1
+Scale 0.3
+States
+{
+Spawn:
+DVPR ABCDEFGHIJKLMNOP 1 Bright A_FadeOut(0.025)
+Stop
+}
+}
+
+
+ACTOR EnragedGuruStruckGlowX
+{
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Renderstyle Add
+Alpha 0.5
+Scale 0.2
+States
+{
+Spawn:
+CBUM A 0
+EBUM A 0 A_SetScale(ScaleX +0.1, ScaleY +0.025)
+EBUM A 1 Bright A_FadeOut(0.01)
+Loop
+}
+}
+
+
+ACTOR EnragedGuruStruckGlowY
+{
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Renderstyle Add
+Alpha 0.5
+Scale 0.2
+States
+{
+Spawn:
+CBUM A 0
+EBUM A 0 A_SetScale(ScaleX +0.025, ScaleY +0.1)
+EBUM A 1 Bright A_FadeOut(0.01)
+Loop
+}
+}
+
+
+Actor ELegendaryStrikeN
+{
+Alpha 0.9
+RenderStyle Add
++NoGravity
+Scale 13.0
+States
+{
+Spawn:
+TNT1 A 0
+EFR9 AAA 1 Bright A_FadeOut(0.02)
+Wait
+}
+}
+
+
+ACTOR EKaboomLN
+{
+Damage 0
+Renderstyle Add
+Alpha 0.75
+PROJECTILE
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
++NOGRAVITY
++MISSILE
++FORCEXYBILLBOARD
++CLIENTSIDEONLY
++NOINTERACTION
++NOCLIP
+Speed 2
+Scale 0.85
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_PlaySound("explosion")
+EXPO AABBCDEFGHIJKLM 1 Bright A_FadeOut(0.05)
+Stop
+}
+}
+
+
+ACTOR SmokeFX
+{
+Damage 0
+PROJECTILE
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
++NOGRAVITY
++MISSILE
++FORCEXYBILLBOARD
++CLIENTSIDEONLY
++NOINTERACTION
++NOCLIP
+Speed 2
+Scale 1.15
+Renderstyle Translucent
+Alpha 0.75
+States
+{
+Spawn:
+TNT1 A 0
+SMK3 ABCDEFGHIJKLM 5 A_FadeOut(0.025)
+Stop
+}
+}
+
+
+ACTOR EnragedParticleSpawner
+{
++CLIENTSIDEONLY
++NOGRAVITY
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
+States
+{
+Spawn:
+TNT1 AAAAAA 0 A_SpawnItemEx("EnragedParticle",0,0,0,Random(4,-4),Random(4,-4),Random(4,-4),0,128)
+Stop
+}
+}
+
+
+ACTOR EnragedParticle
+{
+Height 0
+Radius 0
+Mass 0
+Damage 0
++THRUACTORS
++NOTELEPORT
++DONTSPLASH
++DOOMBOUNCE
++CLIENTSIDEONLY
++MISSILE
++NOBLOCKMAP
++FORCEXYBILLBOARD
+RENDERSTYLE ADD
+BounceFactor 0.5
+Gravity 0.4
+Scale 0.05 
+States
+{
+Spawn:
+SPKR A 2 Bright A_FadeOut(0.08)
+Loop
+}
+}
+
+
+ACTOR EnragedGuruChunkSpark
+{
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Alpha 0.99
+Renderstyle Add
+Scale 1.15
++CLIENTSIDEONLY
+States
+{
+Spawn:
+TNT1 A 0
+EELE ABCDEF 2 Bright A_FadeOut(0.1)
+TNT1 A 0
+Stop
+}
+}
+
+
+ACTOR EBFGParticle
+{
+Height 0
+Radius 0
+Mass 0
+Damage 0
++THRUACTORS
++NOTELEPORT
++DONTSPLASH
++DOOMBOUNCE
++CLIENTSIDEONLY
++MISSILE
++NOBLOCKMAP
++FORCEXYBILLBOARD
+RENDERSTYLE ADD
++NOGRAVITY
+BounceFactor 0.6
+Gravity 0.2
+Scale 0.08
+States
+{
+Spawn:
+SPKR A 2 Bright A_FadeOut(0.08)
+Loop
+}
+}
+
+
+ACTOR PlayerDevastatorBolt
+{
+Speed 35
+Radius 6
+Height 6
+Damage 22
+Alpha 0.8
+Projectile
++SEEKERMISSILE
++MTHRUSPECIES
++DONTREFLECT
++BRIGHT
+ReactionTime 170
+RenderStyle Add
+Damagetype "Players"
+DeathSound "bolt/explode"
+States
+{
+Spawn:
+DVS1 A 0 A_Seekermissile(5,5,SMF_LOOK)
+DVS1 A 1 A_SpawnItem("BoltTrail")
+Loop
+
+Death:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx("RedParticleSpawner",0,0,0,0,0,0,0,128)
+TNT1 AAAA 0 A_CustomMissile("KaboomDevastator15",0,0,random(0,360),2,random(0,360))
+DVS1 LMN 2
+Stop
+}
+}
+
+
+ACTOR KaboomDevastator15
+{
+Radius 1
+Height 1
+Damage 0
+Renderstyle ADD
+Alpha 0.75
+PROJECTILE
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
++NOGRAVITY
++MISSILE
++FORCEXYBILLBOARD
++CLIENTSIDEONLY
++NOINTERACTION
++NOCLIP
+Speed 1
+Scale 0.3
+States
+{
+Spawn:
+DVPR ABCDEFGHIJKLMNOP 1 Bright A_FadeOut(0.025)
+Stop
+}
+}
+
+
+ACTOR EnergyProjectileSparkRed
+{
+Height 0
+Radius 0
+Mass 0
+Damage 0
++THRUACTORS
++NOTELEPORT
++DONTSPLASH
++DOOMBOUNCE
++CLIENTSIDEONLY
++MISSILE
++NOBLOCKMAP
++FORCEXYBILLBOARD
+RENDERSTYLE ADD
+BounceFactor 0.5
+Gravity 0.4
+States
+{
+Spawn:
+SPKR A 2 Bright A_FadeOut(0.08)
+Loop
+}
+}
+
+ACTOR EPSR1 : EnergyProjectileSparkRed
+{
+Scale 0.06
+}
+
+ACTOR EPSR2 : EnergyProjectileSparkRed
+{
+Scale 0.05
+}
+
+ACTOR EPSR3 : EnergyProjectileSparkRed
+{
+Scale 0.04
+}
+
+ACTOR EPSR4 : EnergyProjectileSparkRed
+{
+Scale 0.03
+}
+
+ACTOR EPSR5 : EnergyProjectileSparkRed
+{
+Scale 0.02
+}
+
+ACTOR EPSR6 : EnergyProjectileSparkRed
+{
+Scale 0.01
+}
+
+ACTOR RedParticleSpawner
+{
++CLIENTSIDEONLY
++NOGRAVITY
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx("EPSR1",0,0,0,Random(4,-4),Random(4,-4),Random(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR2",0,0,0,Random(4,-4),Random(4,-4),Random(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR3",0,0,0,Random(4,-4),Random(4,-4),Random(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR4",0,0,0,Random(4,-4),Random(4,-4),Random(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR5",0,0,0,Random(4,-4),Random(4,-4),Random(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR6",0,0,0,Random(4,-4),Random(4,-4),Random(4,-4),0,128)
+TNT1 A 1
+Stop
+}
+}
+
+
+ACTOR BoltTrail
+{
++NOINTERACTION
++CLIENTSIDEONLY
+Renderstyle Add
+States
+{
+Spawn:
+TNT1 A 0
+DVS1 GHIJK 1 Bright A_FadeOut (0.05)
+TNT1 A 0
+Stop
+}
+}
+
+
+Actor EnragedBFGWave
+{
+Radius 11
+Height 4
+Speed 8
+Damage 20
+Projectile
+Alpha 0.95
+Renderstyle Add
+BounceCount 1
+WallBounceFactor 1
+BounceFactor 1
++DoomBounce
++FORCERADIUSDMG
++BLOODLESSIMPACT
++DONTBLAST
++SKYEXPLODE
++NOTIMEFREEZE
++THRUSPECIES
++MTHRUSPECIES
++NODAMAGETHRUST
++Ripper
++FOILINVUL
+XScale 0.3
+YScale 0.2
+Species "Player"
+DamageType "NoResistance"
++Bright
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Playsound("EBFG/AltRing",1)
+Looping:
+TNT1 A 0 A_Quake(2,10,0,100,"World/Quake")
+UVMS C 2 A_Explode(25,200,0,1)
+TNT1 A 0 A_SpawnItemEx("EnragedParticleSpawner", 0, 0, 0, 0, 0, 0, 0, 128) 
+UVMS C 2 A_Explode(25,200,0,1)
+UVMS C 2 A_Explode(25,200,0,1)
+TNT1 A 0 A_SpawnItemEx("EnragedParticleSpawner", 0, 0, 0, 0, 0, 0, 0, 128) 
+UVMS C 2 A_Explode(25,200,0,1)
+Goto Looping
+
+Death:
+TNT1 A 0 A_PlaySound("MarauderSlash/Impact",5,0.5)
+TNT1 A 0 A_Explode(200,256,0,1)
+TNT1 AAAAAA 0 A_SpawnItemEx("EnragedParticleSpawner", 0, 0, 0, 0, 0, 0, 0, 128) 
+TNT1 A 0 A_SpawnItemEx("Enraged10KShockwaveSmol", 0, 0, 15, 0, 0, 0, 0, 128)
+TNT1 A 0 A_SpawnItem("EnragedDTBFGExSmol",0,-10)
+Stop
+}
+}
+
+
+ACTOR Enraged10KShockwaveSmol
+{
+PROJECTILE
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
++NOGRAVITY
++MISSILE
++FORCEXYBILLBOARD
++CLIENTSIDEONLY
++NOINTERACTION
++NOCLIP
+Renderstyle Translucent
+Speed 0
+Alpha 0.85
+Scale 0.7
+States
+{
+Spawn:
+TNT1 A 0
+EBAR ABCDEFGHIJKLMNOPQR 2 Bright A_FadeOut(0.04)
+Stop
+}
+}
+
+
+ACTOR EnragedDTBFGExSmol
+{
+RenderStyle Add
+Alpha 0.85
++CLIENTSIDEONLY
++NOGRAVITY
+Scale 0.7
+States
+{
+Spawn:
+CRE1 AAAAAABBBBBBCCCCCCDDDDDD 1 Bright A_CustomMissile("EKaboomLN4", 0, 0, random(0,360), 2, random(0,360))
+CRE1 EF 6 Bright
+Stop
+}
+}
+
+
+ACTOR EKaboomLN4
+{
+Damage 0
+Renderstyle Add
+Alpha 0.75
+PROJECTILE
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
++NOGRAVITY
++MISSILE
++FORCEXYBILLBOARD
++CLIENTSIDEONLY
++NOINTERACTION
++NOCLIP
+Speed 6
+Scale 1.15
+States
+{
+Spawn:
+TNT1 A 0
+FXPR AABBCDEFGHIJKLM 2 Bright A_FadeOut(0.05)
+Stop
+}
+}
+
+
+ACTOR DTBFGLightningRedSpawner
+{
++CLIENTSIDEONLY
++NOGRAVITY
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1 Bright A_SpawnItemEx("DTBFGLightningRed2",Random(6,-6),Random(6,-6),Random(6,-6),0,0,0,0,128)
+Stop
+}
+}
+
+
+ACTOR DTBFGLightningRed
+{
+RenderStyle Add
+Alpha 0.5
++MISSILE
++NOGRAVITY
++NOBLOCKMAP
++NOINTERACTION
++NOTELEPORT
++DONTSPLASH
++CLIENTSIDEONLY
+-SOLID
+Scale 0.24
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Jump(256,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72)
+REL1 ABCDEFGHIJKLMNOPQR 0 Bright A_Jump(256,"Death")
+REL2 ABCDEFGHIJKLMNOPQR 0 Bright A_Jump(256,"Death")
+REL3 ABCDEFGHIJKLMNOPQR 0 Bright A_Jump(256,"Death")
+REL4 ABCDEFGHIJKLMNOPQR 0 Bright A_Jump(256,"Death")
+Death:
+"----" A 1 Bright
+Stop
+}
+}
+
+
+ACTOR DTBFGLightningRed2 : DTBFGLightningRed
+{
+Scale 0.36
+}
+
+
+ACTOR Enraged10KShockwaveBIG
+{
+Damage 0
+PROJECTILE
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
++NOGRAVITY
++MISSILE
++FORCEXYBILLBOARD
++CLIENTSIDEONLY
++NOINTERACTION
++NOCLIP
+Renderstyle Translucent
+Speed 0
+Alpha 0.85
+Scale 1.5
+States
+{
+Spawn:
+TNT1 A 0
+EBAR ABCDEFGHIJKLMNOPQR 2 Bright A_FadeOut(0.04)
+Stop
+}
+}
+
+
+ACTOR EnragedDTBFGExBIG
+{
+RenderStyle Add
+Alpha 0.85
++CLIENTSIDEONLY
++NOGRAVITY
+Scale 1.5
+States
+{
+Spawn:
+CRE1 AAAAAABBBBBBCCCCCCDDDDDD 1 Bright A_CustomMissile("EKaboomLN4", 0, 0, random(0,360), 2, random(0,360))
+CRE1 EF 6 Bright
+Stop
+}
+}

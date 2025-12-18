@@ -1,0 +1,1362 @@
+Actor NemesisBFG : PBWP_Weapon
+{
+Scale 0.85
++FORCEXYBILLBOARD
++WEAPON.EXPLOSIVE
++NOAUTOFIRE
++WEAPON.NOAUTOAIM
+Weapon.AmmoGive 300
+Weapon.AmmoType "PB_Cell"
+Weapon.AmmoType2 "PB_Cell"
+Weapon.AmmoUse 0
+Weapon.AmmoUse2 0
+Weapon.KickBack 90
+Inventory.PickupSound "NemesisBFG/Pickup"
+Inventory.PickupMessage "Nemesis BFG! Rend the souls from your foes!"
+Obituary "%o regrets going against %k's Nemesis BFG."
+Weapon.SlotNumber 8
+Weapon.SlotPriority 1.3
+Tag "Nemesis BFG"
+States
+{
+
+Spawn:
+NMBH A -1
+Stop
+
+Steady:
+TNT1 A 0
+Goto Ready
+
+Ready:
+TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+PBFG A 0 A_PlaySound("NemesisBFG/Pickup")
+Ready3:
+TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1, "SwitchtoNemesisBeam")
+TNT1 A 0 A_JumpIfInventory("PB_Cell",1,"LoadedReady")
+NMB8 Q 0 A_StopSound(5)
+NMB8 Q 0 A_StopSound(6)
+NMB8 Q 0 A_StopSound(7)
+NMB8 Q 1 A_DoPBWeaponAction
+Loop
+
+LoadedReady:
+TNT1 A 0
+TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1, "SwitchtoNemesisBeam")
+TNT1 A 0 A_PlaySound("NemesisBFG/Loop",5,1.0,1)
+NMB0 ABCDCB 1 A_DoPBWeaponAction
+Goto Ready3
+
+
+SwitchFireMode:
+TNT1 A 0 A_TakeInventory("NemesisBFGMode", 1)
+TNT1 A 0 A_Print("Nemesis Mini Ball")
+TNT1 A 0 A_PlaySound("NemesisBFG/Pickup", 3)
+Goto Ready3
+
+SwitchtoNemesisBeam:
+TNT1 A 0 A_Takeinventory("GoWeaponSpecialAbility",1)
+TNT1 A 0 A_JumpIfInventory("NemesisBFGMode",1,"SwitchFireMode")
+TNT1 A 0 A_GiveInventory("NemesisBFGMode", 1)
+TNT1 A 0 A_Print("Nemesis Beam")
+TNT1 A 0 A_PlaySound("NemesisBFG/Pickup",3)
+Goto Ready3
+
+Deselect:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+TNT1 A 0 {
+	A_WeaponOffset(0,32);
+	A_SetRoll(0);
+	PB_HandleCrosshair(31);
+	A_TakeInventory("PB_LockScreenTilt",1);
+}
+PBFG A 0 A_StopSound(5)
+PBFG A 0 A_StopSound(6)
+PBFG A 0 A_StopSound(7)
+NMB8 QQQQQQQ 0 A_Lower
+Wait
+
+
+Select:
+TNT1 A 0 {
+	A_WeaponOffset(0,32);
+	A_SetRoll(0);
+	PB_HandleCrosshair(31);
+	A_TakeInventory("PB_LockScreenTilt",1);
+}
+TNT1 A 0 A_TakeInventory("HasBarrel",1)
+TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+
+Goto SelectFirstPersonLegs
+SelectContinue:
+TNT1 A 0 A_Raise
+Wait
+
+
+Fire:
+
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+TNT1 A 0 {
+		A_WeaponOffset(0,32);
+		A_SetRoll(0);
+		PB_HandleCrosshair(52);
+		A_TakeInventory("PB_LockScreenTilt",1);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+	}
+TNT1 A 0 A_JumpIfInventory("PB_Cell",100,1)
+Goto Ready
+TNT1 A 0 A_PlaySound("truelegbfg/trigger",6)
+NMB9 A 1
+TNT1 A 0 A_PlaySound("NemesisBFG/Charge",1)
+TNT1 A 0 A_AlertMonsters
+NMB9 AABBCCDD 1
+TNT1 A 0 A_GiveInventory("GuruCharge",25)
+Gurucharger:
+TNT1 A 0 A_TakeInventory("GuruCharge",1)
+//TNT1 A 0 A_SpawnItemEx("TrueNemesisHellionSmokeSpawner")
+NMB9 ABCD 1 Bright A_Quake(4,2,0,2,"none")
+TNT1 A 0 A_JumpIfInventory("GuruCharge",1,"Gurucharger")
+NMB8 AABBCCDD 1 Bright A_Quake(4,2,0,2,"none")
+TNT1 A 0 A_PlaySound("NemesisBFG/Fire",1)
+TNT1 A 0 A_FireCustomMissile("PlayerNemesisGuruBall",0,0,0,0)
+TNT1 A 0 A_TakeInventory("PB_Cell",100,TIF_NOTAKEINFINITE)
+TNT1 A 0 A_GunFlash
+TNT1 A 0 A_SetBlend("White",0.5,60)
+TNT1 A 0 A_SetBlend("White",0.25,60)
+NMB8 E 1 Bright A_ZoomFactor(0.9)
+NMB8 E 1 Bright A_ZoomFactor(0.91)
+NMB8 F 1 Bright A_ZoomFactor(0.92)
+NMB8 F 1 Bright A_ZoomFactor(0.93)
+NMB8 G 1 Bright A_ZoomFactor(0.94)
+NMB8 G 1 Bright A_ZoomFactor(0.95)
+NMB8 H 1 Bright A_ZoomFactor(0.96)
+NMB8 H 1 Bright A_ZoomFactor(0.97)
+NMB8 I 1 Bright A_ZoomFactor(0.98)
+NMB8 I 1 Bright A_ZoomFactor(0.99)
+NMB8 KK 1 A_ZoomFactor(1)
+NMB8 LLMMNNOOPPQQ 1
+Goto Ready3
+
+
+Altfire:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+TNT1 A 0 {
+	A_WeaponOffset(0,32);
+	A_SetRoll(0);
+	PB_HandleCrosshair(31);
+	A_TakeInventory("PB_LockScreenTilt",1);
+	A_ClearOverlays(10,11);
+}
+TNT1 A 0 A_JumpIfInventory("NemesisBFGMode",1,"FireNemesisBeam")
+TNT1 A 0 A_JumpIfInventory("PB_Cell",50,1)
+Goto Ready
+TNT1 A 0 A_PlaySound("star/fire",1)
+TNT1 A 0 A_AlertMonsters
+TNT1 A 0 A_FireCustomMissile("PlayerMiniNemesisBFGBall",0,0,0,0)
+TNT1 A 0 A_TakeInventory("PB_Cell",50,TIF_NOTAKEINFINITE)
+TNT1 A 0 A_GunFlash
+TNT1 A 0 A_SetBlend("White",0.25,35)
+TNT1 A 0 A_SetBlend("White",0.125,35)
+NMB8 EFGHIJ 1 Bright
+NMB8 LLMMNNOOPPQQ 1
+Goto Ready3
+
+
+FireNemesisBeam:
+TNT1 A 0 A_JumpIfInventory("PB_Cell",50,1)
+Goto Ready
+TNT1 A 0 A_PlaySound("star/fire",1)
+TNT1 A 0 A_AlertMonsters
+TNT1 A 0 A_FireCustomMissile("NemesisBFGBeam",0,0,0,0)
+TNT1 A 0 A_TakeInventory("PB_Cell",50,TIF_NOTAKEINFINITE)
+TNT1 A 0 A_GunFlash
+TNT1 A 0 A_SetBlend("White",0.25,35)
+TNT1 A 0 A_SetBlend("White",0.125,35)
+NMB8 EFGHIJ 1 Bright
+NMB8 LLMMNNOOPPQQ 1
+Goto Ready3
+
+Reload:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+TNT1 A 0 A_JumpIfInventory ("HasBarrel", 1, "IdleBarrel")
+TNT1 A 0 A_JumpIfInventory ("HasFlameBarrel", 1, "IdleFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("HasIceBarrel", 1, "IdleIceBarrel")
+Goto Ready3
+
+FlashKicking:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+	TNT1 A 0
+	Goto Ready3
+	
+FlashAirKicking:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+	TNT1 A 0
+	Goto Ready3
+	
+FlashSlideKicking:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+	TNT1 A 0
+FlashSlideKickingStop:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+	TNT1 A 0
+	Goto Ready3
+
+}
+}
+
+
+Actor NemesisBFGMode : Inventory {Inventory.maxamount 1}
+Actor GuruCharge : Inventory { Inventory.MaxAmount 25 }
+
+//
+//
+// SFX
+//
+//
+
+Actor PlayerNemesisGuruSphereSmokeProjectile
+{
++NOGRAVITY
++FORCERADIUSDMG
+Renderstyle Add
+Alpha 0.45
+Projectile
++CLIENTSIDEONLY
+Scale 1.0
++NOINTERACTION
++NOBLOCKMAP
+Damagetype "PlayerNemesisBFG" 
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 1 A_Jump(255,"Spawn1","Spawn2","Spawn3","Spawn4","Spawn5","Spawn6")
+Stop
+
+Spawn1:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 //A_Explode(5,64)
+NHP1 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn2:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 //A_Explode(5,64)
+NHP2 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn3:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 //A_Explode(5,64)
+NHP3 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn4:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 //A_Explode(5,64)
+NHP1 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn5:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 //A_Explode(5,64)
+NHP2 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn6:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 //A_Explode(5,64)
+NHP3 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+}
+}
+
+
+ACTOR NemesisGuruTrailSpark
+{
++NOCLIP
++NOGRAVITY
+Alpha 0.99
+Renderstyle Add
+Scale 0.5
++CLIENTSIDEONLY
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A 0
+NEMF ABCDEF 1 Bright A_FadeOut(0.1)
+TNT1 A 0
+Stop
+}
+}
+
+
+ACTOR NemesisGuruTrail
+{
++NOCLIP
++NOGRAVITY
+Alpha 0.65
+Renderstyle Add
++CLIENTSIDEONLY
++NOINTERACTION
++NOBLOCKMAP
+Scale 2.5
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SetScale(ScaleX -0.01, ScaleY -0.01)
+CLBB D 1 Bright A_FadeOut(0.1)
+TNT1 A 0
+Stop
+}
+}
+
+
+ACTOR NemesisPlayerDevastatorBolt
+{
+Radius 6
+Height 6
+Projectile
++SEEKERMISSILE
++MTHRUSPECIES
++DONTREFLECT
++BRIGHT
+ReactionTime 170
+RenderStyle Add
+DeathSound "bolt/explode"
+Speed 30
+Damage 22
+Alpha 1.0
+Scale 0.4
+Species "Player"
+Damagetype "PlayerNemesisBFG"
++THRUSPECIES
+States
+{
+Spawn:
+TNT1 A 0 A_Seekermissile(5,5,SMF_LOOK)
+CLBA D 1 Bright A_SpawnItemEx("NemesisWhiteProjParticleSuperLarge",0,0,0,0,frandom(-1,1),frandom(-1,1),random(0,359))
+Loop
+
+Death:
+TNT1 A 0
+TNT1 AAAAAAAAA 0 A_SpawnItemEx("NemesisWhiteProjParticleSuperLarge",0,0,0,frandom(-2,2),frandom(-2,2),frandom(-2,2),random(0,359))
+CLBA D 1 Bright A_FadeOut(0.2)
+Goto Death+10
+}
+}
+
+
+Actor NemesisWhiteProjParticleSuperLarge
+{
++NOINTERACTION
++NOBLOCKMAP
++CLIENTSIDEONLY
++FORCEXYBILLBOARD
+RenderStyle Add
+Scale 0.3
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+CLBA D 1 Bright
+Goto Spawn2
+
+Spawn2:
+"####" "#" 1 Bright A_FadeOut(0.1)
+"####" "#" 0 A_SetScale(ScaleX-0.02)
+Loop
+}
+}
+
+
+Actor NemesisWhiteProjParticleSuperLarge2
+{
++NOINTERACTION
++NOBLOCKMAP
++CLIENTSIDEONLY
++FORCEXYBILLBOARD
+RenderStyle Add
+Scale 0.5
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+CLBA D 1 Bright
+Goto Spawn2
+
+Spawn2:
+"####" "#" 1 Bright A_FadeOut(0.075)
+"####" "#" 0 A_SetScale(ScaleX-0.03)
+Loop
+}
+}
+
+
+Actor NemesisPlayerDTBFGProjectileAttack
+{
+Projectile
+Height 3
+Radius 3
+Speed 5
+FastSpeed 5
++LOOKALLAROUND
++QUICKTORETALIATE
++NOTARGET
++NOCLIP
++FRIENDLY
+States
+{
+Spawn:
+TNT1 A 0 Bright
+TNT1 A 0 Bright A_CopyFriendliness(AAPTR_TARGET)
+TNT1 A 0 Bright A_RearrangePointers(AAPTR_NULL, AAPTR_TARGET, AAPTR_NULL)
+TNT1 AAAAA 1 Bright A_LookEx(LOF_NOSOUNDCHECK|LOF_NOSEESOUND,0,1250,0,360,"Attack")
+Goto Death
+
+Attack:
+TNT1 A 0 Bright
+TNT1 A 0 Bright A_FaceTarget
+TNT1 A 0 Bright A_RearrangePointers(AAPTR_MASTER, AAPTR_MASTER, AAPTR_NULL)
+TNT1 A 1 Bright A_CustomRailgun(30,0,None,None,RGF_SILENT|RGF_FULLBRIGHT,0,2,"LegendaryImpPuff",0,0,0,0,3.0,0,"NemesisBFGRailParticle")
+Goto Death
+
+Death:
+TNT1 A 1 Bright
+Stop
+}
+}
+
+
+Actor LegendaryImpPuff : BulletPuff
+{
++THRUSPECIES
++MTHRUSPECIES
++PUFFGETSOWNER
++BLOODLESSIMPACT
+DamageType "Legendary"
+}
+
+
+ACTOR NemesisBFGRailParticle
+{
++CLIENTSIDEONLY
++FORCEXYBILLBOARD
+Renderstyle Add
++NOINTERACTION
++NOBLOCKMAP
+Scale 0.3
+States
+{
+Spawn:
+TNT1 A 0
+CLBA D 2 Bright
+TNT1 A 0 A_SetScale(0.25)
+CLBA D 2 Bright A_FadeOut(0.2)
+TNT1 A 0 A_SetScale(0.2)
+CLBA D 2 Bright A_FadeOut(0.2)
+TNT1 A 0 A_SetScale(0.15)
+CLBA D 2 Bright A_FadeOut(0.2)
+TNT1 A 0 A_SetScale(0.1)
+CLBA D 2 Bright A_FadeOut(0.2)
+TNT1 A 0 A_SetScale(0.05)
+CLBA D 2 Bright A_FadeOut(0.2)
+Stop
+}
+}
+
+
+Actor NemesisPlayerBouncyBFG
+{
+Projectile
+RenderStyle Add
+Radius 9
+Height 12
+SeeSound "BIGMISSILE"
+DeathSound "FANTASYSEAL"
++FORCERADIUSDMG
++STRIFEDAMAGE
+ActiveSound "lefrail/active"
+-SEEKERMISSILE
+Scale 1.5
+Speed 60
++THRUSPECIES
+Species "Player"
+DamageType "PlayerNemesisPlasma"
++SKYEXPLODE
++CANBOUNCEWATER
+Bouncetype Hexen
+BounceFactor 1.0
+Bouncecount 3
+Damage 0
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+CLBB D 1 Bright A_SpawnItemEx("NemesisWhiteProjParticleSuperLarge2",0,0,0,frandom(-4,4),frandom(-4,4),frandom(-4,4),frandom(0,360),SXF_CLIENTSIDE)
+TNT1 AA 0 A_SpawnItemEx("NemesisWhiteProjParticleSuperLarge2",0,0,0,frandom(-4,4),frandom(-4,4),frandom(-4,4),frandom(0,360),SXF_CLIENTSIDE)
+Loop
+
+Death:
+TNT1 A 0
+TNT1 A 1 A_SpawnItem("PlayerMiniNemesisDeathBall2")
+Stop
+}
+}
+
+
+Actor PlayerMiniNemesisDeathBall
+{
++FORCERADIUSDMG
+Radius 11
+Height 6
+Speed 15
+Damage 125
+Projectile
+Renderstyle Add
++RIPPER
++BLOODLESSIMPACT
++DONTBLAST
++THRUSPECIES
++SKYEXPLODE
+Scale 0.25
+Obituary "%o payed the ultimate price for his greed."
+DamageType "PlayerNemesisPlasma"
++FOILINVUL
+States
+{
+Spawn:
+TNT1 A 0 Bright
+TNT1 A 0 Bright A_PlaySound("Weapons/GuruBlast3",5) 
+Goto Death
+Death:
+TNT1 A 0 A_PlaySound("Weapons/GuruBlast3",5)
+TNT1 A 0 Radius_Quake(15,20,0,20,0)
+//COLLATERAL DAMAGE EFFECTS
+TNT1 A 0 A_Explode(2048,700,0,1)
+TNT1 A 0 A_BFGSpray("PlayerMiniNemesisGuruSpray",15,20)
+//IMPACT STUFF
+TNT1 A 0 A_SpawnItemEx("MiniNemesisBFGExplodeFX",0,0,10)
+TNT1 A 0 A_SpawnItemEx("MiniNemesisGuruStruckGlowX",0,0,10,0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 A 0 A_SpawnItemEx("MiniNemesisGuruStruckGlowY",0,0,10,0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("MiniCyberNemesisGuruSphereSmoke",frandom(-126,126),frandom(-126,126),frandom(-66,66),frandom(-1,1),frandom(-1,1),frandom(-1,1),frandom(0,360),SXF_SETMASTER,0)
+TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("MiniNemesisGuruChunkSpark",frandom(-126,126),frandom(-126,126),frandom(-66,66),0,0,0,0,SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,0)
+TNT1 AAAAAAAAAAAAAAAAAAA 2 A_SpawnItemEx("MiniNemesisGuruChunkSpark",frandom(-126,126),frandom(-126,126),frandom(-66,66),0,0,0,0,SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,0)
+Stop
+}
+}
+
+
+ACTOR MiniNemesisGuruChunkSpark
+{ 
++NOCLIP
++NOINTERACTION
++NOGRAVITY
++NOTIMEFREEZE
+Alpha 0.99
+Renderstyle Add
++CLIENTSIDEONLY
+Scale 0.75 
+States
+{
+Spawn:
+TNT1 A 0 Bright
+NPLE ABCDEF 2 Bright A_FadeOut(0.1,1)
+Stop
+}
+}
+
+
+Actor MiniCyberNemesisGuruSphereSmoke 
+{ 
++NOINTERACTION
++NOGRAVITY
++FORCERADIUSDMG
+Renderstyle Add
+Alpha 0.45
+Projectile
+Damagetype "Legendary"
+Scale 1.4 
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+TNT1 A 1 A_Jump(255,"Spawn1","Spawn2","Spawn3","Spawn4","Spawn5","Spawn6")
+Stop
+
+Spawn1:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 A_Explode(10,164)
+NHP1 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn2:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 A_Explode(10,164)
+NHP2 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn3:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 A_Explode(10,164)
+NHP3 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn4:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 A_Explode(10,164)
+NHP1 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn5:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 A_Explode(10,164)
+NHP2 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn6:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 A_Explode(10,164)
+NHP3 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+}
+}
+
+
+Actor MiniNemesisGuruStruckGlowX
+{ 
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Renderstyle Add
+Alpha 0.5
++CLIENTSIDEONLY
+Scale 0.1 
+States
+{
+Spawn:
+TNT1 A 0 Bright
+TNT1 A 0 Bright A_SetScale(ScaleX +0.1, ScaleY +0.025)
+NEMF A 1 Bright A_FadeOut(0.01,1)
+Loop
+}
+}
+
+
+Actor MiniNemesisGuruStruckGlowY
+{
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Renderstyle Add
+Alpha 0.5
++CLIENTSIDEONLY
+Scale 0.1 
+States
+{
+Spawn:
+TNT1 A 0 Bright
+TNT1 A 0 Bright A_SetScale(ScaleX +0.025, ScaleY +0.1)
+NEMF A 1 Bright A_FadeOut(0.01,1)
+Loop
+}
+}
+
+
+Actor MiniNemesisBFGExplodeFX
+{
+Renderstyle Add
+Scale 3.5
++CLIENTSIDEONLY
++NOTIMEFREEZE
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+NBX9 ABCDEFGHIJKLMNOPQRST 2 Bright
+Stop
+}
+}
+
+
+Actor PlayerMiniNemesisDeathBall2
+{
++FORCERADIUSDMG
+Radius 11
+Height 6
+Speed 15
+Projectile
+Renderstyle Add
++RIPPER
++BLOODLESSIMPACT
++DONTBLAST
++THRUSPECIES
++SKYEXPLODE
+Scale 0.25
+Obituary "%o payed the ultimate price for his greed."
+DamageType "PlayerNemesisPlasma"
+Damage 0
++FOILINVUL
+States
+{
+Spawn:
+TNT1 A 0 Bright
+TNT1 A 0 Bright A_PlaySound("Weapons/GuruBlast3",5) 
+Goto Death
+Death:
+TNT1 A 0 A_PlaySound("Weapons/GuruBlast3",5)
+TNT1 A 0 Radius_Quake(15,20,0,20,0)
+//COLLATERAL DAMAGE EFFECTS
+TNT1 A 0 A_Explode(1024,700,0,1)
+TNT1 A 0 A_BFGSpray("PlayerMiniNemesisGuruSpray",15,20)
+//IMPACT STUFF
+TNT1 A 0 A_SpawnItemEx("MiniNemesisBFGExplodeFX",0,0,10)
+TNT1 A 0 A_SpawnItemEx("MiniNemesisGuruStruckGlowX",0,0,10,0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 A 0 A_SpawnItemEx("MiniNemesisGuruStruckGlowY",0,0,10,0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("MiniCyberNemesisGuruSphereSmoke",frandom(-126,126),frandom(-126,126),frandom(-66,66),frandom(-1,1),frandom(-1,1),frandom(-1,1),frandom(0,360),SXF_SETMASTER,0)
+TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("MiniNemesisGuruChunkSpark",frandom(-126,126),frandom(-126,126),frandom(-66,66),0,0,0,0,SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,0)
+TNT1 AAAAAAAAAAAAAAAAAAA 2 A_SpawnItemEx("MiniNemesisGuruChunkSpark",frandom(-126,126),frandom(-126,126),frandom(-66,66),0,0,0,0,SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,0)
+Stop
+}
+}
+
+
+Actor NemesisWhiteProjExplodeLarge
+{
++NOINTERACTION
++NOBLOCKMAP
++CLIENTSIDEONLY
++FORCEXYBILLBOARD
+RenderStyle Add
+Scale 0.1
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+CLBC D 1 Bright
+Goto Spawn2
+
+Spawn2:
+"####" "#" 1 Bright A_FadeOut(0.075)
+"####" "#" 0 A_SetScale(ScaleX+0.1)
+Loop
+}
+}
+
+
+Actor PlayerNemesisDeathBall
+{
+Radius 11
+Height 6
+Speed 15
+Projectile
+Renderstyle Add
+//+FORCERADIUSDMG
++RIPPER
++BLOODLESSIMPACT
++DONTBLAST
++THRUSPECIES
++SKYEXPLODE
+Scale 0.25
+Obituary "%o payed the ultimate price for his greed."
+DamageType "PlayerNemesisBFG"
+Damage 0
++FOILINVUL
+States
+{
+Spawn:
+TNT1 A 0
+Goto Death
+Death:
+TNT1 A 0
+TNT1 A 0 A_PlaySound("Weapons/GuruBlast3",5)
+TNT1 A 0 Radius_Quake(15,20,0,20,0)
+//COLLATERAL DAMAGE EFFECTS
+TNT1 A 0 A_Explode(4056,1000,0,1,500)
+TNT1 A 0 A_BFGSpray("PlayerNemesisGuruSpray",15,20)
+//IMPACT STUFF
+TNT1 A 0 A_SpawnItemEx("NemesisBFGExplodeFX",0,0,10)
+TNT1 A 0 A_SpawnItemEx("NemesisGuruStruckGlowX",0,0,10,0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 A 0 A_SpawnItemEx("NemesisGuruStruckGlowY",0,0,10,0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 AAAAAAA 0 A_SpawnItemEx("CyberNemesisGuruSphereSmoke",frandom(-126,126),frandom(-126,126),frandom(-66,66),frandom(-1,1),frandom(-1,1),frandom(-1,1),frandom(0,360),SXF_SETMASTER,0)
+TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("NemesisGuruChunkSpark",frandom(-126,126),frandom(-126,126),frandom(-66,66),0,0,0,0,SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,0)
+TNT1 AAAAAAAAAAAAAAAAAAA 2 A_SpawnItemEx("NemesisGuruChunkSpark",frandom(-126,126),frandom(-126,126),frandom(-66,66),0,0,0,0,SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,0)
+Stop
+}
+}
+
+
+ACTOR NemesisGuruChunkSpark
+{
++NOCLIP
++NOGRAVITY
+Alpha 0.99
+Renderstyle Add
+Scale 1.15
++CLIENTSIDEONLY
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+NPLE ABCDEF 2 Bright A_FadeOut(0.1,1)
+Stop
+}
+}
+
+
+Actor CyberNemesisGuruSphereSmoke
+{ 
++NOINTERACTION
++NOGRAVITY
++FORCERADIUSDMG
+Renderstyle Add
+Scale 1.8
+Alpha 0.45
+Projectile
+Damagetype "Legendary"
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+TNT1 A 1 A_Jump(255,"Spawn1","Spawn2","Spawn3","Spawn4","Spawn5","Spawn6")
+Stop
+
+Spawn1:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 A_Explode(10,164)
+NHP1 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn2:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 A_Explode(10,164)
+NHP2 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn3:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 A_Explode(10,164)
+NHP3 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn4:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 A_Explode(10,164)
+NHP1 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn5:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 A_Explode(10,164)
+NHP2 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn6:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 A_Explode(10,164)
+NHP3 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+}
+}
+
+
+Actor NemesisGuruStruckGlowX
+{
++NOCLIP
++NOGRAVITY
+Renderstyle Add
+Alpha 0.5
++CLIENTSIDEONLY
+Scale 0.2
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A 0 Bright
+TNT1 A 0 Bright A_SetScale(ScaleX +0.1, ScaleY +0.025)
+NEMF A 1 Bright A_FadeOut(0.01,1)
+Loop
+}
+}
+
+
+Actor NemesisGuruStruckGlowY
+{
++NOCLIP
++NOINTERACTION
++NOGRAVITY
++NOTIMEFREEZE
+Renderstyle Add
+Alpha 0.5
++CLIENTSIDEONLY
+Scale 0.2
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A 0 Bright
+TNT1 A 0 Bright A_SetScale(ScaleX +0.025, ScaleY +0.1)
+NEMF A 1 Bright A_FadeOut(0.01,1)
+Loop
+}
+}
+
+
+Actor NemesisBFGExplodeFX
+{
+Renderstyle Add
+Scale 3.5
++CLIENTSIDEONLY
++NOTIMEFREEZE
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+NBX0 ABCDEFGHIJKLMNOPQRSTUVWXYZ 2 Bright
+Stop
+}
+}
+
+
+ACTOR PlayerNemesisGuruSpray
+{
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Damagetype "PlayerNemesisPlasma" //Normal
++FOILINVUL
+States
+{
+Spawn:
+TNT1 A 0 Bright
+TNT1 A 0 A_SpawnItemEx("NemesisGuruSprayGlowX",0,0,0,0,0,0,0,0,0)
+TNT1 A 0 A_SpawnItemEx("NemesisGuruSprayGlowY",0,0,0,0,0,0,0,0,0)
+TNT1 AAAAAA 3 A_SpawnItemEx("NemesisGuruSpraySpark",random(24,-24),random(24,-24),random(24,-24),0,0,0,0,0,0)
+Stop
+}
+}
+
+
+Actor NemesisGuruSpraySpark
+{
++NOCLIP
++NOGRAVITY
+Alpha 0.99
+Renderstyle Add
+Scale 0.25
++CLIENTSIDEONLY
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A 0 Bright
+NEMF ABCDEF 2 Bright A_FadeOut(0.1,1)
+Stop
+}
+}
+
+
+ACTOR NemesisGuruSprayGlowY
+{
++NOCLIP
++NOGRAVITY
+Renderstyle Add
++CLIENTSIDEONLY
+Alpha 0.35
+Scale 0.025
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A 0 Bright
+TNT1 A 0 Bright A_SetScale(ScaleX +0.05, ScaleY +0.01)
+NEMF A 1 Bright A_FadeOut(0.01,1)
+Loop
+} 
+}
+
+
+ACTOR NemesisGuruSprayGlowX
+{
++NOCLIP
++NOGRAVITY
+Renderstyle Add
++CLIENTSIDEONLY
+Alpha 0.35
+Scale 0.025
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 Bright A_SetScale(ScaleX +0.01, ScaleY +0.05)
+NEMF A 1 Bright A_FadeOut(0.01,1)
+Loop
+}
+}
+
+
+ACTOR PlayerMiniNemesisGuruSpray
+{
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Damagetype "PlayerNemesisPlasma"//Normal
++FOILINVUL
+States
+{
+Spawn:
+TNT1 A 0 Bright
+TNT1 A 0 A_SpawnItemEx("MiniNemesisGuruSprayGlowX",0,0,0,0,0,0,0,0,0)
+TNT1 A 0 A_SpawnItemEx("MiniNemesisGuruSprayGlowY",0,0,0,0,0,0,0,0,0)
+TNT1 AAAAAA 3 A_SpawnItemEx("MiniNemesisGuruSpraySpark",random(24,-24),random(24,-24),random(24,-24),0,0,0,0,0,0)
+Stop
+}
+}
+
+
+Actor MiniNemesisGuruSpraySpark
+{ 
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Alpha 0.99
+Renderstyle Add
++CLIENTSIDEONLY
+Scale 0.15 
+States
+{
+Spawn:
+TNT1 A 0 Bright
+NEMF ABCDEF 2 Bright A_FadeOut(0.1,1)
+Stop
+}
+}
+
+
+ACTOR MiniNemesisGuruSprayGlowY
+{ 
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Renderstyle Add
++CLIENTSIDEONLY
+Alpha 0.35
+Scale 0.013
+States
+{
+Spawn:
+TNT1 A 0 Bright
+TNT1 A 0 Bright A_SetScale(ScaleX +0.05, ScaleY +0.01)
+NEMF A 1 Bright A_FadeOut(0.01,1)
+Loop
+} 
+}
+
+
+ACTOR MiniNemesisGuruSprayGlowX
+{ 
++NOCLIP
++NOINTERACTION
++NOGRAVITY
++NOTIMEFREEZE
+Renderstyle Add
++CLIENTSIDEONLY
+Alpha 0.35
+Scale 0.013
+States
+{
+Spawn:
+TNT1 A 0 Bright
+TNT1 A 0 Bright A_SetScale(ScaleX +0.01, ScaleY +0.05)
+NEMF A 1 Bright A_FadeOut(0.01,1)
+Loop
+}
+}
+
+
+Actor MiniCyberNemesisGuruSphereSmokeProjectile
+{ 
++NOGRAVITY
++FORCERADIUSDMG
+Renderstyle Add
+Alpha 0.45
+Projectile
+Damagetype "Legendary"
+Scale 0.5
++CLIENTSIDEONLY
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+TNT1 A 1 A_Jump(255,"Spawn1","Spawn2","Spawn3","Spawn4","Spawn5","Spawn6")
+Stop
+
+Spawn1:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 //A_Explode(5,64)
+NHP1 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn2:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 //A_Explode(5,64)
+NHP2 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn3:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 //A_Explode(5,64)
+NHP3 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn4:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 //A_Explode(5,64)
+NHP1 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn5:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 //A_Explode(5,64)
+NHP2 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+Spawn6:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+TNT1 A 0 //A_Explode(5,64)
+NHP3 A 4 Bright A_FadeOut(0.0065,1)
+Loop
+}
+}
+
+
+ACTOR NemesisBFGBeamHit
+{ 
+Projectile
+Scale 2.5
+Alpha 0.8
+RenderStyle Add
++NOINTERACTION
++NOGRAVITY
+States
+{
+Spawn:
+NBOM ABCDEFGHIJKLMN 1 BRIGHT A_SetScale(ScaleX +0.06, ScaleY +0.06)
+Stop
+}
+}
+
+
+actor NemesisBFGFlare
+{
+RenderStyle Add
+alpha 1
++NOINTERACTION
++RANDOMIZE
++NOCLIP
++NOGRAVITY
+Scale 0.1
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_ChangeVelocity (frandom(-0.2, 0.2), frandom(-0.2, 0.2), frandom(-0.1, 0.1), 0)
+NBLY Z 5 bright A_FadeOut(0.1)
+Loop
+}
+}
+
+
+ACTOR NemesisBFGImpact1
+{
++NOGRAVITY
++NOINTERACTION
+Renderstyle Add
+Alpha 0.99
+Scale 0.5
+States
+{
+Spawn:
+TNT1 A 2
+Looplet:
+TNT1 A 0 A_SetScale(ScaleX +0.04, ScaleY +0.04)
+TNT1 A 0 A_FadeOut(0.07)
+NEMF A 1 Bright
+Loop
+}
+}
+
+
+ACTOR NemesisBFGImpact2 : NemesisBFGImpact1
+{
+Scale 0.75
+Alpha 0.8
+States
+{
+Spawn:
+TNT1 A 4
+Looplet:
+TNT1 A 0 A_SetScale(ScaleX +0.05, ScaleY +0.05)
+TNT1 A 0 A_FadeOut(0.07)
+NEMF A 1 Bright
+Loop
+}
+}
+
+
+ACTOR NemesisBFGImpact3 : NemesisBFGImpact1
+{
+Scale 0.9
+Alpha 0.7
+States
+{
+Spawn:
+TNT1 A 6
+Looplet:
+TNT1 A 0 A_SetScale(ScaleX +0.06, ScaleY +0.06)
+TNT1 A 0 A_FadeOut(0.07)
+NEMF A 1 Bright
+Loop
+}
+}
+
+
+ACTOR NemesisBFGMiniImpact : NemesisBFGImpact1
+{
+Scale 0.2
+States
+{
+Spawn:
+TNT1 A 2
+Looplet:
+TNT1 A 0 A_SetScale(ScaleX +0.05, ScaleY +0.05)
+TNT1 A 0 A_FadeOut(0.07)
+NEMF A 1 Bright
+Loop
+}
+}
+
+
+ACTOR NemesisBFGProjectileSpray
+{ 
++NOINTERACTION
++NOGRAVITY
+Scale 1
+Alpha 1
+Renderstyle Normal
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx("NemesisBFGBeamTrail", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 A 0 A_SpawnItemEx("NemesisBFGMiniImpact", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 AAAAAAA 1 A_SpawnItemEx("NemesisBFGFlare",random(-50,50),random(-50,50),random(-15,25),0,0,frandom(1,2),0,128,0)
+Stop
+}
+}
+
+
+actor nnbolt_boomwave 
+{
+var int user_scale;
+//scale 0.7
+alpha 1.0
+renderstyle add
++NOINTERACTION
++FORCEXYBILLBOARD
+states
+{
+spawn:
+TNT1 A 0
+TNT1 A 0 A_SetUserVar("user_scale",4)
+scaledown:
+TNT1 A 0 A_SetScale((user_scale*0.01)) 
+TNT1 A 0 A_JumpIf(user_scale>=110,"LoopEnd") 
+NNEW B 1 bright A_FadeOut(0.06)
+TNT1 A 0 A_SetUserVar("user_scale",user_scale+10)
+loop
+
+loopend:
+NNEW B 1 Bright A_FadeOut(0.1)
+wait
+}
+}
+
+
+ACTOR NemesisBFGBeamTrail
+{
+RenderStyle Add
+Alpha 0.75
+Scale 0.15
++NOCLIP
++NOGRAVITY
+States
+{
+Spawn:
+NEMF A 0
+NEMF A 0 A_SpawnItemEx("NemesisBFGProjectileTrail1", random(15,-15), random(15,-15), random(15,-15), 0, 0, 0, 0, 128, 0)
+Looplet:
+NEMF A 0 A_SetScale(ScaleX -0.006, ScaleY -0.006)
+NEMF A 2 bright A_FadeOut(0.05)
+Loop
+}
+}
+
+
+ACTOR NemesisBFGProjectileTrail1
+{ 
+RenderStyle Add
++NOINTERACTION
++NOGRAVITY
+Scale 1
+Alpha 0.25
+States
+{
+Spawn:
+NBOM EFGHIJKLMN 2 BRIGHT
+Stop
+}
+}

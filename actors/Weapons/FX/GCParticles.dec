@@ -1,0 +1,479 @@
+ACTOR PlayerEnragedGuruBall
+{
+Radius 11
+Height 6
+Projectile
+Renderstyle Add
++RIPPER
+Speed 20
+Damage 150
+Scale 0.3
+Species "Player"
+DamageType "LegendaryGuruPlayer"
++NODAMAGETHRUST
++FORCERADIUSDMG
++FOILINVUL
++BLOODLESSIMPACT
++DONTBLAST
++THRUSPECIES
++SKYEXPLODE
++NOTIMEFREEZE
++MTHRUSPECIES
++DONTHURTSPECIES
++DONTHARMSPECIES
++BRIGHT
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_PlaySound("Weapons/GuruFly",5,1.0,1)
+TNT1 A 0 A_Explode(1000,160,0,1)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrailSpark",random(28,-28),random(28,-28),random(28,-28),0,0,0,0,0,0)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+TNT1 A 0 A_CustomMissile("PlayerEnragedLegDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+EBAL A 1 Bright A_SpawnItemEx("PlayerEnragedProjectileDTBFGAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+TNT1 A 0
+TNT1 A 0 A_PlaySound("Weapons/GuruFly",5,1.0,1)
+TNT1 A 0 A_Explode(1000,160,0,1)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrailSpark",random(28,-28),random(28,-28),random(28,-28),0,0,0,0,0,0)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+TNT1 A 0 A_CustomMissile("PlayerEnragedLegDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+EBAL A 1 Bright A_SpawnItemEx("PlayerEnragedProjectileDTBFGAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+TNT1 A 0
+TNT1 A 0 A_PlaySound("Weapons/GuruFly",5,1.0,1)
+TNT1 A 0 A_Explode(1000,160,0,1)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrailSpark",random(28,-28),random(28,-28),random(28,-28),0,0,0,0,0,0)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+TNT1 A 0 A_CustomMissile("PlayerEnragedLegDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+EBAL A 1 Bright A_SpawnItemEx("PlayerEnragedProjectileDTBFGAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+TNT1 A 0
+TNT1 A 0 A_PlaySound("Weapons/GuruFly",5,1.0,1)
+TNT1 A 0 A_Explode(1000,160,0,1)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrailSpark",random(28,-28),random(28,-28),random(28,-28),0,0,0,0,0,0)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+TNT1 A 0 A_CustomMissile("PlayerEnragedLegDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+EBAL A 1 Bright A_SpawnItemEx("PlayerEnragedProjectileDTBFGAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+TNT1 A 0
+TNT1 A 0 A_PlaySound("Weapons/GuruFly",5,1.0,1)
+TNT1 A 0 A_Explode(1000,160,0,1)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrailSpark",random(28,-28),random(28,-28),random(28,-28),0,0,0,0,0,0)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+TNT1 A 0 A_CustomMissile("PlayerEnragedLegDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+EBAL A 1 Bright A_SpawnItemEx("PlayerEnragedProjectileDTBFGAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+TNT1 A 0
+TNT1 A 0 A_CustomMissile("PlayerEnragedLegStormBolt",-18,random(0,20),random(0,360),2)
+Loop
+
+LEGBFGSFX:
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrailSpark",random(28,-28),random(28,-28),random(28,-28),0,0,0,0,0,0)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+TNT1 A 0 A_CustomMissile("PlayerEnragedLegDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+EBAL A 1 Bright A_SpawnItemEx("PlayerEnragedProjectileDTBFGAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrailSpark",random(28,-28),random(28,-28),random(28,-28),0,0,0,0,0,0)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+TNT1 A 0 A_CustomMissile("PlayerEnragedLegDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+EBAL A 1 Bright A_SpawnItemEx("PlayerEnragedProjectileDTBFGAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrailSpark",random(28,-28),random(28,-28),random(28,-28),0,0,0,0,0,0)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+TNT1 A 0 A_CustomMissile("PlayerEnragedLegDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+EBAL A 1 Bright A_SpawnItemEx("PlayerEnragedProjectileDTBFGAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrailSpark",random(28,-28),random(28,-28),random(28,-28),0,0,0,0,0,0)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruTrail",-3,0,0,0,0,0,0,0,0)
+TNT1 A 0 A_CustomMissile("PlayerEnragedLegDevastatorBolt",6,0,random(0,359),CMF_AIMDIRECTION|CMF_TRACKOWNER,random(-40,40))
+EBAL A 1 Bright A_SpawnItemEx("PlayerEnragedProjectileDTBFGAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+Goto Spawn
+
+Death:
+TNT1 A 0 A_PlaySound("Weapons/GuruBlast3",5)
+TNT1 A 0 A_Explode(10000,720,0,1)
+TNT1 A 0 A_BFGSpray("RedGuruSprayPlayer",25,40)
+TNT1 A 0 A_SpawnItemEx("ELegBFGGlowX",0,0,10,0,0,0,0,128,0)
+TNT1 A 0 A_SpawnItemEx("ELegBFGGlowY",0,0,10,0,0,0,0,128,0)
+TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("PlayerELegBFGSphereSmoke",random(126,-126),random(126,-126),random(66,-66),0.00001*random(100000,-100000),0.00001*random(100000,-100000),0.00001*random(100000,-100000),random(0,359),0,0)
+TNT1 AAAAAAAAAAA 0 A_SpawnItemEx("ELegBFGSpark",random(126,-126),random(126,-126),random(66,-66),0,0,0,0,0,0)
+TNT1 AAAAAAAAAAAAAAAAAAA 2 A_SpawnItemEx("ELegBFGSpark",random(126,-126),random(126,-126),random(66,-66),0,0,0,0,0,0)
+TNT1 AAAAAAAAAAAAAAAAAAA 1 Bright A_SpawnItemEx("PlayerEnragedLegStormBoltSpawner",Random(-256,256),Random(-256,256),0,0,0,0,0,SXF_NOCHECKPOSITION,64)
+Stop
+}
+}
+
+
+ACTOR PlayerEnragedMiniguruball
+{
++RIPPER
+Radius 6
+Height 4
+Projectile
+Renderstyle Add
++BRIGHT
+Scale 0.08
+Species "Player"
+DamageType "LegendaryGuruPlayer"
++MTHRUSPECIES
++NODAMAGETHRUST
++FORCERADIUSDMG
++FOILINVUL
++BLOODLESSIMPACT
++DONTBLAST
++THRUSPECIES
++SKYEXPLODE
++MTHRUSPECIES
++DONTHURTSPECIES
++DONTHARMSPECIES
+Speed 30
+Damage 80
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Jump(128,"LEGBFGSFX")
+TNT1 A 0 A_Explode(150,80,0,1)
+TNT1 A 0 A_PlaySound("Weapons/GuruFly",5,1.0,1)
+TNT1 A 0 A_SpawnItemEx("ELegDTBFGSpark",random(14,-14),random(14,-14),random(14,-14))
+TNT1 A 0 A_SpawnItemEx("LegDTBFGTrail",-3)
+EBAL A 1 Bright A_SpawnItemEx("PlayerEnragedProjectileDTBFGAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+loop
+
+LEGBFGSFX:
+TNT1 A 0 A_Explode(150,80,0,1)
+TNT1 A 0 A_SpawnItemEx("ELegDTBFGSpark",random(14,-14),random(14,-14),random(14,-14))
+TNT1 A 0 A_SpawnItemEx("LegDTBFGTrail",-3)
+EBAL A 1 Bright A_SpawnItemEx("PlayerEnragedProjectileDTBFGAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+Goto Spawn
+
+Death:
+//TNT1 A 0 A_SpawnItemEx("PlayerEnragedDeathBall")
+TNT1 AA 0 A_PlaySound("Weapons/GuruBlast3",5)
+TNT1 A 0 A_Explode(200,600)
+TNT1 A 0 A_Explode(850,400)
+TNT1 A 0 A_Explode(1500,300,0,1)
+TNT1 A 0 A_SpawnItemEx("ELegBFGGlowX",0,0,10,0,0,0,0,128,0)
+TNT1 A 0 A_SpawnItemEx("ELegBFGGlowY",0,0,10,0,0,0,0,128,0)
+TNT1 AAAAAAA 0 A_SpawnItemEx("PlayerELegBFGSphereSmoke",random(126,-126),random(126,-126),random(66,-66),0.00001*random(100000,-100000),0.00001*random(100000,-100000),0.00001*random(100000,-100000),random(0,359),0,0)
+TNT1 AAAAAAA 0 A_SpawnItemEx("ELegBFGSpark",random(126,-126),random(126,-126),random(66,-66),0,0,0,0,0,0)
+TNT1 AAAAAAAAAAAAAAAAAAA 2 A_SpawnItemEx("ELegBFGSpark",random(126,-126),random(126,-126),random(66,-66),0,0,0,0,0,0)
+Stop
+}
+}
+
+Actor PBLEG10KProjectile
+{
+Height 1
+Radius 1
+Speed 200
+Scale 0.15
+Damage 50
+RenderStyle Add
+Alpha 0.85
+Decal BFG9500LightningGold
+PROJECTILE
+DamageType "Plasma"
++NOEXTREMEDEATH
+DeathSound "weapons/bfg95explode"
+States
+{
+Spawn:
+LRAC A 1 Bright
+Loop
+
+Death:
+XDeath:
+TNT1 A 0
+TNT1 A 1 A_SpawnItem("Leg10KEx")
+Stop
+}
+}
+
+
+Actor PBBlueLeg10kBall
+{
+Speed 25
+FastSpeed 25
+Scale 0.4
+Height 15
+Radius 10
+Damage 60
+Decal BFG9500LightningBlue
+Projectile
+SeeSound "imp/attack"
+Renderstyle Add
+DamageType "Stun"
++FORCERADIUSDMG
++FRIENDLY
++THRUSPECIES
++RANDOMIZE
++NOTIMEFREEZE
+Species "Marines"
+Obituary "%o got obliterated by %k's Legendary BFG 10k."
+DeathSound ""
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_PlaySoundEx("LesserCardinal/BFGIdle","Voice",1)
+LG1B A 1 Bright A_SpawnItemEx("BFGTrailParticleBlue",frandom(-12,12),frandom(-12,12),frandom(12,22),frandom(-2,2),frandom(-2,2),frandom(-2,2),frandom(-20,20),SXF_CLIENTSIDE)
+TNT1 A 0 A_CustomMissile("LegBallAttack",frandom(-1,1),frandom(-2,2),0,CMF_AIMDIRECTION|CMF_TRACKOWNER)
+LG1B B 1 Bright A_SpawnItemEx("BFGTrailParticleBlue",frandom(-12,12),frandom(-12,12),frandom(12,22),frandom(-2,2),frandom(-2,2),frandom(-2,2),frandom(-20,20),SXF_CLIENTSIDE)
+TNT1 A 0 A_CustomMissile("LegBallAttack",frandom(-1,1),frandom(-2,2),0,CMF_AIMDIRECTION|CMF_TRACKOWNER)
+LG1B C 1 Bright A_SpawnItemEx("BFGTrailParticleBlue",frandom(-12,12),frandom(-12,12),frandom(12,22),frandom(-2,2),frandom(-2,2),frandom(-2,2),frandom(-20,20),SXF_CLIENTSIDE)
+TNT1 A 0 A_CustomMissile("LegBallAttack",frandom(-1,1),frandom(-2,2),0,CMF_AIMDIRECTION|CMF_TRACKOWNER)
+LG1B D 1 Bright A_SpawnItemEx("BFGTrailParticleBlue",frandom(-12,12),frandom(-12,12),frandom(12,22),frandom(-2,2),frandom(-2,2),frandom(-2,2),frandom(-20,20),SXF_CLIENTSIDE)
+TNT1 A 0 A_CustomMissile("LegBallAttack",frandom(-1,1),frandom(-2,2),0,CMF_AIMDIRECTION|CMF_TRACKOWNER)
+Loop
+
+Death:
+TNT1 A 0
+TNT1 A 0 A_SetTranslucent(0.75,1)
+TNT1 A 0 Radius_Quake(5,60,0,10,0)
+TNT1 A 0 A_Explode(60,250)
+LG1B A 6 Bright A_SpawnItemEx("BFGShockwaveBlue", 0, 0, 15, 0, 0, 0, 0, SXF_CLIENTSIDE)
+TNT1 A 0 A_Explode(60,250)
+LG1B B 6 Bright A_SpawnItemEx("BFGShockwaveBlue", 0, 0, 15, 0, 0, 0, 0, SXF_CLIENTSIDE)
+TNT1 A 0 A_Explode(60,250)
+LG1B C 6 Bright A_SpawnItemEx("BFGShockwaveBlue", 0, 0, 15, 0, 0, 0, 0, SXF_CLIENTSIDE)
+TNT1 A 0 A_Explode(60,250)
+LG1B D 6 Bright A_SpawnItemEx("BFGShockwaveBlue", 0, 0, 15, 0, 0, 0, 0, SXF_CLIENTSIDE)
+TNT1 A 0 A_Explode(300,300)
+TNT1 A 0 A_StopSoundEx("Voice")
+TNT1 A 0 Radius_Quake(20,12,0,12,0)
+TNT1 A 0 A_PlaySound("weapons/bfg95explode",10)
+TNT1 A 0 A_SpawnItemEx("BFGShockwaveBlue", 0, 0, 0, 0, 0, 0, 0, SXF_CLIENTSIDE)
+TNT1 A 0 A_SpawnItemEx("BlueParticleSpawner", 0, 0, 0, 0, 0, 0, 0, SXF_CLIENTSIDE)
+TNT1 AAA 0 A_CustomMissile("KaboomBlue2", 0, 0, frandom(0,360), CMF_AIMDIRECTION, frandom(0,360))
+TNT1 A 0 A_SetScale(1.0)
+QRE3 ABCDEF 4 Bright
+Stop
+}
+}
+
+
+Actor PlayerNemesisGuruBall
+{
+Projectile
+RenderStyle Add
+Radius 9
+Height 12
+SeeSound "BIGMISSILE"
+DeathSound "FANTASYSEAL"
++FORCERADIUSDMG
++STRIFEDAMAGE
+ActiveSound "lefrail/active"
+Bouncecount 10
+-SEEKERMISSILE
+Species " "
+Bouncetype None
+Damage 200
+Speed 25
+Scale 2.5
+DamageType "PlayerNemesisBFG"
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_PlaySound("Weapons/GuruFly",5,1.0,1)
+TNT1 A 0 //A_Explode(600,128,0,1) //600
+TNT1 A 0 A_SpawnItemEx("PlayerNemesisGuruSphereSmokeProjectile",0,0,0,frandom(-1,1),frandom(-1,1),frandom(-1,1),frandom(0,360),SXF_CLIENTSIDE)
+TNT1 A 0 A_SpawnItemEx("NemesisGuruTrailSpark",frandom(-28,28),frandom(-28,28),frandom(-28,28),0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 A 0 A_SpawnItemEx("NemesisGuruTrail",-3,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 A 0 A_CustomMissile("NemesisPlayerDevastatorBolt",6,0,frandom(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,frandom(-40,40))
+CLBB D 1 Bright A_SpawnItemEx("NemesisPlayerDTBFGProjectileAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+TNT1 A 0 //A_Explode(600,128,0,1) //600
+TNT1 A 0 A_SpawnItemEx("PlayerNemesisGuruSphereSmokeProjectile",0,0,0,frandom(-1,1),frandom(-1,1),frandom(-1,1),frandom(0,360),SXF_CLIENTSIDE)
+TNT1 A 0 A_SpawnItemEx("NemesisGuruTrailSpark",frandom(-28,28),frandom(-28,28),frandom(-28,28),0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 A 0 A_SpawnItemEx("NemesisGuruTrail",-3,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 A 0 A_CustomMissile("NemesisPlayerDevastatorBolt",6,0,frandom(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,frandom(-40,40))
+CLBB D 1 Bright //A_SpawnItemEx("NemesisCyberDTBFGProjectileAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+TNT1 A 0 //A_Explode(600,128,0,1) //600
+TNT1 A 0 A_SpawnItemEx("PlayerNemesisGuruSphereSmokeProjectile",0,0,0,frandom(-1,1),frandom(-1,1),frandom(-1,1),frandom(0,360),SXF_CLIENTSIDE)
+TNT1 A 0 A_SpawnItemEx("NemesisGuruTrailSpark",frandom(-28,28),frandom(-28,28),frandom(-28,28),0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 A 0 A_SpawnItemEx("NemesisGuruTrail",-3,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 A 0 A_CustomMissile("NemesisPlayerDevastatorBolt",6,0,frandom(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,frandom(-40,40))
+CLBB D 1 Bright //A_SpawnItemEx("NemesisCyberDTBFGProjectileAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+TNT1 A 0 //A_Explode(600,128,0,1) //600
+TNT1 A 0 A_SpawnItemEx("PlayerNemesisGuruSphereSmokeProjectile",0,0,0,frandom(-1,1),frandom(-1,1),frandom(-1,1),frandom(0,360),SXF_CLIENTSIDE)
+TNT1 A 0 A_SpawnItemEx("NemesisGuruTrailSpark",frandom(-28,28),frandom(-28,28),frandom(-28,28),0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 A 0 A_SpawnItemEx("NemesisGuruTrail",-3,0,0,0,0,0,0,SXF_CLIENTSIDE,0)
+TNT1 A 0 A_CustomMissile("NemesisPlayerDevastatorBolt",6,0,frandom(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,frandom(-40,40))
+CLBB D 1 Bright //A_SpawnItemEx("NemesisCyberDTBFGProjectileAttack",0,0,0,0,0,0,0,SXF_SETMASTER)
+Loop
+
+Death:
+TNT1 A 0 A_Explode(7000,486,0,1) //7000
+TNT1 AAAAAA 2 A_CustomMissile("NemesisPlayerBouncyBFG",0,0,frandom(0,360),CMF_AIMDIRECTION,frandom(-5,30))
+TNT1 A 1 A_SpawnItem("PlayerNemesisDeathBall")//6K
+Stop
+}
+}
+
+
+ACTOR PlayerMiniNemesisBFGBall
+{
+Projectile
+RenderStyle Add
+Radius 9
+Height 12
+SeeSound "BIGMISSILE"
+DeathSound "FANTASYSEAL"
++FORCERADIUSDMG
++STRIFEDAMAGE
+ActiveSound "lefrail/active"
+Bouncecount 10
+-SEEKERMISSILE
+Scale 1.5
+Speed 60
+Damage 100
+Bouncetype None
++THRUSPECIES
+Species "Player"
+DamageType "PlayerNemesisPlasma"
+States
+{
+Spawn:
+TNT1 A 0 Bright A_LoopActiveSound
+TNT1 A 0 A_SpawnItemEx("PlayerNemesisGuruSphereSmokeProjectile",0,0,0,frandom(-1,1),frandom(-1,1),frandom(-1,1),frandom(0,360))
+CLBB D 1 Bright A_SpawnItemEx("NemesisWhiteProjParticleSuperLarge2",0,0,0,frandom(-4,4),frandom(-4,4),frandom(-4,4),frandom(0,360))
+TNT1 AA 0 A_SpawnItemEx("NemesisWhiteProjParticleSuperLarge2",0,0,0,frandom(-4,4),frandom(-4,4),frandom(-4,4),frandom(0,360))
+Loop
+
+Death:
+TNT1 A 0
+TNT1 A 0 Radius_Quake(5,60,0,10,0)
+TNT1 A 0 A_Explode(50,400,0)
+TNT1 A 0 A_SpawnItemEx("MiniCyberNemesisGuruSphereSmokeProjectile",0,0,0,frandom(-10,10),frandom(-10,10),frandom(-10,10),frandom(0,360))
+TNT1 AAAAAAAAA 0 A_SpawnItemEx("NemesisWhiteProjParticleSuperLarge2",0,0,0,frandom(-10,10),frandom(-10,10),frandom(-10,10),frandom(0,360))
+CLBB D 6 Bright A_SpawnItem("NemesisWhiteProjExplodeLarge")
+TNT1 A 0 A_Explode(50,400,0)
+TNT1 A 0 A_SpawnItemEx("MiniCyberNemesisGuruSphereSmokeProjectile",0,0,0,frandom(-10,10),frandom(-10,10),frandom(-10,10),frandom(0,360))
+TNT1 AAAAAAAAA 0 A_SpawnItemEx("NemesisWhiteProjParticleSuperLarge2",0,0,0,frandom(-10,10),frandom(-10,10),frandom(-10,10),frandom(0,360))
+CLBB D 6 Bright A_SpawnItem("NemesisWhiteProjExplodeLarge")
+TNT1 A 0 A_Explode(50,400,0)
+TNT1 A 0 A_SpawnItemEx("MiniCyberNemesisGuruSphereSmokeProjectile",0,0,0,frandom(-10,10),frandom(-10,10),frandom(-10,10),frandom(0,360))
+TNT1 AAAAAAAAA 0 A_SpawnItemEx("NemesisWhiteProjParticleSuperLarge2",0,0,0,frandom(-10,10),frandom(-10,10),frandom(-10,10),frandom(0,360))
+CLBB D 6 Bright A_SpawnItem("NemesisWhiteProjExplodeLarge")
+TNT1 A 0 A_Explode(50,400,0)
+TNT1 A 0 A_SpawnItemEx("MiniCyberNemesisGuruSphereSmokeProjectile",0,0,0,frandom(-10,10),frandom(-10,10),frandom(-10,10),frandom(0,360))
+TNT1 AAAAAAAAA 0 A_SpawnItemEx("NemesisWhiteProjParticleSuperLarge2",0,0,0,frandom(-10,10),frandom(-10,10),frandom(-10,10),frandom(0,360))
+CLBB D 6 Bright A_SpawnItem("NemesisWhiteProjExplodeLarge")
+TNT1 A 1 A_SpawnItem("PlayerMiniNemesisDeathBall")
+Stop
+}
+}
+
+
+ACTOR NemesisBFGBeam : FastProjectile
+{
+Speed 100
+Radius 19
+Height 10
+Damage 0
+Renderstyle Add
++RIPPER
++NODAMAGETHRUST
++EXTREMEDEATH
++FORCERADIUSDMG
++EXPLODEONWATER
++DONTBLAST
+DeathSound ""
+MissileType "NemesisBFGBeamTrail"
+MissileHeight 10
+Scale 0.2
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 1 A_Explode(3000,92,0,0)
+Loop
+
+Death:
+TNT1 A 0 A_PlaySoundEx("Weapons/GuruBlast3","Normal")
+TNT1 A 0 A_SpawnItemEx("nnbolt_boomwave",0,0,0, 0,0,0)
+TNT1 A 0 A_Explode(5000,256,0,1)
+TNT1 A 0 A_SpawnItemEx("nnbolt_boomwave",0,0,0, 0,0,0)
+TNT1 A 0 A_BFGSpray("NemesisBFGProjectileSpray",30,30)
+TNT1 A 0 A_SpawnItemEx("NemesisBFGImpact1", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 A 0 A_SpawnItemEx("NemesisBFGImpact2", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 A 0 A_SpawnItemEx("NemesisBFGImpact3", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("NemesisBFGFlare",random(-150,150),random(-150,150),random(-25,50),0,0,frandom(1,2),0,128,0)
+TNT1 A 1 A_SpawnItemEx("NemesisBFGBeamHit", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 AAAAAAAAAAA 1 A_SpawnItemEx("NemesisBFGFlare",random(-150,150),random(-150,150),random(-25,50),0,0,frandom(1,2),0,128,0)
+TNT1 A 0 A_SpawnItemEx("nnbolt_boomwave",0,0,0, 0,0,0)
+Stop
+}
+}
+
+Actor NemLMGAltProj : FastProjectile
+{
+Speed 100
+Scale 0.25
+Radius 0.50
+Height 0.65
+Damage 50
+Renderstyle Add
++RIPPER
++NODAMAGETHRUST
++EXTREMEDEATH
++FORCERADIUSDMG
++EXPLODEONWATER
++DONTBLAST
+DeathSound ""
+MissileType "NemesisBFGBeamTrailLMG"
+MissileHeight 10
+Scale 0.2
+states
+{
+Spawn:
+TNT1 A 0
+TNT1 A 1 A_Explode(3000,92,0,0)
+Loop
+
+Death:
+TNT1 A 0 A_PlaySoundEx("Weapons/GuruBlast3","Normal")
+TNT1 A 0 A_SpawnItemEx("nnbolt_boomwave",0,0,0, 0,0,0)
+TNT1 A 0 A_Explode(5000,256,0,1)
+TNT1 A 0 A_SpawnItemEx("nnbolt_boomwave",0,0,0, 0,0,0)
+TNT1 A 0 A_BFGSpray("NemesisBFGProjectileSpray",30,30)
+TNT1 A 0 A_SpawnItemEx("NemesisBFGImpact1", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 A 0 A_SpawnItemEx("NemesisBFGImpact2", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 A 0 A_SpawnItemEx("NemesisBFGImpact3", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("NemesisBFGFlare",random(-150,150),random(-150,150),random(-25,50),0,0,frandom(1,2),0,128,0)
+TNT1 A 1 A_SpawnItemEx("NemesisBFGBeamHit", 0, 0, 0, 0, 0, 0, 0, 128, 0)
+TNT1 AAAAAAAAAAA 1 A_SpawnItemEx("NemesisBFGFlare",random(-150,150),random(-150,150),random(-25,50),0,0,frandom(1,2),0,128,0)
+TNT1 A 0 A_SpawnItemEx("nnbolt_boomwave",0,0,0, 0,0,0)
+Stop
+}
+}
+
+ACTOR NemesisBFGBeamTrailLMG
+{
+RenderStyle Add
+Alpha 0.25
+Scale 0.05
++NOCLIP
++NOGRAVITY
+States
+{
+Spawn:
+NEMF A 0
+NEMF A 0 A_SpawnItemEx("NemesisBFGProjectileTrail1", random(15,-15), random(15,-15), random(15,-15), 0, 0, 0, 0, 128, 0)
+Looplet:
+NEMF A 0 A_SetScale(ScaleX -0.006, ScaleY -0.006)
+NEMF A 2 bright A_FadeOut(0.05)
+Loop
+}
+}
+
+
+ACTOR NemesisBFGProjectileTrail1
+{ 
+RenderStyle Add
++NOINTERACTION
++NOGRAVITY
+Scale 1
+Alpha 0.25
+States
+{
+Spawn:
+NBOM EFGHIJKLMN 2 BRIGHT
+Stop
+}
+}

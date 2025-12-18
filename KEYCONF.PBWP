@@ -63,6 +63,8 @@ Addslotdefault 1 PB_BeamKatana
 Addslotdefault 1 PB_ArgentSith
 addslotdefault 1 BattleAxe
 addslotdefault 1 Razorjack
+addslotdefault 1 LegendaryChainsaw
+addslotdefault 1 PB_SBSword
 // Slot 2
 addslotdefault 2 ProSurv_BlasterPistol
 addslotdefault 2 44PDW
@@ -83,6 +85,7 @@ addslotdefault 3 PB_Doom2016Shotgun
 addslotdefault 3 "Demon Tech Shotgun"
 addslotdefault 3 M1887
 addslotdefault 3 RotatingDoubleBarrel
+addslotdefault 3 LegendaryAssaultShotgun
 // Slot 4
 addslotdefault 4 Prosurv_Ballista
 addslotdefault 4 AK-47
@@ -91,6 +94,7 @@ addslotdefault 4 MagnumSniperRifle
 addslotdefault 4 PB_BoltRifle
 addslotdefault 4 M41A
 addslotdefault 4 PowerOverwhelming
+addslotdefault 4 NemesisLMG
 // Slot 5
 addslotdefault 5 D4Machinegun
 addslotdefault 5 Dark_Fate
@@ -121,6 +125,8 @@ addslotdefault 7 SuperGrenadeLauncher
 addslotdefault 7 PB_GaussCannon
 addslotdefault 7 D4PlasmaGun
 addslotdefault 7 D4VortexRifle
+addslotdefault 7 LegendaryBFG10K
+addslotdefault 7 NemesisBFG
 // Slot 8
 addslotdefault 8 BioAcidLauncher
 addslotdefault 8 Extinction_Ray
@@ -128,6 +134,9 @@ addslotdefault 8 PlasmaRifleAssault
 addslotdefault 8 TechBlaster
 addslotdefault 8 ThunderCrossbow
 addslotdefault 8 ThunderCarrierTI
+addslotdefault 8 Devastador
+Addslotdefault 8 EnragedLegendaryBFG
+addslotdefault 8 GodEnragedBFG
 // Slot 9
 addslotdefault 9 Unmaker64
 addslotdefault 9 Ballistagun
@@ -137,3 +146,4 @@ addslotdefault 9 PB_LegacyUnmaker
 addslotdefault 9 PhaseEradicatorBFG
 addslotdefault 9 Stormcast
 addslotdefault 9 MancubusFlameCannon
+addslotdefault 9 LegendaryPlasmaticRifle

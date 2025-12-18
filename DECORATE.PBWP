@@ -17,6 +17,11 @@
 #INCLUDE ACTORs/Weapons/FX/FLARES.PhaseEra
 #INCLUDE ACTORs/Weapons/FX/PhaseEraProjectiles.dec
 #INCLUDE ACTORs/Weapons/FX/PhaseSFX.dec
+#INCLUDE ACTORs/Weapons/FX/GCFXGaussCannon.dec
+#INCLUDE ACTORs/Weapons/FX/GCParticles.dec
+#INCLUDE ACTORs/Weapons/FX/GCPuff.dec
+#INCLUDE ACTORs/Weapons/FX/GCSFX.dec
+#INCLUDE ACTORs/Weapons/FX/GCSmoke.dec
 
 // Monsters
 #INCLUDE ACTORs/Monsters/DEEPONE.dec
@@ -57,6 +62,18 @@
 #INCLUDE ACTORs/CustomMelee/DemonicSword.dec
 
 //Weapons
+	//GOD COMPLEX//
+#INCLUDE ACTORs/Weapons/GodComplex/Devastador.dec
+#INCLUDE ACTORs/Weapons/GodComplex/EnragedLegendaryBFG.dec
+#INCLUDE ACTORs/Weapons/GodComplex/GodEnragedBFG.dec
+#INCLUDE ACTORs/Weapons/GodComplex/LegendaryASG.dec
+#INCLUDE ACTORs/Weapons/GodComplex/LegendaryBFG10K.dec
+#INCLUDE ACTORs/Weapons/GodComplex/LegendaryChainsaw.dec
+#INCLUDE ACTORs/Weapons/GodComplex/LegendaryPlasmaticRifle.dec
+#INCLUDE ACTORs/Weapons/GodComplex/NemesisBFG.dec
+#INCLUDE ACTORs/Weapons/GodComplex/NemesisLMG.dec
+#INCLUDE ACTORs/Weapons/GodComplex/SubliminationSword.dec
+
 	//Slot-1
 #INCLUDE ACTORs/Weapons/Slot-1/BeamKatana.dec
 #INCLUDE ACTORs/Weapons/Slot-1/ArgentSith.dec

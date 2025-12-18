@@ -48,6 +48,108 @@ class PB_PackSpawnerT2 : PB_AmmoSpawner
 	}
 }
 
+//GOD COMPLEX =====================================================================================
+class DevastadorSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnDevastador)
+		{
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'Devastador', 255, 1);
+		}
+	}
+}
+class EnragedLegendaryBFGSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnEnragedLegendaryBFG)
+		{
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'EnragedLegendaryBFG', 255, 1);
+		}
+	}
+}
+class GodEnragedBFGSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnGodEnragedBFG)
+		{
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'GodEnragedBFG', 255, 1);
+		}
+	}
+}
+class LegendaryAssaultShotgunSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnLegendaryAssaultShotgun)
+		{
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'LegendaryAssaultShotgun', 255, 1);
+		}
+	}
+}
+class LegendaryBFG10KSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnLegendaryBFG10K)
+		{
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'LegendaryBFG10K', 255, 1);
+		}
+	}
+}
+class LegendaryChainsawSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnLegendaryChainsaw)
+		{
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'LegendaryChainsaw', 255, 1);
+		}
+	}
+}
+class LegendaryPlasmaticRifleSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnLegendaryPlasmaticRifle)
+		{
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'LegendaryPlasmaticRifle', 255, 1);
+		}
+	}
+}
+class NemesisBFGSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnNemesisBFG)
+		{
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'NemesisBFG', 255, 1);
+		}
+	}
+}
+class NemesisLMGSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnNemesisLMG)
+		{
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'NemesisLMG', 255, 1);
+		}
+	}
+}
+class PB_SBSwordSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnPB_SBSword)
+		{
+		handler.InjectSpawn('PB_PlasSpawnerT4', 'PB_SBSword', 255, 1);
+		}
+	}
+}
+
 //SLOT 0 ===================================================================================== 0 ==
 //Ancient Crossbow
 class AncientCrossbowSpawnerInjector : PBInjector

@@ -1,0 +1,93 @@
+//
+//Gauss Cannon not being in this Weapons anymore.
+//
+
+Actor GaussCannonShot: FastProjectile
+{
++BLOODSPLATTER 
+-DONTSPLASH
++RIPPER
+speed 190
+damage 150
+scale .9
+RenderStyle Add
+Alpha 0.9
+radius 8
+Decal Scorch
+height 8
++FORCERADIUSDMG
++EXTREMEDEATH
+Decal "Scorch"
+States
+{
+
+	Spawn:
+		TNT1 A 1 BRIGHT A_SpawnItemEx("gaussheavyplasmaTracerTrail", 0,               0,              2)
+        TNT1 A 0 A_SpawnItemEx("gaussheavyplasmaTracerTrail2", (2 *momx)/-35.0, -(2 *momy)/-35.0, 2+(2 *momz)/-35.0, 0,0,0, 0, SXF_ABSOLUTEANGLE)
+        TNT1 A 0 A_SpawnItemEx("gaussheavyplasmaTracerTrail3", (4 *momx)/-35.0, -(4 *momy)/-35.0, 2+(4 *momz)/-35.0, 0,0,0, 0, SXF_ABSOLUTEANGLE)
+        TNT1 A 0 A_SpawnItemEx("gaussheavyplasmaTracerTrail4", (6 *momx)/-35.0, -(6 *momy)/-35.0, 2+(6 *momz)/-35.0, 0,0,0, 0, SXF_ABSOLUTEANGLE)
+        TNT1 A 0 A_SpawnItemEx("gaussheavyplasmaTracerTrail5", (8 *momx)/-35.0, -(8 *momy)/-35.0, 2+(8 *momz)/-35.0, 0,0,0, 0, SXF_ABSOLUTEANGLE)
+        TNT1 A 0 A_SpawnItemEx("gaussheavyplasmaTracerTrail6", (10*momx)/-35.0, -(10*momy)/-35.0, 2+(10*momz)/-35.0, 0,0,0, 0, SXF_ABSOLUTEANGLE)
+        TNT1 A 0 A_SpawnItemEx("gaussheavyplasmaTracerTrail7", (12*momx)/-35.0, -(12*momy)/-35.0, 2+(12*momz)/-35.0, 0,0,0, 0, SXF_ABSOLUTEANGLE)
+        TNT1 A 0 A_SpawnItemEx("gaussheavyplasmaTracerTrail8", (14*momx)/-35.0, -(14*momy)/-35.0, 2+(14*momz)/-35.0, 0,0,0, 0, SXF_ABSOLUTEANGLE)
+        TNT1 A 0 A_SpawnItemEx("gaussheavyplasmaTracerTrail9", (16*momx)/-35.0, -(16*momy)/-35.0, 2+(16*momz)/-35.0, 0,0,0, 0, SXF_ABSOLUTEANGLE)
+        TNT1 A 0 A_SpawnItemEx("gaussheavyplasmaTracerTrail10", (18*momx)/-35.0, -(18*momy)/-35.0, 2+(18*momz)/-35.0, 0,0,0, 0, SXF_ABSOLUTEANGLE)
+        TNT1 A 0 A_SpawnItemEx("gaussheavyplasmaTracerTrail11", (20*momx)/-35.0, -(20*momy)/-35.0, 2+(20*momz)/-35.0, 0,0,0, 0, SXF_ABSOLUTEANGLE)
+        TNT1 A 0 A_SpawnItemEx("gaussheavyplasmaTracerTrail12", (22*momx)/-35.0, -(22*momy)/-35.0, 2+(22*momz)/-35.0, 0,0,0, 0, SXF_ABSOLUTEANGLE)
+		TNT1 A 0 A_CustomMissile ("PlasmaSmoke", 1, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_CustomMissile ("BluePlasmaFireNonStatic", 2, 0, random (0, 360), 2, random (0, 180))
+		TNT1 AAA 0 A_CustomMissile ("BlueplasmaParticle", 0, 0, random (0, 360))
+		Loop
+	Death:
+		TNT1 AAAAA 0 A_SpawnItem("BlueFlare")
+		
+		TNT1 AAAAA 0 A_CustomMissile ("BluePlasmaFireNonStatic", 2, 0, random (0, 360), 2, random (0, 180))
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_CustomMissile ("BlueplasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_CustomMissile("BigRicoChet")
+        TNT1 A 0 A_SpawnItemEx ("DetectFloorCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	    TNT1 A 0 A_SpawnItemEx ("DetectCeilCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+	    TNT1 A 0 A_SpawnItemEx ("UnderwaterExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 0 A_PlaySound("FAREXPL", 3)
+		TNT1 A 0 A_SpawnItemEx ("RocketExplosion",0,0,13,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		EXPL AAAAAAAAAAAAAAAAA 0 A_CustomMissile ("ExplosionSmokeFast22", 0, 0, random (0, 360), 2, random (0, 360))
+		BL1I ABCD 1 BRIGHT A_SpawnItem("BlueFlare")
+		TNT1 A 0 A_SpawnItemEx ("LiquidExplosionEffectSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 0 A_Explode(200, 20)
+		Stop
+}
+}
+
+actor gaussheavyplasmaTracerTrail
+{
+    Scale 0.4
+    RenderStyle Add
+    Alpha 0.9
+    +NOINTERACTION
+    +CLIENTSIDEONLY
+    States
+    {
+    Spawn:
+        SPKB A 2 BRIGHT
+        stop
+    }
+}
+
+
+
+actor gaussheavyplasmaTracerTrail2: gaussheavyplasmaTracerTrail {    Alpha 0.85 }
+actor gaussheavyplasmaTracerTrail3: gaussheavyplasmaTracerTrail {    Alpha 0.80 }
+actor gaussheavyplasmaTracerTrail4: gaussheavyplasmaTracerTrail {    Alpha 0.75 }
+actor gaussheavyplasmaTracerTrail5: gaussheavyplasmaTracerTrail {    Alpha 0.70 }
+actor gaussheavyplasmaTracerTrail6: gaussheavyplasmaTracerTrail {    Alpha 0.65 }
+actor gaussheavyplasmaTracerTrail7: gaussheavyplasmaTracerTrail {    Alpha 0.60 }
+actor gaussheavyplasmaTracerTrail8: gaussheavyplasmaTracerTrail {    Alpha 0.55 }
+actor gaussheavyplasmaTracerTrail9: gaussheavyplasmaTracerTrail {    Alpha 0.50 }
+actor gaussheavyplasmaTracerTrail10: gaussheavyplasmaTracerTrail {    Alpha 0.45 }
+actor gaussheavyplasmaTracerTrail11: gaussheavyplasmaTracerTrail {    Alpha 0.40 }
+actor gaussheavyplasmaTracerTrail12: gaussheavyplasmaTracerTrail {    Alpha 0.35 }
+actor gaussheavyplasmaTracerTrail13: gaussheavyplasmaTracerTrail {    Alpha 0.30 }
+actor gaussheavyplasmaTracerTrail14: gaussheavyplasmaTracerTrail {    Alpha 0.25 }
+actor gaussheavyplasmaTracerTrail15: gaussheavyplasmaTracerTrail {    Alpha 0.20 }
+actor gaussheavyplasmaTracerTrail16: gaussheavyplasmaTracerTrail {    Alpha 0.15 }
+actor gaussheavyplasmaTracerTrail17: gaussheavyplasmaTracerTrail {    Alpha 0.10 }
+actor gaussheavyplasmaTracerTrail18: gaussheavyplasmaTracerTrail {    Alpha 0.05 }
