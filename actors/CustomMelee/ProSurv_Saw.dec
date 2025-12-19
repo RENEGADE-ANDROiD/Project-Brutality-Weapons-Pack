@@ -11,6 +11,7 @@ ACTOR Prosurv_SawSwing : PB_ProjectileAlt
 	+NOEXTREMEDEATH
 	+BLOODSPLATTER
 	+NODAMAGETHRUST
+	+FORCEPAIN
 	PB_Projectile.BaseDamage 10
 	Speed 40
 	Decal "SawDecalNew1"
