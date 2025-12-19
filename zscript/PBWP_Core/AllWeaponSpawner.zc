@@ -1197,37 +1197,40 @@ class NewEQ_Injector : PBInjector
 {
     override void Init(PB_EventHandler handler) 
     {
-        handler.InjectSpawn('PB_PackSpawnerT1', 'ShieldGrenade', 255, 2);
-		handler.InjectSpawn('PB_PackSpawnerT2', 'ShieldGrenade', 255, 2);
-		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ShieldGrenade', 255, 2);
-		
-        handler.InjectSpawn('PB_UpgradeSpawnerT4', 'VoidGrenade', 255, 1);
-		
-		handler.InjectSpawn('PB_RocketBoxSpawnerT2', 'AcidCharge', 255, 1);
-		handler.InjectSpawn('PB_RocketBoxSpawnerT3', 'AcidCharge', 255, 1);
-		handler.InjectSpawn('PB_RocketBoxSpawnerT4', 'AcidCharge', 255, 1);
-		
-		handler.InjectSpawn('PB_RocketBoxSpawnerT3', 'LaserCharge', 255, 1);
-		handler.InjectSpawn('PB_RocketBoxSpawnerT4', 'LaserCharge', 255, 1);
-		
-		handler.InjectSpawn('PB_RocketBoxSpawnerT3', 'SwarmCharge', 255, 1);
-		handler.InjectSpawn('PB_RocketBoxSpawnerT4', 'SwarmCharge', 255, 1);
-		
-		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ElecPod', 255, 1);
-        handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ElecPod', 255, 1);
-    }
+		if(EquipmentSpawn)
+		{
+			handler.InjectSpawn('PB_PackSpawnerT1', 'ShieldGrenade', 255, 2);
+			handler.InjectSpawn('PB_PackSpawnerT2', 'ShieldGrenade', 255, 2);
+			handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ShieldGrenade', 255, 2);
+			
+			handler.InjectSpawn('PB_UpgradeSpawnerT4', 'VoidGrenade', 255, 1);
+			
+			handler.InjectSpawn('PB_RocketBoxSpawnerT2', 'AcidCharge', 255, 1);
+			handler.InjectSpawn('PB_RocketBoxSpawnerT3', 'AcidCharge', 255, 1);
+			handler.InjectSpawn('PB_RocketBoxSpawnerT4', 'AcidCharge', 255, 1);
+			
+			handler.InjectSpawn('PB_RocketBoxSpawnerT3', 'LaserCharge', 255, 1);
+			handler.InjectSpawn('PB_RocketBoxSpawnerT4', 'LaserCharge', 255, 1);
+			
+			handler.InjectSpawn('PB_RocketBoxSpawnerT3', 'SwarmCharge', 255, 1);
+			handler.InjectSpawn('PB_RocketBoxSpawnerT4', 'SwarmCharge', 255, 1);
+			
+			handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ElecPod', 255, 1);
+			handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ElecPod', 255, 1);
+    	}
+	}
 }
 
 //Misc
 // Do we even need this??? I just moved it from the zscript file
 // There's not even a CVAR for it
-class PB_DemontechRifleSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-		handler.InjectSpawn('PB_MGSpawnerT3', 'PB_Demontech', 255, 1);
-	}
-}
+// class PB_DemontechRifleSpawnerInjector : PBInjector
+// {
+// 	override void Init(PB_EventHandler handler)
+// 	{
+// 		handler.InjectSpawn('PB_MGSpawnerT3', 'PB_Demontech', 255, 1);
+// 	}
+// }
 //ShieldSaw =======================================================================================
 class Shielsawammo_Injector : PBInjector
 {
@@ -1256,3 +1259,90 @@ class BladeAmmo_Injector : PBInjector
 }
 
 //ShieldSaw End ===================================================================================
+
+// Melees
+class MeleeSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (MeleeSpawn)
+		{
+		// Katama
+		handler.InjectSpawn('PB_SawSpawnerT1', 'KatanaPickup', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT2', 'KatanaPickup', 255, 1);
+
+		handler.InjectSpawn('PB_PackSpawnerT1', 'KatanaPickup', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'KatanaPickup', 255, 1);
+
+		// Demonic Sword (Katana Upgrade)
+		handler.InjectSpawn('PB_SawSpawnerT3', 'DemonicSword', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'DemonicSword', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'DemonicSword', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'DemonicSword', 255, 1);
+
+		// Pickaxe
+		handler.InjectSpawn('PB_SawSpawnerT1', 'PickAxePickup', 255, 1);
+
+		// Impactor
+		handler.InjectSpawn('PB_SawSpawnerT3', 'ImpactorChargesPickup', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'ImpactorChargesPickup', 255, 1);
+
+		handler.InjectSpawn('PB_PackSpawnerT1', 'ImpactorChargesPickup', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'ImpactorChargesPickup', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ImpactorChargesPickup', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ImpactorChargesPickup', 255, 1);
+		
+		// Claw
+		handler.InjectSpawn('PB_SawSpawnerT3', 'ClawChargesPickup', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'ClawChargesPickup', 255, 1);
+
+		handler.InjectSpawn('PB_PackSpawnerT1', 'ClawChargesPickup', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'ClawChargesPickup', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ClawChargesPickup', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ClawChargesPickup', 255, 1);
+
+		// SentinelHammer
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'SentinelHammerChargePickup', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'SentinelHammerChargePickup', 255, 1);
+
+		// Johnny Hands
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'JohnnyHandsPickup', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'JohnnyHandsPickup', 255, 1);
+
+		// Wrench
+		handler.InjectSpawn('PB_SawSpawnerT1', 'Wrench', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT2', 'Wrench', 255, 1);
+
+		handler.InjectSpawn('PB_PackSpawnerT1', 'Wrench', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'Wrench', 255, 1);
+
+		// Crowbar 
+		handler.InjectSpawn('PB_SawSpawnerT1', 'Crowbar', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT2', 'Crowbar', 255, 1);
+
+		handler.InjectSpawn('PB_PackSpawnerT1', 'Crowbar', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'Crowbar', 255, 1);
+
+		// SLedgeHammer
+		handler.InjectSpawn('PB_SawSpawnerT1', 'SledgeHammer', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT2', 'SledgeHammer', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT3', 'SledgeHammer', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'SledgeHammer', 255, 1);
+
+		handler.InjectSpawn('PB_PackSpawnerT1', 'SledgeHammer', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'SledgeHammer', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'SledgeHammer', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'SledgeHammer', 255, 1);
+
+		// ShockBaton
+		handler.InjectSpawn('PB_SawSpawnerT3', 'ShockBaton', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'ShockBaton', 255, 1);
+
+		handler.InjectSpawn('PB_PackSpawnerT1', 'ShockBaton', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'ShockBaton', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ShockBaton', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ShockBaton', 255, 1);
+
+		}
+	}
+}

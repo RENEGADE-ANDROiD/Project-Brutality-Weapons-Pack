@@ -1,21 +1,4 @@
 ///DEMONIC SWORD////////////////////////////////////////////////////////////////////
-ACTOR DemonicSword : CustomInventory {
-	Game Doom
-	Inventory.PickupSound "AXSWING"
-	Inventory.PickupMessage "Demonic Sword"
-	Scale 0.7
-	+Inventory.AlwaysPickUp
-	+FLOORCLIP
-	+DONTGIB
-		States {
-			Spawn:
-				6KAT A -1 
-				Stop
-			Pickup:
-				TNT1 A 0 A_GiveInventory ("PB_DTech",40)
-                TNT1 A 0 A_GiveInventory ("HasDemonicKatana",1)
-				Stop	}}
-	
 actor HasDemonicKatana : inventory {
     Game Doom
     Inventory.Amount 1
