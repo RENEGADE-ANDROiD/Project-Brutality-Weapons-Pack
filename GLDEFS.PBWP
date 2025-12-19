@@ -18,6 +18,116 @@ PulseLight GOLDPULSE
 	Offset 0 0 0
 }
 
+//God Complex
+FLICKERLIGHT BigELegLight
+{
+color 1 0 0
+OffSet 0 0 0
+size 85
+SecondarySize 105
+Chance 0.2
+}
+
+OBJECT PlayerEnragedGuruBall
+{
+Frame EBAL { Light BigELegLight }
+}
+
+
+FLICKERLIGHT MediumELegLight
+{
+Color 1 0 0
+OffSet 0 0 0
+Size 82
+SecondarySize 102
+Chance 0.2
+}
+
+OBJECT PlayerEnragedMiniguruball
+{
+Frame EBAL { Light MediumELegLight }
+}
+
+FLICKERLIGHT BigWhiteLight
+{
+Color 1.0 1.0 1.0
+size 180
+SecondarySize 200
+Chance 0.2
+}
+
+pulselight RedDarkMatterLight 
+{
+color 0.8 0.0 0.0
+size 70
+secondarySize 90
+interval 0.7
+Subtractive 90
+}
+
+
+Object PlayerMainyuSwordProjectile
+{
+Frame TNT1 { Light BigWhiteLight }
+}
+
+Object PlayerMainyuRedDarkMatter
+{
+Frame DMGB { Light RedDarkMatterLight }
+Frame TNT1 { Light RedDarkMatterLight }
+}
+
+FLICKERLIGHT FuckingAtrociouslyLargeWhiteLight
+{
+Color 1.0 1.0 1.0
+Size 380
+SecondarySize 400
+Chance 0.2
+}
+
+
+OBJECT PlayerNemesisGuruBall
+{
+Frame CLBB { Light FuckingAtrociouslyLargeWhiteLight }
+}
+
+OBJECT PlayerMiniNemesisBFGBall
+{
+Frame CLBB { Light BigWhiteLight }
+}
+
+OBJECT NemesisPlayerBouncyBFG
+{
+Frame CLBB { Light BigWhiteLight }
+}
+
+
+pulselight NEMESISBEAM
+{
+color 1.0 1.0 1.0
+size 36
+secondarySize 192
+interval 0.575
+}
+
+object NemesisBFGBeamTrail
+{
+frame NEMF { light NEMESISBEAM }
+}
+
+pulselight NEMESISHIT
+{
+color 1.0 1.0 1.0
+size 32
+secondarySize 256
+interval 0.65
+}
+
+object NemesisBFGBeamHit
+{
+frame NBOM { light NEMESISHIT }
+}
+
 //LoR CalamityBlade
 flickerlight IncineratorFire0
 {

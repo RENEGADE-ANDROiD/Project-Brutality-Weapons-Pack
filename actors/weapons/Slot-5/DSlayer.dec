@@ -201,7 +201,7 @@ Fire:
 	SLBY E 1 offset(-33, 33) 
 	SLBY E 1 offset(-32, 32) 
 	SLBY E 1 offset(-33, 33)
-	TNT1 A 0 A_BDPmelee
+	TNT1 A 0 A_BDPMelee(200, "NULL", -7, TRUE)
 	TNT1 A 0 A_Quake(3, 10, 0, 10)
 	SLBY F 1 A_PlaySound("Weapons/Slayerswing", 1)
 	SLBY F 0 A_FireProjectile("FireballBlocker", 0, 0, 0, -7, 0)
@@ -287,7 +287,7 @@ HasNailgunAmmoRefire:
 		}
 		Return State("");
 	}
-	  TNT1 A 0 A_BDPmelee
+	  TNT1 A 0 A_BDPMelee(200, "NULL", -7, TRUE)
 	  TNT1 A 0 A_PlaySound("GRENEXPL",CHAN_AUTO)
 	  TNT1 A 0 { 
 		   A_Quake(3, 10, 0, 10);

@@ -77,8 +77,37 @@ Script "BuyQuad" (Void) {
 BuySomething(1000, "DoubleSphere", 1);
 }
 
+//God Complex
+Script "BuyPB_SBSword" (Void) {
+BuySomething(500, "PB_SBSword", 1);
+}
+Script "BuyLegendaryChainsaw" (Void) {
+BuySomething(1000, "LegendaryChainsaw", 1);
+}
+Script "BuyNemesisLMG" (Void) {
+BuySomething(1000, "NemesisLMG", 1);
+}
+Script "BuyLegendaryAssaultShotgun" (Void) {
+BuySomething(2000, "LegendaryAssaultShotgun", 1);
+}
+Script "BuyLegendaryPlasmaticRifle" (Void) {
+BuySomething(3000, "LegendaryPlasmaticRifle", 1);
+}
+Script "BuyDevastador" (Void) {
+BuySomething(3000, "Devastador", 1);
+}
+Script "BuyNemesisBFG" (Void) {
+BuySomething(3000, "NemesisBFG", 1);
+}
+Script "BuyEnragedLegendaryBFG" (Void) {
+BuySomething(5000, "EnragedLegendaryBFG", 1);
+}
+Script "BuyGodEnragedBFG" (Void) {
+BuySomething(5000, "GodEnragedBFG", 1);
+}
+
 // New weapon buy scripts
-Script "BuyBeamKatana" (Void) {
+Script "BuyPB_BeamKatana" (Void) {
 BuySomething(500, "PB_BeamKatana", 1);
 }
 
@@ -314,11 +343,11 @@ Script "BuyDemonTechMinigun" (Void) {
 BuySomething(800, "DemonTechMinigun", 1);
 }
 
-Script "BuyLegacyUnmaker" (Void) {
+Script "BuyPB_LegacyUnmaker" (Void) {
 BuySomething(1200, "PB_LegacyUnmaker", 1);
 }
 
-Script "BuyDemonicExterminator" (Void) {
+Script "BuyPB_DemonExt" (Void) {
 BuySomething(1500, "PB_DemonExt", 1);
 }
 

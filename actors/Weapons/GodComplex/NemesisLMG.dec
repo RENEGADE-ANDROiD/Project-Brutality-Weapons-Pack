@@ -1,0 +1,604 @@
+ACTOR NemesisLMG : PBWP_Weapon
+{
+   Height 14
+   Weapon.SelectionOrder 7980
+   Weapon.KickBack 60
+   Weapon.AmmoGive2 50
+   Weapon.AmmoUse 0
+   Weapon.AmmoUse2 0
+   Weapon.AmmoType "PB_HighCalMag"
+   Weapon.AmmoType2 "PB_RocketAmmo"
+   Scale 1
+   +WEAPON.NOAUTOFIRE
+   +WEAPON.NOAUTOAIM
+   +WEAPON.AMMO_OPTIONAL 
+   +WEAPON.ALT_AMMO_OPTIONAL 
+   -INVENTORY.UNDROPPABLE
+  Weapon.SlotNumber 4
+  Weapon.SlotPriority 0.3
+  Inventory.PickupSound "NemLMG/Pickup"
+  Inventory.PickupMessage "Oh Great The Nemesis Explosive Rifle. Wait when was this added to CF?! Tonyn. Do. It."
+  Obituary "%o regrets lots of things"
+  Tag "Nemesis Explosive Rifle"
+  States
+  {
+  Spawn:
+	UVLG A -1
+	Loop
+  Steady:
+	TNT1 A 0
+	Goto Ready
+  Ready:
+    TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+	TNT1 A 0 A_PlaySound("NemLMG/Ready",7)
+	UVMP ABCDEFGHHHHHHHIJ 1
+	UVMP KL 1
+  Ready3:
+  ReadyLoop:
+	TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+	UVMG A 5 A_DoPBWeaponAction
+	Loop
+  Deselect:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	UVMG A 1 A_Lower
+	Wait
+  Select:
+	TNT1 A 0 A_TakeInventory("HasBarrel",1)
+	TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+	TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+	TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+	TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+	TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+	Goto SelectFirstPersonLegs
+  SelectContinue:
+	TNT1 A 0
+	TNT1 A 0 A_Raise
+	Wait
+  Fire:	
+			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+			TNT1 A 0 {
+				 A_WeaponOffset(0,32);
+				 A_SetRoll(0);
+				 PB_HandleCrosshair(75);
+				 A_TakeInventory("PB_LockScreenTilt",1);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+			     }
+	TNT1 A 0 A_JumpIfInventory("NemesisLMGFast",1,"FastFire")
+	TNT1 A 0 A_PlaySound("NemLMG/Charge")
+	UVMG ABC 7
+	UVMG DEFG 1 BRIGHT
+  Hold:
+	TNT1 A 0
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+	TNT1 A 0 A_JumpifInventory("PB_HighCalMag",2,1)
+	TNT1 A 0 A_JumpifInventory("PB_RocketAmmo",1,1)
+	Goto Empty
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+    UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(3,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",5)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,1,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 1 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(3)
+	TNT1 A 0 A_Light0
+	UVMG J 1 Bright //A_ZoomFactor(0.955)
+//	UVMG L 1 Bright A_ZoomFactor(0.965)
+	UVMG M 1 Bright //A_ZoomFactor(1)
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+	TNT1 A 0 A_Refire
+	UVMG N 14
+	TNT1 A 0 A_PlaySound("NemLMG/Ching")
+	UVMP IJKL 2
+	Goto ReadyLoop
+FastFire:
+	TNT1 A 0 A_PlaySound("NemLMG/Charge")
+	UVMG ABC 3
+	UVMG DEFG 1 BRIGHT
+ HoldII:
+	TNT1 A 0
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+	TNT1 A 0 A_JumpifInventory("PB_HighCalMag",2,1)
+	TNT1 A 0 A_JumpifInventory("PB_RocketAmmo",1,1)
+	Goto Empty
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+    UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(3,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",5)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,1,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 1 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(3)
+	TNT1 A 0 A_Light0
+	UVMG J 1 Bright //A_ZoomFactor(0.955)
+//	UVMG L 1 Bright A_ZoomFactor(0.965)
+	UVMG M 1 Bright //A_ZoomFactor(1)
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+	TNT1 A 0 A_Refire
+	UVMG N 5
+	TNT1 A 0 A_PlaySound("NemLMG/Ching")
+	UVMP IJKL 2
+	Goto ReadyLoop
+ AltFire:	
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	TNT1 A 0 A_JumpIfInventory("NemesisLMGFast",1,"AltFireII")
+	TNT1 A 0 A_TakeInventory("NexusSpread",1)
+ AltContinue:
+	TNT1 A 0 A_PlaySound("NemLMG/Charge")
+	UVMG ABC 7
+	UVMG DEFG 1 BRIGHT
+	TNT1 A 0
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+    UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",5)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 2 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(7)
+
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+	UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",6)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 2 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(7)
+
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+	UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",5)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 2 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(7)
+
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+	UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",6)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 2 BRIGHT
+	TNT1 A 0 A_TakeInventory("NLMGAmmo",1)
+	TNT1 A 0 A_Recoil(7)
+
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+	UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",5)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 2 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(7)
+
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+	UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",6)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 2 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(7)
+
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+	UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",5)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 4 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(50)
+	TNT1 A 0 A_GiveInventory("NemesisDebuffUV",1)
+	
+	TNT1 A 0 A_Light0
+	UVMG J 3 Bright A_ZoomFactor(0.950)
+	UVMG L 3 Bright A_ZoomFactor(0.965)
+	UVMG M 2 Bright A_ZoomFactor(0.975)
+	UVMG N 2 Bright A_ZoomFactor(1)
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+	UVMG O 3
+	UVMP I 15
+	TNT1 A 0 A_PlaySound("NemLMG/Ching")
+	TNT1 A 0 A_GiveInventory("NexusSpread",1)
+	UVMP IJKL 3
+	Goto ReadyLoop
+ AltFireII:
+	TNT1 A 0 A_PlaySound("NemLMG/Charge")
+	UVMG ABC 3
+	UVMG DEFG 1 BRIGHT
+	TNT1 A 0
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+    UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",5)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 2 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(7)
+
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+	UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",6)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 2 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(7)
+
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+	UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",5)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 2 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(7)
+
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+	UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",6)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 2 BRIGHT
+	TNT1 A 0 A_TakeInventory("NLMGAmmo",1)
+	TNT1 A 0 A_Recoil(7)
+
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+	UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",5)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 2 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(7)
+
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+	UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",6)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 2 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(7)
+
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+    TNT1 A 0 A_AlertMonsters	
+	TNT1 A 0 A_GunFlash
+	UVMG H 1 BRIGHT
+	TNT1 A 0 Radius_Quake(4,3,0,1,0)
+	TNT1 A 0 A_Light1
+	TNT1 A 0 A_PlaySound("NemLMG/Fire",5)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
+	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
+	UVMG I 4 BRIGHT
+	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+    TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_Recoil(50)
+	TNT1 A 0 A_GiveInventory("NemesisDebuffUV",1)
+	
+	TNT1 A 0 A_Light0
+	UVMG J 3 Bright A_ZoomFactor(0.950)
+	UVMG L 3 Bright A_ZoomFactor(0.965)
+	UVMG M 2 Bright A_ZoomFactor(0.975)
+	UVMG N 2 Bright A_ZoomFactor(1)
+	TNT1 A 0 A_JumpIfNoAmmo("Empty")
+	UVMG O 3
+	UVMP I 5
+	TNT1 A 0 A_PlaySound("NemLMG/Ching")
+	TNT1 A 0 A_GiveInventory("NexusSpread",1)
+	UVMP IJKL 3
+	Goto ReadyLoop
+ Empty:
+	TNT1 A 0
+	TNT1 A 0 A_PlaySound("NemLMG/Empty")
+	UVMG CCBBBBAA 2
+	UVMG A 4
+	Goto ReadyLoop
+	
+  Reload:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("HasBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("HasFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("HasIceBarrel", 1, "IdleIceBarrel")
+		Goto Ready3
+	
+ WeaponSpecial:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+	TNT1 A 0 A_PlaySound("NemLMG/Empty")
+	TNT1 A 0 A_Print("Seems Tonyn need only Having one Not Having this Weapons.")
+	UVMG CCBBBBAA 2
+	UVMG A 4
+	TNT1 A 0 A_PlaySound("NOUPGRD")
+	Goto Ready3
+	
+	FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		UVMP FEDCBAAAAABCDEF 1
+		TNT1 A 0 A_PlaySound("NemLMG/Ready",7)
+		UVMP GHIJKL 1
+		Goto Ready3
+		
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+		UVMP FEDCBAAAAABCDEF 1
+		TNT1 A 0 A_PlaySound("NemLMG/Ready",7)
+		UVMP GHIJKL 1
+		Goto Ready3
+		
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		UVMP FFEEDDCCBBAAAAAAAAAABCDEF 1
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_PlaySound("NemLMG/Ready",7)
+	UVMP GHIJKL 1
+		Goto Ready3
+	
+	}
+}
+
+Actor NemesisDebuffUV : PowerSpeed
+{
+Speed 0.3
+PowerUp.Duration -2
+Powerup.Color black 0.2
+}
+
+ACTOR NemLMGProj : FastProjectile
+{
+  Radius 6
+  Speed 60
+  Height 6
+  damage 120
+  Scale 0.3
+  RenderStyle Add
+  Projectile
+  +RIPPER
+  +STRIFEDAMAGE
+  +FORCEXYBILLBOARD
+  +NOTIMEFREEZE
+  +THRUSPECIES
+  +NODAMAGETHRUST
+  Damagetype "Plasma"
+  DeathSound "weapons/demontechex"
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	TNT1 A 0 A_SpawnItemEx("NemesisBFGProjectileTrail1",0,0,0,frandom(-1,1),frandom(-1,1),frandom(-1,1))
+	CLBA D 1 A_Explode(10,60,0,0)
+    Loop
+  Death:
+	TNT1 A 0
+	TNT1 A 0 A_Explode(64,64,0,1)
+	NPLE ABCDEF 1
+    TNT1 A 10 Bright
+    Stop
+  }
+}
+
+ACTOR NemLMGProjII : FastProjectile
+{
+  Radius 6
+  Speed 60
+  Height 6
+  damage 100
+  Scale 0.3
+  RenderStyle Add
+  Projectile
+  +RIPPER
+  +STRIFEDAMAGE
+  +FORCEXYBILLBOARD
+  +NOTIMEFREEZE
+  +THRUSPECIES
+  +NODAMAGETHRUST
+  Damagetype "Explosive"
+  DeathSound "weapons/demontechex"
+  States
+  {
+  Spawn:
+	TNT1 A 0
+	CLBA D 1 A_Explode(10,60,0,0)
+    Loop
+  Death:
+	TNT1 A 0
+	TNT1 A 0 A_Explode(128,128,0,1)
+	NBX0 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1
+    TNT1 A 10 Bright
+    Stop
+  }
+}
+
+ACTOR NemesisRune_LMG : CustomInventory
+{
++FloatBob
++DONTGIB
++Inventory.InvBar
++Inventory.PickupFlash
++Inventory.FancyPickupSound
++INVENTORY.HUBPOWER
++INVENTORY.PERSISTENTPOWER
++Inventory.AUTOACTIVATE
+Inventory.Amount 1
+Inventory.MaxAmount 1
+Inventory.Icon "NMRZF0"
+ActiveSound "NemRune/IdleUV"
+//Inventory.PickupSound "NemRune/PickupUV"
+Inventory.PickupMessage "\c[w2]Nemesis Rune! Awaken Nemesis weapons. Also drains HEALTH/ARMOR to 500/500 while active."
+States
+	{
+	Spawn:
+		TNT1 A 0 A_PlaySound("NemRune/IdleUV",7,1.0,1)
+		NMRZ ABC 4 Bright
+		NMRZ DED 4 Bright 
+		NMRZ CBA 4 Bright 
+		Loop
+	Pickup:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("NemRune/PickupUV", 8)
+		TNT1 A 0 A_PlaySound("NemRune/PickupLMG", 9)
+		TNT1 A 0 A_GiveInventory("NemesisHealth", 1)
+		TNT1 A 0 A_GiveInventory("NemesisArmor", 1)
+		TNT1 A 0 A_Print("You founds some.... Your Eternity of Death Cyberdemon... LMG is Now Fast Firing")
+		TNT1 A 0 A_GiveInventory("NemesisLMGFast")
+		TNT1 A 1 A_StopSound(7)
+		Stop
+	}
+}
+
+Actor NemesisLMGFast : Inventory { Inventory.MaxAmount 1 }
+
+Actor NemesisRuneLMGSpawnerII : PB_Annihilator Replaces PB_Annihilator
+{
+	DropItem "CyberdemonsMissileLauncher", 64
+	Dropitem "NemesisRune_LMG", 64
+	Dropitem "NemesisBFG", 64
+	Dropitem "NemesisLMG", 64
+}
+
+Actor NemesisRuneLMGSpawnerII : PB_Cyberdemon Replaces PB_Cyberdemon
+{
+	DropItem "CyberdemonsMissileLauncher", 64
+	Dropitem "NemesisRune_LMG", 64
+	Dropitem "NemesisBFG", 64
+	Dropitem "NemesisLMG", 64
+}
+
+ACTOR NemesisHealth : Health
+{
+	Game Doom
+	SpawnID 152
+	+COUNTITEM
+	+FLOORCLIP
+	+DONTGIB
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.Amount 1200
+	Inventory.MaxAmount 1200
+	Inventory.PickupMessage ""
+	Inventory.PickUpSound ""
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		Loop
+	}
+}
+
+Actor NemesisArmor : BasicArmorBonus
+{
+	Game Doom
+	SpawnID 22
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up an armor bonus."
+	Inventory.Icon "BON2D0"
+	Armor.Savepercent 100
+	Armor.Saveamount 1200
+	Armor.Maxsaveamount 1200
+	+COUNTITEM
+	+FLOORCLIP
+	+DONTGIB
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.PickUpSound "items/bonus2"
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		Loop
+	}
+}

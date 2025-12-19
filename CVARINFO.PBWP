@@ -101,6 +101,16 @@ server bool PBSpawnTechBlaster = True;
 server bool PBSpawnPB_DemonExt = True;
 server bool PBSpawnDemonTechMinigun = True;
 server bool PBSpawnPhaseEradicatorBFG = True;
+//God Complex
+server bool PBSpawnDevastador = True;
+server bool PBSpawnEnragedLegendaryBFG = True;
+server bool PBSpawnGodEnragedBFG = True;
+server bool PBSpawnLegendaryAssaultShotgun = True;
+server bool PBSpawnLegendaryChainsaw = True;
+server bool PBSpawnLegendaryPlasmaticRifle = True;
+server bool PBSpawnNemesisBFG = True;
+server bool PBSpawnNemesisLMG = True;
+server bool PBSpawnPB_SBSword = True;
 
 //===============================================
 // Specials

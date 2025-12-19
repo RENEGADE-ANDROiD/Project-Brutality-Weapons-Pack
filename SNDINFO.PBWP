@@ -3408,3 +3408,537 @@ $limit world/lavasizzle 2
 
 //Ice
 ICEBRK1 ICEBRK1
+
+//GOD COMPLEX
+//Enraged Stuffed
+EnragedDTech/Fire       EDTFIRE
+Weapons/GuruUp		    GURUUP
+Weapons/GuruTrigger	    GURUTRIG
+truelegbfg/charge	    TLBFCHRG
+truelegbfg/fire		    TLBFFIRE
+truelegbfg/fire2	    TLBFFIR2
+weapons/dtech10kcharge  DSDTBCH
+weapons/plasmacellin    DSPLCIN
+Weapons/GuruFly		    GURUFLY
+Weapons/GuruBlast3	    GURUBLS2
+
+$random legstorm/explode {legstorm/explode0 legstorm/explode1 legstorm/explode2 legstorm/explode3 legstorm/explode4 legstorm/explode5 legstorm/explode6 legstorm/explode8 legstorm/explode9}
+legstorm/explode0	GURUSTR0
+legstorm/explode1	GURUSTR1
+legstorm/explode2	GURUSTR2
+legstorm/explode3	GURUSTR3
+legstorm/explode4	GURUSTR4
+legstorm/explode5	GURUSTR5
+legstorm/explode6	GURUSTR6
+legstorm/explode8	GURUSTR8
+legstorm/explode9	GURUSTR9
+$rolloff legstorm/explode 1200 3000
+
+world/quake			dsnull
+EBFG/Pickup				EBFGPIC1
+EBFG/Idle				EBFGIDL1
+EBFG/Trigger			EBFGTRI1
+Weapons/GuruFly		GURUFLY
+Weapons/GuruBlast3	GURUBLS2
+weapons/dtech10kball	DSDTBBL
+
+$rolloff weapons/dtech10kexplode 1000 2400
+weapons/dtech10kexplode DSDTBEX
+
+$rolloff BFG9K/Explode 800 2200
+BFG9K/Explode			DSBFG9EX
+
+EBFG/AltRing			ENMABFG1
+$rolloff EBFG/AltRing	 2000 3500
+
+EBFG/Charge1			EBFGCH1
+$rolloff EBFG/Charge1	 400 2200
+
+EBFG/Fire1				EBFGFIR1
+$rolloff EBFG/Fire1	 400 2200
+
+EBFG/Charge2			EBFGCH2
+$rolloff EBFG/Charge2	 400 2200
+
+EBFG/Fire2				EBFGFIR2
+$rolloff EBFG/Fire2	 400 2200
+
+$random MarauderSlash/Impact { MARLIMP1 MARLIMP2 MARLIMP3 MARLIMP4 }
+MARLIMP1			MARLIMP1
+MARLIMP2			MARLIMP2
+MARLIMP3			MARLIMP3
+MARLIMP4			MARLIMP4
+
+
+//SBSW
+SubSword/Pickup					SUBPKUP
+SubSword/WallHit				SUBWHIT
+legsoul/attack2                 LEGSATK2
+legsoul/explode2                LEGSEXP2
+comet/launch 				    dsfirbfi
+comet/explosion 			    dshellex
+Painlord/Explode1		        SORBLEXP
+Painlord/Explode2		        GRENLX1A
+
+Mainyu/Sword	                MAINSWOR
+$rolloff Mainyu/Sword	600 3000
+
+Mainyu/MeleeHit	                MAINHIT
+$rolloff Mainyu/MeleeHit	600 3000
+
+//Nem
+NemesisBFG/Pickup		NMBFPKUP
+NemesisBFG/Loop			NMBFLOOP
+truelegbfg/trigger		TLBFTRIG
+Weapons/GuruFly		    GURUFLY
+lefrail/active          LNRAIL
+
+bigmissile 		        bigmissi
+
+NemesisBFG/Charge		NMBFCHRG
+$rolloff NemesisBFG/Charge	1000 4000
+NemesisBFG/Fire			NMBFFIRE
+$rolloff NemesisBFG/Fire	3000 9000
+star/fire               starfir
+$rolloff star/fire	600 3000
+Weapons/GuruBlast3	    GURUBLS2
+$rolloff Weapons/GuruBlast3 700 2100
+FANTASYSEAL             FANTASYS
+$limit FANTASYSEAL 20
+
+//Leg
+Leg10k/Draw					LG10UP
+Weapons/GuruIdle	        GURUIDLE
+weapons/bfg15kcooldown	    dsbfg15c
+EnragedDTech/Charge         EDTCHRG
+LesserCardinal/BFGIdle		MCRDIDL
+
+LesserCardinal/BFGFire		MCRDFIR
+$rolloff LesserCardinal/BFGFire	400 2200
+
+$rolloff weapons/charge15k 400 2200
+weapons/charge15k		    dsbfg15k
+
+$rolloff weapons/bfg15kfire 600 2200
+weapons/bfg15kfire		    dsbfg15f
+
+$rolloff weapons/bfg95explode 800 1800
+weapons/bfg95explode	    dsbfg10x
+
+//LMG
+$random NemLMG/Fire	{ NLMGFIR5 NLMGFIR6 }
+$rolloff NemLMG/Fire	1300 2200
+NemLMG/Fire1		NLMGFIR4
+NemLMG/Fire2		NLMGFIR5
+NemLMG/Fire3		NLMGFIR6
+NemLMG/Fire4			NLMGFIR4
+NLMGFIR5			NLMGFIR6
+NLMGFIR6			NLMGFIR6
+$random NemLMG/AltFire { NLMGALT1 NLMGALT2 }
+$rolloff NemLMG/AltFire	1300 2200
+NLMGALT1			NLMGALT1
+NLMGALT2			NLMGALT2
+
+NemLMG/Charge		NLMGCHR1
+$rolloff NemLMG/Charge	400 2200
+//------
+NemLMG/Ready		NLMGPKU1
+NemLMG/Pickup		NLMGPKU2
+NemLMG/Empty		NLMGEMT1
+NemLMG/Ching		NLMCHNG1
+
+//NemesisRune
+NemRune/IdleUV			NEMIDLE1
+NemRune/PickupUV		NEMPKUP1
+NemRune/PickupLMG     BERSPKUP
+
+//
+// Theirs Brutal Complex
+//
+
+//Legendary Chainsaw Zombie
+weapons/legChainSawIdle		LCHSIDLE
+weapons/legChainSawAttack	LCHSATK
+
+LegChainsawZomb/sight LCZSEE
+LegChainsawZomb/Active LCZACT
+LegChainsawZomb/Pain LCZPAIN
+LegChainsawZomb/Death LCZDEATH
+
+//Legendary ASG
+$random Weapons/LegAutoShotgun { XSG1 XSG2 XSG3 XSG4 }
+XSG1 LASGFIR1
+XSG2 LASGFIR2
+XSG3 LASGFIR3
+XSG4 LASGFIR4
+
+CHNFIR1 CHNFIR1
+CHNFIR2 CHNFIR2
+CHNEND2 CHNEND2
+
+BLFIRE01 BLFIRE01
+BCHARGE BCHARGE
+CHRGLOAD CHRGLOAD
+CHRGCLIC CHRGCLIC
+CHARGDF1 CHARGDF1
+
+//BFG2704 From Doom Press-Release
+BFG2704/Select     BFGDVA
+BFG2704/Charge		BF27CHRG
+BFG2704/Fire		BF27FIRE
+BFG2704/See         DEVASFLY
+BFG2704/FireLoop	BF27LOOP
+BFG2704/FireEnd		BF27END
+BFG2704/AltFire		BF27AFIR
+BFG2704/ClusterHit	BF27CHIT
+BFG2704/Death       DEVEXP
+
+EnragedDTech/Fire       EDTFIRE
+Weapons/GuruUp		    GURUUP
+Weapons/GuruTrigger	    GURUTRIG
+truelegbfg/charge	    TLBFCHRG
+truelegbfg/fire		    TLBFFIRE
+truelegbfg/fire2	    TLBFFIR2
+weapons/dtech10kcharge  DSDTBCH
+weapons/plasmacellin    DSPLCIN
+Weapons/GuruFly		    GURUFLY
+Weapons/GuruBlast3	    GURUBLS2
+
+$random legstorm/explode {legstorm/explode0 legstorm/explode1 legstorm/explode2 legstorm/explode3 legstorm/explode4 legstorm/explode5 legstorm/explode6 legstorm/explode8 legstorm/explode9}
+legstorm/explode0	GURUSTR0
+legstorm/explode1	GURUSTR1
+legstorm/explode2	GURUSTR2
+legstorm/explode3	GURUSTR3
+legstorm/explode4	GURUSTR4
+legstorm/explode5	GURUSTR5
+legstorm/explode6	GURUSTR6
+legstorm/explode8	GURUSTR8
+legstorm/explode9	GURUSTR9
+$rolloff legstorm/explode 1200 3000
+
+BDTRF1 BDTRF1
+BDTRF2 BDTRF2
+BDTRF3 BDTRF3
+DISINCANT DISINCANT
+DSSPIRIT1 DSSPIRIT1
+TBBCSPT2 TBBCSPT2
+TBBSEE1 TBBSEE1
+TBBPAIN1 TBBPAIN1
+TBBPAIN2 TBBPAIN2
+TBBPAIN3 TBBPAIN3
+TBBPAIN4 TBBPAIN4
+TBBPAIN5 TBBPAIN5
+TBBPAIN6 TBBPAIN6
+TBBPAIN7 TBBPAIN7
+TBBDIES TBBDIES
+TBBCSPT1 TBBCSPT1
+GURUCHRG GURUCHRG
+LPRAMMO1 LPRAMMO1
+LPRAMMO2 LPRAMMO2
+DECHST DECHST
+legimp/chargingsound MAHLAZR
+legimp/fiyabetch DSPRTXPL
+weapons/legrifidle KSAWIDLE
+weapons/legriflereload LRIFLERL
+weapons/legup LRIFUP
+weapons/iceshot2	FROSTY2
+weapons/icehit2		SHARDS1B
+weapons/freezeup FREEZEUP
+items/legendaryammo LPRAMMO1
+items/legendaryammopack LPRAMMO2
+freeze/pickup 	NGPKUP
+freeze/up		SR-PKUP
+freeze/altfire 	RIPPSGAF
+freeze/althold 	RIPPSGAL
+freeze/altstop 	ALTRACK
+$random BlueDTRFire { BDTRF1 BDTRF2 BDTRF3 }
+$Volume BDTRF3 5.0
+$Volume BDTRF1 5.0
+$Volume BDTRF2 5.0
+
+$Volume KSWIDLE 5.0
+
+DSD3 DSD3
+
+QSHFIRE QSHFIRE
+//BFG2704 From Doom Press-Release
+BFG2704/Select     BFGDVA
+BFG2704/Charge		BF27CHRG
+BFG2704/Fire		BF27FIRE
+BFG2704/See         DEVASFLY
+BFG2704/FireLoop	BF27LOOP
+BFG2704/FireEnd		BF27END
+BFG2704/AltFire		BF27AFIR
+BFG2704/ClusterHit	BF27CHIT
+BFG2704/Death       DEVEXP
+
+
+//GaussCannon
+GCANFIR GCANFIR
+
+
+//Commander Shotgun
+CSSGOPEN CSSGOPEN
+CSSGCLOS CSSGCLOS
+CSSGSNGL CSSGSNGL
+CSSGFULL CSSGFULL
+CSSGSLGS CSSGSLGS
+CSSGSLGF CSSGSLGF
+CSSGDBS CSSGDBS
+CSSGDBF CSSGDBF
+COMSSGUP COMSSGUP
+
+$random FLAKFIRE { SSALT1 SSALT2 SSALT3}
+SSALT1	SSALT1
+SSALT2	SSALT2
+SSALT3	SSALT3
+
+$random SSGFIRE { SSHFIRE0 SSHFIRE2 SSHFIRE3 }
+SSHFIRE0 SSHFIRE0
+SSHFIRE2 SSHFIRE2
+SSHFIRE3 SSHFIRE3
+
+$random weapons/shh2 { SSGAlt1 SSGAlt2 SSGAlt3 }
+SSGAlt1 shfire1
+SSGAlt2 shfire2
+SSGAlt3 shfire3
+
+weapons/ssg/open	SSGOPEN
+weapons/ssg/close	SSGCLOSE
+weapons/ssg/in		SSGIN
+
+//Flechette impact sounds from Counter-Strike: Global Offensive.
+$random weapons/flechette_hit { flechette_hit1 flechette_hit2 flechette_hit3 flechette_hit4 }
+flechette_hit1 FLCHHIT1
+flechette_hit2 FLCHHIT2
+flechette_hit3 FLCHHIT3
+flechette_hit4 FLCHHIT4
+
+Leg10k/Draw					LG10UP
+Weapons/GuruIdle	        GURUIDLE
+weapons/bfg15kcooldown	    dsbfg15c
+EnragedDTech/Charge         EDTCHRG
+LesserCardinal/BFGIdle		MCRDIDL
+
+LesserCardinal/BFGFire		MCRDFIR
+$rolloff LesserCardinal/BFGFire	400 2200
+
+$rolloff weapons/charge15k 400 2200
+weapons/charge15k		    dsbfg15k
+
+$rolloff weapons/bfg15kfire 600 2200
+weapons/bfg15kfire		    dsbfg15f
+
+$rolloff weapons/bfg95explode 800 1800
+weapons/bfg95explode	    dsbfg10x
+
+NemesisBFG/Pickup		NMBFPKUP
+NemesisBFG/Loop			NMBFLOOP
+truelegbfg/trigger		TLBFTRIG
+Weapons/GuruFly		    GURUFLY
+lefrail/active          LNRAIL
+
+bigmissile 		        bigmissi
+
+NemesisBFG/Charge		NMBFCHRG
+$rolloff NemesisBFG/Charge	1000 4000
+NemesisBFG/Fire			NMBFFIRE
+$rolloff NemesisBFG/Fire	3000 9000
+star/fire               starfir
+$rolloff star/fire	600 3000
+Weapons/GuruBlast3	    GURUBLS2
+$rolloff Weapons/GuruBlast3 700 2100
+FANTASYSEAL             FANTASYS
+$limit FANTASYSEAL 20
+Weapons/BFSG/Charge    8FSGCHRG
+Weapons/BFGG/Up        8FGGSPIN
+Weapons/BFSG/Fire      8FSGFIRE
+Weapons/BFGG/Down      8FGGDOWN
+Leech/Fire	           DSLEECH
+
+DSREPSTM DSREPSTM
+mbfgsh   mbfgsh
+BMCHARG  BMCHARG
+BGFLMBL  BGFLMBL
+9KEXPL   9KEXPL
+SEEKER   SEEKER
+
+
+weapons/napalmcannon_up   NPLMUP
+REVOPEN REVOPEN
+REVINSRT REVINSRT
+REVFLY REVFLY
+REVFIRE1 REVFIRE1 
+REVFIRE2 REVFIRE2
+REVCLOSE REVCLOSE
+REVCOCK REVCOCK
+REVDRY REVDRY
+//Heavy MachineGun
+DSD3SI1 DSD3SI1
+MGCLAC MGCLAC
+CHAIN1 CHAIN1
+
+//Legendary Chainsaw Zombie
+weapons/legChainSawIdle		LCHSIDLE
+weapons/legChainSawAttack	LCHSATK
+
+LegChainsawZomb/sight LCZSEE
+LegChainsawZomb/Active LCZACT
+LegChainsawZomb/Pain LCZPAIN
+LegChainsawZomb/Death LCZDEATH
+
+//Legendary ASG
+$random Weapons/LegAutoShotgun { XSG1 XSG2 XSG3 XSG4 }
+XSG1 LASGFIR1
+XSG2 LASGFIR2
+XSG3 LASGFIR3
+XSG4 LASGFIR4
+
+CHNFIR1 CHNFIR1
+CHNFIR2 CHNFIR2
+CHNEND2 CHNEND2
+
+BLFIRE01 BLFIRE01
+BCHARGE BCHARGE
+CHRGLOAD CHRGLOAD
+CHRGCLIC CHRGCLIC
+CHARGDF1 CHARGDF1
+
+//DemonTech
+Weapons/Demontech/Fire 6ECHFIRE
+Weapons/Demontech/XFire 6XCHFIRE
+Weapons/Demontech/Explode 6ECHXPL1
+Weapons/Demontech/Load 6ECHLOAD
+Weapons/Demontech/Eject 6ECHEJCT
+Weapons/Demontech/Click 6ECHCLIK
+Weapons/Demontech/Steam 6ECHSTEM
+Weapons/Demontech/Mode 6ECHMODE
+Weapons/Demontech/Crash 6XCHCRSH
+HRCharge HRCHRG
+HRSteam HREXH
+HRReady HRRDY
+HRPickup HRPCK
+HRFire HRFRE
+HRFire2 HRFRE2
+HRSwitch HRSWI
+HellPickup HELLPK
+Hellclip HELLCLIP
+HRFire2 BLASTR
+Shrink	DSSHRINK
+Shrinker  SHRINKR
+DTCHHUM	DTCHHUM
+
+//Grenade
+RCKCLIP2 RCKCLIP2
+
+EnragedDTech/Fire       EDTFIRE
+Weapons/GuruUp		    GURUUP
+Weapons/GuruTrigger	    GURUTRIG
+truelegbfg/charge	    TLBFCHRG
+truelegbfg/fire		    TLBFFIRE
+truelegbfg/fire2	    TLBFFIR2
+weapons/dtech10kcharge  DSDTBCH
+weapons/plasmacellin    DSPLCIN
+Weapons/GuruFly		    GURUFLY
+Weapons/GuruBlast3	    GURUBLS2
+
+$random legstorm/explode {legstorm/explode0 legstorm/explode1 legstorm/explode2 legstorm/explode3 legstorm/explode4 legstorm/explode5 legstorm/explode6 legstorm/explode8 legstorm/explode9}
+legstorm/explode0	GURUSTR0
+legstorm/explode1	GURUSTR1
+legstorm/explode2	GURUSTR2
+legstorm/explode3	GURUSTR3
+legstorm/explode4	GURUSTR4
+legstorm/explode5	GURUSTR5
+legstorm/explode6	GURUSTR6
+legstorm/explode8	GURUSTR8
+legstorm/explode9	GURUSTR9
+$rolloff legstorm/explode 1200 3000
+
+BDTRF1 BDTRF1
+BDTRF2 BDTRF2
+BDTRF3 BDTRF3
+DISINCANT DISINCANT
+DSSPIRIT1 DSSPIRIT1
+TBBCSPT2 TBBCSPT2
+TBBSEE1 TBBSEE1
+TBBPAIN1 TBBPAIN1
+TBBPAIN2 TBBPAIN2
+TBBPAIN3 TBBPAIN3
+TBBPAIN4 TBBPAIN4
+TBBPAIN5 TBBPAIN5
+TBBPAIN6 TBBPAIN6
+TBBPAIN7 TBBPAIN7
+TBBDIES TBBDIES
+TBBCSPT1 TBBCSPT1
+GURUCHRG GURUCHRG
+LPRAMMO1 LPRAMMO1
+LPRAMMO2 LPRAMMO2
+DECHST DECHST
+legimp/chargingsound MAHLAZR
+legimp/fiyabetch DSPRTXPL
+weapons/legrifidle KSAWIDLE
+weapons/legriflereload LRIFLERL
+weapons/legup LRIFUP
+weapons/iceshot2	FROSTY2
+weapons/icehit2		SHARDS1B
+weapons/freezeup FREEZEUP
+items/legendaryammo LPRAMMO1
+items/legendaryammopack LPRAMMO2
+freeze/pickup 	NGPKUP
+freeze/up		SR-PKUP
+freeze/altfire 	RIPPSGAF
+freeze/althold 	RIPPSGAL
+freeze/altstop 	ALTRACK
+$random BlueDTRFire { BDTRF1 BDTRF2 BDTRF3 }
+$Volume BDTRF3 5.0
+$Volume BDTRF1 5.0
+$Volume BDTRF2 5.0
+
+$Volume KSWIDLE 5.0
+
+DSD3 DSD3
+
+CrossReload CRSBRELD
+CrossFire CRSBFIRE
+CrossSelect CRSBSEL
+CrossLit CRSBLIT
+ARROWHIT ARROWHIT
+
+$rolloff ARROWHIT 500 2000
+SpinSpin MINISHOTSPI
+SpinStop MINISHOTSTO
+SpinStop MINISHOTSTA
+
+BFNMSTART		BFNMSTRT
+BFNMSTOP		BFNMSTOP
+BFNMSPIN		BFNMSPIN
+BFNMBOOM		BFNMBOOM
+
+weapons/incant	                dsincant
+weapons/spirit1                 dsspirt1
+
+RipprPew RipprPew
+RipprSel RipprSel
+RiprSel2 RiprSel2
+// D-BFG
+Weapons/dbfgup       DBFGUP
+Weapons/dbfgready    DBFGRDY
+Weapons/dbfgcharge   DBFGCHRG
+Weapons/dbfgcharge2  DBFGCH2
+Weapons/dbfgfire     DBFGFIRE
+Weapons/dbfgfire2    DBFGFIR2
+Weapons/dbfgball     DBFGBALL
+Weapons/dbfgwave     DBFGWAVE
+Weapons/dbfgexplode  DBFGEX
+Weapons/dbfgexplode2 DBFGEX2
+Weapons/dbfgcooldown DBFGCD
+Weapons/dbfgcooldown2 DBFGCD2
+$rolloff Weapons/dbfgball 256 1280
+$rolloff Weapons/dbfgwave 96 768
+$rolloff Weapons/dbfgcharge 400 2200
+$rolloff Weapons/dbfgcharge2 400 2200
+$rolloff Weapons/dbfgfire 600 2200
+$rolloff Weapons/dbfgfire2 600 2200
+$rolloff Weapons/dbfgexplode 1024 2560
+$rolloff Weapons/dbfgexplode2 800 1800
+$limit Weapons/dbfgexplode2 0

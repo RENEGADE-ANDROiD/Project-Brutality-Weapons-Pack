@@ -125,6 +125,7 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText "RO = Russian Overkill", white
 	StaticText "D2016 = Doom 2016 Weapons Pack", white
 	StaticText "ProSurv = Project Survival", white
+	StaticText "GC = God Complex", white
 
 	StaticText ""
 	StaticText "---------------Presets---------------", gold
@@ -133,6 +134,19 @@ OptionMenu "WeaponPackSpawnSettings"
 	Command "Enable All", "netevent PBWP_EnableAll"
 	Command "Disable All", "netevent PBWP_DisableAll"
 
+
+	StaticText ""
+	StaticText "---------------God Complex---------------", gold
+	StaticText ""
+	Option "Spawn GC - Devastador", "PBSpawnDevastador", "OnOff"
+	Option "Spawn GC - Enraged Legendary BFG", "PBSpawnEnragedLegendaryBFG", "OnOff"
+	Option "Spawn GC - God Enraged BFG", "PBSpawnGodEnragedBFG", "OnOff"
+	Option "Spawn GC - Legendary Assault Shotgun", "PBSpawnLegendaryAssaultShotgun", "OnOff"
+	Option "Spawn GC - Legendary Chainsaw", "PBSpawnLegendaryChainsaw", "OnOff"
+	Option "Spawn GC - Legendary Plasmatic Rifle", "PBSpawnLegendaryPlasmaticRifle", "OnOff"
+	Option "Spawn GC - Nemesis BFG", "PBSpawnNemesisBFG", "OnOff"
+	Option "Spawn GC - Nemesis LMG", "PBSpawnNemesisLMG", "OnOff"
+	Option "Spawn GC - Sublimination Sword", "PBSpawnPB_SBSword", "OnOff"
 
 	StaticText ""
 	StaticText "---------------Slot 1 weapons---------------", gold
@@ -330,15 +344,33 @@ OptionMenu "AmmunitionShopSystem"
 	StaticText " "
 	Command "Buy Bio-Acid Launcher (650 Points)",		"PukeName BuyBioAcidLauncher"
 	StaticText " "
-	Command "Buy Demon Exterminator (1500 Points)",		"PukeName BuyPB_DemonExt"
+	Command "Buy Demononic Exterminator (1500 Points)",		"PukeName BuyPB_DemonExt"
 	StaticText " "
 	Command "Buy Demon Tech Minigun (800 Points)",		"PukeName BuyDemonTechMinigun"
 	StaticText " "
-	Command "Buy Legacy Unmaker (1200 Points)",		"PukeName BuyLegacyUnmaker"
+	Command "Buy Legacy Unmaker (1200 Points)",		"PukeName BuyPB_LegacyUnmaker"
 	StaticText " "
 	Command "Buy Mancubus FLAME CANNON ™ (1500 Points)",		"PukeName BuyMancubusFlameCannon"
 	StaticText " "
 	Command "Buy Stormcast (2000 Points)",		"PukeName BuyStormcast"
+	StaticText " "
+	Command "Buy GC - Sublimination Sword (500 Points)",		"PukeName BuyPB_SBSword"
+	StaticText " "
+	Command "Buy GC - Legendary Chainsaw (1000 Points)",		"PukeName BuyLegendaryChainsaw"
+	StaticText " "
+	Command "Buy GC - Nemesis LMG (1000 Points)",		"PukeName BuyNemesisLMG"
+	StaticText " "
+	Command "Buy GC - Legendary Assault Shotgun (2000 Points)",		"PukeName BuyLegendaryAssaultShotgun"
+	StaticText " "
+	Command "Buy GC - Legendary Plasmatic Rifle (3000 Points)",		"PukeName BuyLegendaryPlasmaticRifle"
+	StaticText " "
+	Command "Buy GC - Devastador BFG (3000 Points)",		"PukeName BuyDevastador"
+	StaticText " "
+	Command "Buy GC - Nemesis BFG (3000 Points)",		"PukeName BuyNemesisBFG"
+	StaticText " "
+	Command "Buy GC - Enraged Legendary BFG (5000 Points)",		"PukeName BuyEnragedLegendaryBFG"
+	StaticText " "
+	Command "Buy GC - God Enraged BFG (5000 Points)",		"PukeName BuyGodEnragedBFG"
 
 	StaticText "------------ MELEE WEAPONS ------------", gold
 	StaticText " "
