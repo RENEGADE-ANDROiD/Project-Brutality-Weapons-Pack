@@ -50,8 +50,8 @@ extend class PB_WeaponBase
         TNT1 A 0 A_JumpIfInventory("PickAxeMeleeSelected", 1, "MeleePickAxe");
         TNT1 A 0 A_JumpIfInventory("SentinelHammerMeleeSelected", 1, "MeleeSentinelHammer");
         TNT1 A 0 A_JumpIfInventory("ClawGauntletMeleeSelected", 1, "MeleeClaw");
-        TNT1 A 0 A_JumpIfInventory("MeleeCrowbarSelected", 1, "CrowbarCombo1");
-        TNT1 A 0 A_JumpIfInventory("WrenchMeleeSelected", 1, "WrenchCombo1");
+        TNT1 A 0 A_JumpIfInventory("MeleeCrowbarSelected", 1, "CrowbarSwingLeft");
+        TNT1 A 0 A_JumpIfInventory("WrenchMeleeSelected", 1, "WrenchSwingLeft");
         TNT1 A 0 A_JumpIfInventory("BatonMeleeSelected", 1, "BatonComboStart");
 
 		// Add more Here
@@ -62,7 +62,7 @@ extend class PB_WeaponBase
 		EQPR EJK 1;
 		TNT1 AAAA 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
         TNT1 A 0 A_JumpIfInventory("KatanaMeleeSelected", 1, "MeleeKatana");
-        TNT1 A 0 A_JumpIfInventory("HammerMeleeSelected", 1, "HammerCombo3");
+        TNT1 A 0 A_JumpIfInventory("HammerMeleeSelected", 1, "HammerSwingRight");
         
     PrepDualHandsAxe: // Special Case since you can have 10 axes (carrot pls fix)
         TNT1 A 0 A_JumpIfInventory("PB_Axe", 1, 2);
@@ -71,7 +71,7 @@ extend class PB_WeaponBase
         EQPR ABCD 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
 		EQPR EJK 1;
 		TNT1 AAAA 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
-        Goto AxeCombo3;
+        Goto AxeSwingRight;
 
 
     // Reset Melee Wheel Tokens
@@ -178,13 +178,13 @@ extend class PB_WeaponBase
                 }
              if(CountInv("WW_SawMeleeSelected") >=1)
                 {
-                if(CountInv("PB_Fuel") <=0 && CountInv("PB_Chainsaw") <= 0)
-                    {A_Print("You Don't Have any Chainsaw/Fuel"); return ResolveState("WheelCancelMelee");}
+                if(CountInv("PB_Chainsaw") <=0)
+                    {A_Print("You Don't Have any Fuel"); return ResolveState("WheelCancelMelee");}
                 }
             if(CountInv("WW_BatonMeleeSelected") >=1)
                 {
-                if(CountInv("PB_Cell") <=0)
-                    {A_Print("You Don't Have any Energy Cells"); return ResolveState("WheelCancelMelee");}
+                if(CountInv("HasShockBaton") <=0)
+                    {A_Print("You Don't Have any Shock Baton"); return ResolveState("WheelCancelMelee");}
                 }
             if(CountInv("WW_HammerMeleeSelected") >=1)
                 {
