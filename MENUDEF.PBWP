@@ -135,6 +135,12 @@ OptionMenu "WeaponPackSpawnSettings"
 	Command "Disable All", "netevent PBWP_DisableAll"
 
 
+	statictext ""
+	statictext "---------------Specials---------------", gold
+	statictext ""
+	Option "Spawn Equipments", "EquipmentSpawn", "OnOff"
+	Option "Spawn Melee Items", "MeleeSpawn", "OnOff"
+	
 	StaticText ""
 	StaticText "---------------God Complex---------------", gold
 	StaticText ""
