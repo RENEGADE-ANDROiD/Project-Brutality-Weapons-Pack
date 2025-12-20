@@ -9,6 +9,9 @@
 #INCLUDE ACTORs/Equipments/RemoteGrenades/Prosurv_Swarm.dec
 #INCLUDE ACTORs/Equipments/RemoteGrenades/AcidCharge.dec
 #INCLUDE ACTORs/Equipments/RemoteGrenades/LaserCharge.dec
+// Friendlies
+#INCLUDE ACTORs/Equipments/Friendlies/Beacon.dec
+
 
 // FX
 #INCLUDE ACTORs/Weapons/Doom4WeaponPack/Doom4WeaponPackGunSmokeEffects.dec

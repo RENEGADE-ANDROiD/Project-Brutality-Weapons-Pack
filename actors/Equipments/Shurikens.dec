@@ -135,7 +135,7 @@ ACTOR FlameTrailsShuriken: SmallFlameTrails
 ACTOR ShurikenAmmo : Ammo
 {
     //$Category Ammo
-	Inventory.PickupMessage "A shuriken !"
+	Inventory.PickupMessage "A Shuriken !"
 	Inventory.PickupSound "sticky"
 	Inventory.Icon "SHURI0"
 	Inventory.Amount 20
@@ -143,19 +143,11 @@ ACTOR ShurikenAmmo : Ammo
 	Ammo.BackPackAmount 20
 	Ammo.BackPackMaxAmount 20
 	+INVENTORY.IGNORESKILL
-	Scale 0.45
-	scale 0.3
-	States
-	{
-	Spawn:
-		SHUR I -1
-		Stop
-	}
 }
-ACTOR ShurikenAmmoPack : ShurikenAmmo 
-{
 
-	Inventory.PickupMessage "You found a pack of shuriken !"
+ACTOR ShurikenAmmoPack : CustomInventory 
+{
+	Inventory.PickupMessage "You found a pack of Shurikens !"
 	Inventory.Amount 50
 	Scale 0.3
 	+FORCEXYBILLBOARD
@@ -163,8 +155,11 @@ ACTOR ShurikenAmmoPack : ShurikenAmmo
 	States
 	{
 	Spawn:
-		SHUR X 0
 		SHUR X -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("ShurikenAmmo",20) 
+		TNT1 A 20
 		Stop
 	}
 }

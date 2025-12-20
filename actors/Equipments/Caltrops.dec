@@ -1,11 +1,30 @@
 Actor CaltropsAmmo : ammo
 {
 	Inventory.Amount 1
-	Inventory.MaxAmount 1
+	Inventory.MaxAmount 5
 	Ammo.BackPackAmount 1
-	Ammo.BackPackMaxAmount 1
+	Ammo.BackPackMaxAmount 10
 	Inventory.PickUpMessage ""
 	+INVENTORY.IGNORESKILL
+}
+
+ACTOR CaltropsAmmoPack : CustomInventory 
+{
+	Inventory.PickupMessage "You found a pack of Caltrops !"
+	Inventory.Amount 50
+	Scale 0.3
+	+FORCEXYBILLBOARD
+	-CANNOTPUSH
+	States
+	{
+	Spawn:
+		SWIN G -1
+		Stop
+  Pickup:
+		TNT1 A 0 A_GiveInventory("CaltropsAmmo",5) 
+		TNT1 A 20
+		Stop
+	}
 }
 
 Actor CaltropsMissile
@@ -25,7 +44,7 @@ Actor CaltropsMissile
     States
 	   {
        Spawn: 
-          SWIN IJ 4 
+        SWIN IJ 4 
 	      Loop
 	   Death:
 	      TNT1 A 1

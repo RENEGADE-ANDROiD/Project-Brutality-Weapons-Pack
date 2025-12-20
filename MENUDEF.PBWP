@@ -61,6 +61,7 @@ OptionMenu "ttwcoptions"
 	Submenu "$PBWP_General_OPTIONS", "GeneralSettings"
 	Submenu "$PBWP_WeaponSpawns_OPTIONS", "WeaponPackSpawnSettings"
 	Submenu "$PBWP_MonsterDrop_OPTIONS", "MonsterDropWeapSett"
+	Submenu "$PBWP_ItemSpawns_OPTIONS", "ItemSpawnSett"
 	StaticText ""
     StaticText "Extras"
 	StaticText ""
@@ -82,6 +83,39 @@ OptionMenu "GeneralSettings"
 	Control "Show combat points", "PB_CRSHW"
 	Control "Toggle Magnet", "MagnetModeOff"
 	Control "Switch Melee Key", "+pbwp_meleemenu"
+}
+
+optionmenu "ItemSpawnSett"
+{
+	Title "Item Spawn Settings"
+	StaticText "Choose what equipments/melee items spawns naturally", white
+	statictext "By default they are all on", white
+
+	statictext ""
+	statictext "---------------Equipments---------------", gold
+	statictext ""
+	Option "Spawn Shield Grenade", "ShieldGrenadeSpawn", "OnOff"
+	Option "Spawn Void Grenade", "VoidGrenadeSpawn", "OnOff"
+	Option "Spawn Remote Charges", "RemoteChargesSpawn", "OnOff"
+	Option "Spawn Electric Pod", "ElecPodSpawn", "OnOff"
+	Option "Spawn Caltrops", "CaltropsSpawn", "OnOff"
+	Option "Spawn Shurikens", "ShurikenSpawn", "OnOff"
+	Option "Spawn Beacon", "BeaconSpawn", "OnOff"
+
+	statictext ""
+	statictext "---------------Melee Items---------------", gold
+	statictext ""
+	Option "Spawn Katana", "KatanaSpawn", "OnOff"
+	Option "Spawn Pick Axe", "PickaxeSpawn", "OnOff"
+	Option "Spawn Impactor Gauntlet", "ImpactorSpawn", "OnOff"
+	Option "Spawn Claw Gauntlet", "ClawSpawn", "OnOff"
+	Option "Spawn Sentinel Hammer", "SentinelHammerSpawn", "OnOff"
+	Option "Spawn Explosive Hands", "JohnnyHandsSpawn", "OnOff"
+	Option "Spawn Wrench", "WrenchSpawn", "OnOff"
+	Option "Spawn Crowbar", "CrowbarSpawn", "OnOff"
+	Option "Spawn Sledge Hammer", "SledgeHammerSpawn", "OnOff"
+	Option "Spawn Shock Baton", "ShockBatonSpawn", "OnOff"
+
 }
 
 OptionMenu "MonsterDropWeapSett"
@@ -117,7 +151,7 @@ OptionMenu "MonsterDropWeapSett"
 OptionMenu "WeaponPackSpawnSettings"
 {
 	Title "Weapon Pack Spawn Settings"
-	StaticText "Determine which weapon spawns naturally"
+	StaticText "Choose what weapon spawns naturally"
 	StaticText "Some have prefix that indicates which weapon pack it came from", white
 	StaticText "DTECH = Demon-Tech Weapons Pack", white
 	StaticText "SCHISM = Schism / Fire & Ice", white
@@ -133,13 +167,6 @@ OptionMenu "WeaponPackSpawnSettings"
 	statictext "It is recommended to go the Test Map first if you want to use these presets", white
 	Command "Enable All", "netevent PBWP_EnableAll"
 	Command "Disable All", "netevent PBWP_DisableAll"
-
-
-	statictext ""
-	statictext "---------------Specials---------------", gold
-	statictext ""
-	Option "Spawn Equipments", "EquipmentSpawn", "OnOff"
-	Option "Spawn Melee Items", "MeleeSpawn", "OnOff"
 	
 	StaticText ""
 	StaticText "---------------God Complex---------------", gold

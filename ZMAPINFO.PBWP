@@ -7,9 +7,11 @@ Gameinfo
     "BeefRiceWeaponDrop",
 	//"BeefCustomAmmoDrop",
 	"BeefSpawnPresets",
+	"BeefGKChecker",
+	"BeefCustomMarinesChecker",
 	"BeefMiscHandler",
 	"ExterminatorStuff",
-	"DS_MagnetHandler",
+	"PBWP_MagnetHandler",
 	"BusterHandler",
 	"KillTracker",
 	"RareItemDropped"

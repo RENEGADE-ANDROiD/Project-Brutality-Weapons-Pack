@@ -102,6 +102,43 @@ class BeefRiceWeaponDrop : EventHandler
     }
 }
 
+class BeefGKChecker : EventHandler
+{
+    override void WorldLoaded (WorldEvent e)
+    {
+        string gkcompat = "ASGGuyGK";
+        class <actor> isgkcompat = gkcompat; 
+        // Check if GloryKill is loaded
+        if(isgkcompat)
+        {
+            CVAR.FindCVar('GKLoaded').SetBool(true);
+        }
+        else
+        {
+            CVAR.FindCVar('GKLoaded').SetBool(false);
+        }
+    }
+}
+
+class BeefCustomMarinesChecker : EventHandler
+{
+    override void WorldLoaded (WorldEvent e)
+    {
+        string cmcompat = "Marine_SpawnRifle";
+        class <actor> iscmcompat = cmcompat; 
+        // Check if CustomMarines is loaded
+        if(iscmcompat)
+        {
+            CVAR.FindCVar('isCMLoaded').SetBool(true);
+        }
+        else
+        {
+            CVAR.FindCVar('isCMLoaded').SetBool(false);
+        }
+    }
+}
+
+
 class BeefMiscHandler : EventHandler
 {
     // Toggle Magnets
@@ -110,7 +147,7 @@ class BeefMiscHandler : EventHandler
         let pmo = players[consoleplayer].mo;
         if (e.Name == "MagnetModeOn")
 		{
-			let mag = DS_ItemMagnet(pmo.FindInventory("DS_ItemMagnet"));
+			let mag = PBWP_ItemMagnet(pmo.FindInventory("PBWP_ItemMagnet"));
 			if (mag)
 			{
                 console.printf("Magnet Enabled");
@@ -119,7 +156,7 @@ class BeefMiscHandler : EventHandler
 		}
 		if (e.Name == "MagnetModeOff")
 		{
-			let mag = DS_ItemMagnet(pmo.FindInventory("DS_ItemMagnet"));
+			let mag = PBWP_ItemMagnet(pmo.FindInventory("PBWP_ItemMagnet"));
 			if (mag)
 			{
                 console.printf("Magnet Disabled");
@@ -131,24 +168,12 @@ class BeefMiscHandler : EventHandler
     // Sets CVARs and Check Loaded Mods
     Override void WorldLoaded (WorldEvent e)
     {
-        string gkcompat = "ASGGuyGK";
-        class <actor> isgkcompat = gkcompat;
-
         // Sets the PB Monster Drop to Just Ammo on First Time Loading
         if (FirstTimeLoadingPBWP)
         {
             CVAR.FindCVar('PB_WeaponDrops').SetInt(0);
             CVAR.FindCVar('FirstTimeLoadingPBWP').SetBool(false);
             destroy();
-        }
-        // Check if GloryKill is loaded
-        if(isgkcompat)
-        {
-            CVAR.FindCVar('GKLoaded').SetBool(true);
-        }
-        else
-        {
-            CVAR.FindCVar('GKLoaded').SetBool(false);
         }
     }
 
