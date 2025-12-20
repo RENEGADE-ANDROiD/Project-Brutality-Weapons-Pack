@@ -1,0 +1,60 @@
+
+Actor BeaconAmmo : ammo
+{
+	Inventory.Amount 1
+	Inventory.MaxAmount 1
+	Ammo.BackPackAmount 0
+	Ammo.BackPackMaxAmount 1
+	Inventory.PickUpMessage ""
+	Inventory.Icon BEACA0
+	+INVENTORY.IGNORESKILL
+	Scale 0.45
+}
+
+ACTOR Beacon : CustomInventory
+{
+  +DONTGIB
+  +FLOORCLIP
+  //+INVENTORY.INVBAR
+  Inventory.InterHubAmount 1
+  //Inventory.MaxAmount 1
+  Inventory.Icon "BEACB0"
+  Inventory.PickupMessage "You now have beacon that allows you to call in extra allies"
+  Inventory.PickUpSound "BACKPACK"
+  States
+  {
+	Spawn:
+		BEAC A 1 A_SpawnItem("BlueFlareSmall",-1,1)
+		Loop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("BeaconAmmo",1) 
+		TNT1 A 20
+		Stop
+  }
+}
+
+actor ActiveBeacon
+{
+  +FLOORCLIP
+  -SHOOTABLE
+  States
+  {
+  Spawn:
+    BEAC A 105 A_SpawnItem("BlueFlareSmall",-1,1)
+    BEAC A 0 A_CustomMissile ("TeleportationFog", 0, 0, 0, 0, 0)
+    TNT1 A 0 {
+        if(GetCVar("isCMLoaded")){A_SpawnItemEx ("Marine_SpawnRifle", 0, 0, 1, 0, 0, 0, 0, 1);}
+        else {A_SpawnItemEx ("PB_UpgradeSpawnerT3", 0, 0, 1, 0, 0, 0, 0, 1);}
+    }
+	BEAC A 105 A_SpawnItem("BlueFlareSmall",-1,1)
+	BEAC A 0 A_CustomMissile ("TeleportationFog", 0, 0, 0, 0, 0)
+    TNT1 A 0 {
+        if(GetCVar("isCMLoaded")){A_SpawnItemEx ("Marine_SpawnShotgun", 0, 0, 1, 0, 0, 0, 0, 1);}
+        else {A_SpawnItemEx ("PB_UpgradeSpawnerT4", 0, 0, 1, 0, 0, 0, 0, 1);}
+    }
+    goto Death
+  Death:
+    TNT1 A 1 A_CustomMissile ("TeleportationFog", 0, 0, 0, 0, 0)
+    stop
+  }
+}

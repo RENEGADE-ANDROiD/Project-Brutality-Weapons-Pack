@@ -2,6 +2,29 @@ extend class PB_WeaponBase
 {
 	States
 	{
+		// Beacon
+		ThrowBeacon:
+			TNT1 A 0 {
+				A_ZoomFactor(1.0);
+				A_TakeInventory("ADSMode", 1);
+				A_TakeInventory("UseEquipment", 1);
+			}
+			TNT1 A 0 A_JumpIfInventory("BeaconAmmo", 1, 2);
+			TNT1 A 0 A_Print("No Beacons left");
+			Goto GoingToReady;
+			
+			BEAC D 1;
+    		2YBF G 1 A_SpawnItemEx("ActiveBeacon",40,0,8,2,0,2,0,SXF_NOCHECKPOSITION,0);
+			TNT1 A 0 A_TakeInventory("BeaconAmmo", 1);
+			2YBF GGHIJKLMNOPQ 1;
+			
+			TNT1 A 0 {
+				A_TakeInventory("UseEquipment", 1);
+				A_TakeInventory("ToggleEquipment", 1);
+			}
+			TNT1 A 0 A_JumpIf(PressingUser1(), "UseEquipment");
+			Goto GoingToReady2;
+
 		// Caltrops
 		ThrowCaltrops:
 			TNT1 A 0 {

@@ -179,7 +179,7 @@ extend class PB_WeaponBase
              if(CountInv("WW_SawMeleeSelected") >=1)
                 {
                 if(CountInv("PB_Chainsaw") <=0)
-                    {A_Print("You Don't Have any Fuel"); return ResolveState("WheelCancelMelee");}
+                    {A_Print("You Don't Have any Chainsaw"); return ResolveState("WheelCancelMelee");}
                 }
             if(CountInv("WW_BatonMeleeSelected") >=1)
                 {

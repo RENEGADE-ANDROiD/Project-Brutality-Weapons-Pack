@@ -118,8 +118,30 @@ server bool FirstTimeLoadingPBWP = true;
 server int ttwcfbex = 25;
 server bool KillstreakIsOn = true;
 server bool GKLoaded = false;
+server bool isCMLoaded = false;
 server bool EquipmentSpawn = true;
 server bool MeleeSpawn = true;
+
+// Melee Items
+server bool KatanaSpawn = true;
+server bool PickaxeSpawn = true;
+server bool ImpactorSpawn = true;
+server bool ClawSpawn = true;
+server bool SentinelHammerSpawn = true;
+server bool JohnnyHandsSpawn = true;
+server bool WrenchSpawn = true;
+server bool CrowbarSpawn = true;
+server bool SledgeHammerSpawn = true;
+server bool ShockBatonSpawn = true;
+server bool BeaconSpawn = true;
+
+// Equipments
+server bool ShieldGrenadeSpawn = true;
+server bool VoidGrenadeSpawn = true;
+server bool RemoteChargesSpawn = true;
+server bool ElecPodSpawn = true;
+server bool CaltropsSpawn = true;
+server bool ShurikenSpawn = true;
 
 // Monster Drops
 server bool IsUsingStormcastCV = false;

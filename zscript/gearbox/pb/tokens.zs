@@ -962,7 +962,24 @@ class AcidChargeCard : equipmentCard
 	override double getpriority(){return 0.5;}
 }
 
-//////////////////////////////////////////////// SLOT 4 THROWABLES ////////////////////////////////////////////////
+//////////////////////////////////////////////// SLOT 4 FRIENDLIES ////////////////////////////////////////////////
+class BeaconCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Beacon");
+		tokens.push("WW_BeaconSelected");
+		img.push("graphics/Equipments/beacon.png");
+		sx.push(0.5);
+		sy.push(0.5);
+		slot.push(4);
+		relAmmo.push("BeaconAmmo");
+	}
+	override int getdestSlot(){return 4;}
+	override double getpriority(){return 0.5;}
+}
+
+//////////////////////////////////////////////// SLOT 5 THROWABLES ////////////////////////////////////////////////
 class AxeCard : equipmentCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
@@ -972,10 +989,10 @@ class AxeCard : equipmentCard
 		img.push("graphics/Equipments/axe.png");
 		sx.push(0.5);
 		sy.push(0.5);
-		slot.push(4);
+		slot.push(5);
 		relAmmo.push("PB_Axe");
 	}
-	override int getdestSlot(){return 4;}
+	override int getdestSlot(){return 5;}
 	override double getpriority(){return 0.5;}
 }
 class ShurikenCard : equipmentCard
@@ -987,10 +1004,10 @@ class ShurikenCard : equipmentCard
 		img.push("graphics/Equipments/shurikens.png");
 		sx.push(0.7);
 		sy.push(0.7);
-		slot.push(4);
+		slot.push(5);
 		relAmmo.push("ShurikenAmmo");
 	}
-	override int getdestSlot(){return 4;}
+	override int getdestSlot(){return 5;}
 	override double getpriority(){return 0.5;}
 }
 class ShieldSawCard : equipmentCard
@@ -1002,10 +1019,10 @@ class ShieldSawCard : equipmentCard
 		img.push("graphics/Equipments/ShieldSaw.png");
 		sx.push(0.8);
 		sy.push(0.8);
-		slot.push(4);
+		slot.push(5);
 		relAmmo.push("");
 	}
-	override int getdestSlot() {return 4;}
+	override int getdestSlot() {return 5;}
 	override double getpriority() {return 0.5;}
 }
 
