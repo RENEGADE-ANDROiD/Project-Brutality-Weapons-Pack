@@ -46,6 +46,12 @@ version "4.14.2"
 #include "zscript/Insanity's Nightmare/IN_SpecialProjectile.zc"
 #include "zscript/Insanity's Nightmare/PlasmaRifleAssaultProjectile.zc"
 
+// MonsterSpawner
+#include "zscript/MonsterSpawner/CyberDemonBossSpawner.zc"
+#include "zscript/MonsterSpawner/DoomEyeTurretSpawner.zc"
+#include "zscript/MonsterSpawner/DeepOneSpawner.zc"
+#include "zscript/MonsterSpawner/EBossCellSpawner.zc"
+
 // Weapons & Etc (Testing)
 
 	// CSSG Stuff Begin
