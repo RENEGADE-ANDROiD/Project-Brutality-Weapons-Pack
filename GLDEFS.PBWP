@@ -1,6 +1,209 @@
 #INCLUDE Brightmaps.bm
 #include "actors/Monsters/EarthEnemyGLDefs.gl"
 
+//PickUpItemVariation//
+pulselight REDITEM
+{
+    color 1.0 0.1 0.1
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight REDITEM
+{
+    color 1.0 0.1 0.1
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight WHITEITEM
+{
+    color 1.0 1.0 1.0
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight YELLOWITEM
+{
+    color 1.0 1.0 0.1
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight PURPLEITEM
+{
+    color 1.0 0.1 1.0
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight PINKITEM
+{
+    color 1.0 0.8 0.9
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight CYANITEM
+{
+    color 0.1 1.0 1.0
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight GREENITEM
+{
+    color 0.1 1.0 0.1
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight ORANGEITEM
+{
+    color 1.0 0.647 0.1
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+
+
+
+
+object PB_ArmorBonus1
+{
+    frame BON2 
+    { light GREENITEM }
+}
+
+object PB_ArmorBonusBlue
+{
+    frame BON2 
+    { light BLUEITEM }
+}
+
+object PB_ArmorBonusRed
+{
+    frame BON2 
+    { light REDITEM }
+}
+
+object PB_ArmorBonusYellow
+{
+    frame BON2 
+    { light YELLOWITEM }
+}
+
+object PB_ArmorBonusWhite
+{
+    frame BON2 
+    { light WHITEITEM }
+}
+
+object PB_ArmorBonusPurple
+{
+    frame BON2 
+    { light PURPLEITEM }
+}
+
+object PB_ArmorBonusCyan
+{
+    frame BON2 
+    { light CYANITEM }
+}
+
+object PB_ArmorBonusOrange
+{
+    frame BON2 
+    { light ORANGEITEM }
+}
+
+object PB_ArmorBonusPink
+{
+    frame BON2 
+    { light PINKITEM }
+}
+
+object PB_HealthBonus1
+{
+    frame BON1
+    { light BLUEITEM }
+}
+
+object PB_HealthBonusGreen
+{
+    frame BON1 
+    { light GREENITEM }
+}
+
+object PB_HealthBonusRed
+{
+    frame BON1 
+    { light REDITEM }
+}
+
+object PB_HealthBonusYellow
+{
+    frame BON1 
+    { light YELLOWITEM }
+}
+
+object PB_HealthBonusPurple
+{
+    frame BON1 
+    { light PURPLEITEM }
+}
+
+object PB_HealthBonusCyan
+{
+    frame BON1 
+    { light CYANITEM }
+}
+
+object PB_HealthBonusOrange
+{
+    frame BON1 
+    { light ORANGEITEM }
+}
+
+object PB_HealthBonusWhite
+{
+    frame BON1 
+    { light WHITEITEM }
+}
+
+object PB_HealthBonusPink
+{
+    frame BON1 
+    { light PINKITEM }
+}
+
 //HelmetDrops//
 pointlight DroppedHelm1
 {

@@ -4,7 +4,7 @@ AddOptionMenu "OptionsMenu"
 }
 AddOptionMenu "OptionsMenuSimple"
 {
-	Submenu "Project Brutality WAR PACK Settings", "ttwcoptions"
+	Submenu "PBWP Settings", "ttwcoptions"
 }
 
 ListMenu "MainMenu"
@@ -56,7 +56,7 @@ ListMenu "MainMenu"
 
 OptionMenu "ttwcoptions"
 {
-	Title "WAR PACK Settings"
+	Title "PB WAR PACK Settings"
     StaticText ""
 	Submenu "$PBWP_General_OPTIONS", "GeneralSettings"
 	Submenu "$PBWP_WeaponSpawns_OPTIONS", "WeaponPackSpawnSettings"
@@ -67,25 +67,38 @@ OptionMenu "ttwcoptions"
     StaticText "Extras"
 	StaticText ""
 	SubMenu "$PBWP_COMBAT_RATING_SHOP", "AmmunitionShopSystem"
+	SubMenu "$PBWP_CHAMPION_ENEMIES", "mk_ChampionMenu"
 	Submenu "$PBWP_QUICKSWITCHER", "SwitchItUpOptions"
-	Submenu "$PBWP_BEHOLD", "BeholdOptions"
+	Submenu "$PBWP_ARCADE", "PBArcadeTweaksSettings"
 	submenu "$PBWP_DOORBUSTER","BusterMenu"
-	Submenu "Allow up to 500HP? (Item Arcade Tweaks)", "PBArcadeTweaksSettings"
 	StaticText ""
 	Command "$PB_GO_TESTMAP", "map PBTEST"
 	StaticText ""
-	StaticText "Revamped Armors Mutators are Active."
-	StaticText "Project Brutality Weapons Pack Version: 1.9.5-Release"
+	StaticText "Revamped Armors Mutators are Active.", gold
+	StaticText "Project Brutality Weapons Pack Version: 1.9.5-Release", gold
 }
 
 OptionMenu "GeneralSettings"
 {
 	Title "General Settings"
-	Option "Primary fire will trigger executions", "ttwcfbex", "OnOff"
-	Option "Killstreak is enabled", "KillstreakIsOn", "OnOff"
-	Control "Show combat points", "PB_CRSHW"
+	Option "Primary Fire will trigger Executions", "ttwcfbex", "OnOff"
+	Option "Killstreak is Enabled", "KillstreakIsOn", "OnOff"
+	Control "Show Combat Points", "PB_CRSHW"
 	Control "Toggle Magnet", "MagnetModeOff"
 	Control "Switch Melee Key", "+pbwp_meleemenu"
+	StaticText " "
+	StaticText "Champion Enemies Spawning Tweaks", gold
+	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
+	ScaleSlider "Champion Mutation Chance",		"champion_Mutations",		0,	256, 1, "Never Spawn"
+	Option "Spawn Item Bundles?",				"champion_Bundles",			"YesNo"
+	Option "Health Bonus style",				"champion_HealthFoods",		"FoodsOption"
+	StaticText " "
+        StaticText "Revive Upon Death Challenge modes:", white
+        Control "Revive VS 3–5 Enemy Bosses",        "+dp_random_key"
+        Control "Revive VS Up to 4 Enemy Bosses",      "+dp_quad_key"
+        Control "Revive VS Up to 6 Enemy Bosses",      "+dp_more_key"
+        Control "Revive VS Up to 10 Enemy Bosses",      "+dp_fury_key"
+        Control "Revive VS Up to 12 Enemy Bosses",	"+dp_apoc_key"
 }
 
 optionmenu "MonsterSpawnSett"
@@ -314,10 +327,7 @@ OptionMenu "WeaponPackSpawnSettings"
 ////////
 OptionMenu "AmmunitionShopSystem"
 {
-	Title "Project Brutality Combat Rating Shop"
-	StaticText "Don't forget to bind the Show combat points key in the settings", white
-	StaticText " "
-	Control "Show combat points", "+PB_CRSHW"
+	Title "Combat Rating Weapons Shop"
 	StaticText " "
  	StaticText "[ HOW TO EARN COMBAT POINTS / HEALTH / ARMOR / GADGETS / EQUIPMENTS / MELEE WEAPONS ]", white
 	StaticText "", 1
@@ -558,6 +568,147 @@ OptionMenu "AmmunitionShopSystem"
 
 }
 ////////
+	
+OptionMenu "mk_ChampionMenu"
+	{
+	Title "Champion Options"
+	StaticText "ALL CHANGES WILL TAKE EFFECT ON NEXT MAP", gold
+	StaticText " "
+	
+	Submenu "Champion Weighting Options", "mk_ChampionWeightMenu"
+	Submenu "Mutation Weighting Options", "mk_MutationWeightMenu"
+	
+	StaticText "Visual Tweaks", gold
+	StaticText " "	
+	Option "Champion Colours?",					"champion_Colours",			"YesNo"
+	Option "Champion Particles?",				"champion_Particles",		"YesNo"
+	Option "Flat Creep Sprites?",				"champion_flatsprites",		"YesNo"
+	Option "Champion Icons?",					"champion_Icons",			"YesNo"
+	Slider "Icon Scaling",						"champion_IconScale",		0.0, 1.0, 0.1
+	Slider "Icon Alpha",						"champion_IconAlpha",		0.0, 1.0, 0.1
+	StaticText " "
+	StaticText "Experimental Features", gold
+	StaticText " "		
+	Option "New ice colour?",					"champion_IceColour",		"YesNo"
+	Option "Friendly Champions?",				"champion_friendlies",		"YesNo"
+	Option "Projectiles have Champion Glow?",	"champion_MissileColours",	"YesNo"
+	Option "Champion Projectiles spawn creep?",	"champion_ProjectileCreep", "YesNo"
+	Option "Force champion type? (debug)",		"champion_debug_forced", 	"colours"
+	}
+
+OptionValue "FoodsOption"
+	{
+	0, "Doom Style"
+	1, "Food Items"
+	}
+	
+OptionValue "colours"
+	{
+    -1, "off"
+    0, "Dark Red"
+    1, "Red"
+    2, "Orange"
+    3, "Yellow"
+    4, "Dark Green"
+    5, "Green"
+    6, "Cyan"
+    7, "Blue"
+    8, "Indigo"
+    9, "Violet"
+    10, "Pink"
+    11, "Black"
+    12, "Grey"
+    13, "White"
+    14, "Bronze"
+    15, "Silver"
+    16, "Gold"
+	}
+	
+OptionValue "Styles"
+	{
+    0, "Default"
+    1, "Translucent"
+    2, "Opaque"
+	}
+
+OptionMenu "mk_ChampionWeightMenu"
+	{
+	Title 	"Champion Weighting Options"
+	SafeCommand "Reset to Default", 		"event champions_reset_championweight", "Reset All values to default?"
+	StaticText 	""
+	ScaleSlider	"Dark Red",					"champion_weight_DarkRed",	0, 10, 1, "Never Spawn"
+	StaticText 	"Will respawn if the corpse is not disposed of", gold
+	StaticText 	""
+	ScaleSlider	"Red",						"champion_weight_Red",		0, 10, 1, "Never Spawn"
+	StaticText 	"Spawns with doubled health", gold
+	StaticText 	""
+	ScaleSlider	"Orange",					"champion_weight_Orange",	0, 10, 1, "Never Spawn"
+	StaticText 	"Explodes on death", gold
+	StaticText 	""
+	ScaleSlider	"Yellow",					"champion_weight_Yellow",	0, 10, 1, "Never Spawn"
+	StaticText 	"Movement Speed Doubled", gold
+	StaticText 	""
+	ScaleSlider	"Dark Green",				"champion_weight_DarkGreen",0, 10, 1, "Never Spawn"
+	StaticText 	"Leaves a trail of damaging creep", gold
+	StaticText 	""
+	ScaleSlider	"Green",					"champion_weight_Green",	0, 10, 1, "Never Spawn"
+	StaticText 	"Teleports randomly around the map", gold
+	StaticText 	""
+	ScaleSlider	"Cyan",						"champion_weight_Cyan",		0, 10, 1, "Never Spawn"
+	StaticText 	"Pushes around with gusts of wind", gold
+	StaticText 	""
+	ScaleSlider	"Blue",						"champion_weight_Blue",		0, 10, 1, "Never Spawn"
+	StaticText 	"Splits into multiple projectiles on death", gold
+	StaticText 	""
+	ScaleSlider	"Indigo",					"champion_weight_Indigo",	0, 10, 1, "Never Spawn"
+	StaticText 	"Spawns two clones on death", gold
+	StaticText 	""
+	ScaleSlider	"Violet",					"champion_weight_Violet",	0, 10, 1, "Never Spawn"
+	StaticText 	"Fires extra projectiles randomly", gold
+	StaticText 	""
+	ScaleSlider	"Pink",						"champion_weight_Pink",		0, 10, 1, "Never Spawn"
+	StaticText 	"Resurrects enemies at a cost of their own lifeforce.", gold
+	StaticText 	""
+	ScaleSlider	"Black",					"champion_weight_Black",	0, 10, 1, "Never Spawn"
+	StaticText 	"Deals double damage", gold
+	StaticText 	""
+	ScaleSlider	"Grey",						"champion_weight_Grey",		0, 10, 1, "Never Spawn"
+	StaticText 	"Will dodge your attacks", gold
+	StaticText 	""
+	ScaleSlider	"White",					"champion_weight_White",	0, 10, 1, "Never Spawn"
+	StaticText 	"Leaves a trail of slowing creep", gold
+	StaticText 	""
+	ScaleSlider	"Bronze",					"champion_weight_Bronze",	0, 10, 1, "Never Spawn"
+	StaticText 	"Slower, Stronger less susceptible to pain", gold
+	StaticText 	""
+	ScaleSlider	"Silver",					"champion_weight_Silver",	0, 10, 1, "Never Spawn"
+	StaticText 	"Pulls you in with a strong magnetic field", gold
+	StaticText 	""
+	ScaleSlider	"Gold",						"champion_weight_Gold",		0, 10, 1, "Never Spawn"
+	StaticText 	"Midas Touch on nearby enemies", gold
+	StaticText 	""
+	}
+	
+OptionMenu "mk_MutationWeightMenu"
+	{
+	Title 	"Mutation Weighting Options"
+	ScaleSlider	"Titan",					"champion_weight_Titan",	0, 10, 1, "Never Spawn"
+	StaticText 	"Massively boosted stats", gold
+	StaticText 	""
+	ScaleSlider	"Undying",					"champion_weight_Undying",	0, 10, 1, "Never Spawn"
+	StaticText 	"Will never die", gold
+	StaticText 	""
+	ScaleSlider	"Ghost",					"champion_weight_Ghost",	0, 10, 1, "Never Spawn"
+	StaticText 	"Phases in and out of reality", gold
+	StaticText 	""
+	ScaleSlider	"Airborne",					"champion_weight_Balloon",	0, 10, 1, "Never Spawn"
+	StaticText 	"Given the ability to float at will", gold
+	StaticText 	""	
+	ScaleSlider	"Hybrid",					"champion_weight_Hybrid",	0, 10, 1, "Never Spawn"
+	StaticText 	"Has a second champion effect", gold
+	StaticText 	""
+	}	
+
 OptionMenu "SwitchItUpOptions" 
 {
 	Title "$RW_TITLE"
@@ -577,7 +728,7 @@ OptionMenu "SwitchItUpOptions"
 
 OptionMenu "BeholdOptions"
 {
-    Title "Behold! Fire & Ice Options"
+    Title "Behold! Revive Upon Death"
 
     StaticText ""
     StaticText "Behold! Random Boss Battle Summoner", white
@@ -585,17 +736,16 @@ OptionMenu "BeholdOptions"
     StaticText "BIND A KEY TO ACTIVATE THE FOLLOWING:", white
     StaticText "", white
     StaticText "• Resurrect you if you died (works even if not dead)", white
-    StaticText "• Give you handy Equipment Items, Marauder SSG & Ammo ", white
-    StaticText "ALSO:", white
-    StaticText "• Summon Boss enemies based on the selected mode", white
+    StaticText "• Give you handy Shieldsaw", white
+    StaticText "• Summon Enemy Bosses based on the selected mode", white
     StaticText ""
 
-    StaticText "Bind modes:"
-    Control "Random Mayhem — 3–5 foes",        "+dp_random_key"
-    Control "The Quadrant — up to 4 foes",      "+dp_quad_key"
-    Control "More Trouble — up to 6 foes",      "+dp_more_key"
-    Control "Hell's Fury — up to 10 foes",      "+dp_fury_key"
-    Control "Total Apocalypse — up to 12 foes", "+dp_apoc_key"
+        StaticText "Revive Upon Death Challenge modes:", gold
+        Control "Revive VS 3–5 Enemy Bosses",        "+dp_random_key"
+        Control "Revive VS Up to 4 Enemy Bosses",      "+dp_quad_key"
+        Control "Revive VS Up to 6 Enemy Bosses",      "+dp_more_key"
+        Control "Revive VS Up to 10 Enemy Bosses",      "+dp_fury_key"
+        Control "Revive VS Up to 12 Enemy Bosses",	"+dp_apoc_key"
     StaticText ""
     Command "Show current mode (prints on screen)", "dp_show_mode"
 }

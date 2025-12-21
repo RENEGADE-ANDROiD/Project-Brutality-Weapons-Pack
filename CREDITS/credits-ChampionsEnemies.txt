@@ -1,0 +1,5 @@
+Champion Icons					- 	game-icons.net 
+Food Sprites					- 	food barrel on realm667 credit to Yuyu3 & RPGMaker XP ( https://www.realm667.com/index.php/en/item-store-mainmenu-169-61042/others-mainmenu-172-93727/1117-food-barrels )
+Undying Champ Heart 			-	Binding of Isaac Rebirth - Edmund McMillen / Nicalis 
+Explosion / Projectile / Gibs	- 	Resources from Freedoom, various authors. Explosion sprite by Amuscaria
+balloon sprite					- 	Trickster Online, ripped by Dazz: https://www.spriters-resource.com/fullview/28482/

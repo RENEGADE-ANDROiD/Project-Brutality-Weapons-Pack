@@ -1,0 +1,4 @@
+Thanks to TDuy for making the Item colors addon.
+Thanks to WolVexus for making the mutator from which i took the sounds for potions and armor shards.
+Thanks to Runner_OG for making more shell color variations (to match with the Commander Super Shotgun's), and fixing ALL bonuses to be randomized.
+Thanks to DarkShadow for adding sounds and item values 

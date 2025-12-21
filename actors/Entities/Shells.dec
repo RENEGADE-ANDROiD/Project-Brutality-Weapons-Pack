@@ -1,0 +1,109 @@
+// Shells
+ACTOR XD_ShellSpawner : RandomSpawner Replaces PB_Shell
+{
+	DropItem "PB_Shell1", 256
+	DropItem "PB_ShellGreen", 256
+	DropItem "PB_ShellWhite", 256
+	DropItem "PB_ShellBlue", 256
+	DropItem "PB_ShellOrange", 256
+	DropItem "PB_ShellGray", 256
+	DropItem "PB_ShellYellow", 256
+	DropItem "PB_ShellBlack", 256
+}
+ACTOR PB_Shell1 : PB_Shell {}
+ACTOR PB_ShellGreen : PB_Shell 
+{Translation "176:191=[0,255,0]:[0,0,0]", 
+			"168:175=[100,255,100]:[75,200,75]",
+			"16:47=[50,180,50]:[0,0,0]"
+}
+ACTOR PB_ShellWhite : PB_Shell
+{
+    Translation "176:191=[200,200,200]:[0,0,0]",
+				"168:175=[255,200,100]:[255,255,255]",
+				"16:47=[200,200,200]:[0,0,0]"
+}
+ACTOR PB_ShellBlue : PB_Shell
+{
+    Translation "176:191=[0,0,139]:[0,0,0]",
+                "168:175=[0,0,139]:[0,0,0]",
+                "16:47=[0,0,139]:[0,0,0]"
+}
+ACTOR PB_ShellOrange : PB_Shell
+{
+    Translation "176:191=[255,100,0]:[0,0,0]",
+				"168:175=[255,100,0]:[225,135,0]",
+				"16:47=[255,100,0]:[0,0,0]"
+}
+ACTOR PB_ShellBlack : PB_Shell
+{
+    Translation "176:191=[64,64,64]:[0,0,0]",
+                "168:175=[64,64,64]:[0,0,0]",
+                "16:47=[64,64,64]:[0,0,0]"
+}
+ACTOR PB_ShellYellow : PB_Shell
+{
+	Translation	"176:191=[255,255,0]:[0,0,0]",
+				"168:175=[255,255,0]:[80,80,0]",
+				"16:47=[255,255,0]:[0,0,0]"
+}
+ACTOR PB_ShellGray : PB_Shell
+{
+    Translation "176:191=[128,128,128]:[0,0,0]",
+                "168:175=[160,160,160]:[75,75,75]",
+                "16:47=[192,192,192]:[0,0,0]"
+}
+
+// Shell boxes
+ACTOR ShellBoxSpawner : RandomSpawner Replaces PB_ShellBox
+{
+	DropItem "PB_ShellBox1", 256
+	DropItem "PB_ShellBoxGreen", 256
+	DropItem "PB_ShellBoxWhite", 256
+	DropItem "PB_ShellBoxBlue", 256
+	DropItem "PB_ShellBoxOrange", 256
+	DropItem "PB_ShellBoxGray", 256
+	DropItem "PB_ShellBoxYellow", 256
+	DropItem "PB_ShellBoxBlack", 256
+}
+ACTOR PB_ShellBox1 : PB_ShellBox {}
+ACTOR PB_ShellBoxGreen : PB_ShellBox 
+{Translation "176:191=[0,255,0]:[0,0,0]", 
+			"168:175=[100,255,100]:[75,200,75]",
+			"16:47=[50,180,50]:[0,0,0]"
+}
+ACTOR PB_ShellBoxWhite : PB_ShellBox
+{
+    Translation "176:191=[200,200,200]:[0,0,0]",
+				"168:175=[255,200,100]:[255,255,255]",
+				"16:47=[200,200,200]:[0,0,0]"
+}
+ACTOR PB_ShellBoxBlue : PB_ShellBox
+{
+    Translation "176:191=[0,0,139]:[0,0,0]",
+                "168:175=[0,0,139]:[0,0,0]",
+                "16:47=[0,0,139]:[0,0,0]"
+}
+ACTOR PB_ShellBoxOrange : PB_ShellBox
+{
+    Translation "176:191=[255,100,0]:[0,0,0]",
+				"168:175=[255,100,0]:[225,135,0]",
+				"16:47=[255,100,0]:[0,0,0]"
+}
+ACTOR PB_ShellBoxBlack : PB_ShellBox
+{
+    Translation "176:191=[64,64,64]:[0,0,0]",
+                "168:175=[64,64,64]:[0,0,0]",
+                "16:47=[64,64,64]:[0,0,0]"
+}
+ACTOR PB_ShellBoxYellow : PB_ShellBox
+{
+	Translation	"176:191=[255,255,0]:[0,0,0]",
+				"168:175=[255,255,0]:[80,80,0]",
+				"16:47=[255,255,0]:[0,0,0]"
+}
+ACTOR PB_ShellBoxGray : PB_ShellBox
+{
+    Translation "176:191=[128,128,128]:[0,0,0]",
+                "168:175=[160,160,160]:[75,75,75]",
+                "16:47=[192,192,192]:[0,0,0]"
+}
