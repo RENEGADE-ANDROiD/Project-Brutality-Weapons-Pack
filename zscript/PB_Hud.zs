@@ -759,15 +759,15 @@ class PB_Hud_ZS : BaseStatusBar
 		"ALISTSTN, PB_StunGrenadeAmmo, Cyan, Equipment",
 		"ALISTREV, PB_QuickLauncherAmmo, LightBlue, Equipment",
 		"ALISTMIN, PB_ProxMineAmmo, Purple, Equipment",
+		"ALISTSRM, SwarmerAmmo, Orange, Equipment",
 		"ALISTACD, AcidChargeAmmo, Green, Equipment",
+		"ALISTLSR, LaserChargeAmmo, Red, Equipment",
 		"ALISTAXE, PB_Axe, Red, Equipment",
 		"ALISTEPD, ElecPodAmmo, Yellow, Equipment",
-		"ALISTHOK, HookAmmo, DarkRed, Equipment",
-		"ALISTLSR, LaserChargeAmmo, Red, Equipment",
 		"ALISTSHG, ShieldGrenadeAmmo, Orange, Equipment",
 		"ALISTSHR, ShurikenAmmo, Purple, Equipment",
-		"ALISTSRM, SwarmerAmmo, Orange, Equipment",
-		"ALISTSSW, ShieldSawAmmo, DarkRed, Equipment"
+		// "ALISTHOK, HookAmmo, DarkRed, Equipment",
+		// "ALISTSSW, ShieldSawAmmo, DarkRed, Equipment"
 		
 	};
 	
