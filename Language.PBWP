@@ -11,6 +11,7 @@ PBWP_QUICKSWITCHER = "\ct₪\c- Random Weapon Quick-Switcher";
 PBWP_BEHOLD = "\cd⟰\c- BEHOLD! Settings";
 PBWP_DOORBUSTER = "\cy⑄\c- DOORBUSTER Settings";
 PBWP_TOGGLE_MELEE_MENU = "Open Melee Wheel";
+PB_VERSION_INFO = "Revamped Armors Mutators is Active. - v.1.0.2";
 
 RW_TITLE = "Random Weapon Switching";
 

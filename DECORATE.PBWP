@@ -36,6 +36,7 @@
 #include "Actors/Entities/HealthPickups.dec"
 #include "Actors/Entities/ArmorPickups.dec"
 #include "Actors/Entities/HelmetDrops.dec"
+#include "Actors/Entities/ArmorsMT.dec"
 
 // Monsters
 #INCLUDE ACTORs/Monsters/DEEPONE.dec
