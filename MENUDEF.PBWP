@@ -60,6 +60,7 @@ OptionMenu "ttwcoptions"
     StaticText ""
 	Submenu "$PBWP_General_OPTIONS", "GeneralSettings"
 	Submenu "$PBWP_WeaponSpawns_OPTIONS", "WeaponPackSpawnSettings"
+	Submenu "$PBWP_MonsterSpawn_OPTIONS", "MonsterSpawnSett"
 	Submenu "$PBWP_MonsterDrop_OPTIONS", "MonsterDropWeapSett"
 	Submenu "$PBWP_ItemSpawns_OPTIONS", "ItemSpawnSett"
 	StaticText ""
@@ -83,6 +84,26 @@ OptionMenu "GeneralSettings"
 	Control "Show combat points", "PB_CRSHW"
 	Control "Toggle Magnet", "MagnetModeOff"
 	Control "Switch Melee Key", "+pbwp_meleemenu"
+}
+
+optionmenu "MonsterSpawnSett"
+{
+	Title "Monster Spawn Settings"
+	StaticText "Choose what monster spawns naturally", white
+	statictext "By default they are all on", white
+
+	statictext ""
+	statictext "---------------Normal Monsters---------------", gold
+	statictext ""
+	Option "Spawn Deep One", "DeepOneSpawner", "OnOff"
+	Option "Spawn Eye Turret", "EyeTurretSpawn", "OnOff"
+
+	statictext ""
+	statictext "---------------Boss Variants---------------", gold
+	statictext ""
+	Option "Spawn Elemental Boss Cell", "EBossCellSpawner", "OnOff"
+	Option "Spawn Cyberdemon 2016", "CyberdemonBossSpawner", "OnOff"
+
 }
 
 optionmenu "ItemSpawnSett"
@@ -120,7 +141,7 @@ optionmenu "ItemSpawnSett"
 
 OptionMenu "MonsterDropWeapSett"
 {
-	Title "Monster Drop Weapon Settings"
+	Title "Monster Drop Settings"
 	StaticText "Choose what things drop from killed enemies", white
 	StaticText "By default they are all Off", white
 	StaticText ""

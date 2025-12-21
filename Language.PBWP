@@ -3,7 +3,8 @@
 // MENU STUFFS
 PBWP_General_OPTIONS = "\ch⍟\c- General Settings";
 PBWP_WeaponSpawns_OPTIONS = "\cg☠\c- Weapon Spawn Settings";
-PBWP_MonsterDrop_OPTIONS = "\cv⛧\c- Monster Drop Settings";
+PBWP_MonsterSpawn_OPTIONS = "\cv⛧\c- Monster Spawn Settings";
+PBWP_MonsterDrop_OPTIONS = "\cu∇\c- Monster Drop Settings";
 PBWP_ItemSpawns_OPTIONS = "\cj⟁\c- Item Spawn Settings";
 PBWP_COMBAT_RATING_SHOP = "\cf★\c- Combat Rating Weapons Shop";
 PBWP_QUICKSWITCHER = "\ct₪\c- Random Weapon Quick-Switcher";
