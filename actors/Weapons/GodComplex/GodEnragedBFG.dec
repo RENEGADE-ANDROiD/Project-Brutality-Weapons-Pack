@@ -77,7 +77,7 @@ TNT1 A 0 {
 TNT1 A 0 A_StopSound(5)
 TNT1 A 0 A_StopSound(6)
 TNT1 A 0 A_StopSound(7)
-B27U FEDCBA 1
+ENBG FEDCBA 1
 		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
 		ENBG A 0 A_Lower
 		Wait
