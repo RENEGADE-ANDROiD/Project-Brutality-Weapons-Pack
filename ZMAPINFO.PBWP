@@ -6,6 +6,7 @@ Gameinfo
     "RandomWeaponSwitcher",
     "BeefRiceWeaponDrop",
 	//"BeefCustomAmmoDrop",
+	"HelmetDropHandler",
 	"BloodSampleEvent",
 	"MonsterDetectionEvent",
 	"BeefSpawnPresets",

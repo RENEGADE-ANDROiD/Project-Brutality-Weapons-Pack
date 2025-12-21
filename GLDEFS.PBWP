@@ -1,6 +1,44 @@
 #INCLUDE Brightmaps.bm
 #include "actors/Monsters/EarthEnemyGLDefs.gl"
 
+//HelmetDrops//
+pointlight DroppedHelm1
+{
+    color 255 0 0
+    size 5
+}
+
+pointlight DroppedHelm2
+{
+    color 255 0 0
+    size 10
+}
+
+pointlight DroppedHelm3
+{
+    color 255 0 0
+    size 15
+}
+
+pointlight DroppedHelm4
+{
+    color 255 0 0
+    size 30
+}
+
+object PB_DroppedHelmetItem
+{
+    frame 3BONB { light DroppedHelm1 }
+    frame 3BONC { light DroppedHelm2 }
+    frame 3BOND { light DroppedHelm3 }
+    frame 3BONE { light DroppedHelm4 }
+}
+
+brightmap sprite 3BONB0 { map "BRIGHTMAPS/3BONB0.png" }
+brightmap sprite 3BONC0 { map "BRIGHTMAPS/3BONC0.png" }
+brightmap sprite 3BOND0 { map "BRIGHTMAPS/3BOND0.png" }
+brightmap sprite 3BONE0 { map "BRIGHTMAPS/3BONE0.png" }
+
 //KILLSTREAK//
 object KillStreak
 {
