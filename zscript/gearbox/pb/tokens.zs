@@ -970,10 +970,26 @@ class BeaconCard : equipmentCard
 		tags.push("Beacon");
 		tokens.push("WW_BeaconSelected");
 		img.push("graphics/Equipments/beacon.png");
-		sx.push(0.5);
-		sy.push(0.5);
+		sx.push(1.0);
+		sy.push(1.0);
 		slot.push(4);
 		relAmmo.push("BeaconAmmo");
+	}
+	override int getdestSlot(){return 4;}
+	override double getpriority(){return 0.5;}
+}
+
+class FreezeBotCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Freeze Bot");
+		tokens.push("WW_FreezebotSelected");
+		img.push("graphics/Equipments/freezebot.png");
+		sx.push(1.0);
+		sy.push(1.0);
+		slot.push(4);
+		relAmmo.push("FreezeBotAmmo");
 	}
 	override int getdestSlot(){return 4;}
 	override double getpriority(){return 0.5;}

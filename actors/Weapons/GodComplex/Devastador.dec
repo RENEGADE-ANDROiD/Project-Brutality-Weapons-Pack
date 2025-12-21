@@ -11,10 +11,10 @@ Actor Devastador : PBWP_Weapon
 	Height 20
 	Weapon.SelectionOrder 2800
 	Weapon.AmmoUse 130
-	Weapon.AmmoGive 150
+	// Weapon.AmmoGive 150
 	Weapon.SlotNumber 8
 	Weapon.SlotPriority 3
-	Weapon.AmmoType "PB_Cell"
+	Weapon.AmmoType "PBWP_ComplexAmmo"
 	+FORCEXYBILLBOARD
 	+WEAPON.NOAUTOFIRE
 	+WEAPON.NOAUTOAIM
@@ -81,7 +81,7 @@ Fire:
 	BF27 C 4 Bright A_GunFlash
 	TNT1 A 0 A_PlaySound("BFG2704/AltFire", 1)
 	TNT1 A 0 A_FireCustomMissile("2704ClusterBall",0,1,0,0,0,0)
-	TNT1 A 0 A_TakeInventory("PB_Cell", 20)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo", 20)
 	BF27 E 1 Bright A_CheckReload
 	BF27 E 1 Bright 
 	BF27 C 2 Bright 
@@ -98,7 +98,7 @@ Fire:
 	BF27 C 4 Bright A_GunFlash
 	TNT1 A 0 A_PlaySound("BFG2704/AltFire", 1)
 	TNT1 A 0 A_FireCustomMissile("2704ClusterBall",0,1,0,0,0,0)
-	TNT1 A 0 A_TakeInventory("PB_Cell", 20)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo", 20)
 	BF27 E 1 Bright A_CheckReload
 	BF27 E 1 Bright 
 	BF27 C 2 Bright 
