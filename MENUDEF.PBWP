@@ -1,10 +1,10 @@
 AddOptionMenu "OptionsMenu"
 {
-    Submenu "Project Brutality Weapon Pack Settings", "ttwcoptions"
+    Submenu "Project Brutality WAR PACK Settings", "ttwcoptions"
 }
 AddOptionMenu "OptionsMenuSimple"
 {
-	Submenu "Project Brutality Weapon Pack Settings", "ttwcoptions"
+	Submenu "Project Brutality WAR PACK Settings", "ttwcoptions"
 }
 
 ListMenu "MainMenu"
@@ -56,7 +56,7 @@ ListMenu "MainMenu"
 
 OptionMenu "ttwcoptions"
 {
-	Title "PB Weapon Pack Settings"
+	Title "WAR PACK Settings"
     StaticText ""
 	Submenu "$PBWP_General_OPTIONS", "GeneralSettings"
 	Submenu "$PBWP_WeaponSpawns_OPTIONS", "WeaponPackSpawnSettings"
@@ -70,10 +70,12 @@ OptionMenu "ttwcoptions"
 	Submenu "$PBWP_QUICKSWITCHER", "SwitchItUpOptions"
 	Submenu "$PBWP_BEHOLD", "BeholdOptions"
 	submenu "$PBWP_DOORBUSTER","BusterMenu"
+	Submenu "Allow up to 500HP? (Item Arcade Tweaks)", "PBArcadeTweaksSettings"
 	StaticText ""
 	Command "$PB_GO_TESTMAP", "map PBTEST"
 	StaticText ""
-	StaticText "Project Brutality Weapons Pack Version: 1.9-Release"
+	StaticText "Revamped Armors Mutators are Active."
+	StaticText "Project Brutality Weapons Pack Version: 1.9.5-Release"
 }
 
 OptionMenu "GeneralSettings"
@@ -624,4 +626,26 @@ optionvalue "Yez"
 {
 	0,"Disable"
 	1,"Enable"
+}
+
+OptionMenu "PBArcadeTweaksSettings"{
+	Title "Arcade Tweaks Settings"
+	StaticText ""
+	Option "Pickup Mode","PBAT_PickupMode","ATPickupMode"
+	StaticText ""
+	StaticText "Setting Descriptions"
+	StaticText ""
+	StaticText "Normal-ish:"
+	StaticText "All items will stack up to and max out at their vanilla (Project Brutality) amounts."
+	StaticText "However, armor will be automatically picked up even if you have greater armor amount, if the armor's save percentage is greater."
+	StaticText "Stack to 500:"
+	StaticText "All items will max out at 500, barring medikits and stimpacks, which max out at 100 like they originally do."
+	StaticText "Like above, armor pickups will adjust the armor protection rating higher if the pickup is higher rated."
+	
+}
+
+OptionValue "ATPickupMode"
+{
+	0, "Normal-ish"
+	1, "Stack to 500"
 }

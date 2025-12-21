@@ -1,3 +1,6 @@
+//PB Arcade 500HP//
+server int PBAT_PickupMode = 0;
+
 //Hook//
 Server NoArchive Bool sv_allowhookshot = True;
 

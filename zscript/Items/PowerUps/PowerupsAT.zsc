@@ -1,0 +1,96 @@
+//Soulsphere & Megasphere
+class PB_SoulsphereAT : PB_Inventory replaces PB_Soulsphere
+{
+	Default
+	{
+		Inventory.PickupMessage "Soulsphere!";
+		Inventory.PickupSound "SSPH";
+		+FLOATBOB
+		floatbobstrength .4;
+		//Scale .22;
+	}
+
+	override bool Use(bool pickup)
+	{
+		owner.A_SetBlend("Blue",0.75,16);
+		owner.GiveBody(100,(PBAT_PickupMode == 1)?500:200);
+		if(pb_newmugshot) owner.A_SetMugshotState("SoulsphereGrin");
+		return true;
+	}
+	
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+		scale.x *= 1.2;
+	}
+
+	States
+	{
+	Spawn:
+		SOUL ABCDEFGHIJ 3;
+		loop;
+	}
+}
+
+class PB_MegasphereAT : PB_Inventory replaces PB_Megasphere
+{
+	Default
+	{
+		Inventory.PickupMessage "Megasphere!";
+		Inventory.PickupSound "MEGASPH";
+		+FLOATBOB
+		floatbobstrength .4;
+		//Scale .22;
+	}
+
+	override bool Use(bool pickup)
+	{
+		owner.A_SetBlend("White",0.75,16);
+		//class<Inventory> blueArmor = GetReplacement("BlueArmor").getClassName();
+		owner.A_GiveInventory(GetReplacement("PB_BlueArmor").getClassName());
+		owner.GiveBody(200,(PBAT_PickupMode == 1)?500:200);
+		if(pb_newmugshot) owner.A_SetMugshotState("MegasphereGrin");
+		return true;
+	}
+	
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+		scale.x *= 1.2;
+	}
+
+	States
+	{
+	Spawn:
+		MEGA ABCDEFGHIJ 3;
+		loop;
+	}
+}
+
+class PB_BerserkAT : PB_Inventory replaces PB_Berserk
+{
+	Default
+	{
+		-BRIGHT
+		Inventory.PickupMessage "Berserk Pack!";
+		Inventory.PickupSound "BERSPKUP";
+		//Scale .3;
+	}
+
+	override bool Use(bool pickup)
+	{
+		owner.A_GiveInventory("PB_PowerStrength");
+		owner.GiveBody(100,(PBAT_PickupMode == 1)?500:100);
+		owner.A_SetBlend("Red",0.75,16);
+		owner.A_Print("Press Weapon Special key to swap modes");
+		if(pb_newmugshot) owner.A_SetMugshotState("BerserkGrin");
+		return true;
+	}
+
+	States
+	{
+	Spawn:
+		PSTR A -1;
+		stop;
+	}
+}

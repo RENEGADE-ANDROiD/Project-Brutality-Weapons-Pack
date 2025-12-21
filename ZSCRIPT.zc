@@ -47,6 +47,11 @@ version "4.14.2"
 #include "zscript/Insanity's Nightmare/IN_SpecialProjectile.zc"
 #include "zscript/Insanity's Nightmare/PlasmaRifleAssaultProjectile.zc"
 
+// ItemArcadeTweaks
+//#include "zscript/Items/HealthArmor/APAT.zc"
+//#include "zscript/Items/PowerUps/PowerupsAT.zsc"
+//#include "zscript/Items/PowerUps/PowerupsAT2.zsc"
+
 // ScientistSpawner
 #include "zscript/Scientist/BloodSampleDropper.zc"
 #include "zscript/Scientist/ScientistEvent.zc"
