@@ -65,6 +65,7 @@ extend class PB_WeaponBase
 			TNT1 A 0 A_JumpIfInventory("ShurikenSelected", 1, "ThrowShuriken");
 			TNT1 A 0 A_JumpIfInventory("CaltropsSelected", 1, "ThrowCaltrops");
 			TNT1 A 0 A_JumpIfInventory("BeaconSelected", 1, "ThrowBeacon");
+			TNT1 A 0 A_JumpIfInventory("FreezebotSelected", 1, "ThrowFreezebot");
 			//TNT1 A 0 A_JumpIfInventory("RevGunSelected", 1, "FireRevGun");
 			//More stuff to come.....
 			Goto GoingToReady;
@@ -88,6 +89,7 @@ extend class PB_WeaponBase
 				A_SetInventory("WW_ShurikenSelected",0);
 				A_SetInventory("WW_CaltropsSelected",0);
 				A_SetInventory("WW_BeaconSelected",0);
+				A_SetInventory("WW_FreezebotSelected",0);
 				A_SetInventory("CantWeaponSpecial",0);
 				}
 			goto Equipment_Toggle_Handler_Overlay;
@@ -128,6 +130,8 @@ extend class PB_WeaponBase
 					{A_Print("Equipment already selected: Clatrops"); return ResolveState("WheelCancelEquipment");}
 				if(CountInv("WW_BeaconSelected") && CountInv("BeaconSelected") >=1)
 					{A_Print("Equipment already selected: Beacon"); return ResolveState("WheelCancelEquipment");}
+				if(CountInv("WW_FreezebotSelected") && CountInv("FreezebotSelected") >=1)
+					{A_Print("Equipment already selected: Freeze Bot"); return ResolveState("WheelCancelEquipment");}
 
 				//Ammo Checks
 				if(CountInv("WW_ProximityMineSelected") >=1)
@@ -200,6 +204,11 @@ extend class PB_WeaponBase
 					if(CountInv("BeaconAmmo") <=0)
 						{A_Print("No Beacon Available"); return ResolveState("WheelCancelEquipment");}
 					}
+				if(CountInv("WW_FreezebotSelected") >=1)
+					{
+					if(CountInv("FreezeBotAmmo") <=0)
+						{A_Print("No Freeze Bot Available"); return ResolveState("WheelCancelEquipment");}
+					}
 
 				// End
 				return ResolveState(null);
@@ -226,6 +235,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}
@@ -249,6 +259,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}
@@ -272,6 +283,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}
@@ -295,6 +307,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}
@@ -318,6 +331,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("REVUP", 3);
 							return ResolveState("WheelCancelEquipment");
 						}
@@ -341,6 +355,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}
@@ -364,6 +379,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}	
@@ -387,6 +403,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}
@@ -410,6 +427,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}				
@@ -433,6 +451,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}
@@ -456,6 +475,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}	
@@ -479,6 +499,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}
@@ -502,6 +523,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}
@@ -525,6 +547,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}
@@ -548,6 +571,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",1);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}	
@@ -571,6 +595,7 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",1);
 							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}
@@ -594,9 +619,34 @@ extend class PB_WeaponBase
 							A_SetInventory("ShurikenSelected",0);
 							A_SetInventory("CaltropsSelected",0);
 							A_SetInventory("BeaconSelected",1);
+							A_SetInventory("FreezebotSelected",0);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}		
+					if(CountInv("WW_FreezebotSelected") >=1)
+						{ 
+							A_Print("Equipment Selected: Freeze Bot"); 
+							A_SetInventory("ProximityMineSelected",0);
+							A_SetInventory("ElecPodSelected",0);
+							A_SetInventory("StunGrenadeSelected",0);
+							A_SetInventory("LeechSelected",0);
+							A_SetInventory("RevGunSelected",0);
+							A_SetInventory("FragGrenadeSelected",0);
+							A_SetInventory("ShieldSelected",0);
+							A_SetInventory("VoidGrenadeSelected",0);
+							A_SetInventory("SwarmerSelected",0);
+							A_SetInventory("LaserChargeSelected",0);
+							A_SetInventory("AcidChargeSelected",0);
+							A_SetInventory("AxeSelected",0);
+							A_SetInventory("HookSelected",0);
+							A_SetInventory("ShieldSawSelected",0);
+							A_SetInventory("ShurikenSelected",0);
+							A_SetInventory("CaltropsSelected",0);
+							A_SetInventory("BeaconSelected",0);
+							A_SetInventory("FreezebotSelected",1);
+							A_StartSound("GRNPIN", 3);
+							return ResolveState("WheelCancelEquipment");
+						}
 						
 					//End
 				return ResolveState(null);

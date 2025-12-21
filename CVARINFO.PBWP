@@ -119,8 +119,7 @@ server int ttwcfbex = 25;
 server bool KillstreakIsOn = true;
 server bool GKLoaded = false;
 server bool isCMLoaded = false;
-server bool EquipmentSpawn = true;
-server bool MeleeSpawn = true;
+server bool isDSLoaded = false;
 
 // Melee Items
 server bool KatanaSpawn = true;

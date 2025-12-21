@@ -24,3 +24,14 @@ class PBWP_Spawner : PB_SpawnerBase
 class PBWP_Weapon : PB_Weapon 
 {}
 
+class PBWP_ComplexAmmo : PB_Ammo
+{
+    Default
+    {
+        Inventory.Amount 666;
+        Inventory.MaxAmount 666;
+        Inventory.PickupSound "demonsoulpickup";
+        Ammo.BackpackAmount 666;
+        Ammo.BackpackMaxAmount 666;
+    }
+}

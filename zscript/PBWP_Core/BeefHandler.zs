@@ -138,6 +138,23 @@ class BeefCustomMarinesChecker : EventHandler
     }
 }
 
+class BeefDragonSectorChecker : EventHandler
+{
+    override void WorldLoaded (WorldEvent e)
+    {
+        string DScompat = "DS_HealthBonus";
+        class <actor> isDScompat = DScompat; 
+        // Check if CustomMarines is loaded
+        if(isDScompat)
+        {
+            CVAR.FindCVar('isDSLoaded').SetBool(true);
+        }
+        else
+        {
+            CVAR.FindCVar('isDSLoaded').SetBool(false);
+        }
+    }
+}
 
 class BeefMiscHandler : EventHandler
 {
@@ -194,60 +211,35 @@ class BeefMiscHandler : EventHandler
     }
 }
 
-// Spawn custom ammo from killed enemies
-// This works but is janky and maybe very expensive because it checks every worldtick
-// Will Disable for now until further testing
-/*
 class BeefCustomAmmoDrop : EventHandler
 {
     override void WorldThingDied(WorldEvent e)
 	{
         if (!e || !e.thing) return;
         if (!e.thing.bISMONSTER) return;
-        let  actor = e.Thing;
-        
-        vector3 monsPos = actor.pos;
-        double monsHeight = actor.height;
-        monsPos.z += monsHeight/2;
+        int monsHealth = e.Thing.getMaxHealth();  
+        let player = e.thing.target;
+        PlayerPawn pm = PlayerPawn(player);
 
-        int monsHealth = actor.getMaxHealth();  
-        if(IsUsingStormcastCV){
-            while (monsHealth >= 1100) {
-                monsHealth -= 1100;
-                self.createStormCast(true, monsPos);
-            }
-            while (monsHealth >= 210){
-                monsHealth -= 210;
-                self.createStormCast(false, monsPos);
-            }
+        if (monsHealth > 1000)
+        {
+            pm.A_GiveInventory("PBWP_ComplexAmmo", 100);
+        }
+        else if (monsHealth >= 500) // 500–1000
+        {
+            pm.A_GiveInventory("PBWP_ComplexAmmo", 50);
+        }
+        else if (monsHealth >= 150) // 150–499
+        {
+            pm.A_GiveInventory("PBWP_ComplexAmmo", 10);
+        }
+        else if (monsHealth >= 20) // 20–149
+        {
+            pm.A_GiveInventory("PBWP_ComplexAmmo", 5);
         }
     } 
-
-    void createStormCast(bool bigver, vector3 monsPos){
-            String className = "StormCastAmmoSmall";
-            if(bigver){ className = "StormCastAmmoBig"; }
-            actor.spawn(className, monsPos);
-        }
-
-    Override void WorldTick()
-    {
-        let pm = players[consoleplayer].mo;
-		if(!pm)
-			return;
-
-        bool IsUsingStormcast = pm.FindInventory("IsUsingStormcast");
-        if(IsUsingStormcast)
-        {
-            CVAR.FindCVar('IsUsingStormcastCV').SetBool(true);
-        }
-        else
-        {
-            CVAR.FindCVar('IsUsingStormcastCV').SetBool(false);
-        }
-        return;
-    }
 }
-*/
+
 
 // Spawn Presets
 // This is a pretty rough implementation and I can probaly use switch cases for this

@@ -78,6 +78,8 @@ class AcidChargeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class WW_BeaconSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class BeaconSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
+class WW_FreezebotSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class FreezebotSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
 // Slot 5 Throwables 
 class WW_AxeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
