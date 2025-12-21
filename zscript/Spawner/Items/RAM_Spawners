@@ -1,0 +1,47 @@
+class RAM_Injector : PBInjector    //your injector needs to inherit from PBInjector
+{
+    override void Init(PB_EventHandler handler)        //override this
+    {
+		//Green_Tier1
+		//handler.InjectSpawn('PB_GreenSpawnerT1', 'ArmorGreen', 255, 1);
+		//handler.InjectSpawn('PB_GreenSpawnerT1', 'ArmorBlue', 255, 1);
+
+
+		//Green_Tier2
+		//handler.InjectSpawn('PB_GreenSpawnerT2', 'ArmorGreen', 255, 1);
+		//handler.InjectSpawn('PB_GreenSpawnerT2', 'ArmorBlue', 255, 1);
+		handler.InjectSpawn('PB_GreenSpawnerT2', 'NarmorYellow', 255, 1);
+
+		//Green_Tier3
+		//handler.InjectSpawn('PB_GreenSpawnerT3', 'ArmorBlue', 255, 1);
+		handler.InjectSpawn('PB_GreenSpawnerT3', 'NarmorYellow', 255, 1);
+		handler.InjectSpawn('PB_GreenSpawnerT3', 'NarmorPurple', 255, 1);
+
+		//Green_Tier4
+		handler.InjectSpawn('PB_GreenSpawnerT4', 'NarmorYellow', 255, 1);
+		handler.InjectSpawn('PB_GreenSpawnerT4', 'NarmorPurple', 255, 1);
+	
+	
+        //Blue_Tier1
+		handler.InjectSpawn('PB_BlueSpawnerT1', 'NarmorBlack', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT1', 'NarmorOrange', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT1', 'NarmorWhite', 255, 1);
+		
+		//Blue_Tier2
+		handler.InjectSpawn('PB_BlueSpawnerT2', 'NarmorWhite', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT2', 'NarmorBlack', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT2', 'NarmorRed', 255, 1);
+
+		//Blue_Tier3
+		handler.InjectSpawn('PB_BlueSpawnerT3', 'NarmorWhite', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT3', 'NarmorRed', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT3', 'NarmorBlack', 255, 1);
+
+
+		//Blue_Tier4
+		handler.InjectSpawn('PB_BlueSpawnerT4', 'NarmorWhite', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT4', 'NarmorRed', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT4', 'NarmorCyan', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT4', 'NarmorDemon', 255, 1);
+	}
+}
