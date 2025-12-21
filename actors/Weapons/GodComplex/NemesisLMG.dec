@@ -6,7 +6,7 @@ ACTOR NemesisLMG : PBWP_Weapon
    Weapon.AmmoGive2 50
    Weapon.AmmoUse 0
    Weapon.AmmoUse2 0
-   Weapon.AmmoType "PB_HighCalMag"
+   Weapon.AmmoType "PBWP_ComplexAmmo"
    Weapon.AmmoType2 "PB_RocketAmmo"
    Scale 1
    +WEAPON.NOAUTOFIRE
@@ -77,7 +77,7 @@ ACTOR NemesisLMG : PBWP_Weapon
   Hold:
 	TNT1 A 0
 	TNT1 A 0 A_JumpIfNoAmmo("Empty")
-	TNT1 A 0 A_JumpifInventory("PB_HighCalMag",2,1)
+	TNT1 A 0 A_JumpifInventory("PBWP_ComplexAmmo",2,1)
 	TNT1 A 0 A_JumpifInventory("PB_RocketAmmo",1,1)
 	Goto Empty
     TNT1 A 0 A_AlertMonsters	
@@ -89,7 +89,7 @@ ACTOR NemesisLMG : PBWP_Weapon
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,1,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 1 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(3)
 	TNT1 A 0 A_Light0
@@ -109,7 +109,7 @@ FastFire:
  HoldII:
 	TNT1 A 0
 	TNT1 A 0 A_JumpIfNoAmmo("Empty")
-	TNT1 A 0 A_JumpifInventory("PB_HighCalMag",2,1)
+	TNT1 A 0 A_JumpifInventory("PBWP_ComplexAmmo",2,1)
 	TNT1 A 0 A_JumpifInventory("PB_RocketAmmo",1,1)
 	Goto Empty
     TNT1 A 0 A_AlertMonsters	
@@ -121,7 +121,7 @@ FastFire:
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,1,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 1 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(3)
 	TNT1 A 0 A_Light0
@@ -155,7 +155,7 @@ FastFire:
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 2 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(7)
 
@@ -169,7 +169,7 @@ FastFire:
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 2 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(7)
 
@@ -183,7 +183,7 @@ FastFire:
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 2 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(7)
 
@@ -210,7 +210,7 @@ FastFire:
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 2 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(7)
 
@@ -224,7 +224,7 @@ FastFire:
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 2 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(7)
 
@@ -238,7 +238,7 @@ FastFire:
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 4 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(50)
 	TNT1 A 0 A_GiveInventory("NemesisDebuffUV",1)
@@ -270,7 +270,7 @@ FastFire:
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 2 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(7)
 
@@ -284,7 +284,7 @@ FastFire:
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 2 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(7)
 
@@ -298,7 +298,7 @@ FastFire:
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 2 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(7)
 
@@ -325,7 +325,7 @@ FastFire:
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 2 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(7)
 
@@ -339,7 +339,7 @@ FastFire:
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 2 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(7)
 
@@ -353,7 +353,7 @@ FastFire:
 	TNT1 A 0 A_FireCustomMissile("NemLMGProj",0,0,0,0)
 	TNT1 A 0 A_FireCustomMissile("NemLMGProjII",0,0,0,0)
 	UVMG I 4 BRIGHT
-	TNT1 A 0 A_TakeInventory("PB_HighCalMag",2,TIF_NOTAKEINFINITE)
+	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",2,TIF_NOTAKEINFINITE)
     TNT1 A 0 A_TakeInventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 	TNT1 A 0 A_Recoil(50)
 	TNT1 A 0 A_GiveInventory("NemesisDebuffUV",1)
