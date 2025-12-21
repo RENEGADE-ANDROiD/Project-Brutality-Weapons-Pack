@@ -1,0 +1,1531 @@
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+/////////																	  			////////
+/////////						SCIENTIST QUEST GIVER ACTOR								////////
+/////////																				////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+//
+//	Following behavior code edited from luvquita's Kemonomimi Daisy Companion and BD Marines by Sergeant_Mark_IV
+//
+
+ACTOR Scientist : SwitchableDecoration
+{
+
+	Game Doom
+	Radius 12
+	MaxTargetRange 9999
+	damagefactor "Avoid", 0.0
+	Height 56
+	Speed 8
+	FastSpeed 8
+	Health 250
+	PainChance 200
+	PainChance "Kick", 255
+	PainChance "Lightning", 0
+	Monster
+	Species "Scientist"
+	Scale 0.90
+	+FLOORCLIP
+	+QUICKTORETALIATE
+	+LOOKALLAROUND
+	+SLIDESONWALLS
+	+CANNOTPUSH
+	-COUNTKILL
+	+DONTSPLASH
+	+FIXMAPTHINGPOS
+	+USESPECIAL
+	-THRUSPECIES
+	+DONTHARMSPECIES
+	+NOTAUTOAIMED
+	+NOBLOCKMONST
+	+NOINFIGHTING
+	+JUMPDOWN
+	+DROPOFF
+	+PUSHABLE
+	+FRIENDLY
+	Activation THINGSPEC_Switch | THINGSPEC_NODEATHSPECIAL
+	damagefactor "Lightning", 0.0
+	DamageFactor "CauseSplash", 0.0 DamageFactor "CauseObjectsToSplashSlime", 0.0 DamageFactor "CauseSplashNukage", 0.0 DamageFactor "CauseSplashBlood", 0.0 DamageFactor "CauseSplashLava", 0.0
+	damagefactor "TeleportRemover", 0.0
+	damagefactor "GibRemoving", 0.0
+	damagefactor "FriendBullet", 0.0
+	damagefactor "Fatality", 0.0
+	damagefactor "Headkick", 0.0
+	damagefactor "Leg", 0.0
+	damagefactor "Trample", 0.0
+	damagefactor "InstakillMarines", 40.0
+	DamageFactor "Melee", 0.1 DamageFactor "Kick", 0.1 DamageFactor "Extremepunches", 0.1 DamageFactor "ExtremeKicks", 0.1 DamageFactor "Trample", 0.1 DamageFactor "HeavyTrample", 0.1
+	DamageFactor "LowKick", 0.0 DamageFactor "PussyGrab", 0.0 DamageFactor "Use", 0.0 DamageFactor "Stealth", 0.0
+	Scale 0.98
+	AttackSound "dsempty"
+	MaxStepHeight 52
+	MaxDropOffHeight 52
+	ActiveSound "dsempty"
+	damagefactor "Cut", 0.0
+	BloodType "Blood_Imp", "Blood_Imp_Saw", "SawBlood"
+	damagefactor "Blood", 0.0 damagefactor "GreenBlood", 0.0 damagefactor "BlueBlood", 0.0 damagefactor "Taunt", 0.0 damagefactor "KillMe", 0.0
+	DeathSound "Scientist/Death"
+	PainSound "Scientist/Pain"
+	SeeSound "dsempty"
+	Obituary ""
+	Mass 50
+	
+	States
+		{
+		Spawn:
+			//TNT1 AAA 0
+			SZTW A 0 A_GIVEINVENTORY("ScientistInGame",1)
+			TNT1 A 0 ACS_NamedExecuteAlways("AddScientistAlly", 0, 0, 0, 0)
+			TNT1 A 0 A_GiveInventory("TargetIsAMarine")
+			//SZTW A 0 A_SPAWNITEMEX("UTOS",0,0,0,0,0,0,0,SXF_SETMASTER)
+			SZTW A 0 A_JUMPIFINVENTORY("scientistSTAYTOKEN",1,2,AAPTR_PLAYER1)
+			SZTW A 0 A_JUMPIFINVENTORY("scientistFOLLOWTOKEN",1,3,AAPTR_PLAYER1)
+			SZTW A 0 A_GIVEINVENTORY("scientistFOLLOWTOKEN",1,AAPTR_PLAYER1)
+			//SZTW A 1 A_GiveInventory("ScientistLoyalty",1,AAPTR_PLAYER1)
+			SZTW A 0 A_ChangeFlag(FRIENDLY,0)
+			SZTW A 0 A_GiveInventory("ScientistWaits",1,AAPTR_PLAYER1) 			
+			//SZTW A 0 A_GiveInventory("ScientistLoyalty",1,AAPTR_PLAYER1)
+			SZTW A 1 a_lookEx(LOF_NOSOUNDCHECK ,0,99999,99999,360,"waitsafterteleport")
+			SZTW A 0 A_JumpIfInTargetInventory("ScientistWaits",1,"waitsafterteleport")
+			SZTW A 0 A_RearrangePointers(AAPTR_PLAYER1, AAPTR_MASTER)
+			goto TeleportToPlayer		
+			
+		IDLE:
+			//TNT1 AA 0
+			SZTW A 1 bright
+			SZTW A 0 A_ChangeFlag(FRIENDLY,0)
+			SZTW A 1 a_lookEx(LOF_NOSOUNDCHECK ,0,99999,99999,360)
+			SZTW A 0 A_JumpIfInTargetInventory("MonsterDetected",1,"CheckRetreat")
+			SZTW A 0 A_JumpIfInTargetInventory("ScientistWaits",1,"WAITS")
+			goto TeleportToPlayer
+			
+		See:	
+			TNT1 AA 0
+			TNT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
+			SZTW A 0 A_JumpIfInTargetInventory("MonsterDetected",1,"CheckRetreat")
+			TNT1 A 0 A_ChangeFlag("USESPECIAL", 1)
+			SZT1 A 1 A_Chase( 0, 0, CHF_DONTMOVE)
+			TNT1 A 0 A_RadiusGive("scientisthere", 1000, RGF_MONSTERS|RGF_NOSIGHT, 1)
+			TNT1 A 0 A_ChangeFlag(FRIENDLY,1)
+			tnt1 a 0 a_checkproximity(2,"playerpawn",1000,1,CPXF_ANCESTOR)
+			tnt1 a 0 A_jump(256,2)
+			SZTW A 0 A_JumpIfCloser(700,2)
+			TNT1 A 0 A_ClearTarget
+			goto follow
+			
+			TNT1 A 0 A_ChangeFlag(FRIENDLY,1)
+			TNT1 A 0 A_JumpIfInTargetInventory("ScientistWaits", 1, "Follow")
+			SZTW AABBCCDD 1 {A_Chase;A_Recoil(-0.3);}
+			TNT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
+			SZTW A 0 A_JumpIfCloser(700,2)
+			TNT1 A 0 A_ClearTarget
+			goto Follow
+	
+	
+	Waits:
+		TNT1 A 0 A_JumpIfInventory("ScientistFirstmet", 1, "waits3", AAPTR_PLAYER1)
+		TNT1 A 0 A_Playsound("scientist/greetings")
+		TNT1 A 0 A_GIVEINVENTORY("ScientistFirstmet",1,AAPTR_PLAYER1)
+		SZT2 ABCDABCDABCD 5	
+	Waits3:
+		//SZT1 A 1 A_Jump(5, "sight") 
+		TNT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
+		TNT1 A 0 A_ChangeFlag(FRIENDLY,1)
+		TNT1 A 0 A_Jump(244,2)
+		TNT1 A 0 A_JumpIfHealthLower(20,"HealPlayer",AAPTR_PLAYER1)
+		tnt1 a 0 a_jumpifinventory("scientistSTAYTOKEN",1,4,aaptr_player1)
+		TNT1 A 0 A_JumpIfInTargetInventory("ScientistWaits", 1, 2)
+		TNT1 A 0 A_Jump(256,2)
+		TNT1 A 0 A_JumpIfCloser(133,1)
+		goto Follow
+		
+	waits2:
+		TNT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
+		//TNT1 A 0 A_JUMP(4,"sight")
+		//TNT1 A 0 A_Jump(1, "protect")
+		//TNT1 A 0 A_Jump(3, "letsgo")
+		//TNT1 A 0 A_JUMP(2,"scared")//2
+		tnt1 a 0 a_jumpifinventory("scientistSTAYTOKEN",1,4,aaptr_player1)
+		TNT1 A 0 A_CHECKPROXIMITY(2,"PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
+		SZT1 A 1 a_lookEx(LOF_NOSOUNDCHECK ,0,700,0,360)
+		SZTW A 0 A_JumpIfInTargetInventory("MonsterDetected",1,"CheckRetreat")
+		TNT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
+		TNT1 AAAA 0
+		GOTO WAITS
+			
+	waitsafterteleport:
+		SZT1 A 10
+		SZT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
+		SZT1 A 0 A_ChangeFlag(FRIENDLY,1)
+		SZT1 a 0 a_jumpifinventory("scientistSTAYTOKEN",1,2,aaptr_player1)
+		SZT1 A 0 A_CHECKPROXIMITY(1,"PLAYERPAWN",133,1,CPXF_ANCESTOR)
+		goto Follow
+		SZT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
+		SZT1 A 1 A_takeinventory("scientinsanetoken")
+		SZT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
+		SZT1 a 0 a_jumpifinventory("scientistSTAYTOKEN",1,4,aaptr_player1)
+		SZT1 A 0 A_CHECKPROXIMITY(2,"PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
+		SZT1 A 1 
+		SZT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
+		SZT1 A 10
+		TNT1 A 0 A_ChangeFlag(SOLID,1)
+		TNT1 A 0 A_UnSetInvulnerable
+		//SZT1 A 5 A_Jump(50, "sight")
+		loop
+		
+	playersdead:
+		TNT1 A 0 A_Playsound("scientist/afraid")
+		TNT1 A 0 A_ChangeFlag(SOLID,1)
+		TNT1 A 0 A_UnSetInvulnerable
+		SZT2 ABCDA 5
+		SZT1 F 8
+		SZT1 F 10 A_SpawnItem ("ScientistTeleportFog")
+		TNT1 A 0 A_TAKEINVENTORY("ScientistFirstmet",1,0,AAPTR_PLAYER1) 
+		stop
+		
+		
+	Follow:
+		TNT1 A 0 A_ChangeFlag(SOLID,1)
+		TNT1 A 0 A_UnSetInvulnerable
+		TNT1 A 0 a_lookEx(LOF_NOSOUNDCHECK , 0, 700, 0, 360)
+		SZTW A 0 A_JumpIfInTargetInventory("MonsterDetected",1,"CheckRetreat")
+		TNT1 AA 0
+		tnt1 a 0 A_JumpIfCloser(95,"Waits")
+		TNT1 A 0 A_ChangeFlag(FRIENDLY,0)
+		TNT1 A 0 A_JumpIfCloser(350,1)
+		GOTO FollowFaster
+		TNT1 A 0 A_JumpIfCloser(500,1)
+		GOTO FollowFaster2
+		SZTW ABCD 3 A_EXTChase(0,0)
+		TNT1 A 0 A_PLAYSOUND("floorhard")
+		tnt1 a 0 A_JumpIfCloser(95,"Waits")
+		TNT1 A 0 A_ChangeFlag(FRIENDLY,0)
+		TNT1 A 0 A_JumpIfCloser(350,1)
+		GOTO FollowFaster
+		TNT1 A 0 A_JumpIfCloser(500,1)
+		GOTO FollowFaster2
+		SZTW ABCD 3 A_EXTChase(0,0)
+		TNT1 A 0 A_PLAYSOUND("floorhard")
+		tnt1 a 0 A_JumpIfCloser(95,"Waits")
+		TNT1 A 0 A_ChangeFlag(FRIENDLY,0)
+		TNT1 A 0 A_JumpIfCloser(350,1)
+		GOTO FollowFaster
+		TNT1 A 0 A_JumpIfCloser(500,1)
+		GOTO FollowFaster2
+		SZTW ABCD 3 A_EXTChase(0,0)
+		TNT1 A 0 A_PLAYSOUND("floorhard")
+		tnt1 a 0 A_JumpIfCloser(95,"Waits")
+		TNT1 A 0 A_ChangeFlag(FRIENDLY,0)
+		TNT1 A 0 A_JumpIfCloser(350,1)
+		GOTO FollowFaster
+		TNT1 A 0 A_JumpIfCloser(500,1)
+		GOTO FollowFaster2
+		SZTW ABCD 3 A_EXTChase(0,0)
+		TNT1 A 0 A_TakeInventory("HasBeenKicked", 3)
+		TNT1 A 0 A_PLAYSOUND("floorhard")
+		tnt1 a 0 A_JumpIfCloser(95,"Waits")
+		TNT1 A 0 A_ChangeFlag(FRIENDLY,0)
+		TNT1 A 0 A_JumpIfCloser(350,1)
+		GOTO FollowFaster
+		TNT1 A 0 A_JumpIfCloser(500,1)
+		GOTO FollowFaster2
+		TNT1 A 0 A_PLAYSOUND("floorhard")
+		looP
+	
+		
+	FollowFaster:
+		//TNT1 A 0 a_lookEx(LOF_NOSOUNDCHECK , 0, 700, 0, 360)
+		SZTW A 0 A_JumpIfInTargetInventory("MonsterDetected",1,"CheckRetreat")
+		TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW A 3 A_Chase
+		SZTW A 0 A_Recoil(-1.6) 
+		SZTW A 0 A_Jumpifcloser(150,"Follow")
+		SZTW A 0 A_JumpIfCloser(500,1)
+		goto FollowFaster2
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		
+		//TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW B 3 A_Chase
+		SZTW A 0 A_Recoil(-1.6) 
+		SZTW A 0 A_Jumpifcloser(150,"Follow")
+		SZTW A 0 A_JumpIfCloser(500,1)
+		goto FollowFaster2
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		
+		TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW C 3 A_Chase
+		SZTW A 0 A_Recoil(-1.6) 
+		SZTW A 0 A_Jumpifcloser(150,"Follow")
+		SZTW A 0 A_JumpIfCloser(500,1)
+		goto FollowFaster2
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		
+		//TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW D 3 A_Chase
+		SZTW A 0 A_Recoil(-1.6) 
+		SZTW A 0 A_Jumpifcloser(150,"Follow")
+		SZTW A 0 A_JumpIfCloser(500,1)
+		goto FollowFaster2
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		
+		TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW A 3 A_Chase
+		SZTW A 0 A_Recoil(-1.6) 
+		SZTW A 0 A_Jumpifcloser(150,"Follow")
+		SZTW A 0 A_JumpIfCloser(500,1)
+		goto FollowFaster2
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		
+		//TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW B 3 A_Chase
+		SZTW A 0 A_Recoil(-1.6) 
+		SZTW A 0 A_Jumpifcloser(150,"Follow")
+		SZTW A 0 A_JumpIfCloser(500,1)
+		goto FollowFaster2
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		
+		TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW C 3 A_Chase
+		SZTW A 0 A_Recoil(-1.6) 
+		SZTW A 0 A_Jumpifcloser(150,"Follow")
+		SZTW A 0 A_JumpIfCloser(500,1)
+		goto FollowFaster2
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		
+		//TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW D 3 A_Chase
+		SZTW A 0 A_Recoil(-1.6) 
+		SZTW A 0 A_Jumpifcloser(150,"Follow")
+		SZTW A 0 A_JumpIfCloser(500,1)
+		goto FollowFaster2
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		TNT1 A 0
+		loop
+	
+	FollowFaster2:
+		SZTW A 0 A_JumpIfInTargetInventory("MonsterDetected",1,"CheckRetreat")
+		TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW A 2 A_Chase
+		TNT1 A 0 A_Recoil(-2.2)
+		TNT1 A 0 A_JumpIfCloser(300,"FollowFaster")
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		//TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW B 2 A_Chase
+		TNT1 A 0 A_Recoil(-2.2)
+		TNT1 A 0 A_JumpIfCloser(300,"FollowFaster")
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		//TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW C 2 A_Chase
+		TNT1 A 0 A_Recoil(-2.2)
+		TNT1 A 0 A_JumpIfCloser(300,"FollowFaster")
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW D 2 A_Chase
+		TNT1 A 0 A_Recoil(-2.2)
+		TNT1 A 0 A_JumpIfCloser(300,"FollowFaster")
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		//TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW A 2 A_Chase
+		TNT1 A 0 A_Recoil(-2.2)
+		TNT1 A 0 A_JumpIfCloser(300,"FollowFaster")
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		//TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW B 2 A_Chase
+		TNT1 A 0 A_Recoil(-2.2)
+		TNT1 A 0 A_JumpIfCloser(300,"FollowFaster")
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW C 2 A_Chase
+		TNT1 A 0 A_Recoil(-2.2)
+		TNT1 A 0 A_JumpIfCloser(300,"FollowFaster")
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		//TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW D 2 A_Chase
+		TNT1 A 0 A_Recoil(-2.2)
+		TNT1 A 0 A_JumpIfCloser(300,"FollowFaster")
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		//TNT1 A 0 A_PLAYSOUND("floorhard")
+		SZTW B 2 A_Chase
+		TNT1 A 0 A_Recoil(-2.2)
+		TNT1 A 0 A_JumpIfCloser(300,"FollowFaster")
+		TNT1 A 0 A_JumpIfTargetInLOS(2,360,JLOSF_TARGETLOS)
+		TNT1 A 0 A_JumpIfCloser(600,1)
+		goto TeleportToPlayer
+		TNT1 A 0
+		loop
+
+	TeleportToPlayer:
+		TNT1 AA 0
+		SZT1 F 3
+		SZT1 F 5 A_SpawnItem ("ScientistTeleportFog")		
+		TNT1 A 1 A_Warp(AAPTR_PLAYER1,-10,0,0,0,WARPF_NOCHECKPOSITION)
+		TNT1 A 0 A_SetInvulnerable
+		TNT1 A 0 A_ChangeFlag(SOLID,0)
+		SZT1 F 5 A_SpawnItem ("ScientistTeleportFog")
+		TNT1 A 1 A_ChangeFlag(FRIENDLY,0)
+		SZTW A 1 bright a_lookEx(LOF_NOSOUNDCHECK ,0,1400,0,360,"waitsafterteleport")
+		SZTW A 0 A_JumpIfInTargetInventory("MonsterDetected",1,"CheckRetreat")
+		TNT1 AA 0
+		goto waitsafterteleport
+	
+	Inactive:	
+	Active:
+		SZT1 AA 1 A_FaceTarget
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+		SZTW A 0 A_JumpIfInventory("Quest1sample", 5,"GiveReward")
+		TNT1 A 0 A_JumpIfInventory("ScientistGaveQuest", 1, "Active2")
+		TNT1 A 0 A_Playsound("scientist/bloodsample")
+		SZTW A 1 A_GiveInventory("QuestGiven", 1,AAPTR_PLAYER1)
+		TNT1 A 0 A_GiveInventory("ScientistGaveQuest")
+		TNT1 A 0 A_Print("\cNYou must provide \cG5 blood samples \cNto get a reward.", 0)
+		SZT2 ABCDABCDABCDABCDABCD 5
+		SZT1 AA 10 A_FaceTarget
+		goto see
+		
+	Active2:
+		SZTW A 0 A_JumpIf((CountInv("BloodSampleRED", AAPTR_PLAYER1) + CountInv("BloodSampleBLUE", AAPTR_PLAYER1) + CountInv("BloodSampleGREEN", AAPTR_PLAYER1))==1,"EndingAnim")
+		SZTW A 0 A_JumpIf(CountInv("Quest1sample") == 4, "EndingAnim")
+		SZTW A 0 A_JumpIfInTargetInventory("BloodSampleRED",1,"TakeSampleRED", AAPTR_PLAYER1)
+		SZTW A 0 A_JumpIfInTargetInventory("BloodSampleGREEN",1,"TakeSampleGREEN", AAPTR_PLAYER1)
+		SZTW A 0 A_JumpIfInTargetInventory("BloodSampleBLUE",1,"TakeSampleBLUE", AAPTR_PLAYER1)
+	EndingAnim:	
+		SZTW A 0 A_JumpIfInTargetInventory("BloodSampleRED",1,"TakeSampleREDEnding", AAPTR_PLAYER1)
+		SZTW A 0 A_JumpIfInTargetInventory("BloodSampleBLUE",1,"TakeSampleBLUEEnding", AAPTR_PLAYER1)
+		SZTW A 0 A_JumpIfInTargetInventory("BloodSampleGREEN",1,"TakeSampleGREENEnding", AAPTR_PLAYER1)
+		SZT1 A 1 A_SetInvulnerable
+		SZT1 A 10
+		TNT1 A 0 ACS_NamedExecuteAlways("BloodSampleMsg", 0)
+		TNT1 A 0 A_Playsound("scientist/stopasking")
+		SZT2 ABCDABCDABCDABCD 5
+		SZT1 A 10 A_FaceTarget
+		TNT1 A 0 A_UnSetInvulnerable
+		goto see
+		
+	TakeSampleRED:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+		TNT1 A 0 A_TAKEINVENTORY("BloodSampleRED",1,0,AAPTR_PLAYER1)
+		TNT1 A 0  A_Playsound("FLECH4")
+		SZT3 A 10
+		TNT1 A 0 A_GiveInventory("Quest1sample")
+		TNT1 A 0 ACS_NamedExecuteAlways("BloodSampleMsg", 0)
+		SZT3 B 7
+		SZT3 E 10
+		SZT1 A 7 A_FaceTarget
+		TNT1 A 0 A_UnSetInvulnerable
+		goto Active2
+		
+	TakeSampleREDEnding:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+		TNT1 A 0 A_TAKEINVENTORY("BloodSampleRED",1,0,AAPTR_PLAYER1)
+		TNT1 A 0  A_Playsound("FLECH4")
+		SZT3 A 10
+		TNT1 A 0 A_GiveInventory("Quest1sample")
+		TNT1 A 0 ACS_NamedExecuteAlways("BloodSampleMsg", 0)
+		TNT1 A 0 A_Playsound("scientist/getsample")
+		SZT3 BCDBCDBCDBCDBCDBCDBCD 5
+		SZT3 E 15
+		SZT1 A 10 A_FaceTarget
+		TNT1 A 0 A_UnSetInvulnerable
+		goto see
+	
+	TakeSampleBLUE:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+		TNT1 A 0 A_TAKEINVENTORY("BloodSampleBLUE",1,0,AAPTR_PLAYER1)
+		TNT1 A 0  A_Playsound("FLECH4")
+		SZT3 F 10
+		TNT1 A 0 A_GiveInventory("Quest1sample")
+		TNT1 A 0 ACS_NamedExecuteAlways("BloodSampleMsg", 0)
+		SZT3 G 7
+		SZT3 J 10
+		SZT1 A 7 A_FaceTarget
+		TNT1 A 0 A_UnSetInvulnerable
+		goto Active2
+		
+	TakeSampleBLUEEnding:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+		TNT1 A 0 A_TAKEINVENTORY("BloodSampleBLUE",1,0,AAPTR_PLAYER1)
+		TNT1 A 0  A_Playsound("FLECH4")
+		SZT3 F 10
+		TNT1 A 0 A_GiveInventory("Quest1sample")
+		TNT1 A 0 ACS_NamedExecuteAlways("BloodSampleMsg", 0)
+		TNT1 A 0 A_Playsound("scientist/getsample")
+		SZT3 GHIGHIGHIGHIGHIGHIGHI 5
+		SZT3 J 15
+		SZT1 A 10 A_FaceTarget
+		TNT1 A 0 A_UnSetInvulnerable
+		goto see
+	
+	TakeSampleGREEN:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+		TNT1 A 0 A_TAKEINVENTORY("BloodSampleGREEN",1,0,AAPTR_PLAYER1)
+		TNT1 A 0  A_Playsound("FLECH4")
+		SZT3 K 10
+		TNT1 A 0 A_GiveInventory("Quest1sample")
+		TNT1 A 0 ACS_NamedExecuteAlways("BloodSampleMsg", 0)
+		SZT3 L 7
+		SZT3 O 10
+		SZT1 A 7 A_FaceTarget
+		TNT1 A 0 A_UnSetInvulnerable
+		goto Active2	
+		
+	TakeSampleGREENEnding:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+		TNT1 A 0 A_TAKEINVENTORY("BloodSampleGREEN",1,0,AAPTR_PLAYER1)
+		TNT1 A 0  A_Playsound("FLECH4")
+		SZT3 K 10
+		TNT1 A 0 A_GiveInventory("Quest1sample")
+		TNT1 A 0 ACS_NamedExecuteAlways("BloodSampleMsg", 0)
+		TNT1 A 0 A_Playsound("scientist/getsample")
+		SZT3 LMNLMNLMNLMNLMNLMNLMN 5
+		SZT3 O 15
+		SZT1 A 10 A_FaceTarget
+		TNT1 A 0 A_UnSetInvulnerable
+		goto see
+	
+	GiveReward:
+		TNT1 A 0 A_TakeInventory("QuestGiven", 1,AAPTR_PLAYER1)
+		TNT1 A 0 ACS_NamedExecuteAlways("RemoveScientistAlly", 0, 0, 0, 0)
+		TNT1 A 0 A_ChangeFlag("PUSHABLE",0)
+	RewardLottery:
+		TNT1 A 0 A_Jump(32, "GiveElectroRifle")	
+		TNT1 A 0 A_Jump(16, "GiveCryoASG")
+		TNT1 A 0 A_Jump(48, "GiveGoldRockets")
+		TNT1 A 0 A_Jump(16, "GiveRats")
+		TNT1 A 0 A_Jump(64, "GiveCryoRifle")
+		TNT1 A 0 A_Jump(32, "GiveCellPack")
+		TNT1 A 0 A_Jump(32, "GiveIceArmor") 
+		TNT1 A 0 A_Jump(32, "GiveCoffee")
+		TNT1 A 0 A_Jump(32, "GiveFrostSerum") 
+		TNT1 A 0 A_Jump(32, "GiveTimeFreeze")
+		TNT1 A 0 A_Jump(32, "GiveCryoShells") 
+		TNT1 A 0 A_Jump(32, "GivePyroShells") 
+		TNT1 A 0 A_Jump(32, "GiveGoldShells")
+		TNT1 A 0 A_Jump(16, "GiveGreenArmor")
+		TNT1 A 0 A_Jump(32, "GiveSoulSphere")
+		TNT1 A 0 A_Jump(64, "GiveFreezebox")
+		TNT1 A 0 A_Jump(16, "GiveMedikit")
+		loop
+		
+	GiveCryoRifle:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/trythis")
+		SZT2 ABC 5
+		SZT1 B 8
+		SZT1 C 3
+		SZT1 D 9 	
+		SZT1 E 1 A_SpawnItemEx("CryoRifleSpawner",16,0,32,4)
+		TNT1 A 0
+		SZT1 E 6
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/hope")
+		SZT2 ABCDABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		TNT1 A 0 A_Playsound("scientist/letsgo")
+		SZT2 ABC 5
+		goto GoodBye
+		
+	GiveGoldRockets:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/trythis")
+		SZT2 ABC 5
+		SZT4 I 8
+		SZT4 J 3
+		SZT4 K 9 
+		SZT1 E 1 A_SpawnItemEx("GammoRocketBox",16,0,32,4)
+		TNT1 A 0 
+		SZT1 E 6 
+		SZT1 A 20 
+		TNT1 A 0 A_Playsound("scientist/hope")
+		SZT2 ABCDABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		TNT1 A 0 A_Playsound("scientist/letsgo")
+		SZT2 ABC 5
+		goto GoodBye
+		
+	GiveCryoASG:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/trythis")
+		SZT2 ABC 5
+		SZT4 C 8
+		SZT4 D 3
+		SZT4 E 9 	
+		SZT1 E 1 A_SpawnItemEx("CryoASGSpawner",16,0,32,4)
+		SZT1 E 1 A_SpawnItemEx("CryoAmmoShellBox",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/hope")
+		SZT2 ABCDABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		TNT1 A 0 A_Playsound("scientist/letsgo")
+		SZT2 ABC 5
+		goto GoodBye
+	
+	GiveElectroRifle:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/trythis")
+		SZT2 ABC 5
+		SZT3 P 8
+		SZT3 Q 3
+		SZT3 R 9 	
+		SZT1 E 1 A_SpawnItemEx("ElectroRifleSpawner",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/hope")
+		SZT2 ABCDABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		TNT1 A 0 A_Playsound("scientist/letsgo")
+		SZT2 ABC 5
+		goto GoodBye
+		
+	GiveGreenArmor:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/lethelp")
+		SZT2 ABC 5
+		SZT1 G 8
+		SZT1 H 3
+		SZT1 I 9 	
+		SZT1 E 1 A_SpawnItemEx("LightArmor",16,0,32,4)
+		SZT1 E 6 A_Stop
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/hope")
+		SZT2 ABCDABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		TNT1 A 0 A_Playsound("scientist/sight")
+		SZT2 A 3
+		SZT1 A 3
+		SZT2 A 3
+		SZT1 A 3
+		goto GoodBye
+		
+	GiveIceArmor:
+		SZT1 A 1 A_SetInvulnerable
+		SZT1 A 0 A_UnSetShootable
+		TNT1 A 0 A_PLAYSOUND("scientist/lethelp")
+		SZT2 ABC 5
+		SZT1 V 8
+		SZT1 W 3
+		SZT1 X 9 	
+		SZT1 E 1 A_SpawnItemEx("IceArmorPickup",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/hope")
+		SZT2 ABCDABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		TNT1 A 0 A_Playsound("scientist/sight")
+		SZT2 A 3
+		SZT1 A 3
+		SZT2 A 3
+		SZT1 A 3
+		goto GoodBye
+		
+	GiveFrostSerum:
+		SZT1 A 1 A_SetInvulnerable
+		SZT1 A 0 A_UnSetShootable
+		TNT1 A 0 A_PLAYSOUND("scientist/lethelp")
+		SZT2 ABC 5
+		SZT4 L 8
+		SZT4 M 3
+		SZT4 N 9 	
+		SZT1 E 1 A_SpawnItemEx("FrostSerumVial",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/hope")
+		SZT2 ABCDABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		TNT1 A 0 A_Playsound("scientist/sight")
+		SZT2 A 3
+		SZT1 A 3
+		SZT2 A 3
+		SZT1 A 3
+		goto GoodBye
+	
+	GiveTimeFreeze:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/gift")
+		SZT2 ABC 5
+		SZT4 O 8
+		SZT4 P 3
+		SZT4 Q 9 	
+		SZT1 E 1 A_SpawnItemEx("TimeFreezeSphereST",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/smellb")
+		SZT2 ABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		TNT1 A 0 A_Playsound("scientist/letsgo")
+		SZT2 ABC 5
+		goto GoodBye
+		
+	GiveCellPack:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/gift")
+		SZT2 ABC 5
+		SZT1 M 8
+		SZT1 N 3
+		SZT1 O 9 	
+		SZT1 E 1 A_SpawnItemEx("AmmoCellPack",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/smellb")
+		SZT2 ABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		TNT1 A 0 A_Playsound("scientist/letsgo")
+		SZT2 ABC 5
+		goto GoodBye
+		
+	GiveCoffee:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/gift")
+		SZT2 ABC 5
+		SZT4 F 8
+		SZT4 G 3
+		SZT4 H 9 	
+		SZT1 E 1 A_SpawnItemEx("CoffeeTime",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20 
+		TNT1 A 0 A_Playsound("scientist/smellb")
+		SZT2 ABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		TNT1 A 0 A_Playsound("scientist/letsgo")
+		SZT2 ABC 5
+		goto GoodBye
+		
+	GiveMedikit:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/heal")
+		SZT2 ABC 5
+		SZT1 J 8
+		SZT1 K 3
+		SZT1 L 9 	
+		SZT1 E 1 A_SpawnItemEx("Medikit2",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/getout")
+		SZT2 ABCDABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		SZT1 A 5
+		goto GoodBye
+
+	GiveSoulSphere:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/heal")
+		SZT2 ABC 5
+		SZT1 S 8
+		SZT1 T 3
+		SZT1 U 9 	
+		SZT1 E 1 A_SpawnItemEx("LifeSphere",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/getout")
+		SZT2 ABCDABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		SZT1 A 5
+		goto GoodBye
+		
+	GiveFreezebox:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/canhelp")
+		SZT2 ABC 5
+		SZT1 R 8
+		SZT1 Q 3
+		SZT1 P 9 	
+		SZT1 E 1 A_SpawnItemEx("FreezenadePack",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/smellb")
+		SZT2 ABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		TNT1 A 0 A_Playsound("scientist/letsgo")
+		SZT2 ABC 5
+		goto GoodBye
+			
+	GiveCryoShells:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/sight")
+		SZT2 AA 5
+		SZT4 R 8
+		SZT4 S 3
+		SZT4 T 9 	
+		SZT1 E 1 A_SpawnItemEx("CryoAmmoShellBox",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/sorry")
+		SZT2 ABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		SZT1 A 12
+		goto GoodBye
+		
+	GivePyroShells:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/gift")
+		SZT2 ABC 5
+		SZT4 U 8
+		SZT4 V 3
+		SZT4 W 9 	
+		SZT1 E 1 A_SpawnItemEx("PyroAmmoShellBox",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20 
+		TNT1 A 0 A_Playsound("scientist/smellb")
+		SZT2 ABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		TNT1 A 0 A_Playsound("scientist/letsgo")
+		SZT2 ABC 5
+		goto GoodBye
+		
+	GiveGoldShells:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/trythis")
+		SZT2 ABC 5
+		SZT3 X 8
+		SZT3 Y 3
+		SZT3 Z 9 	
+		SZT1 E 1 A_SpawnItemEx("GoldAmmoShellBox",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/hope")
+		SZT2 ABCDABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		TNT1 A 0 A_Playsound("scientist/letsgo")
+		SZT2 ABC 5
+		goto GoodBye
+	
+	GiveRats:
+		SZT1 A 1 A_SetInvulnerable
+		TNT1 A 0 A_PLAYSOUND("scientist/sight")
+		SZT2 AA 5
+		SZT1 Y 8
+		SZT1 Z 3
+		SZT1 [ 9 	
+		SZT1 E 1 A_SpawnItemEx("RatsCage",16,0,32,4)
+		TNT1 A 0 A_Stop
+		SZT1 E 6
+		SZT1 A 20
+		TNT1 A 0 A_Playsound("scientist/sorry")
+		SZT2 ABCDABCDABCD 5
+		SZT1 A 30 A_FaceTarget
+		SZT1 A 12
+		goto GoodBye
+		
+	GoodBye:
+		SZT1 F 8 ACS_NamedExecuteAlways("SpawnScientist5", 0, 0, 0, 0)
+		SZT1 F 10 A_SpawnItem ("ScientistTeleportFog")
+		TNT1 A 0 A_TAKEINVENTORY("ScientistFirstmet",1,0,AAPTR_PLAYER1) 
+		TNT1 A 0 
+		stop
+	
+	  Pain:
+		SZTP A 3
+		SZTP A 3 A_Pain
+		TNT1 A 0 A_JumpIfInTargetInventory("IsPlayer", 1, "AreYouInsane")
+		TNT1 A 0 A_Jump(64,"courage")
+		goto see
+		
+		
+	  AreYouInsane:
+		SZTP A 3
+		TNT1 A 0  A_JumpIfInventory("scientinsanetoken", 1, "See")
+		TNT1 A 0 A_Playsound("scientist/insane")
+		SZTP A 5
+		SZT2 ABCDABCDABCD 5
+		TNT1 A 0 A_giveinventory("scientinsanetoken")
+		goto See
+	
+	CheckRetreat:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(16, "Courage")
+		TNT1 A 0 A_JumpIfCloser(500, "Retreat")
+		Goto TakeCover
+		
+	Retreat:
+		TNT1 A 0 A_JumpIfInTargetInventory("TargetIsAMarine", 1, "FollowPLayer")
+		TNT1 A 0
+		SZTW A 3 A_FaceTarget( 0, 270, 180)
+		TNT1 A 0 A_Recoil(-5)
+		SZTW B 3 
+		TNT1 A 0 A_Recoil(-5)
+		SZTW C 3 A_FaceTarget( 0, 270, 180)
+		SZTW B 3 
+		SZTW A 3 A_FaceTarget( 0, 270, 180)
+		TNT1 A 0 A_Recoil(-5)
+		SZTW B 3 
+		SZTW C 3 A_FaceTarget( 0, 270, 180)
+		TNT1 A 0 A_Recoil(-5)
+		SZTW B 3 
+		Goto TakeCover	
+		
+	PlaceSnowCaster:
+		TNT1 A 0 A_JumpIfInTargetInventory("TargetIsAMarine", 1, "FollowPLayer")
+		TNT1 A 0
+		SZTW A 3 A_FaceTarget
+		TNT1 A 0 A_Recoil(-5)
+		SZTW B 3 
+		TNT1 A 0 A_Recoil(-5)
+		SZTW C 3 A_FaceTarget
+		SZTW B 3 
+		SZTW A 3 A_FaceTarget
+		TNT1 A 0 A_Recoil(-5)
+		SZTW B 3 
+		SZTW C 3 A_FaceTarget
+		TNT1 A 0 A_Recoil(-5)
+		SZT4 A 5 A_FaceTarget
+		SZT4 B 5
+		TNT1 A 0 A_SpawnItemEx("SnowCasterDevice",16,0,32,4)
+		SZT1 A 5 
+		TNT1 A 0
+		SZTW A 3 A_FaceTarget( 0, 270, 180)
+		TNT1 A 0 A_Recoil(-5)
+		SZTW B 3 
+		TNT1 A 0 A_Recoil(-5)
+		SZTW C 3 A_FaceTarget( 0, 270, 180)
+		SZTW B 3 
+		SZTW A 3 A_FaceTarget( 0, 270, 180)
+		TNT1 A 0 A_Recoil(-5)
+		SZTW B 3 
+		SZTW C 3 A_FaceTarget( 0, 270, 180)
+		TNT1 A 0 A_Recoil(-5)
+		SZT4 A 5
+		TNT1 A 0 A_PlaySound("DSPIPARM",5)
+		TNT1 A 0 ACS_NamedExecuteAlways("SnowCasterOn",0,0,0,0)
+		SZT4 A 1
+		Goto TakeCover	
+//Melee:
+//Missile:
+	TakeCover:
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+		TNT1 A 0 A_ChangeFlag("FRIENDLY", 0)
+		TNT1 A 0 A_Jump( 164, 2)
+		SZT2 E 5 A_Playsound("scientist/afraid")
+		SZT2 E 50
+		//TNT1 A 0 A_Jump( 64, "PlaceSnowCaster")
+		tnt1 a 0 A_CheckRange(1000, "teleporttoplayer", True)
+		TNT1 A 0 A_ClearTarget
+		goto See
+	
+	Courage:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInTargetInventory("TargetIsABaronOfHell", 1, "See")
+		TNT1 A 0 A_JumpIfInTargetInventory("TargetIsAMastermind", 1, "See")
+		TNT1 A 0 A_JumpIfInTargetInventory("TargetIsACyberdemon", 1, "See")
+		TNT1 A 0 A_JumpIfInTargetInventory("IsARevenant", 1, "See")
+		TNT1 A 0 A_Stop
+		TNT1 A 0 A_ChangeFlag("GHOST", 0)
+		TNT1 A 0 A_ChangeFLag("NODROPOFF", 0)
+		SZF1 A 7 A_FaceTarget
+		TNT1 A 0 A_ChangeFlag("NODROPOFF",false)
+		SZF1 B 10 A_FaceTarget
+	FireGun:
+		TNT1 A 0 A_PlaySound("Pistol/Fire")
+		TNT1 A 0 A_CustomMissile("DistantFireSoundRifle", 32, 0, 0, 1, 0)
+		SZF1 C 2 BRIGHT A_CustomMissile("ZombieManTracer", 45, 0, random(-2, 2), 1, random(-2, 2))
+		TNT1 A 0 A_SpawnItem ("PistolCaseSpawn", 0, 30,0)
+		SZF1 B 12 A_FaceTarget
+		TNT1 A 0 A_Jump(128, "FireGun")
+		SZF1 A 5
+		Goto See
+
+	HealPlayer:
+		SZZH A 8 A_SetInvulnerable
+		TNT1 A 0 A_Stop
+		SZZH AB 7
+		SZZH B 10
+		TNT1 A 0 A_JumpIfCloser(100,1)
+		GOTO See
+		TNT1 A 0 A_PLAYSOUND("scientist/healplayer")
+		SZZH EFGFEFGEFG 6
+		TNT1 A 0 A_JumpIfCloser(100,1)
+		GOTO See
+		SZZH B 15
+		TNT1 A 0 A_JumpIfCloser(100,1)
+		GOTO See
+		SZZH C 15
+		TNT1 A 0 A_JumpIfCloser(100,1)
+		GOTO See
+		SZZH D 1 A_Playsound("MedShot")
+		TNT1 A 0 A_GiveInventory("ScientistHeal2",1,AAPTR_PLAYER1)
+		//TNT1 A 0 A_GiveInventory("WasJustHealed",1,AAPTR_PLAYER1)
+		SZZH D 25 
+		SZZH C 6
+		SZZH A 20
+		goto See
+	
+	
+	WaitAfterKick:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("UnabletoWaitAgain", 1, "See")
+		TNT1 A 0 A_Playsound("scientist/wait")
+		//TNT1 A 0 a_giveinventory("UnabletoWaitAgain")
+		TNT1 A 0 A_TakeInventory ("HasBeenKicked", 3)
+		SZT2 ABCDABCDABCD 5	
+		SZT1 A -1
+		Goto See
+	
+	Pain.Kick:
+	Pain.ExtremeKicks:
+	Pain.ExtremePunches:
+	Pain.LowKick:
+	Pain.Melee:
+		SZTP A 1 A_Pain
+		TNT1 A 0 a_giveinventory("HasBeenKicked")
+		TNT1 A 0 A_PlaySound("weapons/barrelpain", 1)
+		SZTP A 1 A_FaceTarget
+		TNT1 A 0 HealThing(20)
+		TNT1 A 0 ThrustThing(angle*256/360+128, 10, 0, 0)
+		TNT1 A 0 ThrustThingZ(0,20,0,1)
+		TNT1 A 0 A_JumpIfInventory("HasBeenKicked", 3, "WaitAfterKick")
+		Goto See
+ 
+	Pain.Shrapnel:
+	Pain.Head:
+		POSR A 0 A_TakeInventory ("HitHead", 100)
+		POSR A 0 A_TakeInventory ("HitLeg", 100)
+		SZTP A 5 A_Pain
+		TNT1 A 0 A_FaceTarget
+		SZTP B 20
+		TNT1 A 0 A_JumpIfInTargetInventory("IsPlayer", 1, "AreYouInsane")
+		SZTP B 20
+		Goto See
+  	
+	Death.MonsterShotgunBullet:
+	Death.Shotgun:
+		SZTP AA 1 A_FaceTarget
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+		TNT1 A 0 A_JumpIfInventory("HitHead", 2, "Death.HeadExplode")
+		TNT1 A 0 A_JumpIfInventory("HitHead", 1, "Death.Head")
+		TNT1 A 0 A_SpawnItem("MuchBlood", 0, 40)
+		TNT1 A 0 A_CustomMissile ("SuperWallRedBlood", 42, 0, random (170, 190), 2, random (0, 20))
+		TNT1 A 0 A_Jump(42, "Death.Shotgunontheface")
+		TNT1 A 0 A_JumpIfCloser(100, "Death.bLAST3")
+		TNT1 A 0 A_JumpIfCloser(400, "Death.Shotgunontheface")
+		Goto Death
+		
+	Death.Head:
+		TNT1 A 0 A_JumpIfInTargetInventory("HasPlasmaWeapon", 1, "Death.Plasma")
+		//TNT1 A 0 A_JumpIfHealthLower(-600, "Death.SSG")
+		//TNT1 A 0 A_JumpIfHealthLower(-400, "HeavyHead")
+		TNT1 A 0 A_JumpIfHealthLower(-50, "Death.HeadExplode")
+	Death.HeadMinor:
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)	
+		TNT1 A 0 ACS_NamedExecuteAlways("RemoveScientistAlly", 0, 0, 0, 0)
+		TNT1 A 0 ACS_NamedExecuteAlways("SpawnScientist5", 0, 0, 0, 0)
+		TNT1 A 0 A_KillChildren
+		TNT1 A 0 A_Scream
+		TNT1 A 0 A_FaceTarget
+		TNT1 AAAA 0 A_CustomMissile ("SmallBrainPieceFast", random (45, 55), random (5, -5), random (170, 190), 2, random (-10, 10))
+		TNT1 A 0 A_CustomMissile ("BloodMist", 50, 0, random (0, 360), 2, random (30, 90))
+		SZTD FFF 2 A_CustomMissile ("ArterialBlood22Big2", 45, 0, 90, 2, random (0, 60))
+		SZTD GGG 2 A_CustomMissile ("ArterialBlood22Big2", 40, 0, 120, 2, random (0, 60))
+		TNT1 A 0 A_CustomMissile ("SmallBrainPiece", 50, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_NoBlocking
+		SZTD HH 2 A_CustomMissile ("ArterialBlood22Big", 30, 0, 140, 2, random (0, 60))
+		SZTD IJ 5
+		TNT1 A 0 A_SpawnItem ("GrowingBloodPool")
+		TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_SpawnItem ("DeadScientistMinorHead")
+		TNT1 A 0 A_GiveToTarget("SoulAmmo", 10)
+		TNT1 A 0 A_TAKEINVENTORY("ScientistFirstmet",1,0,AAPTR_PLAYER1) 
+		TNT1 A 0 A_TAKEINVENTORY("scientinsanetoken",1,0,AAPTR_PLAYER1)
+		TNT1 A 0 A_TakeInventory("QuestGiven", 1,AAPTR_PLAYER1)
+		TNT1 A 0 A_CustomMissile ("ArterialBloodSPray", 10, -10, 45, 2, random (0, 60))
+		TNT1 A -1
+		Stop
+	
+	Death.HeadExplode:
+		TNT1 A 0 A_KillChildren
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)	
+		TNT1 A 0 ACS_NamedExecuteAlways("RemoveScientistAlly", 0, 0, 0, 0)
+		TNT1 A 0 ACS_NamedExecuteAlways("SpawnScientist5", 0, 0, 0, 0)
+		TNT1 A 0 A_PlaySound("misc/xdeath4")
+		TNT1 A 0 A_PlaySound("gore/headshot", 2)
+		TNT1 A 0 A_CustomMissile ("MuchBlood2", 50, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAA 0 A_CustomMissile ("Brains1", 50, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_CustomMissile ("Brains2", 50, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_CustomMissile ("Brains3", 50, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_CustomMissile ("Brains4", 50, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_CustomMissile ("Brains5", 50, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAA 0 A_CustomMissile ("SmallBrainPiece", random (45, 55), random (5, -5), random (170, 190), 2, random (0, 40))
+		TNT1 AAAA 0 A_CustomMissile ("SmallBrainPiece", 50, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("SuperWallRedBlood", 46, 0, random (170, 190), 2, random (0, 40))
+		SZTX C 0 A_XScream
+		SZTD H 0 A_NoBlocking
+		TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_GiveToTarget("SoulAmmo", 10)
+		TNT1 A 0 A_SpawnItemEx ("Scientistfallingbeheaded",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 0 A_TAKEINVENTORY("ScientistFirstmet",1,0,AAPTR_PLAYER1) 
+		TNT1 A 0 A_TAKEINVENTORY("scientinsanetoken",1,0,AAPTR_PLAYER1)
+		TNT1 A 0 A_TakeInventory("QuestGiven", 1,AAPTR_PLAYER1)
+		TNT1 A -1
+		ZMAD E 0
+		Stop	
+		
+	Death.Railgun:	
+	Death.Plasma: 
+	Death.Plasma2:
+		TNT1 A 0
+		TNT1 A 0 A_KillChildren
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+		TNT1 A 0 ACS_NamedExecuteAlways("RemoveScientistAlly", 0, 0, 0, 0)
+		TNT1 A 0 ACS_NamedExecuteAlways("SpawnScientist5", 0, 0, 0, 0)
+		TNT1 A 0 A_Stop
+		PBR1 A 6 A_XScream
+		TNT1 AAAA 0 A_CustomMissile ("BluePlasmaFireNonStatic", 42, 0, random (0, 360), 2, random (0, 180))
+		TNT1 AAA 0 A_CustomMissile ("Blood", 32, 0, random (0, 360), 2, random (0, 180))
+		TNT1 AAAAAA 0 A_CustomMissile ("SuperGoreMistSmall", 32, 0, random (0, 360), 2, random (10, 90))
+		TNT1 AAA 0 A_CustomMissile ("Brutal_FlyingBlood", 32, 0, random (0, 360), 2, random (0, 180))
+		PBR1 B 6 A_NoBlocking
+		TNT1 A 0 A_SpawnItemEx ("DetectFloorCraterSmall",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+		TNT1 A 0 A_SpawnItem("BarrelExplosionSmokeColumn")
+		TNT1 A 0 A_SpawnItemEx("TinyBurningPiece", random (-15, 15), random (-15, 15))
+		TNT1 AA 0 A_SpawnItemEx("TinyBurningPiece2", random (-35, 35), random (-35, 35))
+		TNT1 AA 0 A_SpawnItemEx("TinyBurningPiece3", random (-45, 45), random (-45, 35))
+		PBR1 CCDD 3 A_CustomMissile ("BluePlasmaFireNonStatic", 32, 0, random (0, 360), 2, random (0, 180))
+		PBR1 EEFF 3
+		PBR1 GG 3
+		TNT1 A 0 A_TAKEINVENTORY("ScientistFirstmet",1,0,AAPTR_PLAYER1) 
+		TNT1 A 0 A_TAKEINVENTORY("scientinsanetoken",1,0,AAPTR_PLAYER1)
+		TNT1 A 0 A_TakeInventory("QuestGiven", 1,AAPTR_PLAYER1)
+		TNT1 A 0 A_GiveToTarget("SoulAmmo", 10)
+		PBR1 H -1
+		Stop	
+		
+	Death.SSG:	
+	Death.Minigun:	
+	Death.Blast:
+	Death.Blast3:
+		TNT1 A 0
+		TNT1 A 0 A_FaceTarget
+		TNT1 A 0 A_Jump(12, "Death.Arm")
+		TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_GiveToTarget("SoulAmmo", 10)
+		TNT1 A 0 A_XScream
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+		TNT1 AAA 0 A_CustomMissile ("Guts", 32, 0, random (150, 210), 2, random (0, 40))
+		TNT1 AAA 0 A_CustomMissile ("XDeath1", 32, 0, random (150, 210), 2, random (0, 40))
+		TNT1 AAA 0 A_CustomMissile ("Xdeath3", 16, 0, random (170, 190), 2, random (0, 40))
+		TNT1 AAAA 0 A_CustomMissile ("Brutal_FlyingBlood", 32, 0, random (170, 190), 2, random (0, 40))
+		TNT1 AAAA 0 A_CustomMissile ("Brutal_FlyingBloodFaster", 32, 0, random (170, 190), 2, random (0, 40))
+		TNT1 AAAA 0 A_CustomMissile ("Brutal_FlyingBloodMuchFaster", 32, 0, random (170, 190), 2, random (0, 40))
+		TNT1 AA 0 A_CustomMissile ("SuperWallRedBlood", 32, 0, random (170, 190), 2, random (0, 40))
+		TNT1 AAA 0 A_CustomMissile ("BloodMistBig", 40, 0, random (0, 360), 2, random (30, 90))
+		TNT1 A 0 ACS_NamedExecuteAlways("RemoveScientistAlly", 0, 0, 0, 0)
+		TNT1 A 0 ACS_NamedExecuteAlways("SpawnScientist5", 0, 0, 0, 0)
+		SZTD K 6 A_Stop
+		TNT1 A 0 A_SpawnItem ("GrowingBloodPool")
+		SZTD LLLLLLLLLL 3 A_CustomMissile ("ArterialBlood22Big2", 26, 0, random (0, 360), 2, random (30, 60))
+		SZTD MMM 3 A_CustomMissile ("ArterialBlood22Big2", 26, 0, random (0, 360), 2, random (10, 40))
+		SZTD NN 3 A_CustomMissile ("ArterialBlood22Big2", 6, 0, random (0, 360), 2, random (30, 60))
+		TNT1 A 0 A_PlaySound("BODYF",7)
+		TNT1 A 0 A_TAKEINVENTORY("ScientistFirstmet",1,0,AAPTR_PLAYER1) 
+		TNT1 A 0 A_TAKEINVENTORY("scientinsanetoken",1,0,AAPTR_PLAYER1)
+		TNT1 A 0 A_TakeInventory("QuestGiven", 1,AAPTR_PLAYER1)
+		TNT1 A 0 A_SpawnItem ("DeadScientistBlast")
+		Stop
+		
+  Death:
+  
+	TNT1 A 0 A_KillChildren
+	TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+  	TNT1 A 0 A_JumpIfInventory("HitHead", 2, "Death.HeadExplode")
+	TNT1 A 0 A_JumpIfInventory("HitHead", 1, "Death.Head")
+    SZTD A 5 A_Scream
+    SZTD B 5 A_CustomMissile ("ArterialBlood22Big", 40, 0, 120, 2, random (0, 60))
+    SZTD A 5 A_NoBlocking
+    SZTD B 5 
+    SZTD A 5 
+    SZTD B 5 A_CustomMissile ("ArterialBloodSPray", 10, -10, 45, 2, random (0, 60))
+	SZTD C 5
+    SZTD D 5 A_SpawnItem ("GrowingBloodPool")
+	TNT1 A 0 A_TAKEINVENTORY("ScientistFirstmet",1,0,AAPTR_PLAYER1) 
+	TNT1 A 0 A_TAKEINVENTORY("scientinsanetoken",1,0,AAPTR_PLAYER1)
+	TNT1 A 0 A_TakeInventory("QuestGiven", 1,AAPTR_PLAYER1)
+    TNT1 A 0 ACS_NamedExecuteAlways("SpawnScientist5", 0, 0, 0, 0)
+	TNT1 A 0 ACS_NamedExecuteAlways("RemoveScientistAlly", 0, 0, 0, 0)
+	SZTD E 5 A_CustomMissile ("ArterialBloodSPray", 10, -10, 45, 2, random (0, 60))
+	TNT1 A 0 A_SpawnItem ("DeadScientist")
+    stop
+  
+  XDeath:
+    SZTP A 1
+	TNT1 A 0 A_KillChildren
+    SZTX A 1 A_XScream
+    SZTX B 1 A_NoBlocking
+	TNT1 A 0
+	TNT1 A 0 A_ChangeFlag("USESPECIAL", 0)
+	TNT1 A 0 A_ChangeFlag("FRIENDLY", 0)
+	TNT1 AAAA 0 A_CustomMissile ("Brains1", 50, 0, random (0, 360), 2, random (0, 160))
+	TNT1 A 0 A_CustomMissile ("Brains2", 50, 0, random (0, 360), 2, random (0, 160))
+	TNT1 A 0 A_CustomMissile ("Brains3", 50, 0, random (0, 360), 2, random (0, 160))
+	TNT1 A 0 A_CustomMissile ("Brains4", 50, 0, random (0, 360), 2, random (0, 160))
+	TNT1 A 0 A_CustomMissile ("Brains5", 50, 0, random (0, 360), 2, random (0, 160))
+	TNT1 AAAA 0 A_CustomMissile ("SmallBrainPiece", random (45, 55), random (5, -5), random (170, 190), 2, random (0, 40))
+	TNT1 AAAA 0 A_CustomMissile ("SmallBrainPiece", 50, 0, random (0, 360), 2, random (0, 160))
+	TNT1 AA 0 A_CustomMissile ("SuperWallRedBlood", 46, 0, random (170, 190), 2, random (0, 40))
+	TNT1 AAAAAAAAAAA 0 A_CustomMissile ("BrainBlood", 50, 0, random (0, 360), 2, random (0, 160))
+	TNT1 A 0 A_CustomMissile ("XDeathArm1", 35, 0, random (0, 360), 2, random (0, 160))
+	TNT1 AAAA 0 A_CustomMissile ("XDeath2", 32, 0, random (0, 360), 2, random (0, 160))
+	TNT1 AAA 0 A_CustomMissile ("XDeath4", 32, 0, random (0, 360), 2, random (0, 160))
+	TNT1 A 0 A_CustomMissile ("XDeath3", 40, 0, random (0, 360), 2, random (0, 160))
+	TNT1 A 0 A_CustomMissile ("XDeathSargeLeg1", 32, 0, random (0, 360), 2, random (0, 160))
+	TNT1 AAAA 0 A_CustomMissile ("XDeath1", 40, 0, random (0, 360), 2, random (0, 160))
+	TNT1 A 0 ThrustThingZ(0,30,0,1)
+	FS14 AB 5
+	TNT1 A 0 A_PlaySound("BODYF",6)
+	TNT1 A 0 A_TAKEINVENTORY("ScientistFirstmet",1,0,AAPTR_PLAYER1) 
+	TNT1 A 0 A_TAKEINVENTORY("scientinsanetoken",1,0,AAPTR_PLAYER1)
+	TNT1 A 0 A_TakeInventory("QuestGiven", 1,AAPTR_PLAYER1)
+	TNT1 A 0 A_SpawnItem ("DeadLabguyFS14G")
+	TNT1 A 0 ACS_NamedExecuteAlways("RemoveScientistAlly", 0, 0, 0, 0)
+    TNT1 A 0 ACS_NamedExecuteAlways("SpawnScientist5", 0, 0, 0, 0)
+	stop
+	
+	Death.Ice:
+	Death.Freeze:
+	Death.Frost:
+		TNT1 A 0
+		//TNT1 A 0 A_KillMaster("Vanish")
+		TNT1 A 0 A_KillChildren
+		TNT1 A 0 A_BossDeath
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+		TNT1 A 0 A_ChangeFlag("SOLID", 0)
+		TNT1 A 0 A_KillChildren
+		TNT1 A 0 A_TAKEINVENTORY("ScientistFirstmet",1,0,AAPTR_PLAYER1) 
+		TNT1 A 0 A_TAKEINVENTORY("scientinsanetoken",1,0,AAPTR_PLAYER1)
+		TNT1 A 0 A_TakeInventory("QuestGiven", 1,AAPTR_PLAYER1)
+		TNT1 A 0 A_SpawnItem("FrozenScientist")
+		TNT1 A 0 ACS_NamedExecuteAlways("RemoveScientistAlly", 0, 0, 0, 0)
+		TNT1 A 0 ACS_NamedExecuteAlways("SpawnScientist5", 0, 0, 0, 0)
+		Stop
+		
+  Raise:
+    SZTD EDCBA 5
+    goto See
+  }
+}
+
+
+Actor DeadScientist_NoHead: DeadFormerScientist
+{
+	Health 300 
+	States
+	{
+	Spawn:
+		POSR L 0
+		POSR L 0 ACS_NamedExecuteAlways("SlaughtermapCheckCorpse", 0, 0, 0, 0)
+		SZTD J -1
+		Stop
+
+	Death:
+		TNT1 A 0 A_NoBlocking
+		TNT1 AA 0 A_CustomMissile ("XDeath1", 15, 0, random (0, 360), 2, random (0, 180))
+		TNT1 A 0 A_CustomMissile ("XDeathArm1", 15, 0, random (0, 360), 2, random (0, 180))
+		TNT1 AAAA 0 A_CustomMissile ("BloodMistBig", 15, 0, random (0, 360), 2, random (0, 60))
+		TNT1 A 0 A_SpawnItem ("DeadScientist_NoHeadNoArm")
+		Stop
+	}
+}
+
+actor DeadScientistBlast: DeadScientist_NoHead
+{
+	States
+	{
+	Spawn:
+		SZTD O -1
+		Stop
+	}
+}
+
+Actor DeadScientist_NoHeadNoArm: DeadFormerScientist
+{
+	Health 300 
+	States
+	{
+	Spawn:
+		POSR L 0
+		POSR L 0 ACS_NamedExecuteAlways("SlaughtermapCheckCorpse", 0, 0, 0, 0)
+		SZTD T -1
+		Stop
+
+	Death:
+		TNT1 A 0 A_NoBlocking
+		TNT1 AAAA 0 A_CustomMissile ("Guts", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_CustomMissile ("XDeath1", 40, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath3b", 40, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_CustomMissile ("XDeath4", 40, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_CustomMissile ("XDeath2b", 40, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAA 0 A_CustomMissile ("BloodMistBig", 40, 0, random (0, 360), 2, random (30, 90))
+		TNT1 AAA 0 A_CustomMissile ("BloodMistBig", 40, 0, random (0, 360), 2, random (30, 90))
+		TNT1 AA 0 A_CustomMissile ("XDeathArm1", 40, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeathSargeLeg1", 40, 0, random (0, 360), 2, random (0, 160))
+		Stop
+	}
+}
+Actor DeadScientist : DeadScientist_NoHeadNoArm
+{
+	Health 300 
+	States
+	{
+	Spawn:
+		SZTD E 0
+		SZTD E 0 ACS_NamedExecuteAlways("SlaughtermapCheckCorpse", 0, 0, 0, 0)
+		SZTD E -1
+		Stop
+	}
+}
+
+Actor DeadScientistMinorHead: DeadScientist_NoHeadNoArm
+{
+	Health 300 
+	States
+	{
+	Spawn:
+		SZTD J 0
+		SZTD J 0 ACS_NamedExecuteAlways("SlaughtermapCheckCorpse", 0, 0, 0, 0)
+		SZTD J -1
+		Stop
+	}
+}
+ACTOR ScientistFallingBeheaded
+{
+	Radius 30
+	Height 40
+	Health 50
+	damagefactor "trample", 0.0 DamageFactor "CauseSplash", 0.0 DamageFactor "CauseObjectsToSplashSlime", 0.0 DamageFactor "CauseObjectsToSplashNukage", 0.0
+	DamageFactor "CauseObjectsToSplashBlood", 0.0 DamageFactor "CauseObjectsToSplashLava", 0.0
+	damagefactor "Avoid", 0.0 damagefactor "KillMe", 0.0 damagefactor "Head", 0.0
+	BloodType "Brutal_Blood", "BloodSPlatterReplacer", "SawBlood"
+	DamageFactor "SSG", 55.0
+	MONSTER
+	+SHOOTABLE
+	+FLOORCLIP
+	-SOLID
+	+DONTSPLASH
+	+FRIENDLY
+	+GHOST
+	+THRUGHOST
+	-COUNTKILL
+	Mass 500
+	+NOBLOODDECALS
+	BloodType "DeadBlood", "SawBlood", "SawBlood"
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(196, "Instant")
+		TNT1 A 0 A_Jump(128, "Long")
+		SZTX AABB 4 A_CustomMissile ("ArterialBlood22Big", 40, 0, 120, 2, random (0, 60))
+		SZTD FF 3 A_CustomMissile ("ArterialBlood22Big", 40, 0, 120, 2, random (0, 60))
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE",0)
+		TNT1 A 0 A_Noblocking
+		TNT1 A 0 A_Scream
+		SZTD  GGHHII 2 A_CustomMissile ("ArterialBlood22Big", 40, 0, 120, 2, random (0, 60))
+		TNT1 A 0 A_SpawnItem ("GrowingBloodPool")
+		TNT1 A 0 A_SpawnItem ("DeadScientist_NoHead")
+		TNT1 A 5 A_CustomMissile ("ArterialBloodSPray", 10, -10, 45, 2, random (0, 60))
+		Stop
+
+	Long:
+		SZTX AABB 3 A_CustomMissile ("ArterialBlood22Big", 40, 0, 120, 2, random (0, 60))
+		SZTX AABB 3 A_CustomMissile ("ArterialBlood22Big", 40, 0, 120, 2, random (0, 60))
+		SZTX AABB 3 A_CustomMissile ("ArterialBlood22Big", 40, 0, 120, 2, random (0, 60))
+		SZTD FF 3 A_CustomMissile ("ArterialBlood22Big", 40, 0, 120, 2, random (0, 60))
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE",0)
+		TNT1 A 0 A_Noblocking
+		TNT1 A 0 A_Scream
+		SZTD GGHHII 2 A_CustomMissile ("ArterialBlood22Big", 40, 0, 120, 2, random (0, 60))
+		TNT1 A 0 A_SpawnItem ("GrowingBloodPool")
+		TNT1 A 0 A_SpawnItem ("DeadScientist_NoHead")
+		TNT1 A 5 A_CustomMissile ("ArterialBloodSPray", 10, -10, 45, 2, random (0, 60))
+		Stop
+
+	Instant:
+		SZTX AB 4 A_CustomMissile ("ArterialBlood22Big", 40, 0, 120, 2, random (0, 60))
+		SZTD FGHI 3 A_CustomMissile ("ArterialBlood22Big", 40, 0, 120, 2, random (0, 60))
+	Death:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE",0)
+		TNT1 A 0 A_Noblocking
+		TNT1 A 0 A_Scream
+		SZTD HHII 2 A_CustomMissile ("ArterialBlood22Big", 40, 0, 120, 2, random (0, 60))
+		TNT1 A 0 A_SpawnItem ("GrowingBloodPool")
+		TNT1 A 0 A_SpawnItem ("DeadScientist_NoHead")
+		TNT1 A 5 A_CustomMissile ("ArterialBloodSPray", 10, -10, 45, 2, random (0, 60))
+		Stop
+
+	Death.SSG:
+	XDeath:
+		TNT1 A 0
+		TNT1 A 0 A_Recoil(2)
+		//TNT1 AAA 0 bright A_CustomMissile ("SuperGoreSpawner", 35, 0, random (0, 360), 2, random (30, 180))
+		TNT1 AAAA 0 A_CustomMissile ("Guts", 32, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_CustomMissile ("XDeath1", 40, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeath3b", 40, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_CustomMissile ("XDeath4", 40, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_CustomMissile ("XDeath2b", 40, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AAAA 0 A_CustomMissile ("BloodMistBig", 40, 0, random (0, 360), 2, random (30, 90))
+		TNT1 AAA 0 A_CustomMissile ("BloodMistBig", 40, 0, random (0, 360), 2, random (30, 90))
+		TNT1 AA 0 A_CustomMissile ("XDeathArm1", 40, 0, random (0, 360), 2, random (0, 160))
+		TNT1 AA 0 A_CustomMissile ("XDeathSargeLeg1", 40, 0, random (0, 360), 2, random (0, 160))
+		TNT1 A 0 A_SpawnItemEx("ArmorShardFatalityBonus2", 0, 0, 20, random (-1, 1), random (-1, 1), 8)
+		TNT1 A 0 A_SpawnItemEx("HealthPlusFatalityBonus2", 0, 0, 20, random (-1, 1), random (-1, 1), 8)
+		TNT1 A 0 A_SpawnItem("BigBloodspot")
+		Stop
+
+	Death.Shotgun:
+	Death.SSG:
+	Death.Minigun:
+	Death.Cutless:
+	Death.Cut:
+		TNT1 A 0 A_Noblocking
+		TNT1 A 0 A_Scream
+		TNT1 AAA 0 A_CustomMissile ("BloodMistBig", 50, 0, random (0, 360), 2, random (30, 90))
+		TNT1 A 0 A_SpawnItem ("VeryFuckedUpBrutalizedFormerScientistLeg2")
+		Stop
+	}
+}
+ACTOR ScientistTeleportFog
+{
+  +NOBLOCKMAP
+  +NOTELEPORT
+  +NOGRAVITY
+  RenderStyle Add
+  xscale 0.50
+  yscale 0.85
+  States
+  {
+  Spawn:
+	TELP A 0
+	TELP A 0 A_StartSound ("DSTELEP2", CHAN_BODY)
+    TELP ABCCCCDEF 2 Bright
+    Stop
+  }
+}
+
+ACTOR ScientistSpawner
+{
+  +NOBLOCKMAP
+  +NOTELEPORT
+  +NOGRAVITY
+  RenderStyle Add
+  xscale 0.50
+  yscale 0.85
+  States
+  {
+	Spawn : 
+		TNT1 AA 1 A_LookEx(LOF_NOSOUNDCHECK, 0, 600, 0, 360)
+		loop
+	See :
+		TNT1 A 10 
+	/*	TNT1 A 1 ACS_NamedExecuteAlways("CheckScientist", 0, 0, 0, 0)
+		TNT1 A 1
+		stop
+	SpawnScientist:*/
+		TELP A 0 A_StartSound ("DSTELEP2", CHAN_BODY)
+		TELP ABCCCCDEF 2 Bright
+		TNT1 A 0 A_SpawnItemEx("Scientist",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0,213471)
+		Stop
+  }
+}
+
+
+ACTOR UTOS : SwitchableDecoration {
+	Radius 20
+	HEIGHT 56
+	+FLOORHUGGER
+	+FLOORCLIP
+	+NOBLOOD
+	+NODAMAGETHRUST
+	+MOVEWITHSECTOR
+	+NOBLOCKMONST
+	-ISMONSTER
+	+THRUGHOST
+	+USESPECIAL
+	
+	Activation THINGSPEC_Activate
+	STATES{
+	SPAWN:
+	TNT1 A 1 A_Warp(AAPTR_master,0,0,0,0,WARPF_NOCHECKPOSITION)
+	loop
+	
+	Active:
+		TNT1 AA 0
+		TNT1 A 0 A_PLAYSOUND("DAISYUMP")
+		TNT1 A 0 A_JUMPIFINVENTORY("scientistSTAYTOKEN",1,"ACTIVEFOLLOW",AAPTR_PLAYER1)
+		TNT1 A 0 A_JUMPIFINVENTORY("scientistFOLLOWTOKEN",1,"STAY",AAPTR_PLAYER1)
+		TNT1 AA 0
+	STAY:
+	TNT1 A 0 A_TAKEINVENTORY("scientistFOLLOWTOKEN",1,0,AAPTR_PLAYER1)
+	TNT1 A 0 A_GIVEINVENTORY("scientistSTAYTOKEN",1,AAPTR_PLAYER1)
+	//TNT1 A 0 A_SpawnItemEx("scientisttxt",6,0,33,0,0,0.08,0)
+	TNT1 AA 0 
+	GOTO ENDSWITCH
+	
+	ACTIVEFOLLOW:
+	TNT1 A 0
+	TNT1 A 0 A_GIVEINVENTORY("scientistFOLLOWTOKEN",1,AAPTR_PLAYER1)
+	TNT1 A 0 A_TAKEINVENTORY("scientistSTAYTOKEN",1,0,AAPTR_PLAYER1)
+	//TNT1 A 0 A_SpawnItemEx("scientisttxt",6,0,33,0,0,0.08,0)
+	TNT1 AA 0 
+	
+	GOTO ENDSWITCH
+	ENDSWITCH:
+		TNT1 A 5
+		TNT1 A 0 A_SpawnItemEx ("UTOS",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION | SXF_TRANSFERPOINTERS,0)
+		Stop
+		}}
+	
+ACTOR scientistSTAYTOKEN : Inventory { Inventory.MaxAmount 1 }
+ACTOR scientistFOLLOWTOKEN : Inventory { Inventory.MaxAmount 1 }
+
+
+

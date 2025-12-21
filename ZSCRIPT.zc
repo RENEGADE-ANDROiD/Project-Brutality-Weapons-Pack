@@ -25,6 +25,7 @@ version "4.14.2"
 
 // PBWP_Misc
 #include "zscript/PBWP_Misc/GORENEST.zs"
+#include "zscript/PBWP_Misc/HelmetDropSpawner.zs"
 // ElementalismBoss
 #include "zscript/PBWP_Misc/BEHOLD_BOSSES/E1_Export_1.zs"
 // Player Pawn Insanity Beef: Will this be added later?
@@ -45,6 +46,16 @@ version "4.14.2"
 #include "zscript/Insanity's Nightmare/IN_BulletSystem.zc"
 #include "zscript/Insanity's Nightmare/IN_SpecialProjectile.zc"
 #include "zscript/Insanity's Nightmare/PlasmaRifleAssaultProjectile.zc"
+
+// ScientistSpawner
+#include "zscript/Scientist/BloodSampleDropper.zc"
+#include "zscript/Scientist/ScientistEvent.zc"
+
+// MonsterSpawner
+#include "zscript/MonsterSpawner/CyberDemonBossSpawner.zc"
+#include "zscript/MonsterSpawner/DoomEyeTurretSpawner.zc"
+#include "zscript/MonsterSpawner/DeepOneSpawner.zc"
+#include "zscript/MonsterSpawner/EBossCellSpawner.zc"
 
 // Weapons & Etc (Testing)
 

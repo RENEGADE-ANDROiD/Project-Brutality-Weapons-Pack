@@ -1,0 +1,16 @@
+ACTOR PBAIE_ArmorChip : PB_CrueltyAPBonus Replaces PB_CrueltyAPBonus
+{
+	RenderStyle "Add"
+	Armor.SaveAmount 1
+	Height 16
+	Radius 32
+	Scale 0.35
+	+FLOATBOB
+	+FORCEXYBILLBOARD
+	States
+	{
+	Spawn:
+		BON4 AAAAABCDAAAEA 3 BRIGHT
+		Loop
+	}
+}

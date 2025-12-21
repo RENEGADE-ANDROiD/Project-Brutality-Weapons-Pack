@@ -1,0 +1,108 @@
+#library "BloodSampleMsg"
+#include "zcommon.acs"
+
+
+script "BloodSampleMsg" (VOID)
+{
+	int Bloodsample = CheckInventory("Quest1sample");
+	
+	PrintBold(s:"\cNYou collected \cG", d:Bloodsample, s:"/5 \cNblood samples.");
+	
+}
+
+Script "BloodSampleCounter"  ENTER
+{
+	while(true)
+	{
+	int bloodsamplemsg = CheckInventory("SWITCHbloodsamplemsg");
+	
+	if(!bloodsamplemsg)
+	{
+	SetHudSize(340,240,1);
+			
+		int Sample = CheckInventory("BloodSampleRED") + CheckInventory("BloodSampleBLUE") + CheckInventory("BloodSampleGREEN");
+		int QuestGiven = CheckInventory("QuestGiven");
+				
+		if (QuestGiven == 1)
+		{
+			if (Sample > 0)
+			 {		
+				SetFont("SMALLFONT");
+				HudMessage(i:Sample; HUDMSG_ALPHA, 3609010, CR_red, (FixedMul(0.035,340<<16)>>16<<16), (FixedMul(0.110,240<<16)>>16<<16), 0.1, 1.0);	
+				SetFont("BL0SA0");
+				HudMessage(s:"A"; HUDMSG_ALPHA, 3609013, CR_UNTRANSLATED,(FixedMul(0.035,340<<16)>>16<<16), (FixedMul(0.170,240<<16)>>16<<16), 0.1, 1.0);  
+			}
+			else if (Sample == 0)
+			{
+			SetFont("Blank");
+			HudMessage(i:Sample; HUDMSG_ALPHA, 3609010, CR_red, (FixedMul(0.035,340<<16)>>16<<16), (FixedMul(0.110,240<<16)>>16<<16), 0.1, 1.0);
+			SetFont("Blank");
+			HudMessage(s:"A"; HUDMSG_ALPHA, 3609013, CR_UNTRANSLATED,(FixedMul(0.035,340<<16)>>16<<16), (FixedMul(0.170,240<<16)>>16<<16), 0.1, 1.0);  
+			}
+			
+		}
+		else if (QuestGiven == 0)
+			{
+			SetFont("Blank");
+			HudMessage(i:Sample; HUDMSG_ALPHA, 3609010, CR_red, (FixedMul(0.035,340<<16)>>16<<16), (FixedMul(0.110,240<<16)>>16<<16), 0.1, 1.0);
+			SetFont("Blank");
+			HudMessage(s:"A"; HUDMSG_ALPHA, 3609013, CR_UNTRANSLATED,(FixedMul(0.035,340<<16)>>16<<16), (FixedMul(0.170,240<<16)>>16<<16), 0.1, 1.0);  
+			}
+	delay(1);
+	}
+	delay(1);
+	}
+}
+
+	
+Script "QuestReset"  ENTER
+{
+	TAKEINVENTORY("ScientistFirstmet", 1);
+	TAKEINVENTORY("scientinsanetoken", 1);
+	TakeInventory("QuestGiven", 1);
+	delay(1);
+}
+
+
+
+
+script "ScientistAllySpawner" enter
+{
+    Thing_ChangeTID(0, 1000 + PlayerNumber());
+	int counter;	
+    if (GetActorProperty((1000 + PlayerNumber()), APROP_Health) > 0 )
+        while(counter < CheckInventory("NumberOfAlliesScientist"))
+        {
+			int spawnedScientistTID = UniqueTID();
+			
+			int offset = 50;//64; // Modify this value to adjust the offset distance
+			
+            SpawnForced("ScientistSpawner", GetActorX(1000 + PlayerNumber()) + offset, GetActorY(1000 + PlayerNumber()) + offset, GetActorZ(1000 + PlayerNumber()));
+            counter++;
+        }
+        counter = 0;
+}
+
+
+
+script "AddScientistAlly" (void)
+{
+	 for (int p = 0; p < 8; p++)
+    {
+        if (PlayerInGame(p))
+        {
+		GiveActorInventory(1000 + p,"NumberOfAlliesScientist", 1);
+		}
+	}
+}
+
+Script "RemoveScientistAlly" (void)
+{
+    for (int p = 0; p < 8; p++)
+    {
+        if (PlayerInGame(p))
+		{
+		TakeActorInventory(1000 + p,"NumberOfAlliesScientist", 1);
+		}
+	}
+}

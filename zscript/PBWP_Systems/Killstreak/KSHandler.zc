@@ -121,8 +121,9 @@ class KillTracker : EventHandler
             case 10:
                 plr.GiveInventory("HasteSphere",1);
                 plr.GiveInventory("NewCellPack", 10);
+                plr.GiveInventory("PB_Fuel", 10);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Unstoppable",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Haste Sphere and 10 Cell Packs  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Haste Sphere, 10 Cell Packs and Fuel  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 15:
                 plr.GiveInventory("DoubleSphere",1);
@@ -131,16 +132,16 @@ class KillTracker : EventHandler
                 PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Double Sphere and Explosives Crate  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 20:
-                plr.GiveInventory("PB_BlurSphere",1);
+                plr.GiveInventory("PB_Backpack",1);
                 plr.GiveInventory("PB_Soulsphere",1);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Excellent",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Blur Sphere and Soulsphere  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Backpack and Soulsphere  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 25:
                 plr.GiveInventory("PB_PowerInvul",1);
-                plr.GiveInventory("PB_Backpack", 1);
+                plr.GiveInventory("PB_BlurSphere", 1);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Wicked Sick",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Invulnerability and Backpack  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Invulnerability and Blur Sphere  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 30:
                 plr.GiveInventory("PB_Berserk",1);

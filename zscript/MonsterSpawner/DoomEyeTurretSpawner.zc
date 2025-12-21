@@ -1,0 +1,132 @@
+Class DoomEyeTurretSpawner : PB_SpawnerBase //replaces DoomImp
+{
+	default
+	{
+		+LOOKALLAROUND;
+		scale 0.45;
+		-SHOOTABLE;
+		-COUNTKILL; 
+		-SOLID;
+		+NOTIMEFREEZE;
+		//CANPUSHWALLS;
+		//-CANUSEWALLS;
+		//-ACTIVATEMCROSS;
+		//-CANPASS;
+		//-ISMONSTER;
+		//+NODAMAGE;
+		//-NOMENU;
+		Species "ImpSpawner";
+	}
+	States
+	{
+		Tier4:
+			TNT1 A 0;
+			TNT1 A 0 PB_SpawnerSpawn("DoomEyeTurretSpawner_T4");//,0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288,0,tid);
+			Stop;
+		Tier3:
+			TNT1 A 0;
+			TNT1 A 0 PB_SpawnerSpawn("DoomEyeTurretSpawner_T3");//,0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288,0,tid);
+			Stop;
+		Tier2:
+		SpawnSavageImp:
+			TNT1 A 0;
+			TNT1 A 0 PB_SpawnerSpawn("DoomEyeTurretSpawner_T2");//,0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288,0,tid);
+			Stop;
+			
+		Tier1:
+			TNT1 A 0;
+			TNT1 A 0 PB_SpawnerSpawn("DoomEyeTurretSpawner_T1");//,0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288,0,tid);
+			stop;
+			
+		Death:
+			TNT1 A 0;
+			Goto Spawn;
+	}
+}
+
+Class DoomEyeTurretSpawner_T1 : PB_MonsterSpawner
+{
+	default
+	{
+		dropitem "DNImpVariant1",255,1;
+		dropitem "DNImpVariant2",255,1;
+		dropitem "DNImpVariant3",255,1;
+		dropitem "PB_Imp1",255,1;
+	}
+	
+	override void HandleSpawnExeptions(in out name toSpawn)
+	{
+		if(pb_imp_override != "Disabled") {
+				toSpawn = pb_imp_override;
+				return;
+		}
+		if(pb_NoBrownImps && (toSpawn == "DNImpVariant1" || toSpawn == "DNImpVariant2" || toSpawn == "DNImpVariant3"))
+			toSpawn = "DoomEyeTurret";
+		
+	}
+}
+
+Class DoomEyeTurretSpawner_T2 : PB_MonsterSpawner
+{
+	default
+	{
+		dropitem "PB_InfectedImp",255,1;
+	}
+	override void HandleSpawnExeptions(in out name toSpawn)
+	{
+		if(pb_imp_override != "Disabled") {
+				toSpawn = pb_imp_override;
+				return;
+		}
+		if(pb_NoSavageImps && toSpawn == "PB_InfectedImp")
+			toSpawn = "DoomEyeTurret";
+	}
+}
+
+Class DoomEyeTurretSpawner_T3 : PB_MonsterSpawner
+{
+	default
+	{
+		dropitem "PB_DarkImpNether",255,1;
+		dropitem "PB_DarkImpVoid",255,1;
+		dropitem "PB_DarkImpNami",255,1;
+		dropitem "PB_DarkImpST",255,1;
+	}
+	override void HandleSpawnExeptions(in out name toSpawn)
+	{
+		if(pb_imp_override != "Disabled") {
+				toSpawn = pb_imp_override;
+				return;
+		}
+		if(pb_NoDarkImps && (toSpawn == "PB_DarkImpNether" || toSpawn == "PB_DarkImpVoid" || toSpawn == "PB_DarkImpNami" || toSpawn == "PB_DarkImpST"))
+			toSpawn = "DoomEyeTurret";
+			
+		if(pb_NoSavageImps && toSpawn == "PB_InfectedImp")
+			toSpawn = "DoomEyeTurret";
+		
+	}
+}
+
+Class DoomEyeTurretSpawner_T4 : PB_MonsterSpawner
+{
+	default
+	{
+		dropitem "PB_DarkImpNether",255,1;
+		dropitem "PB_DarkImpVoid",255,1;
+		dropitem "PB_DarkImpNami",255,1;
+		dropitem "PB_DarkImpST",255,1;
+	}
+	override void HandleSpawnExeptions(in out name toSpawn)
+	{
+		if(pb_imp_override != "Disabled") {
+				toSpawn = pb_imp_override;
+				return;
+		}
+		if(pb_NoDarkImps && (toSpawn == "PB_DarkImpNether" || toSpawn == "PB_DarkImpVoid" || toSpawn == "PB_DarkImpNami" || toSpawn == "PB_DarkImpST"))
+			toSpawn = "DoomEyeTurret";
+			
+		if(pb_NoSavageImps && toSpawn == "PB_InfectedImp")
+			toSpawn = "DoomEyeTurret";
+
+	}
+}
