@@ -18,6 +18,133 @@ PulseLight GOLDPULSE
 	Offset 0 0 0
 }
 
+// FreezeBot
+BrightMap Sprite FZB1A1
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXA1.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1B1
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXB1.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1C1
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXC1.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1E1
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXE1.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1F1
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXF1.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1A2A8
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXA2A8.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1B2B8
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXB2B8.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1C2C8
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXC2C8.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1E2E8
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXE2E8.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1F2F8
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXF2F8.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1A3A7
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXA3A7.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1B3B7
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXB3B7.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1C3C7
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXC3C7.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1E3E7
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXE3E7.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1F3F7
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXF3F7.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1A4A6
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXA4A6.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1B4B6
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXB4B6.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1C4C6
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXC4C6.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1E4E6
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXE4E6.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1F4F6
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXF4F6.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1A5
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXA5.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1B5
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXB5.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1C5
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXC5.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1E5
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXE5.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1F5
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXF5.png"
+	DisableFullBright
+}
+
 //God Complex
 FLICKERLIGHT BigELegLight
 {
