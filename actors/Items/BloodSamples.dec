@@ -1,0 +1,172 @@
+
+ACTOR BloodSampleREDPickup : CustomInventory
+{
+
+	+INVENTORY.ALWAYSPICKUP
+	+FORCEXYBILLBOARD
+	Inventory.PickupMessage "You've got a blood sample to give to the scientist"
+	Inventory.PickupSound "FLECH4"
+	Tag "Blood Sample"
+	States
+	{
+	Spawn:
+		BL0S AAABBBCCC 2 Bright 
+		Loop
+
+	Pickup:
+		TNT1 AAAAAAAAAAAAA 0 A_CustomMissile ("ShinnySmoke", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_GiveInventory("BloodSampleRED", 1)
+		Stop
+	}
+}
+ACTOR BloodSampleBLUEPickup : CustomInventory
+{
+
+	+INVENTORY.ALWAYSPICKUP
+	+FORCEXYBILLBOARD
+	Inventory.PickupMessage "You've got a blood sample to give to the scientist"
+	Inventory.PickupSound "FLECH4"
+	Tag "Blood Sample"
+	States
+	{
+	Spawn:
+		BL0S DDDEEEFFF 2 Bright 
+		Loop
+
+	Pickup:
+		TNT1 AAAAAAAAAAAAA 0 A_CustomMissile ("ShinnySmoke", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_GiveInventory("BloodSampleBLUE", 1)
+		Stop
+	}
+}
+ACTOR BloodSampleGREENPickup : CustomInventory
+{
+
+	+INVENTORY.ALWAYSPICKUP
+	+FORCEXYBILLBOARD
+	Inventory.PickupMessage "You've got a blood sample to give to the scientist"
+	Inventory.PickupSound "FLECH4"
+	Tag "Blood Sample"
+	States
+	{
+	Spawn:
+		BL0S GGGHHHIII 2 Bright 
+		Loop
+
+	Pickup:
+		TNT1 AAAAAAAAAAAAA 0 A_CustomMissile ("ShinnySmoke", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_GiveInventory("BloodSampleGREEN", 1)
+		Stop
+	}
+}
+ACTOR BloodSampleRED : Inventory { Inventory.MaxAmount 5 }
+ACTOR BloodSampleGREEN : Inventory { Inventory.MaxAmount 5 }
+ACTOR BloodSampleBLUE : Inventory { Inventory.MaxAmount 5 }
+
+
+
+
+
+
+ACTOR HealthPlus2 : Health Replaces HealthBonus
+{
+	//$Category Health and Armor
+	//$Sprite BON1A0
+	//$Title "Health bonus"
+	Game Doom
+	SpawnID 152
+	+COUNTITEM
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.NEVERRESPAWN
+	+FORCEXYBILLBOARD
+	-CANNOTPUSH
+	Inventory.Amount 2
+	Inventory.MaxAmount 300
+	Tag "Health Bonus"
+	Inventory.PickupMessage "$GOTHTHBONUS"
+	States
+	{
+	Spawn:
+		BON1 A 2
+		BON1 A 1 ACS_NamedExecuteAlways("BDCheckDecorations", 0, 0, 0, 0)//Check if advanced decorations are disabled.
+		BON1 A 1 ACS_NamedExecuteAlways("CheckScientist", 0, 0, 0, 0)
+	Spawn2:	
+        TNT1 A 0 A_CheckSight ("Spawn3")
+		BON1 ABCDCB 2 A_SpawnItem("BlueFlareSmallItem",0,7)
+		Loop
+	Spawn3:
+		BON1 A 9
+		Goto Spawn2
+	SpawnScientist:
+		TNT1 A 0 A_Jump(248,"Spawn2")
+		TNT1 A 0 A_SpawnItemEx("ScientistSpawner", 0, 0)
+		Goto Spawn2
+	Vanilla:
+		BON1 ABCDCB 2
+		Loop
+	}
+}
+
+ACTOR Stimpack3 : Health Replaces Stimpack2
+{
+	//$Category Health and Armor
+	//$Sprite MEDKB0
+	//$Title "Stimpack"
+	Game Doom
+	SpawnID 23
+	Inventory.Amount 10
+	Inventory.PickupMessage "$GOTSTIM"
+	Health.LowMessage 25, "$GOTSTIMNEED"
+	Inventory.PickupSound "GOTHPS"
+	+FORCEXYBILLBOARD
+	-CANNOTPUSH
+	States
+	{
+	Spawn:
+		MEDK A 2
+		MEDK B 1 ACS_NamedExecuteAlways("CheckScientist", 0, 0, 0, 0)
+     Spawn2: 
+		MEDK B 2
+		MEDK B -1
+		Stop
+	SpawnScientist:
+		TNT1 A 0 A_Jump(196,"Spawn2")
+		TNT1 A 0 A_SpawnItemEx("ScientistSpawner", 0, 0)
+		Goto Spawn2
+	}
+}
+ACTOR Medikit3 : Health Replaces Medikit2
+{
+	//$Category Health and Armor
+	//$Sprite MEDKA0
+	//$Title "Medikit"
+	Game Doom
+	SpawnID 24
+	Inventory.Amount 25
+	Inventory.PickupMessage "$GOTMEDIKIT"
+	Health.LowMessage 25, "$GOTMEDINEED"
+	Inventory.PickupSound"GOTHPB"
+	+FORCEXYBILLBOARD
+	-CANNOTPUSH
+	States
+	{
+	Spawn:
+		MEDK A 2
+		MEDK B 1 ACS_NamedExecuteAlways("CheckScientist", 0, 0, 0, 0)
+     Spawn2: 
+	    MEDK A 1
+		MEDK A -1
+		Stop
+	SpawnScientist:
+		TNT1 A 0 A_Jump(196,"Spawn2")
+		TNT1 A 0 A_SpawnItemEx("ScientistSpawner", 0, 0)
+		Goto Spawn2
+	
+	}
+}
+
+ACTOR ScientistHeal : Health 
+{
+	Inventory.Amount 25
+	Inventory.PickupMessage 0
+}

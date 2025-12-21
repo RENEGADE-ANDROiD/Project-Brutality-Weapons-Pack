@@ -1,0 +1,22 @@
+ACTOR ScientistInGame : Inventory { Inventory.MaxAmount 1 }
+ACTOR ScientistWaits : Inventory { Inventory.MaxAmount 1 }
+ACTOR ScientistFirstmet : Inventory { Inventory.MaxAmount 1 }
+ACTOR scientinsanetoken : Inventory { Inventory.MaxAmount 1 }
+ACTOR ScienceMonstersHere : Inventory { Inventory.MaxAmount 1 }
+ACTOR MonsterDetected : Inventory { Inventory.MaxAmount 1 }
+ACTOR ScientistGaveQuest : Inventory { Inventory.MaxAmount 1 }
+ACTOR QuestCompleted : Inventory { Inventory.MaxAmount 1 }
+ACTOR Quest1sample : Inventory { Inventory.MaxAmount 10 }
+ACTOR QuestGiven : Inventory { Inventory.MaxAmount 1 }
+ACTOR ScientistHere : Inventory { Inventory.MaxAmount 1 }
+Actor IceCounter : Inventory {Inventory.MaxAmount 4}
+Actor NumberOfAlliesScientist : Inventory {Inventory.MaxAmount 1}
+Actor AllCounter : Inventory {Inventory.MaxAmount 7}
+actor SWITCHbloodsamplemsg : Inventory {Inventory.MaxAmount 1}
+actor UnabletoWaitAgain : Inventory {Inventory.MaxAmount 1}
+actor HasBeenKicked : Inventory {Inventory.MaxAmount 3}
+actor WarpTimer : Inventory
+{
+Inventory.maxamount 200
++INVENTORY.UNDROPPABLE
+}

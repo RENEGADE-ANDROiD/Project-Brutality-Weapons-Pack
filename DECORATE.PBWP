@@ -26,6 +26,11 @@
 #INCLUDE ACTORs/Weapons/FX/GCSFX.dec
 #INCLUDE ACTORs/Weapons/FX/GCSmoke.dec
 
+// Scientist
+#include "Actors/Tokens.txt"
+#include "Actors/Monsters/Scientist.dec"
+#include "Actors/Items/BloodSamples.dec"
+
 // Monsters
 #INCLUDE ACTORs/Monsters/DEEPONE.dec
 #INCLUDE ACTORs/Monsters/E1BOSS.dec

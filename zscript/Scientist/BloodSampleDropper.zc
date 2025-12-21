@@ -1,0 +1,39 @@
+
+
+class BloodSampleEvent : EventHandler
+{
+ clearscope static Vector3 WigglePos(Actor act) {
+    return (
+      act.pos.x + random(-act.radius/1.4, act.radius/1.4),
+      act.pos.y + random(-act.radius/1.4, act.radius/1.4),
+      act.pos.z + random(act.height/4, act.height)
+    );
+  
+  }
+  
+  override void WorldThingDamaged(WorldEvent e)
+  {
+	Actor spawnee;
+  	if (e.thing && e.thing.bSolid && e.thing.bIsMonster && e.thing.target && e.thing.target.player && e.thing.health <= 0)
+			{
+		if (e.thing.FindInventory("ScientistHere") && e.thing.SpawnHealth() >= 300)
+				{	
+					if (e.thing.GetTag() == "Cacodemon")
+						{
+						spawnee = Actor.Spawn("bloodsampleBLUEpickup", WigglePos(e.thing));
+						spawnee.VelFromAngle(3);
+						}		
+					else if ((e.thing.GetTag() == "Hell Knight") || (e.thing.GetTag() == "Baron of Hell"))
+						{
+						spawnee = Actor.Spawn("bloodsampleGREENpickup", WigglePos(e.thing));
+						spawnee.VelFromAngle(3);
+						}										
+					else
+						{
+						spawnee = Actor.Spawn("bloodsampleREDpickup", WigglePos(e.thing));
+						spawnee.VelFromAngle(3);
+						}
+			    }
+			}
+  }
+}

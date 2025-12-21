@@ -1,0 +1,33 @@
+
+class MonsterDetectionEvent : EventHandler
+{
+  override void WorldThingSpawned(WorldEvent e)
+  {
+    if (e.thing && e.thing.bSolid && e.thing.bIsMonster && !e.thing.bFriendly && e.thing.health > 0)
+    {
+      e.thing.GiveInventoryType("MonsterDetected");
+    }
+  }
+ }
+ 
+
+ 
+
+ 
+ 
+ class ScientistHeal2 : Health
+{
+	Default
+	{
+	Inventory.Amount 25;
+	}
+	override bool TryPickup (in out Actor toucher)
+	{
+		let ret = super.TryPickup(toucher);
+		if (ret && toucher)
+		{
+			toucher.A_SetBlend(0x3385D6, 0.25, 20);
+		}
+		return ret;
+	}
+}
