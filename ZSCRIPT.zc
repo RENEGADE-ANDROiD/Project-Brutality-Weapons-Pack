@@ -51,11 +51,6 @@ version "4.14.2"
 #include "zscript/Scientist/BloodSampleDropper.zc"
 #include "zscript/Scientist/ScientistEvent.zc"
 
-// MonsterSpawner
-#include "zscript/MonsterSpawner/CyberDemonBossSpawner.zc"
-#include "zscript/MonsterSpawner/DoomEyeTurretSpawner.zc"
-#include "zscript/MonsterSpawner/DeepOneSpawner.zc"
-#include "zscript/MonsterSpawner/EBossCellSpawner.zc"
 
 // Weapons & Etc (Testing)
 
