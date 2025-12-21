@@ -754,18 +754,19 @@ class PB_Hud_ZS : BaseStatusBar
 		"AMMOIC5, PB_Cell, Purple, Ammo",
 		"AMMOIC6, PB_Fuel, Orange, Ammo",
 		"AMMOIC7, PB_DTech, DarkRed, Ammo",
+		"AMMOIC9, PBWP_ComplexAmmo, White, Ammo",
 		"ALISTGRN, PB_GrenadeAmmo, Green, Equipment",
 		"ALISTSTN, PB_StunGrenadeAmmo, Cyan, Equipment",
 		"ALISTREV, PB_QuickLauncherAmmo, LightBlue, Equipment",
-		"ALISTMIN, PB_ProxMineAmmo, Purple, Equipment"
-		"ALISTACD, AcidChargeAmmo, Green, Equipment"
-		"ALISTAXE, PB_Axe, Red, Equipment"
-		"ALISTEPD, ElecPodAmmo, Yellow, Equipment"
-		"ALISTHOK, HookAmmo, DarkRed, Equipment"
-		"ALISTLST, LaserChargeAmmo, Red, Equipment"
-		"ALISTSHG, ShieldGrenadeAmmo, Orange, Equipment"
-		"ALISTSHR, ShurikenAmmo, Purple, Equipment"
-		"ALISTSRM, SwarmerAmmo, Orange, Equipment"
+		"ALISTMIN, PB_ProxMineAmmo, Purple, Equipment",
+		"ALISTACD, AcidChargeAmmo, Green, Equipment",
+		"ALISTAXE, PB_Axe, Red, Equipment",
+		"ALISTEPD, ElecPodAmmo, Yellow, Equipment",
+		"ALISTHOK, HookAmmo, DarkRed, Equipment",
+		"ALISTLST, LaserChargeAmmo, Red, Equipment",
+		"ALISTSHG, ShieldGrenadeAmmo, Orange, Equipment",
+		"ALISTSHR, ShurikenAmmo, Purple, Equipment",
+		"ALISTSRM, SwarmerAmmo, Orange, Equipment",
 		"ALISTSSW, ShieldSawAmmo, DarkRed, Equipment"
 		
 	};
@@ -1688,6 +1689,11 @@ class PB_Hud_ZS : BaseStatusBar
 					weaponBarAccent = Font.CR_PURPLE;
 					DrawAmmoBar("BARBACP1", "BARBACP2", "BAMBAR5", "ABAR5", "ABAR5", "AMMOIC5", Font.CR_PURPLE);
 				}
+				else if(WeaponUsesAmmoType("PBWP_ComplexAmmo"))
+				{
+					weaponBarAccent = Font.CR_WHITE;
+					DrawAmmoBar("BARBACU1", "BARBACU2", "BAMBAR8", "ABAR9", "ABAR9", "AMMOIC9", Font.CR_WHITE);
+				}
 				else if(WeaponUsesAmmoType("PowerChargeStorm"))
 				{
 					weaponBarAccent = Font.CR_CYAN;
@@ -1707,7 +1713,7 @@ class PB_Hud_ZS : BaseStatusBar
 				&& !CheckWeaponSelected("PB_Unmaker") && !CheckWeaponSelected("PB_Chainsaw") 
 				&& !CheckWeaponSelected("ProSurv_Ballista") && !CheckWeaponSelected("PB_Flamethrower") 
 				&& !CheckWeaponSelected("PB_MG42") && !CheckWeaponSelected("PB_TauntWeapon")
-				
+				&& !CheckWeaponSelected("NemesisLMG")
 				// ADD MORE EXCEPTIONS HERE
 				)
 				{
@@ -1731,6 +1737,19 @@ class PB_Hud_ZS : BaseStatusBar
 				
 				switch(CPlayer.ReadyWeapon.GetClassName())
 				{
+					case 'NemesisLMG':
+						PBHud_DrawImage("BARBACY1", (-72, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+						PBHud_DrawImage("BARBACR2", (-73, -50), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+						//Bars
+						PBHud_DrawBar("ABAR4", "BGBARL", Secondary.Amount, Secondary.MaxAmount, (-112, -51), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+						PBHud_DrawBar("ABAR1", "BGBARL", Primary.Amount, Primary.MaxAmount, (-112, -30), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+						//Numbers
+						PBHud_DrawString(mDefaultFont, Formatnumber(Secondary.Amount), (-207, -69), DI_TEXT_ALIGN_RIGHT, Font.CR_RED);
+						PBHud_DrawString(mDefaultFont, Formatnumber(Primary.Amount), (-207, -48), DI_TEXT_ALIGN_RIGHT, Font.CR_YELLOW);
+						//Icon
+						PBHud_DrawImage("AMMOIC1", (-77, -24), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, 1, (27, 19));
+						weaponBarAccent = Font.CR_YELLOW;
+						break;
 					case 'ProSurv_Ballista':
 						if (!CheckInventory("BallistaDemonicMode")) 
 						{

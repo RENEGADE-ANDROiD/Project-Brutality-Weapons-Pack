@@ -12,10 +12,10 @@ Actor PB_SBSword : PBWP_Weapon
 {
 game doom
 Scale 0.7
-Weapon.AmmoType1 "PB_DTech"
-Weapon.AmmoType2 "PB_DTech"
+Weapon.AmmoType "PBWP_ComplexAmmo"
+// Weapon.AmmoType2 "PBWP_ComplexAmmo"
 Weapon.AmmoUse1 0
-Weapon.AmmoGive 300
+// Weapon.AmmoGive 300
 Weapon.UpSound "SubSword/Pickup"
 Inventory.PickupSound "SubSword/Pickup"
 Inventory.PickupMessage "You got the Sublimination Sword!"
@@ -106,7 +106,7 @@ TNT1 A 0 A_Refire("Refire")
 Goto Done
 
 Fire2:
-TNT1 A 0 A_JumpIfInventory("PB_DTech",30,"Fire2Continue")
+TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",30,"Fire2Continue")
 TNT1 A 0 A_BDPmeleestart
 Goto Ready
 Fire2Continue:
@@ -116,19 +116,19 @@ TNT1 A 0 A_BDPMelee(200, "NULL", -7, TRUE)
 TNT1 A 0 A_PlaySound("Mainyu/Sword",1)
 TNT1 A 0 A_Quake(4,20,0,10,0)
 SBS2 AABBCCDDEEFF 1
-TNT1 A 0 A_TakeInventory("PB_DTech",30,TIF_NOTAKEINFINITE)
+TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",30,TIF_NOTAKEINFINITE)
 TNT1 A 0 A_FireCustomMissile("MainyuSwordProjectile",0,0,0,0)
 TNT1 A 0 A_AlertMonsters
 SBS2 GGHHIIJJKK 1
 TNT1 A 5
-TNT1 A 0 A_JumpIfInventory("PB_DTech",30,2)
+TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",30,2)
 TNT1 A 0 A_Jump(256,2)
 TNT1 A 0 A_Refire("Refire2")
 TNT1 A 0
 Goto Done
 
 Fire3:
-TNT1 A 0 A_JumpIfInventory("PB_DTech",50,"Fire3Continue")
+TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",50,"Fire3Continue")
 TNT1 A 0 A_BDPmeleestart
 Goto Ready
 Fire3Continue:
@@ -137,7 +137,7 @@ Refire3:
 TNT1 A 0 A_BDPMelee(200, "NULL", -7, TRUE)
 TNT1 A 0 A_PlaySound("Mainyu/Sword",1)
 TNT1 A 0 A_Quake(4,20,0,10,0)
-TNT1 A 0 A_TakeInventory("PB_DTech",50,TIF_NOTAKEINFINITE)
+TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",50,TIF_NOTAKEINFINITE)
 SBS3 AABBCCDD 1
 TNT1 A 0 A_AlertMonsters
 SBS3 E 1 A_FireCustomMissile("MainyuRedDarkMatter",-7,0,0,0)
@@ -150,7 +150,7 @@ SBS3 H 1 A_FireCustomMissile("MainyuRedDarkMatter",5,0,0,0)
 SBS3 H 1 A_FireCustomMissile("MainyuRedDarkMatter",7,0,0,0)
 SBS3 IIJJKK 1
 TNT1 A 5
-TNT1 A 0 A_JumpIfInventory("PB_DTech",50,2)
+TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",50,2)
 TNT1 A 0 A_Jump(256,2)
 TNT1 A 0 A_Refire("Refire3")
 TNT1 A 0
