@@ -180,12 +180,10 @@ class BeefMiscHandler : EventHandler
     Override void WorldLoaded (WorldEvent e)
     {
         // Sets the PB Monster Drop to Just Ammo on First Time Loading
-        if (FirstTimeLoadingPBWP)
-        {
-            CVAR.FindCVar('PB_WeaponDrops').SetInt(0);
-            CVAR.FindCVar('FirstTimeLoadingPBWP').SetBool(false);
-            destroy();
-        }
+        if (!FirstTimeLoadingPBWP) return;
+        CVAR.FindCVar('PB_WeaponDrops').SetInt(0);
+        CVAR.FindCVar('FirstTimeLoadingPBWP').SetBool(false);
+        //destroy();
     }
 
     // Fix the ShieldSaw bug
