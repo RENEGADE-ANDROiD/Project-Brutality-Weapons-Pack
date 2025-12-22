@@ -17,7 +17,7 @@ addmenukey "Show Combat Points" PB_CRSHW
 AddMenuKey "Toggle Magnet Mode" MagnetModeOff
 alias MagnetModeOn "netevent MagnetModeOn; rebind MagnetModeOff"
 alias MagnetModeOff "netevent MagnetModeOff; rebind MagnetModeOn"
-//defaultbind M MagnetModeOff
+defaultbind M MagnetModeOff
 
 alias SwitchItUp "NetEvent SwitchItUp"
 alias BackItUp "NetEvent SwitchBack"
