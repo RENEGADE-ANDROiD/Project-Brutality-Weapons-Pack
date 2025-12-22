@@ -292,8 +292,8 @@ class BlasterPistolSpawnerInjector : PBInjector
 		{
 			handler.InjectSpawn('PB_PistolSpawnerT1', 'ProSurv_BlasterPistol', 255, 1);
 			handler.InjectSpawn('PB_PistolSpawnerT2', 'ProSurv_BlasterPistol', 255, 1);
-			handler.InjectSpawn('PB_PistolSpawnerT3', 'ProSurv_BlasterPistol', 255, 1);
-			handler.InjectSpawn('PB_PistolSpawnerT4', 'ProSurv_BlasterPistol', 255, 1);
+			// handler.InjectSpawn('PB_PistolSpawnerT3', 'ProSurv_BlasterPistol', 255, 1);
+			// handler.InjectSpawn('PB_PistolSpawnerT4', 'ProSurv_BlasterPistol', 255, 1);
 		}
 	}
 }

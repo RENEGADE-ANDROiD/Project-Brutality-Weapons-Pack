@@ -95,6 +95,7 @@ OptionMenu "GeneralSettings"
 	Option "Helmet Drop is Enabled", "HelmetDropCVAR", "OnOff"
 	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
 	Control "Show Combat Points", "PB_CRSHW"
+	Control "Open Melee Wheel", "pbwp_meleemenu"
 	Control "Toggle Magnet", "MagnetModeOff"
 	Control "Switch Melee Key", "+pbwp_meleemenu"
 	
