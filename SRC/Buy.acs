@@ -14,12 +14,8 @@ Print(s:"\cdSorry, Not Enough Combat Points!");
 }
 
 // Original buy scripts
-Script "BuyItemMagnet" (Void) { 
-BuySomething(750, "DS_ItemMagnet", 1);
-}
-
 Script "BuyItemMagnetUpgrade" (Void) { 
-BuySomething(1500, "DS_ItemMagnetUpgrade", 1);
+BuySomething(1500, "PBWP_ItemMagnetUpgrade", 1);
 }
 
 Script "BuyShells" (Void) { 
