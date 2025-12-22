@@ -1,6 +1,247 @@
 #INCLUDE Brightmaps.bm
 #include "actors/Monsters/EarthEnemyGLDefs.gl"
 
+//PickUpItemVariation//
+pulselight REDITEM
+{
+    color 1.0 0.1 0.1
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight REDITEM
+{
+    color 1.0 0.1 0.1
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight WHITEITEM
+{
+    color 1.0 1.0 1.0
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight YELLOWITEM
+{
+    color 1.0 1.0 0.1
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight PURPLEITEM
+{
+    color 1.0 0.1 1.0
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight PINKITEM
+{
+    color 1.0 0.8 0.9
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight CYANITEM
+{
+    color 0.1 1.0 1.0
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight GREENITEM
+{
+    color 0.1 1.0 0.1
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+pulselight ORANGEITEM
+{
+    color 1.0 0.647 0.1
+    size 14
+    secondarySize 16
+    interval 0.1
+    offset 0 5 0
+    dontlightself 1
+}
+
+
+
+
+
+object PB_ArmorBonus1
+{
+    frame BON2 
+    { light GREENITEM }
+}
+
+object PB_ArmorBonusBlue
+{
+    frame BON2 
+    { light BLUEITEM }
+}
+
+object PB_ArmorBonusRed
+{
+    frame BON2 
+    { light REDITEM }
+}
+
+object PB_ArmorBonusYellow
+{
+    frame BON2 
+    { light YELLOWITEM }
+}
+
+object PB_ArmorBonusWhite
+{
+    frame BON2 
+    { light WHITEITEM }
+}
+
+object PB_ArmorBonusPurple
+{
+    frame BON2 
+    { light PURPLEITEM }
+}
+
+object PB_ArmorBonusCyan
+{
+    frame BON2 
+    { light CYANITEM }
+}
+
+object PB_ArmorBonusOrange
+{
+    frame BON2 
+    { light ORANGEITEM }
+}
+
+object PB_ArmorBonusPink
+{
+    frame BON2 
+    { light PINKITEM }
+}
+
+object PB_HealthBonus1
+{
+    frame BON1
+    { light BLUEITEM }
+}
+
+object PB_HealthBonusGreen
+{
+    frame BON1 
+    { light GREENITEM }
+}
+
+object PB_HealthBonusRed
+{
+    frame BON1 
+    { light REDITEM }
+}
+
+object PB_HealthBonusYellow
+{
+    frame BON1 
+    { light YELLOWITEM }
+}
+
+object PB_HealthBonusPurple
+{
+    frame BON1 
+    { light PURPLEITEM }
+}
+
+object PB_HealthBonusCyan
+{
+    frame BON1 
+    { light CYANITEM }
+}
+
+object PB_HealthBonusOrange
+{
+    frame BON1 
+    { light ORANGEITEM }
+}
+
+object PB_HealthBonusWhite
+{
+    frame BON1 
+    { light WHITEITEM }
+}
+
+object PB_HealthBonusPink
+{
+    frame BON1 
+    { light PINKITEM }
+}
+
+//HelmetDrops//
+pointlight DroppedHelm1
+{
+    color 255 0 0
+    size 5
+}
+
+pointlight DroppedHelm2
+{
+    color 255 0 0
+    size 10
+}
+
+pointlight DroppedHelm3
+{
+    color 255 0 0
+    size 15
+}
+
+pointlight DroppedHelm4
+{
+    color 255 0 0
+    size 30
+}
+
+object PB_DroppedHelmetItem
+{
+    frame 3BONB { light DroppedHelm1 }
+    frame 3BONC { light DroppedHelm2 }
+    frame 3BOND { light DroppedHelm3 }
+    frame 3BONE { light DroppedHelm4 }
+}
+
+brightmap sprite 3BONB0 { map "BRIGHTMAPS/3BONB0.png" }
+brightmap sprite 3BONC0 { map "BRIGHTMAPS/3BONC0.png" }
+brightmap sprite 3BOND0 { map "BRIGHTMAPS/3BOND0.png" }
+brightmap sprite 3BONE0 { map "BRIGHTMAPS/3BONE0.png" }
+
 //KILLSTREAK//
 object KillStreak
 {
@@ -16,6 +257,243 @@ PulseLight GOLDPULSE
 	SecondarySize 45
 	Interval 1.5
 	Offset 0 0 0
+}
+
+// FreezeBot
+BrightMap Sprite FZB1A1
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXA1.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1B1
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXB1.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1C1
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXC1.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1E1
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXE1.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1F1
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXF1.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1A2A8
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXA2A8.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1B2B8
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXB2B8.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1C2C8
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXC2C8.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1E2E8
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXE2E8.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1F2F8
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXF2F8.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1A3A7
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXA3A7.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1B3B7
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXB3B7.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1C3C7
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXC3C7.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1E3E7
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXE3E7.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1F3F7
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXF3F7.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1A4A6
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXA4A6.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1B4B6
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXB4B6.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1C4C6
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXC4C6.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1E4E6
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXE4E6.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1F4F6
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXF4F6.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1A5
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXA5.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1B5
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXB5.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1C5
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXC5.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1E5
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXE5.png"
+	DisableFullBright
+}
+BrightMap Sprite FZB1F5
+{
+    Map "SPRITES/equipment/Freezebot/brightmaps/FZBXF5.png"
+	DisableFullBright
+}
+
+//God Complex
+FLICKERLIGHT BigELegLight
+{
+color 1 0 0
+OffSet 0 0 0
+size 85
+SecondarySize 105
+Chance 0.2
+}
+
+OBJECT PlayerEnragedGuruBall
+{
+Frame EBAL { Light BigELegLight }
+}
+
+
+FLICKERLIGHT MediumELegLight
+{
+Color 1 0 0
+OffSet 0 0 0
+Size 82
+SecondarySize 102
+Chance 0.2
+}
+
+OBJECT PlayerEnragedMiniguruball
+{
+Frame EBAL { Light MediumELegLight }
+}
+
+FLICKERLIGHT BigWhiteLight
+{
+Color 1.0 1.0 1.0
+size 180
+SecondarySize 200
+Chance 0.2
+}
+
+pulselight RedDarkMatterLight 
+{
+color 0.8 0.0 0.0
+size 70
+secondarySize 90
+interval 0.7
+Subtractive 90
+}
+
+
+Object PlayerMainyuSwordProjectile
+{
+Frame TNT1 { Light BigWhiteLight }
+}
+
+Object PlayerMainyuRedDarkMatter
+{
+Frame DMGB { Light RedDarkMatterLight }
+Frame TNT1 { Light RedDarkMatterLight }
+}
+
+FLICKERLIGHT FuckingAtrociouslyLargeWhiteLight
+{
+Color 1.0 1.0 1.0
+Size 380
+SecondarySize 400
+Chance 0.2
+}
+
+
+OBJECT PlayerNemesisGuruBall
+{
+Frame CLBB { Light FuckingAtrociouslyLargeWhiteLight }
+}
+
+OBJECT PlayerMiniNemesisBFGBall
+{
+Frame CLBB { Light BigWhiteLight }
+}
+
+OBJECT NemesisPlayerBouncyBFG
+{
+Frame CLBB { Light BigWhiteLight }
+}
+
+
+pulselight NEMESISBEAM
+{
+color 1.0 1.0 1.0
+size 36
+secondarySize 192
+interval 0.575
+}
+
+object NemesisBFGBeamTrail
+{
+frame NEMF { light NEMESISBEAM }
+}
+
+pulselight NEMESISHIT
+{
+color 1.0 1.0 1.0
+size 32
+secondarySize 256
+interval 0.65
+}
+
+object NemesisBFGBeamHit
+{
+frame NBOM { light NEMESISHIT }
 }
 
 //LoR CalamityBlade

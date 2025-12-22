@@ -6,11 +6,17 @@ YOU WILL NEED:
 Project Brutality Staging - https://github.com/pa1nki113r/Project_Brutality/tree/PB_Staging 
 
 -----------------
-See Weapon Pack Options to configure:
+INCLUDES:
+- Zombie Helmet Drops and Floating Cruelty Bonuses by Adryan
+- Armor Mutators by Kineret.G
+- PickUp Item Variation by TDGuy, Runner & DarkShadow
+
+SEE PBWP OPTIONS TO CONFIGURE:
 - Toggle On/Off Fatality when clicking Fire for addon weapons in the pack.
 - Toggle On/Off KILLSTREAKS from SHOO KREW PB-Pand Edition by John & Kole
-- Over 60 firearms!  Choose which weapons spawn and how for custom playthroughs.
+- Over 75 firearms!  Choose which weapons spawn and how for custom playthroughs.
 - Gadgets & Equipments including Meat Hook, Shieldsaw, Shurikens & more by BeefRice/LovecraftNeko
+- Universal Champion Enemies by Mikk-
 - Combat Point Weapons Shop: Earn points and gear with Combat Challenges!
 - Melee Weapon Wheel with over 12 melee weapon options by BeefRice from ThePopeOfDope's mod Project Survival!
 - Melee Weapon Durability System!  They break after so many uses.  Earn more through Combat Challenges & monster drops.
@@ -30,6 +36,17 @@ TEAM MEMBERS:
 Originally assembled by RENEGADE ANDROiD using Insanity's Nightmare as a base combined with Demon-Tech, Gadgets & Equipments (GEM) & Fire and Ice Power Fantasy, then Project Survival and every other functioning weapon addon we could find.  Most of these weapons have been around the Project Brutality Discord and former Brutal Repository over these previous years.  BeefRice aka LovecraftNeko has implemented complex systems that help make this mod the complete & refined package that it is today.  
 We gathered permission for most everything included and have provided credits for everything inside the package.
 -----------------
+----------------GOD COMPLEX----------------
+
+- Legendary Chainsaw
+- Sublimination Sword
+- Legendary Assault Shotgun
+- Nemesis LMG
+- Devastador
+- Nemesis BFG
+- Enraged Legendary BFG
+- God Enraged BFG
+
 ---------------Slot 1 weapons---------------
 
 - Energy Beam Katana

@@ -1,0 +1,514 @@
+
+ACTOR ArmorGreen : BasicArmorPickup
+{
+  Scale 0.2
+  Radius 20
+  Height 16
+  Inventory.PickupMessage "Picked up the Light Recon Armor."
+  Inventory.Icon "ARM1B0"
+  Armor.SavePercent 50
+  Armor.SaveAmount 100
+  Inventory.PickupSound "ARMOR"
+  States
+  {
+  Spawn:
+    ARM1 A 1 Bright
+    ARM1 A 2 Bright
+    Loop
+  }
+}
+
+Actor ArmorBlue : BasicArmorPickup
+{
+	Game Doom
+	Scale 0.2
+	SpawnID 67
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up the Heavy Assault Armor"
+	Inventory.Icon "ARM2B0"
+	Armor.SavePercent 100
+	Armor.SaveAmount 100
+ Inventory.PickupSound "ARMOR"
+	States
+	{
+	Spawn:
+		ARM2 A 1 Bright
+		ARM2 A 1 Bright A_SpawnItem("BlueFlareMedium",0,10)
+		loop
+	}
+}
+
+Actor ArmorRed : BasicArmorPickup
+{
+	Game Doom
+	Scale 0.2
+	SpawnID 67
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up the Specs-Ops Armor"
+	Inventory.Icon "ARM3B0"
+	Armor.SavePercent 90
+	Armor.SaveAmount 160
+ Inventory.PickupSound "ARMOR"
+	States
+	{
+	Spawn:
+		ARM3 A 1 Bright
+		ARM3 A 2 Bright A_SpawnItem("RedFlareMedium",0,10)
+		loop
+	}
+}
+
+ACTOR NarmorRed : CustomInventory
+{	
+ Game Doom
+	Scale 0.2
+	SpawnID 69
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up the Specs-Ops Armor"
+	Inventory.Icon "ARM3B0"
+ Inventory.PickupSound "ARMOR"
+	States
+	{ 
+   Spawn:
+   TNT1 AAAAAAAA 0
+		ARM3 A 1 Bright
+		ARM3 A 2 Bright A_SpawnItem("RedFlareMedium",0,10) 
+	loop
+	
+	Pickup:
+	TNT1 A 0 A_GiveInventory("ArmorRed", 1)
+	TNT1 A 0 A_GiveInventory("PB_Berserk", 1)
+	
+	Stop
+	}
+}
+
+Actor ArmorPurple : BasicArmorPickup
+{
+	Game Doom
+	Scale 0.2
+	SpawnID 68
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up the QUAD Energy Armor"
+ 	Inventory.Icon "ARM6B0"
+  	Armor.Savepercent 90
+  	Armor.Saveamount 140
+  Inventory.PickupSound "ARMOR"
+  	States
+  	{
+  	Spawn:
+    ARM6 A 1 Bright
+    ARM6 A 1 bright A_SpawnItem("PurpleFlareSmall",0,10)
+    loop
+	}
+}
+
+ACTOR NarmorPurple : CustomInventory
+{	
+ Game Doom
+	Scale 0.2
+	SpawnID 68
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up the QUAD Energy Armor"
+ 	Inventory.Icon "ARM6B0"
+  Inventory.PickupSound "ARMOR"
+  	States
+  	{ 
+   Spawn:
+   TNT1 AAAAAAAA 0
+		ARM6 A 1 Bright
+		ARM6 A 1 bright A_SpawnItem("PurpleFlareSmall",0,10)
+		loop
+	
+	Pickup:
+	TNT1 A 0 A_GiveInventory("ArmorPurple", 1)
+	TNT1 A 0 A_GiveInventory("PB_Doomsphere", 1)
+	
+	Stop
+	}
+}
+
+Actor ArmorWhite : BasicArmorPickup
+{
+	Game Doom
+	Scale 0.2
+	SpawnID 68
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up the UAC - Prototype Armor"
+ 	Inventory.Icon "ARM4B0"
+  	Armor.Savepercent 100
+  	Armor.Saveamount 200
+  Inventory.PickupSound "ARMOR"
+  	States
+  	{
+  	Spawn:
+    ARM4 A 1 Bright
+    ARM4 A 1 bright A_SpawnItem("WhiteFlareSmall",0,10)
+    loop
+	}
+}
+
+ACTOR NarmorWhite : CustomInventory
+{	
+ Game Doom
+	Scale 0.2
+	SpawnID 68
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up the UAC - Prototype Armor"
+ 	Inventory.Icon "ARM4B0"
+  Inventory.PickupSound "ARMOR"
+  	States
+  	{ 
+   Spawn:
+		ARM4 A 1 Bright
+		ARM4 A 1 bright A_SpawnItem("WhiteFlareSmall",0,10)
+		loop
+	
+	Pickup:
+	TNT1 A 0 A_GiveInventory("ArmorWhite", 1)
+	TNT1 A 0 A_GiveInventory("HealthE", 1)
+	
+	Stop
+	}
+}
+
+ACTOR HealthE : PowerUpGiver
+ {
+  
+  Inventory.Pickupmessage " "
+  Inventory.PickupSound " "
+  Inventory.MaxAmount 0
+  -COUNTITEM
+  +INVENTORY.AUTOACTIVATE
+  +INVENTORY.ALWAYSPICKUP
+  Powerup.Type PowerRegeneration
+  Powerup.Duration -60
+  Powerup.Strength 8
+  	States
+  	{
+  	Spawn:
+   TNT1 AAAAAAAA 0
+   TNT1 A 1
+		loop
+	}
+}
+
+Actor ArmorOrange : BasicArmorPickup
+{
+	Game Doom
+	Scale 0.2
+	SpawnID 67
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up the UAC - Ultimate Night Vision Armor"
+	Inventory.Icon "ARM7B0"
+	Armor.SavePercent 70
+	Armor.SaveAmount 160
+ Inventory.PickupSound "ARMOR"
+	States
+	{
+	Spawn:
+		ARM7 A 1 Bright
+		ARM7 A 2 bright A_SpawnItem("OrangeFlareMedium",0,10)
+		loop
+	}
+}
+
+ACTOR NarmorOrange : CustomInventory
+{	
+ Game Doom
+	Scale 0.2
+	SpawnID 68
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up the UAC - Ultimate Night Vision Armor"
+ 	Inventory.Icon "ARM7B0"
+  Inventory.PickupSound "ARMOR"
+  	States
+  	{ 
+   Spawn:
+   TNT1 AAAAAAAA 0
+		ARM7 A 1 Bright
+		ARM7 A 2 bright A_SpawnItem("OrangeFlareMedium",0,10)
+		loop
+	
+	Pickup:
+	TNT1 A 0 A_GiveInventory("ArmorOrange", 1)
+	TNT1 A 0 A_GiveInventory("PB_Infrared", 1)
+	Stop
+	}
+}
+
+Actor ArmorYellow : BasicArmorPickup
+{
+	Game Doom
+	Scale 0.2
+	SpawnID 67
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up the Assault Armor"
+	Inventory.Icon "ARM5B0"
+	Armor.SavePercent 50
+	Armor.SaveAmount 130
+ Inventory.PickupSound "ARMOR"
+	States
+	{
+	Spawn:
+		ARM5 a 1 Bright
+		ARM5 A 2 bright A_SpawnItem("YellowFlareMedium",0,10)
+		loop
+	}
+}
+
+ACTOR NarmorYellow : CustomInventory
+{	
+ Game Doom
+	Scale 0.2
+	SpawnID 68
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up the UAC - Prototype Armor"
+ 	Inventory.Icon "ARM5B0"
+  Inventory.PickupSound "ARMOR"
+  	States
+  	{ 
+   Spawn:
+   TNT1 AAAAAAAA 0
+		ARM5 A 1 Bright
+		ARM5 A 2 bright A_SpawnItem("YellowFlareMedium",0,10)
+		loop
+	
+	Pickup:
+	TNT1 A 0 A_GiveInventory("ArmorYellow", 1)
+	TNT1 A 0 A_GiveInventory("PB_SuitGiver", 1)
+	TNT1 A 0 A_GiveInventory("PB_Haste", 1)
+	
+	Stop
+	}
+}
+
+Actor ArmorBlack : BasicArmorPickup
+{
+	Game Doom
+	Scale 0.2
+	SpawnID 67
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up the UAC - Commander Armor"
+	Inventory.Icon "ARM8B0"
+	Armor.SavePercent 70
+	Armor.SaveAmount 160
+ Inventory.PickupSound "ARMOR"
+	States
+	{
+	Spawn:
+		ARM8 A 1 Bright
+		ARM8 A 2 bright
+		loop
+	}
+}
+
+ACTOR NarmorBlack : CustomInventory
+{	
+ Game Doom
+	Scale 0.2
+	SpawnID 68
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up the UAC - Commander Armor"
+ 	Inventory.Icon "ARM8B0"
+  Inventory.PickupSound "ARMOR"
+  	States
+  	{ 
+   Spawn:
+   TNT1 AAAAAAAA 0
+		ARM8 A 1 Bright
+		ARM8 A 2 bright
+		loop
+	
+	Pickup:
+	TNT1 A 0 A_GiveInventory("ArmorBlack", 1)
+	TNT1 A 0 A_GiveInventory("BAPowerUp", 1)
+	
+	Stop
+	}
+}
+
+ACTOR BAPowerUp: CustomInventory
+{
+ Game Doom
+ Scale 0.2
+ Radius 20
+ Height 16
+ Inventory.PickupMessage ""
+ Inventory.PickupSound ""
+ States
+ {
+  Spawn:
+   TNT1 AAAAAAAA 0
+   TNT1 A 17
+   loop
+   
+  Pickup:
+   TNT1 A 0 A_GiveInventory("PB_GrenadeAmmo", 20)
+   TNT1 A 0 A_GiveInventory("PB_StunGrenadeAmmo", 20)
+   TNT1 A 0 A_GiveInventory("PB_ProxMineAmmo", 20)
+   TNT1 A 0 A_GiveInventory("PB_QuickLauncherAmmo", 20)
+   TNT1 A 0 A_GiveInventory("PB_LowCalMag", 20)
+   TNT1 A 0 A_GiveInventory("PB_HighCalMag", 20)
+   TNT1 A 0 A_GiveInventory("PB_RocketAmmo", 20)
+   TNT1 A 0 A_GiveInventory("PB_Cell", 20)
+   TNT1 A 0 A_GiveInventory("PB_Shell", 20)
+   TNT1 A 0 A_GiveInventory("PB_Fuel", 20)
+   TNT1 A 0 A_GiveInventory("PB_DTech", 20)
+   Stop
+  }
+}
+
+Actor ArmorDemon : BasicArmorPickup
+{
+	Game Doom
+	Scale 0.2
+	SpawnID 68
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up- UHG!, this thing stinks like rotten meat..."
+ 	Inventory.Icon "ARM9A0"
+  	Armor.Savepercent 100
+  	Armor.Saveamount 300
+  Inventory.PickupSound "ARMOR"
+  	States
+  	{
+  	Spawn:
+    ARM9 A 6 bright
+    ARM9 B 6 bright A_SpawnItem("RedFlareSmall",0,10)
+    ARM9 C 6 bright
+    ARM9 B 6 bright A_SpawnItem("RedFlareSmall",0,10)
+    loop
+	}
+}
+
+Actor MOT : PowerupGiver
+{
+  +CountItem
+  +NoGravity
+  +Inventory.AutoActivate
+  +Inventory.AlwaysPickup
+  Inventory.DefMaxAmount
+  Powerup.Type Frightener
+  Powerup.Color Black 0.2
+  Powerup.Duration -60
+  Inventory.PickupMessage " "
+  States
+  {
+  Spawn:
+    TNT1 AAAAAAAA 0
+    TNT1 AAAAAAAA 20
+    Loop
+  }
+}
+
+ACTOR NarmorDemon : CustomInventory
+{	
+ Game Doom
+	Scale 0.2
+	SpawnID 68
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Picked up- UHG!, this thing stinks like rotten meat..."
+ 	Inventory.Icon "ARM9A0"
+  Inventory.PickupSound "ARMOR"
+  	States
+  	{ 
+   Spawn:
+   ARM9 A 6 bright
+    ARM9 B 6 bright A_SpawnItem("RedFlareSmall",0,10)
+    ARM9 C 6 bright
+    ARM9 B 6 bright A_SpawnItem("RedFlareSmall",0,10)
+    loop
+	
+	Pickup:
+	TNT1 A 0 A_GiveInventory("ArmorDemon", 1)
+	TNT1 A 0 A_GiveInventory("MOT", 1)
+	TNT1 A 0 A_GiveInventory("PB_Berserk", 1)
+	TNT1 A 0 A_GiveInventory("PB_Doomsphere", 1)
+	Stop
+	}
+}
+
+Actor ArmorCyan : BasicArmorPickup
+{
+	Game Doom
+	Scale 0.2
+	SpawnID 68
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Code in Execution - 12 Seconds until Stop."
+ 	Inventory.Icon "BRM1A0"
+  	Armor.Savepercent 100
+  	Armor.Saveamount 40
+  Inventory.PickupSound "ARMOR"
+  	States
+  	{
+  	Spawn:
+    BRM1 ABAA 2 bright
+    loop
+	}
+}
+
+ACTOR NarmorCyan : CustomInventory
+{	
+ Game Doom
+	Scale 0.2
+	SpawnID 68
+	Radius 20
+	Height 16
+	Inventory.Pickupmessage "Code in Execution - 12 Seconds until Stop."
+ 	Inventory.Icon "BRM1A0"
+  Inventory.PickupSound "ARMOR"
+  	States
+  	{ 
+   Spawn:
+   BRM1 ABAA 2 bright
+    loop
+	
+	Pickup:
+	TNT1 A 0 A_GiveInventory("ArmorCyan", 1)
+	TNT1 A 0 A_GiveInventory("TFST", 1)
+	TNT1 A 0 A_GiveInventory("PFMS", 1)
+	
+	Stop
+	}
+}
+
+Actor TFST : PowerupGiver
+{
+  +CountItem
+  +NoGravity
+  +Inventory.AutoActivate
+  +Inventory.AlwaysPickup
+  Inventory.MaxAmount 0
+  Powerup.Type TimeFreezer
+  Powerup.Color GoldMap
+  Inventory.PickupMessage " "
+  States
+  {
+  Spawn:
+    TNT1 AAAAAAAA 0
+    TNT1 AAAAAAAA 20
+    Loop
+  }
+}
+
+Actor PFMS : PowerDoubleFiringSpeed
+{
+ Powerup.Duration -12
+	Speed 2.0
+}

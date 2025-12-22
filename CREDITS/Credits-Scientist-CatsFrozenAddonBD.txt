@@ -1,0 +1,78 @@
+		--Cat's Frozen Addon version 2.5--
+
+Cat's Frozen addon for BrutalDoom v22 contains :
+- An improved freezedeath system
+	- Each frozen monster has now 8 angle sprites
+	- Frozen monsters' head can be broken 
+	- New ice effect
+	- Monsters that resurrect after beeing frozen are weakened
+	- Monsters cannot be headshot/legshot... with freeze damages
+- New Enemy : FrostBaron
+- New Enemy : Cryocubus
+- New Enemy : FrostBrain
+- New Weapon : CryoCannon (Slot 9) is dropped by the Cryocubus
+- New weapon : Cryo Rifle (Slot 6) has a chance to spawn instead of a Plasma Rifle
+- New weapon : Freezer (Slot 7) has a chance to spawn instead of a BFG
+- New weapon : Freezing Grenade (Slot 0) can be acquired in backpacks
+- New weapon : SnowCaster device(Slot 0) can be acquired in backpacks
+- New Ammo for shotguns and for the rocket launcher
+- New item : FreezeBot™ (Slot 0) has a chance to spawn instead of a captured marine (and you also get one in backpacks)
+- Scientist !
+
+-Credits-
+code : Sergeant_Mark_IV, Ice projectiles from CryoBow (by Bloax, ZZrionTheInsect, Xaser and Ethril), 
+			Lord Lothar, Dreo, Dox778, IDDQD_1337, EmeraldCoast, SchrödingCat
+sprites : TypicalSF (cryo rifle base sprite), Eriance/Amuscaria, IDDQD_1337, SchrödingCat,  id Software
+			TommyGalano5 (hl scientist), Electro7777 (Frost Baron fatality),
+
+cryocubus
+Code: Thanuris, Ganbare-Lucifer, DeVloek (Zscript), Edit : SchrodingCat
+Sounds: id Software, valve
+Sprites: id Software
+Sprite Edit: 00_Zombie_00 & Eriance (death animation), DeVloek, SchrodingCat(Gibs, gore, new death animation)
+
+Changelog for 2.5
+- New enemy : Frost Baron
+- New alternate shells ammo to shoot with the shotgun and SSG
+- Lots of tweaks and balancing changes
+- Improved the scientist further more (he can sometimes shoot back at foes for exemple)
+- new items and powerups.
+
+Changelog for 2.4
+- New Mini Quest system with the scientist : Collect blood sample on strong monsters to get yourr reward.
+- Improved scientist behavior + better resistance (try to kick him)
+- New secret reward (items...)
+- New monster (WIP)
+- Reworked freezenade explosion (+ some other ice projectiles)
+- Bugfixes
+
+Changelog for 2.3
+- New sounds ans visual effects for the cryorifle
+- Various bugfixes and balance changes
+- Frozen sprites for different actors
+...
+- Scientist !
+
+
+Changelog for 2.2
+- Improved quick draw pistol with the cryorifle and the cryocannon thanks to IDDQD_1337
+- Balance changes once again
+- Improved freezedeath system (You can now headshot frozen enemies !)
+- Improved cryorifle animations made by IDDQD_1337
+- Improved some visual effects
+
+Changelog for 2.1
+	- Added the snowcaster device (weapon slot 0)
+	- Added a quick draw pistol to the crycannon, the cryorifle and the freezer (Dualwield key)
+	- Balance changes (some attacks were too powerful and could stuntlock strong enemies)
+	- Improved effects for shattered frozen enemies
+	- Improved freezer animations
+	- Improved some visual effects
+
+Changelog for 2.0
+	- Added compatibility for BrutalDoom v22
+	- Added frozen sprites for the ancient arachnotron, the volcabus and the belphegor.
+	- Added a new enemy, the cryocubus (from who you can get the CryoCannon!)
+	- Added a new weapon : the cryo rifle.	
+	- Reworked the freezenades
+	- Reworked the freezebot

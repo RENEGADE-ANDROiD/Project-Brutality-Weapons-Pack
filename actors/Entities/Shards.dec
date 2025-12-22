@@ -1,0 +1,96 @@
+// Shards
+ACTOR XD_ArmorBonusSpawner : RandomSpawner Replaces PB_ArmorBonus
+{
+	DropItem "PB_ArmorBonus1", 256
+	DropItem "PB_ArmorBonusRed", 256
+	DropItem "PB_ArmorBonusBlue", 256
+	DropItem "PB_ArmorBonusYellow", 256
+	DropItem "PB_ArmorBonusCyan", 256
+	DropItem "PB_ArmorBonusPurple", 256
+}
+ACTOR XD_ArmorBonusDroppedSpawner : RandomSpawner Replaces PB_ArmorBonusDropped
+{
+	DropItem "PB_ArmorBonusDropped1", 256
+	DropItem "PB_ArmorBonusDroppedRed", 256
+	DropItem "PB_ArmorBonusDroppedBlue", 256
+	DropItem "PB_ArmorBonusDroppedYellow", 256
+	DropItem "PB_ArmorBonusDroppedCyan", 256
+	DropItem "PB_ArmorBonusDroppedPurple", 256
+}
+ACTOR XD_DemonAPBonusSpawner : RandomSpawner Replaces PB_DemonAPBonus
+{
+	DropItem "PB_DemonArmorBonus1", 256
+	DropItem "PB_DemonArmorBonusRed", 256
+	DropItem "PB_DemonArmorBonusBlue", 256
+	DropItem "PB_DemonArmorBonusYellow", 256
+	DropItem "PB_DemonArmorBonusCyan", 256
+	DropItem "PB_DemonArmorBonusPurple", 256
+}
+ACTOR PB_ArmorBonus1 : PB_ArmorBonus {Inventory.PickupSound ABONUS1
+Armor.SaveAmount 1}
+ACTOR PB_ArmorBonusRed : PB_ArmorBonus
+{Translation "112:127=[255,0,0]:[0,0,0]"
+Inventory.PickupSound ABONUS3
+Armor.SaveAmount 3}
+ACTOR PB_ArmorBonusBlue : PB_ArmorBonus
+{Translation "112:127=[0,0,255]:[0,0,0]"
+Inventory.PickupSound ABONUS2
+Armor.SaveAmount 2}
+ACTOR PB_ArmorBonusYellow : PB_ArmorBonus
+{Translation "112:127=[255,255,0]:[0,0,0]"
+Inventory.PickupSound ABONUS4
+Armor.SaveAmount 4}
+ACTOR PB_ArmorBonusCyan : PB_ArmorBonus
+{Translation "112:127=[0,255,255]:[0,0,0]"
+Inventory.PickupSound ABONUS5
+Armor.SaveAmount 3}
+ACTOR PB_ArmorBonusPurple : PB_ArmorBonus
+{Translation "112:127=[255,0,255]:[0,0,0]"
+Inventory.PickupSound ABONUS6
+Armor.SaveAmount 3}
+
+ACTOR PB_ArmorBonusDropped1 : PB_ArmorBonusDropped {Inventory.PickupSound ABONUS1
+Armor.SaveAmount 1}
+ACTOR PB_ArmorBonusDroppedRed : PB_ArmorBonusDropped
+{Translation "112:127=[255,0,0]:[0,0,0]"
+Inventory.PickupSound ABONUS3
+Armor.SaveAmount 3}
+ACTOR PB_ArmorBonusDroppedBlue : PB_ArmorBonusDropped
+{Translation "112:127=[0,0,255]:[0,0,0]"
+Inventory.PickupSound ABONUS2
+Armor.SaveAmount 2}
+ACTOR PB_ArmorBonusDroppedYellow : PB_ArmorBonusDropped
+{Translation "112:127=[255,255,0]:[0,0,0]"
+Inventory.PickupSound ABONUS4
+Armor.SaveAmount 4}
+ACTOR PB_ArmorBonusDroppedCyan : PB_ArmorBonusDropped
+{Translation "112:127=[0,255,255]:[0,0,0]"
+Inventory.PickupSound ABONUS5
+Armor.SaveAmount 3}
+ACTOR PB_ArmorBonusDroppedPurple : PB_ArmorBonusDropped
+{Translation "112:127=[255,0,255]:[0,0,0]"
+Inventory.PickupSound ABONUS6
+Armor.SaveAmount 3}
+
+ACTOR PB_DemonArmorBonus1 : PB_DemonAPBonus {Inventory.PickupSound ABONUS1
+Armor.SaveAmount 1}
+ACTOR PB_DemonArmorBonusRed : PB_DemonAPBonus
+{Translation "112:127=[255,0,0]:[0,0,0]"
+Inventory.PickupSound ABONUS3
+Armor.SaveAmount 3}
+ACTOR PB_DemonArmorBonusBlue : PB_DemonAPBonus
+{Translation "112:127=[0,0,255]:[0,0,0]"
+Inventory.PickupSound ABONUS2
+Armor.SaveAmount 2}
+ACTOR PB_DemonArmorBonusYellow : PB_DemonAPBonus
+{Translation "112:127=[255,255,0]:[0,0,0]"
+Inventory.PickupSound ABONUS4
+Armor.SaveAmount 4}
+ACTOR PB_DemonArmorBonusCyan : PB_DemonAPBonus
+{Translation "112:127=[0,255,255]:[0,0,0]"
+Inventory.PickupSound ABONUS5
+Armor.SaveAmount 3}
+ACTOR PB_DemonArmorBonusPurple : PB_DemonAPBonus
+{Translation "112:127=[255,0,255]:[0,0,0]"
+Inventory.PickupSound ABONUS6
+Armor.SaveAmount 3}

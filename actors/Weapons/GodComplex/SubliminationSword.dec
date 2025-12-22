@@ -1,0 +1,685 @@
+Actor SubSwordModeToken1 : Inventory { }
+Actor SubSwordModeToken2 : Inventory { }
+
+//---------------------------------------------------------------
+//
+// Doom Clusterfuck Sublimation Sword by Dusted Pandemonic (CF4.0.2)
+//
+// PB3.0 Coder: AresFallen (Now He Dedicated at least. let him Porting.
+//
+//---------------------------------------------------------------
+Actor PB_SBSword : PBWP_Weapon
+{
+game doom
+Scale 0.7
+Weapon.AmmoType "PBWP_ComplexAmmo"
+// Weapon.AmmoType2 "PBWP_ComplexAmmo"
+Weapon.AmmoUse1 0
+// Weapon.AmmoGive 300
+Weapon.UpSound "SubSword/Pickup"
+Inventory.PickupSound "SubSword/Pickup"
+Inventory.PickupMessage "You got the Sublimination Sword!"
+Obituary "%o was amazed that %k actually got this obituary to appear."
+Tag "Sublimination Sword"
++FLOATBOB
++WEAPON.NOAUTOAIM
++WEAPON.AMMO_OPTIONAL
++WEAPON.NOALERT
+Weapon.SelectionOrder 2100
+    Weapon.SlotNumber 1
+	Weapon.SlotPriority 0
+States
+{
+
+
+Spawn:
+WVBL A 1
+Loop
+
+RealReady:
+        TNT1 A 0 A_Overlay(-10, "FirstPersonLegsStand")
+		TNT1 A 0 A_JumpIfInventory("Weaponspecial2",1,"BP_Switchingpistol")
+		SBSW A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+	    Goto Ready3
+
+Ready:
+TNT1 A 0 A_Playsound("SubSword/Pickup")
+Ready3:
+TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+SBSW A 1 A_DoPBWeaponAction
+Goto Ready3
+
+
+Deselect:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+SBSW A 0 A_Lower
+Loop
+
+
+Select:
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			A_TakeInventory("PB_LockScreenTilt",1);
+		}
+		Goto SelectFirstPersonLegs
+		SelectContinue:
+		SBSW A 0 A_GunFlash
+        SBSW A 1 A_Raise
+        Goto Ready
+
+
+Fire:
+			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+			TNT1 A 0 {
+				 A_WeaponOffset(0,32);
+				 A_SetRoll(0);
+				 A_TakeInventory("PB_LockScreenTilt",1);
+				 A_BDPmeleestart;
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+			     }
+TNT1 A 0 A_JumpIfInventory("SubSwordModeToken1",1,"Fire2")
+TNT1 A 0 A_JumpIfInventory("SubSwordModeToken2",1,"Fire3")
+SBSW BC 2
+Refire:
+TNT1 A 0 A_BDPMelee(200, "NULL", -7, TRUE)
+TNT1 A 0 A_PlaySound("Mainyu/Sword",1)
+TNT1 A 0 A_Quake(4,10,0,10,0)
+SBSW DEFGHI 1
+TNT1 A 0 A_CustomPunch((random(150,250)*random(1,4)),1,0,"SubSwordWallHit",128)
+SBSW JKLMN 1
+TNT1 A 5
+TNT1 A 0 A_Refire("Refire")
+Goto Done
+
+Fire2:
+TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",30,"Fire2Continue")
+TNT1 A 0 A_BDPmeleestart
+Goto Ready
+Fire2Continue:
+SBSW BC 2
+Refire2:
+TNT1 A 0 A_BDPMelee(200, "NULL", -7, TRUE)
+TNT1 A 0 A_PlaySound("Mainyu/Sword",1)
+TNT1 A 0 A_Quake(4,20,0,10,0)
+SBS2 AABBCCDDEEFF 1
+TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",30,TIF_NOTAKEINFINITE)
+TNT1 A 0 A_FireCustomMissile("MainyuSwordProjectile",0,0,0,0)
+TNT1 A 0 A_AlertMonsters
+SBS2 GGHHIIJJKK 1
+TNT1 A 5
+TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",30,2)
+TNT1 A 0 A_Jump(256,2)
+TNT1 A 0 A_Refire("Refire2")
+TNT1 A 0
+Goto Done
+
+Fire3:
+TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",50,"Fire3Continue")
+TNT1 A 0 A_BDPmeleestart
+Goto Ready
+Fire3Continue:
+SBSW BC 2
+Refire3:
+TNT1 A 0 A_BDPMelee(200, "NULL", -7, TRUE)
+TNT1 A 0 A_PlaySound("Mainyu/Sword",1)
+TNT1 A 0 A_Quake(4,20,0,10,0)
+TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",50,TIF_NOTAKEINFINITE)
+SBS3 AABBCCDD 1
+TNT1 A 0 A_AlertMonsters
+SBS3 E 1 A_FireCustomMissile("MainyuRedDarkMatter",-7,0,0,0)
+SBS3 E 1 A_FireCustomMissile("MainyuRedDarkMatter",-5,0,0,0)
+SBS3 F 1 A_FireCustomMissile("MainyuRedDarkMatter",-3,0,0,0)
+SBS3 F 1 A_FireCustomMissile("MainyuRedDarkMatter",-1,0,0,0)
+SBS3 G 1 A_FireCustomMissile("MainyuRedDarkMatter",1,0,0,0)
+SBS3 G 1 A_FireCustomMissile("MainyuRedDarkMatter",3,0,0,0)
+SBS3 H 1 A_FireCustomMissile("MainyuRedDarkMatter",5,0,0,0)
+SBS3 H 1 A_FireCustomMissile("MainyuRedDarkMatter",7,0,0,0)
+SBS3 IIJJKK 1
+TNT1 A 5
+TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",50,2)
+TNT1 A 0 A_Jump(256,2)
+TNT1 A 0 A_Refire("Refire3")
+TNT1 A 0
+Goto Done
+
+
+AltFire:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+TNT1 A 0 A_JumpIfInventory("SubSwordModeToken1",1,"AltFire2")
+TNT1 A 0 A_JumpIfInventory("SubSwordModeToken2",1,"AltFire3")
+TNT1 A 0 A_GiveInventory("SubSwordModeToken1")
+SBSW A 1 A_Print("White Matter",1.5)
+TNT1 A 0 A_Refire("NoAutoAltFirePls")
+Goto Ready3
+
+AltFire2:
+TNT1 A 0 A_TakeInventory("SubSwordModeToken1")
+TNT1 A 0 A_GiveInventory("SubSwordModeToken2")
+SBSW A 1 A_Print("Red Matter",1.5)
+TNT1 A 0 A_Refire("NoAutoAltFirePls")
+Goto Ready3
+
+AltFire3:
+TNT1 A 0 A_TakeInventory("SubSwordModeToken1")
+TNT1 A 0 A_TakeInventory("SubSwordModeToken2")
+SBSW A 1 A_Print("Life Leech",1.5)
+TNT1 A 0 A_Refire("NoAutoAltFirePls")
+Goto Ready3
+
+Done:
+SBSW OPQR 2
+Goto Ready3
+
+NoAutoAltFirePls:
+SBSW A 1
+SBSW A 1 A_Refire("NoAutoAltFirePls")
+Goto Ready3
+
+Reload:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+TNT1 A 0 A_JumpIfInventory ("HasBarrel", 1, "IdleBarrel")
+TNT1 A 0 A_JumpIfInventory ("HasFlameBarrel", 1, "IdleFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("HasIceBarrel", 1, "IdleIceBarrel")
+Goto Ready3
+
+WeaponSpecial:
+TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+TNT1 A 0 A_Print("Since Mainyu has Been Defeated. Tonyn is Successful about CF PB Patch 4.2.5 *Do Not Spoiler CF4.2.5")
+TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+Goto Ready3
+
+	FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0
+		Goto Ready3
+		
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+		TNT1 A 0
+		Goto Ready3
+		
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0
+		Goto Ready3
+
+   
+}
+}
+
+//
+//
+// SFX
+//
+//
+
+ACTOR EnergyProjectileSparkRed
+{
+Height 0
+Radius 0
+Mass 0
+Damage 0
++THRUACTORS
++NOTELEPORT
++DONTSPLASH
++DOOMBOUNCE
++CLIENTSIDEONLY
++MISSILE
++NOBLOCKMAP
++FORCEXYBILLBOARD
+RenderStyle Add
+BounceFactor 0.5
+Gravity 0.4
+States
+{
+Spawn:
+SPKR A 2 Bright A_FadeOut(0.08)
+Loop
+Death:
+SPKR A 1 Bright A_FadeOut(0.025)
+Loop
+}
+}
+
+ACTOR EPSR1 : EnergyProjectileSparkRed { Scale 0.06 }
+ACTOR EPSR2 : EnergyProjectileSparkRed { Scale 0.05 }
+ACTOR EPSR3 : EnergyProjectileSparkRed { Scale 0.04 }
+ACTOR EPSR4 : EnergyProjectileSparkRed { Scale 0.03 }
+ACTOR EPSR5 : EnergyProjectileSparkRed { Scale 0.02 }
+ACTOR EPSR6 : EnergyProjectileSparkRed { Scale 0.01 }
+
+ACTOR RedParticleSpawner
+{
++CLIENTSIDEONLY
++NOGRAVITY
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx("EPSR1",0,0,0,FRandom(4,-4),FRandom(4,-4),FRandom(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR2",0,0,0,FRandom(4,-4),FRandom(4,-4),FRandom(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR3",0,0,0,FRandom(4,-4),FRandom(4,-4),FRandom(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR4",0,0,0,FRandom(4,-4),FRandom(4,-4),FRandom(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR5",0,0,0,FRandom(4,-4),FRandom(4,-4),FRandom(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR6",0,0,0,FRandom(4,-4),FRandom(4,-4),FRandom(4,-4),0,128)
+TNT1 A 1
+Stop
+}
+}
+
+
+ACTOR MainyuSwordProjectileTrail
+{
++MISSILE
++DONTSPLASH
++NOGRAVITY
++NOTELEPORT
++FORCEXYBILLBOARD
++THRUACTORS
++NONETID
+Scale 0.4
+RenderStyle add
++CLIENTSIDEONLY
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+2HDT ABCDEFGHIJKL 2 Bright A_FadeOut(0.1,1)
+Stop
+}
+}
+
+
+Actor BossDeathExplode
+{ 
++NOINTERACTION
++NOBLOCKMAP
++CLIENTSIDEONLY
++FORCEXYBILLBOARD
+RenderStyle Add
+Scale 0.5
+States
+{
+Spawn:
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(0.6)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(0.7)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(0.8)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(0.9)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(1.0)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(1.1)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(1.2)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(1.3)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(1.4)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(1.5)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(1.6)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(1.7)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(1.8)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(1.9)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(2.0)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(2.1)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(2.2)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(2.3)
+CLBC D 2 Bright A_FadeOut(0.05)
+TNT1 A 0 A_SetScale(2.4)
+CLBC D 2 Bright A_FadeOut(0.05)
+Stop
+}
+}
+
+
+Actor 2huBossDeathFlame
+{
+Speed 2
+RenderStyle Translucent
+Alpha 0.3
++NOINTERACTION
++NOBLOCKMAP
++CLIENTSIDEONLY
++FORCEXYBILLBOARD
++NOTIMEFREEZE
+States
+{
+Spawn:
+TNT1 A 2
+2HDT ABCDEFGHIJKL 2 Bright A_SpawnItemEx("2huBossDeathFlame2",0,0,0,frandom(-4,4),frandom(-4,4),frandom(0,8))
+Stop
+}
+}
+
+
+Actor 2huBossDeathFlame2 : 2huBossDeathFlame
+{
+States
+{
+Spawn:
+TNT1 A 2
+2HDT ABCDEFGHIJKL 2 Bright A_ChangeVelocity(0,0,1)
+Stop
+}
+}
+
+
+Actor 2huBossDeathFlame3 : 2huBossDeathFlame
+{
+Speed 15
+Scale 0.35
+States
+{
+Spawn:
+TNT1 A 2
+2HDT ABCDEFGHIJKL 2 Bright A_SpawnItemEx("2huBossDeathFlame4",0,0,0,frandom(-2,0),frandom(-1,1),frandom(-1,1),0,0,0)
+Stop
+}
+}
+
+
+Actor 2huBossDeathFlame4 : 2huBossDeathFlame
+{
+Scale 0.35
+States
+{
+Spawn:
+TNT1 A 2
+2HDT ABCDEFGHIJKL 2 Bright A_ChangeVelocity(0,0,1)
+Stop
+}
+}
+
+
+ACTOR RedMatterSpark
+{
+RenderStyle Translucent
+Scale 0.75
+Alpha 0.5
++NOGRAVITY
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A 0
+RPXS ABCDEFGHIJKL 1 Bright A_FadeOut(0.04)
+Stop
+}
+}
+
+
+ACTOR MainyuRedDarkmatterKaboom
+{
+Speed 3
+Damage 0
+Renderstyle Add
+Alpha 0.75
+PROJECTILE
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
++NOGRAVITY
++MISSILE
++FORCEXYBILLBOARD
++CLIENTSIDEONLY
++NOCLIP
+Scale 1.3
++NOINTERACTION
+States
+{
+Spawn:
+TNT1 A 0
+MDRK A 1 Bright A_PlaySound("explosion")
+MDRK ABBCDEFGHIJKLM 1 Bright A_FadeOut(0.05)
+Stop
+}
+}
+
+
+Actor SmokeFX2
+{
+Damage 0
+Projectile
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
++NOGRAVITY
++MISSILE
++FORCEXYBILLBOARD
++CLIENTSIDEONLY
++NOINTERACTION
++NOCLIP
+Speed 2
+Scale 0.85
+Renderstyle Translucent
+Alpha 0.75
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+SMK3 ABCDEFGHIJKLM 5 A_FadeOut(0.025)
+Stop
+}
+}
+
+
+ACTOR MainyuRedDarkMatterVaporSpawner
+{
++NOINTERACTION
++NOBLOCKMAP
++CLIENTSIDEONLY
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 AAAAAAAAAAAAAAAAAAAAAAA 1 A_SpawnItemEx("MainyuRedDarkMatterVapor",0,0,0,random(4,-4),random(4,-4),random(4,-4),random(0,359),SXF_NOCHECKPOSITION|SXF_CLIENTSIDE)
+TNT1 A 1
+Stop
+}
+}
+
+
+ACTOR MainyuRedDarkMatterVapor
+{
+Renderstyle Add
+Scale 0.65
+Alpha 0.9
++NOINTERACTION
++NOBLOCKMAP
++CLIENTSIDEONLY
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_Playsound("PainLord/Explode2",7)
+RICE ABCDEF 3
+Stop
+}
+}
+
+
+ACTOR RedShadowVaporSpawner
+{
++CLIENTSIDEONLY
++NOINTERACTION
+Renderstyle None
+States
+{
+Spawn:
+TNT1 AAAAAA 0 A_SpawnItemEx("RedShadowVapor",0,0,0,frandom(4,-4),frandom(4,-4),frandom(4,-4),frandom(0,359),SXF_NOCHECKPOSITION|SXF_CLIENTSIDE)
+TNT1 A 1
+Stop
+}
+}
+
+
+ACTOR RedShadowVapor
+{
+Renderstyle Add
+Scale 0.65
+Alpha 0.7
++CLIENTSIDEONLY
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+RPXS MNOPQRSTUVWXYZ 1 Bright A_FadeOut(0.018)
+RPXS ABC 2 A_FadeOut(0.018)
+Stop
+}
+}
+
+Actor MainyuSwordProjectile
+{
+Projectile
+RenderStyle Add
+Alpha 0.67
+Seesound "legsoul/attack2"
+DeathSound "legsoul/explode2"
++FORCERADIUSDMG
+Scale 1
+Decal Scorch
+Speed 85
+Radius 26
+Height 6
+Damage 60
+Species "Marines"
++DONTHARMSPECIES
++FOILINVUL
++MTHRUSPECIES
+Damagetype "Normal"
+States
+{
+Spawn:
+TNT1 A 0 A_SpawnItemEx("MainyuSwordProjectileTrail",-2,4,0,-3,3)
+TNT1 A 0 A_SpawnItemEx("MainyuSwordProjectileTrail",-2,-4,0,-3,-3)
+TNT1 A 0 A_SpawnItemEx("MainyuSwordProjectileTrail",-4,8,0,-5,5)
+TNT1 A 0 A_SpawnItemEx("MainyuSwordProjectileTrail",-4,-8,0,-5,-5)
+TNT1 A 0 A_SpawnItemEx("MainyuSwordProjectileTrail",-6,12,0,-7,7)
+TNT1 A 0 A_SpawnItemEx("MainyuSwordProjectileTrail",-6,-12,0,-7,-7)
+TNT1 A 1 A_SpawnItemEx("MainyuSwordProjectileTrail",0,0,0)
+Loop
+
+Death:
+TNT1 A 0 A_SpawnItemEx("BossDeathExplode",0,0,32)
+TNT1 AAAAAAAAAAA 0 A_SpawnItemEx ("2huBossDeathFlame", 0, 0, 0, frandom(-3,3), frandom(-3,3), frandom(-3,3), frandom (0, 360))
+TNT1 AAAAAAAAAAA 0 A_CustomMissile("2huBossDeathFlame3", frandom(5, 55), 0, frandom(0,360), CMF_OFFSETPITCH, frandom(-40, 70))
+TNT1 A 0 A_Explode(500,400,0,0,300)
+TNT1 A 25 Radius_Quake(5,25,0,20,0)
+Stop
+}
+}
+
+
+Actor MainyuRedDarkMatter
+{
+Radius 10
+Height 10
+FastSpeed 28
+ExplosionDamage 64
+ExplosionRadius 102
+PROJECTILE
+SeeSound "comet/launch"
+DeathSound "comet/explosion"
+MissileHeight 0
+Damage 30
+Scale 0.5
++EXTREMEDEATH
++FORCERADIUSDMG
+RenderStyle Translucent
+Alpha 0.625
+Speed 60
+Damagetype "Normal"
+Species "Marines"
++STRIFEDAMAGE
++DONTHARMSPECIES
++FOILINVUL
++MTHRUSPECIES
+States
+{
+Spawn:
+TNT1 AAA 0 A_SpawnItemEx("RedMatterSpark",0,0,0,random(-3,0),random(-2,2),random(-2,2))
+MDRM A 1 Bright
+TNT1 AAA 0 A_SpawnItemEx("RedMatterSpark",0,0,0,random(-3,0),random(-2,2),random(-2,2))
+MDRM A 1 Bright
+TNT1 AAA 0 A_SpawnItemEx("RedMatterSpark",0,0,0,random(-3,0),random(-2,2),random(-2,2))
+MDRM A 1 Bright
+TNT1 AAA 0 A_SpawnItemEx("RedMatterSpark",0,0,0,random(-3,0),random(-2,2),random(-2,2))
+MDRM B 1 Bright
+TNT1 AAA 0 A_SpawnItemEx("RedMatterSpark",0,0,0,random(-3,0),random(-2,2),random(-2,2))
+MDRM B 1 Bright
+TNT1 AAA 0 A_SpawnItemEx("RedMatterSpark",0,0,0,random(-3,0),random(-2,2),random(-2,2))
+MDRM B 1 Bright
+TNT1 AAA 0 A_SpawnItemEx("RedMatterSpark",0,0,0,random(-3,0),random(-2,2),random(-2,2))
+MDRM C 1 Bright
+TNT1 AAA 0 A_SpawnItemEx("RedMatterSpark",0,0,0,random(-3,0),random(-2,2),random(-2,2))
+MDRM C 1 Bright
+TNT1 AAA 0 A_SpawnItemEx("RedMatterSpark",0,0,0,random(-3,0),random(-2,2),random(-2,2))
+MDRM C 1 Bright
+Loop
+
+Death:
+TNT1 A 0
+TNT1 A 0 A_Playsound("PainLord/Explode1",7)
+TNT1 AAAA 0 //A_SpawnItemEx("Debris",0,0,Random(20,40),Random(4,-4),Random(4,-4),Random(4,8),0,SXF_NOCHECKPOSITION|SXF_CLIENTSIDE)
+TNT1 AAA 0 A_CustomMissile("MainyuRedDarkmatterKaboom", 0, 0, frandom(0,360), CMF_AIMDIRECTION, frandom(0,360))
+TNT1 AAA 0 A_CustomMissile("SmokeFX2", 0, 0, frandom(0,360), CMF_AIMDIRECTION, frandom(0,360))
+TNT1 A 0 A_SpawnItemEx("MainyuRedDarkMatterVapor",0,0,0,frandom(4,-4),frandom(4,-4),frandom(4,-4),frandom(0,360),SXF_NOCHECKPOSITION|SXF_CLIENTSIDE)
+TNT1 A 0 A_SpawnItemEx("MainyuRedDarkMatterVaporSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+TNT1 A 0 A_SpawnItemEx("RedShadowVapor",0,0,0,frandom(4,-4),frandom(4,-4),frandom(4,-4),frandom(0,360),SXF_NOCHECKPOSITION|SXF_CLIENTSIDE)
+TNT1 A 0 A_SpawnItemEx("RedShadowVaporSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+TNT1 A 0 A_Explode(130,200,0)
+TNT1 A 15 Radius_Quake(5,15,0,20,0)
+Stop
+}
+}

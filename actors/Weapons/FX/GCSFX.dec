@@ -1,0 +1,576 @@
+ACTOR PlayerEnragedLegDevastatorBolt
+{
+Speed 35
+Radius 6
+Height 6
+Alpha 0.8
+Projectile
++SEEKERMISSILE
++DONTREFLECT
++BRIGHT
+ReactionTime 170
+RenderStyle Add
+DeathSound "bolt/explode"
+Damage 25
+Damagetype "LegendaryGuruPlayer"
+Species "Player"
++NODAMAGETHRUST
++SCREENSEEKER
++THRUSPECIES
++MTHRUSPECIES
++DONTHURTSPECIES
++DONTHARMSPECIES
+States
+{
+Spawn:
+DVS1 A 0 A_Seekermissile(25,25,SMF_LOOK)
+DVS1 A 1 A_SpawnItem("EnragedBoltTrail")
+Loop
+ 
+Death:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx("EnragedBFGParticleSpawner",0,0,0,0,0,0,0,128)
+TNT1 AAAA 0 A_CustomMissile("EnragedDevBoltKaboom",0,0,random(0,360),2,random(0,360))
+DVS1 LMN 2
+Stop
+}
+}
+
+
+Actor EnragedDevBoltKaboom
+{
+Radius 1
+Height 1
+Damage 0
+Renderstyle Add
+Alpha 0.75
+Projectile
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
++NOGRAVITY
++MISSILE
++FORCEXYBILLBOARD
++CLIENTSIDEONLY
++NOINTERACTION
++NOCLIP
+Speed 1
+Scale 0.3
+States
+{
+Spawn:
+DVPR ABCDEFGHIJKLMNOP 1 Bright A_FadeOut(0.025)
+Stop
+}
+}
+
+
+Actor EnragedBoltTrail
+{
++NOBLOCKMAP 
++NOINTERACTION
++CLIENTSIDEONLY
+Renderstyle Add
+States
+{
+Spawn:
+TNT1 A 0
+DVS1 GHIJK 1 Bright A_FadeOut (0.05)
+TNT1 A 0
+Stop
+}
+}
+
+
+ACTOR EnergyProjectileSparkRed
+{
+Height 0
+Radius 0
+Mass 0
+Damage 0
++THRUACTORS
++NOTELEPORT
++DONTSPLASH
++DOOMBOUNCE
++CLIENTSIDEONLY
++MISSILE
++NOBLOCKMAP
++FORCEXYBILLBOARD
+RenderStyle Add
+BounceFactor 0.5
+Gravity 0.4
+States
+{
+Spawn:
+SPKR A 2 Bright A_FadeOut(0.08)
+Loop
+
+Death:
+SPKR A 1 Bright A_FadeOut(0.025)
+TNT1 A 0
+Stop
+}
+}
+
+ACTOR EPSR1 : EnergyProjectileSparkRed { Scale 0.06 }
+ACTOR EPSR2 : EnergyProjectileSparkRed { Scale 0.05 }
+ACTOR EPSR3 : EnergyProjectileSparkRed { Scale 0.04 }
+ACTOR EPSR4 : EnergyProjectileSparkRed { Scale 0.03 }
+ACTOR EPSR5 : EnergyProjectileSparkRed { Scale 0.02 }
+ACTOR EPSR6 : EnergyProjectileSparkRed { Scale 0.01 }
+
+ACTOR RedParticleSpawner
+{
++CLIENTSIDEONLY
++NOGRAVITY
++NOBLOCKMAP
++NOTELEPORT
++DONTSPLASH
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx("EPSR1",0,0,0,FRandom(4,-4),FRandom(4,-4),FRandom(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR2",0,0,0,FRandom(4,-4),FRandom(4,-4),FRandom(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR3",0,0,0,FRandom(4,-4),FRandom(4,-4),FRandom(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR4",0,0,0,FRandom(4,-4),FRandom(4,-4),FRandom(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR5",0,0,0,FRandom(4,-4),FRandom(4,-4),FRandom(4,-4),0,128)
+TNT1 A 0 A_SpawnItemEx("EPSR6",0,0,0,FRandom(4,-4),FRandom(4,-4),FRandom(4,-4),0,128)
+TNT1 A 1
+Stop
+}
+}
+
+
+Actor EnragedBFGParticleSpawner : RedParticleSpawner
+{
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+TNT1 AAAAAA 0 A_SpawnItemEx("EnragedBFGParticle",0,0,0,frandom(-4,4),frandom(-4,4),frandom(-4,4),0,SXF_CLIENTSIDE)
+TNT1 A 1
+Stop
+}
+}
+
+
+Actor EnragedBFGParticle
+{
+Scale 0.05 
+Height 0
+Radius 0
+Mass 0
+Damage 0
++THRUACTORS
++NOTELEPORT
++DONTSPLASH
++DOOMBOUNCE
++CLIENTSIDEONLY
++MISSILE
++NOBLOCKMAP
++FORCEXYBILLBOARD
++NOINTERACTION
+RenderStyle Add
+BounceFactor 0.5
+Gravity 0.4
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A Random(5,7)
+SpawnLoop:
+SPKR A 2 Bright A_FadeOut(0.08)
+Loop
+}
+}
+
+
+ACTOR PlayerEnragedProjectileDTBFGAttack
+{
+PROJECTILE
++LOOKALLAROUND
++ISMONSTER
++QUICKTORETALIATE
++NOTARGET
++FRIENDLY
++THRUACTORS
+Obituary "%o had no chance against %k's Demon Tech BFG10K."
+MissileType "FusionDTBFGRailgunSlug"
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 AAAAA 1 A_Look
+Stop
+
+See:
+TNT1 A 0
+TNT1 A 1 A_JumpIfCloser(1250,"Attack")
+Stop
+
+Attack:
+TNT1 A 0
+TNT1 A 0 A_FaceTarget
+TNT1 A 0 A_MissileAttack
+TNT1 A 1 A_CustomRailgun(-1,0,NONE,"Red",1,1,2)
+Goto Death
+
+Death:
+TNT1 A 1
+Stop
+}
+}
+
+
+ACTOR FusionDTBFGRailgunSlug
+{
+Height 1
+Radius 1
+Speed 350
++BLOODSPLATTER
+-RIPPER
+Species "Cybers"
+Damage (Random(1,4))
+DamageType "Cyber10K"
+Decal None
++NOBOSSRIP
++BLOODLESSIMPACT
++NODAMAGETHRUST
++THRUSPECIES
++DONTSPLASH
+-NOEXTREMEDEATH
+States
+{
+Spawn:
+TNT1 A 10
+Stop
+
+Death:
+TNT1 A 1
+Stop
+
+XDeath:
+TNT1 A 1
+Stop
+}
+}
+
+
+ACTOR PlayerEnragedLegStormBolt
+{
+Speed 1
+Radius 8
+Height 12
+Renderstyle Add
+Projectile
+-NOGRAVITY
++BLOODLESSIMPACT
++RIPPER
++FORCERADIUSDMG
++EXTREMEDEATH
+Gravity 2.0
+Damage 6
+Species "Player"
+DamageType "LegendaryGuruPlayer"
++NODAMAGETHRUST
++FOILINVUL
++THRUSPECIES
++MTHRUSPECIES
++DONTHURTSPECIES
++DONTHARMSPECIES
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SetAngle(7 + angle)
+TNT1 A 2 A_SpawnItemEx("EnragedLegStormBoltFade",0,0,0,frandom(0.25,-0.25),frandom(0.25,-0.25),frandom(0.25,-0.25),128,0)
+Loop
+
+Death:
+TNT1 A 0 A_PlayWeaponSound("legstorm/explode")
+TNT1 A 0 A_Explode(156,312,0)
+TNT1 A 0 A_SpawnItemEx("PlayerEnragedLegGuruStormBoltStruckGlowY",0,0,0,0,0,0,0,128,0)
+TNT1 A 0 A_SpawnItemEx("PlayerEnragedLegGuruStormBoltStruckGlowX",0,0,0,0,0,0,0,128,0)
+TNT1 AAAAAAA 2 A_SpawnItemEx("RedGuruSprayPlayer",random(20,-20),random(20,-20),random(30,-5),0,0,0,0,128,0)
+Stop
+}
+}
+
+
+ACTOR PlayerEnragedLegGuruStormBoltStruckGlowY
+{
+XScale 0.35
+YScale 1.5
+Alpha 0.5
+-NONETID
+-CLIENTSIDEONLY
++FORCERADIUSDMG
++NOTIMEFREEZE
++FRIENDLY
+DamageType "Legendary"
+States
+{
+Spawn:
+TNT1 A 0
+EBUM A 0 A_Explode(8,192)
+EBUM A 1 Bright A_FadeOut(0.005)
+Loop
+}
+}
+
+ACTOR PlayerEnragedLegGuruStormBoltStruckGlowX
+{
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Alpha 0.99
+Renderstyle Add
+Alpha 0.5
++CLIENTSIDEONLY
+Scale 0.35
+DamageType "LegendaryGuruPlayer"
+States
+{
+Spawn:
+TNT1 A 0
+EBUM A 0 A_Explode(8,192)
+EBUM A 1 Bright A_FadeOut(0.005)
+Loop
+}
+}
+
+
+ACTOR EnragedLegStormBoltFade
+{
+Damage 0
+Alpha 0.99
+Renderstyle Add
+SeeSound ""
+PROJECTILE
++NOGRAVITY
++NOINTERACTION
++FORCEYBILLBOARD
++NOCLIP
++NOTIMEFREEZE
++CLIENTSIDEONLY
+States
+{
+Spawn:
+ELTE A 0
+ELTE ABCDABCDABCD 1 Bright A_FadeOut(0.05)
+Stop
+}
+}
+
+
+Actor RedGuruSprayPlayer
+{
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Species "player"
+Damagetype "LegendaryGuruPlayer"
++NODAMAGETHRUST
++FOILINVUL
++THRUSPECIES
++MTHRUSPECIES
++DONTHURTSPECIES
++DONTHARMSPECIES
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx("EnragedGuruSprayGlowY",0,0,10,0,0,0,0,128,0)
+TNT1 A 0 A_SpawnItemEx("EnragedGuruSprayGlowX",0,0,10,0,0,0,0,128,0)
+TNT1 AAAAAA 3 A_SpawnItemEx("RedGuruSpraySpark",random(24,-24),random(24,-24),random(24,-24),0,0,0,0,0,0)
+Stop
+}
+}
+
+
+ACTOR RedGuruSpraySpark
+{
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Alpha 0.99
+Renderstyle Add
+Scale 0.25
++CLIENTSIDEONLY
+States
+{
+Spawn:
+TNT1 A 0
+EELE ABCDEF 2 Bright A_FadeOut(0.1)
+TNT1 A 0
+Stop
+}
+}
+
+
+ACTOR EnragedGuruSprayGlowY
+{
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Renderstyle Add
++CLIENTSIDEONLY
+Alpha 0.35
+Scale 0.025
+States
+{
+Spawn:
+TNT1 A 0
+EBUM A 0 A_SetScale(ScaleX +0.05, ScaleY +0.01)
+EBUM A 1 Bright A_FadeOut(0.01) //A_FadeOut(0.01)
+TNT1 A 0
+Stop
+}
+}
+
+
+ACTOR EnragedGuruSprayGlowX
+{
++NOCLIP
++NOINTERACTION
++NOGRAVITY
+Renderstyle Add
++CLIENTSIDEONLY
+Alpha 0.35
+Scale 0.025
+States
+{
+Spawn:
+TNT1 A 0
+EBUM A 0 A_SetScale(ScaleX +0.01, ScaleY +0.05)
+EBUM A 1 Bright A_FadeOut(0.01) //A_FadeOut(0.01)
+TNT1 A 0
+Stop
+}
+}
+
+
+Actor ELegBFGGlowY
+{
++NOCLIP
++NOGRAVITY
+Renderstyle Add
+Alpha 0.5
++CLIENTSIDEONLY
++NOINTERACTION
++NOBLOCKMAP
+Scale 0.2
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+EBUM A 0 A_SetScale(ScaleX +0.025, ScaleY +0.1)
+EBUM A 1 Bright A_FadeOut(0.01)
+TNT1 A 0
+Stop
+}
+}
+
+
+Actor ELegBFGGlowX
+{
+Alpha 0.5
++CLIENTSIDEONLY
++NOCLIP
++NOGRAVITY
+Renderstyle Add
++NOINTERACTION
++NOBLOCKMAP
+Scale 0.2
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+EBUM A 0 A_SetScale(ScaleX +0.1, ScaleY +0.025)
+EBUM A 1 Bright A_FadeOut(0.01)
+TNT1 A 0
+Stop
+}
+}
+
+
+Actor ELegBFGSpark
+{
++NOCLIP
++NOGRAVITY
+Alpha 0.99
+Renderstyle Add
+Scale 1.15
++CLIENTSIDEONLY
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+EELE ABCDEF 2 Bright A_FadeOut(0.1)
+TNT1 A 0
+Stop
+}
+}
+
+
+ACTOR PlayerEnragedLegStormBoltSpawner
+{
+Height 2
+Radius 2
+Speed 6
+Projectile
++SPAWNCEILING
++CEILINGHUGGER
++NOCLIP
++DONTSPLASH
+-CLIENTSIDEONLY
+States
+{
+Spawn:
+TNT1 AAAAAAAAAAAAAAAAAAAAAAAAA 1 A_Wander
+TNT1 A 0 A_CustomMissile("PlayerEnragedLegStormBolt",-18,random(0,20),random(0,360),2)
+Stop
+}
+}
+
+
+Actor ELegDTBFGSpark
+{
++NOCLIP
++NOGRAVITY
+Alpha 0.99
+Renderstyle Add
+Scale 0.8
++CLIENTSIDEONLY
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+EELE ABCDEF 2 Bright A_FadeOut(0.1)
+TNT1 A 0
+Stop
+}
+}
+
+
+ACTOR LegDTBFGTrail
+{
+Scale 0.08
+RenderStyle Add
++NOINTERACTION
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A 0 A_SetScale(ScaleX-0.01,ScaleY-0.01)
+EBAL A 1 A_FadeOut(0.2)
+Loop
+}
+}

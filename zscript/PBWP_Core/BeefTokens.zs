@@ -74,7 +74,14 @@ class LaserChargeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class WW_AcidChargeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class AcidChargeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
-// Slot 4 Throwables
+// Slot 4 Friendly Summons
+class WW_BeaconSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class BeaconSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
+class WW_FreezebotSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class FreezebotSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
+// Slot 5 Throwables 
 class WW_AxeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class AxeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 

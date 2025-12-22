@@ -102,6 +102,54 @@ class BeefRiceWeaponDrop : EventHandler
     }
 }
 
+class BeefModChecker : EventHandler
+{
+    override void WorldLoaded (WorldEvent e)
+    {
+        // Dragon Sector
+        string DScompat = "DS_HealthBonus";
+        class <actor> isDScompat = DScompat; 
+
+        // Custom Marines
+        string cmcompat = "Marine_SpawnRifle";
+        class <actor> iscmcompat = cmcompat; 
+
+        // GloryKill
+        string gkcompat = "ASGGuyGK";
+        class <actor> isgkcompat = gkcompat; 
+
+        // Check if DragonSector is loaded
+        if(isDScompat)
+        {
+            CVAR.FindCVar('isDSLoaded').SetBool(true);
+        }
+        else
+        {
+            CVAR.FindCVar('isDSLoaded').SetBool(false);
+        }
+
+        // Check if CustomMarines is loaded
+        if(iscmcompat)
+        {
+            CVAR.FindCVar('isCMLoaded').SetBool(true);
+        }
+        else
+        {
+            CVAR.FindCVar('isCMLoaded').SetBool(false);
+        }
+
+         // Check if GloryKill is loaded
+        if(isgkcompat)
+        {
+            CVAR.FindCVar('isGKLoaded').SetBool(true);
+        }
+        else
+        {
+            CVAR.FindCVar('isGKLoaded').SetBool(false);
+        }
+    }
+}
+
 class BeefMiscHandler : EventHandler
 {
     // Toggle Magnets
@@ -110,7 +158,7 @@ class BeefMiscHandler : EventHandler
         let pmo = players[consoleplayer].mo;
         if (e.Name == "MagnetModeOn")
 		{
-			let mag = DS_ItemMagnet(pmo.FindInventory("DS_ItemMagnet"));
+			let mag = PBWP_ItemMagnet(pmo.FindInventory("PBWP_ItemMagnet"));
 			if (mag)
 			{
                 console.printf("Magnet Enabled");
@@ -119,7 +167,7 @@ class BeefMiscHandler : EventHandler
 		}
 		if (e.Name == "MagnetModeOff")
 		{
-			let mag = DS_ItemMagnet(pmo.FindInventory("DS_ItemMagnet"));
+			let mag = PBWP_ItemMagnet(pmo.FindInventory("PBWP_ItemMagnet"));
 			if (mag)
 			{
                 console.printf("Magnet Disabled");
@@ -131,25 +179,11 @@ class BeefMiscHandler : EventHandler
     // Sets CVARs and Check Loaded Mods
     Override void WorldLoaded (WorldEvent e)
     {
-        string gkcompat = "ASGGuyGK";
-        class <actor> isgkcompat = gkcompat;
-
         // Sets the PB Monster Drop to Just Ammo on First Time Loading
-        if (FirstTimeLoadingPBWP)
-        {
-            CVAR.FindCVar('PB_WeaponDrops').SetInt(0);
-            CVAR.FindCVar('FirstTimeLoadingPBWP').SetBool(false);
-            destroy();
-        }
-        // Check if GloryKill is loaded
-        if(isgkcompat)
-        {
-            CVAR.FindCVar('GKLoaded').SetBool(true);
-        }
-        else
-        {
-            CVAR.FindCVar('GKLoaded').SetBool(false);
-        }
+        if (!FirstTimeLoadingPBWP) return;
+        CVAR.FindCVar('PB_WeaponDrops').SetInt(0);
+        CVAR.FindCVar('FirstTimeLoadingPBWP').SetBool(false);
+        //destroy();
     }
 
     // Fix the ShieldSaw bug
@@ -169,60 +203,35 @@ class BeefMiscHandler : EventHandler
     }
 }
 
-// Spawn custom ammo from killed enemies
-// This works but is janky and maybe very expensive because it checks every worldtick
-// Will Disable for now until further testing
-/*
 class BeefCustomAmmoDrop : EventHandler
 {
     override void WorldThingDied(WorldEvent e)
 	{
         if (!e || !e.thing) return;
         if (!e.thing.bISMONSTER) return;
-        let  actor = e.Thing;
-        
-        vector3 monsPos = actor.pos;
-        double monsHeight = actor.height;
-        monsPos.z += monsHeight/2;
+        int monsHealth = e.Thing.getMaxHealth();  
+        let player = e.thing.target;
+        PlayerPawn pm = PlayerPawn(player);
 
-        int monsHealth = actor.getMaxHealth();  
-        if(IsUsingStormcastCV){
-            while (monsHealth >= 1100) {
-                monsHealth -= 1100;
-                self.createStormCast(true, monsPos);
-            }
-            while (monsHealth >= 210){
-                monsHealth -= 210;
-                self.createStormCast(false, monsPos);
-            }
+        if (monsHealth > 1000)
+        {
+            pm.A_GiveInventory("PBWP_ComplexAmmo", 100);
+        }
+        else if (monsHealth >= 500) // 500–1000
+        {
+            pm.A_GiveInventory("PBWP_ComplexAmmo", 50);
+        }
+        else if (monsHealth >= 150) // 150–499
+        {
+            pm.A_GiveInventory("PBWP_ComplexAmmo", 10);
+        }
+        else if (monsHealth >= 20) // 20–149
+        {
+            pm.A_GiveInventory("PBWP_ComplexAmmo", 5);
         }
     } 
-
-    void createStormCast(bool bigver, vector3 monsPos){
-            String className = "StormCastAmmoSmall";
-            if(bigver){ className = "StormCastAmmoBig"; }
-            actor.spawn(className, monsPos);
-        }
-
-    Override void WorldTick()
-    {
-        let pm = players[consoleplayer].mo;
-		if(!pm)
-			return;
-
-        bool IsUsingStormcast = pm.FindInventory("IsUsingStormcast");
-        if(IsUsingStormcast)
-        {
-            CVAR.FindCVar('IsUsingStormcastCV').SetBool(true);
-        }
-        else
-        {
-            CVAR.FindCVar('IsUsingStormcastCV').SetBool(false);
-        }
-        return;
-    }
 }
-*/
+
 
 // Spawn Presets
 // This is a pretty rough implementation and I can probaly use switch cases for this

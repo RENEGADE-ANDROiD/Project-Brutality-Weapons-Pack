@@ -1,10 +1,10 @@
 AddOptionMenu "OptionsMenu"
 {
-    Submenu "Project Brutality Weapon Pack Settings", "ttwcoptions"
+    Submenu "Project Brutality WAR PACK Settings", "ttwcoptions"
 }
 AddOptionMenu "OptionsMenuSimple"
 {
-	Submenu "Project Brutality Weapon Pack Settings", "ttwcoptions"
+	Submenu "PBWP Settings", "ttwcoptions"
 }
 
 ListMenu "MainMenu"
@@ -54,39 +54,120 @@ ListMenu "MainMenu"
 	Size Clean
 }
 
+
 OptionMenu "ttwcoptions"
 {
-	Title "PB Weapon Pack Settings"
+	Title "PB WAR PACK Settings"
     StaticText ""
 	Submenu "$PBWP_General_OPTIONS", "GeneralSettings"
 	Submenu "$PBWP_WeaponSpawns_OPTIONS", "WeaponPackSpawnSettings"
+	Submenu "$PBWP_MonsterSpawn_OPTIONS", "MonsterSpawnSett"
 	Submenu "$PBWP_MonsterDrop_OPTIONS", "MonsterDropWeapSett"
+	Submenu "$PBWP_ItemSpawns_OPTIONS", "ItemSpawnSett"
 	StaticText ""
     StaticText "Extras"
 	StaticText ""
 	SubMenu "$PBWP_COMBAT_RATING_SHOP", "AmmunitionShopSystem"
+	SubMenu "$PBWP_CHAMPION_ENEMIES", "mk_ChampionMenu"
 	Submenu "$PBWP_QUICKSWITCHER", "SwitchItUpOptions"
 	Submenu "$PBWP_BEHOLD", "BeholdOptions"
+	Submenu "$PBWP_ARCADE", "PBArcadeTweaksSettings"
 	submenu "$PBWP_DOORBUSTER","BusterMenu"
 	StaticText ""
 	Command "$PB_GO_TESTMAP", "map PBTEST"
 	StaticText ""
-	StaticText "Project Brutality Weapons Pack Version: 1.9-Release"
+	StaticText "Project Brutality Weapons Pack Version: 1.9.5-Release", gold
+	/* StaticText "CHAMPIONS v2.9.1 is Loaded", white
+	StaticText "BEHOLD! v3.0 is Loaded", white
+	StaticText "DOORBUSTER v1.0 is Loaded", white
+	StaticText "Random Weapon Switcher v1.0 is Loaded", white */
+	StaticText "Arcade Tweaks v1.0 is Loaded", white
+	StaticText "Revamped Armors Mutators v1.2 is Loaded", white
+	StaticText "Helmet Drops Armors v1.1 is Loaded", white
 }
 
 OptionMenu "GeneralSettings"
 {
 	Title "General Settings"
-	Option "Primary fire will trigger executions", "ttwcfbex", "OnOff"
-	Option "Killstreak is enabled", "KillstreakIsOn", "OnOff"
-	Control "Show combat points", "PB_CRSHW"
+	Option "Primary Fire will trigger Executions", "ttwcfbex", "OnOff"
+	option "Monster weapon drops ","PB_WeaponDrops","MonsterDrops"
+	Option "Killstreak is Enabled", "KillstreakIsOn", "OnOff"
+	Option "Helmet Drop is Enabled", "HelmetDropCVAR", "OnOff"
+	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
+	Control "Show Combat Points", "PB_CRSHW"
+	Control "$PBWP_TOGGLE_MELEE_MENU", "+pbwp_meleemenu"
 	Control "Toggle Magnet", "MagnetModeOff"
-	Control "Switch Melee Key", "+pbwp_meleemenu"
+	
+}
+
+optionmenu "MonsterSpawnSett"
+{
+	Title "Monster Spawn Settings"
+	StaticText "Choose what monster spawns naturally", white
+	statictext "By default they are all on", white
+
+	statictext ""
+	statictext "---------------Normal Monsters---------------", gold
+	statictext ""
+	Option "Spawn Deep One", "DeepOneSpawn", "OnOff"
+	Option "Spawn Eye Turret", "EyeTurretSpawn", "OnOff"
+
+	statictext ""
+	statictext "---------------Boss Variants---------------", gold
+	statictext ""
+	Option "Spawn Elemental Boss Cell", "EBossCellSpawn", "OnOff"
+	Option "Spawn Cyberdemon 2016", "CyberdemonBossSpawn", "OnOff"
+
+}
+
+optionmenu "ItemSpawnSett"
+{
+	Title "Item Spawn Settings"
+	StaticText "Choose what equipments/melee items spawns naturally", white
+	statictext "By default they are all on", white
+
+	statictext ""
+	statictext "---------------Armors---------------", gold
+	statictext ""
+	Option "Spawn Yellow Armor", "SpawnYellowArmor", "OnOff"
+	Option "Spawn Purple Armor", "SpawnPurpleArmor", "OnOff"
+	Option "Spawn Black Armor", "SpawnBlackArmor", "OnOff"
+	Option "Spawn Orange Armor", "SpawnOrangeArmor", "OnOff"
+	Option "Spawn White Armor", "SpawnWhiteArmor", "OnOff"
+	Option "Spawn Red Armor", "SpawnRedArmor", "OnOff"
+	Option "Spawn Cyan Armor", "SpawnCyanArmor", "OnOff"
+	Option "Spawn Demonic Armor", "SpawnDemonArmor", "OnOff"
+
+	statictext ""
+	statictext "---------------Equipments---------------", gold
+	statictext ""
+	Option "Spawn Shield Grenade", "ShieldGrenadeSpawn", "OnOff"
+	Option "Spawn Void Grenade", "VoidGrenadeSpawn", "OnOff"
+	Option "Spawn Remote Charges", "RemoteChargesSpawn", "OnOff"
+	Option "Spawn Electric Pod", "ElecPodSpawn", "OnOff"
+	Option "Spawn Caltrops", "CaltropsSpawn", "OnOff"
+	Option "Spawn Shurikens", "ShurikenSpawn", "OnOff"
+	Option "Spawn Beacon", "BeaconSpawn", "OnOff"
+
+	statictext ""
+	statictext "---------------Melee Items---------------", gold
+	statictext ""
+	Option "Spawn Katana", "KatanaSpawn", "OnOff"
+	Option "Spawn Pick Axe", "PickaxeSpawn", "OnOff"
+	Option "Spawn Impactor Gauntlet", "ImpactorSpawn", "OnOff"
+	Option "Spawn Claw Gauntlet", "ClawSpawn", "OnOff"
+	Option "Spawn Sentinel Hammer", "SentinelHammerSpawn", "OnOff"
+	Option "Spawn Explosive Hands", "JohnnyHandsSpawn", "OnOff"
+	Option "Spawn Wrench", "WrenchSpawn", "OnOff"
+	Option "Spawn Crowbar", "CrowbarSpawn", "OnOff"
+	Option "Spawn Sledge Hammer", "SledgeHammerSpawn", "OnOff"
+	Option "Spawn Shock Baton", "ShockBatonSpawn", "OnOff"
+
 }
 
 OptionMenu "MonsterDropWeapSett"
 {
-	Title "Monster Drop Weapon Settings"
+	Title "Monster Drop Settings"
 	StaticText "Choose what things drop from killed enemies", white
 	StaticText "By default they are all Off", white
 	StaticText ""
@@ -117,7 +198,7 @@ OptionMenu "MonsterDropWeapSett"
 OptionMenu "WeaponPackSpawnSettings"
 {
 	Title "Weapon Pack Spawn Settings"
-	StaticText "Determine which weapon spawns naturally"
+	StaticText "Choose what weapon spawns naturally"
 	StaticText "Some have prefix that indicates which weapon pack it came from", white
 	StaticText "DTECH = Demon-Tech Weapons Pack", white
 	StaticText "SCHISM = Schism / Fire & Ice", white
@@ -125,14 +206,29 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText "RO = Russian Overkill", white
 	StaticText "D2016 = Doom 2016 Weapons Pack", white
 	StaticText "ProSurv = Project Survival", white
+	StaticText "GC = God Complex", white
 
 	StaticText ""
 	StaticText "---------------Presets---------------", gold
+	StaticText ""
 	StaticText "Note that you'll have to load a map first for the preset to work", white
 	statictext "It is recommended to go the Test Map first if you want to use these presets", white
+	StaticText ""
 	Command "Enable All", "netevent PBWP_EnableAll"
 	Command "Disable All", "netevent PBWP_DisableAll"
-
+	
+	StaticText ""
+	StaticText "---------------God Complex---------------", gold
+	StaticText ""
+	Option "Spawn GC - Devastador", "PBSpawnDevastador", "OnOff"
+	Option "Spawn GC - Enraged Legendary BFG", "PBSpawnEnragedLegendaryBFG", "OnOff"
+	Option "Spawn GC - God Enraged BFG", "PBSpawnGodEnragedBFG", "OnOff"
+	Option "Spawn GC - Legendary Assault Shotgun", "PBSpawnLegendaryAssaultShotgun", "OnOff"
+	Option "Spawn GC - Legendary Chainsaw", "PBSpawnLegendaryChainsaw", "OnOff"
+	Option "Spawn GC - Legendary Plasmatic Rifle", "PBSpawnLegendaryPlasmaticRifle", "OnOff"
+	Option "Spawn GC - Nemesis BFG", "PBSpawnNemesisBFG", "OnOff"
+	Option "Spawn GC - Nemesis LMG", "PBSpawnNemesisLMG", "OnOff"
+	Option "Spawn GC - Sublimination Sword", "PBSpawnPB_SBSword", "OnOff"
 
 	StaticText ""
 	StaticText "---------------Slot 1 weapons---------------", gold
@@ -244,10 +340,7 @@ OptionMenu "WeaponPackSpawnSettings"
 ////////
 OptionMenu "AmmunitionShopSystem"
 {
-	Title "Project Brutality Combat Rating Shop"
-	StaticText "Don't forget to bind the Show combat points key in the settings", white
-	StaticText " "
-	Control "Show combat points", "+PB_CRSHW"
+	Title "Combat Rating Weapons Shop"
 	StaticText " "
  	StaticText "[ HOW TO EARN COMBAT POINTS / HEALTH / ARMOR / GADGETS / EQUIPMENTS / MELEE WEAPONS ]", white
 	StaticText "", 1
@@ -291,9 +384,7 @@ OptionMenu "AmmunitionShopSystem"
 	StaticText " "
 	StaticText "------------ Special Items ------------", gold
 	StaticText " "
-	Command "Buy Item Magnet (750 Points)",		"PukeName BuyItemMagnet"
-	StaticText " "
-	Command "Buy Item Magnet Upgrade (1500 Points)",		"PukeName DS_ItemMagnetUpgrade"
+	Command "Buy Item Magnet Upgrade (1500 Points)",		"PukeName PBWP_ItemMagnetUpgrade"
 	StaticText " "
 	Command "Buy Random Weapon Upgrade (1500 Points)",		"PukeName BuyRanUpgrade"
 	StaticText " "
@@ -330,15 +421,33 @@ OptionMenu "AmmunitionShopSystem"
 	StaticText " "
 	Command "Buy Bio-Acid Launcher (650 Points)",		"PukeName BuyBioAcidLauncher"
 	StaticText " "
-	Command "Buy Demon Exterminator (1500 Points)",		"PukeName BuyPB_DemonExt"
+	Command "Buy Demononic Exterminator (1500 Points)",		"PukeName BuyPB_DemonExt"
 	StaticText " "
 	Command "Buy Demon Tech Minigun (800 Points)",		"PukeName BuyDemonTechMinigun"
 	StaticText " "
-	Command "Buy Legacy Unmaker (1200 Points)",		"PukeName BuyLegacyUnmaker"
+	Command "Buy Legacy Unmaker (1200 Points)",		"PukeName BuyPB_LegacyUnmaker"
 	StaticText " "
 	Command "Buy Mancubus FLAME CANNON ™ (1500 Points)",		"PukeName BuyMancubusFlameCannon"
 	StaticText " "
 	Command "Buy Stormcast (2000 Points)",		"PukeName BuyStormcast"
+	StaticText " "
+	Command "Buy GC - Sublimination Sword (500 Points)",		"PukeName BuyPB_SBSword"
+	StaticText " "
+	Command "Buy GC - Legendary Chainsaw (1000 Points)",		"PukeName BuyLegendaryChainsaw"
+	StaticText " "
+	Command "Buy GC - Nemesis LMG (1000 Points)",		"PukeName BuyNemesisLMG"
+	StaticText " "
+	Command "Buy GC - Legendary Assault Shotgun (2000 Points)",		"PukeName BuyLegendaryAssaultShotgun"
+	StaticText " "
+	Command "Buy GC - Legendary Plasmatic Rifle (3000 Points)",		"PukeName BuyLegendaryPlasmaticRifle"
+	StaticText " "
+	Command "Buy GC - Devastador BFG (3000 Points)",		"PukeName BuyDevastador"
+	StaticText " "
+	Command "Buy GC - Nemesis BFG (3000 Points)",		"PukeName BuyNemesisBFG"
+	StaticText " "
+	Command "Buy GC - Enraged Legendary BFG (5000 Points)",		"PukeName BuyEnragedLegendaryBFG"
+	StaticText " "
+	Command "Buy GC - God Enraged BFG (5000 Points)",		"PukeName BuyGodEnragedBFG"
 
 	StaticText "------------ MELEE WEAPONS ------------", gold
 	StaticText " "
@@ -470,6 +579,155 @@ OptionMenu "AmmunitionShopSystem"
 
 }
 ////////
+	
+OptionMenu "mk_ChampionMenu"
+	{
+	Title "Champion Options"
+	StaticText "ALL CHANGES WILL TAKE EFFECT ON NEXT MAP", gold
+	StaticText " "
+	
+	StaticText "Champion Enemies Spawning Tweaks", gold
+	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
+	ScaleSlider "Champion Mutation Chance",		"champion_Mutations",		0,	256, 1, "Never Spawn"
+	Option "Spawn Item Bundles?",				"champion_Bundles",			"YesNo"
+	Option "Health Bonus style",				"champion_HealthFoods",		"FoodsOption"
+	StaticText " "
+
+	Submenu "Champion Weighting Options", "mk_ChampionWeightMenu"
+	Submenu "Mutation Weighting Options", "mk_MutationWeightMenu"
+	StaticText " "	
+	
+	StaticText "Visual Tweaks", gold
+	StaticText " "	
+	Option "Champion Colours?",					"champion_Colours",			"YesNo"
+	Option "Champion Particles?",				"champion_Particles",		"YesNo"
+	Option "Flat Creep Sprites?",				"champion_flatsprites",		"YesNo"
+	Option "Champion Icons?",					"champion_Icons",			"YesNo"
+	Slider "Icon Scaling",						"champion_IconScale",		0.0, 1.0, 0.1
+	Slider "Icon Alpha",						"champion_IconAlpha",		0.0, 1.0, 0.1
+	StaticText " "
+	StaticText "Experimental Features", gold
+	StaticText " "		
+	Option "New ice colour?",					"champion_IceColour",		"YesNo"
+	Option "Friendly Champions?",				"champion_friendlies",		"YesNo"
+	Option "Projectiles have Champion Glow?",	"champion_MissileColours",	"YesNo"
+	Option "Champion Projectiles spawn creep?",	"champion_ProjectileCreep", "YesNo"
+	Option "Force champion type? (debug)",		"champion_debug_forced", 	"colours"
+	}
+
+OptionValue "FoodsOption"
+	{
+	0, "Doom Style"
+	1, "Food Items"
+	}
+	
+OptionValue "colours"
+	{
+    -1, "off"
+    0, "Dark Red"
+    1, "Red"
+    2, "Orange"
+    3, "Yellow"
+    4, "Dark Green"
+    5, "Green"
+    6, "Cyan"
+    7, "Blue"
+    8, "Indigo"
+    9, "Violet"
+    10, "Pink"
+    11, "Black"
+    12, "Grey"
+    13, "White"
+    14, "Bronze"
+    15, "Silver"
+    16, "Gold"
+	}
+	
+OptionValue "Styles"
+	{
+    0, "Default"
+    1, "Translucent"
+    2, "Opaque"
+	}
+
+OptionMenu "mk_ChampionWeightMenu"
+	{
+	Title 	"Champion Weighting Options"
+	SafeCommand "Reset to Default", 		"event champions_reset_championweight", "Reset All values to default?"
+	StaticText 	""
+	ScaleSlider	"Dark Red",					"champion_weight_DarkRed",	0, 10, 1, "Never Spawn"
+	StaticText 	"Will respawn if the corpse is not disposed of", gold
+	StaticText 	""
+	ScaleSlider	"Red",						"champion_weight_Red",		0, 10, 1, "Never Spawn"
+	StaticText 	"Spawns with doubled health", gold
+	StaticText 	""
+	ScaleSlider	"Orange",					"champion_weight_Orange",	0, 10, 1, "Never Spawn"
+	StaticText 	"Explodes on death", gold
+	StaticText 	""
+	ScaleSlider	"Yellow",					"champion_weight_Yellow",	0, 10, 1, "Never Spawn"
+	StaticText 	"Movement Speed Doubled", gold
+	StaticText 	""
+	ScaleSlider	"Dark Green",				"champion_weight_DarkGreen",0, 10, 1, "Never Spawn"
+	StaticText 	"Leaves a trail of damaging creep", gold
+	StaticText 	""
+	ScaleSlider	"Green",					"champion_weight_Green",	0, 10, 1, "Never Spawn"
+	StaticText 	"Teleports randomly around the map", gold
+	StaticText 	""
+	ScaleSlider	"Cyan",						"champion_weight_Cyan",		0, 10, 1, "Never Spawn"
+	StaticText 	"Pushes around with gusts of wind", gold
+	StaticText 	""
+	ScaleSlider	"Blue",						"champion_weight_Blue",		0, 10, 1, "Never Spawn"
+	StaticText 	"Splits into multiple projectiles on death", gold
+	StaticText 	""
+	ScaleSlider	"Indigo",					"champion_weight_Indigo",	0, 10, 1, "Never Spawn"
+	StaticText 	"Spawns two clones on death", gold
+	StaticText 	""
+	ScaleSlider	"Violet",					"champion_weight_Violet",	0, 10, 1, "Never Spawn"
+	StaticText 	"Fires extra projectiles randomly", gold
+	StaticText 	""
+	ScaleSlider	"Pink",						"champion_weight_Pink",		0, 10, 1, "Never Spawn"
+	StaticText 	"Resurrects enemies at a cost of their own lifeforce.", gold
+	StaticText 	""
+	ScaleSlider	"Black",					"champion_weight_Black",	0, 10, 1, "Never Spawn"
+	StaticText 	"Deals double damage", gold
+	StaticText 	""
+	ScaleSlider	"Grey",						"champion_weight_Grey",		0, 10, 1, "Never Spawn"
+	StaticText 	"Will dodge your attacks", gold
+	StaticText 	""
+	ScaleSlider	"White",					"champion_weight_White",	0, 10, 1, "Never Spawn"
+	StaticText 	"Leaves a trail of slowing creep", gold
+	StaticText 	""
+	ScaleSlider	"Bronze",					"champion_weight_Bronze",	0, 10, 1, "Never Spawn"
+	StaticText 	"Slower, Stronger less susceptible to pain", gold
+	StaticText 	""
+	ScaleSlider	"Silver",					"champion_weight_Silver",	0, 10, 1, "Never Spawn"
+	StaticText 	"Pulls you in with a strong magnetic field", gold
+	StaticText 	""
+	ScaleSlider	"Gold",						"champion_weight_Gold",		0, 10, 1, "Never Spawn"
+	StaticText 	"Midas Touch on nearby enemies", gold
+	StaticText 	""
+	}
+	
+OptionMenu "mk_MutationWeightMenu"
+	{
+	Title 	"Mutation Weighting Options"
+	ScaleSlider	"Titan",					"champion_weight_Titan",	0, 10, 1, "Never Spawn"
+	StaticText 	"Massively boosted stats", gold
+	StaticText 	""
+	ScaleSlider	"Undying",					"champion_weight_Undying",	0, 10, 1, "Never Spawn"
+	StaticText 	"Will never die", gold
+	StaticText 	""
+	ScaleSlider	"Ghost",					"champion_weight_Ghost",	0, 10, 1, "Never Spawn"
+	StaticText 	"Phases in and out of reality", gold
+	StaticText 	""
+	ScaleSlider	"Airborne",					"champion_weight_Balloon",	0, 10, 1, "Never Spawn"
+	StaticText 	"Given the ability to float at will", gold
+	StaticText 	""	
+	ScaleSlider	"Hybrid",					"champion_weight_Hybrid",	0, 10, 1, "Never Spawn"
+	StaticText 	"Has a second champion effect", gold
+	StaticText 	""
+	}	
+
 OptionMenu "SwitchItUpOptions" 
 {
 	Title "$RW_TITLE"
@@ -489,7 +747,7 @@ OptionMenu "SwitchItUpOptions"
 
 OptionMenu "BeholdOptions"
 {
-    Title "Behold! Fire & Ice Options"
+    Title "Behold! Revive Upon Death"
 
     StaticText ""
     StaticText "Behold! Random Boss Battle Summoner", white
@@ -497,17 +755,16 @@ OptionMenu "BeholdOptions"
     StaticText "BIND A KEY TO ACTIVATE THE FOLLOWING:", white
     StaticText "", white
     StaticText "• Resurrect you if you died (works even if not dead)", white
-    StaticText "• Give you handy Equipment Items, Marauder SSG & Ammo ", white
-    StaticText "ALSO:", white
-    StaticText "• Summon Boss enemies based on the selected mode", white
+    StaticText "• Give you handy Shieldsaw", white
+    StaticText "• Summon Enemy Bosses based on the selected mode", white
     StaticText ""
 
-    StaticText "Bind modes:"
-    Control "Random Mayhem — 3–5 foes",        "+dp_random_key"
-    Control "The Quadrant — up to 4 foes",      "+dp_quad_key"
-    Control "More Trouble — up to 6 foes",      "+dp_more_key"
-    Control "Hell's Fury — up to 10 foes",      "+dp_fury_key"
-    Control "Total Apocalypse — up to 12 foes", "+dp_apoc_key"
+        StaticText "Revive Upon Death Challenge modes:", gold
+        Control "Revive VS 3–5 Enemy Bosses",        "+dp_random_key"
+        Control "Revive VS Up to 4 Enemy Bosses",      "+dp_quad_key"
+        Control "Revive VS Up to 6 Enemy Bosses",      "+dp_more_key"
+        Control "Revive VS Up to 10 Enemy Bosses",      "+dp_fury_key"
+        Control "Revive VS Up to 12 Enemy Bosses",	"+dp_apoc_key"
     StaticText ""
     Command "Show current mode (prints on screen)", "dp_show_mode"
 }
@@ -538,4 +795,29 @@ optionvalue "Yez"
 {
 	0,"Disable"
 	1,"Enable"
+}
+
+OptionMenu "PBArcadeTweaksSettings"{
+	Title "Arcade Tweaks Settings"
+	StaticText ""
+	Option "Pickup Mode","PBAT_PickupMode","ATPickupMode"
+	StaticText ""
+	StaticText "Setting Descriptions"
+	StaticText ""
+	StaticText "Normal-ish:"
+	StaticText "All items will stack up to and max out at their vanilla (Project Brutality) amounts."
+	StaticText "However, armor will be automatically picked up even if you have greater armor amount, "
+	StaticText "if the armor's save percentage is greater."
+	StaticText ""
+	StaticText "Stack to 500:"
+	StaticText "All items will max out at 500, barring medikits and stimpacks," 
+	statictext "which max out at 100 like they originally do."
+	StaticText "Like above, armor pickups will adjust the armor protection rating higher if the pickup is higher rated."
+	
+}
+
+OptionValue "ATPickupMode"
+{
+	0, "Normal-ish"
+	1, "Stack to 500"
 }

@@ -1,0 +1,13 @@
+Please, report the bugs you find if there are any.
+
+Credits:
+
+Project Brutallity Developer Team. (Original Armor's Sprites)
+
+Id Software (Doom Eternal - Big Armor Sounds)
+
+Edit made with Ibis Paint app in attack of boredoom.
+
+Code Base in Zdoom DECORATE and Zscript.
+
+PB Revamped Mutators made by Kineret.G

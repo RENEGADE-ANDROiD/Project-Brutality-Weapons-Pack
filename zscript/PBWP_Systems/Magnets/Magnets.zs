@@ -14,7 +14,7 @@ class itemInfo : Object
     }
 }
 
-Class DS_ItemMagnet : Inventory
+Class PBWP_ItemMagnet : Inventory
 {
 	double PickupRange; // Distance the Magnet can pull in from
 	property PickupRange : PickupRange; // Property for easily changing Range.
@@ -43,12 +43,12 @@ Class DS_ItemMagnet : Inventory
 		// --- Project Brutality Specific Excludes
 		'PB_SGMagazine', 'PB_AutoshotgunUpgrade', 'RifleUpgrade', 'PB_MinigunUpgrade',
 		'PB_M2Upgrade', 'PB_FlamethrowerUpgrade', 'PB_Backpack', 'PB_BlueArmor',
-		'PB_GreenArmor', 'PB_Stimpack', 'PB_Medikit', 'PB_Doomsphere', 'PB_Haste',
+		'PB_GreenArmor', 'PB_Stimpack', 'PB_Medikit', 'PB_Doomsphere', 'PB_Haste'
 		
 		// --- Dragon Sector Specific Excludes
-		'DS_HealthSphere', 'DS_HealthRegen', 'DS_PoisonImmunePickup', 'Rebreather',
-		'DS_DamageAbsorb', 'DS_DamageAmp', 'DS_PowerUpExtender', 'DS_ItemMagnet', 'DS_ItemMagnetUpgrade',
-		'DS_MegaPower', 'DS_ArmorBuff'
+		// 'PBWP_HealthSphere', 'PBWP_HealthRegen', 'PBWP_PoisonImmunePickup', 'Rebreather',
+		// 'PBWP_DamageAbsorb', 'PBWP_DamageAmp', 'PBWP_PowerUpExtender', 'PBWP_ItemMagnet', 'PBWP_ItemMagnetUpgrade',
+		// 'PBWP_MegaPower', 'PBWP_ArmorBuff'
 	};
 
 	// Call to start the process of pulling:
@@ -191,11 +191,13 @@ Class DS_ItemMagnet : Inventory
 	override void DoEffect()
 	{
 		super.DoEffect();
+		if(!IsMagnetOn)
+			return;
 		if (isFrozen())
 			return;
 			
 		let barmor = BasicArmor(owner.FindInventory("BasicArmor"));
-		if (barmor && barmor.Amount > 0 && IsMagnetOn == true)
+		if (barmor && barmor.Amount > 0)
 		{
 			if (level.time % 2 == 0) // Poll for items every 2 tics.
 			{
@@ -215,8 +217,8 @@ Class DS_ItemMagnet : Inventory
 		Scale 0.25;
 		Radius 16;
 		Height 32;
-		DS_ItemMagnet.PickupRange 384;
-		DS_ItemMagnet.PullSpeed 25;
+		PBWP_ItemMagnet.PickupRange 384;
+		PBWP_ItemMagnet.PullSpeed 25;
 	}
 	states 
 	{
@@ -226,7 +228,7 @@ Class DS_ItemMagnet : Inventory
 	}
 }
 
-Class DS_ItemMagnetUpgrade : Inventory
+Class PBWP_ItemMagnetUpgrade : Inventory
 {
 	double UpgradedRange; // The new Range to Upgrade the Magnet to.
 	property UpgradedRange : UpgradedRange; // The property that will hold this new Range.
@@ -237,10 +239,10 @@ Class DS_ItemMagnetUpgrade : Inventory
 		let ret = super.TryPickup(toucher);
 		if (ret)
 		{
-			let magnet = DS_ItemMagnet(toucher.FindInventory("DS_ItemMagnet"));
+			let magnet = PBWP_ItemMagnet(toucher.FindInventory("PBWP_ItemMagnet"));
 			if (!magnet)
 			{
-				toucher.GiveInventory("DS_ItemMagnet", 1);
+				toucher.GiveInventory("PBWP_ItemMagnet", 1);
 				self.Destroy();
 			}
 			else if (magnet && magnet.PickupRange >= 0)
@@ -262,8 +264,8 @@ Class DS_ItemMagnetUpgrade : Inventory
 		Scale 0.25;
 		Radius 16;
 		Height 32;
-		DS_ItemMagnetUpgrade.UpgradedRange 1024;
-		DS_ItemMagnetUpgrade.UpgradedSpeed 32.25;
+		PBWP_ItemMagnetUpgrade.UpgradedRange 1024;
+		PBWP_ItemMagnetUpgrade.UpgradedSpeed 32.25;
 	}
 	states 
 	{
@@ -273,10 +275,10 @@ Class DS_ItemMagnetUpgrade : Inventory
 	}
 }
 
-Class DS_MagnetHandler : EventHandler
+Class PBWP_MagnetHandler : EventHandler
 {
 	// Shortcut function for displaying item icons.
-	ui void DS_DisplayIcon(TextureID icon, double xpos = 10, double ypos = 10, int vwidth = 1280, int vheight = 720, double xyscale = 0.21, double opacity = 1.0)
+	ui void PBWP_DisplayIcon(TextureID icon, double xpos = 10, double ypos = 10, int vwidth = 1280, int vheight = 720, double xyscale = 0.21, double opacity = 1.0)
 	{
 		Screen.DrawTexture(icon, 
 		true, xpos, ypos,
@@ -301,12 +303,12 @@ Class DS_MagnetHandler : EventHandler
 		TextureID mag1icon = TexMan.CheckForTexture("ITMGA0"); // Level 1 Magnet Icon
 		TextureID mag2icon = TexMan.CheckForTexture("ITMGB0"); // Level 2 Magnet Icon
 		TextureID magofficon = TexMan.CheckForTexture("ITMGC0"); // Inactive Magnet Icon
-		let magnet1 = DS_ItemMagnet(pmo.FindInventory("DS_ItemMagnet"));
-		let magnet2 = DS_ItemMagnetUpgrade(pmo.FindInventory("DS_ItemMagnetUpgrade"));
+		let magnet1 = PBWP_ItemMagnet(pmo.FindInventory("PBWP_ItemMagnet"));
+		let magnet2 = PBWP_ItemMagnetUpgrade(pmo.FindInventory("PBWP_ItemMagnetUpgrade"));
 
 		if (magnet1 || magnet2)
 		{
-			DS_DisplayIcon((plarmor && plarmor.Amount < 1) ? magofficon : (magnet1 && magnet2) ? mag2icon : mag1icon, xpos: 24, ypos: 309);
+			PBWP_DisplayIcon((plarmor && plarmor.Amount < 1) ? magofficon : (magnet1 && magnet2) ? mag2icon : mag1icon, xpos: 24, ypos: 309);
 		}
 	}
 
@@ -315,13 +317,13 @@ Class DS_MagnetHandler : EventHandler
 		PlayerInfo player = players[e.PlayerNumber];
 		let pmo = player.mo; // Player Map Object
 		if (pmo)
-			pmo.GiveInventory("DS_ItemMagnet",1);
+			pmo.GiveInventory("PBWP_ItemMagnet",1);
 	}
 	override void PlayerRespawned (PlayerEvent e)
 	{
 		PlayerInfo player = players[e.PlayerNumber];
 		let pmo = player.mo; // Player Map Object
 		if (pmo)
-			pmo.GiveInventory("DS_ItemMagnet",1);
+			pmo.GiveInventory("PBWP_ItemMagnet",1);
 	}
 }

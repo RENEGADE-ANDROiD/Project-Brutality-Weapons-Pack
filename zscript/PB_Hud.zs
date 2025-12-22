@@ -754,18 +754,22 @@ class PB_Hud_ZS : BaseStatusBar
 		"AMMOIC5, PB_Cell, Purple, Ammo",
 		"AMMOIC6, PB_Fuel, Orange, Ammo",
 		"AMMOIC7, PB_DTech, DarkRed, Ammo",
+		"AMMOIC9, PBWP_ComplexAmmo, White, Ammo",
 		"ALISTGRN, PB_GrenadeAmmo, Green, Equipment",
 		"ALISTSTN, PB_StunGrenadeAmmo, Cyan, Equipment",
 		"ALISTREV, PB_QuickLauncherAmmo, LightBlue, Equipment",
-		"ALISTMIN, PB_ProxMineAmmo, Purple, Equipment"
-		"ALISTACD, AcidChargeAmmo, Green, Equipment"
-		"ALISTAXE, PB_Axe, Red, Equipment"
-		"ALISTEPD, ElecPodAmmo, Yellow, Equipment"
-		"ALISTHOK, HookAmmo, DarkRed, Equipment"
-		"ALISTLST, LaserChargeAmmo, Red, Equipment"
-		"ALISTSHG, ShieldGrenadeAmmo, Orange, Equipment"
-		"ALISTSHR, ShurikenAmmo, Purple, Equipment"
-		"ALISTSRM, SwarmerAmmo, Orange, Equipment"
+		"ALISTEPD, ElecPodAmmo, Yellow, Equipment",
+		"ALISTMIN, PB_ProxMineAmmo, Purple, Equipment",
+		"ALISTSHG, ShieldGrenadeAmmo, Orange, Equipment",
+		"ALISTSRM, SwarmerAmmo, Orange, Equipment",
+		"ALISTACD, AcidChargeAmmo, Green, Equipment",
+		"ALISTLSR, LaserChargeAmmo, Red, Equipment",
+		"ALISTBEA, BeaconAmmo, Blue, Equipment",
+		"ALISTFRB, FreezeBotAmmo, Blue, Equipment",
+		"ALISTAXE, PB_Axe, Red, Equipment",
+		"ALISTSHR, ShurikenAmmo, Purple, Equipment",
+		"ALISTCTR, CaltropsAmmo, Purple, Equipment",
+		"ALISTHOK, HookAmmo, DarkRed, Equipment",
 		"ALISTSSW, ShieldSawAmmo, DarkRed, Equipment"
 		
 	};
@@ -1416,6 +1420,14 @@ class PB_Hud_ZS : BaseStatusBar
 				else if(CheckInventory("ShieldSawSelected")) {
 					PBHud_DrawImage("HSHIESY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 				}
+				else if(CheckInventory("BeaconSelected")) {
+					PBHud_DrawImage("HBEACY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("BeaconAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("FreezebotSelected")) {
+					PBHud_DrawImage("HFRZBY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("FreezeBotAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
 				
 				//Ammo bars
 				if(showList)
@@ -1492,7 +1504,7 @@ class PB_Hud_ZS : BaseStatusBar
 					case 'Prosurv_Ballista':
 						if(CheckInventory("BallistaDemonicMode"))
 						{
-							PBHud_DrawImage("BARBACZ3", (-90, -71), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+							PBHud_DrawImage("BARBACD3", (-90, -71), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
 							PBHud_DrawBar("ABAR6", "BGBARL", GetAmount("PB_Fuel"), GetMaxAmount("PB_Fuel"),
 								(-100, -72), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
 							PBHud_DrawString(mDefaultFont, FormatNumber(GetAmount("PB_Fuel")),
@@ -1674,7 +1686,7 @@ class PB_Hud_ZS : BaseStatusBar
 					weaponBarAccent = Font.CR_ORANGE;
 					DrawAmmoBar("BARBACO1", "BARBACO2", "BAMBAR3", "ABAR3", "ABAR3", "AMMOIC3", Font.CR_ORANGE);
 				}
-				else if(WeaponUsesAmmoType("PB_RocketAmmo"))
+				else if(WeaponUsesAmmoType("PB_RocketAmmo") && !CheckWeaponSelected("NemesisLMG"))
 				{
 					weaponBarAccent = Font.CR_RED;
 					DrawAmmoBar("BARBACR1", "BARBACR2", "BAMBAR4", "ABAR4", "ABAR4", "AMMOIC4", Font.CR_RED);
@@ -1683,6 +1695,11 @@ class PB_Hud_ZS : BaseStatusBar
 				{
 					weaponBarAccent = Font.CR_PURPLE;
 					DrawAmmoBar("BARBACP1", "BARBACP2", "BAMBAR5", "ABAR5", "ABAR5", "AMMOIC5", Font.CR_PURPLE);
+				}
+				else if(WeaponUsesAmmoType("PBWP_ComplexAmmo"))
+				{
+					weaponBarAccent = Font.CR_WHITE;
+					DrawAmmoBar("BARBACU1", "BARBACU2", "BAMBAR8", "ABAR9", "ABAR9", "AMMOIC9", Font.CR_WHITE);
 				}
 				else if(WeaponUsesAmmoType("PowerChargeStorm"))
 				{
@@ -1703,7 +1720,7 @@ class PB_Hud_ZS : BaseStatusBar
 				&& !CheckWeaponSelected("PB_Unmaker") && !CheckWeaponSelected("PB_Chainsaw") 
 				&& !CheckWeaponSelected("ProSurv_Ballista") && !CheckWeaponSelected("PB_Flamethrower") 
 				&& !CheckWeaponSelected("PB_MG42") && !CheckWeaponSelected("PB_TauntWeapon")
-				
+				&& !CheckWeaponSelected("NemesisLMG")
 				// ADD MORE EXCEPTIONS HERE
 				)
 				{
@@ -1727,6 +1744,19 @@ class PB_Hud_ZS : BaseStatusBar
 				
 				switch(CPlayer.ReadyWeapon.GetClassName())
 				{
+					case 'NemesisLMG':
+						PBHud_DrawImage("BARBACU1", (-72, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+						PBHud_DrawImage("BARBACR2", (-73, -50), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+						//Bars
+						PBHud_DrawBar("ABAR4", "BGBARL", Secondary.Amount, Secondary.MaxAmount, (-112, -51), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+						PBHud_DrawBar("ABAR9", "BGBARL", Primary.Amount, Primary.MaxAmount, (-112, -30), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+						//Numbers
+						PBHud_DrawString(mDefaultFont, Formatnumber(Secondary.Amount), (-207, -69), DI_TEXT_ALIGN_RIGHT, Font.CR_RED);
+						PBHud_DrawString(mDefaultFont, Formatnumber(Primary.Amount), (-207, -48), DI_TEXT_ALIGN_RIGHT, Font.CR_WHITE);
+						//Icon
+						PBHud_DrawImage("AMMOIC9", (-77, -24), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, 1, (27, 19));
+						weaponBarAccent = Font.CR_WHITE;
+						break;
 					case 'ProSurv_Ballista':
 						if (!CheckInventory("BallistaDemonicMode")) 
 						{

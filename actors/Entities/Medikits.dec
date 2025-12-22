@@ -1,0 +1,21 @@
+// Medikits
+ACTOR XD_MedikitSpawner : RandomSpawner Replaces PB_Medikit
+{
+	DropItem "PB_Medikit1", 256
+	DropItem "PB_MedikitGreen", 256
+	DropItem "PB_MedikitYellow", 256
+	DropItem "PB_MedikitBlue", 256
+	DropItem "PB_MedikitPurple", 256
+	DropItem "PB_MedikitCyan", 256
+}
+ACTOR PB_Medikit1 : PB_Medikit {}
+ACTOR PB_MedikitGreen : PB_Medikit 
+{Translation "176:191=[0,255,0]:[0,0,0]", "32:47=[0,150,0]:[0,0,0]"}
+ACTOR PB_MedikitYellow : PB_Medikit 
+{Translation "176:191=[255,255,0]:[0,0,0]", "32:47=[150,150,0]:[0,0,0]"}
+ACTOR PB_MedikitBlue : PB_Medikit 
+{Translation "176:191=[0,0,255]:[0,0,0]", "32:47=[0,0,150]:[0,0,0]"}
+ACTOR PB_MedikitPurple : PB_Medikit 
+{Translation "176:191=[255,0,255]:[0,0,0]", "32:47=[150,0,150]:[0,0,0]"}
+ACTOR PB_MedikitCyan : PB_Medikit 
+{Translation "176:191=[0,255,255]:[0,0,0]", "32:47=[0,150,150]:[0,0,0]"}

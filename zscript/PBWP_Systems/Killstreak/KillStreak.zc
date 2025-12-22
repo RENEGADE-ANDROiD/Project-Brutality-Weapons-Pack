@@ -7,7 +7,7 @@ class KillStreak : PB_Inventory
         Inventory.MaxAmount 1;
         Inventory.PickupSound "HERELA0";
         +FLOATBOB;
-        floatbobstrength .4;
+        floatbobstrength 1.2;
         Scale .15;
         StencilColor "Yellow";
     }

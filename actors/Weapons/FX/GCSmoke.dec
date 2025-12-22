@@ -1,0 +1,46 @@
+Actor PlayerELegBFGSphereSmoke
+{
++NOINTERACTION
++NOGRAVITY
++FORCERADIUSDMG
+Renderstyle Add
+Species "player"
+Damagetype "LegendaryGuruPlayer"
++NODAMAGETHRUST
++FOILINVUL
++THRUSPECIES
++MTHRUSPECIES
++DONTHURTSPECIES
++DONTHARMSPECIES
+Scale 1.8
+Alpha 0.45
+Projectile
+States
+{
+Spawn:
+TNT1 A Random(5,7)
+TNT1 A 1 A_Jump(255,"Spawn1","Spawn2","Spawn3")
+Stop
+
+Spawn1:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+EHD1 A 0 A_Explode(10,164)
+EHD1 A 4 Bright A_FadeOut(0.0065)
+Loop
+
+Spawn2:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+EHD1 A 0 A_Explode(10,164)
+EHD2 A 4 Bright A_FadeOut(0.0065)
+Loop
+
+Spawn3:
+TNT1 A 0 A_SetScale(ScaleX -0.002, ScaleY -0.002)
+TNT1 A 0 A_JumpIf(Alpha<0.3,2)
+EHD1 A 0 A_Explode(10,164)
+EHD3 A 4 Bright A_FadeOut(0.0065)
+Loop
+}
+}

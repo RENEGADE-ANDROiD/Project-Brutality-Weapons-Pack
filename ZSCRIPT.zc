@@ -5,13 +5,12 @@ version "4.14.2"
 #include "zscript/PBWP_Core/BeefCore.zs"
 #include "zscript/PBWP_Core/BeefJMod.zs"
 #include "zscript/PBWP_Core/BeefTokens.zs"
-#include "zscript/PBWP_Core/AllWeaponSpawner.zc"
+#include "zscript/PBWP_Core/PBWP_Spawners.zc"
 #include "zscript/PBWP_Core/PBWP_Projectiles.zs"
 #include "zscript/PBWP_Core/BeefMonsterSpawnerA.zs"
 #include "zscript/PBWP_Core/BeefMonsterSpawnerB.zs"
 
 // PBWP_Systems
-#include "zscript/PBWP_Systems/Magnets/Magnets.zs"
 // KillStreak// 
 #include "zscript/PBWP_Systems/Killstreak/KSHandler.zc"
 #include "zscript/PBWP_Systems/Killstreak/KillStreak.zc"
@@ -22,14 +21,55 @@ version "4.14.2"
 // Doorbuster
 #include "zscript/PBWP_Systems/Doorbuster/doorbuster.zs"
 #include "zscript/PBWP_Systems/Doorbuster/doorbuster_handler.zs"
+// Magnets
+#include "zscript/PBWP_Systems/Magnets/Magnets.zs"
+// Helmet Drops
+#include "zscript/PBWP_Systems/HelmetDrops/HelmetDropSpawner.zs"
+// ChampionsEnemies
+#include "zscript/PBWP_Systems/champions/includes.zs"
+#include "zscript/PBWP_Systems/champions/handler.zs"
+#include "zscript/PBWP_Systems/champions/baseclass.zs"
+#include "zscript/PBWP_Systems/champions/extrafx.zs"
+#include "zscript/PBWP_Systems/champions/tokens.zs"
+#include "zscript/PBWP_Systems/champions/delayer.zs"
+#include "zscript/PBWP_Systems/champions/hybrid.zs"
+
+#include "zscript/PBWP_Systems/champions/champs/champ_darkred.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_red.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_orange.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_yellow.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_darkgreen.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_green.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_cyan.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_blue.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_indigo.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_violet.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_pink.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_black.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_grey.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_white.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_Bronze.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_Silver.zs"
+#include "zscript/PBWP_Systems/champions/champs/champ_Gold.zs"
+
+#include "zscript/PBWP_Systems/champions/bundles/bundles.zs"
+#include "zscript/PBWP_Systems/champions/bundles/pickups.zs"
+//#include "zscript/PBWP_Systems/champions/bundles/games/generic.zs"
+#include "zscript/PBWP_Systems/champions/bundles/games/doom.zs"
+#include "zscript/PBWP_Systems/champions/bundles/games/heretic.zs"
+#include "zscript/PBWP_Systems/champions/bundles/games/hexen.zs"
+#include "zscript/PBWP_Systems/champions/bundles/games/strife.zs"
+#include "zscript/PBWP_Systems/champions/bundles/games/modcompat.zs"
+//#include "zscript/PBWP_Systems/champions/bundles/games/chex.zs"
+
+// Player Pawn Insanity Beef: Will this be added later?
+#include "zscript/Player/INPlayer.zc"
+#include "ZScript/Player/PBMeleePlayer.zc"
 
 // PBWP_Misc
 #include "zscript/PBWP_Misc/GORENEST.zs"
 // ElementalismBoss
 #include "zscript/PBWP_Misc/BEHOLD_BOSSES/E1_Export_1.zs"
-// Player Pawn Insanity Beef: Will this be added later?
-//#include "zscript/CustomPlayerClass/INPlayer.zc"
-//#include "ZScript/CustomPlayerClass/PBMeleePlayer.zc"
 // Spawners ZScript
 #include "zscript/Insanity's Nightmare/ChainsawSpawn.zc"
 #include "zscript/Weapons/Slot-3/CSSG/CSSGEvent.zs"
@@ -45,6 +85,16 @@ version "4.14.2"
 #include "zscript/Insanity's Nightmare/IN_BulletSystem.zc"
 #include "zscript/Insanity's Nightmare/IN_SpecialProjectile.zc"
 #include "zscript/Insanity's Nightmare/PlasmaRifleAssaultProjectile.zc"
+
+// ItemArcadeTweaks
+//#include "zscript/Items/HealthArmor/APAT.zc"
+//#include "zscript/Items/PowerUps/PowerupsAT.zsc"
+//#include "zscript/Items/PowerUps/PowerupsAT2.zsc"
+
+// ScientistSpawner
+#include "zscript/Scientist/BloodSampleDropper.zc"
+#include "zscript/Scientist/ScientistEvent.zc"
+
 
 // Weapons & Etc (Testing)
 
@@ -64,3 +114,6 @@ version "4.14.2"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtProj3.zs"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtStuff.zs"
 	// Demonic Exterminator Stuff End
+
+
+

@@ -1,0 +1,35 @@
+Actor SubSwordWallHit : BulletPuff
+{
++NOGRAVITY
++PUFFGETSOWNER
++PUFFONACTORS
++EXTREMEDEATH
++FOILINVUL
+DamageType "Cut"
+AttackSound "SubSword/WallHit"
+SeeSound "Mainyu/Meleehit"
+RenderStyle Add
+Alpha 0.8
+Scale 0.8
+States
+{
+Spawn:
+Melee:
+TNT1 A 0
+TNT1 A 0 A_SpawnItemEx("RedParticleSpawner",0,0,0,0,0,0,0,SXF_CLIENTSIDE)
+TNT1 A 0 A_Jump(128,"Alt")
+EX97 ABCDEFGHIJ 1 Bright A_FadeOut(0.08)
+Stop
+
+Alt:
+EX98 ABCDEFGHIJ 1 Bright A_FadeOut(0.08)
+Stop
+
+XDeath:
+TNT1 F 0 
+FAXE F 3 A_GiveToTarget("SubliminationHealth",random(20,40))
+FAXE G 3 A_GiveToTarget("Demonpower",random(30,50))
+FAXE HIJK 3
+Stop
+}
+}
