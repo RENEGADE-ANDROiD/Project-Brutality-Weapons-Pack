@@ -58,6 +58,7 @@ ListMenu "MainMenu"
 OptionMenu "ttwcoptions"
 {
 	Title "PB WAR PACK Settings"
+	Class "PB_OptionMenu"
     StaticText ""
 	Submenu "$PBWP_General_OPTIONS", "GeneralSettings"
 	Submenu "$PBWP_WeaponSpawns_OPTIONS", "WeaponPackSpawnSettings"
@@ -89,6 +90,7 @@ OptionMenu "ttwcoptions"
 OptionMenu "GeneralSettings"
 {
 	Title "General Settings"
+	Class "PB_OptionMenu"
 	Option "Primary Fire will trigger Executions", "ttwcfbex", "OnOff"
 	option "Monster weapon drops ","PB_WeaponDrops","MonsterDrops"
 	Option "Killstreak is Enabled", "KillstreakIsOn", "OnOff"
@@ -123,6 +125,7 @@ optionmenu "MonsterSpawnSett"
 optionmenu "ItemSpawnSett"
 {
 	Title "Item Spawn Settings"
+	Class "PB_OptionMenu"
 	StaticText "Choose what equipments/melee items spawns naturally", white
 	statictext "By default they are all on", white
 
