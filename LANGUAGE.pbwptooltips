@@ -1,0 +1,42 @@
+[enu default]
+
+//ALL THEM TOOLTIPS
+
+// GENERAL
+TIP_ttwcfbex = "Experimental, some weapons doesnt have this feature even when enabled";
+TIP_KillstreakIsOn = "Killing enemies multiple times will grant powerups and other items";
+TIP_HelmetDropCVAR = "Enemies that have helmets will drop their helmets that you can pick up \nand gives a small amount of armor";
+
+
+// ARMOR
+TIP_SpawnYellowArmor = "Haste + RadSuit, 130% Durability, 50 Damage Reduction";
+TIP_SpawnPurpleArmor = "Quad Damage, 140% Durability, 90 Damage Reduction";
+TIP_SpawnBlackArmor = "Gives you 20 ammo of each existing type, 160% Durability, 70 Damage Reduction";
+TIP_SpawnOrangeArmor = "Night Vision, 160% Durability, 70 Damage Reduction";
+TIP_SpawnWhiteArmor = "Regeneration for 1 minute stackable up to 200% HP, 200% Durability, 100 Damage Reduction";
+TIP_SpawnRedArmor = "Berserk Pack, 100% Durability, 50 Damage Reduction";
+TIP_SpawnCyanArmor = "Stop/Freeze the time for 12 seconds and buff you speed fire rate for 12 seconds, \n40% Durability, 200% Damage Reduction";
+TIP_SpawnDemonArmor = "Gives you Berserk, Quad Damage, and the monsters fears you, \n300% Durability, 100% Damage Reduction";
+
+// MELEE
+TIP_KatanaSpawn = "Standard Slashes, 2 hit combo";
+TIP_PickaxeSpawn = "Standard hit";
+TIP_ImpactorSpawn = "Knockbacks Enemies";
+TIP_ClawSpawn = "Fast Slashes, 2 hit combo";
+TIP_SentinelHammerSpawn = "Standard hit, massive damage";
+TIP_JohnnyHandsSpawn = "Does what the name says";
+TIP_WrenchSpawn = "Fast hit, 2 hit combo, 1 hold to dash";
+TIP_CrowbarSpawn = "Fast hit, 2 hit combo, 1 hold to dash";
+TIP_SledgeHammerSpawn = "Standard hit, 2 hit combo, 1 hold to dash";
+TIP_ShockBatonSpawn = "Standard hit, perma stuns target";
+
+// EQUIPMENTS
+TIP_ShieldGrenadeSpawn = "Spawns a Waist-High shield";
+TIP_VoidGrenadeSpawn = "Spawns a Black Hole on detonation";
+TIP_RemoteChargesSpawn = "Press Equipment Use twice to use Detonator. Have three types \n1. Swarm Charge = Spawns Small Swarmer Bots \n2. Laser Charge = Spawns a Circular Laser Trap \n3. Acid Charge = Spawns an Acid Cloud";
+TIP_ElecPodSpawn = "Spawns Electric Bot that Bounces and deal damage";
+TIP_CaltropsSpawn = "Places small traps on the ground that deal damage when walked on";
+TIP_ShurikenSpawn = "Throw Shurikens, deal extra damage when Berserk is active";
+TIP_BeaconSpawn = "Spawns two upgrades, or if Custom Marines addon is installed \nwill summon  two Marine Allies";
+TIP_FreezebotSpawn = "Spawns a FreezeBot, press use on the bot to retrieve it";
+TIP_SpawnShieldSaw = "Throw Shield Saw, will fly back to the player after hit or after a few seconds";
