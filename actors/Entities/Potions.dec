@@ -1,0 +1,96 @@
+// Potions
+ACTOR XD_HealthBonusSpawner : RandomSpawner Replaces PB_HealthBonus
+{
+	DropItem "PB_HealthBonus1", 256
+	DropItem "PB_HealthBonusRed", 256
+	DropItem "PB_HealthBonusGreen", 256
+	DropItem "PB_HealthBonusYellow", 256
+	DropItem "PB_HealthBonusCyan", 256
+	DropItem "PB_HealthBonusPurple", 256
+}
+ACTOR XD_HealthBonusDroppedSpawner : RandomSpawner Replaces PB_HealthBonusDropped
+{
+	DropItem "PB_HealthBonusDropped1", 256
+	DropItem "PB_HealthBonusDroppedRed", 256
+	DropItem "PB_HealthBonusDroppedGreen", 256
+	DropItem "PB_HealthBonusDroppedYellow", 256
+	DropItem "PB_HealthBonusDroppedCyan", 256
+	DropItem "PB_HealthBonusDroppedPurple", 256
+}
+ACTOR XD_DemonHPBonusSpawner : RandomSpawner Replaces PB_DemonHPBonus
+{
+	DropItem "PB_DemonHealthBonus1", 256
+	DropItem "PB_DemonHealthBonusRed", 256
+	DropItem "PB_DemonHealthBonusGreen", 256
+	DropItem "PB_DemonHealthBonusYellow", 256
+	DropItem "PB_DemonHealthBonusCyan", 256
+	DropItem "PB_DemonHealthBonusPurple", 256
+}
+ACTOR PB_HealthBonus1 : PB_HealthBonus {Inventory.PickupSound HBONUS1
+Inventory.Amount 1}
+ACTOR PB_HealthBonusRed : PB_HealthBonus
+{Translation "192:207=[255,0,0]:[50,0,0]", "240:247=[50,0,0]:[0,0,0]"
+Inventory.PickupSound HBONUS3
+Inventory.Amount 3}
+ACTOR PB_HealthBonusGreen : PB_HealthBonus
+{Translation "192:207=[0,255,0]:[0,50,0]", "240:247=[0,50,0]:[0,0,0]"
+Inventory.PickupSound HBONUS2
+Inventory.Amount 2}
+ACTOR PB_HealthBonusYellow : PB_HealthBonus
+{Translation "192:207=[255,255,0]:[50,50,0]", "240:247=[50,50,0]:[0,0,0]"
+Inventory.PickupSound HBONUS4
+Inventory.Amount 4}
+ACTOR PB_HealthBonusCyan : PB_HealthBonus
+{Translation "192:207=[0,255,255]:[0,50,50]", "240:247=[0,50,50]:[0,0,0]"
+Inventory.PickupSound HBONUS5
+Inventory.Amount 3}
+ACTOR PB_HealthBonusPurple : PB_HealthBonus
+{Translation "192:207=[255,0,255]:[50,0,50]", "240:247=[50,0,50]:[0,0,0]"
+Inventory.PickupSound HBONUS6
+Inventory.Amount 3}
+
+ACTOR PB_HealthBonusDropped1 : PB_HealthBonusDropped {Inventory.PickupSound HBONUS1
+Inventory.Amount 1}
+ACTOR PB_HealthBonusDroppedRed : PB_HealthBonusDropped
+{Translation "192:207=[255,0,0]:[50,0,0]", "240:247=[50,0,0]:[0,0,0]"
+Inventory.PickupSound HBONUS3
+Inventory.Amount 3}
+ACTOR PB_HealthBonusDroppedGreen : PB_HealthBonusDropped
+{Translation "192:207=[0,255,0]:[0,50,0]", "240:247=[0,50,0]:[0,0,0]"
+Inventory.PickupSound HBONUS2
+Inventory.Amount 2}
+ACTOR PB_HealthBonusDroppedYellow : PB_HealthBonusDropped
+{Translation "192:207=[255,255,0]:[50,50,0]", "240:247=[50,50,0]:[0,0,0]"
+Inventory.PickupSound HBONUS4
+Inventory.Amount 4}
+ACTOR PB_HealthBonusDroppedCyan : PB_HealthBonusDropped
+{Translation "192:207=[0,255,255]:[0,50,50]", "240:247=[0,50,50]:[0,0,0]"
+Inventory.PickupSound HBONUS5
+Inventory.Amount 3}
+ACTOR PB_HealthBonusDroppedPurple : PB_HealthBonusDropped
+{Translation "192:207=[255,0,255]:[50,0,50]", "240:247=[50,0,50]:[0,0,0]"
+Inventory.PickupSound HBONUS6
+Inventory.Amount 3}
+
+ACTOR PB_DemonHealthBonus1 : PB_DemonHPBonus {Inventory.PickupSound HBONUS1
+Inventory.Amount 1}
+ACTOR PB_DemonHealthBonusRed : PB_DemonHPBonus
+{Translation "192:207=[255,0,0]:[50,0,0]", "240:247=[50,0,0]:[0,0,0]"
+Inventory.PickupSound HBONUS3
+Inventory.Amount 3}
+ACTOR PB_DemonHealthBonusGreen : PB_DemonHPBonus
+{Translation "192:207=[0,255,0]:[0,50,0]", "240:247=[0,50,0]:[0,0,0]"
+Inventory.PickupSound HBONUS2
+Inventory.Amount 2}
+ACTOR PB_DemonHealthBonusYellow : PB_DemonHPBonus
+{Translation "192:207=[255,255,0]:[50,50,0]", "240:247=[50,50,0]:[0,0,0]"
+Inventory.PickupSound HBONUS4
+Inventory.Amount 4}
+ACTOR PB_DemonHealthBonusCyan : PB_DemonHPBonus
+{Translation "192:207=[0,255,255]:[0,50,50]", "240:247=[0,50,50]:[0,0,0]"
+Inventory.PickupSound HBONUS5
+Inventory.Amount 3}
+ACTOR PB_DemonHealthBonusPurple : PB_DemonHPBonus
+{Translation "192:207=[255,0,255]:[50,0,50]", "240:247=[50,0,50]:[0,0,0]"
+Inventory.PickupSound HBONUS6
+Inventory.Amount 3}

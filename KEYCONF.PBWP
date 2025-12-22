@@ -2,6 +2,8 @@
 //AddMenuKey "Use Meat Hook" meathook
 //alias meathook "puke 6005"
 
+//alias "champion_reset" "
+
 //PBWP Keybinds
 addkeysection "PB Weapons Pack Keybinds" PBWP_KEY
    Alias +pbwp_meleemenu 				   "event pb_melee_wheel"

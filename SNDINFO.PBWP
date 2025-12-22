@@ -1,5 +1,21 @@
 //Armor
 ARMOR ARMOR
+//PickUpItemVariation
+HBONUS1 HBONUS1
+HBONUS2 HBONUS2
+HBONUS3 HBONUS3
+HBONUS4 HBONUS4
+HBONUS5 HBONUS5
+HBONUS6 HBONUS6
+ABONUS1 ABONUS1
+ABONUS2 ABONUS2
+ABONUS3 ABONUS3
+ABONUS4 ABONUS4
+ABONUS5 ABONUS5
+ABONUS6 ABONUS6
+
+//ChampionEnemies
+champion/silver/shield	"sounds/shield_up.wav" // Dark Souls c. From Software / Namco Bandai Entertainment 
 
 //Melee
 meleeweapon/break "SOUNDS/COMBAT/MeleeWeapons/meleeweapon_break"

@@ -1,3 +1,6 @@
+//PB Arcade 500HP//
+server int PBAT_PickupMode = 0;
+
 //Hook//
 Server NoArchive Bool sv_allowhookshot = True;
 
@@ -162,3 +165,54 @@ server bool PBSpawnMancFlameCannonDrop = false;
 //Equipments from Monsters
 server bool EQSpawnShieldGR = false;
 
+// Champions
+server int 		champion_Debug 	 		= 0;
+server int 		champion_Colours		= 1;
+server int		champion_MissileColours	= 0;
+server int		champion_BloodColours	= 1;
+server int 		champion_Particles		= 1;
+server int 		champion_IceColour		= 1;
+server int 		champion_Icons			= 1;
+server float	champion_IconScale		= 0.2;
+server float	champion_IconAlpha		= 0.75;
+server int 		champion_Bundles		= 1;
+server bool		champion_HealthFoods	= true;
+server int 		champion_legendoom		= 0;
+server int 		champion_dormant		= 0;
+server int 		champion_booster		= 1;
+server int 		champion_CHextra		= 0;
+server bool		champion_FlatSprites	= true;
+server bool 	champion_ProjectileCreep= false;
+server bool		champion_friendlies		= false;
+
+// Champion control
+server int champion_OverrideChance 		= -1;
+
+server int champion_weight_DarkRed		= 10;
+server int champion_weight_Red			= 10;
+server int champion_weight_Yellow		= 10;
+server int champion_weight_Orange		= 10;
+server int champion_weight_DarkGreen	= 10;
+server int champion_weight_Green		= 10;
+server int champion_weight_Cyan			= 10;
+server int champion_weight_Blue			= 10;
+server int champion_weight_Indigo		= 10;
+server int champion_weight_Violet		= 10;
+server int champion_weight_Pink			= 10;
+server int champion_weight_Black		= 10;
+server int champion_weight_Grey			= 10;
+server int champion_weight_White		= 10;
+server int champion_weight_Bronze		= 3;
+server int champion_weight_Silver		= 2;
+server int champion_weight_Gold			= 1;
+
+// Mutation control
+server int champion_Mutations			= 16;
+
+server int champion_weight_Titan		= 2;
+server int champion_weight_Undying		= 1;
+server int champion_weight_Ghost		= 6;
+server int champion_weight_balloon		= 8;
+server int champion_weight_Hybrid		= 7;
+
+server noarchive int champion_debug_forced		= -1;

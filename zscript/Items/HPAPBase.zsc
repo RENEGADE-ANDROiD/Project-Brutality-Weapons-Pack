@@ -1,0 +1,149 @@
+class PB_Health : Health abstract
+{
+	mixin PB_BetterPickupSound;
+}
+
+class PB_Armor : BasicArmorBonus abstract//BasicArmorPickup
+{
+	mixin PB_BetterPickupSound;
+	
+	Default
+	{
+		+INVENTORY.AUTOACTIVATE;
+		Inventory.MaxAmount 0;
+		-INVENTORY.ALWAYSPICKUP;
+	}
+	const MAXARMORAMT = 500;
+	int getArmorMaxSave(){
+		return (PBAT_PickupMode == 1)?MAXARMORAMT:self.SaveAmount;
+	}
+	//(PBAT_PickupMode == 1)?MAXARMORAMT:SaveAmount
+	bool cannotPickupAT(BasicArmor armor){
+		/*
+		Console.PrintF(string.format("CurrentArmorAmount = %d\nArmorMaxSave = %d",armor.Amount,getArmorMaxSave()));
+		if(armor.Amount >= getArmorMaxSave() && armor.SavePercent >= (self.SavePercent/100)){
+			Console.PrintF(string.format("TRUE: cannotPickupAT : armor.Amount >= getArmorMaxSave() && armor.SavePercent >= (self.SavePercent/100)"));
+		}else{
+			Console.PrintF(string.format("FALSE: cannotPickupAT : armor.Amount >= getArmorMaxSave() && armor.SavePercent >= (self.SavePercent/100)"));
+		}
+		*/
+		return armor.Amount >= getArmorMaxSave() && armor.SavePercent >= (self.SavePercent/100);
+		//if current armor amount is greater than or equal to designated max amount
+		//if current armor save percent is greater than or equal to savepercent
+	}
+	bool canPickupAT(BasicArmor armor){
+		/*
+		Console.PrintF(string.format("CurrentArmorAmount = %d\nArmorMaxSave = %d",armor.Amount,getArmorMaxSave()));
+		if(getArmorMaxSave() > armor.Amount || (self.SavePercent/100) > armor.SavePercent){
+			Console.PrintF(string.format("TRUE: canPickupAT : getArmorMaxSave() > armor.Amount || (self.SavePercent/100) > armor.SavePercent"));
+			Console.PrintF("Pickup: %f\nExisting: %f",self.SavePercent/100,armor.SavePercent);
+		}else{
+			Console.PrintF(string.format("FALSE: canPickupAT : getArmorMaxSave() > armor.Amount || (self.SavePercent/100) > armor.SavePercent"));
+			Console.PrintF("Pickup: %f\nExisting: %f",self.SavePercent/100,armor.SavePercent);
+		}
+		*/
+		return getArmorMaxSave() > armor.Amount || (self.SavePercent/100) > armor.SavePercent;
+	}
+	bool checkForPickup(BasicArmor armor){
+		if(PBAT_PickupMode == 1){
+			return !cannotPickupAT(armor);
+		}else{
+			return canPickupAT(armor);
+		}
+	}
+	override bool TryPickup(in out actor toucher){
+		let armor = BasicArmor(toucher.FindInventory("BasicArmor"));
+		bool checkforarmorpickup = armor && checkForPickup(armor);
+		if(checkforarmorpickup || armor == null){
+			/*
+			if(armor == null){Console.PrintF("armor = null");}
+			if(armor){Console.PrintF("armor exists");}
+			if(checkforarmorpickup){Console.PrintF("checkForPickup(armor) = true");}
+			*/
+			return Super.TryPickup(toucher);
+		}
+		return false;
+	}
+	override bool Use (bool pickup){
+		int SaveAmount = GetSaveAmount();
+		let armor = BasicArmor(Owner.FindInventory("BasicArmor"));
+		bool result = false;
+
+		// This should really never happen but let's be prepared for a broken inventory.
+		if (armor == null){
+			armor = BasicArmor(Spawn("BasicArmor"));
+			armor.BecomeItem ();
+			armor.Amount = 0;
+			armor.MaxAmount = getArmorMaxSave();
+			Owner.AddInventory (armor);
+			result = true;
+		}else{
+			if( !( armor.Amount >= MAXARMORAMT && armor.SavePercent > (self.SavePercent/100) ) ){
+				//armor.SavePercent = max(self.SavePercent,armor.SavePercent);
+				armor.SavePercent = max(self.SavePercent/100,armor.SavePercent);//clamp(SavePercent, 0, 100) / 100;
+				armor.MaxAmount = max(armor.MaxAmount, MAXARMORAMT);
+				if(PBAT_PickupMode == 1){
+					armor.Amount = clamp(armor.Amount + self.SaveAmount,self.SaveAmount,MAXARMORAMT);// min(armor.Amount + saveAmount, MAXARMORAMT + armor.BonusCount);
+				}else{
+					armor.Amount = max(armor.Amount,self.SaveAmount);
+				}
+				result = true;
+			}
+		}
+		/*
+		conditions:
+		- not greater or equal to MaxSaveAmount
+		- SavePercent is less than current player's savepercent
+		armor.SavePercent = max(self.SavePercent/100,armor.SavePercent);
+		armor.Amount = SaveAmount + armor.BonusCount;
+		armor.MaxAmount = max(armor.MaxAmount,SaveAmount);
+		//armor.Icon = Icon;
+		armor.MaxAbsorb = max(armor.MaxAmount, MaxAbsorb);
+		armor.MaxAbsorb = max(armor.MaxFullAbsorb, MaxFullAbsorb);
+		armor.ActualSaveAmount = max(armor.ActualSaveAmount, SaveAmount);
+		//armor.ArmorType = GetClassName();
+		*/
+		return result;
+	}
+	/*
+	override bool Use (bool pickup){
+		int SaveAmount = GetSaveAmount();
+		let armor = BasicArmor(Owner.FindInventory("BasicArmor", true));
+
+		// This should really never happen but let's be prepared for a broken inventory.
+		if (armor == null){
+			armor = BasicArmor(Spawn(GetBasicArmorClass()));
+			armor.BecomeItem ();
+			Owner.AddInventory (armor);
+		}else{
+			// If you already have more armor than this item gives you, you can't
+			// use it.
+			if (armor.Amount >= SaveAmount + armor.BonusCount){return false;}
+			// Don't use it if you're picking it up and already have some.
+			if (pickup && armor.Amount > 0 && MaxAmount > 0){return false;}
+			if (self.SavePercent/100 < armor.SavePercent){return false;}
+		}
+		armor.SavePercent = max(self.SavePercent/100,armor.SavePercent);
+		//armor.SavePercent = clamp(SavePercent, 0, 100) / 100;
+		armor.Amount = SaveAmount + armor.BonusCount;
+		armor.MaxAmount = SaveAmount;
+		armor.Icon = Icon;
+		armor.MaxAbsorb = MaxAbsorb;
+		armor.MaxFullAbsorb = MaxFullAbsorb;
+		armor.ArmorType = GetClassName();
+		armor.ActualSaveAmount = SaveAmount;
+		return true;
+	}
+	*/
+}
+
+class PB_Armor2 : BasicArmorBonus abstract
+{
+	mixin PB_BetterPickupSound;
+	
+	Default
+	{
+		+INVENTORY.AUTOACTIVATE;
+	}
+}
+class PB_ArmorAT : PB_Armor{}//serves no purpose except to be an indicator to More Items tweak

@@ -18,6 +18,13 @@ Gameinfo
 	"PBWP_MagnetHandler",
 	"BusterHandler",
 	"KillTracker",
-	"RareItemDropped"
+	"RareItemDropped",
+	"champion_Handler", 
+	"champion_CHExtra"
 	// Add More Handlers Here
 }
+
+DamageType champion_Toxic
+	{
+    Obituary = "%o was poisoned"
+	}
