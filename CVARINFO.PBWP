@@ -161,6 +161,8 @@ server bool RemoteChargesSpawn = true;
 server bool ElecPodSpawn = true;
 server bool CaltropsSpawn = true;
 server bool ShurikenSpawn = true;
+server bool SpawnShieldSaw = true;
+server bool FreezebotSpawn = true;
 
 // Monster Drops
 server bool IsUsingStormcastCV = false;

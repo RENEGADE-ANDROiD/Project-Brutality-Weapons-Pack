@@ -148,6 +148,8 @@ optionmenu "ItemSpawnSett"
 	Option "Spawn Caltrops", "CaltropsSpawn", "OnOff"
 	Option "Spawn Shurikens", "ShurikenSpawn", "OnOff"
 	Option "Spawn Beacon", "BeaconSpawn", "OnOff"
+	Option "Spawn FreezeBot", "FreezebotSpawn", "OnOff"
+	Option "Spawn Shield Saw", "SpawnShieldSaw", "OnOff"
 
 	statictext ""
 	statictext "---------------Melee Items---------------", gold
