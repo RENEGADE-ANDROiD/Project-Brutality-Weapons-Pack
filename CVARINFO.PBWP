@@ -152,7 +152,6 @@ server bool WrenchSpawn = true;
 server bool CrowbarSpawn = true;
 server bool SledgeHammerSpawn = true;
 server bool ShockBatonSpawn = true;
-server bool BeaconSpawn = true;
 
 // Equipments
 server bool ShieldGrenadeSpawn = true;
@@ -161,6 +160,9 @@ server bool RemoteChargesSpawn = true;
 server bool ElecPodSpawn = true;
 server bool CaltropsSpawn = true;
 server bool ShurikenSpawn = true;
+server bool BeaconSpawn = true;
+server bool FreezebotSpawn = true;
+server bool SpawnShieldSaw = true;
 
 // Monster Drops
 server bool IsUsingStormcastCV = false;
