@@ -1297,7 +1297,33 @@ class Beacon_Injector : PBInjector
     	}
 	}
 }
-//Misc
+
+class Freezebot_Injector : PBInjector   
+{
+    override void Init(PB_EventHandler handler) 
+    {
+		if(FreezebotSpawn)
+		{
+			handler.InjectSpawn('PB_UpgradeSpawnerT4', 'FreezeBotPickup', 255, 1);
+    	}
+	}
+}
+
+class Shielsawammo_Injector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if(SpawnShieldSaw)
+		{
+		handler.InjectSpawn('PB_SawSpawnerT1', 'ShieldsawAmmo', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT2', 'ShieldsawAmmo', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT3', 'ShieldsawAmmo', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'ShieldsawAmmo', 255, 1);
+		}	
+	}
+}
+
+//Misc=======================================================================================
 // Do we even need this??? I just moved it from the zscript file
 // There's not even a CVAR for it
 // class PB_DemontechRifleSpawnerInjector : PBInjector
@@ -1307,34 +1333,23 @@ class Beacon_Injector : PBInjector
 // 		handler.InjectSpawn('PB_MGSpawnerT3', 'PB_Demontech', 255, 1);
 // 	}
 // }
-//ShieldSaw =======================================================================================
-class Shielsawammo_Injector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-		
-		handler.InjectSpawn('PB_SawSpawnerT1', 'ShieldsawAmmo', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT2', 'ShieldsawAmmo', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT3', 'ShieldsawAmmo', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT4', 'ShieldsawAmmo', 255, 1);
-		
-	}
-}
 
+//RazorJack Ammo
 class BladeAmmo_Injector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
 	{
-		
+	if(PBSpawnRazorjack)
+		{
 		handler.InjectSpawn('PB_PackSpawnerT1', 'BladeAmmo', 255, 1);
 		handler.InjectSpawn('PB_PackSpawnerT2', 'BladeAmmo', 255, 1);
 		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'BladeAmmo', 255, 1);
 		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'BladeAmmo', 255, 1);
-		
+		}
 	}
 }
 
-// Melees
+// Melees =======================================================================================
 class KatanaSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
