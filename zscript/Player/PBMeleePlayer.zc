@@ -52,7 +52,7 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		Player.ColorRange 112,127;
 		Player.JumpZ 7.4;
 		Player.GruntSpeed 24;
-		Player.DisplayName "Project Brutality (Melee)";
+		Player.DisplayName "Melee Start";
 		Player.CrouchSprite "PLYC";
 		Player.ViewBob 0.0;
 
@@ -113,6 +113,20 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		Player.StartItem "PB_QuickLauncherAmmo",4;
 		Player.StartItem "FlamerAmmo",90; 
 
+		//Melees
+		Player.StartItem "KatanaDurability",15; 
+		Player.StartItem "ImpactorCharges",5; 
+		Player.StartItem "ClawCharges",10; 
+		Player.StartItem "PickAxeDurability",25; 
+		Player.StartItem "CrowbarDurability",25; 
+		Player.StartItem "WrenchDurability",20; 
+		Player.StartItem "HammerDurability",25; 
+		Player.StartItem "HasShockBaton",1; 
+		Player.StartItem "PB_Chainsaw",1; 
+		Player.StartItem "PB_Fuel",100; 
+		Player.StartItem "PB_Cell",50; 
+
+
 		+ROLLSPRITE
 		+THRUSPECIES
 		+MTHRUSPECIES
@@ -165,7 +179,7 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 	};
 }
 
-class PB_PistolPlayerPrawn : PB_PlayerPrawn
+/*class PB_PistolPlayerPrawn : PB_PlayerPrawn
 {
     bool lfoot;
     

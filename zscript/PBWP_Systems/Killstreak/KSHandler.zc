@@ -23,9 +23,9 @@ class KillTracker : EventHandler
 
     override void WorldThingDied(WorldEvent e)
     {
-        let isKSOn = CVar.GetCVAR('KillstreakIsOn').GetBool();
+		if (!KillstreakIsOn) return;
         // Only consider monsters, not decorations or friendlies
-        if (e.Thing && e.Thing.bIsMonster && !(e.Thing is "SwitchableDecoration") && isKSOn)
+        if (e.Thing && e.Thing.bIsMonster && !(e.Thing is "SwitchableDecoration"))
         {
             PB_PlayerPrawn killer = null;
             // Use Inflictor if possible, else fallback to target
@@ -166,8 +166,8 @@ bool RareItemDropped;
 
     override void WorldThingDied(WorldEvent e)
     {
-        let isKSOn = CVar.GetCVAR('KillstreakIsOn').GetBool();
-        if (!RareItemDropped && e.Thing && e.Thing.bIsMonster && isKSOn)
+		if (!KillstreakIsOn) return;
+        if (!RareItemDropped && e.Thing && e.Thing.bIsMonster)
         {
             PB_Monster m = PB_Monster(e.Thing);
             //PandMonster p = PandMonster(e.Thing);

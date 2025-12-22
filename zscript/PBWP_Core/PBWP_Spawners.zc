@@ -1334,8 +1334,6 @@ class BladeAmmo_Injector : PBInjector
 	}
 }
 
-//ShieldSaw End ===================================================================================
-
 // Melees
 class KatanaSpawnerInjector : PBInjector
 {
@@ -1503,6 +1501,113 @@ class ShockBatonSpawnerInjector : PBInjector
 	}
 }
 
+//Armor Spawner =======================================================================================
+class PBWP_YellowArmorSpawner : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if(SpawnYellowArmor)
+		{
+		handler.InjectSpawn('PB_GreenSpawnerT2', 'NarmorYellow', 255, 1);
+		handler.InjectSpawn('PB_GreenSpawnerT3', 'NarmorYellow', 255, 1);
+		handler.InjectSpawn('PB_GreenSpawnerT4', 'NarmorYellow', 255, 1);
+		
+		}
+	}
+}
+
+class PBWP_PurpleArmorSpawner : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if(SpawnPurpleArmor)
+		{
+		handler.InjectSpawn('PB_GreenSpawnerT3', 'NarmorPurple', 255, 1);
+		handler.InjectSpawn('PB_GreenSpawnerT4', 'NarmorPurple', 255, 1);
+		
+		}
+	}
+}
+
+class PBWP_BlackArmorSpawner : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if(SpawnBlackArmor)
+		{
+		handler.InjectSpawn('PB_BlueSpawnerT1', 'NarmorBlack', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT2', 'NarmorBlack', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT3', 'NarmorBlack', 255, 1);
+		
+		}
+	}
+}
+
+class PBWP_OrangeArmorSpawner : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if(SpawnOrangeArmor)
+		{
+		handler.InjectSpawn('PB_BlueSpawnerT1', 'NarmorOrange', 255, 1);
+		
+		}
+	}
+}
+
+class PBWP_WhiteArmorSpawner : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if(SpawnWhiteArmor)
+		{
+		handler.InjectSpawn('PB_BlueSpawnerT1', 'NarmorWhite', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT2', 'NarmorWhite', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT3', 'NarmorWhite', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT4', 'NarmorWhite', 255, 1);
+		
+		}
+	}
+}
+
+class PBWP_RedArmorSpawner : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if(SpawnRedArmor)
+		{
+		handler.InjectSpawn('PB_BlueSpawnerT2', 'NarmorRed', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT3', 'NarmorRed', 255, 1);
+		handler.InjectSpawn('PB_BlueSpawnerT4', 'NarmorRed', 255, 1);
+		
+		}
+	}
+}
+
+class PBWP_CyanArmorSpawner : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if(SpawnCyanArmor)
+		{
+		handler.InjectSpawn('PB_BlueSpawnerT4', 'NarmorCyan', 255, 1);
+		
+		}
+	}
+}
+
+class PBWP_DemonArmorSpawner : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if(SpawnDemonArmor)
+		{
+		handler.InjectSpawn('PB_BlueSpawnerT4', 'NarmorDemon', 255, 1);
+		
+		}
+	}
+}
+
 //Monster Spawner =======================================================================================
 class PBWP_EyeTurretSpawner : PBInjector
 {
@@ -1560,3 +1665,4 @@ class PBWP_DeepOneSpawner : PBInjector
 		}
 	}
 }
+

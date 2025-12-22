@@ -897,10 +897,17 @@ extend class PB_WeaponBase
 			A_TakeInventory("PB_Fuel",1);
 			A_StartSound("sawswing");
 		}
-		1SAW F 1 A_SetRoll(roll+.8, SPF_INTERPOLATE); // changed from EF
-		TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", -20, 0, 0, 0);
+		1SAW F 1 {  // changed from EF
+			A_SetRoll(roll+.8, SPF_INTERPOLATE); 
+			A_BDPmeleestart();
+		 }
+		//TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", -20, 0, 0, 0);
+		TNT1 A 0 A_BDPMelee(200, "Prosurv_SawSwing", -7, TRUE);
 		TNT1 A 0 A_TakeInventory("PB_Fuel",1);
-		1SAW G 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
+		1SAW G 1 {
+			A_SetRoll(roll+.8, SPF_INTERPOLATE);
+			A_BDPmeleestart();
+		}
 		TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", -10, 0, 0, 0);
 		TNT1 A 0 A_TakeInventory("PB_Fuel",1);
         1SAW HI 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
@@ -1095,12 +1102,22 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_TakeInventory("SawHasHit",1);
 		//BATN KLMKLMKLMKLMKLM 1;
 		TNT1 A 0 A_StartSound("shockbaton/swing1", 5);
-		BATN K 1 A_SetRoll(roll+.5, SPF_INTERPOLATE);
+		BATN K 1 {
+			A_SetRoll(roll+.5, SPF_INTERPOLATE);
+			A_BDPmeleestart();
+		}
 		TNT1 A 0 A_TakeInventory("PB_Cell",1);
-		BATN N 1 A_SetRoll(roll+.5, SPF_INTERPOLATE);
+		BATN N 1 {
+			A_SetRoll(roll+.5, SPF_INTERPOLATE);
+			A_BDPmeleestart();
+		}
 		TNT1 A 0 A_TakeInventory("PB_Cell",1);
-		TNT1 A 0 A_FireCustomMissile("BatonSwing", 0, 0, 0, 0);
-        BATN O 1 A_SetRoll(roll+.5, SPF_INTERPOLATE);
+		//TNT1 A 0 A_FireCustomMissile("BatonSwing", 0, 0, 0, 0);
+		TNT1 A 0 A_BDPMelee(200, "BatonSwing", -7, TRUE);
+        BATN O 1 {
+			A_SetRoll(roll+.5, SPF_INTERPOLATE);
+			A_BDPmeleestart();
+		}
 		TNT1 A 0 A_TakeInventory("PB_Cell",1);
 		TNT1 A 0 A_JumpIfInventory("SawHasHit",1,"BatonComboStuck");
 		Goto BatonCombo2;
@@ -1394,7 +1411,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_ALertMonsters(400);
 		IMPA KLM 1 A_BDPmeleestart();
 		TNT1 A 0 A_CustomPunch (10 * random(10, 55),1,CPF_NOTURN ,"ImpactorPuff",92, 0, 0, "PB_ArmorBonus", "weapons/IMGHit", "weapons/IMGMiss");
-		TNT1 A 0 A_BDPMelee(200, "MeleeAttack", -7, TRUE);
+		TNT1 A 0 A_BDPMelee();
 		TNT1 A 0 A_Blast(BF_DONTWARN | BF_NOIMPACTDAMAGE | BF_AFFECTBOSSES, 25, 60, 20, "GauntletImpact");
 		TNT1 A 0 A_Quake(3, 10, 0, 10);
 		IMPA NOP 1 A_BDPmeleestart();
