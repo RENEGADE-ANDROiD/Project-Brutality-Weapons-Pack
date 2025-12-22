@@ -54,6 +54,7 @@ ListMenu "MainMenu"
 	Size Clean
 }
 
+
 OptionMenu "ttwcoptions"
 {
 	Title "PB WAR PACK Settings"
@@ -69,13 +70,20 @@ OptionMenu "ttwcoptions"
 	SubMenu "$PBWP_COMBAT_RATING_SHOP", "AmmunitionShopSystem"
 	SubMenu "$PBWP_CHAMPION_ENEMIES", "mk_ChampionMenu"
 	Submenu "$PBWP_QUICKSWITCHER", "SwitchItUpOptions"
+	Submenu "$PBWP_BEHOLD", "BeholdOptions"
 	Submenu "$PBWP_ARCADE", "PBArcadeTweaksSettings"
 	submenu "$PBWP_DOORBUSTER","BusterMenu"
 	StaticText ""
 	Command "$PB_GO_TESTMAP", "map PBTEST"
 	StaticText ""
-	StaticText "Revamped Armors Mutators are Active.", gold
 	StaticText "Project Brutality Weapons Pack Version: 1.9.5-Release", gold
+	/* StaticText "CHAMPIONS v2.9.1 is Loaded", white
+	StaticText "BEHOLD! v3.0 is Loaded", white
+	StaticText "DOORBUSTER v1.0 is Loaded", white
+	StaticText "Random Weapon Switcher v1.0 is Loaded", white */
+	StaticText "Arcade Tweaks v1.0 is Loaded", white
+	StaticText "Revamped Armors Mutators v1.2 is Loaded", white
+	StaticText "Helmet Drops Armors v1.1 is Loaded", white
 }
 
 OptionMenu "GeneralSettings"
@@ -83,22 +91,12 @@ OptionMenu "GeneralSettings"
 	Title "General Settings"
 	Option "Primary Fire will trigger Executions", "ttwcfbex", "OnOff"
 	Option "Killstreak is Enabled", "KillstreakIsOn", "OnOff"
+	Option "Helmet Drop is Enabled", "HelmetDropCVAR", "OnOff"
+	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
 	Control "Show Combat Points", "PB_CRSHW"
 	Control "Toggle Magnet", "MagnetModeOff"
 	Control "Switch Melee Key", "+pbwp_meleemenu"
-	StaticText " "
-	StaticText "Champion Enemies Spawning Tweaks", gold
-	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
-	ScaleSlider "Champion Mutation Chance",		"champion_Mutations",		0,	256, 1, "Never Spawn"
-	Option "Spawn Item Bundles?",				"champion_Bundles",			"YesNo"
-	Option "Health Bonus style",				"champion_HealthFoods",		"FoodsOption"
-	StaticText " "
-        StaticText "Revive Upon Death Challenge modes:", white
-        Control "Revive VS 3–5 Enemy Bosses",        "+dp_random_key"
-        Control "Revive VS Up to 4 Enemy Bosses",      "+dp_quad_key"
-        Control "Revive VS Up to 6 Enemy Bosses",      "+dp_more_key"
-        Control "Revive VS Up to 10 Enemy Bosses",      "+dp_fury_key"
-        Control "Revive VS Up to 12 Enemy Bosses",	"+dp_apoc_key"
+	
 }
 
 optionmenu "MonsterSpawnSett"
@@ -110,14 +108,14 @@ optionmenu "MonsterSpawnSett"
 	statictext ""
 	statictext "---------------Normal Monsters---------------", gold
 	statictext ""
-	Option "Spawn Deep One", "DeepOneSpawner", "OnOff"
+	Option "Spawn Deep One", "DeepOneSpawn", "OnOff"
 	Option "Spawn Eye Turret", "EyeTurretSpawn", "OnOff"
 
 	statictext ""
 	statictext "---------------Boss Variants---------------", gold
 	statictext ""
-	Option "Spawn Elemental Boss Cell", "EBossCellSpawner", "OnOff"
-	Option "Spawn Cyberdemon 2016", "CyberdemonBossSpawner", "OnOff"
+	Option "Spawn Elemental Boss Cell", "EBossCellSpawn", "OnOff"
+	Option "Spawn Cyberdemon 2016", "CyberdemonBossSpawn", "OnOff"
 
 }
 
@@ -126,6 +124,18 @@ optionmenu "ItemSpawnSett"
 	Title "Item Spawn Settings"
 	StaticText "Choose what equipments/melee items spawns naturally", white
 	statictext "By default they are all on", white
+
+	statictext ""
+	statictext "---------------Armors---------------", gold
+	statictext ""
+	Option "Spawn Yellow Armor", "SpawnYellowArmor", "OnOff"
+	Option "Spawn Purple Armor", "SpawnPurpleArmor", "OnOff"
+	Option "Spawn Black Armor", "SpawnBlackArmor", "OnOff"
+	Option "Spawn Orange Armor", "SpawnOrangeArmor", "OnOff"
+	Option "Spawn White Armor", "SpawnWhiteArmor", "OnOff"
+	Option "Spawn Red Armor", "SpawnRedArmor", "OnOff"
+	Option "Spawn Cyan Armor", "SpawnCyanArmor", "OnOff"
+	Option "Spawn Demonic Armor", "SpawnDemonArmor", "OnOff"
 
 	statictext ""
 	statictext "---------------Equipments---------------", gold
@@ -199,8 +209,10 @@ OptionMenu "WeaponPackSpawnSettings"
 
 	StaticText ""
 	StaticText "---------------Presets---------------", gold
+	StaticText ""
 	StaticText "Note that you'll have to load a map first for the preset to work", white
 	statictext "It is recommended to go the Test Map first if you want to use these presets", white
+	StaticText ""
 	Command "Enable All", "netevent PBWP_EnableAll"
 	Command "Disable All", "netevent PBWP_DisableAll"
 	
@@ -575,8 +587,16 @@ OptionMenu "mk_ChampionMenu"
 	StaticText "ALL CHANGES WILL TAKE EFFECT ON NEXT MAP", gold
 	StaticText " "
 	
+	StaticText "Champion Enemies Spawning Tweaks", gold
+	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
+	ScaleSlider "Champion Mutation Chance",		"champion_Mutations",		0,	256, 1, "Never Spawn"
+	Option "Spawn Item Bundles?",				"champion_Bundles",			"YesNo"
+	Option "Health Bonus style",				"champion_HealthFoods",		"FoodsOption"
+	StaticText " "
+
 	Submenu "Champion Weighting Options", "mk_ChampionWeightMenu"
 	Submenu "Mutation Weighting Options", "mk_MutationWeightMenu"
+	StaticText " "	
 	
 	StaticText "Visual Tweaks", gold
 	StaticText " "	
@@ -787,9 +807,12 @@ OptionMenu "PBArcadeTweaksSettings"{
 	StaticText ""
 	StaticText "Normal-ish:"
 	StaticText "All items will stack up to and max out at their vanilla (Project Brutality) amounts."
-	StaticText "However, armor will be automatically picked up even if you have greater armor amount, if the armor's save percentage is greater."
+	StaticText "However, armor will be automatically picked up even if you have greater armor amount, "
+	StaticText "if the armor's save percentage is greater."
+	StaticText ""
 	StaticText "Stack to 500:"
-	StaticText "All items will max out at 500, barring medikits and stimpacks, which max out at 100 like they originally do."
+	StaticText "All items will max out at 500, barring medikits and stimpacks," 
+	statictext "which max out at 100 like they originally do."
 	StaticText "Like above, armor pickups will adjust the armor protection rating higher if the pickup is higher rated."
 	
 }

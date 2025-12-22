@@ -120,16 +120,26 @@ server bool PBSpawnPB_SBSword = True;
 server bool FirstTimeLoadingPBWP = true;
 server int ttwcfbex = 25;
 server bool KillstreakIsOn = true;
-server bool GKLoaded = false;
+server bool isGKLoaded = false;
 server bool isCMLoaded = false;
 server bool isDSLoaded = false;
-server bool PBWP_MonsterSpawn = true;
+server bool HelmetDropCVAR = true;
 
 // Monsters
 server bool EyeTurretSpawn = true;
 server bool CyberdemonBossSpawn = true;
 server bool EBossCellSpawn = true;
 server bool DeepOneSpawn = true;
+
+// Armors
+server bool SpawnYellowArmor = true;
+server bool SpawnPurpleArmor = true;
+server bool SpawnBlackArmor = true;
+server bool SpawnOrangeArmor = true;
+server bool SpawnWhiteArmor = true;
+server bool SpawnRedArmor = true;
+server bool SpawnCyanArmor = true;
+server bool SpawnDemonArmor = true;
 
 // Melee Items
 server bool KatanaSpawn = true;

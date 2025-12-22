@@ -8,7 +8,7 @@ ACTOR LegendaryAssaultShotgun : PBWP_Weapon
 	Weapon.SelectionOrder 4500
 	Weapon.KickBack 160
 	Weapon.AmmoUse 0
-    Weapon.AmmoGive 50
+    //Weapon.AmmoGive 50
     Weapon.AmmoGive2 16
     Weapon.AmmoType "PBWP_ComplexAmmo"
     Weapon.AmmoType2 "LegendaryShotgunDrum"

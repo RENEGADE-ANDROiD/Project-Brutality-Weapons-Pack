@@ -12,7 +12,7 @@ extend class PB_WeaponBase
 			Loop;
     // The Use Melee
     QuickMelee:
-        TNT1 A 0 A_JumpIf(GKLoaded, "QuickMeleeGK");
+        TNT1 A 0 A_JumpIf(isGKLoaded, "QuickMeleeGK");
         "####" A 0 {
             A_StopSound(CHAN_WEAPON);
             A_StopSound(CHAN_VOICE);

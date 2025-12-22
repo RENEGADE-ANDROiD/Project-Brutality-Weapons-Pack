@@ -102,30 +102,32 @@ class BeefRiceWeaponDrop : EventHandler
     }
 }
 
-class BeefGKChecker : EventHandler
+class BeefModChecker : EventHandler
 {
     override void WorldLoaded (WorldEvent e)
     {
+        // Dragon Sector
+        string DScompat = "DS_HealthBonus";
+        class <actor> isDScompat = DScompat; 
+
+        // Custom Marines
+        string cmcompat = "Marine_SpawnRifle";
+        class <actor> iscmcompat = cmcompat; 
+
+        // GloryKill
         string gkcompat = "ASGGuyGK";
         class <actor> isgkcompat = gkcompat; 
-        // Check if GloryKill is loaded
-        if(isgkcompat)
+
+        // Check if DragonSector is loaded
+        if(isDScompat)
         {
-            CVAR.FindCVar('GKLoaded').SetBool(true);
+            CVAR.FindCVar('isDSLoaded').SetBool(true);
         }
         else
         {
-            CVAR.FindCVar('GKLoaded').SetBool(false);
+            CVAR.FindCVar('isDSLoaded').SetBool(false);
         }
-    }
-}
 
-class BeefCustomMarinesChecker : EventHandler
-{
-    override void WorldLoaded (WorldEvent e)
-    {
-        string cmcompat = "Marine_SpawnRifle";
-        class <actor> iscmcompat = cmcompat; 
         // Check if CustomMarines is loaded
         if(iscmcompat)
         {
@@ -135,23 +137,15 @@ class BeefCustomMarinesChecker : EventHandler
         {
             CVAR.FindCVar('isCMLoaded').SetBool(false);
         }
-    }
-}
 
-class BeefDragonSectorChecker : EventHandler
-{
-    override void WorldLoaded (WorldEvent e)
-    {
-        string DScompat = "DS_HealthBonus";
-        class <actor> isDScompat = DScompat; 
-        // Check if CustomMarines is loaded
-        if(isDScompat)
+         // Check if GloryKill is loaded
+        if(isgkcompat)
         {
-            CVAR.FindCVar('isDSLoaded').SetBool(true);
+            CVAR.FindCVar('isGKLoaded').SetBool(true);
         }
         else
         {
-            CVAR.FindCVar('isDSLoaded').SetBool(false);
+            CVAR.FindCVar('isGKLoaded').SetBool(false);
         }
     }
 }

@@ -758,16 +758,19 @@ class PB_Hud_ZS : BaseStatusBar
 		"ALISTGRN, PB_GrenadeAmmo, Green, Equipment",
 		"ALISTSTN, PB_StunGrenadeAmmo, Cyan, Equipment",
 		"ALISTREV, PB_QuickLauncherAmmo, LightBlue, Equipment",
+		"ALISTEPD, ElecPodAmmo, Yellow, Equipment",
 		"ALISTMIN, PB_ProxMineAmmo, Purple, Equipment",
+		"ALISTSHG, ShieldGrenadeAmmo, Orange, Equipment",
 		"ALISTSRM, SwarmerAmmo, Orange, Equipment",
 		"ALISTACD, AcidChargeAmmo, Green, Equipment",
 		"ALISTLSR, LaserChargeAmmo, Red, Equipment",
+		"ALISTBEA, BeaconAmmo, Blue, Equipment",
+		"ALISTFRB, FreezeBotAmmo, Blue, Equipment",
 		"ALISTAXE, PB_Axe, Red, Equipment",
-		"ALISTEPD, ElecPodAmmo, Yellow, Equipment",
-		"ALISTSHG, ShieldGrenadeAmmo, Orange, Equipment",
-		"ALISTSHR, ShurikenAmmo, Purple, Equipment"
-		// "ALISTHOK, HookAmmo, DarkRed, Equipment",
-		// "ALISTSSW, ShieldSawAmmo, DarkRed, Equipment"
+		"ALISTSHR, ShurikenAmmo, Purple, Equipment",
+		"ALISTCTR, CaltropsAmmo, Purple, Equipment",
+		"ALISTHOK, HookAmmo, DarkRed, Equipment",
+		"ALISTSSW, ShieldSawAmmo, DarkRed, Equipment"
 		
 	};
 	
@@ -1421,6 +1424,10 @@ class PB_Hud_ZS : BaseStatusBar
 					PBHud_DrawImage("HBEACY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("BeaconAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
 				}
+				else if(CheckInventory("FreezebotSelected")) {
+					PBHud_DrawImage("HFRZBY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("FreezeBotAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
 				
 				//Ammo bars
 				if(showList)
@@ -1497,7 +1504,7 @@ class PB_Hud_ZS : BaseStatusBar
 					case 'Prosurv_Ballista':
 						if(CheckInventory("BallistaDemonicMode"))
 						{
-							PBHud_DrawImage("BARBACZ3", (-90, -71), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+							PBHud_DrawImage("BARBACD3", (-90, -71), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
 							PBHud_DrawBar("ABAR6", "BGBARL", GetAmount("PB_Fuel"), GetMaxAmount("PB_Fuel"),
 								(-100, -72), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
 							PBHud_DrawString(mDefaultFont, FormatNumber(GetAmount("PB_Fuel")),

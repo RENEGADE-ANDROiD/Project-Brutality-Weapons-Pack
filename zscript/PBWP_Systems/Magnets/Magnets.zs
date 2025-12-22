@@ -191,11 +191,13 @@ Class PBWP_ItemMagnet : Inventory
 	override void DoEffect()
 	{
 		super.DoEffect();
+		if(!IsMagnetOn)
+			return;
 		if (isFrozen())
 			return;
 			
 		let barmor = BasicArmor(owner.FindInventory("BasicArmor"));
-		if (barmor && barmor.Amount > 0 && IsMagnetOn == true)
+		if (barmor && barmor.Amount > 0)
 		{
 			if (level.time % 2 == 0) // Poll for items every 2 tics.
 			{
