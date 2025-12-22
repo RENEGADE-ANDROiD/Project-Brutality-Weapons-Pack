@@ -90,6 +90,7 @@ OptionMenu "GeneralSettings"
 {
 	Title "General Settings"
 	Option "Primary Fire will trigger Executions", "ttwcfbex", "OnOff"
+	option "Monster weapon drops ","PB_WeaponDrops","MonsterDrops"
 	Option "Killstreak is Enabled", "KillstreakIsOn", "OnOff"
 	Option "Helmet Drop is Enabled", "HelmetDropCVAR", "OnOff"
 	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"

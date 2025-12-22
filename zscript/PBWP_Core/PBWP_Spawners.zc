@@ -1616,7 +1616,6 @@ class PBWP_EyeTurretSpawner : PBInjector
 	if(EyeTurretSpawn)
 		{
 		// Eye Turret
-		handler.InjectSpawn('PB_ImpSpawner_T1', 'DoomEyeTurret', 255, 1);
 		handler.InjectSpawn('PB_ImpSpawner_T2', 'DoomEyeTurret', 255, 1);
 		handler.InjectSpawn('PB_ImpSpawner_T3', 'DoomEyeTurret', 255, 1);
 		handler.InjectSpawn('PB_ImpSpawner_T4', 'DoomEyeTurret', 255, 1);
