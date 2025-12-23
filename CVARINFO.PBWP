@@ -153,6 +153,7 @@ server bool isGKLoaded = false;
 server bool isCMLoaded = false;
 server bool isDSLoaded = false;
 server bool HelmetDropCVAR = true;
+server bool AllMeleeDrop = true;
 
 // Monsters
 server bool EyeTurretSpawn = true;
