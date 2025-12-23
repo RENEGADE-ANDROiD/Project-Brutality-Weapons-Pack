@@ -8,24 +8,31 @@ Gameinfo
 	"IN_PlayerPrawn"
 
 	addeventhandlers = 
-	"CSSGEvent",
-    "RandomWeaponSwitcher",
-    "BeefRiceWeaponDrop",
+	// CORE
+	"BeefRiceWeaponDrop",
 	"BeefCustomAmmoDrop",
-	"HelmetDropHandler",
-	"BloodSampleEvent",
-	"MonsterDetectionEvent",
 	"BeefSpawnPresets",
 	"BeefModChecker",
+	"BeefMeleeDrop",
 	"BeefMiscHandler",
+	// WEAPONS
+	"CSSGEvent",
 	"ExterminatorStuff",
-	"PBWP_MagnetHandler",
-	"BusterHandler",
+	// SYSTEMS
+	"HelmetDropHandler",
+	"OuchieFlashHandler",
+    "RandomWeaponSwitcher",
 	"KillTracker",
+	"BusterHandler",
 	"RareItemDropped",
 	"champion_Handler", 
 	"champion_CHExtra",
-	"OuchieFlashHandler"
+	// MISC
+	"BloodSampleEvent",
+	"MonsterDetectionEvent",
+	"PBWP_MagnetHandler"
+	
+	
 	// Add More Handlers Here
 	
 }

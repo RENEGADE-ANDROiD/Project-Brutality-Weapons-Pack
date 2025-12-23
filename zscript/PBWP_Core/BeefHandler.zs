@@ -25,7 +25,7 @@ class BeefRiceWeaponDrop : EventHandler
             // Different Monsters spawn Different Things
             // Custom Monsters
             case 'HellTrooperPaingiver':
-                if(PaingiverDrop == 1) { self.spawnThings("PainGiverSpawner", monsPos); } 
+                if(PaingiverDrop == 1) { self.spawnThings("Paingiver", monsPos); } // ALWAYS DROP PAINGIVER
                 break;
 
             //case 'PB_JuggernautGK': //Should we make the Juggernaut Drop MastermindCG?
@@ -33,7 +33,7 @@ class BeefRiceWeaponDrop : EventHandler
             case 'PB_DemolisherGK': 
             case 'PB_Mastermind': 
             case 'PB_Demolisher':
-                if(MastermindCGDrop == 1) { self.spawnThings("MastermindCGSpawner", monsPos); } 
+                if(MastermindCGDrop == 1) { self.spawnThings("MastermindChaingun", monsPos); } // ALWAYS DROP MASTERMIND CG
                 break;
 
             case 'PB_DemonTechZombieGK':  
@@ -201,6 +201,24 @@ class BeefMiscHandler : EventHandler
         }
         return;
     }
+}
+
+class BeefMeleeDrop : EventHandler
+{
+    override void WorldThingDied(WorldEvent e)
+	{
+        if (!e || !e.thing) return;
+        if (!e.thing.bISMONSTER) return;
+        if(!AllMeleeDrop) return;
+        let actor = e.thing;
+        int monsHealth = actor.getMaxHealth();  
+
+        if (monsHealth <= 20) return;
+        if (monsHealth >= 200) return;
+        if (Random(1, 100) >= 20) return; // BASICALLY, BETWEEN 20-200 HP WILL HAVE A 20% CHANCE OF SPAWNING
+        //console.printf("Spawn Succesful");
+        actor.A_SpawnItemEx('MeleeDropSpawner', 0, 0, 0, frandom(0.5, 2.0), 0, frandom(1.0, 4.0), random(0, 359), SXF_NOCHECKPOSITION);
+    } 
 }
 
 class BeefCustomAmmoDrop : EventHandler

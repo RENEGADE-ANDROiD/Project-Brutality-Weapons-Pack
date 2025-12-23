@@ -79,13 +79,15 @@ OptionMenu "ttwcoptions"
 	Command "$PB_GO_TESTMAP", "map PBTEST"
 	StaticText ""
 	StaticText "Project Brutality Weapons Pack Version: 1.9.5-Release", gold
-	/* StaticText "CHAMPIONS v2.9.1 is Loaded", white
+	/* StaticText "CHAMPIONS v2.9.1 is Loaded", white // DONT SHOW MODS THAT ALREADY HAVE THEIR OWN SETTINGS
 	StaticText "BEHOLD! v3.0 is Loaded", white
 	StaticText "DOORBUSTER v1.0 is Loaded", white
 	StaticText "Random Weapon Switcher v1.0 is Loaded", white */
-	StaticText "Arcade Tweaks v1.0 is Loaded", white
+	/* StaticText "Arcade Tweaks v1.0 is Loaded", white */
 	StaticText "Revamped Armors Mutators v1.2 is Loaded", white
-	StaticText "Helmet Drops Armors v1.1 is Loaded", white
+	StaticText "PickupItemVariations v1.2 is Loaded", white
+	StaticText "ZoomAutoShotgun v1.2 is Loaded", white
+	/* StaticText "Helmet Drops Armors v1.1 is Loaded", white */
 }
 
 OptionMenu "GeneralSettings"
@@ -97,6 +99,7 @@ OptionMenu "GeneralSettings"
 	Option "Killstreak is Enabled", "KillstreakIsOn", "OnOff"
 	Option "Helmet Drop is Enabled", "HelmetDropCVAR", "OnOff"
 	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
+	ScaleSlider "Flash duration", "OuchFlashDuration", 0, 35, 1, "Disabled", "????? HOW IS IT -1"
 	Control "Show Combat Points", "PB_CRSHW"
 	Control "$PBWP_TOGGLE_MELEE_MENU", "+pbwp_meleemenu"
 	Control "Toggle Magnet", "MagnetModeOff"
@@ -158,6 +161,7 @@ optionmenu "ItemSpawnSett"
 	statictext ""
 	statictext "---------------Melee Items---------------", gold
 	statictext ""
+	Option "Enable Melee Drop", "AllMeleeDrop", "OnOff"
 	Option "Spawn Katana", "KatanaSpawn", "OnOff"
 	Option "Spawn Pick Axe", "PickaxeSpawn", "OnOff"
 	Option "Spawn Impactor Gauntlet", "ImpactorSpawn", "OnOff"
@@ -174,37 +178,38 @@ optionmenu "ItemSpawnSett"
 OptionMenu "MonsterDropWeapSett"
 {
 	Title "Monster Drop Settings"
+	Class "PB_OptionMenu"
 	StaticText "Choose what things drop from killed enemies", white
 	StaticText "By default they are all Off", white
 	StaticText ""
 	StaticText "---------------Specials---------------", gold
 	StaticText ""
-	Option "D-Tech Trooper Spawn All D-Tech Weapons", "PBSpawnALLDTechDrop", "OnOff"
-	Option  "PB Monster weapon drops (Default is Just Ammo)","PB_WeaponDrops","MonsterDrops"
+	Option "Enable D-Tech Trooper Drop", "PBSpawnALLDTechDrop", "OnOff"
 	
 	StaticText ""
 	StaticText "---------------Monster Pack---------------", gold
 	StaticText ""
-	Option "Marauder drop MSSG, Meat Hook, and MSSG Upgrade", "PBSpawnMSSGDrop", "OnOff"
-	Option "Cyber Satyr drop Shield Grenades", "EQSpawnShieldGR", "OnOff"
+	Option "Enable Marauder Drop", "PBSpawnMSSGDrop", "OnOff"
+	Option "Enable Cyber Satyr Drop", "EQSpawnShieldGR", "OnOff"
 	
 	StaticText ""
 	StaticText "---------------Slot 6 weapons---------------", gold
 	StaticText ""
-	Option "Cyberdemons drop Cyberdemon Missile Launcher", "PBSpawnCyberdemonRLDrop", "OnOff"
-	Option "Masterminds drop Mastermind Chaingun", "PBSpawnMastermindCGDrop", "OnOff"
-	Option "Rocket Hell Trooper drop Paingiver", "PBSpawnPaingiverDrop", "OnOff"
+	Option "Enable Cyberdemons Drop", "PBSpawnCyberdemonRLDrop", "OnOff"
+	Option "Enable Masterminds Drop", "PBSpawnMastermindCGDrop", "OnOff"
+	Option "Enable Rocket Hell Trooper Drop", "PBSpawnPaingiverDrop", "OnOff"
 
 	StaticText ""
 	StaticText "---------------Slot 8 weapons---------------", gold
 	StaticText ""
-	Option "Mancubus drop Flame Cannon", "PBSpawnMancFlameCannonDrop", "OnOff"
+	Option "Enable Mancubus Drop", "PBSpawnMancFlameCannonDrop", "OnOff"
 }
 
 OptionMenu "WeaponPackSpawnSettings"
 {
 	Title "Weapon Pack Spawn Settings"
-	StaticText "Choose what weapon spawns naturally"
+	Class "PB_OptionMenu"
+	StaticText "Choose what weapon spawns naturally", white
 	StaticText "Some have prefix that indicates which weapon pack it came from", white
 	StaticText "DTECH = Demon-Tech Weapons Pack", white
 	StaticText "SCHISM = Schism / Fire & Ice", white

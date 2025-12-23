@@ -50,6 +50,7 @@ Actor HellTrooperPaingiver : PB_DemonTechZombie //Inherits from the Demon Tech T
 	Obituary "%o was given pain by a demon tech trooper."
 	DamageFactor "Taunt", 1.0
 	DropItem "LeechGrenade" 3
+	DropItem "PB_RocketAmmo" 255
 	States
 	{
 	Death.Shrink:
