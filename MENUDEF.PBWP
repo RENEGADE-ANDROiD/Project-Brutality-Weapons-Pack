@@ -73,6 +73,7 @@ OptionMenu "ttwcoptions"
 	Submenu "$PBWP_QUICKSWITCHER", "SwitchItUpOptions"
 	Submenu "$PBWP_BEHOLD", "BeholdOptions"
 	Submenu "$PBWP_ARCADE", "PBArcadeTweaksSettings"
+	Submenu "$PBWP_OUCHIE", "DamageFlashColorsWoooo"
 	submenu "$PBWP_DOORBUSTER","BusterMenu"
 	StaticText ""
 	Command "$PB_GO_TESTMAP", "map PBTEST"
@@ -825,4 +826,54 @@ OptionValue "ATPickupMode"
 {
 	0, "Normal-ish"
 	1, "Stack to 500"
+}
+
+OptionMenu "DamageFlashColorsWoooo"
+{
+	Title "Ouchie! Damage Flash Settings"
+	StaticText " "
+	StaticText "-=  Mod config.  =-", "yellow"
+	StaticText " "
+	ScaleSlider "Flash duration", "OuchFlashDuration", 0, 35, 1, "Disabled", "????? HOW IS IT -1"
+	ScaleSlider "Flash cooldown", "OuchFlashCooldown", 0, 35, 1, "Disabled", "what", "OuchFlashDuration", 0
+	Option "Actor types to trigger a flash", "OuchFlashOnlyMonsters", "OuchFlashActorType", "OuchFlashDuration", 0
+	Slider "Minimum damage to trigger a flash", "OuchFlashMinDamage", 1, 100, 5, 0, "OuchFlashDuration", 0
+	ScaleSlider "Extra brightness when flashing", "OuchFlashBrightness", 0, 255, 32, "Disabled", "what", "OuchFlashDuration", 0
+	Option "Flash type", "OuchFlashSolidColor", "OuchFlashType", "OuchFlashDuration", 0
+	StaticText " "
+	ColorPicker "Default", 					"OuchFlash_", "OuchFlashDuration", 0
+	StaticText " "
+	StaticText "-=  ZDoom Damage Types  =-", "yellow"
+	StaticText " "
+	ColorPicker "Hitscan", 				"OuchFlash_Hitscan", "OuchFlashDuration", 0
+	ColorPicker "BFG splash", 				"OuchFlash_BFGSplash", "OuchFlashDuration", 0
+	ColorPicker "Drowning", 				"OuchFlash_Drowning", "OuchFlashDuration", 0
+	ColorPicker "Slime (damaging floors)", 	"OuchFlash_Slime", "OuchFlashDuration", 0
+	ColorPicker "Fire", 					"OuchFlash_Fire", "OuchFlashDuration", 0
+	ColorPicker "Crush", 					"OuchFlash_Crush", "OuchFlashDuration", 0
+	ColorPicker "Telefrag", 				"OuchFlash_Telefrag", "OuchFlashDuration", 0
+	ColorPicker "Melee",			 		"OuchFlash_Melee", "OuchFlashDuration", 0
+	ColorPicker "Railgun", 					"OuchFlash_Railgun", "OuchFlashDuration", 0
+	ColorPicker "Ice", 						"OuchFlash_Ice", "OuchFlashDuration", 0
+	ColorPicker "Electric", 				"OuchFlash_Electric", "OuchFlashDuration", 0
+	ColorPicker "Poison", 					"OuchFlash_Poison", "OuchFlashDuration", 0
+	StaticText " "
+	StaticText "-=  Misc. (mod specific)  =-", "yellow"
+	StaticText " "
+	ColorPicker "Plasma", 					"OuchFlash_Plasma", "OuchFlashDuration", 0
+	ColorPicker "Freeze", 					"OuchFlash_Freeze", "OuchFlashDuration", 0
+	ColorPicker "Bleed", 					"OuchFlash_Bleed", "OuchFlashDuration", 0
+	
+}
+
+
+OptionValue "OuchFlashActorType" 
+{
+	0, "All actors"
+	1, "Monsters only"
+}
+OptionValue "OuchFlashType" 
+{
+	0, "Tint"
+	1, "Solid color"
 }
