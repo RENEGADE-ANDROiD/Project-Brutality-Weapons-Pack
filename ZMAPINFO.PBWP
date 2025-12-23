@@ -21,6 +21,7 @@ Gameinfo
 	// SYSTEMS
 	"HelmetDropHandler",
 	"OuchieFlashHandler",
+	"D4DHandler",
     "RandomWeaponSwitcher",
 	"KillTracker",
 	"BusterHandler",

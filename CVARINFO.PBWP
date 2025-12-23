@@ -1,6 +1,16 @@
 //PB Arcade 500HP//
 server int PBAT_PickupMode = 0;
 
+//DamageIndicatorsV2//
+user 	bool 	D4D_DamageIndicators 	= true;
+user 	int 	D4D_IndicatorType 		= 0;
+user 	float 	D4D_DIScale 			= 0.5;
+user 	float 	D4D_DIAlpha 			= 1.0;
+user 	int 	D4D_DITimer 			= 35;
+user	int		D4D_DIAnim				= 0;
+user	bool	D4D_NoColorType			= false;
+user	color	D4D_DefColor			= "FF0000";
+
 //Ouchie! by Dox//
 server bool OuchFlashEnabled = true;
 server bool OuchFlashOnlyMonsters = true;

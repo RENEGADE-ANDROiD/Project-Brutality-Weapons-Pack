@@ -74,6 +74,7 @@ OptionMenu "ttwcoptions"
 	Submenu "$PBWP_BEHOLD", "BeholdOptions"
 	Submenu "$PBWP_ARCADE", "PBArcadeTweaksSettings"
 	Submenu "$PBWP_OUCHIE", "DamageFlashColorsWoooo"
+	Submenu "$PBWP_DMGINDICATOR", "D4D_DIMenu"
 	submenu "$PBWP_DOORBUSTER","BusterMenu"
 	StaticText ""
 	Command "$PB_GO_TESTMAP", "map PBTEST"
@@ -100,6 +101,7 @@ OptionMenu "GeneralSettings"
 	Option "Helmet Drop is Enabled", "HelmetDropCVAR", "OnOff"
 	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
 	ScaleSlider "Flash duration", "OuchFlashDuration", 0, 35, 1, "Disabled", "????? HOW IS IT -1"
+	option "Damage Indicators Enabled ","D4D_DamageIndicators","YesNo"
 	Control "Show Combat Points", "PB_CRSHW"
 	Control "$PBWP_TOGGLE_MELEE_MENU", "+pbwp_meleemenu"
 	Control "Toggle Magnet", "MagnetModeOff"
@@ -831,6 +833,52 @@ OptionValue "ATPickupMode"
 {
 	0, "Normal-ish"
 	1, "Stack to 500"
+}
+
+optionmenu "D4D_DIMenu"
+{
+	Title "D4D Damage indicators menu"
+	statictext "====================="
+	statictext ""
+	option "Enabled ","D4D_DamageIndicators","YesNo"
+	statictext ""
+	option "Type ","D4D_IndicatorType","D4DIndTypes"
+	statictext ""
+	option "Enable damage type colored indicator ","D4D_NoColorType","NoYes"
+	statictext ""
+	slider "Scale ","D4D_DIScale",0.2,1.0,0.05
+	statictext ""
+	slider "Alpha ","D4D_DIAlpha",0.05,1.0,0.05
+	statictext ""
+	slider "Duration (in Tics) ","D4D_DITimer",20,140,5
+	statictext ""
+	option "Animation ","D4D_DIAnim","D4DAnimTypes"
+	statictext ""
+	statictext "Indicator default color"
+	statictext ""
+	colorpicker "Color picker","D4D_DefColor"
+	statictext ""
+	textfield "Hex","D4D_DefColor"
+}
+
+optionvalue "D4DIndTypes"
+{
+	0,"MW2019"
+	1,"D4D"
+	2,"CODWW2"
+	3,"WD"
+}
+
+optionvalue "D4DAnimTypes"
+{
+	-1,"None"
+	0,"< Expand >(Subtle)"
+	1,">Shrink<(Fast)"
+	2,"< Expand >(Fast)"
+	3,">Shrink<(Subtle)"
+	4,"Blink"
+	5,"Float"
+	6,"Float & grow"
 }
 
 OptionMenu "DamageFlashColorsWoooo"

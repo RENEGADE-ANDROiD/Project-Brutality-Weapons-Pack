@@ -25,6 +25,8 @@ version "4.14.2"
 #include "zscript/PBWP_Systems/Magnets/Magnets.zs"
 // Helmet Drops
 #include "zscript/PBWP_Systems/HelmetDrops/HelmetDropSpawner.zs"
+//DamageIndicatorsV2
+#include "zscript/PBWP_Systems/DmgIndicatorV2/EventRender.zs"
 // ChampionsEnemies
 #include "zscript/PBWP_Systems/champions/includes.zs"
 #include "zscript/PBWP_Systems/champions/handler.zs"
