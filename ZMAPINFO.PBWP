@@ -24,7 +24,8 @@ Gameinfo
 	"KillTracker",
 	"RareItemDropped",
 	"champion_Handler", 
-	"champion_CHExtra"
+	"champion_CHExtra",
+	"OuchieFlashHandler"
 	// Add More Handlers Here
 	
 }
