@@ -68,7 +68,6 @@ class PB_MSSGSpawnerT1 : PB_WeaponSpawner
     Default
     {
         Dropitem "MSSGUpgrade", 255, 1;
-        //Dropitem "ColdKeeperUpgrade", 255, 1;
         Dropitem "PB_Shell", 255, 9;
     }
 }
@@ -77,7 +76,6 @@ class PB_MSSGSpawnerT2 : PB_WeaponSpawner
     Default
     {
         Dropitem "MSSGUpgrade", 255, 2;
-        //Dropitem "ColdKeeperUpgrade", 255, 1;
         Dropitem "PB_Shell", 255, 8;
     }
 }
@@ -98,24 +96,6 @@ class PB_MSSGSpawnerT4 : PB_WeaponSpawner
     {
         Dropitem "MSSGUpgrade", 255, 1;
         Dropitem "ColdKeeperUpgrade", 255, 1;
-    }
-}
-
-// Mastermind Chaingun
-class PB_MMCGSpawner : PB_WeaponSpawner 
-{
-    Default
-    {
-        Dropitem "MastermindChaingun", 255, 1;
-    }
-}
-
-// PainGiver
-class PB_PainGiverSpawner : PB_WeaponSpawner 
-{
-    Default
-    {
-        Dropitem "Paingiver", 255, 1;
     }
 }
 

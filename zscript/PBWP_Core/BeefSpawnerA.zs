@@ -72,48 +72,6 @@ Class MarauderDropSpawner : PBWP_Spawner
 	}
 }
 
-// MasterMind
-Class MastermindCGSpawner : PBWP_Spawner
-{
-    States
-	{
-		Tier2:
-		Tier1:
-			TNT1 A 0;
-			TNT1 A 0 A_SpawnItemEx("PB_RocketBoxSpawnerT1");
-			Stop;
-		Tier4:
-		Tier3:
-			TNT1 A 0;
-			TNT1 A 0 A_SpawnItemEx("PB_MMCGSpawner");
-			Stop;
-		Death:
-			TNT1 A 0;
-			Goto Spawn;
-	}
-}
-
-// Paingiver
-Class PainGiverSpawner : PBWP_Spawner
-{
-    States
-	{
-		Tier2:
-		Tier1:
-			TNT1 A 0;
-			TNT1 A 0 A_SpawnItemEx("PB_RocketBoxSpawnerT1");
-			Stop;
-		Tier4:
-		Tier3:
-			TNT1 A 0;
-			TNT1 A 0 A_SpawnItemEx("PB_PainGiverSpawner");
-			Stop;
-		Death:
-			TNT1 A 0;
-			Goto Spawn;
-	}
-}
-
 // DemonTech Spawner
 Class DTechSpawner : PBWP_Spawner
 {
@@ -163,20 +121,16 @@ Class BeamKatanaSpawner : PBWP_Spawner
 {
 	States
 	{
-		Spawn:
-            TNT1 A 0;
-            TNT1 A 0 A_JumpIf(players[consoleplayer].mo.CountInv("AlreadyHaveArgentSith") == 1,"GiveNoKatana"); 
-			Goto StartChoose; //ALWAYS GO TO THIS AFTER REPLACING SPAWN:
-		GiveNoKatana:
-        Tier3:
         Tier4:
-            TNT1 A 0;
-			TNT1 A 0 PB_SpawnerSpawn("ArgentSithAmmoSpawner");
-			Stop;
+        Tier3:
 		Tier2:
 		Tier1:
 			TNT1 A 0;
-			TNT1 A 0 PB_SpawnerSpawn("PB_BeamKatanaSpawner");
+			TNT1 A 0 {
+				if(players[consoleplayer].mo.CountInv("AlreadyHaveArgentSith") == 1){
+					PB_SpawnerSpawn("ArgentSithAmmoSpawner");}
+				else {PB_SpawnerSpawn("PB_BeamKatanaSpawner");}
+			}
 			Stop;
 		Death:
 			TNT1 A 0;
