@@ -27,7 +27,7 @@ ACTOR Adv_MaskMan_Rifle : PBWP_Weapon
 		
 		Scale 0.7
 		PB_WeaponBase.RespectItem "TAdvRespect"
-		Weapon.SlotNumber 4
+		// Weapon.SlotNumber 4
 		Weapon.SlotPriority 4
 		Inventory.PickupSound "MS_PCKP"
 		Inventory.PickupMessage "UAC X-50EX -;(The True Legion);-! (Slot 4)"

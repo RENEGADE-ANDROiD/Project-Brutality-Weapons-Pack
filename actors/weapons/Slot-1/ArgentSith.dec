@@ -33,7 +33,7 @@ Actor PB_ArgentSith : PBWP_Weapon
    Inventory.Pickupmessage "You got the Argent Sith Energy Beam Katana. (Slot 1)"
    Inventory.Icon "BVATK0"
    Obituary  "Feels Familiar?, Join The Darksiiide!"
-   Weapon.SlotNumber 1
+//    Weapon.SlotNumber 1
    Scale 0.6
    Tag "Argent Sith Beam Katana"
    Inventory.AltHudIcon "BVATK0"

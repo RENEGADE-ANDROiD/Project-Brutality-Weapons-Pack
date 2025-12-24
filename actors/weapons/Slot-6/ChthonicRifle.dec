@@ -13,7 +13,7 @@ ACTOR ChthonicRifle : PBWP_Weapon  //Daller-Faust's Won't use the Sprites. But I
 	Weapon.AmmoType2 "ChthonicRifleAmmo"
 	Weapon.AmmoGive2 90
 	Weapon.AmmoUse2 0
-	Weapon.SlotNumber 4
+	// Weapon.SlotNumber 4
 	Weapon.SlotPriority 2.1
 	+WEAPON.NOAUTOAIM
     +WEAPON.NOALERT

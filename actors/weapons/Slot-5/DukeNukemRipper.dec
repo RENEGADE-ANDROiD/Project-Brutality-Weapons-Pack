@@ -36,7 +36,7 @@ Actor DukeNukemRipper : PBWP_Weapon
 	Inventory.PickupMessage "You got the Ripper Chaingun. (Slot 5)"
 	Obituary "Was mowed down by the Ripper. Cry to your mama!"
 	AttackSound "None"
-	Weapon.SlotNumber 5
+	// Weapon.SlotNumber 5
 	Weapon.SelectionOrder 2800
 	Scale 0.8
 	Tag "Ripper Chaingun"

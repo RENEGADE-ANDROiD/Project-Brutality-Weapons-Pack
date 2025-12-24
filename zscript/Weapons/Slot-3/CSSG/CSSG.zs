@@ -3,7 +3,7 @@ Class PB_CSSG : PBWP_Weapon
 {
 	default
 	{
-		weapon.slotnumber 3;
+		// weapon.slotnumber 3;
 		Inventory.PickupMessage "You got the Commander SSG!";
 		Obituary "%o was devastated by %k.";
 		Inventory.PickupSound "COMSSGUP";

@@ -26,7 +26,7 @@ ACTOR LightningGun : PBWP_Weapon
 	-FORCEXYBILLBOARD
 	+WEAPON.AXEBLOOD
 	+WEAPON.NO_AUTO_SWITCH
-	Weapon.SlotNumber 7
+	// Weapon.SlotNumber 7
 	Weapon.SlotPriority 0.2
     Inventory.PickupMessage "UAC-D2a Lightning Gun (Slot 6)"
     Obituary "%o was electrocuted by %k."

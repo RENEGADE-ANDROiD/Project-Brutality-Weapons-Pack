@@ -4,7 +4,7 @@ ACTOR RotationalSG : PBWP_Weapon
     Weapon.AmmoType1 "PB_Shell"
     Weapon.AmmoGive1 300
 	Weapon.AmmoUse1 0
-	Weapon.SlotNumber 3
+	// Weapon.SlotNumber 3
 	Weapon.SlotPriority 0.4
 	+WEAPON.NOAUTOAIM
     +WEAPON.NOALERT

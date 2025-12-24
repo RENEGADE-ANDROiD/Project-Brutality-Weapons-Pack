@@ -132,7 +132,7 @@ ACTOR HASG : PBWP_Weapon
     +WEAPON.NOAUTOFIRE
 	+FORCEXYBILLBOARD
 	+WEAPON.NO_AUTO_SWITCH
-	Weapon.SlotNumber 3
+	// Weapon.SlotNumber 3
 	Weapon.SlotPriority 3
 	Inventory.PickUpSound "ASG_GOLI"
 	Inventory.PickupMessage "UAC XHAS-SP -;{The Lady Golide};- (Slot 3)"

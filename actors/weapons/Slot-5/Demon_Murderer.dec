@@ -107,7 +107,7 @@ ACTOR HeavySniperRifle : PBWP_Weapon
     +WEAPON.NOAUTOFIRE
 	+FORCEXYBILLBOARD
 	+WEAPON.NO_AUTO_SWITCH
-	Weapon.SlotNumber 5
+	// Weapon.SlotNumber 5
 	Weapon.SlotPriority 5
 	PB_WeaponBase.RespectItem "HARRespect"
 	Inventory.PickupMessage "\cjYou found the HAR \ck:-{Daemon Murderer}-:! \cj(Slot 5)"

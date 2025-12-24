@@ -18,7 +18,7 @@ ACTOR PlasmaRifleAssault : PBWP_Weapon 23817
     +WEAPON.NOAUTOFIRE
 	+FORCEXYBILLBOARD
 	+WEAPON.NO_AUTO_SWITCH
-	Weapon.SlotNumber 7
+	//Weapon.SlotNumber 7
 	Weapon.SlotPriority 0
 	PB_WeaponBase.RespectItem "AssaultPlasResp"
    States

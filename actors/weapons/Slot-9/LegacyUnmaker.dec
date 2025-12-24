@@ -27,7 +27,7 @@ Actor PB_LegacyUnmaker : PBWP_Weapon
    +WEAPON.NOAUTOAIM
    +WEAPON.NOAUTOFIRE
    +DONTGIB
-	Weapon.SlotNumber 0
+	// Weapon.SlotNumber 0
 	Weapon.SlotPriority 0
 	Weapon.SelectionOrder 1800
 	Scale 0.9

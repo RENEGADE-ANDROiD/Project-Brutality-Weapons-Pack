@@ -43,7 +43,7 @@ Actor PB_BoltRifle : PBWP_Weapon
    +INVENTORY.ALWAYSPICKUP
    +FORCEXYBILLBOARD
    +FLOORCLIP
-    Weapon.SlotNumber 4
+    // Weapon.SlotNumber 4
     Weapon.SlotPriority 4
     Weapon.SelectionOrder 9500
     Inventory.PickupSound "M40RIF3"

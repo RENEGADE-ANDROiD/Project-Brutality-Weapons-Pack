@@ -53,7 +53,6 @@ version "4.14.2"
 #include "zscript/PBWP_Systems/champions/champs/champ_Bronze.zs"
 #include "zscript/PBWP_Systems/champions/champs/champ_Silver.zs"
 #include "zscript/PBWP_Systems/champions/champs/champ_Gold.zs"
-
 #include "zscript/PBWP_Systems/champions/bundles/bundles.zs"
 #include "zscript/PBWP_Systems/champions/bundles/pickups.zs"
 //#include "zscript/PBWP_Systems/champions/bundles/games/generic.zs"
@@ -64,8 +63,8 @@ version "4.14.2"
 #include "zscript/PBWP_Systems/champions/bundles/games/modcompat.zs"
 //#include "zscript/PBWP_Systems/champions/bundles/games/chex.zs"
 
-// Player Pawn Insanity Beef: Will this be added later?
-#include "zscript/Player/INPlayer.zc"
+// Custom Player Class
+// #include "zscript/Player/INPlayer.zc"
 #include "ZScript/Player/PBMeleePlayer.zc"
 
 // PBWP_Misc

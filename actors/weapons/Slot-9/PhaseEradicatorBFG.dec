@@ -15,7 +15,7 @@ Weapon.SelectionOrder 10
 +WEAPON.NOAUTOAIM
 Inventory.PickupSound "EradicationBFG/Pickup"
 Inventory.PickupMessage "You got the FUCKING Phase Eradicator BFG"
-Weapon.SlotNumber 0
+// Weapon.SlotNumber 0
 States
 {
 

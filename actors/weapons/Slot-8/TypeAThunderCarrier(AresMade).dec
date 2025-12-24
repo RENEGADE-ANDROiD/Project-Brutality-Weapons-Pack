@@ -4,7 +4,7 @@ ACTOR ThunderCarrierTI : PBWP_Weapon
     Weapon.AmmoType1 "PB_Cell"
     Weapon.AmmoGive1 300
 	Weapon.AmmoUse1 0
-	Weapon.SlotNumber 7
+	// Weapon.SlotNumber 7
 	Weapon.SlotPriority 3.2
 	+WEAPON.NOAUTOAIM
     +WEAPON.NOALERT

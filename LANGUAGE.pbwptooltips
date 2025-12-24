@@ -9,6 +9,7 @@ TIP_KillstreakIsOn = "Killing enemies multiple times will grant powerups and oth
 TIP_HelmetDropCVAR = "Enemies that have helmets will drop their helmets that you can pick up \nand gives a small amount of armor";
 TIP_champion_OverrideChance = "Determine the spawn chance of Champion Monstsers \nCan be disabled, check the Champion Enemies Menu for more settings";
 TIP_OuchFlashDuration = "Determine the duration of pain flash of mosnters \nCan be disabled, check the Ouchie! Menu for more settings";
+TIP_cl_Health_FX = "Shows a red overlay, heartbeat sound, and desaturates the screen when low hp";
 
 // MONSTER DROP 
 TIP_PBSpawnALLDTechDrop = "Demon-Tech Trooper will drop one of the following \n1. D-Tech Pistol \n2. D-Tech Shotgun \n3. D-Tech Rifle \n4. D-Tech Minigun \n5. D-Tech Blaster \n6. D-Tech Blaster Upgrade";
@@ -55,7 +56,6 @@ TIP_SpawnShieldSaw = "Throw Shield Saw, will fly back to the player after hit or
 
 // MISC 
 TIP_PBSpawnStormcast = "WARNING: BUGGY WEAPON" \nBeefRice: This thing is mega busted;
-TIP_PBSpawnCalamityBlade = "WARNING: BUGGY WEAPON; NO KICK/PUNCH";
 TIP_PBSpawnPB_MancubusFlameCannon = "STOP ASKING ABOUT THE MANCUBUS FLAME CANNON";
 TIP_PBSpawnProsurv_LeverAction = "BeefRice: My Favourite";
 TIP_PBSpawnMarauderSSG = "Here's a tip, use the MeatHook as much as you can but be careful";

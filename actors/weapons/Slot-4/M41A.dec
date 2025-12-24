@@ -123,7 +123,7 @@ Actor M41A : PBWP_Weapon
 	Inventory.PickupSound "weapons/M41APulseRifleup"
 	Inventory.PickupMessage "M41A Aliens Pulse Rifle (Slot 4)"
 	Obituary "Was mowed down by M41A Aliens Pulse Rifle."
-	Weapon.SlotNumber 4
+	// Weapon.SlotNumber 4
 	Weapon.SlotPriority 0
     Weapon.SelectionOrder 7
 	Weapon.SelectionOrder 800

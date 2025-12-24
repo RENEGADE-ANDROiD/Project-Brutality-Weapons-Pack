@@ -20,7 +20,7 @@ ACTOR W_SMG : PBWP_Weapon
 	+WEAPON.NO_AUTO_SWITCH
 	+INVENTORY.ALWAYSPICKUP
 	Inventory.MaxAmount 2
-	Weapon.SlotNumber 2
+	// Weapon.SlotNumber 2
 	Weapon.SlotPriority 2
 	Inventory.PickUpSound "PICKM"
 	Inventory.Pickupmessage "UAC SMG-52B Sub-fusil (Slot 2)"

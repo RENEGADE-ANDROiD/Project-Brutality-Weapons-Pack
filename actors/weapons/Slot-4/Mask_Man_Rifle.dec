@@ -23,7 +23,7 @@ ACTOR MaskMan_Rifle : PBWP_Weapon 26051
 	
 	Scale 0.7
 	PB_WeaponBase.RespectItem "TLMGRespect"
-	Weapon.SlotNumber 4
+	// Weapon.SlotNumber 4
 	Weapon.SlotPriority 4
 	Inventory.PickupSound "MS_PCKP"
 	Inventory.PickupMessage "UAC MR-64 -;(Legion);-! (Slot 4)"

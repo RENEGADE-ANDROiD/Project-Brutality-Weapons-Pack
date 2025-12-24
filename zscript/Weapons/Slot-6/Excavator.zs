@@ -35,7 +35,7 @@ Class PB_Excavator : PBWP_Weapon
 	+FORCEXYBILLBOARD
 	+FLOORCLIP
 	+DONTGIB
-	Weapon.SlotNumber 6;
+	// Weapon.SlotNumber 6;
 	Weapon.SlotPriority 0;
 	Weapon.SelectionOrder 506;
 	Scale 0.50;

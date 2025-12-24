@@ -12,7 +12,7 @@ PBWP_QUICKSWITCHER = "\ct₪\c- Random Weapon Quick-Switcher";
 PBWP_BEHOLD = "\cw⟰\c- BEHOLD! Settings";
 PBWP_ARCADE = "\cd⚙\c- Arcade Item Tweak Settings";
 PBWP_OUCHIE = "\ca♡\c- Ouchie! Damage Flash Settings";
-PBWP_DMGINDICATOR = "\ca✜\c- Damage Indicator Settings";
+PBWP_DMGINDICATOR = "\cp✜\c- Damage Indicator Settings";
 PBWP_DOORBUSTER = "\cy⑄\c- DOORBUSTER Settings";
 PBWP_TOGGLE_MELEE_MENU = "Open Melee Wheel";
 

@@ -23,7 +23,7 @@ Actor PB_BeamKatana : PBWP_Weapon
    Inventory.Pickupmessage "You got the UAC Nanotech Energy Beam Katana. (Slot 1)"
    Inventory.Icon "BKATK0"
    Obituary "It's Nothing Personal Boys. (Embrace My Katana)!"
-   Weapon.SlotNumber 1
+//    Weapon.SlotNumber 1
    Scale 0.6
    Tag "UAC Nanotech Energy Beam Katana"
    Inventory.AltHudIcon "BKATK0"

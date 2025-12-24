@@ -15,7 +15,7 @@ ACTOR INNailGun : PBWP_Weapon
     +WEAPON.NOALERT
 	+FORCEXYBILLBOARD
 	+WEAPON.NO_AUTO_SWITCH
-	Weapon.SlotNumber 5
+	// Weapon.SlotNumber 5
 	Weapon.SlotPriority 5
 	Inventory.PickUpSound "IMPKUP"
 	Inventory.PickupMessage "NRS ES-92 - Dead Gallary (Slot 5)"

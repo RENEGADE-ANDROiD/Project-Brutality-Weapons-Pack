@@ -48,7 +48,7 @@ Weapon.AmmoUse1 0
 +FORCEXYBILLBOARD
 +WEAPON.NO_AUTO_SWITCH
 
-Weapon.SlotNumber 5
+// Weapon.SlotNumber 5
 Weapon.SlotPriority 1
 Inventory.PickupSound "CHGNPKUP"
 Inventory.PickupMessage "UAC MG-134 -;(Lady Hungry);- (Slot 5)"

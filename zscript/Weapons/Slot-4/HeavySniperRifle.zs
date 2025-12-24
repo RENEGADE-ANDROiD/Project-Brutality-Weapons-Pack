@@ -4,7 +4,7 @@ Class HeavySniperRifle : PBWP_Weapon
 {
 	default
 	{
-		weapon.slotnumber 4;
+		// weapon.slotnumber 4;
 		Tag "UAC-50S Heavy Sniper Rifle - Daemon Murderer";
 		inventory.pickupsound "CLIPIN";
 		inventory.pickupmessage "\cj UAC-50S Heavy Sniper Rifle \ck:-{Daemon Murderer}-:! \cj(Slot 4, Overpowered)";
