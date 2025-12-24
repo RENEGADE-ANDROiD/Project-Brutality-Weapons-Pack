@@ -9,7 +9,8 @@ TIP_KillstreakIsOn = "Killing enemies multiple times will grant powerups and oth
 TIP_HelmetDropCVAR = "Enemies that have helmets will drop their helmets that you can pick up \nand gives a small amount of armor";
 TIP_champion_OverrideChance = "Determine the spawn chance of Champion Monstsers \nCan be disabled, check the Champion Enemies Menu for more settings";
 TIP_OuchFlashDuration = "Determine the duration of pain flash of mosnters \nCan be disabled, check the Ouchie! Menu for more settings";
-TIP_cl_Health_FX = "Shows a red overlay, heartbeat sound, and desaturates the screen when low hp";
+TIP_D4D_DamageIndicators = "Shows a damage indicator with colors corresponding to damage type \ncCheck the Damage Indicator Menu for more settings";
+TIP_cl_Health_FX = "Shows a red overlay, heartbeat sound, and desaturates the screen when low on hp";
 
 // MONSTER DROP 
 TIP_PBSpawnALLDTechDrop = "Demon-Tech Trooper will drop one of the following \n1. D-Tech Pistol \n2. D-Tech Shotgun \n3. D-Tech Rifle \n4. D-Tech Minigun \n5. D-Tech Blaster \n6. D-Tech Blaster Upgrade";
@@ -46,7 +47,7 @@ TIP_ShockBatonSpawn = "Standard hit, perma stuns target";
 // EQUIPMENTS
 TIP_ShieldGrenadeSpawn = "Spawns a Waist-High shield";
 TIP_VoidGrenadeSpawn = "Spawns a Black Hole on detonation";
-TIP_RemoteChargesSpawn = "Press Equipment Use twice to use Detonator, there are three types \n1. Swarm Charge = Spawns Small Swarmer Bots \n2. Laser Charge = Spawns a Circular Laser Trap \n3. Acid Charge = Spawns an Acid Cloud";
+TIP_RemoteChargesSpawn = "To activate the Detonator Press Equipment Use twice or \nby selecting and using any Remote Charge with no ammo, \nthere are three types \n1. Swarm Charge = Spawns Small Swarmer Bots \n2. Laser Charge = Spawns a Circular Laser Trap \n3. Acid Charge = Spawns an Acid Cloud";
 TIP_ElecPodSpawn = "Spawns Electric Bot that Bounces and deal damage";
 TIP_CaltropsSpawn = "Places small traps on the ground that deal damage when walked on";
 TIP_ShurikenSpawn = "Throw Shurikens, deal extra damage when Berserk is active";
