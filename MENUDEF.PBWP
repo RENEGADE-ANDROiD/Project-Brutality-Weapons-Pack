@@ -85,8 +85,9 @@ OptionMenu "ttwcoptions"
 	StaticText "DOORBUSTER v1.0 is Loaded", white
 	StaticText "Random Weapon Switcher v1.0 is Loaded", white */
 	/* StaticText "Arcade Tweaks v1.0 is Loaded", white */
-	StaticText "Revamped Armors Mutators v1.2 is Loaded", white
+	StaticText "Health System Updated is Loaded", white
 	StaticText "PickupItemVariations v1.2 is Loaded", white
+	StaticText "Revamped Armors Mutators v1.2 is Loaded", white
 	StaticText "ZoomAutoShotgun v1.2 is Loaded", white
 	/* StaticText "Helmet Drops Armors v1.1 is Loaded", white */
 }
@@ -102,6 +103,7 @@ OptionMenu "GeneralSettings"
 	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
 	ScaleSlider "Flash duration", "OuchFlashDuration", 0, 35, 1, "Disabled", "????? HOW IS IT -1"
 	option "Damage Indicators Enabled ","D4D_DamageIndicators","YesNo"
+	Option "Low Health Effect", "cl_Health_FX", "OnOff"
 	Control "Show Combat Points", "PB_CRSHW"
 	Control "$PBWP_TOGGLE_MELEE_MENU", "+pbwp_meleemenu"
 	Control "Toggle Magnet", "MagnetModeOff"

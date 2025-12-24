@@ -1,3 +1,7 @@
+//LowHealth Effects
+COD2/Heartbeat	HBEAT
+$volume HBEAT 1.0
+
 //Armor
 ARMOR ARMOR
 //PickUpItemVariation

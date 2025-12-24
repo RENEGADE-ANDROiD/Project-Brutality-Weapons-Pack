@@ -11,6 +11,9 @@ user	int		D4D_DIAnim				= 0;
 user	bool	D4D_NoColorType			= false;
 user	color	D4D_DefColor			= "FF0000";
 
+//HealthSystem//
+user bool cl_Health_FX = false; //off by default
+
 //Ouchie! by Dox//
 server bool OuchFlashEnabled = true;
 server bool OuchFlashOnlyMonsters = true;
