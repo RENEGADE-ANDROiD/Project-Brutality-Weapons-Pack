@@ -85,7 +85,6 @@ OptionMenu "ttwcoptions"
 	StaticText "DOORBUSTER v1.0 is Loaded", white
 	StaticText "Random Weapon Switcher v1.0 is Loaded", white */
 	/* StaticText "Arcade Tweaks v1.0 is Loaded", white */
-	StaticText "Health System Updated is Loaded", white
 	StaticText "PickupItemVariations v1.2 is Loaded", white
 	StaticText "Revamped Armors Mutators v1.2 is Loaded", white
 	StaticText "ZoomAutoShotgun v1.2 is Loaded", white

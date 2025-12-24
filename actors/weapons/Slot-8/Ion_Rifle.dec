@@ -15,7 +15,7 @@ ACTOR Ion_Heavy : PBWP_Weapon //Back For This Weapon.
     +WEAPON.NOALERT
 	+FORCEXYBILLBOARD
 	+WEAPON.NO_AUTO_SWITCH
-	Weapon.SlotNumber 7
+	// Weapon.SlotNumber 7
 	Weapon.SlotPriority 0
 	PB_WeaponBase.RespectItem "IONResp"
    States

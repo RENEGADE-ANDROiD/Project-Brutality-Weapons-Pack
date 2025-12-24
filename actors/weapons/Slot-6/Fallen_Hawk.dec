@@ -27,7 +27,7 @@ ACTOR Fallen_Hawk : PBWP_Weapon
     +WEAPON.NOAUTOFIRE
     +FORCEXYBILLBOARD
     +WEAPON.NO_AUTO_SWITCH
-    Weapon.SlotNumber 4
+    // Weapon.SlotNumber 4
 	Weapon.SlotPriority 4
 	Inventory.PickUpSound "AKBOLT"
 	Inventory.Pickupmessage "UAC-14 DMR ;- Fallen Hawk -; (Slot 4)"

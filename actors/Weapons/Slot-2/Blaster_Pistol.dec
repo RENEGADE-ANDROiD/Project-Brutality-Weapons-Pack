@@ -36,7 +36,7 @@ Actor DoomBlaster : PBWP_Weapon
 	Inventory.PickUpSound "D2016Blaster/Select"
 	Inventory.PickupMessage "You Found the UAC EMG Sidearm. (Slot 2)"
 	Obituary "Wasted by EMG Sidearm Blaster."
-	Weapon.SlotNumber 2
+	// Weapon.SlotNumber 2
 	Weapon.SlotPriority 1
     Scale 0.44
 	Tag "UAC EMG Sidearm"

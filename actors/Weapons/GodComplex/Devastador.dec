@@ -12,7 +12,7 @@ Actor Devastador : PBWP_Weapon
 	Weapon.SelectionOrder 2800
 	Weapon.AmmoUse 130
 	// Weapon.AmmoGive 150
-	Weapon.SlotNumber 8
+	//Weapon.SlotNumber 8
 	Weapon.SlotPriority 3
 	Weapon.AmmoType "PBWP_ComplexAmmo"
 	+FORCEXYBILLBOARD

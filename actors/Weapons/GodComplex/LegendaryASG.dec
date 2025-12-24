@@ -19,7 +19,7 @@ ACTOR LegendaryAssaultShotgun : PBWP_Weapon
 	+WEAPON.AMMO_OPTIONAL
 	+WEAPON.NOALERT
 	+INVENTORY.UNDROPPABLE
-	Weapon.SlotNumber 3
+	// Weapon.SlotNumber 3
 	Weapon.SlotPriority 10
 	Tag "XFA-12A Legendary Auto Shotgun"
 	States

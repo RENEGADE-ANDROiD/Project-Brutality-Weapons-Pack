@@ -14,7 +14,7 @@ ACTOR Prosurv_Ballista : PBWP_weapon {
 	Weapon.AmmoGive2 1
 	Weapon.AmmoType1 "PB_HighCalMag"
 	Weapon.AmmoType2 "BallistaAmmo"
-	Weapon.SlotNumber 4
+	// Weapon.SlotNumber 4
 	Weapon.SlotPriority 0.15
 	Weapon.SelectionOrder 300
 	Inventory.PickupMessage "Ballista (Slot 4)"

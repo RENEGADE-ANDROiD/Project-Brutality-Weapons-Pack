@@ -115,7 +115,7 @@ Actor PB_Doom2016Shotgun : PBWP_Weapon
 	+WEAPON.NOAUTOFIRE
 	+FLOORCLIP
 	+DONTGIB
-	Weapon.SlotNumber 3
+	// Weapon.SlotNumber 3
 	Weapon.SlotPriority 10
 	Weapon.SelectionOrder 1300
 	Scale .8

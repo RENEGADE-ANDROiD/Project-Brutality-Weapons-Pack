@@ -21,7 +21,7 @@ Actor Devastator : PBWP_Weapon
 	+INVENTORY.ALWAYSPICKUP
 	+FORCEXYBILLBOARD
 	+DONTGIB
-	Weapon.SlotNumber 6
+	// Weapon.SlotNumber 6
 	Weapon.SelectionOrder 2600
 	Scale 0.8
 	Tag "Devastator"

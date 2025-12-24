@@ -143,11 +143,11 @@
 #INCLUDE ACTORs/Weapons/Slot-6/Paingiver.dec
 #INCLUDE ACTORs/Weapons/Slot-6/Devastator.dec
 #INCLUDE ACTORs/Weapons/Slot-6/CyberdemonRL.dec
+#INCLUDE ACTORs/Weapons/Slot-6/Samantha.dec 
 #INCLUDE ACTORs/Weapons/Doom4WeaponPack/D4RocketLauncher.dec
 	//Slot-7
 #INCLUDE ACTORs/Weapons/Slot-7/AncientCrossbow.dec
 #INCLUDE ACTORs/Weapons/Slot-7/Gauss.dec
-#INCLUDE ACTORs/Weapons/Slot-7/Samantha.dec 
 #INCLUDE ACTORs/Weapons/Doom4WeaponPack/D4VortexRifle.dec
 #INCLUDE ACTORs/Weapons/Doom4WeaponPack/D4PlasmaGun.dec
 	//Slot-8

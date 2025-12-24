@@ -15,7 +15,7 @@ ACTOR 44PDW : PBWP_Weapon
 	+WEAPON.NOAUTOFIRE
 	Weapon.SelectionOrder 500
 	Tag ".44 Mag PDW"
-	Weapon.SlotNumber 2
+	// Weapon.SlotNumber 2
     Scale 1.0
 	States
 	{

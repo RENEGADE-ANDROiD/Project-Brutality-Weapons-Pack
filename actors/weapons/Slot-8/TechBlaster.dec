@@ -10,7 +10,7 @@ Actor TechBlaster : PBWP_Weapon
    Scale 1
    Weapon.AmmoType1 "PB_DTech"   
    Weapon.AmmoType2 "TechBlasterMagazine"
-   Weapon.SlotNumber 0
+//    Weapon.SlotNumber 0
 	Weapon.SlotPriority 0
    Inventory.PickupMessage "Wait How did...? Demon-Tech Atomizer? (Slot-0)" 
    Inventory.PickupSound "TechBlaster/PickUp"

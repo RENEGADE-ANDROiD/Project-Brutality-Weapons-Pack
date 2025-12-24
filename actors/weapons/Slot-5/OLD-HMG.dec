@@ -37,7 +37,7 @@ Actor OLDHMG : PBWP_Weapon
    Inventory.PickupSound "CBOXPKUP"
    Inventory.PickupMessage "You got the UAC-320 Heavy Machine Gun. (Slot 5)"
    Obituary "Became a leaking piece of meat by Heavy Machine Gun"
-   Weapon.SlotNumber 5
+//    Weapon.SlotNumber 5
    Weapon.SelectionOrder 2800
    Scale 0.52
    Tag "UAC-320 Heavy Machine Gun"

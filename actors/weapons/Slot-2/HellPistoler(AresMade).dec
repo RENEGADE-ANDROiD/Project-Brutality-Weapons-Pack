@@ -32,7 +32,7 @@ ACTOR HellPistoler : PBWP_Weapon
 	Weapon.AmmoType2 "HellPistolerAmmo"
     Weapon.AmmoGive2 300
 	Weapon.AmmoUse2 0
-	Weapon.SlotNumber 2
+	// Weapon.SlotNumber 2
 	Weapon.SlotPriority 0.5
 	+WEAPON.NOAUTOAIM
     +WEAPON.NOALERT

@@ -18,7 +18,7 @@ ACTOR SuperGrenadeLauncher : PBWP_Weapon
 	+WEAPON.NO_AUTO_SWITCH
 	+NoAlert
 	+NoautoFire
-	Weapon.SlotNumber 6
+	// Weapon.SlotNumber 6
 	Weapon.SlotPriority 6
 	Inventory.PickUpSound "MTRGUP"
 	Inventory.PickupMessage "You got the super grenade launcher (Slot 7)"

@@ -21,7 +21,7 @@ ACTOR Extinction_Ray : PBWP_Weapon //Flamethrower?
     +WEAPON.NOAUTOFIRE
 	+FORCEXYBILLBOARD
 	+WEAPON.NO_AUTO_SWITCH
-	Weapon.SlotNumber 8
+	// Weapon.SlotNumber 8
 	Weapon.SlotPriority 8
 	Inventory.PickupMessage "UAC IDA-557Assault Extinction Ray (Slot 6)"
 	Obituary "$O has been Desintegrated"

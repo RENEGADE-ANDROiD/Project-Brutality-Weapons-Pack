@@ -20,7 +20,7 @@ Actor Paingiver : PBWP_Weapon
 	Inventory.PickupMessage "You got the Paingiver! (Slot 6)"
 	Inventory.PickupSound "misc/rockboxa"
 	Inventory.Icon "W17PA0"
-	Weapon.SlotNumber 6
+	// Weapon.SlotNumber 6
 	Weapon.SelectionOrder 2500
 	Scale 0.9
 	Tag "Paingiver"

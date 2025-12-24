@@ -18,7 +18,7 @@ ACTOR Dark_Fate : PBWP_Weapon
     +WEAPON.NOAUTOFIRE
 	+FORCEXYBILLBOARD
 	+WEAPON.NO_AUTO_SWITCH
-	Weapon.SlotNumber 5
+	// Weapon.SlotNumber 5
 	Weapon.SlotPriority 5
 	Tag "XM-44 LMG - Dark Fate"
 	PB_WeaponBase.RespectItem "DFRespectable"

@@ -14,7 +14,7 @@ Weapon.KickBack 90
 Inventory.PickupSound "NemesisBFG/Pickup"
 Inventory.PickupMessage "Nemesis BFG! Rend the souls from your foes!"
 Obituary "%o regrets going against %k's Nemesis BFG."
-Weapon.SlotNumber 8
+// Weapon.SlotNumber 8
 Weapon.SlotPriority 1.3
 Tag "Nemesis BFG"
 States

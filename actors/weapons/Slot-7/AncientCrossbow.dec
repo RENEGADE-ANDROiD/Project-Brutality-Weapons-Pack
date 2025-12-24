@@ -22,7 +22,7 @@ Actor AncientCrossbow : PBWP_Weapon
     +WEAPON.NOALERT
     +WEAPON.NOAUTOAIM
 	+WEAPON.NOAUTOFIRE
-	Weapon.SlotNumber 0
+	// Weapon.SlotNumber 0
 	Weapon.SlotPriority 0
 	Weapon.SelectionOrder 6100
 	Scale 0.9

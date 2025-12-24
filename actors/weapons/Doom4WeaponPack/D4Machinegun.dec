@@ -21,7 +21,7 @@ Actor D4Machinegun : PBWP_Weapon
 	+WEAPON.NOAUTOFIRE
 	+FLOORCLIP
 	+DONTGIB
-	Weapon.SlotNumber 5
+	//Weapon.SlotNumber 5
 	Weapon.SelectionOrder 1300
 	Scale 0.9
 	Tag "Doom 4 Machinegun"
