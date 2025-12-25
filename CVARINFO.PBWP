@@ -8,8 +8,6 @@ user 	float 	D4D_DIScale 			= 0.5;
 user 	float 	D4D_DIAlpha 			= 1.0;
 user 	int 	D4D_DITimer 			= 35;
 user	int		D4D_DIAnim				= 0;
-user	bool	D4D_NoColorType			= false;
-user	color	D4D_DefColor			= "FF0000";
 
 //HealthSystem//
 user bool cl_Health_FX = false; //off by default
