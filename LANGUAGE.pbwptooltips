@@ -43,6 +43,7 @@ TIP_WrenchSpawn = "Fast hit, 2 hit combo, 1 hold to dash";
 TIP_CrowbarSpawn = "Fast hit, 2 hit combo, 1 hold to dash";
 TIP_SledgeHammerSpawn = "Standard hit, 2 hit combo, 1 hold to dash";
 TIP_ShockBatonSpawn = "Standard hit, perma stuns target";
+TIP_MacheteSpawn = "Standard Slashes, 4 hit combo";
 
 // EQUIPMENTS
 TIP_ShieldGrenadeSpawn = "Spawns a Waist-High shield";

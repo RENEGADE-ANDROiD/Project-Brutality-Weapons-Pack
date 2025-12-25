@@ -99,7 +99,7 @@ ACTOR JohnnyHandsPickup : CustomInventory {
 	+DONTGIB
 		States {
 			Spawn:
-				SFCE A -1 
+				JZDX A -1 
 				Stop
 			Pickup:
 				TNT1 A 0 A_GiveInventory ("ExplosiveHandCharges",10)
@@ -210,4 +210,20 @@ ACTOR DemonicSword : CustomInventory {
 				TNT1 A 0 A_GiveInventory ("PB_DTech",40)
 				TNT1 A 0 A_GiveInventory ("KatanaDurability",50)
                 TNT1 A 0 A_GiveInventory ("HasDemonicKatana",1)
+				Stop	}}
+
+ACTOR Machete : CustomInventory {
+	Game Doom
+	Inventory.PickupSound "Ammocase/Open"
+	Inventory.PickupMessage "Machete"
+	Scale 0.3
+	+Inventory.AlwaysPickUp
+	+FLOORCLIP
+	+DONTGIB
+		States {
+			Spawn:
+				MCH2 Z -1 
+				Stop
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("MacheteDurability",30)
 				Stop	}}

@@ -239,6 +239,7 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
         Player.StartItem "CryoRifleAmmo",60;
 
 		// Added
+		Player.StartItem "MacheteDurability",30;
 		Player.StartItem "CryoDMRAmmo",60;
 		Player.StartItem "StandardMeleeSelected",1; // Melee Wheel
 

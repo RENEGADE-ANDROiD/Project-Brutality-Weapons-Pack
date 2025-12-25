@@ -45,6 +45,9 @@ class WrenchMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class WW_BatonMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class BatonMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
+class WW_MacheteMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class MacheteMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
 // Equipment Tokens
 // Slot 0 Misc.
 class WW_HookSelected : Inventory{Default{Inventory.MaxAmount 1;}}

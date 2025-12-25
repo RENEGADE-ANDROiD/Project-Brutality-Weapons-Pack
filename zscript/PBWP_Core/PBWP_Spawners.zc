@@ -1516,6 +1516,22 @@ class ShockBatonSpawnerInjector : PBInjector
 	}
 }
 
+class MacheteSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if(MacheteSpawn)
+		{
+		// Machete
+		handler.InjectSpawn('PB_SawSpawnerT1', 'Machete', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT2', 'Machete', 255, 1);
+
+		handler.InjectSpawn('PB_PackSpawnerT1', 'Machete', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'Machete', 255, 1);
+		}
+	}
+}
+
 //Armor Spawner =======================================================================================
 class PBWP_YellowArmorSpawner : PBInjector
 {
