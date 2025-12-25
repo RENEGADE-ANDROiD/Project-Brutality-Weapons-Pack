@@ -80,6 +80,7 @@
 #INCLUDE ACTORs/CustomMelee/PickaxeStrike.dec
 #INCLUDE ACTORs/CustomMelee/ImpactGauntletPuff.dec
 #INCLUDE ACTORs/CustomMelee/DemonicSword.dec
+#INCLUDE ACTORs/CustomMelee/Machete.dec
 
 //Weapons
 	//GOD COMPLEX//

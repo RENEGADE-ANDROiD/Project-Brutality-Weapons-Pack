@@ -243,6 +243,7 @@ class PB_PlayerPrawn : PlayerPawnBase
 		// Added
 		Player.StartItem "ProSurv_BlasterPistol",1; // Blaster Pistol
 		Player.StartItem "CryoDMRAmmo",60;
+		Player.StartItem "MacheteDurability",30;
 		Player.StartItem "StandardMeleeSelected",1; // Melee Wheel
 
 		+ROLLSPRITE

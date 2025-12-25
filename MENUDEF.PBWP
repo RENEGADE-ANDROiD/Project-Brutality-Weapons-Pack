@@ -165,6 +165,7 @@ optionmenu "ItemSpawnSett"
 	statictext "---------------Melee Items---------------", gold
 	statictext ""
 	Option "Enable Melee Drop", "AllMeleeDrop", "OnOff"
+	Option "Spawn Machete", "MacheteSpawn", "OnOff"
 	Option "Spawn Katana", "KatanaSpawn", "OnOff"
 	Option "Spawn Pick Axe", "PickaxeSpawn", "OnOff"
 	Option "Spawn Impactor Gauntlet", "ImpactorSpawn", "OnOff"

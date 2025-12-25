@@ -1347,6 +1347,11 @@ class PB_Hud_ZS : BaseStatusBar
 					PBHud_DrawImage("HWRNCY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("WrenchDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
 				}
+				else if(CheckInventory("MacheteMeleeSelected")) {
+					PBHud_DrawImage("HCHETE", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("MacheteDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				// DOESNT NEED DURABILITY
 				else if(CheckInventory("BladeMeleeSelected")) {
 					PBHud_DrawImage("HDBLDY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
 				}

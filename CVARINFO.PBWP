@@ -195,6 +195,7 @@ server bool WrenchSpawn = true;
 server bool CrowbarSpawn = true;
 server bool SledgeHammerSpawn = true;
 server bool ShockBatonSpawn = true;
+server bool MacheteSpawn = true;
 
 // Equipments
 server bool ShieldGrenadeSpawn = true;
