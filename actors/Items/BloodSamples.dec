@@ -107,7 +107,7 @@ ACTOR HealthPlus2 : Health Replaces HealthBonus
 	}
 }
 
-ACTOR Stimpack3 : Health Replaces Stimpack2
+ACTOR Stimpack3 : Health Replaces HealthPlus
 {
 	//$Category Health and Armor
 	//$Sprite MEDKB0
@@ -135,7 +135,7 @@ ACTOR Stimpack3 : Health Replaces Stimpack2
 		Goto Spawn2
 	}
 }
-ACTOR Medikit3 : Health Replaces Medikit2
+ACTOR Medikit3 : Health Replaces GiveHealth
 {
 	//$Category Health and Armor
 	//$Sprite MEDKA0
