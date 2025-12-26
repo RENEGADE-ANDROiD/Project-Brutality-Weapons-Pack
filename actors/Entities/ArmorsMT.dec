@@ -8,6 +8,9 @@ ACTOR ArmorGreen : BasicArmorPickup
   Inventory.Icon "ARM1B0"
   Armor.SavePercent 50
   Armor.SaveAmount 100
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
   Inventory.PickupSound "ARMOR"
   States
   {
@@ -29,6 +32,9 @@ Actor ArmorBlue : BasicArmorPickup
 	Inventory.Icon "ARM2B0"
 	Armor.SavePercent 100
 	Armor.SaveAmount 100
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
  Inventory.PickupSound "ARMOR"
 	States
 	{
@@ -50,6 +56,9 @@ Actor ArmorRed : BasicArmorPickup
 	Inventory.Icon "ARM3B0"
 	Armor.SavePercent 90
 	Armor.SaveAmount 160
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
  Inventory.PickupSound "ARMOR"
 	States
 	{
@@ -68,6 +77,9 @@ ACTOR NarmorRed : CustomInventory
 	Radius 20
 	Height 16
 	Inventory.Pickupmessage "Picked up the Specs-Ops Armor"
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 	Inventory.Icon "ARM3B0"
  Inventory.PickupSound "ARMOR"
 	States
@@ -97,6 +109,9 @@ Actor ArmorPurple : BasicArmorPickup
  	Inventory.Icon "ARM6B0"
   	Armor.Savepercent 90
   	Armor.Saveamount 140
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
   Inventory.PickupSound "ARMOR"
   	States
   	{
@@ -116,6 +131,9 @@ ACTOR NarmorPurple : CustomInventory
 	Height 16
 	Inventory.Pickupmessage "Picked up the QUAD Energy Armor"
  	Inventory.Icon "ARM6B0"
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
   Inventory.PickupSound "ARMOR"
   	States
   	{ 
@@ -144,6 +162,9 @@ Actor ArmorWhite : BasicArmorPickup
  	Inventory.Icon "ARM4B0"
   	Armor.Savepercent 100
   	Armor.Saveamount 200
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
   Inventory.PickupSound "ARMOR"
   	States
   	{
@@ -163,6 +184,9 @@ ACTOR NarmorWhite : CustomInventory
 	Height 16
 	Inventory.Pickupmessage "Picked up the UAC - Prototype Armor"
  	Inventory.Icon "ARM4B0"
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
   Inventory.PickupSound "ARMOR"
   	States
   	{ 
@@ -211,6 +235,9 @@ Actor ArmorOrange : BasicArmorPickup
 	Inventory.Icon "ARM7B0"
 	Armor.SavePercent 70
 	Armor.SaveAmount 160
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
  Inventory.PickupSound "ARMOR"
 	States
 	{
@@ -230,6 +257,9 @@ ACTOR NarmorOrange : CustomInventory
 	Height 16
 	Inventory.Pickupmessage "Picked up the UAC - Ultimate Night Vision Armor"
  	Inventory.Icon "ARM7B0"
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
   Inventory.PickupSound "ARMOR"
   	States
   	{ 
@@ -257,6 +287,9 @@ Actor ArmorYellow : BasicArmorPickup
 	Inventory.Icon "ARM5B0"
 	Armor.SavePercent 50
 	Armor.SaveAmount 130
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
  Inventory.PickupSound "ARMOR"
 	States
 	{
@@ -276,6 +309,9 @@ ACTOR NarmorYellow : CustomInventory
 	Height 16
 	Inventory.Pickupmessage "Picked up the UAC - Prototype Armor"
  	Inventory.Icon "ARM5B0"
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
   Inventory.PickupSound "ARMOR"
   	States
   	{ 
@@ -305,6 +341,9 @@ Actor ArmorBlack : BasicArmorPickup
 	Inventory.Icon "ARM8B0"
 	Armor.SavePercent 70
 	Armor.SaveAmount 160
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
  Inventory.PickupSound "ARMOR"
 	States
 	{
@@ -324,6 +363,9 @@ ACTOR NarmorBlack : CustomInventory
 	Height 16
 	Inventory.Pickupmessage "Picked up the UAC - Commander Armor"
  	Inventory.Icon "ARM8B0"
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
   Inventory.PickupSound "ARMOR"
   	States
   	{ 
@@ -383,6 +425,9 @@ Actor ArmorDemon : BasicArmorPickup
  	Inventory.Icon "ARM9A0"
   	Armor.Savepercent 100
   	Armor.Saveamount 300
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
   Inventory.PickupSound "ARMOR"
   	States
   	{
@@ -424,6 +469,9 @@ ACTOR NarmorDemon : CustomInventory
 	Height 16
 	Inventory.Pickupmessage "Picked up- UHG!, this thing stinks like rotten meat..."
  	Inventory.Icon "ARM9A0"
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
   Inventory.PickupSound "ARMOR"
   	States
   	{ 
@@ -454,6 +502,9 @@ Actor ArmorCyan : BasicArmorPickup
  	Inventory.Icon "BRM1A0"
   	Armor.Savepercent 100
   	Armor.Saveamount 40
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
   Inventory.PickupSound "ARMOR"
   	States
   	{

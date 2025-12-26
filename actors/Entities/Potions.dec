@@ -31,22 +31,37 @@ Inventory.Amount 1}
 ACTOR PB_HealthBonusRed : PB_HealthBonus
 {Translation "192:207=[255,0,0]:[50,0,0]", "240:247=[50,0,0]:[0,0,0]"
 Inventory.PickupSound HBONUS3
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 3}
 ACTOR PB_HealthBonusGreen : PB_HealthBonus
 {Translation "192:207=[0,255,0]:[0,50,0]", "240:247=[0,50,0]:[0,0,0]"
 Inventory.PickupSound HBONUS2
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 2}
 ACTOR PB_HealthBonusYellow : PB_HealthBonus
 {Translation "192:207=[255,255,0]:[50,50,0]", "240:247=[50,50,0]:[0,0,0]"
 Inventory.PickupSound HBONUS4
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 4}
 ACTOR PB_HealthBonusCyan : PB_HealthBonus
 {Translation "192:207=[0,255,255]:[0,50,50]", "240:247=[0,50,50]:[0,0,0]"
 Inventory.PickupSound HBONUS5
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 3}
 ACTOR PB_HealthBonusPurple : PB_HealthBonus
 {Translation "192:207=[255,0,255]:[50,0,50]", "240:247=[50,0,50]:[0,0,0]"
 Inventory.PickupSound HBONUS6
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 3}
 
 ACTOR PB_HealthBonusDropped1 : PB_HealthBonusDropped {Inventory.PickupSound HBONUS1
@@ -54,22 +69,37 @@ Inventory.Amount 1}
 ACTOR PB_HealthBonusDroppedRed : PB_HealthBonusDropped
 {Translation "192:207=[255,0,0]:[50,0,0]", "240:247=[50,0,0]:[0,0,0]"
 Inventory.PickupSound HBONUS3
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 3}
 ACTOR PB_HealthBonusDroppedGreen : PB_HealthBonusDropped
 {Translation "192:207=[0,255,0]:[0,50,0]", "240:247=[0,50,0]:[0,0,0]"
 Inventory.PickupSound HBONUS2
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 2}
 ACTOR PB_HealthBonusDroppedYellow : PB_HealthBonusDropped
 {Translation "192:207=[255,255,0]:[50,50,0]", "240:247=[50,50,0]:[0,0,0]"
 Inventory.PickupSound HBONUS4
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 4}
 ACTOR PB_HealthBonusDroppedCyan : PB_HealthBonusDropped
 {Translation "192:207=[0,255,255]:[0,50,50]", "240:247=[0,50,50]:[0,0,0]"
 Inventory.PickupSound HBONUS5
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 3}
 ACTOR PB_HealthBonusDroppedPurple : PB_HealthBonusDropped
 {Translation "192:207=[255,0,255]:[50,0,50]", "240:247=[50,0,50]:[0,0,0]"
 Inventory.PickupSound HBONUS6
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 3}
 
 ACTOR PB_DemonHealthBonus1 : PB_DemonHPBonus {Inventory.PickupSound HBONUS1
@@ -77,20 +107,35 @@ Inventory.Amount 1}
 ACTOR PB_DemonHealthBonusRed : PB_DemonHPBonus
 {Translation "192:207=[255,0,0]:[50,0,0]", "240:247=[50,0,0]:[0,0,0]"
 Inventory.PickupSound HBONUS3
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 3}
 ACTOR PB_DemonHealthBonusGreen : PB_DemonHPBonus
 {Translation "192:207=[0,255,0]:[0,50,0]", "240:247=[0,50,0]:[0,0,0]"
 Inventory.PickupSound HBONUS2
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 2}
 ACTOR PB_DemonHealthBonusYellow : PB_DemonHPBonus
 {Translation "192:207=[255,255,0]:[50,50,0]", "240:247=[50,50,0]:[0,0,0]"
 Inventory.PickupSound HBONUS4
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 4}
 ACTOR PB_DemonHealthBonusCyan : PB_DemonHPBonus
 {Translation "192:207=[0,255,255]:[0,50,50]", "240:247=[0,50,50]:[0,0,0]"
 Inventory.PickupSound HBONUS5
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 3}
 ACTOR PB_DemonHealthBonusPurple : PB_DemonHPBonus
 {Translation "192:207=[255,0,255]:[50,0,50]", "240:247=[50,0,50]:[0,0,0]"
 Inventory.PickupSound HBONUS6
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
 Inventory.Amount 3}

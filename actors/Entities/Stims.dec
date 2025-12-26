@@ -8,14 +8,38 @@ ACTOR XD_StimpackSpawner : RandomSpawner Replaces PB_Stimpack
 	DropItem "PB_StimpackPurple", 256
 	DropItem "PB_StimpackCyan", 256
 }
-ACTOR PB_Stimpack1 : PB_Stimpack {}
+ACTOR PB_Stimpack1 : PB_Stimpack {
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
+}
 ACTOR PB_StimpackGreen : PB_Stimpack 
-{Translation "176:191=[0,255,0]:[0,0,0]", "32:47=[0,150,0]:[0,0,0]"}
+{Translation "176:191=[0,255,0]:[0,0,0]", "32:47=[0,150,0]:[0,0,0]"
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
+}
 ACTOR PB_StimpackYellow : PB_Stimpack 
-{Translation "176:191=[255,255,0]:[0,0,0]", "32:47=[150,150,0]:[0,0,0]"}
+{Translation "176:191=[255,255,0]:[0,0,0]", "32:47=[150,150,0]:[0,0,0]"
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
+}
 ACTOR PB_StimpackBlue : PB_Stimpack 
-{Translation "176:191=[0,0,255]:[0,0,0]", "32:47=[0,0,150]:[0,0,0]"}
+{Translation "176:191=[0,0,255]:[0,0,0]", "32:47=[0,0,150]:[0,0,0]"
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
+}
 ACTOR PB_StimpackPurple : PB_Stimpack 
-{Translation "176:191=[255,0,255]:[0,0,0]", "32:47=[150,0,150]:[0,0,0]"}
+{Translation "176:191=[255,0,255]:[0,0,0]", "32:47=[150,0,150]:[0,0,0]"
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
+}
 ACTOR PB_StimpackCyan : PB_Stimpack 
-{Translation "176:191=[0,255,255]:[0,0,0]", "32:47=[0,150,150]:[0,0,0]"}
+{Translation "176:191=[0,255,255]:[0,0,0]", "32:47=[0,150,150]:[0,0,0]"
+	+ROLLSPRITE
+	+ROLLCENTER
+	+FLOATBOB
+}
