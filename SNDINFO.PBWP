@@ -647,28 +647,10 @@ M40Rifle/Bolt1 	M40RIF3
 M40Rifle/Bolt2 	M40RIF4
 $volume 		M40Rifle/Fire 0.6
 
-//Heavy Machine Gun//
-HMGUP HMGUP
-HMGHEAT HMGHEAT
-9HAINAMO 9HAINAMO
-9HAINAM1 9HAINAM1
-DIBSTOP DIBSTOP
-DIBSTART DIBSTART
-//putting a logical command name is a highly recommended practice. You can find sounds easier that way
-weapons/oldhmg/nailstart HMNLSTRT
-NAILSTOP NAILSTOP
-HMGSTCH HMGSTCH
-
-weapons/oldhmg/spin HMG_MOTOR
-weapons/oldhmg/stop HMG_WINDD
-weapons/oldhmg/stop HMG_WINDD
-weapons/oldhmg/start HMG_WINDU
-Weapons/NailMGFire NAILFIRE
-
-hmgun HMGFIRE
-
-$volume hmgun .6
-emgun emgun
+//NeoHMG
+weapon/HMG/Fire "sounds/weapons/hmg/HMGFIRE.ogg"
+weapon/HMG/Stop "sounds/weapons/hmg/DIBSTOP"
+weapon/HMG/Reload1 "sounds/weapons/hmg/9HAINAM1.ogg"
 
 //MSSG Marauder
 MSSCL1 MSSCL1

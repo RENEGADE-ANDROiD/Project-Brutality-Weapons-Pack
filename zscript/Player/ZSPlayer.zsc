@@ -130,7 +130,7 @@ class PB_PlayerPrawn : PlayerPawnBase
 		"INNailGun",
 		"Fire_and_Ice-DragonSlayer",
 		"DukeNukemRipper",
-		"OLDHMG",
+		"PB_NeoHMG",
 		"SuperNailgun",
 		"AutoCannon";
 

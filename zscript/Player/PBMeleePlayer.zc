@@ -130,7 +130,7 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		"INNailGun",
 		"Fire_and_Ice-DragonSlayer",
 		"DukeNukemRipper",
-		"OLDHMG",
+		"PB_NeoHMG",
 		"SuperNailgun",
 		"AutoCannon";
 

@@ -111,7 +111,7 @@ Actor M41A : PBWP_Weapon
     Weapon.BobSpeed 2.0
 	Weapon.AmmoType1 "PB_HighCalMag"
 	Weapon.AmmoType2 "M41AAmmo"
-	Weapon.AmmoUse1 0
+	//Weapon.AmmoUse1 0
 	Weapon.AmmoGive1 10
    +WEAPON.WIMPY_WEAPON
    +WEAPON.NOAUTOAIM
