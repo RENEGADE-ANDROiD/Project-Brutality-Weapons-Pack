@@ -167,6 +167,9 @@ server bool HelmetDropCVAR = true;
 server bool AllMeleeDrop = true;
 server bool FloatingVials = true;
 
+// Spawners
+server int Slot1Mask = 0;
+
 // Monsters
 server bool EyeTurretSpawn = true;
 server bool CyberdemonBossSpawn = true;

@@ -115,7 +115,6 @@ class PB_PlayerPrawn : PlayerPawnBase
 		"MagnumSniperRifle",
 		"PB_BoltRifle",
 		"M41A",
-		"PowerOverwhelming",
 		"NemesisLMG";
 
 		Player.WeaponSlot 5,
@@ -132,6 +131,7 @@ class PB_PlayerPrawn : PlayerPawnBase
 		"DukeNukemRipper",
 		"PB_NeoHMG",
 		"SuperNailgun",
+		"PowerOverwhelming",
 		"AutoCannon";
 
 		Player.WeaponSlot 6,

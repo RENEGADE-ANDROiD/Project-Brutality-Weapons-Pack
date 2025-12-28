@@ -35,11 +35,11 @@ Actor PowerOverwhelming : PBWP_Weapon
 	Obituary "%k power overwhelmed %o."
 	weapon.UpSound "Overwhelming/Up"
     	// Weapon.SlotNumber 4
-    	Weapon.SelectionOrder 2600
+    Weapon.SelectionOrder 2600
 	Weapon.AmmoType "PB_HighCalMag"
 	Weapon.AmmoGive 100
 	Weapon.AmmoUse 1
-	Weapon.AmmoType2 "RocketRounds"
+	Weapon.AmmoType2 "PB_RocketAmmo"
 	Weapon.AmmoGive2 10
 	Weapon.AmmoUse2 1
 	Weapon.Kickback 50
