@@ -136,7 +136,6 @@
 #INCLUDE ACTORs/Weapons/Slot-5/DSlayer.dec
 #INCLUDE ACTORs/Weapons/Slot-5/SuperNailgun.dec
 #INCLUDE ACTORs/Weapons/Slot-5/DukeNukemRipper.dec
-#INCLUDE ACTORs/Weapons/Slot-5/OLD-HMG.dec
 #INCLUDE ACTORs/Weapons/Slot-5/AutoCannon.dec
 	//Slot-6
 #INCLUDE ACTORs/Weapons/Slot-6/ChthonicRifle.dec
