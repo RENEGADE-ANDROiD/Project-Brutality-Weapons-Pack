@@ -165,6 +165,7 @@ server bool isCMLoaded = false;
 server bool isDSLoaded = false;
 server bool HelmetDropCVAR = true;
 server bool AllMeleeDrop = true;
+server bool FloatingVials = true;
 
 // Monsters
 server bool EyeTurretSpawn = true;

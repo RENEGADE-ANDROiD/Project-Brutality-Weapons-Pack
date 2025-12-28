@@ -59,6 +59,7 @@ extend class PB_WeaponBase
 			A_SetInventory("SawMeleeSelected",0);
 			A_SetInventory("BatonMeleeSelected",0);
 			A_SetInventory("HammerMeleeSelected",0);
+            A_SetInventory("MacheteMeleeSelected",0);
 			A_StartSound("GRNPIN", 3);
 		}
 		Goto GoingToReady;

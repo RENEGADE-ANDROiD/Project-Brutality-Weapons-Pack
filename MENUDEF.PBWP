@@ -87,6 +87,7 @@ OptionMenu "ttwcoptions"
 	/* StaticText "Arcade Tweaks v1.0 is Loaded", white */
 	StaticText "PickupItemVariations v1.2 is Loaded", white
 	StaticText "Revamped Armors Mutators v1.2 is Loaded", white
+	StaticText "DeepWater v1.0 is Loaded", white
 	StaticText "ZoomAutoShotgun v1.2 is Loaded", white
 	/* StaticText "Helmet Drops Armors v1.1 is Loaded", white */
 }
@@ -98,11 +99,12 @@ OptionMenu "GeneralSettings"
 	Option "Primary Fire will trigger Executions", "ttwcfbex", "OnOff"
 	option "Monster weapon drops ","PB_WeaponDrops","MonsterDrops"
 	Option "Killstreak is Enabled", "KillstreakIsOn", "OnOff"
+	Option "Low Health Effect Enabled", "cl_Health_FX", "OnOff"
 	Option "Helmet Drop is Enabled", "HelmetDropCVAR", "OnOff"
+	option "Damage Indicators Enabled ","D4D_DamageIndicators","OnOff"
+	option "Floating Items","FloatingVials","OnOff"
 	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
 	ScaleSlider "Flash duration", "OuchFlashDuration", 0, 35, 1, "Disabled", "????? HOW IS IT -1"
-	option "Damage Indicators Enabled ","D4D_DamageIndicators","YesNo"
-	Option "Low Health Effect", "cl_Health_FX", "OnOff"
 	Control "Show Combat Points", "PB_CRSHW"
 	Control "$PBWP_TOGGLE_MELEE_MENU", "+pbwp_meleemenu"
 	Control "Toggle Magnet", "MagnetModeOff"
