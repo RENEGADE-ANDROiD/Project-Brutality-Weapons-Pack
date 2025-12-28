@@ -107,7 +107,7 @@ server bool PBSpawnPowerOverwhelming = True;
 server bool PBSpawnAutoCannon = True;
 server bool PBSpawnFire_and_IceDragonSlayer = True;
 server bool PBSpawnINNailGun = True;
-server bool PBSpawnOldHMG = True;
+server bool PBSpawnNeoHMG = True;
 server bool PBSpawnD4Machinegun = True;
 server bool PBSpawnINMiniGun = True;
 server bool PBSpawnDukeNukemRipper = True;
@@ -166,6 +166,9 @@ server bool isDSLoaded = false;
 server bool HelmetDropCVAR = true;
 server bool AllMeleeDrop = true;
 server bool FloatingVials = true;
+
+// Spawners
+server int Slot1Mask = 0;
 
 // Monsters
 server bool EyeTurretSpawn = true;

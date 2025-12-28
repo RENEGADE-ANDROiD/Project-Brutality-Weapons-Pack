@@ -15,6 +15,7 @@ Gameinfo
 	"BeefModChecker",
 	"BeefMeleeDrop",
 	"BeefMiscHandler",
+	/* "BeefEnums", */
 	// WEAPONS
 	"CSSGEvent",
 	"ExterminatorStuff",

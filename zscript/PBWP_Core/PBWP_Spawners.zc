@@ -772,17 +772,16 @@ class INNailGunSpawnerInjector : PBInjector
 	}
 }
 
-//HMG
-class OldHMGSpawnerInjector : PBInjector
+//NeoHMG
+class NeoHMGSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
 	{
-	if (PBSpawnOldHMG)
+	if (PBSpawnNeoHMG)
 		{
-		//handler.InjectSpawn('PB_MGSpawnerT1', 'OldHMG', 255, 1);
-		handler.InjectSpawn('PB_MGSpawnerT2', 'OldHMG', 255, 1);
-		handler.InjectSpawn('PB_MGSpawnerT3', 'OldHMG', 255, 1);
-		handler.InjectSpawn('PB_MGSpawnerT4', 'OldHMG', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT2', 'PB_NeoHMG', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT3', 'PB_NeoHMG', 255, 1);
+		handler.InjectSpawn('PB_MGSpawnerT4', 'PB_NeoHMG', 255, 1);
 		}
 	}
 }

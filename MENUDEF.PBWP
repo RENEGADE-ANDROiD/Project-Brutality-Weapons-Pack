@@ -233,6 +233,8 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText ""
 	Command "Enable All", "netevent PBWP_EnableAll"
 	Command "Disable All", "netevent PBWP_DisableAll"
+	/* Command "DEBUG ENABLE ALL", "netevent maskEnableAll"
+	Command "DEBUG DISABLE ALL", "netevent maskDisableAll" */
 	
 	StaticText ""
 	StaticText "---------------God Complex---------------", gold
@@ -300,7 +302,7 @@ OptionMenu "WeaponPackSpawnSettings"
 	Option "Spawn Auto Cannon", "PBSpawnAutoCannon", "OnOff"
 	Option "Spawn SCHISM - Dragon Slayer Sword", "PBSpawnFire_and_IceDragonSlayer", "OnOff"
 	Option "Spawn IN - Gallary Nailgun", "PBSpawnINNailGun", "OnOff"
-	Option "Spawn Old HMG", "PBSpawnOldHMG", "OnOff"
+	Option "Spawn Neo HMG", "PBSpawnNeoHMG", "OnOff"
 	Option "Spawn D2016 - Machinegun", "PBSpawnD4Machinegun", "OnOff"
 	Option "Spawn IN - Minigun", "PBSpawnINMiniGun", "OnOff"
 	Option "Spawn DUKE - Ripper Chaingun", "PBSpawnDukeNukemRipper", "OnOff"
