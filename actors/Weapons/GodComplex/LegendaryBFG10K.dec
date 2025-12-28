@@ -9,7 +9,7 @@ Weapon.AmmoUse2 0
 Weapon.AmmoType1 "PBWP_ComplexAmmo"
 // Weapon.AmmoType2 "PBWP_ComplexAmmo"
 Weapon.KickBack 90
-Weapon.SlotNumber 8
+// Weapon.SlotNumber 8
 Weapon.SlotPriority 1.2
 Inventory.PickupSound "Leg10k/Draw"
 Inventory.PickupMessage "You picked up the Legendary BFG 10K! Primitive, new technology is at your disposal."

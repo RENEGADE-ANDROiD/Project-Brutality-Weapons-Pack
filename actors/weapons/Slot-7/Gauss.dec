@@ -132,7 +132,7 @@ Actor PB_GaussCannon : PBWP_Weapon
 	   Weapon.AmmoUse 0
 	   Weapon.AmmoGive 50
 	   Weapon.AmmoType1 "PB_Cell"
-	   Weapon.SlotNumber 8
+	//    Weapon.SlotNumber 8
 	   Weapon.SlotPriority 0
 	   Obituary "Was Blown-Up By UAC Gauss Cannon!."
        Inventory.PickupSound "GAUSGET"

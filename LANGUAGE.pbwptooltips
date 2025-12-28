@@ -3,10 +3,25 @@
 //ALL THEM TOOLTIPS
 
 // GENERAL
-TIP_ttwcfbex = "Experimental, some weapons doesnt have this feature even when enabled";
-TIP_KillstreakIsOn = "Killing enemies multiple times will grant powerups and other items";
-TIP_HelmetDropCVAR = "Enemies that have helmets will drop their helmets that you can pick up \nand gives a small amount of armor";
+TIP_ttwcfbex = "Experimental, some weapons doesnt have this feature even when enabled, default is On";
+TIP_PB_WeaponDrops = "Determine the monsters drop \n1. Just ammo = Monsters will only drop ammo \n2. Default = Monsters will drop their weapon";
+TIP_KillstreakIsOn = "Killing enemies multiple times will grant powerups and other items, default is On";
+TIP_HelmetDropCVAR = "Enemies that have helmets will drop their helmets that you can pick up \nand gives a small amount of armor, default is On";
+TIP_champion_OverrideChance = "Determine the spawn chance of Champion Monstsers \nCan be disabled, check the Champion Enemies Menu for more settings";
+TIP_OuchFlashDuration = "Determine the duration of pain flash of mosnters \nCan be disabled, check the Ouchie! Menu for more settings";
+TIP_D4D_DamageIndicators = "Shows a damage indicator with colors corresponding to damage type \ncCheck the Damage Indicator Menu for more settings, default is On";
+TIP_cl_Health_FX = "Shows a red overlay, heartbeat sound, and desaturates the screen when low on hp, default is On";
+TIP_FloatingVials = "Make the Health and Armor Pickups Float, default is On";
 
+// MONSTER DROP 
+TIP_PBSpawnALLDTechDrop = "Demon-Tech Trooper will drop one of the following \n1. D-Tech Pistol \n2. D-Tech Shotgun \n3. D-Tech Rifle \n4. D-Tech Minigun \n5. D-Tech Blaster \n6. D-Tech Blaster Upgrade";
+TIP_PBSpawnMSSGDrop = "Marauder will drop the following \n1. Marauder SuperShotgun (MSSG) \n2. MeatHook equipment \n3. A chance to drop the MSSG Double Trouble Upgrade \n4. A chance to drop the MSSG Cold Keeper Upgrade";
+TIP_EQSpawnShieldGR = "Cyber Satyr will drop the Shield Grenade equipment";
+TIP_PBSpawnCyberdemonRLDrop = "Cyberdemons and its variants will drop the Cyberdemon Rocket Launcher";
+TIP_PBSpawnMastermindCGDrop = "Spider Masterminds and its variants will drop the Mastermind Chaingun";
+TIP_PBSpawnPaingiverDrop = "Paingiver Trooper will drop the Paingiver";
+TIP_PBSpawnMancFlameCannonDrop = "Mancubus and its variants will drop the Mancubus Flame Cannon";
+TIP_AllMeleeDrop = "Enemies that have are between 20-200 HP have a 20% chance to drop Melee items";
 
 // ARMOR
 TIP_SpawnYellowArmor = "Haste + RadSuit, 130% Durability, 50 Damage Reduction";
@@ -29,14 +44,25 @@ TIP_WrenchSpawn = "Fast hit, 2 hit combo, 1 hold to dash";
 TIP_CrowbarSpawn = "Fast hit, 2 hit combo, 1 hold to dash";
 TIP_SledgeHammerSpawn = "Standard hit, 2 hit combo, 1 hold to dash";
 TIP_ShockBatonSpawn = "Standard hit, perma stuns target";
+TIP_MacheteSpawn = "Standard Slashes, 4 hit combo";
 
 // EQUIPMENTS
 TIP_ShieldGrenadeSpawn = "Spawns a Waist-High shield";
 TIP_VoidGrenadeSpawn = "Spawns a Black Hole on detonation";
-TIP_RemoteChargesSpawn = "Press Equipment Use twice to use Detonator. Have three types \n1. Swarm Charge = Spawns Small Swarmer Bots \n2. Laser Charge = Spawns a Circular Laser Trap \n3. Acid Charge = Spawns an Acid Cloud";
+TIP_RemoteChargesSpawn = "To activate the Detonator Press Equipment Use twice or \nby selecting and using any Remote Charge with no ammo, \nthere are three types \n1. Swarm Charge = Spawns Small Swarmer Bots \n2. Laser Charge = Spawns a Circular Laser Trap \n3. Acid Charge = Spawns an Acid Cloud";
 TIP_ElecPodSpawn = "Spawns Electric Bot that Bounces and deal damage";
 TIP_CaltropsSpawn = "Places small traps on the ground that deal damage when walked on";
 TIP_ShurikenSpawn = "Throw Shurikens, deal extra damage when Berserk is active";
 TIP_BeaconSpawn = "Spawns two upgrades, or if Custom Marines addon is installed \nwill summon  two Marine Allies";
 TIP_FreezebotSpawn = "Spawns a FreezeBot, press use on the bot to retrieve it";
 TIP_SpawnShieldSaw = "Throw Shield Saw, will fly back to the player after hit or after a few seconds";
+
+// MISC 
+TIP_PBSpawnStormcast = "WARNING: BUGGY WEAPON" \nBeefRice: This thing is mega busted;
+TIP_PBSpawnPB_MancubusFlameCannon = "STOP ASKING ABOUT THE MANCUBUS FLAME CANNON";
+TIP_PBSpawnProsurv_LeverAction = "BeefRice: My Favourite";
+TIP_PBSpawnMarauderSSG = "Here's a tip, use the MeatHook as much as you can but be careful";
+TIP_PBSpawnHexaLionShotgun = "BeefRice: Remind me why we need a 6 barrel shotgun again";
+TIP_PBSpawnAK47 = "BeefRice: Anyone that unironically uses this is going straight to my banlist";
+TIP_PBSpawnFire_and_IceDragonSlayer = "GRIFFITH!!!!";
+TIP_PBSpawnProsurv_PlasmaBlaster = "You already have this if you choose the default start";

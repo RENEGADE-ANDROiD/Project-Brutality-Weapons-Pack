@@ -138,16 +138,16 @@ class KillTracker : EventHandler
                 PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Backpack and Soulsphere  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 25:
-                plr.GiveInventory("PB_PowerInvul",1);
-                plr.GiveInventory("PB_BlurSphere", 1);
+                plr.GiveInventory("PB_Berserk",1);
+                plr.GiveInventory("PB_Megasphere", 1);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Wicked Sick",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Invulnerability and Blur Sphere  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Berserk and Megasphere  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 30:
-                plr.GiveInventory("PB_Berserk",1);
+                plr.GiveInventory("PB_NoEffectInvul",1);
                 plr.GiveInventory("PB_Doomsphere",1);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Godlike",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Berserk and Quad Damage  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);					
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Invulnerability and Quad Damage  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);					
                 break;
             default:
                 break;

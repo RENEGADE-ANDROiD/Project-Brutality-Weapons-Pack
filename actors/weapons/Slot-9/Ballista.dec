@@ -150,7 +150,7 @@ PB_WeaponBase.UnloaderToken "BallistaUnloaded"
 PB_WeaponBase.RespectItem "RespectBallista"
 Inventory.Pickupmessage "You got the Ballista! (SLOT 9)"
 Weapon.Kickback 4
-Weapon.SlotNumber 9
+// Weapon.SlotNumber 9
 Weapon.SlotPriority 0
 +WEAPON.NOAUTOAIM
 +WEAPON.NOAUTOFIRE

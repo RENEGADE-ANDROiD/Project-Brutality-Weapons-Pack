@@ -34,7 +34,7 @@ ACTOR ThunderCrossbow : PBWP_Weapon
 	PB_WeaponBase.UnloaderToken "ThunderCrossbowHasUnloaded"
 	Weapon.KickBack 300
 	Inventory.PickupMessage "You got the ThunderCrossbow!"
-	Weapon.SlotNumber 8
+	// Weapon.SlotNumber 8
 	Weapon.SelectionOrder 100
 	Inventory.AltHUDIcon "WBOWA0"
 	Speed 5

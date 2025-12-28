@@ -16,7 +16,7 @@ ACTOR AK-47 : PBWP_Weapon
     +WEAPON.NOAUTOFIRE
 	+FORCEXYBILLBOARD
 	+WEAPON.NO_AUTO_SWITCH
-	Weapon.SlotNumber 4
+	// Weapon.SlotNumber 4
 	Weapon.SlotPriority 4
 	Inventory.PickupSound "AK-PICK"
 	Scale 0.8

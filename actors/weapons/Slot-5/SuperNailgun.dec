@@ -123,7 +123,7 @@ Actor SuperNailgun : PBWP_Weapon {
     Inventory.PickupMessage "You got the UAC Prototype Super Nailgun (Slot 5)!"
     Obituary "Became a Leaking Piece Of Meat By The Super Nailgun"
     AttackSound "None"
-    Weapon.SlotNumber 5
+    // Weapon.SlotNumber 5
     Weapon.SelectionOrder 2800
     Scale 0.4
     Tag "UAC Super Nailgun"

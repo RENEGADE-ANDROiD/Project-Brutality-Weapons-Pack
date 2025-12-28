@@ -7,7 +7,7 @@ Class PB_DemonExt : PBWP_Weapon
 {
 	default
 	{
-		weapon.slotnumber 0;
+		// weapon.slotnumber 0;
 		//Demonic_Exterminator
 		Tag "UnMaker Extermination Type";
 		inventory.pickupsound "UNMPCK";

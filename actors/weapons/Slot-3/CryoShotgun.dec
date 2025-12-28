@@ -29,7 +29,7 @@ ACTOR PB_CryoShotgun : PBWP_Weapon
 	Inventory.PickupSound "M1014RE"
 	Inventory.Pickupmessage "You got the Cryo Shotgun!"
 	Obituary "%o got frozen to death by %k's Cryo Shotgun."
-	Weapon.SlotNumber 3
+	// Weapon.SlotNumber 3
 	Weapon.SlotPriority 1
 	Weapon.SelectionOrder 300
 	AttackSound "None"

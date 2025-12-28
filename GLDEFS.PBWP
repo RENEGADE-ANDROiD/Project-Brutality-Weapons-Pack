@@ -1,5 +1,72 @@
 #INCLUDE Brightmaps.bm
-#include "actors/Monsters/EarthEnemyGLDefs.gl"
+
+//Earth boss
+pointlight EBOSSNECKDEATH
+{
+    color 0.2 1.0 0.2
+    size 128
+//    [offset <X> <Y> <Z>]
+//    [subtractive <SUB>]
+//    [attenuate <ATT>]
+//    [dontlightself <DLS>]
+} 
+
+pointlight ECELLLIGHT
+{
+    color 0.6 1.0 0.6
+    size 128
+}
+
+Object EBossCell
+{
+Frame EBCL { Light ECELLLIGHT }
+}
+
+//Hect fireball
+pointlight HECTFIREBALL
+{
+    color 0.4 1.0 0.4
+    size 96
+	attenuate 1
+}
+
+flickerlight HECTFIREBALL_X1
+{
+    color 0.5 1.0 0.5
+    size 96
+    secondarySize 108
+    chance 0.3
+	attenuate 1
+}
+
+flickerlight HECTFIREBALL_X2
+{
+    color 0.2 0.5 0.2
+    size 120
+    secondarySize 132
+    chance 0.3
+	attenuate 1
+}
+
+flickerlight HECTFIREBALL_X3
+{
+    color 0.1 0.3 0.1
+    size 144
+    secondarySize 156
+    chance 0.3
+	attenuate 1
+}
+
+object HecteballGargoyle
+{
+    frame HECFA { light HECTFIREBALL   }
+    frame HECFB { light HECTFIREBALL   }
+
+    frame HECFC { light HECTFIREBALL_X1 }
+    frame HECFD { light HECTFIREBALL_X2 }
+    frame HECFE { light HECTFIREBALL_X3 }
+}
+
 
 //PickUpItemVariation//
 pulselight REDITEM

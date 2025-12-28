@@ -3,7 +3,7 @@ class PB_CalamityBlade : PBWP_Weapon
  Int ChargeLevel;
 	default
 	{
-		weapon.slotnumber 8;
+		// weapon.slotnumber 8;
 		weapon.ammotype1 "PB_Cell";
 		weapon.ammogive1 100;	
 		weapon.slotpriority 0;

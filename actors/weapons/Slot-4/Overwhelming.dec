@@ -34,16 +34,16 @@ Actor PowerOverwhelming : PBWP_Weapon
 	Inventory.PickupMessage "You've got the ''Power Overwhelming'' minigun! We need focus... to ERADICATE! (4)"
 	Obituary "%k power overwhelmed %o."
 	weapon.UpSound "Overwhelming/Up"
-    	Weapon.SlotNumber 4
-    	Weapon.SelectionOrder 2600
+    	// Weapon.SlotNumber 4
+    Weapon.SelectionOrder 2600
 	Weapon.AmmoType "PB_HighCalMag"
 	Weapon.AmmoGive 100
 	Weapon.AmmoUse 1
-	Weapon.AmmoType2 "RocketRounds"
+	Weapon.AmmoType2 "PB_RocketAmmo"
 	Weapon.AmmoGive2 10
 	Weapon.AmmoUse2 1
 	Weapon.Kickback 50
-	Weapon.SlotNumber 4
+	// Weapon.SlotNumber 4
 	Weapon.BobStyle "InverseSmooth"
 	Weapon.BobSpeed 1.2
 	Weapon.BobRangeY 0.6
@@ -203,6 +203,7 @@ SelectContinue:
 
 
 	AltFire:
+		TNT1 A 0 PB_CheckBarrelPlace1()
 		OVRF A 1 Bright {
 			A_GunFlash;
 			PB_WeaponRecoil(-0.6, 0);

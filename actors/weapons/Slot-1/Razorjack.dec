@@ -37,7 +37,7 @@ ACTOR Razorjack : PBWP_Weapon
 	Weapon.UpSound "Razorjack/Gun"
 	Weapon.SelectionOrder 220
 	Weapon.Kickback 10
-	Weapon.SlotNumber 1
+	// Weapon.SlotNumber 1
 	Weapon.AmmoGive2 10
 	Weapon.AmmoType2 "BladeAmmo"
 	Weapon.AmmoUse2 1

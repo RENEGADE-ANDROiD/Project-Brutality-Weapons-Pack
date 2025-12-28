@@ -9,7 +9,7 @@ ACTOR DemonTechMinigun : PBWP_Weapon
    Weapon.AmmoUse 1
    Weapon.AmmoGive 100
    Weapon.AmmoType "PB_DTech" 
-   Weapon.SlotNumber 0
+//    Weapon.SlotNumber 0
    Weapon.UpSound "HRReady"
    Inventory.PickupSound "weapons/demontechload"
    Inventory.PickupMessage "You got the Demon Tech Minigun! (Slot 0)"

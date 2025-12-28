@@ -5,7 +5,7 @@ class LoRCalamityBlade : PBWP_Weapon
 	{
 		//$Category "Weapons/Legacy of Rust"
 		//Height 20;
-		Weapon.SlotNumber 8;
+		// Weapon.SlotNumber 8;
 		//Weapon.SelectionOrder 80;
 		//Weapon.SlotPriority 255;
 		Weapon.AmmoUse 1;
@@ -28,17 +28,8 @@ class LoRCalamityBlade : PBWP_Weapon
 		Stop;	
 	Steady:
 		TNT1 A 0 A_SetRoll(0);
-		TNT1 A 1 {
-				A_TakeInventory("GoWeaponSpecialAbility",1);
-				A_TakeInventory("Grabbing_A_Ledge",1);
-				A_TakeInventory("UseEquipment",1);
-				A_TakeInventory("ToggleEquipment",1);
-				A_TakeInventory("Taunting",1);
-				A_TakeInventory("Salute1",1);
-				A_TakeInventory("Salute2",1);
-				A_TakeInventory("Kicking",1);
-			}
-	    	Goto Ready;
+		TNT1 A 1;
+	    Goto Ready;
 		WeaponRespect:
 			TNT1 A 0 A_DoPBWeaponAction();
 			TNT1 A 0 {
@@ -50,7 +41,6 @@ class LoRCalamityBlade : PBWP_Weapon
 			TNT1 A 0 A_Raise();
 			TNT1 A 0 {PB_HandleCrosshair(69);}
 			TNT1 A 0 A_SetInventory("RandomHeadExploder",1);
-			TNT1 A 0 PB_RespectIfNeeded();
 			TNT1 A 0 A_weaponoffset(0,32);
 			goto SelectFirstPersonLegs;
 		SelectContinue:

@@ -23,7 +23,7 @@ ACTOR ProSurv_BlasterPistol : PBWP_Weapon
 	Weapon.BobStyle InverseSmooth
 	Weapon.BobSpeed 2.4
 	Game Doom
-	Weapon.SlotNumber 2
+	// Weapon.SlotNumber 2
 	Weapon.SlotPriority 0
 	Weapon.SelectionOrder 1300
 	Weapon.AmmoUse1 0

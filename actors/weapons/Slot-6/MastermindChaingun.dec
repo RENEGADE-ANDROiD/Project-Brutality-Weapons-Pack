@@ -25,7 +25,7 @@ Actor MastermindChaingun : PBWP_Weapon
 	Inventory.PickupSound "CBOXPKUP"
 	Inventory.PickupMessage "You got the Mastermind's Chaingun! (Slot 6)"
 	AttackSound "None"
-	Weapon.SlotNumber 6
+	// Weapon.SlotNumber 6
     Weapon.SlotPriority 0
     Weapon.SelectionOrder 3500
 	Scale 0.9

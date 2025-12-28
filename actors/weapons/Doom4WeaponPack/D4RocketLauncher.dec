@@ -20,7 +20,7 @@ Actor D4RocketLauncher : PBWP_Weapon
 	+WEAPON.NOAUTOFIRE
 	+FLOORCLIP
 	+DONTGIB
-	Weapon.SlotNumber 6
+	//Weapon.SlotNumber 6
 	Scale 0.9
 	Tag "Doom 4 Rocket Launcher"
 	Inventory.AltHudIcon "D4W5A0"

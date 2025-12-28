@@ -111,7 +111,7 @@ Actor M41A : PBWP_Weapon
     Weapon.BobSpeed 2.0
 	Weapon.AmmoType1 "PB_HighCalMag"
 	Weapon.AmmoType2 "M41AAmmo"
-	Weapon.AmmoUse1 0
+	//Weapon.AmmoUse1 0
 	Weapon.AmmoGive1 10
    +WEAPON.WIMPY_WEAPON
    +WEAPON.NOAUTOAIM
@@ -123,7 +123,7 @@ Actor M41A : PBWP_Weapon
 	Inventory.PickupSound "weapons/M41APulseRifleup"
 	Inventory.PickupMessage "M41A Aliens Pulse Rifle (Slot 4)"
 	Obituary "Was mowed down by M41A Aliens Pulse Rifle."
-	Weapon.SlotNumber 4
+	// Weapon.SlotNumber 4
 	Weapon.SlotPriority 0
     Weapon.SelectionOrder 7
 	Weapon.SelectionOrder 800
@@ -259,11 +259,7 @@ Actor M41A : PBWP_Weapon
 		RIFG A 0 A_TakeInventory("Zoomed",1)
 		RIFG A 0 A_TakeInventory("ADSmode",1)
 		TNT1 A 0 A_PlaySound("weapons/empty", 4)
-   NoAmmo2:
-		TNT1 A 0
-		RIFG A 0 A_JumpIfInventory("Reloading",1,"Reload")
 		RIFG A 0 A_JumpIfInventory("PB_HighCalMag",1,"Reload")
-		RIFG A 0 A_JumpIfInventory("FiredPrimary",1,"NoAmmo2")
 		M41A A 5 A_WeaponReady(WRF_ALLOWRELOAD|WRF_NOFIRE)
 		Goto M41AAlienPulseRifleReadyToFire
 

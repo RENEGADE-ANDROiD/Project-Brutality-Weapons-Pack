@@ -1,6 +1,46 @@
 //PB Arcade 500HP//
 server int PBAT_PickupMode = 0;
 
+//DamageIndicatorsV2//
+user 	bool 	D4D_DamageIndicators 	= true;
+user 	int 	D4D_IndicatorType 		= 0;
+user 	float 	D4D_DIScale 			= 0.5;
+user 	float 	D4D_DIAlpha 			= 1.0;
+user 	int 	D4D_DITimer 			= 35;
+user	int		D4D_DIAnim				= 0;
+
+//HealthSystem//
+user bool cl_Health_FX = false; //off by default
+
+//Ouchie! by Dox//
+server bool OuchFlashEnabled = true;
+server bool OuchFlashOnlyMonsters = true;
+server bool OuchFlashSolidColor = true;
+server int OuchFlashMinDamage = 5;
+
+server int OuchFlashDuration = 3;
+server int OuchFlashBrightness = 64;
+server HandlerClass(OuchFlashAdjuster) int OuchFlashCooldown = 6;
+
+server color OuchFlash_ 			= "ff0000";
+//zdoom damagetypes
+server color OuchFlash_Hitscan 		= "ff0000";
+server color OuchFlash_BFGSplash 	= "a2ff00";
+server color OuchFlash_Drowning 	= "0030cc";
+server color OuchFlash_Slime 		= "8f0000";
+server color OuchFlash_Fire 		= "ff9900";
+server color OuchFlash_Crush 		= "a32727";
+server color OuchFlash_Telefrag 	= "73ff00";
+server color OuchFlash_Melee 		= "ffb8b8"; //"ff 00 00";
+server color OuchFlash_Railgun 		= "a6acff";
+server color OuchFlash_Ice 			= "6bf0ff";
+server color OuchFlash_Electric 	= "fff457";
+server color OuchFlash_Poison 		= "00FF00";
+//Generic modded names just in case
+server color OuchFlash_Plasma 		= "3856ff";
+server color OuchFlash_Freeze 		= "6bf0ff";
+server color OuchFlash_Bleed 		= "ff0000";
+
 //Hook//
 Server NoArchive Bool sv_allowhookshot = True;
 
@@ -67,7 +107,7 @@ server bool PBSpawnPowerOverwhelming = True;
 server bool PBSpawnAutoCannon = True;
 server bool PBSpawnFire_and_IceDragonSlayer = True;
 server bool PBSpawnINNailGun = True;
-server bool PBSpawnOldHMG = True;
+server bool PBSpawnNeoHMG = True;
 server bool PBSpawnD4Machinegun = True;
 server bool PBSpawnINMiniGun = True;
 server bool PBSpawnDukeNukemRipper = True;
@@ -124,6 +164,11 @@ server bool isGKLoaded = false;
 server bool isCMLoaded = false;
 server bool isDSLoaded = false;
 server bool HelmetDropCVAR = true;
+server bool AllMeleeDrop = true;
+server bool FloatingVials = true;
+
+// Spawners
+server int Slot1Mask = 0;
 
 // Monsters
 server bool EyeTurretSpawn = true;
@@ -152,6 +197,7 @@ server bool WrenchSpawn = true;
 server bool CrowbarSpawn = true;
 server bool SledgeHammerSpawn = true;
 server bool ShockBatonSpawn = true;
+server bool MacheteSpawn = true;
 
 // Equipments
 server bool ShieldGrenadeSpawn = true;

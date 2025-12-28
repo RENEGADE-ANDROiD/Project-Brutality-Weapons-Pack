@@ -1302,7 +1302,7 @@ class PB_Hud_ZS : BaseStatusBar
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("CrowbarDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
 				}
 				else if(CheckInventory("JohnnyHandsMeleeSelected")) {
-					PBHud_DrawImage("HDGUYY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawImage("HEXPLY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("ExplosiveHandCharges")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
 				}
 				else if(CheckInventory("BatonMeleeSelected")) {
@@ -1347,6 +1347,11 @@ class PB_Hud_ZS : BaseStatusBar
 					PBHud_DrawImage("HWRNCY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("WrenchDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
 				}
+				else if(CheckInventory("MacheteMeleeSelected")) {
+					PBHud_DrawImage("HCHETE", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("MacheteDurability")), (-124, -114), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+				// DOESNT NEED DURABILITY
 				else if(CheckInventory("BladeMeleeSelected")) {
 					PBHud_DrawImage("HDBLDY", (-110, -100), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.5, 1.5));
 				}
@@ -1676,7 +1681,8 @@ class PB_Hud_ZS : BaseStatusBar
 					weaponBarAccent = Font.CR_TAN;
 					DrawAmmoBar("BARBACT1", "BARBACT2", "BAMBAR2", "ABAR2", "ABAR2", "AMMOIC2", Font.CR_TAN);
 				}
-				else if(WeaponUsesAmmoType("PB_HighCalMag") && !(CheckWeaponSelected("PB_MG42"))  && !(CheckWeaponSelected("Prosurv_Ballista")))
+				else if(WeaponUsesAmmoType("PB_HighCalMag") && !CheckWeaponSelected("PB_MG42")  
+				&& !CheckWeaponSelected("Prosurv_Ballista") && !CheckWeaponSelected("PowerOverwhelming")  )
 				{
 					weaponBarAccent = Font.CR_YELLOW;
 					DrawAmmoBar("BARBACY1", "BARBACY2", "BAMBAR1", "ABAR1", "ABAR1", "AMMOIC1", Font.CR_YELLOW);
@@ -1686,7 +1692,7 @@ class PB_Hud_ZS : BaseStatusBar
 					weaponBarAccent = Font.CR_ORANGE;
 					DrawAmmoBar("BARBACO1", "BARBACO2", "BAMBAR3", "ABAR3", "ABAR3", "AMMOIC3", Font.CR_ORANGE);
 				}
-				else if(WeaponUsesAmmoType("PB_RocketAmmo") && !CheckWeaponSelected("NemesisLMG"))
+				else if(WeaponUsesAmmoType("PB_RocketAmmo") && !CheckWeaponSelected("NemesisLMG") && !CheckWeaponSelected("PowerOverwhelming"))
 				{
 					weaponBarAccent = Font.CR_RED;
 					DrawAmmoBar("BARBACR1", "BARBACR2", "BAMBAR4", "ABAR4", "ABAR4", "AMMOIC4", Font.CR_RED);
@@ -1720,7 +1726,7 @@ class PB_Hud_ZS : BaseStatusBar
 				&& !CheckWeaponSelected("PB_Unmaker") && !CheckWeaponSelected("PB_Chainsaw") 
 				&& !CheckWeaponSelected("ProSurv_Ballista") && !CheckWeaponSelected("PB_Flamethrower") 
 				&& !CheckWeaponSelected("PB_MG42") && !CheckWeaponSelected("PB_TauntWeapon")
-				&& !CheckWeaponSelected("NemesisLMG")
+				&& !CheckWeaponSelected("NemesisLMG") && !CheckWeaponSelected("PowerOverwhelming")
 				// ADD MORE EXCEPTIONS HERE
 				)
 				{
@@ -1744,6 +1750,19 @@ class PB_Hud_ZS : BaseStatusBar
 				
 				switch(CPlayer.ReadyWeapon.GetClassName())
 				{
+					case 'PowerOverwhelming':
+						PBHud_DrawImage("BARBACY1", (-72, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+						PBHud_DrawImage("BARBACR2", (-73, -50), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
+						//Bars
+						PBHud_DrawBar("ABAR4", "BGBARL", Secondary.Amount, Secondary.MaxAmount, (-112, -51), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+						PBHud_DrawBar("ABAR1", "BGBARL", Primary.Amount, Primary.MaxAmount, (-112, -30), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
+						//Numbers
+						PBHud_DrawString(mDefaultFont, Formatnumber(Secondary.Amount), (-207, -69), DI_TEXT_ALIGN_RIGHT, Font.CR_RED);
+						PBHud_DrawString(mDefaultFont, Formatnumber(Primary.Amount), (-207, -48), DI_TEXT_ALIGN_RIGHT, Font.CR_YELLOW);
+						//Icon
+						PBHud_DrawImage("AMMOIC1", (-77, -24), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, 1, (27, 19));
+						weaponBarAccent = Font.CR_YELLOW;
+						break;
 					case 'NemesisLMG':
 						PBHud_DrawImage("BARBACU1", (-72, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
 						PBHud_DrawImage("BARBACR2", (-73, -50), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);

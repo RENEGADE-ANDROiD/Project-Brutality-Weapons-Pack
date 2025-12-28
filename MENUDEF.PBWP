@@ -73,18 +73,23 @@ OptionMenu "ttwcoptions"
 	Submenu "$PBWP_QUICKSWITCHER", "SwitchItUpOptions"
 	Submenu "$PBWP_BEHOLD", "BeholdOptions"
 	Submenu "$PBWP_ARCADE", "PBArcadeTweaksSettings"
+	Submenu "$PBWP_OUCHIE", "DamageFlashColorsWoooo"
+	Submenu "$PBWP_DMGINDICATOR", "D4D_DIMenu"
 	submenu "$PBWP_DOORBUSTER","BusterMenu"
 	StaticText ""
 	Command "$PB_GO_TESTMAP", "map PBTEST"
 	StaticText ""
 	StaticText "Project Brutality Weapons Pack Version: 1.9.5-Release", gold
-	/* StaticText "CHAMPIONS v2.9.1 is Loaded", white
+	/* StaticText "CHAMPIONS v2.9.1 is Loaded", white // DONT SHOW MODS THAT ALREADY HAVE THEIR OWN SETTINGS
 	StaticText "BEHOLD! v3.0 is Loaded", white
 	StaticText "DOORBUSTER v1.0 is Loaded", white
 	StaticText "Random Weapon Switcher v1.0 is Loaded", white */
-	StaticText "Arcade Tweaks v1.0 is Loaded", white
+	/* StaticText "Arcade Tweaks v1.0 is Loaded", white */
+	StaticText "PickupItemVariations v1.2 is Loaded", white
 	StaticText "Revamped Armors Mutators v1.2 is Loaded", white
-	StaticText "Helmet Drops Armors v1.1 is Loaded", white
+	StaticText "DeepWater v1.0 is Loaded", white
+	StaticText "ZoomAutoShotgun v1.2 is Loaded", white
+	/* StaticText "Helmet Drops Armors v1.1 is Loaded", white */
 }
 
 OptionMenu "GeneralSettings"
@@ -94,8 +99,12 @@ OptionMenu "GeneralSettings"
 	Option "Primary Fire will trigger Executions", "ttwcfbex", "OnOff"
 	option "Monster weapon drops ","PB_WeaponDrops","MonsterDrops"
 	Option "Killstreak is Enabled", "KillstreakIsOn", "OnOff"
+	Option "Low Health Effect Enabled", "cl_Health_FX", "OnOff"
 	Option "Helmet Drop is Enabled", "HelmetDropCVAR", "OnOff"
+	option "Damage Indicators Enabled ","D4D_DamageIndicators","OnOff"
+	option "Floating Items","FloatingVials","OnOff"
 	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
+	ScaleSlider "Flash duration", "OuchFlashDuration", 0, 35, 1, "Disabled", "????? HOW IS IT -1"
 	Control "Show Combat Points", "PB_CRSHW"
 	Control "$PBWP_TOGGLE_MELEE_MENU", "+pbwp_meleemenu"
 	Control "Toggle Magnet", "MagnetModeOff"
@@ -157,6 +166,8 @@ optionmenu "ItemSpawnSett"
 	statictext ""
 	statictext "---------------Melee Items---------------", gold
 	statictext ""
+	Option "Enable Melee Drop", "AllMeleeDrop", "OnOff"
+	Option "Spawn Machete", "MacheteSpawn", "OnOff"
 	Option "Spawn Katana", "KatanaSpawn", "OnOff"
 	Option "Spawn Pick Axe", "PickaxeSpawn", "OnOff"
 	Option "Spawn Impactor Gauntlet", "ImpactorSpawn", "OnOff"
@@ -173,37 +184,38 @@ optionmenu "ItemSpawnSett"
 OptionMenu "MonsterDropWeapSett"
 {
 	Title "Monster Drop Settings"
+	Class "PB_OptionMenu"
 	StaticText "Choose what things drop from killed enemies", white
 	StaticText "By default they are all Off", white
 	StaticText ""
 	StaticText "---------------Specials---------------", gold
 	StaticText ""
-	Option "D-Tech Trooper Spawn All D-Tech Weapons", "PBSpawnALLDTechDrop", "OnOff"
-	Option  "PB Monster weapon drops (Default is Just Ammo)","PB_WeaponDrops","MonsterDrops"
+	Option "Enable D-Tech Trooper Drop", "PBSpawnALLDTechDrop", "OnOff"
 	
 	StaticText ""
 	StaticText "---------------Monster Pack---------------", gold
 	StaticText ""
-	Option "Marauder drop MSSG, Meat Hook, and MSSG Upgrade", "PBSpawnMSSGDrop", "OnOff"
-	Option "Cyber Satyr drop Shield Grenades", "EQSpawnShieldGR", "OnOff"
+	Option "Enable Marauder Drop", "PBSpawnMSSGDrop", "OnOff"
+	Option "Enable Cyber Satyr Drop", "EQSpawnShieldGR", "OnOff"
 	
 	StaticText ""
 	StaticText "---------------Slot 6 weapons---------------", gold
 	StaticText ""
-	Option "Cyberdemons drop Cyberdemon Missile Launcher", "PBSpawnCyberdemonRLDrop", "OnOff"
-	Option "Masterminds drop Mastermind Chaingun", "PBSpawnMastermindCGDrop", "OnOff"
-	Option "Rocket Hell Trooper drop Paingiver", "PBSpawnPaingiverDrop", "OnOff"
+	Option "Enable Cyberdemons Drop", "PBSpawnCyberdemonRLDrop", "OnOff"
+	Option "Enable Masterminds Drop", "PBSpawnMastermindCGDrop", "OnOff"
+	Option "Enable Rocket Hell Trooper Drop", "PBSpawnPaingiverDrop", "OnOff"
 
 	StaticText ""
 	StaticText "---------------Slot 8 weapons---------------", gold
 	StaticText ""
-	Option "Mancubus drop Flame Cannon", "PBSpawnMancFlameCannonDrop", "OnOff"
+	Option "Enable Mancubus Drop", "PBSpawnMancFlameCannonDrop", "OnOff"
 }
 
 OptionMenu "WeaponPackSpawnSettings"
 {
 	Title "Weapon Pack Spawn Settings"
-	StaticText "Choose what weapon spawns naturally"
+	Class "PB_OptionMenu"
+	StaticText "Choose what weapon spawns naturally", white
 	StaticText "Some have prefix that indicates which weapon pack it came from", white
 	StaticText "DTECH = Demon-Tech Weapons Pack", white
 	StaticText "SCHISM = Schism / Fire & Ice", white
@@ -221,6 +233,8 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText ""
 	Command "Enable All", "netevent PBWP_EnableAll"
 	Command "Disable All", "netevent PBWP_DisableAll"
+	/* Command "DEBUG ENABLE ALL", "netevent maskEnableAll"
+	Command "DEBUG DISABLE ALL", "netevent maskDisableAll" */
 	
 	StaticText ""
 	StaticText "---------------God Complex---------------", gold
@@ -288,7 +302,7 @@ OptionMenu "WeaponPackSpawnSettings"
 	Option "Spawn Auto Cannon", "PBSpawnAutoCannon", "OnOff"
 	Option "Spawn SCHISM - Dragon Slayer Sword", "PBSpawnFire_and_IceDragonSlayer", "OnOff"
 	Option "Spawn IN - Gallary Nailgun", "PBSpawnINNailGun", "OnOff"
-	Option "Spawn Old HMG", "PBSpawnOldHMG", "OnOff"
+	Option "Spawn Neo HMG", "PBSpawnNeoHMG", "OnOff"
 	Option "Spawn D2016 - Machinegun", "PBSpawnD4Machinegun", "OnOff"
 	Option "Spawn IN - Minigun", "PBSpawnINMiniGun", "OnOff"
 	Option "Spawn DUKE - Ripper Chaingun", "PBSpawnDukeNukemRipper", "OnOff"
@@ -825,4 +839,100 @@ OptionValue "ATPickupMode"
 {
 	0, "Normal-ish"
 	1, "Stack to 500"
+}
+
+optionmenu "D4D_DIMenu"
+{
+	Title "D4D Damage indicators menu"
+	statictext "====================="
+	statictext ""
+	option "Enabled ","D4D_DamageIndicators","YesNo"
+	statictext ""
+	option "Type ","D4D_IndicatorType","D4DIndTypes"
+	statictext ""
+	option "Enable damage type colored indicator ","D4D_NoColorType","NoYes"
+	statictext ""
+	slider "Scale ","D4D_DIScale",0.2,1.0,0.05
+	statictext ""
+	slider "Alpha ","D4D_DIAlpha",0.05,1.0,0.05
+	statictext ""
+	slider "Duration (in Tics) ","D4D_DITimer",20,140,5
+	statictext ""
+	option "Animation ","D4D_DIAnim","D4DAnimTypes"
+	statictext ""
+	statictext "Indicator default color"
+	statictext ""
+	colorpicker "Color picker","D4D_DefColor"
+	statictext ""
+	textfield "Hex","D4D_DefColor"
+}
+
+optionvalue "D4DIndTypes"
+{
+	0,"MW2019"
+	1,"D4D"
+	2,"CODWW2"
+	3,"WD"
+}
+
+optionvalue "D4DAnimTypes"
+{
+	-1,"None"
+	0,"< Expand >(Subtle)"
+	1,">Shrink<(Fast)"
+	2,"< Expand >(Fast)"
+	3,">Shrink<(Subtle)"
+	4,"Blink"
+	5,"Float"
+	6,"Float & grow"
+}
+
+OptionMenu "DamageFlashColorsWoooo"
+{
+	Title "Ouchie! Damage Flash Settings"
+	StaticText " "
+	StaticText "-=  Mod config.  =-", "yellow"
+	StaticText " "
+	ScaleSlider "Flash duration", "OuchFlashDuration", 0, 35, 1, "Disabled", "????? HOW IS IT -1"
+	ScaleSlider "Flash cooldown", "OuchFlashCooldown", 0, 35, 1, "Disabled", "what", "OuchFlashDuration", 0
+	Option "Actor types to trigger a flash", "OuchFlashOnlyMonsters", "OuchFlashActorType", "OuchFlashDuration", 0
+	Slider "Minimum damage to trigger a flash", "OuchFlashMinDamage", 1, 100, 5, 0, "OuchFlashDuration", 0
+	ScaleSlider "Extra brightness when flashing", "OuchFlashBrightness", 0, 255, 32, "Disabled", "what", "OuchFlashDuration", 0
+	Option "Flash type", "OuchFlashSolidColor", "OuchFlashType", "OuchFlashDuration", 0
+	StaticText " "
+	ColorPicker "Default", 					"OuchFlash_", "OuchFlashDuration", 0
+	StaticText " "
+	StaticText "-=  ZDoom Damage Types  =-", "yellow"
+	StaticText " "
+	ColorPicker "Hitscan", 				"OuchFlash_Hitscan", "OuchFlashDuration", 0
+	ColorPicker "BFG splash", 				"OuchFlash_BFGSplash", "OuchFlashDuration", 0
+	ColorPicker "Drowning", 				"OuchFlash_Drowning", "OuchFlashDuration", 0
+	ColorPicker "Slime (damaging floors)", 	"OuchFlash_Slime", "OuchFlashDuration", 0
+	ColorPicker "Fire", 					"OuchFlash_Fire", "OuchFlashDuration", 0
+	ColorPicker "Crush", 					"OuchFlash_Crush", "OuchFlashDuration", 0
+	ColorPicker "Telefrag", 				"OuchFlash_Telefrag", "OuchFlashDuration", 0
+	ColorPicker "Melee",			 		"OuchFlash_Melee", "OuchFlashDuration", 0
+	ColorPicker "Railgun", 					"OuchFlash_Railgun", "OuchFlashDuration", 0
+	ColorPicker "Ice", 						"OuchFlash_Ice", "OuchFlashDuration", 0
+	ColorPicker "Electric", 				"OuchFlash_Electric", "OuchFlashDuration", 0
+	ColorPicker "Poison", 					"OuchFlash_Poison", "OuchFlashDuration", 0
+	StaticText " "
+	StaticText "-=  Misc. (mod specific)  =-", "yellow"
+	StaticText " "
+	ColorPicker "Plasma", 					"OuchFlash_Plasma", "OuchFlashDuration", 0
+	ColorPicker "Freeze", 					"OuchFlash_Freeze", "OuchFlashDuration", 0
+	ColorPicker "Bleed", 					"OuchFlash_Bleed", "OuchFlashDuration", 0
+	
+}
+
+
+OptionValue "OuchFlashActorType" 
+{
+	0, "All actors"
+	1, "Monsters only"
+}
+OptionValue "OuchFlashType" 
+{
+	0, "Tint"
+	1, "Solid color"
 }

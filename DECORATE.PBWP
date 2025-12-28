@@ -80,6 +80,7 @@
 #INCLUDE ACTORs/CustomMelee/PickaxeStrike.dec
 #INCLUDE ACTORs/CustomMelee/ImpactGauntletPuff.dec
 #INCLUDE ACTORs/CustomMelee/DemonicSword.dec
+#INCLUDE ACTORs/CustomMelee/Machete.dec
 
 //Weapons
 	//GOD COMPLEX//
@@ -135,7 +136,6 @@
 #INCLUDE ACTORs/Weapons/Slot-5/DSlayer.dec
 #INCLUDE ACTORs/Weapons/Slot-5/SuperNailgun.dec
 #INCLUDE ACTORs/Weapons/Slot-5/DukeNukemRipper.dec
-#INCLUDE ACTORs/Weapons/Slot-5/OLD-HMG.dec
 #INCLUDE ACTORs/Weapons/Slot-5/AutoCannon.dec
 	//Slot-6
 #INCLUDE ACTORs/Weapons/Slot-6/ChthonicRifle.dec
@@ -143,11 +143,11 @@
 #INCLUDE ACTORs/Weapons/Slot-6/Paingiver.dec
 #INCLUDE ACTORs/Weapons/Slot-6/Devastator.dec
 #INCLUDE ACTORs/Weapons/Slot-6/CyberdemonRL.dec
+#INCLUDE ACTORs/Weapons/Slot-6/Samantha.dec 
 #INCLUDE ACTORs/Weapons/Doom4WeaponPack/D4RocketLauncher.dec
 	//Slot-7
 #INCLUDE ACTORs/Weapons/Slot-7/AncientCrossbow.dec
 #INCLUDE ACTORs/Weapons/Slot-7/Gauss.dec
-#INCLUDE ACTORs/Weapons/Slot-7/Samantha.dec 
 #INCLUDE ACTORs/Weapons/Doom4WeaponPack/D4VortexRifle.dec
 #INCLUDE ACTORs/Weapons/Doom4WeaponPack/D4PlasmaGun.dec
 	//Slot-8

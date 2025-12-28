@@ -39,7 +39,7 @@ ACTOR BattleAxe : PBWP_Weapon
    	Weapon.BobStyle InverseSmooth
    	Weapon.BobSpeed 2.0
 	Inventory.AltHUDIcon "WFAXA0"
-	Weapon.SlotNumber 1
+	// Weapon.SlotNumber 1
 	weapon.selectionorder 220
 	Weapon.KickBack 20
 	+WEAPON.MELEEWEAPON

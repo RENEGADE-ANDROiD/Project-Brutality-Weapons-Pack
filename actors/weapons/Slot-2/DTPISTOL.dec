@@ -87,7 +87,7 @@ Actor HellPistol : PBWP_Weapon
 	Weapon.AmmoGive1 15
 	Weapon.AmmoUse2 0
 	Weapon.AmmoGive2 15
-	Weapon.Slotnumber 2
+	// Weapon.Slotnumber 2
 	+FLOORCLIP
 	+DONTGIB
 	Tag "Demon-Tech Pistol"

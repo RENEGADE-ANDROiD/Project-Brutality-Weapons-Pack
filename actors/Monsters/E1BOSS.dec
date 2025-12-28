@@ -995,7 +995,7 @@ actor AracnorbBallBoss1
   States
   {
   Spawn:
-    ACNF AABB 1 Bright A_BishopMissileWeave
+    XCNF AABB 1 Bright A_BishopMissileWeave
     Loop
   Death:
     TNT1 A 0 A_RearrangePointers (AAPTR_TRACER, AAPTR_DEFAULT, AAPTR_TARGET, 0)
@@ -1033,12 +1033,12 @@ actor AracnorbBallBoss2
   States
   {
   Spawn:
-	ACNF A 0 NoDelay A_RearrangePointers (AAPTR_TRACER, AAPTR_DEFAULT, AAPTR_TARGET, 0)
+	XCNF A 0 NoDelay A_RearrangePointers (AAPTR_TRACER, AAPTR_DEFAULT, AAPTR_TARGET, 0)
   Spawnloop:
-    ACNF AABB 1 Bright A_BishopMissileWeave
+    XCNF AABB 1 Bright A_BishopMissileWeave
     Loop
   Death:
-    ACNF CDEFG 5 Bright
+    XCNF CDEFG 5 Bright
     Stop
   }
 }

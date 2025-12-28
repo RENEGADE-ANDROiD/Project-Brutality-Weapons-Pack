@@ -16,7 +16,7 @@ ACTOR MagnumSniperRifle : PBWP_Weapon 29308
     +WEAPON.NOAUTOFIRE
     +FORCEXYBILLBOARD
     +WEAPON.NO_AUTO_SWITCH
-    Weapon.SlotNumber 4
+    // Weapon.SlotNumber 4
 	Weapon.SlotPriority 4
 	Inventory.PickUpSound "AB_PICK"
 	Inventory.PickupMessage "HL-300s Magnum Sniper Rifle! (Slot 4)"

@@ -1079,6 +1079,19 @@ class BladeMeleeCard : meleeCard
 	}
 }
 
+class MacheteMeleeCard : meleeCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
+	{
+		tags.push("Machete");
+		tokens.push("WW_MacheteMeleeSelected");
+		img.push("graphics/CustomMelee/melee-machete.png");
+		sx.push(1.0);
+		sy.push(1.0);
+	}
+}
+
+
 class MeleeAxeCard : meleeCard
 {
 	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy)
@@ -1157,7 +1170,7 @@ class JohnnyHandsCard : meleeCard
 	{
 		tags.push("Explosive Hands");
 		tokens.push("WW_JohnnyHandsMeleeSelected");
-		img.push("graphics/CustomMelee/melee-doomguy-head.png");
+		img.push("graphics/CustomMelee/melee-explosive-hands.png");
 		sx.push(1.0);
 		sy.push(1.0);
 	}

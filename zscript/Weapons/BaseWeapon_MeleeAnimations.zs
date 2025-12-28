@@ -59,9 +59,10 @@ extend class PB_WeaponBase
 			A_SetInventory("SawMeleeSelected",0);
 			A_SetInventory("BatonMeleeSelected",0);
 			A_SetInventory("HammerMeleeSelected",0);
+            A_SetInventory("MacheteMeleeSelected",0);
 			A_StartSound("GRNPIN", 3);
 		}
-		Goto StandardMelee;
+		Goto GoingToReady;
 //////////////////////////////////////////////// TWO HANDED ////////////////////////////////////////////////
 //////////////////////////////////////////////// SLEDGE HAMMER COMBO START ////////////////////////////////////////////////
 	HammerComboDecider:
@@ -80,7 +81,7 @@ extend class PB_WeaponBase
 			//if(IsPressingInput(BT_FORWARD)) { return state("HammerSwingDown"); }
 			//if(IsPressingInput(BT_BACK)) { return state("BackwardAttackClean"); }
 		}*/
-		TNT1 A 1 A_JumpIf(PressingUser2(), "HammerHoldStart");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "HammerHoldStart");
 		TNT1 A 0 A_Jump(256, "HammerSwingLeft", "HammerSwingRight");
 
 	HammerSwingDown:
@@ -253,7 +254,7 @@ extend class PB_WeaponBase
 		0UBR JK 1 setCombo(0);
 	HammerHold:
 		0UBR K 1;
-		TNT1 A 1 A_JumpIf(PressingUser2(), "HammerHold");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "HammerHold");
 		Goto HammerSwingDown;
 
 	HammerBreak:
@@ -280,7 +281,7 @@ extend class PB_WeaponBase
 		}
 		TNT1 A 0 A_JumpIf(CountInv("AxeDurability") == 40, "AxeBreak");
 		TNT1 A 8;
-		TNT1 A 1 A_JumpIf(PressingUser2(), "AxeHoldStart");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "AxeHoldStart");
 		TNT1 A 0 A_Jump(256, "AxeSwingLeft", "AxeSwingRight");
 
 	AxeSwingDown:
@@ -449,7 +450,7 @@ extend class PB_WeaponBase
 		0AXE JK 1 setCombo(0);
 	AxeHold:
 		0AXE K 1;
-		TNT1 A 1 A_JumpIf(PressingUser2(), "AxeHold");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "AxeHold");
 		Goto AxeSwingDown;
 
 	AxeBreak:
@@ -698,7 +699,7 @@ extend class PB_WeaponBase
 			return;
 		}
 		TNT1 A 0 continueCombo("SwordComboDecider");
-		TNT1 A 1 A_JumpIf(PressingUser2(), "SwordComboDecider");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "SwordComboDecider");
 		TNT1 A 0 {
 			A_Takeinventory("PB_LockScreenTilt",1);
 			setCombo(0);
@@ -759,7 +760,7 @@ extend class PB_WeaponBase
 			return;
 		}
 		TNT1 A 0 continueCombo("SwordComboDecider");
-		TNT1 A 1 A_JumpIf(PressingUser2(), "SwordComboDecider");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "SwordComboDecider");
 		TNT1 A 0 {
 			A_Takeinventory("PB_LockScreenTilt",1);
 			setCombo(0);
@@ -810,7 +811,7 @@ extend class PB_WeaponBase
 			return;
 		}
 		TNT1 A 0 continueCombo("SwordComboDecider");
-		TNT1 A 1 A_JumpIf(PressingUser2(), "SwordComboDecider");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "SwordComboDecider");
 		TNT1 A 0 {
 			A_Takeinventory("PB_LockScreenTilt",1);
 			setCombo(0);
@@ -861,7 +862,7 @@ extend class PB_WeaponBase
 			return;
 		}
 		TNT1 A 0 continueCombo("SwordComboDecider");
-		TNT1 A 1 A_JumpIf(PressingUser2(), "SwordComboDecider");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "SwordComboDecider");
 		TNT1 A 0 {
 			A_Takeinventory("PB_LockScreenTilt",1);
 			setCombo(0);
@@ -889,7 +890,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_PlaySound("weapons/chainsaw/idle",7);
 	SawCombo0loop:
 		1SAW E 1;
-		TNT1 A 1 A_JumpIf(PressingUser2(), "SawCombo0loop");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "SawCombo0loop");
 	SawCombo1:
 		TNT1 A 0 {
 			A_Stopsound(7);
@@ -949,6 +950,168 @@ extend class PB_WeaponBase
 		Goto GoingToReady2;
 
 //////////////////////////////////////////////// ONE HANDED ////////////////////////////////////////////////
+//////////////////////////////////////////////// MACHETE COMBO START ////////////////////////////////////////////////
+	MacheteComboDecider:
+	TNT1 A 0 {
+			setCombo(0);
+			A_Takeinventory("PB_LockScreenTilt",1);
+		}
+		TNT1 A 0 A_JumpIfInventory("MacheteDurability",1,1);
+		Goto MacheteBreak;
+		TNT1 A 3;
+		TNT1 A 0 A_Jump(72, "MacheteSwingLeft2", "MacheteSwingRight2");
+		TNT1 A 0 A_Jump(256, "MacheteSwingLeft", "MacheteSwingRight");
+	
+	MacheteSwingLeft:
+		TNT1 A 0 A_JumpIfInventory("MacheteDurability",1,1);
+		Goto MacheteBreak;
+		TNT1 A 1;
+		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
+		MCHE ABCDEF 1 {
+			A_BDPmeleestart();
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetRoll(roll-.6, SPF_INTERPOLATE);
+		}
+		TNT1 A 0 {
+			if (CountInv("PB_PowerStrength") == 1 ) { 
+				A_BDPMelee(200, "SuperWrenchSwing", -7, TRUE); }
+			else { A_BDPMelee(200, "MacheteSwing", -7, TRUE); }
+		}
+		TNT1 AAAAAA 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetRoll(roll+.6, SPF_INTERPOLATE);
+		}
+		TNT1 A 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+		}
+		TNT1 A 0 continueCombo("MacheteComboDecider");
+		TNT1 A 0 {
+			A_Takeinventory("PB_LockScreenTilt",1);
+			setCombo(0);
+			PB_SetUsingMelee(false);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+		}
+		Goto GoingToReady2;
+	
+	MacheteSwingLeft2:
+		TNT1 A 0 A_JumpIfInventory("MacheteDurability",1,1);
+		Goto MacheteBreak;
+		TNT1 AA 1;
+		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
+		MCHE MNO 1 {
+			A_BDPmeleestart();
+			A_SetRoll(roll-.6, SPF_INTERPOLATE);
+		}
+		TNT1 A 0 {
+			if (CountInv("PB_PowerStrength") == 1 ) { 
+				A_BDPMelee(200, "SuperWrenchSwing", -7, TRUE); }
+			else { A_BDPMelee(200, "MacheteSwing", -7, TRUE); }
+		}
+		MCHE PQR 1 {
+			A_BDPmeleestart();
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetRoll(roll+.6, SPF_INTERPOLATE);
+		}
+		TNT1 A 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetRoll(roll+.6, SPF_INTERPOLATE);
+		}
+		TNT1 AAAA 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+		}
+		TNT1 A 0 continueCombo("MacheteComboDecider");
+		TNT1 A 0 {
+			A_Takeinventory("PB_LockScreenTilt",1);
+			setCombo(0);
+			PB_SetUsingMelee(false);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+		}
+		Goto GoingToReady2;
+		
+	MacheteSwingRight:
+		TNT1 A 0 A_JumpIfInventory("MacheteDurability",1,1);
+		Goto MacheteBreak;
+		TNT1 A 1;
+		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
+		MCHE GHIJKL 1 {
+			A_BDPmeleestart();
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetRoll(roll+.6, SPF_INTERPOLATE);
+		}
+		TNT1 A 0 {
+			if (CountInv("PB_PowerStrength") == 1 ) { 
+				A_BDPMelee(200, "SuperWrenchSwing", -7, TRUE); }
+			else { A_BDPMelee(200, "MacheteSwing", -7, TRUE); }
+		}
+		TNT1 AAAAAA 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetRoll(roll-.6, SPF_INTERPOLATE);
+		}
+		TNT1 A 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+		}
+		TNT1 A 0 continueCombo("MacheteComboDecider");
+		TNT1 A 0 {
+			A_Takeinventory("PB_LockScreenTilt",1);
+			setCombo(0);
+			PB_SetUsingMelee(false);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+		}
+		Goto GoingToReady2;
+	
+	MacheteSwingRight2:
+		TNT1 A 0 A_JumpIfInventory("MacheteDurability",1,1);
+		Goto MacheteBreak;
+		TNT1 AA 1;
+		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
+		MCHE STU 1 {
+			A_BDPmeleestart();
+			A_SetRoll(roll+.6, SPF_INTERPOLATE);
+		}
+		TNT1 A 0 {
+			if (CountInv("PB_PowerStrength") == 1 ) { 
+				A_BDPMelee(200, "SuperWrenchSwing", -7, TRUE); }
+			else { A_BDPMelee(200, "MacheteSwing", -7, TRUE); }
+		}
+		MCHE VWX 1 {
+			A_BDPmeleestart();
+			A_SetRoll(roll-.6, SPF_INTERPOLATE);
+		}
+		TNT1 A 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetRoll(roll-.6, SPF_INTERPOLATE);
+		}
+		TNT1 AAAA 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+		}
+		TNT1 A 0 continueCombo("MacheteComboDecider");
+		TNT1 A 0 {
+			A_Takeinventory("PB_LockScreenTilt",1);
+			setCombo(0);
+			PB_SetUsingMelee(false);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+		}
+		Goto GoingToReady2;
+		
+	MacheteBreak:
+		TNT1 A 0{
+			A_CustomMissile ("MetalShard1", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_CustomMissile ("MetalShard2", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_CustomMissile ("MetalShard3", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_TakeInventory("Machete",1);
+			A_Startsound("meleeweapon/break");
+			A_ALertMonsters(400);
+			PB_SetUsingMelee(false);
+			setCombo(0);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+			}
+		Goto SwaptoMeleeBroken;
+
 //////////////////////////////////////////////// CROWBAR COMBO START ////////////////////////////////////////////////
 	CrowbarComboDecider:
 		TNT1 A 0 {
@@ -958,7 +1121,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("CrowbarDurability",1,1);
 		Goto CrowbarBreak;
 		TNT1 A 8;
-		TNT1 A 1 A_JumpIf(PressingUser2(), "CrowbarHoldStart");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "CrowbarHoldStart");
 		TNT1 A 0 A_Jump(256, "CrowbarSwingLeft", "CrowbarSwingRight");
 	
 	CrowbarSwingLeft:
@@ -1060,7 +1223,7 @@ extend class PB_WeaponBase
 
 	CrowbarHoldStart:
 		CBAR A 1 setCombo(0);
-		TNT1 A 1 A_JumpIf(PressingUser2(), "CrowbarHoldStart");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "CrowbarHoldStart");
 		Goto CrowbarSwingDown;
 
 	CrowbarBreak:
@@ -1097,7 +1260,7 @@ extend class PB_WeaponBase
 		}
 	BatonCombo0Loop:
 		BATN KLMKLMKLMKLMKLM 1;
-		TNT1 A 1 A_JumpIf(PressingUser2(), "BatonCombo0Loop");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "BatonCombo0Loop");
 	BatonCombo1:
 		TNT1 A 0 A_TakeInventory("SawHasHit",1);
 		//BATN KLMKLMKLMKLMKLM 1;
@@ -1163,7 +1326,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("WrenchDurability",1,1);
 		Goto WrenchBreak;
 		TNT1 A 8;
-		TNT1 A 1 A_JumpIf(PressingUser2(), "WrenchHoldStart");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "WrenchHoldStart");
 		TNT1 A 0 A_Jump(256, "WrenchSwingLeft", "WrenchSwingRight");
 	
 	WrenchSwingRight:
@@ -1267,7 +1430,7 @@ extend class PB_WeaponBase
 
 	WrenchHoldStart:
 		WRNC A 1 setCombo(0);
-		TNT1 A 1 A_JumpIf(PressingUser2(), "WrenchHoldStart");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "WrenchHoldStart");
 		Goto WrenchSwingDown;
 		
 	WrenchBreak:
@@ -1365,7 +1528,7 @@ extend class PB_WeaponBase
 		}
 		TNT1 A 0 A_TakeInventory("ClawCharges",1); // WILL ALWAYS TAKE CHARGE
 		TNT1 A 0 continueCombo("MeleeClaw2");
-		TNT1 A 1 A_JumpIf(PressingUser2(), "MeleeClaw2");
+		TNT1 A 0 A_JumpIf(PressingUser2(), "MeleeClaw2");
 		TNT1 A 0 {
 			setCombo(0);
 			PB_SetUsingMelee(false);
@@ -1394,7 +1557,7 @@ extend class PB_WeaponBase
 		}
 		TNT1 A 0 A_TakeInventory("ClawCharges", 1);
 		TNT1 A 0 continueCombo("MeleeClaw");
-        TNT1 A 1 A_JumpIf(PressingUser2(), "MeleeClaw");
+        TNT1 A 0 A_JumpIf(PressingUser2(), "MeleeClaw");
 		TNT1 A 0 {
 			setCombo(0);
 			PB_SetUsingMelee(false);
@@ -1486,91 +1649,272 @@ extend class PB_WeaponBase
         TNT1 A 0 PB_CheckBarrelIdle1();
         Goto Ready3;
 //////////////////////////////////////////////// DEFAULT MELEE ////////////////////////////////////////////////
-    StandardMelee:
-        TNT1 A 0 {
-				A_GiveInventory("HasCutingWeapon", 1);
-				A_StartSound("KNIFSWNG", 1);
-				double knifeRoll = frandom(-1.0,1.0);
-				A_Overlayrotate(overlayID(),knifeRoll);
-				if(invoker.curBlood.x != 0 || invoker.curBlood.y != 0 || invoker.curBlood.z != 0)
-				{
-					double BR = invoker.curBlood.x;
-					double BG = invoker.curBlood.y;
-					double BB = invoker.curBlood.z;
-					double mostlyred = (BR - (BG + BB));
-					double mostlygreen = (BG - (BB + BR));
-					double mostlyblue = (BB - (BR + BG));
-					if(mostlyred > 0)
-						A_overlay(overlayID() + 2,"BloodyKnife_Red");
-					else if(mostlygreen > 0)
-						A_overlay(overlayID() + 2,"BloodyKnife_Green");
-					else if(mostlyblue > 0)
-						A_overlay(overlayID() + 2,"BloodyKnife_Blue");
+    FistComboDecider:
+		TNT1 A 0 {
+			setCombo(0);
+			A_Takeinventory("PB_LockScreenTilt",1);
+		}
+		TNT1 A 8;
+		TNT1 A 0 A_JumpIf(PressingUser2(), "PBWP_UppercutStart");
+		TNT1 A 0 A_Jump(72, "PBWP_LeftBackhand", "PBWP_RightBackhand");
+		TNT1 A 0 A_Jump(256, "PBWP_SwingLeft", "PBWP_SwingRight");
+
+	PBWP_SwingLeft:
+		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
+		0PUN ABCD 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("MeleeStrikeSuperHook", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("MeleeStrike1", 0, 0, 0, 0); }
+		}
+        0PUN EF 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+		}
+		0PUN GHIJ 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetRoll(roll+.8, SPF_INTERPOLATE);
+		}
+		TNT1 A 2 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+		}
+		TNT1 A 0 continueCombo("FistComboDecider");
+		TNT1 A 0 {
+			A_Takeinventory("PB_LockScreenTilt",1);
+			setCombo(0);
+			PB_SetUsingMelee(false);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+		}
+		Goto GoingToReady2;
+	
+	PBWP_SwingRight:
+		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
+		0PUN KLMN 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("MeleeStrikeSuperHook", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("MeleeStrike1", 0, 0, 0, 0); }
+		}
+        0PUN OP 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+		}
+		0PUN QRST 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetRoll(roll-.8, SPF_INTERPOLATE);
+		}
+		TNT1 A 2 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+		}
+		TNT1 A 0 continueCombo("FistComboDecider");
+		TNT1 A 0 {
+			A_Takeinventory("PB_LockScreenTilt",1);
+			setCombo(0);
+			PB_SetUsingMelee(false);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+		}
+		Goto GoingToReady2;
+		
+	PBWP_LeftBackhand:
+		TNT1 A 2;
+		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
+		1PUN ABCD 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("MeleeStrike1Smash", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("MeleeStrike1", 0, 0, 0, 0); }
+		}
+        1PUN EF 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+		}
+		1PUN GHIJ 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetRoll(roll+.8, SPF_INTERPOLATE);
+		}
+		TNT1 A 2{
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+		}
+		TNT1 A 0 continueCombo("FistComboDecider");
+		TNT1 A 0 {
+			A_Takeinventory("PB_LockScreenTilt",1);
+			setCombo(0);
+			PB_SetUsingMelee(false);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+		}
+		Goto GoingToReady2;
+	
+	PBWP_RightBackhand:
+		TNT1 A 2;
+		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
+		1PUN KLMN 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
+		TNT1 A 0 {
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("MeleeStrike1Smash", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("MeleeStrike1", 0, 0, 0, 0); }
+		}
+        1PUN OP 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+		}
+		1PUN QRST 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetRoll(roll-.8, SPF_INTERPOLATE);
+		}
+		TNT1 A 2{
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+		}
+		TNT1 A 0 continueCombo("FistComboDecider");
+		TNT1 A 0 {
+			A_Takeinventory("PB_LockScreenTilt",1);
+			setCombo(0);
+			PB_SetUsingMelee(false);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+		}
+		Goto GoingToReady2;
+		
+	PBWP_ElbowStrike:
+		5UNG H 1 {
+			A_BDPmeleestart();
+			A_Recoil(-80);
+		}
+		TNT1 A 0 {
+			A_BDPMelee(200, "MeleeStrikeSuperHook", -7, TRUE); 
+		}
+		TNT1 A 0 {
+			A_Takeinventory("PB_LockScreenTilt",1);
+			setCombo(0);
+			PB_SetUsingMelee(false);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+		}
+		Goto GoingToReady2;
+
+	PBWP_UppercutStart:
+		P1NF ABCD 1 setCombo(0);
+	PBWP_UppercutHold:
+		P1NF D 1;
+		TNT1 A 0 A_JumpIf(PressingUser2(), "PBWP_UppercutHold");
+	PBWP_Uppercut:
+		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
+		0PUN U 1{
+			A_BDPmeleestart();
+		}
+        0PUN V 1 {
+			A_BDPmeleestart();
+			A_SetPitch(-1 + pitch, SPF_INTERPOLATE);
+		}
+        0PUN W 1 {
+			A_BDPmeleestart();
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetPitch(-1 + pitch, SPF_INTERPOLATE);
+		}
+		TNT1 A 0 {
+			A_BDPMelee(200, "MeleeStrikeSuperHook", -7, TRUE); 
+		}
+        0PUN XX 1 {
+			A_BDPmeleestart();
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetPitch(-1 + pitch, SPF_INTERPOLATE);
+		}
+		0PUN XYZ 1 {
+			A_BDPmeleestart();
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+		}
+		TNT1 AAAA 1 {
+			if(JustPressed(BT_USER2)) setCombo(1); return;
+			A_SetPitch(-1 + pitch, SPF_INTERPOLATE);
+		}
+		TNT1 A 0 continueCombo("FistComboDecider");
+		TNT1 A 0 {
+			A_Takeinventory("PB_LockScreenTilt",1);
+			setCombo(0);
+			PB_SetUsingMelee(false);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+		}
+		Goto GoingToReady2;
+
+        // TNT1 A 0 {
+		// 		A_GiveInventory("HasCutingWeapon", 1);
+		// 		A_StartSound("KNIFSWNG", 1);
+		// 		double knifeRoll = frandom(-1.0,1.0);
+		// 		A_Overlayrotate(overlayID(),knifeRoll);
+		// 		if(invoker.curBlood.x != 0 || invoker.curBlood.y != 0 || invoker.curBlood.z != 0)
+		// 		{
+		// 			double BR = invoker.curBlood.x;
+		// 			double BG = invoker.curBlood.y;
+		// 			double BB = invoker.curBlood.z;
+		// 			double mostlyred = (BR - (BG + BB));
+		// 			double mostlygreen = (BG - (BB + BR));
+		// 			double mostlyblue = (BB - (BR + BG));
+		// 			if(mostlyred > 0)
+		// 				A_overlay(overlayID() + 2,"BloodyKnife_Red");
+		// 			else if(mostlygreen > 0)
+		// 				A_overlay(overlayID() + 2,"BloodyKnife_Green");
+		// 			else if(mostlyblue > 0)
+		// 				A_overlay(overlayID() + 2,"BloodyKnife_Blue");
 					
-					A_Overlayrotate(overlayID() + 2,knifeRoll);
-				}
+		// 			A_Overlayrotate(overlayID() + 2,knifeRoll);
+		// 		}
 				
-			}
-        MC3S AB 1 {
+		// 	}
+        // MC3S AB 1 {
             
-            if(JustPressed(BT_USER2)) return PB_Execute();
-            return ResolveState(null);
-        }
-        MC3S C 1 {
-            A_Setangle(angle - 1,SPF_INTERPOLATE);
-            A_SetPitch(pitch + 1,SPF_INTERPOLATE);
-            if(JustPressed(BT_USER2)) return PB_Execute();
-            return ResolveState(null);
-        }
-        MC3S D 1 {
-            A_QuakeEx(0,0.5,0,7,0,10,"",QF_SCALEDOWN|QF_RELATIVE,0,0,0,0,0,2,2);
-            if(JustPressed(BT_USER2)) return PB_Execute();
-            return ResolveState(null);
-        }
-        TNT1 A 0 {
-            if(CountInv("PB_PowerStrength") == 1) A_FireProjectile("SuperKnifeSwing",0,0,0,0,0,0);
-            else A_FireProjectile("KnifeSwing",0,0,0,0,0,0);
-            PB_UseLine(64);
-            flinetracedata t;
-            linetrace(angle,64,pitch,0,player.mo.height * 0.5 - player.mo.floorclip + player.mo.AttackZOffset*player.crouchFactor,data:t);
-            if(t.hitactor != null && !t.hitactor.bnoblood)
-            {
-                if(t.hitactor.bloodcolor == 0)	//has no blood color defined, use default bloodcolor
-                {
-                    invoker.curBlood.x = gameinfo.defaultbloodcolor.r / 255.0;
-                    invoker.curBlood.y = gameinfo.defaultbloodcolor.g / 255.0;
-                    invoker.curBlood.z = gameinfo.defaultbloodcolor.b / 255.0;
-                }
-                else
-                {
-                    invoker.curBlood.x = t.hitactor.bloodcolor.r / 255.0;
-                    invoker.curBlood.y = t.hitactor.bloodcolor.g / 255.0;
-                    invoker.curBlood.z = t.hitactor.bloodcolor.b / 255.0;
-                }
-            }
-        }
-        MC3S EF 1 {
-            if(JustPressed(BT_USER2)) return PB_Execute();
-            return ResolveState(null);
-        }
-        MC3S GHIJK 1 {
-            A_SetPitch(pitch - 0.2,SPF_INTERPOLATE);
-            if(JustPressed(BT_USER2)) return PB_Execute();
-            return ResolveState(null);
-        }
-        TNT1 AAA 1 {
-            A_Setangle(angle + 0.3,SPF_INTERPOLATE);
-            if(JustPressed(BT_USER2)) return PB_Execute();
-            return ResolveState(null);
-        }
-        TNT1 A 0 {
-            A_TakeInventory("KnifeHasHit",1);
-            A_TakeInventory("HasCutingWeapon", 1);
-            PB_SetUsingMelee(false);
-        }
-        TNT1 A 0 A_Overlayrotate(overlayID(),0);
-        TNT1 A 0 PB_CheckBarrelIdle1();
-        Goto Ready3;
+        //     if(JustPressed(BT_USER2)) return PB_Execute();
+        //     return ResolveState(null);
+        // }
+        // MC3S C 1 {
+        //     A_Setangle(angle - 1,SPF_INTERPOLATE);
+        //     A_SetPitch(pitch + 1,SPF_INTERPOLATE);
+        //     if(JustPressed(BT_USER2)) return PB_Execute();
+        //     return ResolveState(null);
+        // }
+        // MC3S D 1 {
+        //     A_QuakeEx(0,0.5,0,7,0,10,"",QF_SCALEDOWN|QF_RELATIVE,0,0,0,0,0,2,2);
+        //     if(JustPressed(BT_USER2)) return PB_Execute();
+        //     return ResolveState(null);
+        // }
+        // TNT1 A 0 {
+        //     if(CountInv("PB_PowerStrength") == 1) A_FireProjectile("SuperKnifeSwing",0,0,0,0,0,0);
+        //     else A_FireProjectile("KnifeSwing",0,0,0,0,0,0);
+        //     PB_UseLine(64);
+        //     flinetracedata t;
+        //     linetrace(angle,64,pitch,0,player.mo.height * 0.5 - player.mo.floorclip + player.mo.AttackZOffset*player.crouchFactor,data:t);
+        //     if(t.hitactor != null && !t.hitactor.bnoblood)
+        //     {
+        //         if(t.hitactor.bloodcolor == 0)	//has no blood color defined, use default bloodcolor
+        //         {
+        //             invoker.curBlood.x = gameinfo.defaultbloodcolor.r / 255.0;
+        //             invoker.curBlood.y = gameinfo.defaultbloodcolor.g / 255.0;
+        //             invoker.curBlood.z = gameinfo.defaultbloodcolor.b / 255.0;
+        //         }
+        //         else
+        //         {
+        //             invoker.curBlood.x = t.hitactor.bloodcolor.r / 255.0;
+        //             invoker.curBlood.y = t.hitactor.bloodcolor.g / 255.0;
+        //             invoker.curBlood.z = t.hitactor.bloodcolor.b / 255.0;
+        //         }
+        //     }
+        // }
+        // MC3S EF 1 {
+        //     if(JustPressed(BT_USER2)) return PB_Execute();
+        //     return ResolveState(null);
+        // }
+        // MC3S GHIJK 1 {
+        //     A_SetPitch(pitch - 0.2,SPF_INTERPOLATE);
+        //     if(JustPressed(BT_USER2)) return PB_Execute();
+        //     return ResolveState(null);
+        // }
+        // TNT1 AAA 1 {
+        //     A_Setangle(angle + 0.3,SPF_INTERPOLATE);
+        //     if(JustPressed(BT_USER2)) return PB_Execute();
+        //     return ResolveState(null);
+        // }
+        // TNT1 A 0 {
+        //     A_TakeInventory("KnifeHasHit",1);
+        //     A_TakeInventory("HasCutingWeapon", 1);
+        //     PB_SetUsingMelee(false);
+        // }
+        // TNT1 A 0 A_Overlayrotate(overlayID(),0);
+        // TNT1 A 0 PB_CheckBarrelIdle1();
+        // Goto Ready3;
 
 		// Swap Animations
 		SwapToMeleeAxe:

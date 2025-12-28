@@ -20,7 +20,7 @@ Actor D4VortexRifle : PBWP_Weapon
     +WEAPON.NOAUTOAIM
 	+WEAPON.NOAUTOFIRE
 	+DONTGIB
-    Weapon.SlotNumber 7
+    //Weapon.SlotNumber 7
     Weapon.SlotPriority 0
 	Scale 0.7
 	Tag "Vortex Rifle"

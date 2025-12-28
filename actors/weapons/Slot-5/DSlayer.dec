@@ -54,7 +54,7 @@ ACTOR Fire_and_Ice-DragonSlayer : PBWP_Weapon
   Weapon.AmmoType2 "PB_NailgunAmmo"
   Weapon.AmmoGive2 90
   Weapon.AmmoUse2 1
-  Weapon.SlotNumber 5
+//   Weapon.SlotNumber 5
   Weapon.SelectionOrder 220
   States
   {

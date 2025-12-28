@@ -16,7 +16,7 @@ ACTOR M1X : PBWP_Weapon //Back For This Weapon Again.
     +WEAPON.NOAUTOFIRE
     +FORCEXYBILLBOARD
     +WEAPON.NO_AUTO_SWITCH
-    Weapon.SlotNumber 4
+    // Weapon.SlotNumber 4
 	Weapon.SlotPriority 4
 	Inventory.PickUpSound "AKBOLT"
 	Inventory.Pickupmessage "You Picked Up The Rifle ;- Full Auto AMR -; (Slot 6)"

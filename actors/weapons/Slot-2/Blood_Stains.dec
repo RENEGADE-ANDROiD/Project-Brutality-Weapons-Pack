@@ -19,7 +19,7 @@ ACTOR P_SMG : PBWP_Weapon
 	+FORCEXYBILLBOARD
 	+WEAPON.CHEATNOTWEAPON
 	+WEAPON.NO_AUTO_SWITCH
-	Weapon.SlotNumber 2
+	// Weapon.SlotNumber 2
 	Weapon.SlotPriority 1
 	Inventory.PickUpSound "PICKM"
 	Inventory.Pickupmessage "UAC IXSMG-33E Subfusil(Slot 2, Upgrade)"

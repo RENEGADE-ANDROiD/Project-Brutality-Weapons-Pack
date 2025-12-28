@@ -14,7 +14,7 @@ Weapon.AmmoUse 0
 Weapon.AmmoUse2 0
 //Weapon.AmmoType2 "PBWP_ComplexAmmo"
 Weapon.KickBack 90
-Weapon.SlotNumber 8
+// Weapon.SlotNumber 8
 Weapon.SlotPriority 1.1
 Inventory.PickupSound "Weapons/GuruUp"
 +NOAUTOFIRE

@@ -27,7 +27,7 @@ Actor HexaLionShotgun : PBWP_Weapon
 	Inventory.PickupMessage "You got the Hexa Lion-Boy Shotgun! (Slot 3)"
 	Obituary "$OB_MPSSHOTGUN"
     Inventory.PickupSound "CLIPINSS"
-	Weapon.SlotNumber 3
+	// Weapon.SlotNumber 3
 	Weapon.SelectionOrder 1600
 	Scale 0.55
 	Tag "Hexa Lion-Boy Shotgun"

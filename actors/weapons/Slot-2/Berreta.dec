@@ -24,13 +24,13 @@ Actor B92S : PBWP_Weapon
     +WEAPON.NOALERT
     +WEAPON.NOAUTOFIRE
 	+FORCEXYBILLBOARD
-	+WEAPON.CHEATNOTWEAPON
+	// +WEAPON.CHEATNOTWEAPON
 	+WEAPON.NO_AUTO_SWITCH //You'll need to find something good for you.
 	Obituary "$OB_MPPISTOL"
 	Inventory.Pickupmessage "You picked up the Berreta With an Goodies Components! (Slot 2)"
 	Tag "Berreta - Silent Harmony"
-	Weapon.SlotNumber 2
-	Weapon.SlotPriority 1.5
+	// Weapon.SlotNumber 2
+	Weapon.SlotPriority 2
 	States
 	{
 	
@@ -332,6 +332,23 @@ Actor B92S : PBWP_Weapon
 		TNT1 A 0 A_GiveInventory("BerretaisUnloaded", 1)
 		TNT1 A 0 A_Takeinventory("Unloading",1)
 		Goto Ready3
+
+	PBWP_SwingLeft:
+	TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5)
+	PISA ABCDE 1
+	TNT1 A 0 {
+			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("MeleeStrikeSuperHook", 0, 0, 0, 0); }
+			else { A_FireCustomMissile("MeleeStrike1", 0, 0, 0, 0); }
+		}
+	PISA EDCBA 1
+	TNT1 A 0 {
+			A_Takeinventory("PB_LockScreenTilt",1);
+			setCombo(0);
+			PB_SetUsingMelee(false);
+			A_TakeInventory("ToggleMelee", 1);
+			PB_CheckBarrelIdle1();
+		}
+	Goto GoingToReady2
 	}
 }
 

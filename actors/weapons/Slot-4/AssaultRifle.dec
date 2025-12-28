@@ -22,7 +22,7 @@ ACTOR AssaultR1 : PBWP_Weapon 26050
 	PB_WeaponBase.RespectItem "AssaultRespecter"
 	Scale 0.7
 	
-	Weapon.SlotNumber 4
+	// Weapon.SlotNumber 4
 	Weapon.SlotPriority 4
 	Inventory.PickupSound "MS_PCKP"
 	Inventory.PickupMessage "You found away through of the Model 4 Assault Rifle -;(Dignidad);-! (Slot 4)"
