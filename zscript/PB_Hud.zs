@@ -766,6 +766,7 @@ class PB_Hud_ZS : BaseStatusBar
 		"ALISTLSR, LaserChargeAmmo, Red, Equipment",
 		"ALISTBEA, BeaconAmmo, Blue, Equipment",
 		"ALISTFRB, FreezeBotAmmo, Blue, Equipment",
+		"ALISTFZG, FreezenadeAmmo, Blue, Equipment",
 		"ALISTAXE, PB_Axe, Red, Equipment",
 		"ALISTSHR, ShurikenAmmo, Purple, Equipment",
 		"ALISTCTR, CaltropsAmmo, Purple, Equipment",
@@ -1419,12 +1420,6 @@ class PB_Hud_ZS : BaseStatusBar
 					PBHud_DrawImage("HCALTY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("CaltropsAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
 				}
-				else if(CheckInventory("HookSelected")) {
-					PBHud_DrawImage("HHOOKY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
-				}
-				else if(CheckInventory("ShieldSawSelected")) {
-					PBHud_DrawImage("HSHIESY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
-				}
 				else if(CheckInventory("BeaconSelected")) {
 					PBHud_DrawImage("HBEACY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("BeaconAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
@@ -1433,6 +1428,19 @@ class PB_Hud_ZS : BaseStatusBar
 					PBHud_DrawImage("HFRZBY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("FreezeBotAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
 				}
+				else if(CheckInventory("FreezeGrenadeSelected")) {
+					PBHud_DrawImage("HFRZGY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("FreezenadeAmmo")), (-38, -37), DI_TEXT_ALIGN_RIGHT, Font.CR_UNTRANSLATED, scale: (0.8, 0.8));
+				}
+
+				// NO AMMO NEEDED
+				else if(CheckInventory("HookSelected")) {
+					PBHud_DrawImage("HHOOKY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
+				}
+				else if(CheckInventory("ShieldSawSelected")) {
+					PBHud_DrawImage("HSHIESY", (-24, -23), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
+				}
+				
 				
 				//Ammo bars
 				if(showList)

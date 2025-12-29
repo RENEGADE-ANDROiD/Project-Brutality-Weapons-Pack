@@ -816,37 +816,6 @@ ACTOR NarmorCyan : CustomInventory
 	}
 }
 
-Actor TFST : PowerupGiver
-{
-  +CountItem
-  +NoGravity
-  +Inventory.AutoActivate
-  +Inventory.AlwaysPickup
-  Inventory.MaxAmount 0
-  Powerup.Type TimeFreezer
-  Powerup.Color GoldMap
-  Inventory.PickupMessage " "
-  States
-  {
-  Spawn:
-	TNT1 A 0 {
-		if(GetCVAR("FloatingVials") == 0){
-			A_ChangeFlag("ROLLSPRITE", false);
-			A_ChangeFlag("ROLLCENTER", false);
-			A_ChangeFlag("FLOATBOB", false);
-		}
-		else{
-			A_ChangeFlag("ROLLSPRITE", true);
-			A_ChangeFlag("ROLLCENTER", true);
-			A_ChangeFlag("FLOATBOB", true);
-		}
-	}
-    TNT1 AAAAAAAA 0
-    TNT1 AAAAAAAA 20
-    Loop
-  }
-}
-
 Actor PFMS : PowerDoubleFiringSpeed
 {
  Powerup.Duration -12

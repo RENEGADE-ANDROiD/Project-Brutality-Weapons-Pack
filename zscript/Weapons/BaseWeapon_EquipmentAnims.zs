@@ -2,6 +2,41 @@ extend class PB_WeaponBase
 {
 	States
 	{
+		// Freeze Grenade
+		ThrowFreezenade:
+			TNT1 A 0 {
+				A_ZoomFactor(1.0);
+				A_TakeInventory("ADSMode", 1);
+				A_TakeInventory("UseEquipment", 1);
+			}
+			TNT1 A 0 A_JumpIfInventory("FreezenadeAmmo", 1, 2);
+			TNT1 A 0 A_Print("No Freeze Grenades available");
+			Goto GoingToReady;
+			TNT1 A 0 A_Giveinventory("PlayerIsThrowingAGrenade",1);
+
+			FGDW QRSTUDEF 1;
+			TNT1 A 0 A_StartSound("OPNGRN",0);
+			FGDW FGHIJK 1;
+			HND1 I 1 A_StartSound("THRGRN",0);
+			TNT1 A 0 A_Quake(3,4,0,12,"");
+			TNT1 LM 1;
+			TNT1 A 0 {
+				A_TakeInventory("FreezenadeAmmo", 1);
+				A_FireProjectile("Alerter",0,0,0,0,0,0);
+				A_FireProjectile("Freezenade",5,45,5,1);
+			}
+			TNT1 NOP 1;
+			TNT1 A 1;
+			FGDW VWX 1;
+
+			TNT1 A 0 {
+				A_TakeInventory("UseEquipment", 1);
+				A_TakeInventory("PlayerIsThrowingAGrenade", 1);
+				A_TakeInventory("ToggleEquipment", 1);
+			}
+			TNT1 A 0 A_JumpIf(PressingUser1(), "UseEquipment");
+			Goto GoingToReady2;
+
 		// Freeze Bot
 		ThrowFreezebot:
 			TNT1 A 0 {

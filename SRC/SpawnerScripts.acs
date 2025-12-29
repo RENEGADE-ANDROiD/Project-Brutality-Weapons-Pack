@@ -43,8 +43,8 @@ Script "CheckScientist" (VOID)
 	if (ThingCountName("ScientistSpawner",0) == 0 && ThingCountName("Scientist",0) == 0) { SetActorState(0,"SpawnScientist"); }
 }
 
- script "SpawnScientist5" (VOID)
- {
+script "SpawnScientist5" (VOID)
+{
 	str class = "ScientistSpawner";
 	 delay(35 * random(200 ,400));   
      if (ThingCountName("ScientistSpawner",0) == 0 && ThingCountName("Scientist",0) == 0) 
@@ -60,4 +60,4 @@ Script "CheckScientist" (VOID)
 			 }
 			until (Spawn(class, x, y, z, 0, angle));
 		}
- }
+}

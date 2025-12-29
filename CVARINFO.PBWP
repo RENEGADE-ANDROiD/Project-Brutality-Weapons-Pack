@@ -166,6 +166,8 @@ server bool isDSLoaded = false;
 server bool HelmetDropCVAR = true;
 server bool AllMeleeDrop = true;
 server bool FloatingVials = true;
+server bool ScientistEnable = true;
+server bool ScientistStartEnable = false;
 
 // Spawners
 server int Slot1Mask = 0;

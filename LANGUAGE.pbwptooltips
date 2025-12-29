@@ -12,6 +12,8 @@ TIP_OuchFlashDuration = "Determine the duration of pain flash of mosnters \nCan 
 TIP_D4D_DamageIndicators = "Shows a damage indicator with colors corresponding to damage type \ncCheck the Damage Indicator Menu for more settings, default is On";
 TIP_cl_Health_FX = "Shows a red overlay, heartbeat sound, and desaturates the screen when low on hp, default is On";
 TIP_FloatingVials = "Make the Health and Armor Pickups Float, default is On";
+TIP_ScientistEnable = "Spawns a Scientist NPC on a random secret in the map and will give quests to the player, default is On";
+TIP_ScientistStartEnable = "Make the Scientist immediately spawn to the player on map start, default is Off";
 
 // MONSTER DROP 
 TIP_PBSpawnALLDTechDrop = "Demon-Tech Trooper will drop one of the following \n1. D-Tech Pistol \n2. D-Tech Shotgun \n3. D-Tech Rifle \n4. D-Tech Minigun \n5. D-Tech Blaster \n6. D-Tech Blaster Upgrade";
