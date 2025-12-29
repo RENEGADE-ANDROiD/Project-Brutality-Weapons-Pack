@@ -175,6 +175,7 @@ server bool EyeTurretSpawn = true;
 server bool CyberdemonBossSpawn = true;
 server bool EBossCellSpawn = true;
 server bool DeepOneSpawn = true;
+server bool PainTrooperSpawn = true;
 
 // Armors
 server bool SpawnYellowArmor = true;
@@ -185,6 +186,7 @@ server bool SpawnWhiteArmor = true;
 server bool SpawnRedArmor = true;
 server bool SpawnCyanArmor = true;
 server bool SpawnDemonArmor = true;
+
 
 // Melee Items
 server bool KatanaSpawn = true;
