@@ -903,13 +903,19 @@ extend class PB_WeaponBase
 			A_BDPmeleestart();
 		 }
 		//TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", -20, 0, 0, 0);
-		TNT1 A 0 A_BDPMelee(200, "Prosurv_SawSwing", -7, TRUE);
+		TNT1 A 0 {
+			A_BDPMelee(200, "Prosurv_SawSwing", -7, TRUE);
+			PB_SawAttack();
+		}
 		TNT1 A 0 A_TakeInventory("PB_Fuel",1);
 		1SAW G 1 {
 			A_SetRoll(roll+.8, SPF_INTERPOLATE);
 			A_BDPmeleestart();
 		}
-		TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", -10, 0, 0, 0);
+		TNT1 A 0 {
+			A_FireCustomMissile("Prosurv_SawSwing", -10, 0, 0, 0);
+			PB_SawAttack();
+		}
 		TNT1 A 0 A_TakeInventory("PB_Fuel",1);
         1SAW HI 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
 		TNT1 A 0 A_JumpIfInventory("SawHasHit",1,"SawComboStuck");
@@ -923,7 +929,10 @@ extend class PB_WeaponBase
 			A_PlaySound("Weapons/Chainsaw/Loop",7);
 		}
 		1SAW O 1 A_ZoomFactor(1.03);
-		TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", 0, 0, 0, 0);
+		TNT1 A 0 {
+			A_FireCustomMissile("Prosurv_SawSwing", 0, 0, 0, 0);
+			PB_SawAttack();
+		}
 		TNT1 A 0 A_TakeInventory("PB_Fuel",1);
 		1SAW P 1 A_ZoomFactor(1.045);
 		1SAW Q 1 A_ZoomFactor(1.055);

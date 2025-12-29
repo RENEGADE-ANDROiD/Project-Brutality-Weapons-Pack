@@ -43,7 +43,8 @@ actor PB_HealthBonusFloatCheck : PB_HealthBonus
 			A_ChangeFlag("FLOATBOB", true);
 		}
 	}
-	stop
+	BON1 ABCDEFGHIJ 3
+	loop
 	}
 }
 

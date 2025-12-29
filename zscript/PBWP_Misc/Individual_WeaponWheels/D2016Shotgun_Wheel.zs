@@ -22,7 +22,7 @@ Class D2016ShotgunWeaponWheel : wheelinfocontainer
 		vector2 iconScale = (0.7, 0.7);
 		
 		PB_SpecialWheel_Mode D2016SG_Normal = new ("PB_SpecialWheel_Mode");
-		D2016SG_Normal.img = "graphics/D4SG_NORMAL.png";
+		D2016SG_Normal.img = "graphics/D2016Shotgun/D4SG_NORMAL.png";
 		D2016SG_Normal.Alias = "Normal Mode";
 		D2016SG_Normal.tokentogive = "SelectD2016Shotgun_Normal";
 		D2016SG_Normal.scalex = iconscale.x;
@@ -32,7 +32,7 @@ Class D2016ShotgunWeaponWheel : wheelinfocontainer
 		if(requester.FindInventory("BurstModeUpgrade")) 
 		{
 			PB_SpecialWheel_Mode D2016SG_Burst = new ("PB_SpecialWheel_Mode");
-			D2016SG_Burst.img = "graphics/D4SG_BURSTNO.png";
+			D2016SG_Burst.img = "graphics/D2016Shotgun/D4SG_BURSTNO.png";
 			D2016SG_Burst.Alias = "Burst Mode";
 			D2016SG_Burst.tokentogive = "SelectD2016Shotgun_Burst";
 			D2016SG_Burst.scalex = iconscale.x;
@@ -43,7 +43,7 @@ Class D2016ShotgunWeaponWheel : wheelinfocontainer
 		if(requester.FindInventory("ExplosiveModeUpgrade")) 
 		{
 			PB_SpecialWheel_Mode D2016SG_Explosive = new ("PB_SpecialWheel_Mode");
-			D2016SG_Explosive.img = "graphics/D4SG_EXPLOSIVENO.png";
+			D2016SG_Explosive.img = "graphics/D2016Shotgun/D4SG_EXPLOSIVENO.png";
 			D2016SG_Explosive.Alias = "Explosive mode";
 			D2016SG_Explosive.tokentogive = "SelectD2016Shotgun_Explosive";
 			D2016SG_Explosive.scalex = iconscale.x;
