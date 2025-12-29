@@ -1666,9 +1666,9 @@ extend class PB_WeaponBase
 		TNT1 A 8;
 		TNT1 A 0 A_JumpIf(PressingUser2(), "PBWP_UppercutStart");
 		TNT1 A 0 A_Jump(72, "PBWP_LeftBackhand", "PBWP_RightBackhand");
-		TNT1 A 0 A_Jump(256, "PBWP_SwingLeft", "PBWP_SwingRight");
+		TNT1 A 0 A_Jump(256, "StandardMelee", "PBWP_SwingRight");
 
-	PBWP_SwingLeft:
+	StandardMelee: // IF YOU WANT THE WEAPONS TO HAVE THEIR OWN CUSTOM MELEE THEN OVERRIDE THIS STATE, SEE BERRETA.dec FOR AN EXAMPLE
 		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
 		0PUN ABCD 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
 		TNT1 A 0 {
