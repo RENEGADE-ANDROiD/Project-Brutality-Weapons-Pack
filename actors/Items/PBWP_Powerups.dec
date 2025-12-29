@@ -1,0 +1,65 @@
+ACTOR CoffeeTime : PowerupGiver
+{
+	//$Category Powerups
+	//$Sprite PINVA0
+	//$Title "Invulnerability sphere"
+	Game Doom
+	SpawnID 133
+	Scale 0.9
+	-COUNTITEM
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.BIGPOWERUP
+	+FORCEXYBILLBOARD
+	Inventory.MaxAmount 0
+	Powerup.Type PowerSpeed
+	Powerup.Color Gold, 0.1
+	//Powerup.Colormap 1.0, 0.0, 0.0, 0.0, 1.0, 0.0
+	Inventory.PickupMessage "I think it's kickin' in !"
+	Tag "Coffee Time !"
+	States
+	{
+	Spawn:
+		C0FF A -1
+		stop
+	}
+}
+
+Actor TFST : PowerupGiver
+{
+    -CountItem
+    +NoGravity
+    +Inventory.AutoActivate
+    +Inventory.AlwaysPickup
+	+FLOATBOB
+	+FORCEXYBILLBOARD
+    Inventory.MaxAmount 0
+    Powerup.Type TimeFreezer
+    Powerup.Color GoldMap
+    Inventory.PickupMessage "Time freeze!"
+    States
+    {
+    Spawn:
+        TIME ABCD 6 Bright
+        Loop
+    }
+}
+
+// Actor FrostSerumVial : PowerupGiver
+// {
+//   Inventory.MaxAmount 0
+//   Inventory.PickupSound "misc/p_pkup"
+//   Inventory.PickupMessage "The Frost Serum will give you protection against the cold."
+//   Powerup.Type"FrostSerum"
+//   Powerup.Duration 0x7FFFFFFF
+//   +Inventory.PickupFlash
+//   +Inventory.AutoActivate
+//   -CountItem
+//   scale 0.6
+//   States
+//   {
+//   Spawn:
+//     FSV0 ABC 4 Bright
+//     Loop
+//   }
+// }

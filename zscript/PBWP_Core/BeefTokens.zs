@@ -57,6 +57,9 @@ class HookSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class WW_VoidGrenadeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class VoidGrenadeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
+class WW_FreezeGrenadeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class FreezeGrenadeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
 // Slot 2 Utility
 class WW_ElecPodSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class ElecPodSelected : Inventory{Default{Inventory.MaxAmount 1;}}

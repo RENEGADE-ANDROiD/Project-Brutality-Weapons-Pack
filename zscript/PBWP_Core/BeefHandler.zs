@@ -176,7 +176,7 @@ class BeefMiscHandler : EventHandler
 		}
     }
 
-    // Sets CVARs and Check Loaded Mods
+    // Sets the Monster Drop to Ammo Only when first starting the mod
     Override void WorldLoaded (WorldEvent e)
     {
         // Sets the PB Monster Drop to Just Ammo on First Time Loading
