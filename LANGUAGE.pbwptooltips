@@ -90,7 +90,18 @@ TIP_ksCoffee = "Summons a Friendly Familiar that Fights for You";
 // MISC 
 TIP_PBSpawnStormcast = "WARNING: BUGGY WEAPON" \nBeefRice: This thing is mega busted;
 TIP_PBSpawnPB_MancubusFlameCannon = "STOP ASKING ABOUT THE MANCUBUS FLAME CANNON";
-TIP_PBSpawnProsurv_LeverAction = "BeefRice: My Favourite";
+TIP_PBSpawnProsurv_LeverAction = "BeefRice: My Favourite (oh like Beef owns favoritism rights?!)";
+
+TIP_PBSpawnPB_BeamKatana = "Cosplay as a Jedi, *I guess.*";
+TIP_PBSpawnAK47 = "Some claim this gun is ugly, and they are correct.";
+TIP_PBSpawnPB_ArgentSith = "Luke, I am your Daddy";
+TIP_PBSpawnPBSpawnBattleAxe = "HACK N SLASH";
+TIP_PBSpawnCalamityBlade = "Code that gives RA nightmares";
+TIP_PBSpawnHASG = "RA's original favorite!  *I love gooooO0Oold*";
+TIP_PBSpawnHellPistoler = "An O.P. handgun that disintegrates fools";
+TIP_PBSpawnMagnumSniperRifle = "She's not much to look at, but she handles like a dream";
+
+
 TIP_PBSpawnMarauderSSG = "Here's a tip, use the MeatHook as much as you can but be careful";
 TIP_PBSpawnHexaLionShotgun = "BeefRice: Remind me why we need a 6 barrel shotgun again";
 TIP_PBSpawnAK47 = "BeefRice: Anyone that unironically uses this is going straight to my banlist";
