@@ -65,9 +65,11 @@ OptionMenu "ttwcoptions"
 	Submenu "$PBWP_MonsterSpawn_OPTIONS", "MonsterSpawnSett"
 	Submenu "$PBWP_MonsterDrop_OPTIONS", "MonsterDropWeapSett"
 	Submenu "$PBWP_ItemSpawns_OPTIONS", "ItemSpawnSett"
+	Submenu "$PBWP_Scientist_OPTIONS", "ScientistSett"
 	StaticText ""
     StaticText "Extras"
 	StaticText ""
+	SubMenu "$PBWP_KILLSTREAK_OPTIONS", "ks_sett"
 	SubMenu "$PBWP_COMBAT_RATING_SHOP", "AmmunitionShopSystem"
 	SubMenu "$PBWP_CHAMPION_ENEMIES", "mk_ChampionMenu"
 	Submenu "$PBWP_QUICKSWITCHER", "SwitchItUpOptions"
@@ -104,13 +106,77 @@ OptionMenu "GeneralSettings"
 	option "Damage Indicators Enabled ","D4D_DamageIndicators","OnOff"
 	option "Floating Items","FloatingVials","OnOff"
 	option "Enable Scientist","ScientistEnable","OnOff"
-	option "Scientist on Start","ScientistStartEnable","OnOff"
 	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
 	ScaleSlider "Flash duration", "OuchFlashDuration", 0, 35, 1, "Disabled", "????? HOW IS IT -1"
+	Control "BEHOLD! Revive VS 3–5 Enemy Bosses ", "+dp_random_key"
 	Control "Show Combat Points", "PB_CRSHW"
 	Control "$PBWP_TOGGLE_MELEE_MENU", "+pbwp_meleemenu"
 	Control "Toggle Magnet", "MagnetModeOff"
 	
+}
+
+OptionMenu "ks_sett"
+{
+	Title "Killstreak Settings"
+	Class "PB_OptionMenu"
+	statictext "Choose the Killstreak Settings and the powerups it give", white
+	statictext "By default they are all on", white
+
+	statictext ""
+	statictext "---------------Spawn Settings---------------", gold
+	statictext ""
+	option "Killstreak is Enabled","KillstreakIsOn","OnOff"
+
+	statictext ""
+	statictext "---------------Killstreak Powerup Settings---------------", gold
+	statictext ""
+	option "Enable Life Shield Powerup","ksLifeShield","OnOff"
+	option "Enable Crucifix","ksCrucifix","OnOff"
+	option "Enable Coffee Powerup","ksCoffee","OnOff"
+	option "Enable Familiar","ksFamiliar","OnOff"
+	option "Enable Time Sphere Powerup","ksTimesphere","OnOff"
+	option "Enable Shrink Sphere Powerup","ksShrinksphere","OnOff"
+	option "Enable Guard Sphere Powerup","ksGuardsphere","OnOff"
+	option "Enable Regen Sphere Powerup","ksRegensphere","OnOff"
+	option "Enable Deflection Sphere Powerup","ksDeflectionsphere","OnOff"
+	option "Enable Electric Sphere Powerup","ksElectricsphere","OnOff"
+	option "Enable Legend Powerup","ksLegendsphere","OnOff"
+}
+
+optionmenu "ScientistSett"
+{
+	Title "Scientist NPC Settings"
+	Class "PB_OptionMenu"
+	statictext "Choose the Scientist NPC Settings and the rewards they give", white
+	statictext "By default they are all on", white
+
+	statictext ""
+	statictext "---------------Spawn Settings---------------", gold
+	statictext ""
+	option "Enable Scientist","ScientistEnable","OnOff"
+	option "Scientist on Start","ScientistStartEnable","OnOff"
+
+
+	statictext ""
+	statictext "---------------Reward Settings---------------", gold
+	statictext ""
+	option "Enable Rat Reward","enableGiveRats","OnOff"
+	option "Enable Green Armor Reward","enableGiveGreenArmor","OnOff"
+	option "Enable Medikit Reward","enableGiveMedikit","OnOff"
+	/* option "Enable Electro Rifle Reward","enableGiveElectroRifle","OnOff" */
+	option "Enable Cell Pack Reward","enableGiveCellPack","OnOff"
+	/* option "Enable Ice Armor Reward","enableGiveIceArmor","OnOff" */
+	option "Enable Coffee Reward","enableGiveCoffee","OnOff"
+	/* option "Enable Frost Serum Reward","enableGiveFrostSerum","OnOff" */
+	option "Enable Time Sphere Reward","enableGiveTimeFreeze","OnOff"
+	/* option "Enable Cryo Shells Reward","enableGiveCryoShells","OnOff" */
+	/* option "Enable Pyro Shells Reward","enableGivePyroShells","OnOff" */
+	/* option "Enable Gold Shells Reward","enableGiveGoldShells","OnOff" */
+	option "Enable Soul Sphere Reward","enableGiveSoulSphere","OnOff"
+	/* option "Enable Gold Rockets Reward","enableGiveGoldRockets","OnOff" */
+	option "Enable Cryo Rifle Reward","enableGiveCryoRifle","OnOff"
+	option "Enable Freeze Box Reward","enableGiveFreezebox","OnOff"
+	/* option "Enable Cryo ASG Reward","enableGiveCryoASG","OnOff" */
 }
 
 optionmenu "MonsterSpawnSett"
@@ -166,6 +232,8 @@ optionmenu "ItemSpawnSett"
 	Option "Spawn Beacon", "BeaconSpawn", "OnOff"
 	Option "Spawn FreezeBot", "FreezebotSpawn", "OnOff"
 	Option "Spawn Shield Saw", "SpawnShieldSaw", "OnOff"
+	Option "Spawn Meat Hook", "SpawnHookGiver", "OnOff"
+	Option "Spawn Freeze Grenade", "SpawnFreezeNade", "OnOff"
 
 	statictext ""
 	statictext "---------------Melee Items---------------", gold
@@ -183,6 +251,19 @@ optionmenu "ItemSpawnSett"
 	Option "Spawn Sledge Hammer", "SledgeHammerSpawn", "OnOff"
 	Option "Spawn Shock Baton", "ShockBatonSpawn", "OnOff"
 
+	statictext ""
+	statictext "---------------Power Ups---------------", gold
+	statictext ""
+	Option "Enable Time Sphere", "SpawnTimesphere", "OnOff"
+	Option "Enable Shrink Sphere", "SpawnShrinksphere", "OnOff"
+	Option "Enable Guard Sphere", "SpawnGuardsphere", "OnOff"
+	Option "Enable Regen Sphere", "SpawnRegensphere", "OnOff"
+	Option "Enable Deflection Sphere", "SpawnDeflectionsphere", "OnOff"
+	Option "Enable Electric Aura Sphere", "SpawnElectricsphere", "OnOff"
+	Option "Enable Legend Sphere", "SpawnLegendsphere", "OnOff"
+	Option "Enable Lifeshield Sphere", "SpawnLifeShieldSphere", "OnOff"
+	Option "Enable Crucifix", "SpawnCrucifix", "OnOff"
+	Option "Enable Familiar", "SpawnFamiliar", "OnOff"
 }
 
 OptionMenu "MonsterDropWeapSett"

@@ -531,28 +531,28 @@ ACTOR Scientist : SwitchableDecoration
 		TNT1 A 0 A_ChangeFlag("PUSHABLE",0)
 	RewardLottery:
 		// SSR
-		TNT1 A 0 A_Jump(16, "GiveCryoASG")
+		// TNT1 A 0 A_Jump(16, "GiveCryoASG")
 		TNT1 A 0 A_Jump(16, "GiveRats")
 		TNT1 A 0 A_Jump(16, "GiveGreenArmor")
 		TNT1 A 0 A_Jump(16, "GiveMedikit")
 
 		// UNCOMMON
-		TNT1 A 0 A_Jump(32, "GiveElectroRifle")
+		// TNT1 A 0 A_Jump(32, "GiveElectroRifle")
 		TNT1 A 0 A_Jump(32, "GiveCellPack")
-		TNT1 A 0 A_Jump(32, "GiveIceArmor")
+		// TNT1 A 0 A_Jump(32, "GiveIceArmor")
 		TNT1 A 0 A_Jump(32, "GiveCoffee")
-		TNT1 A 0 A_Jump(32, "GiveFrostSerum")
+		// TNT1 A 0 A_Jump(32, "GiveFrostSerum")
 		TNT1 A 0 A_Jump(32, "GiveTimeFreeze")
-		TNT1 A 0 A_Jump(32, "GiveCryoShells")
-		TNT1 A 0 A_Jump(32, "GivePyroShells")
-		TNT1 A 0 A_Jump(32, "GiveGoldShells")
+		// TNT1 A 0 A_Jump(32, "GiveCryoShells")
+		// TNT1 A 0 A_Jump(32, "GivePyroShells")
+		// TNT1 A 0 A_Jump(32, "GiveGoldShells")
 		TNT1 A 0 A_Jump(32, "GiveSoulSphere")
 
 		// RARE
-		TNT1 A 0 A_Jump(48, "GiveGoldRockets")
+		// TNT1 A 0 A_Jump(48, "GiveGoldRockets")
 
 		// COMMON
-		TNT1 A 0 A_Jump(64, "GiveCryoRifle")
+		// TNT1 A 0 A_Jump(64, "GiveCryoRifle")
 		TNT1 A 0 A_Jump(64, "GiveFreezebox")
 
 		Loop
@@ -637,7 +637,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT1 G 8
 		SZT1 H 3
 		SZT1 I 9 	
-		SZT1 E 1 A_SpawnItemEx("PB_GreenArmor",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveGreenArmor") == 1){
+				A_SpawnItemEx("PB_GreenArmor",16,0,32,4);}
+			else{A_SpawnItemEx("PB_Medikit",16,0,32,4);}
+		}
 		SZT1 E 6 A_Stop
 		SZT1 A 20
 		TNT1 A 0 A_Playsound("scientist/hope")
@@ -701,7 +705,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT4 O 8
 		SZT4 P 3
 		SZT4 Q 9 	
-		SZT1 E 1 A_SpawnItemEx("TFST",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveTimeFreeze") == 1){
+				A_SpawnItemEx("TFST",16,0,32,4);}
+			else{A_SpawnItemEx("PB_Megasphere",16,0,32,4);}
+			}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20
@@ -719,7 +727,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT1 M 8
 		SZT1 N 3
 		SZT1 O 9 	
-		SZT1 E 1 A_SpawnItemEx("PB_CellPack",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveCellPack") == 1){
+				A_SpawnItemEx("PB_CellPack",16,0,32,4);}
+			else{A_SpawnItemEx("PB_RocketBox",16,0,32,4);}
+		}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20
@@ -737,7 +749,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT4 F 8
 		SZT4 G 3
 		SZT4 H 9 	
-		SZT1 E 1 A_SpawnItemEx("CoffeeTime",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveCoffee") == 1){
+				A_SpawnItemEx("CoffeeTime",16,0,32,4);}
+			else{A_SpawnItemEx("PB_Haste",16,0,32,4);}
+		}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20 
@@ -755,7 +771,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT1 J 8
 		SZT1 K 3
 		SZT1 L 9 	
-		SZT1 E 1 A_SpawnItemEx("PB_Medikit",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveMedikit") == 1){
+				A_SpawnItemEx("PB_Medikit",16,0,32,4);}
+			else{A_SpawnItemEx("XD_StimpackSpawner",16,0,32,4);}
+		}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20
@@ -772,7 +792,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT1 S 8
 		SZT1 T 3
 		SZT1 U 9 	
-		SZT1 E 1 A_SpawnItemEx("PB_Soulsphere",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveSoulSphere") == 1){
+				A_SpawnItemEx("PB_Soulsphere",16,0,32,4);}
+			else{A_SpawnItemEx("PB_Berserk",16,0,32,4);}
+			}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20
@@ -789,7 +813,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT1 R 8
 		SZT1 Q 3
 		SZT1 P 9 	
-		SZT1 E 1 A_SpawnItemEx("FreezenadePack",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveFreezebox") == 1){
+				A_SpawnItemEx("FreezenadePack",16,0,32,4);}
+			else{A_SpawnItemEx("PB_RocketBox",16,0,32,4);}
+			}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20
@@ -860,7 +888,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT1 Y 8
 		SZT1 Z 3
 		SZT1 [ 9 	
-		SZT1 E 1 A_SpawnItemEx("RatsCage",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR(enableGiveRats) == 1){
+				A_SpawnItemEx("RatsCage",16,0,32,4);}
+			else{A_SpawnItemEx("PB_Baron1",16,0,32,4);}
+		}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20

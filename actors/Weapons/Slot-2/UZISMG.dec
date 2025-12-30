@@ -31,7 +31,7 @@ Actor UZISMG : PBWP_Weapon
    +FLOORCLIP
    +DONTGIB
 	// Weapon.SlotNumber 2
-    Weapon.SlotPriority 1
+    // Weapon.SlotPriority 1
 	Weapon.SelectionOrder 2500
 	Scale 0.8
 	Tag "Uzi-SMG"

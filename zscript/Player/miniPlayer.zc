@@ -1,0 +1,141 @@
+class MiniPlayer : PB_PlayerPrawn
+{
+	bool lfoot;
+	
+	Default
+	{
+		Mass 500;
+		GibHealth 20;
+		Species "Marines";
+		BloodType "NashGoreBlood";
+		
+		Radius 4;
+		Height 14;
+		Scale 0.25;
+		PainSound "miniplayer/pain";
+		Player.ViewHeight 10;
+		Player.SoundClass "mini";
+		Player.MorphWeapon "PB_Axe";
+
+		DamageFactor "Head",1.0;
+		DamageFactor "Leg",1.0;
+		DamageFactor "FriendBullet",0.0;
+		DamageFactor "Taunt",0.0;
+		DamageFactor "KillMe",0.0;
+		DamageFactor "SSG",5.0;
+		DamageFactor "Shrapnel",0.0;
+		DamageFactor "Blood",0.0;
+		DamageFactor "BlueBlood",0.0;
+		DamageFactor "GreenBlood",0.0;
+		DamageFactor "MinorHead",0.0;
+		DamageFactor "Decaptate",0.0;
+		DamageFactor "IceExplosion",0.0;
+		DamageFactor "MonsterKnocked",0.0;
+		DamageFactor "Trample",0.0;
+		DamageFactor "Kick",0.75;
+		DamageFactor "Fatality",5.0;
+		DamageFactor "BHFTOnBarrel",0.0;
+		DamageFactor "GibRemoving",0.0;
+		DamageFactor "SuperPunch",5.0;
+		DamageFactor "HelperMarineFatallity",0.0;
+		DamageFactor "SpawnMarine",0.0;
+		DamageFactor "TeleportRemover",0.0;
+		DamageFactor "CancelTeleportFog",0.0;
+		DamageFactor "CauseObjectsToSplash",0.0;
+		DamageFactor "CauseObjectsToSplashSlime",0.0;
+		DamageFactor "CauseObjectsToSplashNukage",0.0;
+		DamageFactor "CauseObjectsToSplashBlood",0.0;
+		DamageFactor "CauseObjectsToSplashLava",0.0;
+		DamageFactor "SuperKick",0.0 ;
+		DamageFactor "BFGShield",0.0;
+		DamageFactor "KillMeBot",0.0;
+		DamageFactor "Flames",0.875;
+		DamageFactor "Fire",0.875;
+		DamageFactor "Burn",0.875;
+		DamageFactor "Disintegrate",1.0;
+		DamageFactor "Avoid",0;
+		
+		Player.AttackZOffset 17;
+		Player.ColorRange 112,127;
+		Player.JumpZ 7.4;
+		Player.GruntSpeed 24;
+		Player.DisplayName "Default Start";
+		Player.CrouchSprite "PLYC";
+		Player.ViewBob 0.0;
+
+		+ROLLSPRITE
+		+THRUSPECIES
+		+MTHRUSPECIES
+		+THRUGHOST
+		-NOSKIN
+	}
+
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+		if(!player||(player.mo!=self))
+		{
+			let v = Spawn("PB_VoodooDoll",pos);
+			v.angle = angle; v.player = player;
+			Destroy(); return;
+		}
+	}
+
+	override int DamageMobj(actor inflictor,actor source,int damage,name mod,int flags,double angle)
+	{
+		if(!inflictor&&!source&&(FloorSector.flags&Sector.SECF_ENDLEVEL))
+		{ level.ExitLevel(0,false); return 0; }
+		switch(mod)
+		{ case 'Blast': case 'ExplosiveImpact': case 'Explosive': ThrustThingZ(0,20,1,0); break; }
+		if(source&&source.FindInventory("EnemyIsArchvile"))
+		{
+			A_SpawnProjectile("NewRocketExploFX",30,0,random(0,360),2,random(0,360));
+			for(int i=12;i>0;i--) A_SpawnProjectile("ExplosionParticleHeavy",30,0,random(0,360),2,random(0,180));
+		}
+		return Super.DamageMobj(inflictor,source,damage,mod,flags,angle);
+	}
+	
+	override void CheatGive (String name, int amount)
+	{
+		if(name ~== "PB_ALL" || name ~== "PB_Upgrades")
+		{
+            console.printf("Gave all upgrades");
+			for(int i = 0; i <= self.PB_ActUpgrades.size() -1; i++)
+				giveinventory(self.PB_ActUpgrades[i],2);
+			return;
+		}
+        else if(name ~== "currentammo")
+		{
+            Weapon gun = player.readyweapon;
+            if(gun)
+            {
+                console.printf("Gave ammo for current weapon");
+			    if(gun.ammo1) 
+                {
+                    gun.ammo1.Amount = player.readyweapon.ammo1.maxamount;
+                    // S_StartSound(gun.ammo1.PickupSound, 0);
+                }
+                if(gun.ammo2) 
+                {
+                    gun.ammo2.Amount = player.readyweapon.ammo2.maxamount;
+                    // S_StartSound(gun.ammo1.PickupSound, 0);
+                }
+
+                S_StartSound("misc/givecurrentammo", 0);
+            }
+
+			return;
+		}
+		super.cheatgive(name,amount);
+	}
+	
+	//array to save all the upgrades
+	static const string PB_ActUpgrades[] = {
+		"PB_Deagle", "PB_SMG", //slot 2
+		"PB_AutoshotgunUpgrade","PB_QuadSGUpgrade","PB_SGMagazine", //slot3
+		"PB_LMG","PB_HDMRUpgrade", //slot 4
+		"PB_Minigun","MinigunUpgraded"," PB_MinigunUpgrade", //slot 5 
+		"PB_M2Upgrade", //slot 7
+		"PB_Flamethrower", "PB_FlamethrowerUpgrade","FlamerUpgraded" //slot 9?
+	};
+}

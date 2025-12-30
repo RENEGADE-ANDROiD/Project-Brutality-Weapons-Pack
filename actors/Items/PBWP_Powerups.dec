@@ -90,19 +90,20 @@ Actor AmmoSphere : PowerupGiver
 
 Actor Crucifix : PowerupGiver
 {
-  //$Category Powerups
-  //$Title "Crucifix Rosary"
-  +INVENTORY.INVBAR
-  +INVENTORY.FANCYPICKUPSOUND
-  +COUNTITEM
-  Inventory.MaxAmount 10
-  Inventory.InterHubAmount 10
-  Powerup.Type Frightener
-  Powerup.Color White 0.1
-  Powerup.Duration -30
-  Inventory.PickupMessage "You got a crucifix rosary! Make 'em repent!"
-  Inventory.Icon "CRFXZ0"
-  Inventory.UseSound "crucifix/use"
+	//$Category Powerups
+	//$Title "Crucifix Rosary"
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.INVBAR
+	+INVENTORY.FANCYPICKUPSOUND
+	+COUNTITEM
+	Inventory.MaxAmount 10
+	Inventory.InterHubAmount 10
+	Powerup.Type Frightener
+	Powerup.Color White 0.1
+	Powerup.Duration -30
+	Inventory.PickupMessage "You got a crucifix rosary! Make 'em repent!"
+	Inventory.Icon "CRFXZ0"
+	Inventory.UseSound "crucifix/use"
   States
   {
   Spawn:
@@ -118,7 +119,7 @@ actor DeflectionSphere : PowerupGiver
 	+INVENTORY.ALWAYSPICKUP
 	Inventory.MaxAmount 0
 	Powerup.Type "PowerDeflect"
-	Inventory.PickupMessage "Deflection!"
+	Inventory.PickupMessage "Deflection! Automatically Deals Damage to Anyone that Hits You"
 	
 	States
 	{
@@ -141,7 +142,7 @@ Actor GuardsphereST : PowerupGiver 5037
   Inventory.MaxAmount 0
   Powerup.Type QuarterDamageST
   Powerup.Color GreenMap
-  Inventory.PickupMessage "Guardsphere"
+  Inventory.PickupMessage "Guardsphere! Gain 75% Damage Reduction"
   States
   {
   Spawn:
@@ -159,7 +160,7 @@ ACTOR LegendSphere : PowerupGiver
   Scale 0.73
   Powerup.Type "Buddha"
   Powerup.Color 00 00 128, 0.3
-  Inventory.PickupMessage "Legend Sphere!" 
+  Inventory.PickupMessage "Legend Sphere! You Can't Go Below 1 HP! Go Crazy!" 
   States
   {
   Spawn:
@@ -170,16 +171,17 @@ ACTOR LegendSphere : PowerupGiver
 
 ACTOR LifeshieldSphere : CustomInventory
 {
-  Inventory.DefMaxAmount
-  Inventory.Icon "LFSHSPHR"
-  Inventory.PickupMessage "Lifeshield Sphere!"
-  Inventory.PickupSound "misc/p_pkup"
-  Inventory.UseSound "misc/p_pkup"
-  Tag "Grants full protection from damage through armor consumption"
-  +COUNTITEM
-  +INVENTORY.BIGPOWERUP
-  +INVENTORY.FANCYPICKUPSOUND
-  +INVENTORY.INVBAR
+	Inventory.DefMaxAmount
+	Inventory.Icon "LFSHSPHR"
+	Inventory.PickupMessage "Lifeshield Sphere!"
+	Inventory.PickupSound "misc/p_pkup"
+	Inventory.UseSound "misc/p_pkup"
+	Tag "Grants immunity through armor consumption"
+	+COUNTITEM
+	+INVENTORY.BIGPOWERUP
+	+INVENTORY.FANCYPICKUPSOUND
+	+INVENTORY.INVBAR
+	+INVENTORY.AUTOACTIVATE
 
   const int LSS_CONS_RATE = 6; // Consumes armor every 6 tics (~0.17 sec)
   const int LSS_CONS_AMOUNT = 1; // Consumes 1 point of armor
@@ -192,11 +194,12 @@ ACTOR LifeshieldSphere : CustomInventory
   Use:
     TNT1 A 0 A_JumpIfInventory("PowerLifeshield", 1, "NoUse") // If the powerup is already running prevent the use of another
     TNT1 A 0 A_JumpIf(CallACS("Lifeshield Sphere - Activation check", LSS_CONS_AMOUNT) >= LSS_CONS_AMOUNT, "ActivatePower") // If there is enough armor, activate the powerup
-    TNT1 A 0 A_Log("There is not enough armor to use the sphere.")
-    Fail
+    TNT1 A 0 A_Log("There is not enough armor to use the sphere, you get a Mega Sphere instead")
+    Stop
   NoUse:
     TNT1 A 0
-    Fail
+    TNT1 A 0 A_GiveInventory("PB_Megasphere", 1)
+    Stop
   ActivatePower:
     TNT1 A 0 A_GiveInventory("PowerLifeshield", 1)
     TNT1 A 0 ACS_NamedExecuteAlways("Lifeshield Sphere - Main", 0, LSS_CONS_RATE, LSS_CONS_AMOUNT)
@@ -265,17 +268,17 @@ ACTOR PowerShrink : PowerMorph
     PowerMorph.MorphStyle (MRF_TRANSFERTRANSLATION)
 }
 
-ACTOR MiniPlayer : DoomPlayer
-{
-    Radius 4
-    Height 14
-    Scale 0.25
-    PainSound "miniplayer/pain"
-    Player.ViewHeight 10
-    Player.SoundClass "mini"
+// ACTOR MiniPlayer : PB_PlayerPrawn
+// {
+//     Radius 4
+//     Height 14
+//     Scale 0.25
+//     PainSound "miniplayer/pain"
+//     Player.ViewHeight 10
+//     Player.SoundClass "mini"
 
-    -PICKUP
-}
+//     -PICKUP
+// }
 
 // ------------------------------------------------------------------------------------------------
 //
@@ -641,6 +644,7 @@ Actor FamiliarSummon : CustomInventory
 	+INVENTORY.INVBAR
 	+INVENTORY.FANCYPICKUPSOUND
 	+COUNTITEM
+	+INVENTORY.AUTOACTIVATE
 	+INVENTORY.ALWAYSPICKUP
 	Inventory.MaxAmount 5
 	Inventory.InterHubAmount 5
@@ -701,3 +705,145 @@ ACTOR FamiliarSmoke
     Stop
   }
 }
+
+// UNUSED FOR NOW
+// Actor PowerRavenMorph : PowerMorph
+// {
+//   PowerMorph.PlayerClass "RavenPlayer"
+//   PowerMorph.MorphStyle ( MRF_FULLHEALTH | MRF_ADDSTAMINA | MRF_WHENINVULNERABLE | MRF_LOSEACTUALWEAPON | MRF_NEWTIDBEHAVIOUR | MRF_UNDOBYDEATH | MRF_UNDOBYDEATHSAVES )
+// }
+
+
+// Actor ArtiRaven : PowerupGiver
+// {
+//   Inventory.PickupSound "Misc/p_pkup"
+//   Inventory.PickupMessage "Icon of the Raven"
+//   Inventory.DefMaxAmount
+//   Inventory.Icon "ICRVA0"
+//   Powerup.Type RavenMorph
+//   Powerup.Duration -60
+//   +Inventory.InvBar
+//   +FloatBob
+//   +Inventory.PickupFlash
+//   +CountItem
+//   Scale 0.6
+//   States
+//   {
+//   Spawn:
+//     ICRV BCDC 6 Bright
+//     Loop
+//   }
+// }
+
+// Actor PowerRavenInvisibility : PowerInvisibility
+// {
+//   Powerup.Mode None
+//   Powerup.Strength 0
+// }
+
+// Actor PowerRavenFlight : PowerFlight
+// {
+//   Inventory.Icon "TNT1A0"
+// }
+
+// Actor RavenStealth : PowerupGiver
+// {
+//   Inventory.PickupSound ""
+//   Inventory.PickupMessage ""
+//   Inventory.MaxAmount 0
+//   Inventory.Icon "TNT1A0"
+//   Powerup.Type RavenInvisibility
+//   Powerup.Duration 8
+//   +Inventory.AutoActivate
+//   States
+//   {
+//   Spawn:
+//     TNT1 A 1
+//     Fail
+//   }
+// }
+
+// Actor RavenFlyer : PowerupGiver
+// {
+//   Inventory.PickupSound ""
+//   Inventory.PickupMessage ""
+//   Inventory.MaxAmount 0
+//   Inventory.Icon "TNT1A0"
+//   Powerup.Type RavenFlight
+//   Powerup.Duration 8
+//   +Inventory.AutoActivate
+//   States
+//   {
+//   Spawn:
+//     TNT1 A 1
+//     Fail
+//   }
+// }
+
+// Actor RavenPowerups : CustomInventory
+// {
+//   Inventory.MaxAmount 0
+//   +Inventory.AutoActivate
+//   States
+//   {
+//   Use:
+//     TNT1 A 0 A_GiveInventory("RavenFlyer", 1)
+//     TNT1 A 0 A_GiveInventory("RavenStealth", 1)
+//     Stop
+//   }
+// }
+
+// Actor RavenPlayer : PlayerPawn
+// {
+//   Health 30
+//   ReactionTime 0
+//   PainChance 255
+//   Radius 16
+//   Height 56
+//   Speed 0.5
+//   +NoSkin
+//   -PickUp
+//   +NoTarget
+//   Player.Viewheight 32
+//   Player.DisplayName "Raven"
+//   Player.MorphWeapon "RavenWeapon"
+//   States
+//   {
+//   Spawn:
+//     RVPL A 0
+//     RVPL ABCD 5 A_GiveInventory("RavenPowerups", 1)
+//     Loop
+//   See:
+//     RVPL ABCD 5 A_GiveInventory("RavenPowerups", 1)
+//     Loop
+//   Pain:
+//     RVPL C 4 A_Pain
+//     Goto Spawn
+//   Death:
+//     TNT1 A -1
+//     Stop
+//   }
+// }
+
+// Actor RavenWeapon : Beak
+// {
+//   Weapon.SelectionOrder 10000
+//   +Weapon.DontBob
+//   +Weapon.MeleeWeapon
+//   +Weapon.NoAlert
+//   States
+//   {
+//   Ready:
+//     TNT1 A 1 A_WeaponReady
+//     Loop
+//   Deselect:
+//     TNT1 A 1 A_Lower
+//     Loop
+//   Select:
+//     TNT1 A 1 A_BeakRaise
+//     Loop
+//   Fire:
+//     TNT1 A 18 A_Punch
+//     Goto Ready
+//   }
+// }
