@@ -34,7 +34,15 @@ Ready:
 WeaponRespect:
     	TNT1 A 0 A_PlayWeaponSound("LShotgun/Cock")
     	TNT1 A 0 A_DoPBWeaponAction
-	LSGR ABCDE 1
+	LMAG F 1 A_DoPBWeaponAction
+	LMCK A 1 A_DoPBWeaponAction
+	LMCK B 1 A_DoPBWeaponAction
+	LMCK C 1 A_DoPBWeaponAction
+	LMCK D 1 A_DoPBWeaponAction
+	LMCK C 1 A_DoPBWeaponAction
+	LMCK B 1 A_DoPBWeaponAction
+	LMCK A 1 A_DoPBWeaponAction
+
 	Goto Ready3
 SelectAnimation:
 	 TNT1 A 0 {
@@ -43,7 +51,7 @@ SelectAnimation:
 		  A_SetRoll(0);
 		  A_TakeInventory("PB_LockScreenTilt",1);
 		  }
-	 LSGR A 1 {
+	 LMAG A 1 {
 		  return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 TNT1 A 0
