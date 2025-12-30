@@ -119,23 +119,23 @@ class KillTracker : EventHandler
                 PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received a Special Grenade Box and Power Double Damage  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 10:
-                plr.GiveInventory("HasteSphere",1);
+                plr.GiveInventory("CoffeeTime",1);
                 plr.GiveInventory("NewCellPack", 10);
                 plr.GiveInventory("PB_Fuel", 10);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Unstoppable",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Haste Sphere, 10 Cell Packs and Fuel  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Coffee Time!, 10 Cell Packs and Fuel  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 15:
-                plr.GiveInventory("DoubleSphere",1);
+                plr.GiveInventory("PB_Soulsphere",1);
                 plr.GiveInventory("ExplosivesCrate", 1);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Ownage",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Double Sphere and Explosives Crate  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Soulsphere and Explosives Crate  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 20:
                 plr.GiveInventory("PB_Backpack",1);
-                plr.GiveInventory("PB_Soulsphere",1);
+                plr.GiveInventory("TFST",1);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Excellent",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Backpack and Soulsphere  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received Backpack and Time Freeze!  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 25:
                 plr.GiveInventory("PB_Berserk",1);
