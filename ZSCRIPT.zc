@@ -71,6 +71,11 @@ version "4.14.2"
 #include "ZScript/Player/PBMeleePlayer.zc"
 
 // PBWP_Misc
+// PowerUps
+#include "zscript/PBWP_Misc/PDWP_KillstreakPowerUpSpawner.zs"
+#include "zscript/PBWP_Misc/PowerUps/DeflectionSphere.zs"
+#include "zscript/PBWP_Misc/PowerUps/ElectricAuraSphere.zs"
+// MONSTERS
 #include "zscript/PBWP_Misc/GORENEST.zs"
 // ElementalismBoss
 #include "zscript/PBWP_Misc/BEHOLD_BOSSES/E1_Export_1.zs"

@@ -1,0 +1,28 @@
+//credits of this mod goes to Realm667, OutsiderAlien for teaching me stuff about decorate//
+//below will be a list of the modders resources that made this mod possible//
+
+//All resources are from realm667//
+
+//Adrenalinekit - Bravo//
+//Ammosphere - Dreadopp//
+//Armorsphere - Ghastly_dragon//
+//Berserksphere - Dreadopp//
+//Biosuit - Ghastly_dragon//
+//Crucifix - MagicWazard and Ghastly_dragon//
+//DamageSpheres - Captain Toenail//
+//Deflection Sphere - Jaeden//
+//Electric Aura Sphere - DeVloek//
+//GuardSphere - Ghastly_dragon and Skulltagteam//
+//HasteSphere - scalliano//
+//IconOfTheRaven - Ghastly_dragon//
+//InvisSphere - Ghastly_dragon and Skulltag//
+//LegendSphere - Salahmander and MagicWazard//
+//LifeSphere -  scalliano//
+//LifeShield - Blue Shadow//
+//RageSphere - Captain Toenail//
+//RegenSphere - scalliano//
+//ShrinkSphere - Captain Toenail//
+//TaintedSpheres - Rifleman//
+//TerrorSphere - Ghastly_dragon and Grah Zahl//
+//TimeFreezer - Ghastly_dragon and Skulltag//
+ 

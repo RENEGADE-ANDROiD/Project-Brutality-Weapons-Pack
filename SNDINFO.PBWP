@@ -98,6 +98,46 @@ KillStreak/ownage "SOUNDS/KillStreak/ownage.ogg"
 KillStreak/ludicrouskill "SOUNDS/KillStreak/ludicrouskill.ogg"
 KillStreak/wickedsick "SOUNDS/KillStreak/wickedsick.ogg"
 
+//PowerUps//
+crucifix/use CRUCIUSE
+DoubleDamage/Activate	DSDUBLON
+DoubleDamage/Deactivate	DSDUBLOF
+DoubleDamage/Attack		DSDUBLAT
+ElectricAura/aura VELECAUR
+$random ElectricAura/electric { electric1 electric2 }
+electric1 VELECTR1
+electric2 VELECTR2
+electric3 VELECTR3
+electric4 VELECTR4
+$pitchset ElectricAura/electric 0.8 1.2
+$limit ElectricAura/electric 0
+$attenuation ElectricAura/electric 0.1
+//Familiar's sound assignments
+familiar/active FIRED5
+familiar/sight SPAWN3
+familiar/death FIRED3
+familiar/pain IMPPAI
+familiar/howl FIRED2 //used for poison/electric pain
+familiar/attack SPIT6 //used for his projectile attack
+familiar/hit FIREDHIT //used when his projectile attack hits
+familiar/throw ARTACT1//used when the summon item is thrown
+familiar/spawn IMPACT3//used when the Familiar spawns from the item
+Shrinksphere/Shrink		DSSHRINK
+Shrinksphere/UnShrink		DSLARGE
+$playersound	mini	male	*death		dsmdeth
+$playersound	mini	male	*xdeath		dsmdiehi
+$playersound	mini	male	*gibbed		dsslop
+$playersound	mini	male	*pain100	dsmpain
+$playersounddup	mini	male	*pain75		*pain100
+$playersounddup	mini	male	*pain50		*pain100
+$playersounddup	mini	male	*pain25		*pain100
+$playersound	mini	male	*grunt		dsmoof
+$playersounddup	mini	male	*land		*grunt
+$playersound	mini	male	*jump		dsjump
+$playersound	mini	male	*fist		dspunch
+$playersound	mini	male	*usefail	dsmoof
+miniplayer/pain dsmpain
+
 //Scientist//
 $random scientist/stopasking { scientist/stopasking1 scientist/stopasking2 scientist/stopasking3 }
 scientist/stopasking1 "Sounds/Scientist/stopasking.wav"
