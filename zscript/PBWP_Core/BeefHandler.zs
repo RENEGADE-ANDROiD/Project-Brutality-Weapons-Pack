@@ -12,12 +12,12 @@ class BeefRiceWeaponDrop : EventHandler
         monsPos.z += monsHeight/2;
 
         // Get CVARs
-        let DTechDrop = CVar.GetCVAR('PBSpawnALLDTechDrop').GetInt();
-        let MSSGDrop = CVar.GetCVAR('PBSpawnMSSGDrop').GetInt();
-        let MastermindCGDrop = CVar.GetCVAR('PBSpawnMastermindCGDrop').GetInt();
-        let PaingiverDrop = CVar.GetCVAR('PBSpawnPaingiverDrop').GetInt();
+        let DTechDrop = CVar.GetCVAR('PBSpawnALLDTechDrop').GetBool();
+        let MSSGDrop = CVar.GetCVAR('PBSpawnMSSGDrop').GetBool();
+        let MastermindCGDrop = CVar.GetCVAR('PBSpawnMastermindCGDrop').GetBool();
+        let PaingiverDrop = CVar.GetCVAR('PBSpawnPaingiverDrop').GetBool();
 
-        let ShieldGRDrop = CVar.GetCVAR('EQSpawnShieldGR').GetInt();
+        let ShieldGRDrop = CVar.GetCVAR('EQSpawnShieldGR').GetBool();
 
         // Check what monster was killed
         switch(actor.GetClassName())
@@ -25,7 +25,7 @@ class BeefRiceWeaponDrop : EventHandler
             // Different Monsters spawn Different Things
             // Custom Monsters
             case 'HellTrooperPaingiver':
-                if(PaingiverDrop == 1) { self.spawnThings("Paingiver", monsPos); } // ALWAYS DROP PAINGIVER
+                if(PaingiverDrop) { self.spawnThings("Paingiver", monsPos); } // ALWAYS DROP PAINGIVER
                 break;
 
             //case 'PB_JuggernautGK': //Should we make the Juggernaut Drop MastermindCG?
@@ -33,21 +33,21 @@ class BeefRiceWeaponDrop : EventHandler
             case 'PB_DemolisherGK': 
             case 'PB_Mastermind': 
             case 'PB_Demolisher':
-                if(MastermindCGDrop == 1) { self.spawnThings("MastermindChaingun", monsPos); } // ALWAYS DROP MASTERMIND CG
+                if(MastermindCGDrop) { self.spawnThings("MastermindChaingun", monsPos); } // ALWAYS DROP MASTERMIND CG
                 break;
 
             case 'PB_DemonTechZombieGK':  
             case 'PB_DemonTechZombie':
-                if(DTechDrop == 1){ self.spawnThings("DTechSpawner", monsPos); } 
+                if(DTechDrop){ self.spawnThings("DTechSpawner", monsPos); } 
                 break;
 
             // Monster Pack Stuff
             case 'CyberSatyr':
-                if(ShieldGRDrop == 1){ self.spawnThings("ShieldGrenadeDrop", monsPos); } 
+                if(ShieldGRDrop){ self.spawnThings("ShieldGrenadeDrop", monsPos); } 
                 break;
 
             case 'PB_Marauder':
-                if(MSSGDrop == 1){ self.spawnThings("MarauderDropSpawner", monsPos); } 
+                if(MSSGDrop){ self.spawnThings("MarauderDropSpawner", monsPos); } 
                 break;
 
             // PB Monsters 
@@ -66,14 +66,14 @@ class BeefRiceWeaponDrop : EventHandler
         monsPos.z += monsHeight/2;
 
         // Get CVARs
-        let MancFLameCNDrop = CVAR.GetCVAR('PBSpawnMancFlameCannonDrop').GetInt();
-        let CyberRLDrop = CVar.GetCVAR('PBSpawnCyberdemonRLDrop').GetInt();
+        let MancFLameCNDrop = CVAR.GetCVAR('PBSpawnMancFlameCannonDrop').GetBool();
+        let CyberRLDrop = CVAR.GetCVAR('PBSpawnCyberdemonRLDrop').GetBool();
 
         // Check and Spawn
         switch(actor.GetClassName())
         {
             case 'XDeathCyberdemonGun':
-                if(CyberRLDrop == 1)
+                if(CyberRLDrop)
                 { 
                     self.spawnThings("CyberdemonsMissileLauncher", monsPos);
                     self.destroy(); 
@@ -81,7 +81,7 @@ class BeefRiceWeaponDrop : EventHandler
                 break;
 
             case 'PB_FlamethrowerMancubusGas':
-                if(MancFLameCNDrop == 1)
+                if(MancFLameCNDrop)
                 { 
                     self.spawnThings("MancubusFlameCannon", monsPos);
                     self.destroy(); 

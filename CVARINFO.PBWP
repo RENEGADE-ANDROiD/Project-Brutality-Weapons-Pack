@@ -166,8 +166,28 @@ server bool isDSLoaded = false;
 server bool HelmetDropCVAR = true;
 server bool AllMeleeDrop = true;
 server bool FloatingVials = true;
+
+// Scientist NPC
 server bool ScientistEnable = true;
-server bool ScientistStartEnable = false;
+server bool ScientistStartEnable = true;
+
+server bool enableGiveRats = true;
+server bool enableGiveGreenArmor = true;
+server bool enableGiveMedikit = true;
+server bool enableGiveElectroRifle = true;
+server bool enableGiveCellPack = true;
+server bool enableGiveIceArmor = true;
+server bool enableGiveCoffee = true;
+server bool enableGiveFrostSerum = true;
+server bool enableGiveTimeFreeze = true;
+server bool enableGiveCryoShells = true;
+server bool enableGivePyroShells = true;
+server bool enableGiveGoldShells = true;
+server bool enableGiveSoulSphere = true;
+server bool enableGiveGoldRockets = true;
+server bool enableGiveCryoRifle = true;
+server bool enableGiveFreezebox = true;
+server bool enableGiveCryoASG = true;
 
 // Spawners
 server int Slot1Mask = 0;
@@ -188,7 +208,6 @@ server bool SpawnWhiteArmor = true;
 server bool SpawnRedArmor = true;
 server bool SpawnCyanArmor = true;
 server bool SpawnDemonArmor = true;
-
 
 // Melee Items
 server bool KatanaSpawn = true;
@@ -213,6 +232,33 @@ server bool ShurikenSpawn = true;
 server bool BeaconSpawn = true;
 server bool FreezebotSpawn = true;
 server bool SpawnShieldSaw = true;
+server bool SpawnHookGiver = true;
+server bool SpawnFreezeNade = true;
+
+// Powerups
+server bool SpawnTimesphere = true;
+server bool SpawnShrinksphere = true;
+server bool SpawnGuardsphere = true;
+server bool SpawnRegensphere = true;
+server bool SpawnDeflectionsphere = true;
+server bool SpawnElectricsphere = true;
+server bool SpawnLegendsphere = true;
+server bool SpawnCrucifix = true;
+server bool SpawnLifeShieldSphere = true;
+server bool SpawnFamiliar = true;
+
+// KS Powerups
+server bool ksLifeShield = true;
+server bool ksCrucifix = true;
+server bool ksCoffee = true;
+server bool ksFamiliar = true;
+server bool ksTimesphere = true;
+server bool ksShrinksphere = true;
+server bool ksGuardsphere = true;
+server bool ksRegensphere = true;
+server bool ksDeflectionsphere = true;
+server bool ksElectricsphere = true;
+server bool ksLegendsphere = true;
 
 // Monster Drops
 server bool IsUsingStormcastCV = false;

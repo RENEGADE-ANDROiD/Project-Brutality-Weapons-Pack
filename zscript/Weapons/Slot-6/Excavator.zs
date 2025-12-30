@@ -53,6 +53,13 @@ Class PB_Excavator : PBWP_Weapon
 		super.attachtoowner(other);
 	}
 	Override void DoEffect(){
+		if (!owner || !owner.player)
+        return;
+
+		Weapon rw = owner.player.ReadyWeapon;
+		if (!rw)
+        return;
+		
 		if( self.GetClass() is owner.player.readyweapon.GetClass() ){
 			if( (owner.player.cmd.buttons & BT_ALTATTACK) && !owner.FindInventory("GrenadeDetonator") ){
 				owner.A_SetInventory("GrenadeDetonator",1);owner.A_PlaySound("excavator/detonate");

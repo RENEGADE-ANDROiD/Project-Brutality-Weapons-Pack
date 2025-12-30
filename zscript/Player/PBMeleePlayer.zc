@@ -91,6 +91,7 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		"PB_QuadSG",
 		// PBWP SLOT 3
 		"HASG",
+		"MarauderSSG",
 		"HexaLionShotgun",
 		"SSG",
 		"RotationalSG",
