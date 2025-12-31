@@ -325,16 +325,16 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText "ProSurv = Project Survival", white
 	StaticText "GC = God Complex", white
 
-	StaticText ""
+	/* StaticText ""
 	StaticText "---------------Presets---------------", gold
 	StaticText ""
 	StaticText "Note that you'll have to load a map first for the preset to work", white
 	statictext "It is recommended to go the Test Map first if you want to use these presets", white
 	StaticText ""
-	Command "Enable All", "netevent PBWP_EnableAll"
-	Command "Disable All", "netevent PBWP_DisableAll"
+	/* Command "Enable All", "netevent PBWP_EnableAll"
+	Command "Disable All", "netevent PBWP_DisableAll" */
 	/* Command "DEBUG ENABLE ALL", "netevent maskEnableAll"
-	Command "DEBUG DISABLE ALL", "netevent maskDisableAll" */
+	Command "DEBUG DISABLE ALL", "netevent maskDisableAll" */ */
 	
 	StaticText ""
 	StaticText "---------------God Complex---------------", gold
