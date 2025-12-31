@@ -108,11 +108,25 @@ OptionMenu "GeneralSettings"
 	option "Enable Scientist","ScientistEnable","OnOff"
 	ScaleSlider "Champion Spawn Chance",		"champion_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
 	ScaleSlider "Flash duration", "OuchFlashDuration", 0, 35, 1, "Disabled", "????? HOW IS IT -1"
-	Control "BEHOLD! Revive VS 3–5 Enemy Bosses ", "+dp_random_key"
+	Control "BEHOLD! Revive VS 3-5 Enemy Bosses ", "+dp_random_key"
 	Control "Show Combat Points", "PB_CRSHW"
 	Control "$PBWP_TOGGLE_MELEE_MENU", "+pbwp_meleemenu"
 	Control "Toggle Magnet", "MagnetModeOff"
+	Submenu "", "Cacotroll"
 	
+}
+
+ListMenu "Cacotroll"
+{
+	Font "PBBIG","red","white"
+	IfGame(Doom, Chex)
+	{
+		StaticText 80, -65, "CONGRATULATIONS!", gold
+		StaticText 50, -80, "YOU FOUND AN EASTER EGG!", gold
+		StaticText 77, -95, "HERE'S A CACOTROLL", gold
+		StaticPatchCentered 160, 50, "graphics/cacotroll.png"
+	}
+	Size Clean
 }
 
 OptionMenu "ks_sett"

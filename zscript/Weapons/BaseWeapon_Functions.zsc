@@ -3215,4 +3215,13 @@ action int getReadyFlags(int weapflags, bool noReload)
 		PB_AmmoIntoMag(invoker.ammo1.GetClassName(),MaxFill,1,mul);
 	}
 	*/
+	action state FiretoExecute()
+	{
+		if(invoker.CountInv("NoFatality") == 0 && (ttwcfbex)) 
+		{
+			if(!isGKLoaded) return PB_Execute();
+			else return PB_ExecuteGK();
+		}
+		return resolveState(null);
+	}
 }

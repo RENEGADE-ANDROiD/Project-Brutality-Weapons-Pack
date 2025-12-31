@@ -3,7 +3,7 @@ class UMDE_Select_IncinerationMode : inventory{default{inventory.maxamount 1;}}
 class UMDE_Select_LightningMode : inventory{default{inventory.maxamount 1;}}
 Class RespectDemonExt : Inventory{Default{Inventory.MaxAmount 1;}}
 Class SoulCharge: Ammo{Default{Inventory.MaxAmount 333;Ammo.BackpackMaxAmount 666;}}
-Class PB_DemonExt : PBWP_Weapon
+Class PB_DemonExt : PB_WeaponBase
 {
 	default
 	{
@@ -149,6 +149,13 @@ Class PB_DemonExt : PBWP_Weapon
 			TNT1 A 0 A_JumpIf(invoker.ExterminatorMode == 1,"Fire.Incineration");
 			TNT1 A 0 A_JumpIf(invoker.ExterminatorMode == 2,"Fire.Soul");
 		Fire.Laser:
+			TNT1 A 0 {
+				if(invoker.CountInv("NoFatality") == 0 && (ttwcfbex)) 
+				{
+					return PB_Execute();
+				}
+				return resolveState(null);
+			}
 			TNT1 A 0 A_jumpif(countinv(invoker.ammotype1) < invoker.primammouse, "FireNoAmmo");
 			TNT1 A 0 A_overlay(-64,"MuzzleFlash2");
 			TNT1 A 0 A_startsound("unmaker/laser",21);
@@ -213,6 +220,13 @@ Class PB_DemonExt : PBWP_Weapon
 			TNT1 A 1 {A_OverlayScale(PSP_WEAPON,1.0);}
 			stop;
 		Fire.Soul:
+			TNT1 A 0 {
+				if(invoker.CountInv("NoFatality") == 0 && (ttwcfbex)) 
+				{
+					return PB_Execute();
+				}
+				return resolveState(null);
+			}
 			TNT1 A 0 A_jumpif(countinv(invoker.ammotype2) < invoker.primammo2use3, "FireNoAmmo");
 			/*
 			UNMI H 3 Bright {A_WeaponOffset(0,32);A_overlay(65,"OverchargeFlash");}
@@ -247,6 +261,13 @@ Class PB_DemonExt : PBWP_Weapon
 			TNT1 A 0 A_refire("Fire");
 			goto ready3;
 		Fire.Incineration:
+			TNT1 A 0 {
+				if(invoker.CountInv("NoFatality") == 0 && (ttwcfbex)) 
+				{
+					return PB_Execute();
+				}
+				return resolveState(null);
+			}
 			TNT1 A 0 A_jumpif(countinv(invoker.ammotype1) < invoker.primammouse2, "FireNoAmmo");
 			UNMF A 1 bright {A_overlay(-64,"MuzzleFlash0");A_startsound("unmaker/fire",21);UNM_FireBeams(invoker.U_Level);A_TakeInventory(invoker.ammotype1,invoker.primammouse2);UNM_Add_level();}
 			TNT1 A 0 {PB_FireOffset();PB_WeaponRecoil(-0.32,frandom(-0.25,0.25));}

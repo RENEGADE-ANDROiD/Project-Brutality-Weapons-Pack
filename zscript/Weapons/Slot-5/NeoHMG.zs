@@ -64,6 +64,13 @@ Class PB_NeoHMG : PB_WeaponBase
 		
 		Fire:
 			TNT1 A 0 PB_jumpIfHasBarrel("ThrowBarrel","ThrowFlameBarrel","ThrowIceBarrel");
+			TNT1 A 0 {
+				if(invoker.CountInv("NoFatality") == 0 && (ttwcfbex)) 
+				{
+					return PB_Execute();
+				}
+				return resolveState(null);
+			}
 			TNT1 A 0 PB_jumpIfNoAmmo("Reload",1);
 			HG0F B 1 bright fireHMG();
 			HG0F C 1 bright;

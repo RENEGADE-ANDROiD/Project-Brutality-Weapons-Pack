@@ -1,6 +1,6 @@
 
 
-Class HeavySniperRifle : PBWP_Weapon
+Class HeavySniperRifle : PB_WeaponBase
 {
 	default
 	{
@@ -112,13 +112,18 @@ Class HeavySniperRifle : PBWP_Weapon
 			loop;
 		
 		Fire:
-		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel");
-		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
-		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel");
+			TNT1 A 0 PB_CheckBarrelThrow1();
 
 			TNT1 A 0 PB_CheckAmmoFire(1);
 			TNT1 A 0 A_jumpifinventory("zoomed",1,"Fire_ADS");
 			TNT1 A 0 A_jumpif(invoker.ExplosiveMode,"FireExp");
+			TNT1 A 0 {
+				if(invoker.CountInv("NoFatality") == 0 && (ttwcfbex)) 
+				{
+					return PB_Execute();
+				}
+				return resolveState(null);
+			}
 			MSNF B 1 bright {
 				A_AlertMonsters();
 				A_overlay(muzzlelayer,"MuzzleFlash");
@@ -144,6 +149,13 @@ Class HeavySniperRifle : PBWP_Weapon
 			goto ready3;
 			
 		FireExp:
+			TNT1 A 0 {
+				if(invoker.CountInv("NoFatality") == 0 && (ttwcfbex)) 
+				{
+					return PB_Execute();
+				}
+				return resolveState(null);
+			}
 			TNT1 A 0 A_jumpifinventory("zoomed",1,"Fire_ADS");
 			MSNF B 1 bright {
 				A_AlertMonsters();
@@ -230,6 +242,13 @@ Class HeavySniperRifle : PBWP_Weapon
 			loop;
 			
 		Fire_ADS:
+			TNT1 A 0 {
+				if(invoker.CountInv("NoFatality") == 0 && (ttwcfbex)) 
+				{
+					return PB_Execute();
+				}
+				return resolveState(null);
+			}
 			TNT1 A 0 PB_CheckAmmoFire(1,"ReloadFromADS");
 			TNT1 A 0 A_jumpif(invoker.ExplosiveMode,"FireExp_ADS");
 		ActualFireADS:
@@ -280,6 +299,13 @@ Class HeavySniperRifle : PBWP_Weapon
 			Goto Ready_ADS;
 			
 		FireExp_ADS:
+			TNT1 A 0 {
+				if(invoker.CountInv("NoFatality") == 0 && (ttwcfbex)) 
+				{
+					return PB_Execute();
+				}
+				return resolveState(null);
+			}
 			MSNS B 1 bright 
 			{
 				A_weaponoffset(0,32);
@@ -709,6 +735,8 @@ Class HeavySniperRifle : PBWP_Weapon
 		}
 		super.attachtoowner(other);
 	}
+
+	
 	
 }
 

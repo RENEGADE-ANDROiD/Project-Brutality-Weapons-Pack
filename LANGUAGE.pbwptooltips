@@ -3,7 +3,7 @@
 //ALL THEM TOOLTIPS
 
 // GENERAL
-TIP_ttwcfbex = "Experimental, some weapons doesnt have this feature even when enabled, default is On";
+TIP_ttwcfbex = "Automatically execute enemies if their health is low enough, default is On";
 TIP_PB_WeaponDrops = "Determine the monsters drop \n1. Just ammo = Monsters will only drop ammo \n2. Default = Monsters will drop their weapon";
 TIP_KillstreakIsOn = "Killing enemies multiple times will grant powerups and other items, default is On";
 TIP_HelmetDropCVAR = "Enemies that have helmets will drop their helmets that you can pick up \nand gives a small amount of armor, default is On";
@@ -90,10 +90,10 @@ TIP_ksCoffee = "Summons a Friendly Familiar that Fights for You";
 // MISC 
 TIP_PBSpawnStormcast = "WARNING: BUGGY WEAPON" \nBeefRice: This thing is mega busted;
 TIP_PBSpawnPB_MancubusFlameCannon = "STOP ASKING ABOUT THE MANCUBUS FLAME CANNON";
-TIP_PBSpawnProsurv_LeverAction = "BeefRice: My Favourite (oh like Beef owns favoritism rights?!)";
+TIP_PBSpawnProsurv_LeverAction = "BeefRice: My Favourite \nRA:oh like Beef owns favoritism rights?! \nBeefRice: Ofkors";
 
 TIP_PBSpawnPB_BeamKatana = "Cosplay as a Jedi, *I guess.*";
-TIP_PBSpawnAK47 = "Some claim this gun is ugly, and they are correct.";
+TIP_PBSpawnAK47 = "BeefRice: Anyone that unironically uses this is going straight to my banlist \nRA: Some claim this gun is ugly, and they are correct.";
 TIP_PBSpawnPB_ArgentSith = "Luke, I am your Daddy";
 TIP_PBSpawnPBSpawnBattleAxe = "HACK N SLASH";
 TIP_PBSpawnCalamityBlade = "Code that gives RA nightmares";
@@ -104,6 +104,5 @@ TIP_PBSpawnMagnumSniperRifle = "She's not much to look at, but she handles like 
 
 TIP_PBSpawnMarauderSSG = "Here's a tip, use the MeatHook as much as you can but be careful";
 TIP_PBSpawnHexaLionShotgun = "BeefRice: Remind me why we need a 6 barrel shotgun again";
-TIP_PBSpawnAK47 = "BeefRice: Anyone that unironically uses this is going straight to my banlist";
 TIP_PBSpawnFire_and_IceDragonSlayer = "GRIFFITH!!!!";
 TIP_PBSpawnProsurv_PlasmaBlaster = "You already have this if you choose the default start";

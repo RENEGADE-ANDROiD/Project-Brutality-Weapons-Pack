@@ -10,7 +10,7 @@ Class ExcavatorRounds : Ammo{
 	}
 }
 //5DKFE0.png
-Class PB_Excavator : PBWP_Weapon
+Class PB_Excavator : PB_Weapon
 {
 	//$Title Excavator
 	//$Category Weapons
@@ -159,9 +159,14 @@ Class PB_Excavator : PBWP_Weapon
 		Wait;
 
 	Fire:
-		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
-		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
-		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
+		TNT1 A 0 PB_CheckBarrelThrow1();
+		TNT1 A 0 {
+				if(invoker.CountInv("NoFatality") == 0 && (ttwcfbex)) 
+				{
+					return PB_Execute();
+				}
+				return resolveState(null);
+			}
 		TNT1 A 0 {
 			A_WeaponOffset(0,32);
 			A_SetRoll(0);
