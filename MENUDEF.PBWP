@@ -81,7 +81,7 @@ OptionMenu "ttwcoptions"
 	StaticText ""
 	Command "$PB_GO_TESTMAP", "map PBTEST"
 	StaticText ""
-	StaticText "Project Brutality Weapons Pack Version: 1.9.5-Release", gold
+	StaticText "Project Brutality Weapons Pack Version: 1.9.7-Release", gold
 	/* StaticText "CHAMPIONS v2.9.1 is Loaded", white // DONT SHOW MODS THAT ALREADY HAVE THEIR OWN SETTINGS
 	StaticText "BEHOLD! v3.0 is Loaded", white
 	StaticText "DOORBUSTER v1.0 is Loaded", white
@@ -140,6 +140,7 @@ OptionMenu "ks_sett"
 	statictext "---------------Spawn Settings---------------", gold
 	statictext ""
 	option "Killstreak is Enabled","KillstreakIsOn","OnOff"
+	option "Killstreak HUD is Enabled","KSHUD","OnOff"
 
 	statictext ""
 	statictext "---------------Killstreak Powerup Settings---------------", gold

@@ -5,16 +5,16 @@
 // GENERAL
 TIP_ttwcfbex = "Automatically execute enemies if their health is low enough, default is On";
 TIP_PB_WeaponDrops = "Determine the monsters drop \n1. Just ammo = Monsters will only drop ammo \n2. Default = Monsters will drop their weapon";
-TIP_KillstreakIsOn = "Killing enemies multiple times will grant powerups and other items, default is On";
+TIP_KillstreakIsOn = "Killing enemies multiple times will grant powerups and other items \nCheck the Killstreak Menu for more settings, default is On";
 TIP_HelmetDropCVAR = "Enemies that have helmets will drop their helmets that you can pick up \nand gives a small amount of armor, default is On";
 TIP_champion_OverrideChance = "Determine the spawn chance of Champion Monstsers \nCan be disabled, check the Champion Enemies Menu for more settings";
 TIP_OuchFlashDuration = "Determine the duration of pain flash of mosnters \nCan be disabled, check the Ouchie! Menu for more settings";
-TIP_D4D_DamageIndicators = "Shows a damage indicator with colors corresponding to damage type \ncCheck the Damage Indicator Menu for more settings, default is On";
+TIP_D4D_DamageIndicators = "Shows a damage indicator with colors corresponding to damage type \nCheck the Damage Indicator Menu for more settings, default is On";
 TIP_cl_Health_FX = "Shows a red overlay, heartbeat sound, and desaturates the screen when low on hp, default is On";
 TIP_FloatingVials = "Make the Health and Armor Pickups Float, default is On";
 
 // SCIENTIST NPC
-TIP_ScientistEnable = "Spawns a Scientist NPC on a random secret in the map and will give quests to the player \ncCheck the Scientist NPC Menu for more settings, default is On";
+TIP_ScientistEnable = "Spawns a Scientist NPC on a random secret in the map and will give quests to the player \nCheck the Scientist NPC Menu for more settings, default is On";
 TIP_ScientistStartEnable = "Make the Scientist immediately spawn to the player on map start, default is Off";
 
 // MONSTER DROP 
@@ -76,6 +76,7 @@ TIP_SpawnCrucifix = "Frightens all nearby enemies";
 TIP_SpawnFamiliar = "Summons a Friendly Familiar that Fights for You";
 
 // KILLSTREAKS
+TIP_KSHUD = "Makes your screen redder every killstreak, Default is On";
 TIP_ksTimesphere = "Stops Time, 'nuff said";
 TIP_ksShrinksphere = "Shrinks the player, you dont have any weapons though";
 TIP_ksGuardsphere = "Reduce all incoming damage by 75%";
