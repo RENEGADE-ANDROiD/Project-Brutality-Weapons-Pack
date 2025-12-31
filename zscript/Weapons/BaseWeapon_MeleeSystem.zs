@@ -44,7 +44,7 @@ extend class PB_WeaponBase
         TNT1 A 0 A_JumpIfInventory("HammerMeleeSelected", 1, "PrepDualHands");
         // One Handed Malee
         TNT1 A 0 A_Overlay(PSP_FLASH, "FlashPunching");
-        TNT1 A 0 A_JumpIfInventory("StandardMeleeSelected", 1, "PBWP_SwingLeft");
+        TNT1 A 0 A_JumpIfInventory("StandardMeleeSelected", 1, "StandardMelee");
         TNT1 A 0 A_JumpIfInventory("BladeMeleeSelected", 1, "MeleeBlade");
         TNT1 A 0 A_JumpIfInventory("ImpactorMeleeSelected", 1, "MeleeImpactor");
         TNT1 A 0 A_JumpIfInventory("PickAxeMeleeSelected", 1, "MeleePickAxe");

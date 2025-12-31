@@ -74,14 +74,14 @@ extend class PB_WeaponBase
 		Goto HammerBreak;
 		TNT1 A 8;
 		/*TNT1 A 0 {
-			if(PressingUser2()) { return ResolveState("HammerHoldStart"); }
+			if(PressingUser2() || PressingFire()) { return ResolveState("HammerHoldStart"); }
 			if(IsPressingInput(BT_MOVERIGHT)) { return ResolveState("HammerSwingRight"); }
 			if(IsPressingInput(BT_MOVELEFT)) { return ResolveState("HammerSwingLeft"); }
 			return resolveState("null");
 			//if(IsPressingInput(BT_FORWARD)) { return state("HammerSwingDown"); }
 			//if(IsPressingInput(BT_BACK)) { return state("BackwardAttackClean"); }
 		}*/
-		TNT1 A 0 A_JumpIf(PressingUser2(), "HammerHoldStart");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "HammerHoldStart");
 		TNT1 A 0 A_Jump(256, "HammerSwingLeft", "HammerSwingRight");
 
 	HammerSwingDown:
@@ -99,7 +99,7 @@ extend class PB_WeaponBase
         0UBR EF 1 {
 			A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -109,14 +109,14 @@ extend class PB_WeaponBase
 		0UBR GH 1 {
 			A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 A_FireCustomMissile("SuperHammerSwing", 0, 0, 0, 8);
 		0UBR I 1 {
 			A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 continueCombo("HammerComboDecider");
@@ -150,7 +150,7 @@ extend class PB_WeaponBase
 		0UBR LM 1 {
 			A_SetRoll(roll-1.2, SPF_INTERPOLATE);
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -164,7 +164,7 @@ extend class PB_WeaponBase
 		}
         0UBR NO 1 {
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 {
 			if (CountInv("PB_PowerStrength") == 1 ) { 
@@ -176,11 +176,11 @@ extend class PB_WeaponBase
 		}
 		0UBR PQ 1 {
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 AAAA 1 {
 			A_SetRoll(roll+1.2, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1); 
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); 
 			return;
 		}
 		TNT1 A 0 continueCombo("HammerComboDecider");
@@ -210,7 +210,7 @@ extend class PB_WeaponBase
 		0UBR TU 1 {
 			A_SetRoll(roll+1.2, SPF_INTERPOLATE);
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -224,7 +224,7 @@ extend class PB_WeaponBase
 		}
         0UBR VW 1 {
 			////A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 {
 			if (CountInv("PB_PowerStrength") == 1 ) { A_FireCustomMissile("SuperHammerSwing", 15, 0, 0, 0); }
@@ -232,11 +232,11 @@ extend class PB_WeaponBase
 		}
 		0UBR XY 1 {
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 AAAA 1 {
 			A_SetRoll(roll-1.2, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1); 
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); 
 			return;
 		}
 		TNT1 A 0 continueCombo("HammerComboDecider");
@@ -254,7 +254,7 @@ extend class PB_WeaponBase
 		0UBR JK 1 setCombo(0);
 	HammerHold:
 		0UBR K 1;
-		TNT1 A 0 A_JumpIf(PressingUser2(), "HammerHold");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "HammerHold");
 		Goto HammerSwingDown;
 
 	HammerBreak:
@@ -281,7 +281,7 @@ extend class PB_WeaponBase
 		}
 		TNT1 A 0 A_JumpIf(CountInv("AxeDurability") == 40, "AxeBreak");
 		TNT1 A 8;
-		TNT1 A 0 A_JumpIf(PressingUser2(), "AxeHoldStart");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "AxeHoldStart");
 		TNT1 A 0 A_Jump(256, "AxeSwingLeft", "AxeSwingRight");
 
 	AxeSwingDown:
@@ -299,7 +299,7 @@ extend class PB_WeaponBase
         0AXE EF 1 {
 			A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -309,14 +309,14 @@ extend class PB_WeaponBase
 		0AXE GH 1 {
 			A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 A_FireCustomMissile("SuperAxeSwing", 0, 0, 0, 8);
 		0AXE I 1 {
 			A_SetPitch(+2.5 + pitch, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 continueCombo("AxeComboDecider");
@@ -347,7 +347,7 @@ extend class PB_WeaponBase
 		0AXE LM 1 {
 			A_SetRoll(roll-1.2, SPF_INTERPOLATE);
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -361,7 +361,7 @@ extend class PB_WeaponBase
 		}
         0AXE NO 1 {
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 {
 			if (CountInv("PB_PowerStrength") == 1 ) { 
@@ -370,11 +370,11 @@ extend class PB_WeaponBase
 		}
 		0AXE PQ 1 {
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 AAAA 1 {
 			A_SetRoll(roll+1.2, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 continueCombo("AxeComboDecider"); // If you spam F
@@ -405,7 +405,7 @@ extend class PB_WeaponBase
 		0AXE TU 1 {
 			A_SetRoll(roll+1.2, SPF_INTERPOLATE);
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -419,7 +419,7 @@ extend class PB_WeaponBase
 		}
         0AXE VW 1 {
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 {
 			if (CountInv("PB_PowerStrength") == 1 ) { 
@@ -428,11 +428,11 @@ extend class PB_WeaponBase
 		}
 		0AXE XY 1 {
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 AAAA 1 {
 			A_SetRoll(roll-1.2, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 continueCombo("AxeComboDecider");
@@ -450,7 +450,7 @@ extend class PB_WeaponBase
 		0AXE JK 1 setCombo(0);
 	AxeHold:
 		0AXE K 1;
-		TNT1 A 0 A_JumpIf(PressingUser2(), "AxeHold");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "AxeHold");
 		Goto AxeSwingDown;
 
 	AxeBreak:
@@ -503,7 +503,7 @@ extend class PB_WeaponBase
 		KTNA I 1 A_BDPmeleestart();
 		KTNA JK 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 {
 				if (CountInv("PB_PowerStrength") >= 1 ) {
@@ -533,24 +533,24 @@ extend class PB_WeaponBase
 				A_Setroll(roll-1.0, SPF_INTERPOLATE);
 				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
 				A_BDPmeleestart();
-				if(JustPressed(BT_USER2)) setCombo(1); return;
+				if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}		
 		TNT1 AAA 1 
 		{
 				A_Setroll(roll+1.0, SPF_INTERPOLATE);
 				A_SetAngle(angle-0.5, SPF_INTERPOLATE);
-				if(JustPressed(BT_USER2)) setCombo(1); return;
+				if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 AAA 1 
 		{
 				A_Setroll(roll+1.0, SPF_INTERPOLATE);
 				A_SetAngle(angle-0.5, SPF_INTERPOLATE);
-				if(JustPressed(BT_USER2)) setCombo(1); return;
+				if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 A_JumpIfInventory("KatanaDurability", 1, 1);
 		Goto KatanaBreak;
 		TNT1 A 0 continueCombo("MeleeKatana2");
-		TNT1 A 5 A_JumpIf(PressingUser2(), "MeleeKatana2");
+		TNT1 A 5 A_JumpIf(PressingUser2() || PressingFire(), "MeleeKatana2");
 		TNT1 A 0 {
 			A_Takeinventory("PB_LockScreenTilt",1);
 			setCombo(0);
@@ -571,7 +571,7 @@ extend class PB_WeaponBase
 			}	
 		KTBA JK 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 {
 				if (CountInv("PB_PowerStrength") >= 1 ) {
@@ -601,22 +601,22 @@ extend class PB_WeaponBase
 				A_Setroll(roll+1.0, SPF_INTERPOLATE);
 				A_SetAngle(angle-0.5, SPF_INTERPOLATE);
 				A_BDPmeleestart();
-				if(JustPressed(BT_USER2)) setCombo(1); return;
+				if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			}
 		TNT1 AAA 1 {
 				A_Setroll(roll-1.0, SPF_INTERPOLATE);
 				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
-				if(JustPressed(BT_USER2)) setCombo(1); return;
+				if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			}
 		TNT1 AAA 1 {
 				A_Setroll(roll-1.0, SPF_INTERPOLATE);
 				A_SetAngle(angle+0.5, SPF_INTERPOLATE);
-				if(JustPressed(BT_USER2)) setCombo(1); return;
+				if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			}
 		TNT1 A 0 A_JumpIfInventory("KatanaDurability", 1, 1);
 		Goto KatanaBreak;
 		TNT1 A 0 continueCombo("MeleeKatana2");
-        TNT1 A 5 A_JumpIf(PressingUser2(), "MeleeKatana2");
+        TNT1 A 5 A_JumpIf(PressingUser2() || PressingFire(), "MeleeKatana2");
 		TNT1 A 0 {
 			A_Takeinventory("PB_LockScreenTilt",1);
 			setCombo(0);
@@ -665,7 +665,7 @@ extend class PB_WeaponBase
         1KAT D 1 {
 			A_SetRoll(roll+0.5, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -676,7 +676,7 @@ extend class PB_WeaponBase
 		1KAT E 1 {
 			A_SetRoll(roll+0.5, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -686,20 +686,20 @@ extend class PB_WeaponBase
 		1KAT FGH 1 {
 			A_SetRoll(roll+0.5, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		1KAT I 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 AAAA 1 {
 			A_SetRoll(roll-1.0, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 continueCombo("SwordComboDecider");
-		TNT1 A 0 A_JumpIf(PressingUser2(), "SwordComboDecider");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "SwordComboDecider");
 		TNT1 A 0 {
 			A_Takeinventory("PB_LockScreenTilt",1);
 			setCombo(0);
@@ -726,7 +726,7 @@ extend class PB_WeaponBase
         2KAT D 1 {
 			A_SetRoll(roll-0.5, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -737,7 +737,7 @@ extend class PB_WeaponBase
 		2KAT E 1 {
 			A_SetRoll(roll-0.5, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -747,20 +747,20 @@ extend class PB_WeaponBase
 		2KAT FGH 1 {
 			A_SetRoll(roll-0.5, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		2KAT I 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 AAAA 1 {
 			A_SetRoll(roll+1.0, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 continueCombo("SwordComboDecider");
-		TNT1 A 0 A_JumpIf(PressingUser2(), "SwordComboDecider");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "SwordComboDecider");
 		TNT1 A 0 {
 			A_Takeinventory("PB_LockScreenTilt",1);
 			setCombo(0);
@@ -787,7 +787,7 @@ extend class PB_WeaponBase
 		4KAT CD 1 {
 			A_SetPitch(+0.5 + pitch, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -798,7 +798,7 @@ extend class PB_WeaponBase
         4KAT EF 1 {
 			A_SetPitch(+0.5 + pitch, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -807,11 +807,11 @@ extend class PB_WeaponBase
 		}
 		TNT1 AAAAAAA 1 {
 			A_SetPitch(-0.5 + pitch, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 continueCombo("SwordComboDecider");
-		TNT1 A 0 A_JumpIf(PressingUser2(), "SwordComboDecider");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "SwordComboDecider");
 		TNT1 A 0 {
 			A_Takeinventory("PB_LockScreenTilt",1);
 			setCombo(0);
@@ -838,7 +838,7 @@ extend class PB_WeaponBase
 		3KAT CD 1 {
 			A_SetPitch(+0.5 + pitch, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -849,7 +849,7 @@ extend class PB_WeaponBase
         3KAT EF 1 {
 			A_SetPitch(+0.5 + pitch, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -858,11 +858,11 @@ extend class PB_WeaponBase
 		}
 		TNT1 AAAAAAA 1 {
 			A_SetPitch(-0.5 + pitch, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 continueCombo("SwordComboDecider");
-		TNT1 A 0 A_JumpIf(PressingUser2(), "SwordComboDecider");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "SwordComboDecider");
 		TNT1 A 0 {
 			A_Takeinventory("PB_LockScreenTilt",1);
 			setCombo(0);
@@ -890,7 +890,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_PlaySound("weapons/chainsaw/idle",7);
 	SawCombo0loop:
 		1SAW E 1;
-		TNT1 A 0 A_JumpIf(PressingUser2(), "SawCombo0loop");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "SawCombo0loop");
 	SawCombo1:
 		TNT1 A 0 {
 			A_Stopsound(7);
@@ -903,13 +903,19 @@ extend class PB_WeaponBase
 			A_BDPmeleestart();
 		 }
 		//TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", -20, 0, 0, 0);
-		TNT1 A 0 A_BDPMelee(200, "Prosurv_SawSwing", -7, TRUE);
+		TNT1 A 0 {
+			A_BDPMelee(200, "Prosurv_SawSwing", -7, TRUE);
+			PB_SawAttack();
+		}
 		TNT1 A 0 A_TakeInventory("PB_Fuel",1);
 		1SAW G 1 {
 			A_SetRoll(roll+.8, SPF_INTERPOLATE);
 			A_BDPmeleestart();
 		}
-		TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", -10, 0, 0, 0);
+		TNT1 A 0 {
+			A_FireCustomMissile("Prosurv_SawSwing", -10, 0, 0, 0);
+			PB_SawAttack();
+		}
 		TNT1 A 0 A_TakeInventory("PB_Fuel",1);
         1SAW HI 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
 		TNT1 A 0 A_JumpIfInventory("SawHasHit",1,"SawComboStuck");
@@ -923,7 +929,10 @@ extend class PB_WeaponBase
 			A_PlaySound("Weapons/Chainsaw/Loop",7);
 		}
 		1SAW O 1 A_ZoomFactor(1.03);
-		TNT1 A 0 A_FireCustomMissile("Prosurv_SawSwing", 0, 0, 0, 0);
+		TNT1 A 0 {
+			A_FireCustomMissile("Prosurv_SawSwing", 0, 0, 0, 0);
+			PB_SawAttack();
+		}
 		TNT1 A 0 A_TakeInventory("PB_Fuel",1);
 		1SAW P 1 A_ZoomFactor(1.045);
 		1SAW Q 1 A_ZoomFactor(1.055);
@@ -969,7 +978,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
 		MCHE ABCDEF 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetRoll(roll-.6, SPF_INTERPOLATE);
 		}
 		TNT1 A 0 {
@@ -978,11 +987,11 @@ extend class PB_WeaponBase
 			else { A_BDPMelee(200, "MacheteSwing", -7, TRUE); }
 		}
 		TNT1 AAAAAA 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetRoll(roll+.6, SPF_INTERPOLATE);
 		}
 		TNT1 A 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 continueCombo("MacheteComboDecider");
 		TNT1 A 0 {
@@ -1010,15 +1019,15 @@ extend class PB_WeaponBase
 		}
 		MCHE PQR 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetRoll(roll+.6, SPF_INTERPOLATE);
 		}
 		TNT1 A 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetRoll(roll+.6, SPF_INTERPOLATE);
 		}
 		TNT1 AAAA 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 continueCombo("MacheteComboDecider");
 		TNT1 A 0 {
@@ -1037,7 +1046,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
 		MCHE GHIJKL 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetRoll(roll+.6, SPF_INTERPOLATE);
 		}
 		TNT1 A 0 {
@@ -1046,11 +1055,11 @@ extend class PB_WeaponBase
 			else { A_BDPMelee(200, "MacheteSwing", -7, TRUE); }
 		}
 		TNT1 AAAAAA 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetRoll(roll-.6, SPF_INTERPOLATE);
 		}
 		TNT1 A 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 continueCombo("MacheteComboDecider");
 		TNT1 A 0 {
@@ -1081,11 +1090,11 @@ extend class PB_WeaponBase
 			A_SetRoll(roll-.6, SPF_INTERPOLATE);
 		}
 		TNT1 A 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetRoll(roll-.6, SPF_INTERPOLATE);
 		}
 		TNT1 AAAA 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 continueCombo("MacheteComboDecider");
 		TNT1 A 0 {
@@ -1121,7 +1130,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("CrowbarDurability",1,1);
 		Goto CrowbarBreak;
 		TNT1 A 8;
-		TNT1 A 0 A_JumpIf(PressingUser2(), "CrowbarHoldStart");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "CrowbarHoldStart");
 		TNT1 A 0 A_Jump(256, "CrowbarSwingLeft", "CrowbarSwingRight");
 	
 	CrowbarSwingLeft:
@@ -1140,11 +1149,11 @@ extend class PB_WeaponBase
 		}
         CBAR EFG 1 {
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 AAAA 1 {
 			A_SetRoll(roll+.8, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 continueCombo("CrowbarComboDecider");
@@ -1173,11 +1182,11 @@ extend class PB_WeaponBase
 		}
         CBAR LMN 1 {
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 AAAA 1 {
 			A_SetRoll(roll-.8, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		//TNT1 A 0 A_JumpIfInventory("Kicking",1,"KickLeft")
@@ -1202,13 +1211,13 @@ extend class PB_WeaponBase
         CBAR RSTUV 1 {
 			A_SetPitch(-.2 + pitch, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 A_BDPMelee(200, "SuperCrowbarSwing", -7, TRUE);
 		TNT1 AA 1 {
 			A_SetPitch(+.2 + pitch, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 continueCombo("CrowbarComboDecider");
@@ -1223,7 +1232,7 @@ extend class PB_WeaponBase
 
 	CrowbarHoldStart:
 		CBAR A 1 setCombo(0);
-		TNT1 A 0 A_JumpIf(PressingUser2(), "CrowbarHoldStart");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "CrowbarHoldStart");
 		Goto CrowbarSwingDown;
 
 	CrowbarBreak:
@@ -1260,7 +1269,7 @@ extend class PB_WeaponBase
 		}
 	BatonCombo0Loop:
 		BATN KLMKLMKLMKLMKLM 1;
-		TNT1 A 0 A_JumpIf(PressingUser2(), "BatonCombo0Loop");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "BatonCombo0Loop");
 	BatonCombo1:
 		TNT1 A 0 A_TakeInventory("SawHasHit",1);
 		//BATN KLMKLMKLMKLMKLM 1;
@@ -1326,7 +1335,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("WrenchDurability",1,1);
 		Goto WrenchBreak;
 		TNT1 A 8;
-		TNT1 A 0 A_JumpIf(PressingUser2(), "WrenchHoldStart");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "WrenchHoldStart");
 		TNT1 A 0 A_Jump(256, "WrenchSwingLeft", "WrenchSwingRight");
 	
 	WrenchSwingRight:
@@ -1345,11 +1354,11 @@ extend class PB_WeaponBase
 		}
         WRNC EFG 1 {
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 AAAA 1 {
 			A_SetRoll(roll+.8, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 continueCombo("WrenchComboDecider");
@@ -1378,11 +1387,11 @@ extend class PB_WeaponBase
 		}
         WRNC LMN 1 {
 			//A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 AAAA 1 {
 			A_SetRoll(roll-.8, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 continueCombo("WrenchComboDecider");
@@ -1406,7 +1415,7 @@ extend class PB_WeaponBase
         WRNC RSTUV 1 {
 			A_SetPitch(-.2 + pitch, SPF_INTERPOLATE);
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 {
@@ -1415,7 +1424,7 @@ extend class PB_WeaponBase
 		}
 		TNT1 AA 1 {
 			A_SetPitch(+.2 + pitch, SPF_INTERPOLATE);
-			if(JustPressed(BT_USER2)) setCombo(1);
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1);
 			return;
 		}
 		TNT1 A 0 continueCombo("WrenchComboDecider");
@@ -1430,7 +1439,7 @@ extend class PB_WeaponBase
 
 	WrenchHoldStart:
 		WRNC A 1 setCombo(0);
-		TNT1 A 0 A_JumpIf(PressingUser2(), "WrenchHoldStart");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "WrenchHoldStart");
 		Goto WrenchSwingDown;
 		
 	WrenchBreak:
@@ -1516,7 +1525,7 @@ extend class PB_WeaponBase
 		TNT1 A 0 A_ALertMonsters(400);
 		GAFR C 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		GAFR D 1 {
 			A_CustomPunch (20,0,0,"crowbarpuff"); 
@@ -1524,11 +1533,11 @@ extend class PB_WeaponBase
 		}
 		GAFR EFG 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 A_TakeInventory("ClawCharges",1); // WILL ALWAYS TAKE CHARGE
 		TNT1 A 0 continueCombo("MeleeClaw2");
-		TNT1 A 0 A_JumpIf(PressingUser2(), "MeleeClaw2");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "MeleeClaw2");
 		TNT1 A 0 {
 			setCombo(0);
 			PB_SetUsingMelee(false);
@@ -1545,7 +1554,7 @@ extend class PB_WeaponBase
 		GAFL AB 1 A_BDPmeleestart();
 		GAFL C 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		GAFL D 2 {
 			A_CustomPunch (20,0,0,"crowbarpuff"); 
@@ -1553,11 +1562,11 @@ extend class PB_WeaponBase
 		}
 		GAFL EFG 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 A_TakeInventory("ClawCharges", 1);
 		TNT1 A 0 continueCombo("MeleeClaw");
-        TNT1 A 0 A_JumpIf(PressingUser2(), "MeleeClaw");
+        TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "MeleeClaw");
 		TNT1 A 0 {
 			setCombo(0);
 			PB_SetUsingMelee(false);
@@ -1605,18 +1614,18 @@ extend class PB_WeaponBase
 				
 			}
         BXMD AB 1 {
-            if(JustPressed(BT_USER2)) return PB_Execute();
+            if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) return PB_Execute();
             return ResolveState(null);
         }
         BXMD C 1 {
             A_Setangle(angle - 1,SPF_INTERPOLATE);
             A_SetPitch(pitch + 1,SPF_INTERPOLATE);
-            if(JustPressed(BT_USER2)) return PB_Execute();
+            if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) return PB_Execute();
             return ResolveState(null);
         }
         BXMD D 1 {
             A_QuakeEx(0,0.5,0,7,0,10,"",QF_SCALEDOWN|QF_RELATIVE,0,0,0,0,0,2,2);
-            if(JustPressed(BT_USER2)) return PB_Execute();
+            if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) return PB_Execute();
             return ResolveState(null);
         }
         TNT1 A 0 {
@@ -1627,17 +1636,17 @@ extend class PB_WeaponBase
             linetrace(angle,64,pitch,0,player.mo.height * 0.5 - player.mo.floorclip + player.mo.AttackZOffset*player.crouchFactor,data:t);
         }
         BXMD EF 1 {
-            if(JustPressed(BT_USER2)) return PB_Execute();
+            if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) return PB_Execute();
             return ResolveState(null);
         }
         BXMD GHIJK 1 {
             A_SetPitch(pitch - 0.2,SPF_INTERPOLATE);
-            if(JustPressed(BT_USER2)) return PB_Execute();
+            if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) return PB_Execute();
             return ResolveState(null);
         }
         TNT1 AAA 1 {
             A_Setangle(angle + 0.3,SPF_INTERPOLATE);
-            if(JustPressed(BT_USER2)) return PB_Execute();
+            if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) return PB_Execute();
             return ResolveState(null);
         }
         TNT1 A 0 {
@@ -1655,11 +1664,11 @@ extend class PB_WeaponBase
 			A_Takeinventory("PB_LockScreenTilt",1);
 		}
 		TNT1 A 8;
-		TNT1 A 0 A_JumpIf(PressingUser2(), "PBWP_UppercutStart");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "PBWP_UppercutStart");
 		TNT1 A 0 A_Jump(72, "PBWP_LeftBackhand", "PBWP_RightBackhand");
-		TNT1 A 0 A_Jump(256, "PBWP_SwingLeft", "PBWP_SwingRight");
+		TNT1 A 0 A_Jump(256, "StandardMelee", "PBWP_SwingRight");
 
-	PBWP_SwingLeft:
+	StandardMelee: // IF YOU WANT THE WEAPONS TO HAVE THEIR OWN CUSTOM MELEE THEN OVERRIDE THIS STATE, SEE BERRETA.dec FOR AN EXAMPLE
 		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
 		0PUN ABCD 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
 		TNT1 A 0 {
@@ -1667,14 +1676,14 @@ extend class PB_WeaponBase
 			else { A_FireCustomMissile("MeleeStrike1", 0, 0, 0, 0); }
 		}
         0PUN EF 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		0PUN GHIJ 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetRoll(roll+.8, SPF_INTERPOLATE);
 		}
 		TNT1 A 2 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 continueCombo("FistComboDecider");
 		TNT1 A 0 {
@@ -1694,14 +1703,14 @@ extend class PB_WeaponBase
 			else { A_FireCustomMissile("MeleeStrike1", 0, 0, 0, 0); }
 		}
         0PUN OP 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		0PUN QRST 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetRoll(roll-.8, SPF_INTERPOLATE);
 		}
 		TNT1 A 2 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 continueCombo("FistComboDecider");
 		TNT1 A 0 {
@@ -1722,14 +1731,14 @@ extend class PB_WeaponBase
 			else { A_FireCustomMissile("MeleeStrike1", 0, 0, 0, 0); }
 		}
         1PUN EF 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		1PUN GHIJ 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetRoll(roll+.8, SPF_INTERPOLATE);
 		}
 		TNT1 A 2{
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 continueCombo("FistComboDecider");
 		TNT1 A 0 {
@@ -1750,14 +1759,14 @@ extend class PB_WeaponBase
 			else { A_FireCustomMissile("MeleeStrike1", 0, 0, 0, 0); }
 		}
         1PUN OP 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		1PUN QRST 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetRoll(roll-.8, SPF_INTERPOLATE);
 		}
 		TNT1 A 2{
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 A 0 continueCombo("FistComboDecider");
 		TNT1 A 0 {
@@ -1790,7 +1799,7 @@ extend class PB_WeaponBase
 		P1NF ABCD 1 setCombo(0);
 	PBWP_UppercutHold:
 		P1NF D 1;
-		TNT1 A 0 A_JumpIf(PressingUser2(), "PBWP_UppercutHold");
+		TNT1 A 0 A_JumpIf(PressingUser2() || PressingFire(), "PBWP_UppercutHold");
 	PBWP_Uppercut:
 		TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5);
 		0PUN U 1{
@@ -1802,7 +1811,7 @@ extend class PB_WeaponBase
 		}
         0PUN W 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetPitch(-1 + pitch, SPF_INTERPOLATE);
 		}
 		TNT1 A 0 {
@@ -1810,15 +1819,15 @@ extend class PB_WeaponBase
 		}
         0PUN XX 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetPitch(-1 + pitch, SPF_INTERPOLATE);
 		}
 		0PUN XYZ 1 {
 			A_BDPmeleestart();
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 		}
 		TNT1 AAAA 1 {
-			if(JustPressed(BT_USER2)) setCombo(1); return;
+			if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) setCombo(1); return;
 			A_SetPitch(-1 + pitch, SPF_INTERPOLATE);
 		}
 		TNT1 A 0 continueCombo("FistComboDecider");
@@ -1857,18 +1866,18 @@ extend class PB_WeaponBase
 		// 	}
         // MC3S AB 1 {
             
-        //     if(JustPressed(BT_USER2)) return PB_Execute();
+        //     if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) return PB_Execute();
         //     return ResolveState(null);
         // }
         // MC3S C 1 {
         //     A_Setangle(angle - 1,SPF_INTERPOLATE);
         //     A_SetPitch(pitch + 1,SPF_INTERPOLATE);
-        //     if(JustPressed(BT_USER2)) return PB_Execute();
+        //     if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) return PB_Execute();
         //     return ResolveState(null);
         // }
         // MC3S D 1 {
         //     A_QuakeEx(0,0.5,0,7,0,10,"",QF_SCALEDOWN|QF_RELATIVE,0,0,0,0,0,2,2);
-        //     if(JustPressed(BT_USER2)) return PB_Execute();
+        //     if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) return PB_Execute();
         //     return ResolveState(null);
         // }
         // TNT1 A 0 {
@@ -1894,17 +1903,17 @@ extend class PB_WeaponBase
         //     }
         // }
         // MC3S EF 1 {
-        //     if(JustPressed(BT_USER2)) return PB_Execute();
+        //     if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) return PB_Execute();
         //     return ResolveState(null);
         // }
         // MC3S GHIJK 1 {
         //     A_SetPitch(pitch - 0.2,SPF_INTERPOLATE);
-        //     if(JustPressed(BT_USER2)) return PB_Execute();
+        //     if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) return PB_Execute();
         //     return ResolveState(null);
         // }
         // TNT1 AAA 1 {
         //     A_Setangle(angle + 0.3,SPF_INTERPOLATE);
-        //     if(JustPressed(BT_USER2)) return PB_Execute();
+        //     if(JustPressed(BT_USER2) || PressingFire() || JustPressed(BT_ATTACK)) return PB_Execute();
         //     return ResolveState(null);
         // }
         // TNT1 A 0 {

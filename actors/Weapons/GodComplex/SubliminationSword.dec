@@ -26,8 +26,8 @@ Tag "Sublimination Sword"
 +WEAPON.AMMO_OPTIONAL
 +WEAPON.NOALERT
 Weapon.SelectionOrder 2100
-    Weapon.SlotNumber 1
-	Weapon.SlotPriority 0
+    // Weapon.SlotNumber 1
+	// Weapon.SlotPriority 0
 States
 {
 

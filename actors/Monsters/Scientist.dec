@@ -74,56 +74,60 @@ ACTOR Scientist : SwitchableDecoration
 	
 	States
 		{
-		Spawn:
-			//TNT1 AAA 0
-			SZTW A 0 A_GIVEINVENTORY("ScientistInGame",1)
-			TNT1 A 0 ACS_NamedExecuteAlways("AddScientistAlly", 0, 0, 0, 0)
-			TNT1 A 0 A_GiveInventory("TargetIsAMarine")
-			//SZTW A 0 A_SPAWNITEMEX("UTOS",0,0,0,0,0,0,0,SXF_SETMASTER)
-			SZTW A 0 A_JUMPIFINVENTORY("scientistSTAYTOKEN",1,2,AAPTR_PLAYER1)
-			SZTW A 0 A_JUMPIFINVENTORY("scientistFOLLOWTOKEN",1,3,AAPTR_PLAYER1)
-			SZTW A 0 A_GIVEINVENTORY("scientistFOLLOWTOKEN",1,AAPTR_PLAYER1)
-			//SZTW A 1 A_GiveInventory("ScientistLoyalty",1,AAPTR_PLAYER1)
-			SZTW A 0 A_ChangeFlag(FRIENDLY,0)
-			SZTW A 0 A_GiveInventory("ScientistWaits",1,AAPTR_PLAYER1) 			
-			//SZTW A 0 A_GiveInventory("ScientistLoyalty",1,AAPTR_PLAYER1)
-			SZTW A 1 a_lookEx(LOF_NOSOUNDCHECK ,0,99999,99999,360,"waitsafterteleport")
-			SZTW A 0 A_JumpIfInTargetInventory("ScientistWaits",1,"waitsafterteleport")
-			SZTW A 0 A_RearrangePointers(AAPTR_PLAYER1, AAPTR_MASTER)
-			goto TeleportToPlayer		
-			
-		IDLE:
-			//TNT1 AA 0
-			SZTW A 1 bright
-			SZTW A 0 A_ChangeFlag(FRIENDLY,0)
-			SZTW A 1 a_lookEx(LOF_NOSOUNDCHECK ,0,99999,99999,360)
-			SZTW A 0 A_JumpIfInTargetInventory("MonsterDetected",1,"CheckRetreat")
-			SZTW A 0 A_JumpIfInTargetInventory("ScientistWaits",1,"WAITS")
-			goto TeleportToPlayer
-			
-		See:	
-			TNT1 AA 0
-			TNT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
-			SZTW A 0 A_JumpIfInTargetInventory("MonsterDetected",1,"CheckRetreat")
-			TNT1 A 0 A_ChangeFlag("USESPECIAL", 1)
-			SZT1 A 1 A_Chase( 0, 0, CHF_DONTMOVE)
-			TNT1 A 0 A_RadiusGive("scientisthere", 1000, RGF_MONSTERS|RGF_NOSIGHT, 1)
-			TNT1 A 0 A_ChangeFlag(FRIENDLY,1)
-			tnt1 a 0 a_checkproximity(2,"playerpawn",1000,1,CPXF_ANCESTOR)
-			tnt1 a 0 A_jump(256,2)
-			SZTW A 0 A_JumpIfCloser(700,2)
-			TNT1 A 0 A_ClearTarget
-			goto follow
-			
-			TNT1 A 0 A_ChangeFlag(FRIENDLY,1)
-			TNT1 A 0 A_JumpIfInTargetInventory("ScientistWaits", 1, "Follow")
-			SZTW AABBCCDD 1 {A_Chase;A_Recoil(-0.3);}
-			TNT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
-			SZTW A 0 A_JumpIfCloser(700,2)
-			TNT1 A 0 A_ClearTarget
-			goto Follow
-	
-	
+	Spawn:
+		//TNT1 AAA 0
+		SZTW A 0 A_SetInvulnerable
+		SZTW A 0 A_GIVEINVENTORY("ScientistInGame",1)
+		TNT1 A 0 ACS_NamedExecuteAlways("AddScientistAlly", 0, 0, 0, 0)
+		TNT1 A 0 A_GiveInventory("TargetIsAMarine")
+		//SZTW A 0 A_SPAWNITEMEX("UTOS",0,0,0,0,0,0,0,SXF_SETMASTER)
+		SZTW A 0 A_JUMPIFINVENTORY("scientistSTAYTOKEN",1,2,AAPTR_PLAYER1)
+		SZTW A 0 A_JUMPIFINVENTORY("scientistFOLLOWTOKEN",1,3,AAPTR_PLAYER1)
+		SZTW A 0 A_GIVEINVENTORY("scientistFOLLOWTOKEN",1,AAPTR_PLAYER1)
+		//SZTW A 1 A_GiveInventory("ScientistLoyalty",1,AAPTR_PLAYER1)
+		SZTW A 0 A_ChangeFlag(FRIENDLY,0)
+		SZTW A 0 A_GiveInventory("ScientistWaits",1,AAPTR_PLAYER1) 			
+		//SZTW A 0 A_GiveInventory("ScientistLoyalty",1,AAPTR_PLAYER1)
+		SZTW A 1 a_lookEx(LOF_NOSOUNDCHECK ,0,99999,99999,360,"waitsafterteleport")
+		SZTW A 0 A_JumpIfInTargetInventory("ScientistWaits",1,"waitsafterteleport")
+		SZTW A 0 A_RearrangePointers(AAPTR_PLAYER1, AAPTR_MASTER)
+		TNT1 A 0 {
+			if(GetCVAR("ScientistStartEnable") == 1){
+				return State("TeleportToPlayer");
+			}
+			else {return State("See");}
+		}	
+		
+	IDLE:
+		//TNT1 AA 0
+		SZTW A 1 bright
+		SZTW A 0 A_ChangeFlag(FRIENDLY,0)
+		SZTW A 1 a_lookEx(LOF_NOSOUNDCHECK ,0,99999,99999,360)
+		SZTW A 0 A_JumpIfInTargetInventory("MonsterDetected",1,"CheckRetreat")
+		SZTW A 0 A_JumpIfInTargetInventory("ScientistWaits",1,"WAITS")
+		goto See
+		
+	See:	
+		TNT1 AA 0
+		TNT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
+		SZTW A 0 A_JumpIfInTargetInventory("MonsterDetected",1,"CheckRetreat")
+		TNT1 A 0 A_ChangeFlag("USESPECIAL", 1)
+		SZT1 A 1 A_Chase( 0, 0, CHF_DONTMOVE)
+		TNT1 A 0 A_RadiusGive("scientisthere", 999999, RGF_MONSTERS|RGF_NOSIGHT, 1)
+		TNT1 A 0 A_ChangeFlag(FRIENDLY,1)
+		tnt1 a 0 a_checkproximity(2,"playerpawn",200,1,CPXF_ANCESTOR)
+		tnt1 a 0 A_jump(256,2)
+		SZTW A 0 A_JumpIfCloser(700,2)
+		TNT1 A 0 A_ClearTarget
+		goto follow
+		
+		TNT1 A 0 A_ChangeFlag(FRIENDLY,1)
+		TNT1 A 0 A_JumpIfInTargetInventory("ScientistWaits", 1, "Follow")
+		SZTW AABBCCDD 1 {A_Chase;A_Recoil(-0.3);}
+		TNT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
+		SZTW A 0 A_JumpIfCloser(700,2)
+		TNT1 A 0 A_ClearTarget
+		goto Follow
 	Waits:
 		TNT1 A 0 A_JumpIfInventory("ScientistFirstmet", 1, "waits3", AAPTR_PLAYER1)
 		TNT1 A 0 A_Playsound("scientist/greetings")
@@ -140,7 +144,6 @@ ACTOR Scientist : SwitchableDecoration
 		TNT1 A 0 A_Jump(256,2)
 		TNT1 A 0 A_JumpIfCloser(133,1)
 		goto Follow
-		
 	waits2:
 		TNT1 A 0 A_CHECKPROXIMITY("playersdead","PLAYERPAWN",999999,1,CPXF_DEADONLY|CPXF_ANCESTOR)
 		//TNT1 A 0 A_JUMP(4,"sight")
@@ -527,24 +530,32 @@ ACTOR Scientist : SwitchableDecoration
 		TNT1 A 0 ACS_NamedExecuteAlways("RemoveScientistAlly", 0, 0, 0, 0)
 		TNT1 A 0 A_ChangeFlag("PUSHABLE",0)
 	RewardLottery:
-		TNT1 A 0 A_Jump(32, "GiveElectroRifle")	
-		TNT1 A 0 A_Jump(16, "GiveCryoASG")
-		TNT1 A 0 A_Jump(48, "GiveGoldRockets")
+		// SSR
+		// TNT1 A 0 A_Jump(16, "GiveCryoASG")
 		TNT1 A 0 A_Jump(16, "GiveRats")
-		TNT1 A 0 A_Jump(64, "GiveCryoRifle")
-		TNT1 A 0 A_Jump(32, "GiveCellPack")
-		TNT1 A 0 A_Jump(32, "GiveIceArmor") 
-		TNT1 A 0 A_Jump(32, "GiveCoffee")
-		TNT1 A 0 A_Jump(32, "GiveFrostSerum") 
-		TNT1 A 0 A_Jump(32, "GiveTimeFreeze")
-		TNT1 A 0 A_Jump(32, "GiveCryoShells") 
-		TNT1 A 0 A_Jump(32, "GivePyroShells") 
-		TNT1 A 0 A_Jump(32, "GiveGoldShells")
 		TNT1 A 0 A_Jump(16, "GiveGreenArmor")
-		TNT1 A 0 A_Jump(32, "GiveSoulSphere")
-		TNT1 A 0 A_Jump(64, "GiveFreezebox")
 		TNT1 A 0 A_Jump(16, "GiveMedikit")
-		loop
+
+		// UNCOMMON
+		// TNT1 A 0 A_Jump(32, "GiveElectroRifle")
+		TNT1 A 0 A_Jump(32, "GiveCellPack")
+		// TNT1 A 0 A_Jump(32, "GiveIceArmor")
+		TNT1 A 0 A_Jump(32, "GiveCoffee")
+		// TNT1 A 0 A_Jump(32, "GiveFrostSerum")
+		TNT1 A 0 A_Jump(32, "GiveTimeFreeze")
+		// TNT1 A 0 A_Jump(32, "GiveCryoShells")
+		// TNT1 A 0 A_Jump(32, "GivePyroShells")
+		// TNT1 A 0 A_Jump(32, "GiveGoldShells")
+		TNT1 A 0 A_Jump(32, "GiveSoulSphere")
+
+		// RARE
+		// TNT1 A 0 A_Jump(48, "GiveGoldRockets")
+
+		// COMMON
+		// TNT1 A 0 A_Jump(64, "GiveCryoRifle")
+		TNT1 A 0 A_Jump(64, "GiveFreezebox")
+
+		Loop
 		
 	GiveCryoRifle:
 		SZT1 A 1 A_SetInvulnerable
@@ -626,7 +637,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT1 G 8
 		SZT1 H 3
 		SZT1 I 9 	
-		SZT1 E 1 A_SpawnItemEx("LightArmor",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveGreenArmor") == 1){
+				A_SpawnItemEx("PB_GreenArmor",16,0,32,4);}
+			else{A_SpawnItemEx("PB_Medikit",16,0,32,4);}
+		}
 		SZT1 E 6 A_Stop
 		SZT1 A 20
 		TNT1 A 0 A_Playsound("scientist/hope")
@@ -690,7 +705,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT4 O 8
 		SZT4 P 3
 		SZT4 Q 9 	
-		SZT1 E 1 A_SpawnItemEx("TimeFreezeSphereST",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveTimeFreeze") == 1){
+				A_SpawnItemEx("TFST",16,0,32,4);}
+			else{A_SpawnItemEx("PB_Megasphere",16,0,32,4);}
+			}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20
@@ -708,7 +727,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT1 M 8
 		SZT1 N 3
 		SZT1 O 9 	
-		SZT1 E 1 A_SpawnItemEx("AmmoCellPack",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveCellPack") == 1){
+				A_SpawnItemEx("PB_CellPack",16,0,32,4);}
+			else{A_SpawnItemEx("PB_RocketBox",16,0,32,4);}
+		}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20
@@ -726,7 +749,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT4 F 8
 		SZT4 G 3
 		SZT4 H 9 	
-		SZT1 E 1 A_SpawnItemEx("CoffeeTime",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveCoffee") == 1){
+				A_SpawnItemEx("CoffeeTime",16,0,32,4);}
+			else{A_SpawnItemEx("PB_Haste",16,0,32,4);}
+		}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20 
@@ -744,7 +771,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT1 J 8
 		SZT1 K 3
 		SZT1 L 9 	
-		SZT1 E 1 A_SpawnItemEx("Medikit2",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveMedikit") == 1){
+				A_SpawnItemEx("PB_Medikit",16,0,32,4);}
+			else{A_SpawnItemEx("XD_StimpackSpawner",16,0,32,4);}
+		}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20
@@ -761,7 +792,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT1 S 8
 		SZT1 T 3
 		SZT1 U 9 	
-		SZT1 E 1 A_SpawnItemEx("LifeSphere",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveSoulSphere") == 1){
+				A_SpawnItemEx("PB_Soulsphere",16,0,32,4);}
+			else{A_SpawnItemEx("PB_Berserk",16,0,32,4);}
+			}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20
@@ -778,7 +813,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT1 R 8
 		SZT1 Q 3
 		SZT1 P 9 	
-		SZT1 E 1 A_SpawnItemEx("FreezenadePack",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR("enableGiveFreezebox") == 1){
+				A_SpawnItemEx("FreezenadePack",16,0,32,4);}
+			else{A_SpawnItemEx("PB_RocketBox",16,0,32,4);}
+			}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20
@@ -849,7 +888,11 @@ ACTOR Scientist : SwitchableDecoration
 		SZT1 Y 8
 		SZT1 Z 3
 		SZT1 [ 9 	
-		SZT1 E 1 A_SpawnItemEx("RatsCage",16,0,32,4)
+		SZT1 E 1 {
+			if(GetCVAR(enableGiveRats) == 1){
+				A_SpawnItemEx("RatsCage",16,0,32,4);}
+			else{A_SpawnItemEx("PB_Baron1",16,0,32,4);}
+		}
 		TNT1 A 0 A_Stop
 		SZT1 E 6
 		SZT1 A 20
@@ -860,7 +903,7 @@ ACTOR Scientist : SwitchableDecoration
 		goto GoodBye
 		
 	GoodBye:
-		SZT1 F 8 ACS_NamedExecuteAlways("SpawnScientist5", 0, 0, 0, 0)
+		// SZT1 F 8 ACS_NamedExecuteAlways("SpawnScientist5", 0, 0, 0, 0)
 		SZT1 F 10 A_SpawnItem ("ScientistTeleportFog")
 		TNT1 A 0 A_TAKEINVENTORY("ScientistFirstmet",1,0,AAPTR_PLAYER1) 
 		TNT1 A 0 
@@ -994,7 +1037,8 @@ ACTOR Scientist : SwitchableDecoration
 		TNT1 A 0 A_JumpIfCloser(100,1)
 		GOTO See
 		SZZH D 1 A_Playsound("MedShot")
-		TNT1 A 0 A_GiveInventory("ScientistHeal2",1,AAPTR_PLAYER1)
+		// TNT1 A 0 A_GiveInventory("ScientistHeal2",1,AAPTR_PLAYER1)
+		TNT1 A 0 A_GiveToTarget("ScientistHeal2")
 		//TNT1 A 0 A_GiveInventory("WasJustHealed",1,AAPTR_PLAYER1)
 		SZZH D 25 
 		SZZH C 6
@@ -1451,31 +1495,31 @@ ACTOR ScientistTeleportFog
   }
 }
 
-ACTOR ScientistSpawner
-{
-  +NOBLOCKMAP
-  +NOTELEPORT
-  +NOGRAVITY
-  RenderStyle Add
-  xscale 0.50
-  yscale 0.85
-  States
-  {
-	Spawn : 
-		TNT1 AA 1 A_LookEx(LOF_NOSOUNDCHECK, 0, 600, 0, 360)
-		loop
-	See :
-		TNT1 A 10 
-	/*	TNT1 A 1 ACS_NamedExecuteAlways("CheckScientist", 0, 0, 0, 0)
-		TNT1 A 1
-		stop
-	SpawnScientist:*/
-		TELP A 0 A_StartSound ("DSTELEP2", CHAN_BODY)
-		TELP ABCCCCDEF 2 Bright
-		TNT1 A 0 A_SpawnItemEx("Scientist",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0,213471)
-		Stop
-  }
-}
+// ACTOR ScientistSpawner
+// {
+//   +NOBLOCKMAP
+//   +NOTELEPORT
+//   +NOGRAVITY
+//   RenderStyle Add
+//   xscale 0.50
+//   yscale 0.85
+//   States
+//   {
+// 	Spawn : 
+// 		TNT1 AA 1 A_LookEx(LOF_NOSOUNDCHECK, 0, 600, 0, 360)
+// 		loop
+// 	See :
+// 		TNT1 A 10 
+// 	/*	TNT1 A 1 ACS_NamedExecuteAlways("CheckScientist", 0, 0, 0, 0)
+// 		TNT1 A 1
+// 		stop
+// 	SpawnScientist:*/
+// 		TELP A 0 A_StartSound ("DSTELEP2", CHAN_BODY)
+// 		TELP ABCCCCDEF 2 Bright
+// 		TNT1 A 0 A_SpawnItemEx("Scientist",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0,213471)
+// 		Stop
+//   }
+// }
 
 
 ACTOR UTOS : SwitchableDecoration {

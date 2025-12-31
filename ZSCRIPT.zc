@@ -5,10 +5,14 @@ version "4.14.2"
 #include "zscript/PBWP_Core/BeefCore.zs"
 #include "zscript/PBWP_Core/BeefJMod.zs"
 #include "zscript/PBWP_Core/BeefTokens.zs"
-#include "zscript/PBWP_Core/PBWP_Spawners.zc"
 #include "zscript/PBWP_Core/PBWP_Projectiles.zs"
-#include "zscript/PBWP_Core/BeefSpawnerA.zs"
-#include "zscript/PBWP_Core/BeefSpawnerB.zs"
+
+// PBWP_Spawners
+#include "zscript/PBWP_Spawners/PBWP_WeaponSpawners.zs"
+#include "zscript/PBWP_Spawners/PBWP_ItemSpawners.zs"
+#include "zscript/PBWP_Spawners/PBWP_MonsterSpawners.zs"
+#include "zscript/PBWP_Spawners/BeefSpawnerA.zs"
+#include "zscript/PBWP_Spawners/BeefSpawnerB.zs"
 // #include "zscript/PBWP_Core/Experiment.zs"
 
 // PBWP_Systems
@@ -67,10 +71,15 @@ version "4.14.2"
 //#include "zscript/PBWP_Systems/champions/bundles/games/chex.zs"
 
 // Custom Player Class
-// #include "zscript/Player/INPlayer.zc"
+// #include "zscript/Player/INP]layer.zc"
 #include "ZScript/Player/PBMeleePlayer.zc"
+#include "ZScript/Player/miniPlayer.zc"
 
 // PBWP_Misc
+// PowerUps
+#include "zscript/PBWP_Misc/PowerUps/PBWP_KillstreakPowerUpSpawner.zs"
+#include "zscript/PBWP_Misc/PowerUps/PBWP_Powerups.zs"
+// MONSTERS
 #include "zscript/PBWP_Misc/GORENEST.zs"
 // ElementalismBoss
 #include "zscript/PBWP_Misc/BEHOLD_BOSSES/E1_Export_1.zs"

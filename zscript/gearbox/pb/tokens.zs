@@ -837,6 +837,21 @@ class VoidGrenadeCard : equipmentCard
 	override int getdestSlot(){return 1;}
 	override double getpriority(){return 0.5;}
 }
+class FreezeGrenadeCard : equipmentCard
+{
+	override void InfoFiller(out array<string> tags,out array<string> tokens,out array<string>img,out array<double>sx,out array<double>sy, out array <int> slot, out array <string> relAmmo)
+	{
+		tags.push("Freeze Grenade");
+		tokens.push("WW_FreezeGrenadeSelected");
+		img.push("graphics/Equipments/freezegrenade.png");
+		sx.push(1.0);
+		sy.push(1.0);
+		slot.push(1);
+		relAmmo.push("FreezenadeAmmo");
+	}
+	override int getdestSlot(){return 1;}
+	override double getpriority(){return 0.5;}
+}
 
 //////////////////////////////////////////////// SLOT 2 UTILITY ////////////////////////////////////////////////
 class CaltropsCard : equipmentCard

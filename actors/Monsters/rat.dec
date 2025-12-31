@@ -1,0 +1,254 @@
+
+///////////////////////////////////////////////////////
+////											   ////
+////					RAT						   ////
+////											   ////
+///////////////////////////////////////////////////////
+
+Actor RatMonster
+{
+	Health 10
+	Radius 10
+	Height 20
+	Mass 40
+	Speed 10
+	Monster
+	-COUNTKILL
+	+FLOORCLIP
+	+FRIENDLY
+	PainChance "Lightning", 255
+	SeeSound "Rat/Pain"
+	AttackSound "Rat/Attack"
+	PainSound "Rat/Pain"
+	DeathSound "Rat/Death"
+	ActiveSound "Rat/Active"
+	Obituary "$OB_RAT"
+	States
+	{
+	Spawn:
+		RATS AA 10 A_Look
+		goto see
+	See:
+		RATS ABC 3 A_Chase
+		Loop
+	Melee:
+		RATS A 8 A_FaceTarget
+		RATS B 8 A_CustomMissile("RatAttack",4,0,0,0)
+		Goto See
+	Pain:
+		RATS A 6
+		RATS A 6 A_Pain
+		Goto See
+	Pain.Lightning:		
+		TNT1 A 0 A_SpawnItemEx ("StunLightnings", random (-4, 4), random (-4, 4),  random (5, 20), 0, 0)
+		RATS A 5 A_Pain
+		RATS AAAAA 3 A_SpawnItemEx ("StunLightnings", random (-4, 4), random (-12, 12),  random (5, 20), 0, 0, 0, random(0, 360))
+		RATS A 5 A_Pain
+		RATS AAAAA 3 A_SpawnItemEx ("StunLightnings", random (-4, 4), random (-12, 12),  random (5, 15), 0, 0, 0, random(0, 360))
+		RATS A 5 A_Pain
+		Goto See
+		
+	Death:
+		RATS D 1 A_Scream
+		TNT1 A 0 A_SpawnItem("MeatDeathSmall")
+		TNT1 AA 0 A_CustomMissile ("BloodMistSmall", 2, 0, random (0, 360), 2, random (0, 90))
+		TNT1 A 0 A_CustomMissile ("Brutal_FlyingBlood", 7, 0, random (0, 360), 2, random (30, 70))
+		TNT1 A 0 bright A_CustomMissile ("XDeath1", 5, 0, random (0, 360), 2, random (30, 180))
+		TNT1 A 0 A_SpawnItem ("GrowingBloodPool")
+		RATS E 2 A_NoBlocking
+		RATS F 2
+		TNT1 A -1
+		Stop
+		
+	Death.Railgun:	
+	Death.Plasma: 
+	Death.Plasma2:
+	Death.Plasma:
+	Death.Fire:
+        TNT1 A 0
+		TNT1 A 0 A_Scream
+        TNT1 A 0 A_NoBlocking
+		TNT1 A 0 A_SpawnItemEx("BurningRat", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS, 0, tid)
+        Stop
+		
+	Death.Ice:
+	Death.Freeze:
+	Death.Frost:
+		TNT1 A 0 A_ChangeFlag("SHOOTABLE", 0)
+		TNT1 A 0 A_ChangeFlag("SOLID", 0)
+		TNT1 A 0 A_SpawnItemEx("FrozenRat", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS, 0, tid)
+		Stop
+	}
+}
+ACTOR RatAttack: BaronBall
+{
+	Height 5
+	DamageType Rip
+	Projectile 
+	Radius 4
+	+RANDOMIZE
+	Damage (random(1,4))
+	+FORCEXYBILLBOARD
+	+THRUGHOST
+	+BLOODSPLATTER 
+	RenderStyle "None"
+	+INVISIBLE
+	Alpha 0.6
+	HitObituary "$OB_RAT"
+	Obituary "$OB_RAT"
+	+DONTHURTSPECIES
+	SeeSound "dsempty"
+	DeathSound "dsempty"
+	Decal "none"
+	Speed 20
+	States
+	{
+	Spawn:
+		TNT1 A 4 
+		Stop
+
+	Death:
+		TNT1 A 0 A_PlaySound("Rat/Hit")
+		TNT1 A 0 
+		Stop
+	}
+}
+
+ACTOR BurningRat: BurningZombieMan
+{	
+	RenderStyle "Stencil"
+	StencilColor "Black"
+	
+    States
+    {
+	Spawn:
+        TNT1 A 0 A_PlaySound("Rat/Pain")
+		Goto Suffer
+	Suffer:
+        RATS AAA 1 BRIGHT A_Wander
+		TNT1 A 0 A_Recoil(-1)
+		TNT1 A 0 A_playsound ("Rat/Pain")
+        RATS B 0 A_CustomMissile("BurnParticles", 5, 0, random (0, 360), 2, random (50, 130))
+		RATS B 0 A_CustomMissile("ExplosionParticleVerySlow", 40, 0, random (0, 360), 2, random (50, 130))
+        RATS BBB 1 BRIGHT A_Wander
+		TNT1 A 0 A_Recoil(-1)
+        RATS B 0 A_CustomMissile("BurnParticles", 5, 0, random (0, 360), 2, random (50, 130))
+		RATS B 0 A_CustomMissile("ExplosionParticleVerySlow", 40, 0, random (0, 360), 2, random (50, 130))
+		RATS CCC 1 BRIGHT A_Wander
+		TNT1 A 0 A_Recoil(-1)
+        RATS B 0 A_CustomMissile("BurnParticles", 5, 0, random (0, 360), 2, random (50, 130))
+		RATS B 0 A_CustomMissile("ExplosionParticleVerySlow", 40, 0, random (0, 360), 2, random (50, 130))
+		TNT1 A 0 A_GiveInventory("PoorGuyBurningLife", 1)
+		TNT1 A 0 A_SpawnItemEx("TinyBurningPiece3", random (-15, 15), random (-15, 15))
+		TNT1 A 0 A_JumpIfInventory("PoorGuyBurningLife", 7, "Death")
+		Loop
+	Death:
+		TNT1 A 0 A_Die
+		RATS D 2 A_NoBlocking
+		TNT1 A 0 A_CustomMissile("FlamethrowerBurningStuff", 40, 0, random (0, 360), 2, random (50, 130))
+		RATS E 3 A_ChangeFlag("THRUACTORS", 1)
+		RATS F 3 A_ChangeFlag("SHOOTABLE", 0)
+		TNT1 AA 5 A_SpawnItemEx("TinyBurningPiece3", random (-15, 15), random (-15, 15))
+		Stop
+	XDeath:
+	Death.SSG:
+	Death.Explosive:
+	Death.ExplosiveImpact:
+		TNT1 A 0 A_SpawnItem("MeatDeathSmall")
+		TNT1 A 0 bright A_CustomMissile ("SuperGoreSpawner", 5, 0, random (0, 360), 2, random (30, 180))
+		TNT1 A 0 bright A_CustomMissile ("XDeath1", 5, 0, random (0, 360), 2, random (30, 180))
+		TNT1 A 0 A_CustomMissile ("BloodMist", 12, 0, random (0, 360), 2, random (40, 90))
+		Stop
+    }
+}
+
+Actor RatsCage 
+{
+	+CLIENTSIDEONLY
+	+DONTSPLASH
+	-DOOMBOUNCE
+	-SOLID
+	+Missile
+	Speed 14
+	Gravity 0.8
+	DeathSound "weapons/barrelpain"
+	SeeSound "dsempty"
+	Decal None
+	Scale 1.0
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_JumpIf(waterlevel > 1, "Splash")
+		RATC A 3
+		Loop
+
+	Death:
+		TNT1 A 0 A_SpawnItemEx("RatsCageJunk1", 5, 0, 0, 2, random (2, 3), 10)
+		TNT1 A 0 A_SpawnItemEx("RatsCageJunk2", 5, 0, 0, 2, random (-3, -2), 10)
+		TNT1 A 0 A_SpawnItemEx("RatsCageJunk1", 5, 0, 0, 3, random (1, 4), 10)
+		TNT1 A 0 A_SpawnItemEx("RatsCageJunk2", 5, 0, 0, 1, random (-1, -4), 10)
+		RATC B 3
+		TNT1 AA 0 A_SpawnItemEx("RatMonster", random(-6,6), random(-6,6))
+		RATC C 100
+		RATC CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC 1 A_FadeOut(0.01)
+		Stop
+
+	Splash:
+		RATC A 1
+		RATC A -1
+		Stop
+	}
+}
+
+ACTOR RatsCageJunk1: XDeath1
+{
+	+CLIENTSIDEONLY
+	+DONTSPLASH
+	+DOOMBOUNCE
+	BounceFactor 0.5
+	Speed 14
+	Gravity 0.8
+	DeathSound "dsempty"
+	SeeSound "dsempty"
+	Decal None
+	Scale 1.0
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_JumpIf(waterlevel > 1, "Splash")
+		RATC D 3
+		Loop
+
+	Death:
+		RATC F 100
+		RATC FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF 1 A_FadeOut(0.01)
+		Stop
+
+	Splash:
+		TNT1 A 1
+		RATC F -1
+		Stop
+	}
+}
+
+ACTOR RatsCageJunk2: RatsCageJunk1
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0 A_JumpIf(waterlevel > 1, "Splash")
+		RATC E 3
+		Loop
+
+	Death:
+		//TNT1 A 0 A_SpawnItem("NashGore_BloodSpot",0,0,0,1)
+		RATC G 100
+		RATC GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 1 A_FadeOut(0.01)
+		Stop
+
+	Splash:
+		TNT1 A 1
+		RATC G -1
+		Stop
+	}
+}

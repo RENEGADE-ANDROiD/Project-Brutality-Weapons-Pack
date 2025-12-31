@@ -1,5 +1,5 @@
 //the main weapon, defined here before a thousand tokens
-Class PB_CSSG : PBWP_Weapon
+Class PB_CSSG : PB_WeaponBase
 {
 	default
 	{
@@ -118,7 +118,16 @@ Class PB_CSSG : PBWP_Weapon
 			C0ID A 2 A_DoPBWeaponAction();
 			loop;
 		Fire:
+			
 			TNT1 A 0 PB_CheckBarrelThrow1();
+			TNT1 A 0 {
+				if(invoker.CountInv("NoFatality") == 0 && (ttwcfbex)) 
+				{
+					return PB_Execute();
+				}
+				return resolveState(null);
+			}
+			// TNT1 A 0 FiretoExecute();
 			TNT1 A 0 PB_CheckAmmoFire();
 			TNT1 A 0 A_jumpif(countinv(invoker.ammotype2)<2,"LeftFire");
 			TNT1 A 0 A_overlay(-31,"MuzzleFlashFull");

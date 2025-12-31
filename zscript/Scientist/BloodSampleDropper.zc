@@ -8,7 +8,6 @@ class BloodSampleEvent : EventHandler
       act.pos.y + random(-act.radius/1.4, act.radius/1.4),
       act.pos.z + random(act.height/4, act.height)
     );
-  
   }
   
   override void WorldThingDamaged(WorldEvent e)
@@ -18,12 +17,12 @@ class BloodSampleEvent : EventHandler
 			{
 		if (e.thing.FindInventory("ScientistHere") && e.thing.SpawnHealth() >= 300)
 				{	
-					if (e.thing.GetTag() == "Cacodemon")
+					if (e.thing.GetTag() == "Cacodemon" || e.thing.GetSpecies() == "Cacodemon" || e.thing.GetSpecies() == "FlyingBalls")
 						{
 						spawnee = Actor.Spawn("bloodsampleBLUEpickup", WigglePos(e.thing));
 						spawnee.VelFromAngle(3);
 						}		
-					else if ((e.thing.GetTag() == "Hell Knight") || (e.thing.GetTag() == "Baron of Hell"))
+					else if ((e.thing.GetTag() == "Hell Knight") || (e.thing.GetTag() == "Baron of Hell") || (e.thing.GetSpecies() == "Noble"))
 						{
 						spawnee = Actor.Spawn("bloodsampleGREENpickup", WigglePos(e.thing));
 						spawnee.VelFromAngle(3);

@@ -13,6 +13,7 @@ Gameinfo
 	"BeefCustomAmmoDrop",
 	"BeefSpawnPresets",
 	"BeefModChecker",
+	"BeefScientist",
 	"BeefMeleeDrop",
 	"BeefMiscHandler",
 	/* "BeefEnums", */
@@ -30,6 +31,7 @@ Gameinfo
 	"champion_Handler", 
 	"champion_CHExtra",
 	// MISC
+	"PandHUDMessageHandler",
 	"BloodSampleEvent",
 	"MonsterDetectionEvent",
 	"PBWP_MagnetHandler"

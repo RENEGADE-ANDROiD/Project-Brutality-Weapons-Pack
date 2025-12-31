@@ -333,7 +333,7 @@ Actor B92S : PBWP_Weapon
 		TNT1 A 0 A_Takeinventory("Unloading",1)
 		Goto Ready3
 
-	PBWP_SwingLeft:
+	StandardMelee:
 	TNT1 A 0 A_PlaySound("weapons/fistwhoosh", 5)
 	PISA ABCDE 1
 	TNT1 A 0 {
