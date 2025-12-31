@@ -334,7 +334,7 @@ OptionMenu "WeaponPackSpawnSettings"
 	/* Command "Enable All", "netevent PBWP_EnableAll"
 	Command "Disable All", "netevent PBWP_DisableAll" */
 	/* Command "DEBUG ENABLE ALL", "netevent maskEnableAll"
-	Command "DEBUG DISABLE ALL", "netevent maskDisableAll" */ */
+	Command "DEBUG DISABLE ALL", "netevent maskDisableAll" */ 
 	
 	StaticText ""
 	StaticText "---------------God Complex---------------", gold
