@@ -5,6 +5,7 @@
 // Credits to Jaih1r0 again for this functions from the HeavySniper, CSSG, and DemonExt mod
 extend class PB_WeaponBase
 {
+
     action bool PressingUser2(){return player.cmd.buttons & BT_USER2;}
 
     //If ammo is less than min, go to state. Default is "Reload:" state
@@ -148,4 +149,15 @@ extend class PB_WeaponBase
             }
         return victim;
     }
+
+	action state FiretoExecute()
+	{
+		if(invoker.CountInv("NoFatality") == 0 && (ttwcfbex)) 
+		{
+			if(!isGKLoaded) return PB_Execute();
+			else return PB_ExecuteGK();
+		}
+		return resolveState(null);
+	}
+	
 }

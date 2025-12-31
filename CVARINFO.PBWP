@@ -158,7 +158,7 @@ server bool PBSpawnPB_SBSword = True;
 //===============================================
 // Specials
 server bool FirstTimeLoadingPBWP = true;
-server int ttwcfbex = 25;
+server bool ttwcfbex = true;
 server bool KillstreakIsOn = true;
 server bool isGKLoaded = false;
 server bool isCMLoaded = false;
