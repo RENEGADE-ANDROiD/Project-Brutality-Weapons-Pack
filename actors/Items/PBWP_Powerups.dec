@@ -100,7 +100,7 @@ Actor Crucifix : PowerupGiver
 	Inventory.InterHubAmount 10
 	Powerup.Type Frightener
 	Powerup.Color White, 0.1
-	Powerup.Duration -30
+	Powerup.Duration -20
 	Inventory.PickupMessage "You got a crucifix rosary! Make 'em repent!"
 	Inventory.Icon "CRFXZ0"
 	Inventory.UseSound "crucifix/use"
@@ -218,7 +218,7 @@ actor RegenSphere : PowerupGiver
 	Game Doom
 	inventory.pickupmessage "Regeneration!!."
 	inventory.maxamount 0
-	powerup.duration -60
+	powerup.duration -30
 	powerup.color "FF FF FF", 0.1
 	powerup.type Regeneration
 	+COUNTITEM
