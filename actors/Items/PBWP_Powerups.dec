@@ -35,7 +35,7 @@ Actor TFST : PowerupGiver
 	+FORCEXYBILLBOARD
     Inventory.MaxAmount 0
     Powerup.Type TimeFreezer
-    Powerup.Color GoldMap
+    Powerup.Color GoldMap, 0.5
     Inventory.PickupMessage "Time freeze!"
     States
     {
@@ -79,7 +79,7 @@ Actor AmmoSphere : PowerupGiver
 	Inventory.PickupSound "misc/p_pkup"
 	Powerup.Duration -30
 	Powerup.Type "PowerInfiniteAmmo"
-	Powerup.Color "255 0 0" 0.4
+	Powerup.Color "255 0 0" 0.1
 	States
 	{
 	Spawn:
@@ -99,7 +99,7 @@ Actor Crucifix : PowerupGiver
 	Inventory.MaxAmount 10
 	Inventory.InterHubAmount 10
 	Powerup.Type Frightener
-	Powerup.Color White 0.1
+	Powerup.Color White, 0.1
 	Powerup.Duration -30
 	Inventory.PickupMessage "You got a crucifix rosary! Make 'em repent!"
 	Inventory.Icon "CRFXZ0"
@@ -141,7 +141,7 @@ Actor GuardsphereST : PowerupGiver 5037
   +Inventory.AlwaysPickup
   Inventory.MaxAmount 0
   Powerup.Type QuarterDamageST
-  Powerup.Color GreenMap
+  Powerup.Color GreenMap, 0.1
   Inventory.PickupMessage "Guardsphere! Gain 75% Damage Reduction"
   States
   {
@@ -159,7 +159,7 @@ ACTOR LegendSphere : PowerupGiver
   Inventory.MaxAmount 0
   Scale 0.73
   Powerup.Type "Buddha"
-  Powerup.Color 00 00 128, 0.3
+  Powerup.Color 00 00 128, 0.1
   Inventory.PickupMessage "Legend Sphere! You Can't Go Below 1 HP! Go Crazy!" 
   States
   {
