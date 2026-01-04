@@ -262,6 +262,7 @@ ACTOR MancubusFlameCannon : PBWP_Weapon
         FLMF HIJ 2 BRIGHT
         FLMF KL 2
 	    FLMG JKL 1
+		FLMF A 0 PB_ReFire
 	    Goto Ready3
 
 
