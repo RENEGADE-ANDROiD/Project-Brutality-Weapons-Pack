@@ -242,6 +242,7 @@ ACTOR ProSurv_BlasterPistol : PBWP_Weapon
 					}
 			}
         BRGF C 1 {
+				PB_WeaponRecoil(-0.18,-0.08);
 				A_ZoomFactor(1.0);
 				if (CountInv("PowerStrength") >= 1 ) {
 					A_SetPitch(pitch-0.18, SPF_INTERPOLATE);
