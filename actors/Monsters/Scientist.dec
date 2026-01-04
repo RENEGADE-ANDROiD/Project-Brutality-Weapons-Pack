@@ -47,6 +47,7 @@ ACTOR Scientist : SwitchableDecoration
 	+DROPOFF
 	+PUSHABLE
 	+FRIENDLY
+	-NO﻿﻿TARGET
 	Activation THINGSPEC_Switch | THINGSPEC_NODEATHSPECIAL
 	damagefactor "Lightning", 0.0
 	DamageFactor "CauseSplash", 0.0 DamageFactor "CauseObjectsToSplashSlime", 0.0 DamageFactor "CauseSplashNukage", 0.0 DamageFactor "CauseSplashBlood", 0.0 DamageFactor "CauseSplashLava", 0.0
