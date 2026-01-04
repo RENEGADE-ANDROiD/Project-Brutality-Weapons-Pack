@@ -165,17 +165,9 @@ States
 			{
 				A_WeaponOffset(0,32);
 				A_SetInventory("GoWeaponSpecialAbility",0);
-				if (CountInv("ChainsawResourceGather") >= 1) { 
-					A_SetInventory("ChainsawResourceGather",0);
-					A_Print("Resource Gather: Disabled");
-				}
-				else {
-					A_SetInventory("ChainsawResourceGather",1);
-					A_Print("Resource Gather: Enabled");
-				}
-		}
-        	TNT1 A 0 A_StartSound("DSSAWZIP", CHAN_AUTO)
-	Goto Ready3
+				A_Print("No Special Currently Available");
+			}
+		Goto Ready3
 		
 	FlashKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
