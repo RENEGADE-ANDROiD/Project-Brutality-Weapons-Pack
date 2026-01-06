@@ -4,6 +4,25 @@ Actor HexaLionBoyBarrelHeat: Inventory {Inventory.MaxAmount 200}
 
 Actor RespectHexaLionShotgun : Inventory {Inventory.MaxAmount 1}
 
+Actor HexaLionAmmo : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 6
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 6
+   +INVENTORY.IGNORESKILL
+   Inventory.Icon "XSGPA0"
+}
+
+Actor HexaSSGAltCooldown : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 100
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 100
+   +INVENTORY.IGNORESKILL
+}
+
 Actor HexaLionShotgun : PBWP_Weapon
 {
 	Game Doom
@@ -36,6 +55,10 @@ Actor HexaLionShotgun : PBWP_Weapon
     FloatBobStrength 0.5
 	States
 	{
+	Spawn:
+		XSGP A -1
+		Stop
+
 	Steady:
 	    TNT1 A 0
 	    Goto Ready
@@ -237,7 +260,7 @@ Actor HexaLionShotgun : PBWP_Weapon
 		XSGF ABC 1 Bright {
 			 A_FireCustomMissile("YellowFlareSpawn", 0, 0, 0, 0);
 			 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
-			 A_FireBullets (0,0,1,40,"ShotPuff",FBF_NORANDOM,300);
+			 PB_FireBullets("PB_10GAPellet_LP",1,0,0,0,0);
 			 A_AlertMonsters;
 			 PB_GunSmoke(0,0,-0.9);
 			 PB_GunSmoke(0,0,0.9);
@@ -254,13 +277,13 @@ Actor HexaLionShotgun : PBWP_Weapon
 		TNT1 A 0 Bright {
 			 A_FireCustomMissile("ShotgunParticles", random(-19,19), 0, -1, 0, 0, random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", random(-19,19), 0, -1, 0, 0, random(-9,9));
-		     A_FireBullets (7, 3, 9, 13, "ShotgunPuff", FBF_NORANDOM);
-		     A_FireBullets (3, 5, 9, 13, "ShotgunPuff", FBF_NORANDOM);
-		     A_FireBullets (4, 4, 9, 13, "ShotgunPuff", FBF_NORANDOM);
-		     A_FireBullets (6, 3, 9, 13, "ShotgunPuff", FBF_NORANDOM);
-		     A_FireBullets (5, 5, 9, 13, "ShotgunPuff", FBF_NORANDOM);
-		     A_FireBullets (7, 3, 9, 13, "ShotgunPuff", FBF_NORANDOM);
-		     A_FireBullets (5, 3, 9, 13, "ShotgunPuff", FBF_NORANDOM);
+			 PB_FireBullets("PB_10GAPellet",9,7,0,0,3);
+			 PB_FireBullets("PB_10GAPellet",9,3,0,0,5);
+			 PB_FireBullets("PB_10GAPellet",9,4,0,0,4);
+			 PB_FireBullets("PB_10GAPellet",9,6,0,0,3);
+			 PB_FireBullets("PB_10GAPellet",9,5,0,0,5);
+			 PB_FireBullets("PB_10GAPellet",9,7,0,0,3);
+			 PB_FireBullets("PB_10GAPellet",9,5,0,0,3);
 			 A_AlertMonsters;
 			 PB_GunSmoke(0,0,-0.9);
 			 PB_GunSmoke(0,0,0.9);
@@ -274,11 +297,11 @@ Actor HexaLionShotgun : PBWP_Weapon
 		SHTZ A 0 A_ZoomFactor(1.00)
         SHTZ A 0 A_TakeInventory("Reloading",1)
 		XSGF DE 1 PB_WeaponRecoil(-4, 0)
-		XSGF EEEFGH 1 PB_WeaponRecoil(+1, 0)
-		XSGF IJKLMNOPQR 1 PB_WeaponRecoil(+2, 0)
+		XSGF EEEFGH 1 PB_WeaponRecoil(1, 0)
+		XSGF IJKLMNOPQR 1 PB_WeaponRecoil(2, 0)
 		XSGF S 1
 		XSGF T 1 Offset(0,34)
-		QSGF AAA 0 PB_WeaponRecoil(+0.5, 0)
+		QSGF AAA 0 PB_WeaponRecoil(0.5, 0)
 		XSGF TT 1 Offset(0,33)
 		XSGF T 1 Offset(0,32)
 		XSGF T 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_NOBOB)
@@ -319,7 +342,7 @@ Actor HexaLionShotgun : PBWP_Weapon
 			 A_FireCustomMissile("YellowFlareSpawn", 0, 0, -2, 0);
 		     A_FireCustomMissile("YellowFlareSpawn", 0, 0, 2, 0);
 			 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
-			 A_FireBullets (0,0,1,40,"ShotPuff",FBF_NORANDOM,300);
+          PB_FireBullets("PB_10GAPellet_LP",1,0,0,0,0);
 			 A_AlertMonsters;
 			 PB_GunSmoke(0,0,-2);
 			 PB_GunSmoke(0,0,2);
@@ -327,9 +350,7 @@ Actor HexaLionShotgun : PBWP_Weapon
 		TNT1 A 0 Bright {
 			 A_FireCustomMissile("ShotgunParticles", random(-19,19), 0, -1, 0, 0, random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", random(-19,19), 0, -1, 0, 0, random(-9,9));
-			 A_FireBullets (10, 1, 9, 13, "ShotgunPuff", FBF_NORANDOM);
-			 A_FireBullets (6, 3, 9, 13, "ShotgunPuff", FBF_NORANDOM);
-			 A_FireBullets (11, 3, 10, 13, "ShotgunPuff", FBF_NORANDOM);
+			 PB_FireBullets("PB_10GAPellet",20,8,0,0,6);
 			 A_AlertMonsters;
 			 PB_GunSmoke(0,0,-2);
 			 PB_GunSmoke(0,0,2);
@@ -339,7 +360,7 @@ Actor HexaLionShotgun : PBWP_Weapon
 		SHTZ A 0 PB_WeaponRecoil(-12, 0)
 		SHTZ A 0 A_ZoomFactor(1.00)
         SHTZ A 0 A_TakeInventory("Reloading",1)
-		XS2F CDDDDE 1 PB_WeaponRecoil(+2, 0)
+		XS2F CDDDDE 1 PB_WeaponRecoil(2, 0)
 		XS2F EFFGI 1
 		XS2F J 2
 		XS2F KLMN 1
@@ -463,10 +484,6 @@ Actor HexaLionShotgun : PBWP_Weapon
         QSGF P 0 A_PlaySound("HEXACLOS")
         Goto HexaLionBoyReadyToFire
 
-	Spawn:
-		XSGP A -1
-		Stop
-
 	WeaponSpecial:
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
@@ -545,6 +562,11 @@ Actor HexaLionShotgun : PBWP_Weapon
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
 	    TNT1 A 0 A_ClearOverlays(10,11)
+		XMAO E 1 A_DoPBWeaponAction
+		XMAO D 1 A_DoPBWeaponAction
+		XMAO C 1 A_DoPBWeaponAction
+		XMAO B 1 A_DoPBWeaponAction
+		XMAO A 1 A_DoPBWeaponAction
 		XSGF T 1 A_DoPBWeaponAction
 		Goto HexaLionBoyReadyToFire
 
@@ -578,26 +600,3 @@ Actor HexaLionShotgun : PBWP_Weapon
 		Stop
 	}
 }
-
-Actor HexaLionAmmo : Ammo
-{
-   Inventory.Amount 0
-   Inventory.MaxAmount 6
-   Ammo.BackpackAmount 0
-   Ammo.BackpackMaxAmount 6
-   Inventory.Icon "XSGPA0"
-}
-
-Actor HexaSSGAltCooldown : Ammo
-{
-   Inventory.Amount 0
-   Inventory.MaxAmount 100
-   Ammo.BackpackAmount 0
-   Ammo.BackpackMaxAmount 100
-}
-
-/*Actor HexaShotgunSpawner : RandomSpawner
-{
-  DropItem "HexaShotgun" 255
-  DropItem "HexaLionShotgun" 255
-}*/
