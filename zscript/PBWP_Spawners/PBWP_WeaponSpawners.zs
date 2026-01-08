@@ -805,12 +805,12 @@ class MachineGunUpgradeSpawnerInjector : PBInjector //Upgrade Injector
 	override void Init(PB_EventHandler handler)
 	{
 		//this adds the machine gun upgrade to the invulnerability sphere spawner
-        handler.InjectSpawn('PB_InvulSpawnerT1', 'MachinegunUpgrade', 255, 3);
+        handler.InjectSpawn('PB_InvulSpawnerT1', 'UpgradeBot', 255, 3);
         //this adds the machine gun upgrade to the pack spawner
-        handler.InjectSpawn('PB_PackSpawnerT1', 'MachinegunUpgrade', 255, 2);
-        handler.InjectSpawn('PB_PackSpawnerT2', 'MachinegunUpgrade', 255, 1);
-        handler.InjectSpawn('PB_UpgradeSpawnerT3', 'MachinegunUpgrade', 255, 1);
-        handler.InjectSpawn('PB_UpgradeSpawnerT4', 'MachinegunUpgrade', 255, 1);
+        handler.InjectSpawn('PB_PackSpawnerT1', 'UpgradeBot', 255, 2);
+        handler.InjectSpawn('PB_PackSpawnerT2', 'UpgradeBot', 255, 1);
+        handler.InjectSpawn('PB_UpgradeSpawnerT3', 'UpgradeBot', 255, 1);
+        handler.InjectSpawn('PB_UpgradeSpawnerT4', 'UpgradeBot', 255, 1);
 	}
 }
 

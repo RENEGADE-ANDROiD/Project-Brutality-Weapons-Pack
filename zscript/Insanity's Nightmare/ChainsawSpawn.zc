@@ -141,7 +141,6 @@ class IN_SawSpawnerT1 : PB_WeaponSpawner
 	{
 		DropItem 'PB_Chainsaw', 255, 1;
 		DropItem 'P_SMG', 64, 1;
-		DropItem 'RemintongRepeater', 16, 1;
 	}
 }
 
@@ -152,7 +151,6 @@ class IN_SawSpawnerT2 : PB_WeaponSpawner
 		DropItem 'PB_Chainsaw', 255, 1;
 		DropItem 'PB_Flamethrower', 128, 1;
 		DropItem 'P_SMG', 64, 1;
-		DropItem 'RemintongRepeater', 16, 1;
 		Dropitem 'BioAcidLauncher', 32, 1;
 		Dropitem 'B92S', 96, 1;
 	}
@@ -165,9 +163,7 @@ class IN_SawSpawnerT3 : PB_WeaponSpawner
 		DropItem 'PB_Flamethrower', 255, 1;
 		DropItem 'PB_FlamethrowerUpgrade', 128, 1;
 		DropItem 'P_SMG', 64, 1;
-		DropItem 'RemintongRepeater', 16, 1;
 		Dropitem 'BioAcidLauncher', 32, 1;
-		Dropitem 'Adv_MaskMan_Rifle', 54, 1;
 		Dropitem 'HellPistoler', 84, 1;
 		Dropitem 'B92S', 96, 1;
 	}
@@ -179,9 +175,7 @@ class IN_SawSpawnerT4 : PB_WeaponSpawner
 	{
 		DropItem 'PB_FlamethrowerUpgrade', 255, 1;
 		DropItem 'P_SMG', 64, 1;
-		DropItem 'RemintongRepeater', 16, 1;
 		Dropitem 'BioAcidLauncher', 32, 1;
-		Dropitem 'Adv_MaskMan_Rifle', 54, 1;
 		Dropitem 'HellPistoler', 84, 1;
 		Dropitem 'B92S', 96, 1;
 		Dropitem 'HASGDrum', 42, 1;
