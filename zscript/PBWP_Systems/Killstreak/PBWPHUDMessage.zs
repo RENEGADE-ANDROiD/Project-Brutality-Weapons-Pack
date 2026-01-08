@@ -248,6 +248,7 @@ Class PandHUDMessageHandler : EventHandler
 
 	override void PostUiTick()
 	{
+		if(!KSHUD) return;
 		// load 'em up
 		for ( int i=0; i<queue.size(); i++ )
 			if ( queue[i].timestamp >= gametic )
@@ -256,6 +257,7 @@ Class PandHUDMessageHandler : EventHandler
 
 	override void WorldTick()
 	{
+		if(!KSHUD) return;
 		for ( int i=0; i<queue.size(); i++ )
 		{
 			if ( queue[i].timestamp >= gametic ) continue;
