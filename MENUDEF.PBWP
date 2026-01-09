@@ -31,7 +31,7 @@ ListMenu "MainMenu"
 		{
 			TextItem "Options", "o", "OptionsMenu"
 			TextItem "Project Brutality", "p", "PBSettings"
-			TextItem "PB Weapons Pack", "p", "ttwcoptions"
+			TextItem "PB WAR Pack", "p", "ttwcoptions"
 			TextItem "Load Game", "l", "LoadGameMenu"
 			TextItem "Save Game", "s", "SaveGameMenu"
 		}
