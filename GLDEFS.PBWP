@@ -187,7 +187,7 @@ object PB_ArmorBonusYellow
     { light YELLOWITEM }
 }
 
-object PB_ArmorBonusWhite
+object ArmorWhite
 {
     frame BON2 
     { light WHITEITEM }
@@ -205,13 +205,13 @@ object PB_ArmorBonusCyan
     { light CYANITEM }
 }
 
-object PB_ArmorBonusOrange
+object ArmorOrange
 {
     frame BON2 
     { light ORANGEITEM }
 }
 
-object PB_ArmorBonusPink
+object ArmorDemon
 {
     frame BON2 
     { light PINKITEM }
@@ -251,24 +251,6 @@ object PB_HealthBonusCyan
 {
     frame BON1 
     { light CYANITEM }
-}
-
-object PB_HealthBonusOrange
-{
-    frame BON1 
-    { light ORANGEITEM }
-}
-
-object PB_HealthBonusWhite
-{
-    frame BON1 
-    { light WHITEITEM }
-}
-
-object PB_HealthBonusPink
-{
-    frame BON1 
-    { light PINKITEM }
 }
 
 //HelmetDrops//
