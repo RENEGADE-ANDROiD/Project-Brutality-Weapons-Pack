@@ -228,7 +228,7 @@ ACTOR PlasmaRifleAssault : PBWP_Weapon 23817
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
 	//Things I need to Have an More than i thought
 	  TNT1 A 0 A_JumpIfInventory("PlagueMod",1,"HeatBlast")
-	  PRIG A 0 A_JumpIfInventory("Plasma-Mag",2,2)
+	  PRIG A 0 A_JumpIfInventory("Plasma-Mag",25,2)
 	  Goto Reload
 	  NPLF A 1
 	  TNT1 A 0 A_AlertMonsters
@@ -238,7 +238,7 @@ ACTOR PlasmaRifleAssault : PBWP_Weapon 23817
 	  NPLF B 1 Bright
 	  
 	  
-	  RNLF F 0 A_TakeInventory("Plasma-Mag", 2,TIF_NOTAKEINFINITE)
+	  RNLF F 0 A_TakeInventory("Plasma-Mag", 25,TIF_NOTAKEINFINITE)
 	  TNT1 AA 0
 	
 	  TNT1 A 0 {
