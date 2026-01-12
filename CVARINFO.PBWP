@@ -49,7 +49,7 @@ user bool rw_switchEnabled = false;
 user bool rw_lockWeap = false;
 user bool rw_instSwitch = false;
 
-user int rw_DelayMin = 3;
+user int rw_DelayMin = 0;
 user int rw_DelayMax = 60;
 
 //Doorbuster//
