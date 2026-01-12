@@ -60,7 +60,6 @@ server int busterAmmoChance = 1;
 
 //
 server int bossbarpos = 1;
-server bool ds_debugmessages = false;
 //
 User Noarchive Int d16_crosshair = 0;
 
