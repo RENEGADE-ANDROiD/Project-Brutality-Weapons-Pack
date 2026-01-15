@@ -81,6 +81,7 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		"DoomBlaster",
 		"W_SMG",
 		"P_SMG",
+		"HellPistol",
 		"HellPistoler",
 		"UZISMG";
 
@@ -139,6 +140,7 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		"PB_SuperGL",
 		"PB_RocketLauncher",
 		// PBWP SLOT 6
+		"Devastator",
 		"SuperGrenadeLauncher",
 		"PB_Excavator",
 		"CyberdemonsMissileLauncher",
