@@ -61,8 +61,10 @@ class MiniPlayer : PB_PlayerPrawn
 		
 		Player.AttackZOffset 2;
 		Player.ColorRange 112,127;
-		Player.JumpZ 16;
+		Player.JumpZ 24;
 		Player.GruntSpeed 24;
+		Player.FallingScreamSpeed 66;
+		Player.WaterClimbSpeed 7;
 		Player.DisplayName "Mini Player Start";
 		Player.CrouchSprite "PLYC";
 		Player.ViewBob 0.0;
