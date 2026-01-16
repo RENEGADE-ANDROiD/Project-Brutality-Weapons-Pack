@@ -1,22 +1,3 @@
-Actor KSFreeze : PowerupGiver
-{
-  +CountItem
-  +NoGravity
-  +Inventory.AutoActivate
-  +Inventory.AlwaysPickup
-  Inventory.MaxAmount 0
-  Powerup.Duration -5
-  Powerup.Type TimeFreezer
-  Powerup.Color white, 0.05
-  Inventory.PickupMessage "KILLSTREAK AQUIRED: Time Slows Briefly"
-  States
-  {
-  Spawn:
-    TIME ABCD 6 Bright
-    Loop
-  }
-}
-
 ACTOR CoffeeTime : PowerupGiver
 {
 	//$Category Powerups
