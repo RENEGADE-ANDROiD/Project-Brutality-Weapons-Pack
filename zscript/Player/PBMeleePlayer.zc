@@ -6,6 +6,7 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
     {
         Mass 500;
         GibHealth 20;
+		Player.MorphWeapon "PB_Axe";
         Species "Marines";
         BloodType "NashGoreBlood";
 

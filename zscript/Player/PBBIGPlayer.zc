@@ -5,11 +5,12 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
     Default
     {
 		Speed 1;
-		Health 100;
+		Health 150;
 		Radius 16;
 		Height 56;
 		Mass 1000;
 		PainChance 255;
+		Gravity 1.2;
 		Player.GruntSpeed 12;
 		
 		Player.ForwardMove 1.1,1.1;		//Player.ForwardMove 2.2,1.1;
@@ -25,6 +26,7 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
         GibHealth 20;
         Species "Marines";
         BloodType "NashGoreBlood";
+		Player.MorphWeapon "PB_Chainsaw";
 
         DamageFactor "Head",1.0;
 		DamageFactor "Leg",1.0;

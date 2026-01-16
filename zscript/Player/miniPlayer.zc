@@ -4,6 +4,7 @@ class MiniPlayer : PB_PlayerPrawn
 	
 	Default
 	{
+		Health 50;
 		Mass 50;
 		GibHealth 20;
 		Species "Marines";
@@ -12,6 +13,8 @@ class MiniPlayer : PB_PlayerPrawn
 		Radius 4;
 		Height 14;
 		Scale 0.25;
+		Player.ForwardMove 2.2,2.2;		//Player.ForwardMove 2.2,1.1;
+		Player.Sidemove 2.2,2.2;		//Player.Sidemove 2.2,1.1;
 		PainSound "miniplayer/pain";
 		Player.ViewHeight 10;
 		Player.SoundClass "mini";
@@ -55,7 +58,7 @@ class MiniPlayer : PB_PlayerPrawn
 		DamageFactor "Disintegrate",1.0;
 		DamageFactor "Avoid",0;
 		
-		Player.AttackZOffset 17;
+		Player.AttackZOffset 2;
 		Player.ColorRange 112,127;
 		Player.JumpZ 16;
 		Player.GruntSpeed 24;
@@ -63,6 +66,8 @@ class MiniPlayer : PB_PlayerPrawn
 		Player.CrouchSprite "PLYC";
 		Player.ViewBob 0.0;
 
+		Gravity 0.8;
+		BounceFactor 0.5;
 		+ROLLSPRITE
 		+THRUSPECIES
 		+MTHRUSPECIES

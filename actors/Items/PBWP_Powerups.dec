@@ -5,10 +5,10 @@ Actor KSFreeze : PowerupGiver
   +Inventory.AutoActivate
   +Inventory.AlwaysPickup
   Inventory.MaxAmount 0
-  Powerup.Duration -4
+  Powerup.Duration -5
   Powerup.Type TimeFreezer
   Powerup.Color white, 0.05
-  Inventory.PickupMessage "KILLSTREAK AQUIRED, Time Slows Briefly"
+  Inventory.PickupMessage "KILLSTREAK AQUIRED: Time Slows Briefly"
   States
   {
   Spawn:
@@ -286,18 +286,6 @@ ACTOR PowerShrink : PowerMorph
     PowerMorph.UnMorphFlash "UnShrinkFlashDummy"
     PowerMorph.MorphStyle (MRF_TRANSFERTRANSLATION)
 }
-
-// ACTOR MiniPlayer : PB_PlayerPrawn
-// {
-//     Radius 4
-//     Height 14
-//     Scale 0.25
-//     PainSound "miniplayer/pain"
-//     Player.ViewHeight 10
-//     Player.SoundClass "mini"
-
-//     -PICKUP
-// }
 
 // ------------------------------------------------------------------------------------------------
 //

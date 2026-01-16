@@ -55,6 +55,7 @@ class PB_PlayerPrawn : PlayerPawnBase
 		Player.DisplayName "Default Start";
 		Player.CrouchSprite "PLYC";
 		Player.ViewBob 0.0;
+		Player.MorphWeapon "PB_Axe";
 
 		Player.WeaponSlot 1,
 		"PB_Axe",
