@@ -4,7 +4,7 @@ class MiniPlayer : PB_PlayerPrawn
 	
 	Default
 	{
-		Mass 500;
+		Mass 50;
 		GibHealth 20;
 		Species "Marines";
 		BloodType "NashGoreBlood";
@@ -57,9 +57,9 @@ class MiniPlayer : PB_PlayerPrawn
 		
 		Player.AttackZOffset 17;
 		Player.ColorRange 112,127;
-		Player.JumpZ 7.4;
+		Player.JumpZ 16;
 		Player.GruntSpeed 24;
-		Player.DisplayName "Default Start";
+		Player.DisplayName "Mini Player Start";
 		Player.CrouchSprite "PLYC";
 		Player.ViewBob 0.0;
 

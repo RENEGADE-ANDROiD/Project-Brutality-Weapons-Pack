@@ -5,6 +5,8 @@ Gameinfo
 	PlayerClasses = 
 	"PB_PlayerPrawn",
 	"PB_MeleePlayerPrawn",
+	"PB_BIGPlayerPrawn",
+	"MiniPlayer",
 	"IN_PlayerPrawn"
 
 	addeventhandlers = 
