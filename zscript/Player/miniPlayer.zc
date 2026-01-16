@@ -5,8 +5,9 @@ class MiniPlayer : PB_PlayerPrawn
 	Default
 	{
 		Health 50;
-		Mass 50;
+		Mass 5;
 		GibHealth 20;
+		Player.MugShotMaxHealth 50;
 		Species "Marines";
 		BloodType "NashGoreBlood";
 		
@@ -66,7 +67,7 @@ class MiniPlayer : PB_PlayerPrawn
 		Player.CrouchSprite "PLYC";
 		Player.ViewBob 0.0;
 
-		Gravity 0.8;
+		Gravity 0.2;
 		BounceFactor 0.5;
 		+ROLLSPRITE
 		+THRUSPECIES
