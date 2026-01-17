@@ -204,7 +204,7 @@ optionmenu "MonsterSpawnSett"
 	statictext "---------------Normal Monsters---------------", gold
 	statictext ""
 	Option "Spawn Deep One", "DeepOneSpawn", "OnOff"
-	Option "Spawn Eye Turret", "EyeTurretSpawn", "OnOff"
+	//Option "Spawn Eye Turret", "EyeTurretSpawn", "OnOff"
 	Option "Spawn Paingiver Helltrooper", "PainTrooperSpawn", "OnOff"
 	
 

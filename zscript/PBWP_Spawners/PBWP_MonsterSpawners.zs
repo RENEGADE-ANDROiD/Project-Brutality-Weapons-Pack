@@ -1,4 +1,5 @@
 //Monster Spawner =======================================================================================
+/*
 class PBWP_EyeTurretSpawner : PBInjector
 {
 	override void Init(PB_EventHandler handler)
@@ -12,7 +13,7 @@ class PBWP_EyeTurretSpawner : PBInjector
 		}
 	}
 }
-
+*/
 class PBWP_CyberdemonBossSpawner : PBInjector
 {
 	override void Init(PB_EventHandler handler)
