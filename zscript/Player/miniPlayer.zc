@@ -20,7 +20,7 @@ class MiniPlayer : PB_PlayerPrawn
 		PainSound "miniplayer/pain";
 		Player.ViewHeight 10;
 		Player.SoundClass "mini";
-		Player.MorphWeapon "Prosurv_LeverAction";
+		Player.MorphWeapon "PB_ChexRifle";
 
 		DamageFactor "Head",1.0;
 		DamageFactor "Leg",1.0;
