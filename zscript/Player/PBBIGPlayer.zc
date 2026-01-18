@@ -27,7 +27,7 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
         GibHealth 20;
         Species "Marines";
         BloodType "NashGoreBlood";
-		Player.MorphWeapon "PB_Chainsaw";
+		Player.MorphWeapon "BattleAxe";
 
         DamageFactor "Head",1.0;
 		DamageFactor "Leg",1.0;
@@ -212,8 +212,8 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		"PB_DemonExt";
 
 		// Player.StartItem "PB_PDAWeaponContainer",1;
-		Player.StartItem "PB_DMR";
-		Player.StartItem "PB_Pistol";
+		Player.StartItem "PB_AutoShotgun";
+		Player.StartItem "BattleAxe";
 		Player.StartItem "PB_Fists";
 		Player.StartItem "CarbineFullAuto";
 		Player.StartItem "PB_HighCalMag",90;
@@ -260,8 +260,8 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
         Player.StartItem "CryoRifleAmmo",60;
 
 		// Added
-		Player.StartItem "DoomBlaster",1; // Doom Blaster
-		Player.StartItem "CryoDMRAmmo",60;
+		Player.StartItem "DoomBlaster",1; 
+		Player.StartItem "ShieldsawAmmo",1;
 		Player.StartItem "MacheteDurability",30;
 		Player.StartItem "StandardMeleeSelected",1; // Melee Wheel
 

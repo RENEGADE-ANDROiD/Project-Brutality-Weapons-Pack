@@ -196,7 +196,8 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		"DemonTechMinigun",
 		"PB_DemonExt";
 
-        //Player.StartItem "PB_PDAWeaponContainer",1;
+        //Player.StartItem "PB_PDAWeaponContainer",1; 
+		Player.StartItem "PB_Axe",1;
 		Player.StartItem "PB_Fists";
 		Player.StartItem "CarbineFullAuto";
 		Player.StartItem "PB_HighCalMag",90;
@@ -242,7 +243,8 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		Player.StartItem "FlamerAmmo",90; 
         Player.StartItem "CryoRifleAmmo",60;
 
-		// Added
+		// Added 
+		Player.StartItem "ShieldsawAmmo",1;
 		Player.StartItem "MacheteDurability",30;
 		Player.StartItem "CryoDMRAmmo",60;
 		Player.StartItem "StandardMeleeSelected",1; // Melee Wheel

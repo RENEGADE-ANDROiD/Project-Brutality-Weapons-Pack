@@ -6,8 +6,7 @@ Gameinfo
 	"PB_PlayerPrawn",
 	"PB_MeleePlayerPrawn",
 	"PB_BIGPlayerPrawn",
-	"MiniPlayer",
-	"IN_PlayerPrawn"
+	"MiniPlayer"
 
 	addeventhandlers = 
 	// CORE

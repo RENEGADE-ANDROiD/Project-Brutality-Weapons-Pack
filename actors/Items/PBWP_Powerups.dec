@@ -274,12 +274,40 @@ actor RegenSphere : PowerupGiver
 //
 // ------------------------------------------------------------------------------------------------
 
+ACTOR GrowthSphere : PowerupGiver 
+{
+    Inventory.PickupMessage "GrowthSphere!"
+    Inventory.MaxAmount 0
+    Powerup.Type Growth
+    Powerup.Duration -40
+
+    +COUNTITEM
+    +INVENTORY.AUTOACTIVATE
+    +INVENTORY.ALWAYSPICKUP
+    +INVENTORY.BIGPOWERUP
+
+    States
+    {
+    Spawn:
+        Z1NS ABCDCB 6 Bright
+        Loop
+    }
+}
+
+ACTOR PowerGrowth : PowerMorph
+{
+    PowerMorph.PlayerClass "PB_BIGPlayerPrawn"
+    PowerMorph.MorphFlash "ShrinkFlashDummy"
+    PowerMorph.UnMorphFlash "UnShrinkFlashDummy"
+    PowerMorph.MorphStyle (MRF_TRANSFERTRANSLATION)
+}
+
 ACTOR ShrinkSphere : PowerupGiver 
 {
-    Inventory.PickupMessage "Shrinksphere!"
+    Inventory.PickupMessage "ShrinkSphere!"
     Inventory.MaxAmount 0
     Powerup.Type Shrink
-    Powerup.Duration -30
+    Powerup.Duration -40
 
     +COUNTITEM
     +INVENTORY.AUTOACTIVATE

@@ -57,7 +57,7 @@ class KillStreakPowerUp : Inventory replaces MegaSphere
 			}
 			else{
 				powerup = "ShrinkSphere";
-				message = "\ctSHRINK SPHERE! \n\cjWhy So Small?";
+				message = "\ctSHRINK SPHERE! \n\cjHell got HUGE!";
 			}
 			break;
 		case 4:
@@ -76,8 +76,8 @@ class KillStreakPowerUp : Inventory replaces MegaSphere
 				message = "MEGASPHERE!";
 			}
 			else{
-				powerup = "Crucifix";
-				message = "\cxCRUCIFIX! n\cjEnemies will be frightened by you";
+				powerup = "GrowthSphere";
+				message = "\cxGrowth Sphere! n\cjSMASH THE PUNY DEMONS";
 			}
 			break;
 		case 6:
