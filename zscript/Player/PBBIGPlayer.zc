@@ -9,6 +9,7 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		Radius 16;
 		Height 56;
 		Mass 1000;
+		DamageFactor "normal", 0.75;
 		PainChance 255;
 		Gravity 1.2;
 		Player.GruntSpeed 12;
