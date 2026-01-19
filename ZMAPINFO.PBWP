@@ -32,6 +32,7 @@ Gameinfo
 	"champion_Handler", 
 	"champion_CHExtra",
 	// MISC
+	"FractalDoom_Game",
 	"PandHUDMessageHandler",
 	"BloodSampleEvent",
 	"MonsterDetectionEvent",

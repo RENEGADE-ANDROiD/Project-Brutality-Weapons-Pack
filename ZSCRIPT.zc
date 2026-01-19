@@ -16,6 +16,8 @@ version "4.14.2"
 // #include "zscript/PBWP_Core/Experiment.zs"
 
 // PBWP_Systems
+// FractalDoom_Monsters (custom 10% chance)
+#include "zscript/PBWP_Systems/FractalDoom_Monsters/FractalMonsters.zs"
 // KillStreak// 
 #include "zscript/PBWP_Systems/Killstreak/KSHandler.zc"
 #include "zscript/PBWP_Systems/Killstreak/KillStreak.zc"
