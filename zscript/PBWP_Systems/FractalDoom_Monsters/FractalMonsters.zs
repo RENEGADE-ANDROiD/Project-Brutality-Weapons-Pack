@@ -7,7 +7,7 @@ class FractalDoom_Game : EventHandler
 	const FRACTAL_DAMAGE_MULT = 0.6;
 	const FRACTAL_HEALTH_MULT = 0.5;
 	const MAX_SPAWNOFFSET = 20.0; //This is the absolute limit
-	const FRACTAL_CHANCE = 0.1; // 10% chance for fractal splitting
+	const FRACTAL_CHANCE = 0.05; // 10% chance for fractal splitting
 	
 	int monsters_readed;
 	name monster_classes_names[MAX_MONSTERS_CLASSES];
