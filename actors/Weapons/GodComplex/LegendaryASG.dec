@@ -24,6 +24,10 @@ ACTOR LegendaryAssaultShotgun : PBWP_Weapon
 	Tag "XFA-12A Legendary Auto Shotgun"
 	States
   {
+  Spawn:
+    	LMAP A -1
+    	Stop
+
 Steady:
 	TNT1 A 1
 	Goto Ready
@@ -116,7 +120,7 @@ Deselect:
     	TNT1 A 0 
     	LMAF A 1 Bright {
     	A_SpawnItemEx("BlueShellCasing",30,5,25,Random(2,4),Random(3,6),Random(3,6),0);
-	A_FireBullets(6.2,3.4,7,Random(20,28),"ShotgunPuff", 8192, "Tracer", -2.0);
+	PB_FireBullets("PB_Complex12GAPellet",10,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 	A_PlaySound("Weapons/LegAutoShotgun", 1);
 	A_TakeInventory("LegendaryShotgunDrum",1);
 	Radius_Quake(3,3,0,1,0);
@@ -138,7 +142,7 @@ Deselect:
 	TNT1 A 0
     	LMAF A 1 Bright {
     A_SpawnItemEx("BlueShellCasing",30,5,25,Random(2,4),Random(3,6),Random(3,6),0);
-	A_FireBullets(6.2,3.4,7,Random(20,28),"ShotgunPuff", 8192, "Tracer", -2.0);
+	PB_FireBullets("PB_Complex12GAPellet",10,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 	A_PlaySound("Weapons/LegAutoShotgun", Chan_Auto);
 	A_TakeInventory("LegendaryShotgunDrum",1);
 	Radius_Quake(3,3,0,1,0);
@@ -147,7 +151,7 @@ Deselect:
     	LMAF B 1 Bright
     	LMAF A 1 Bright {
     	A_SpawnItemEx("BlueShellCasing",30,5,25,Random(2,4),Random(3,6),Random(3,6),0);
-	A_FireBullets(6.2,3.4,7,Random(20,28),"ShotgunPuff", 8192, "Tracer", -2.0);
+	PB_FireBullets("PB_Complex12GAPellet",10,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 	A_PlaySound("Weapons/LegAutoShotgun", Chan_Auto);
 	A_TakeInventory("LegendaryShotgunDrum",1);
 	Radius_Quake(3,3,0,1,0);
@@ -156,7 +160,7 @@ Deselect:
     	LMAF B 1 Bright
     	LMAF A 1 Bright {
     	A_SpawnItemEx("BlueShellCasing",30,5,25,Random(2,4),Random(3,6),Random(3,6),0);
-	A_FireBullets(6.2,3.4,7,Random(20,28),"ShotgunPuff", 8192, "Tracer", -2.0);
+	PB_FireBullets("PB_Complex12GAPellet",10,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 	A_PlaySound("Weapons/LegAutoShotgun", Chan_Auto);
 	A_TakeInventory("LegendaryShotgunDrum",1);
 	Radius_Quake(3,3,0,1,0);
@@ -175,67 +179,39 @@ Deselect:
 		 A_TakeInventory("PB_LockScreenTilt",1);
 		 }
 	TNT1 A 0 A_TakeInventory("Reloading", 1)
-    	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",16,"Ready3")
-    	TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",1,2)
+   TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",16,"Ready3")
+   TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",1,2)
 	Goto Ready3
 	LMAR ABCDEF 1
 	LMAR GO 2
 	LMAR N 2 A_Playsound("ASGLUP",1,0.5)
 	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",1,"MaxReload")
-        LMAR H 3
+   LMAR H 3
 	LMAR I 2
 	LMAR JKL 1
 	LMAR M 35 A_FireCustomMissile("LegendaryEmptyDrumSpawner", 0, 0, 10, 1) 
 	LMAR LKJ 1
 	LMAR I 2
+	LMAR P 6 A_PlayWeaponSound("lasgguy/asgin")
+	TNT1 A 0 A_WeaponReady
 	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",1,"Reload2")
-	InsertBullets:
-	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",1)
-	TNT1 A 0 A_GiveInventory("LegendaryShotgunDrum",1)
-	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",15,2)
-	TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",1,"InsertBullets")
-	TNT1 A 0 A_WeaponReady
-	Goto Ready3
-  MaxReload:
-	LMAR H 3
-	LMAR I 2
-	LMAR JKL 1
-	LMAR M 35 A_FireCustomMissile("LegendaryEmptyDrum", 0, 0, 10, 1) 
-	LMAR LKJ 1
-	LMAR I 2
-	LMAR P 6 A_PlaySound("lasgguy/asgin")
-	LMAR NOG 2
-	LMAR FEDCBA 1
-	LMAG A 5
-	TNT1 A 0 A_WeaponReady
-	//TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",1,"Reload2")
-  Reload2:
-	TNT1 AAAA 0
+  InsertBullets:
+	TNT1 A 0
 	TNT1 A 0 A_TakeInventory("Reloading", 1)
-	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",15,"Full")
+	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",15,"FullCock")
 	TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",1,3)
-	TNT1 A 0 A_WeaponReady
-	Goto Ready3
+	Goto Full
     TNT1 AAAAAA 0
 	TNT1 A 0 A_Giveinventory("LegendaryShotgunDrum",1)
 	TNT1 A 0 A_Takeinventory("PBWP_ComplexAmmo",1,TIF_NOTAKEINFINITE)
-	Goto Reload2
-	
+	Goto InsertBullets
 	TNT1 AAAAAAAAAA 0
 	TNT1 A 0 A_Takeinventory("Reloading",1)
-    Goto Full
+    Goto FullCock
 	TNT1 AAAA 0
 	TNT1 A 0 A_Takeinventory("Reloading",1)
-    Goto Full
-  Full:
-	LMAR P 6 A_PlayWeaponSound("lasgguy/asgin")
-	LMAR NOG 2
-	LMAR FEDCBA 1
-	LMAG A 3 A_WeaponReady
-	LMAG A 5
-	Goto Ready3
+    Goto FullCock
   FullCock:
-	LMAR P 6 A_PlayWeaponSound("lasgguy/asgin")
 	LMAR NOG 2
 	LMAR FEDCBA 1
 	LMAG A 3
@@ -246,6 +222,37 @@ Deselect:
 	LMCK A 2
 	LMAG A 3 A_WeaponReady	
 	Goto Ready3
+  MaxReload:
+	LMAR H 3
+	LMAR I 2
+	LMAR JKL 1
+	LMAR M 35 A_FireCustomMissile("LegendaryEmptyDrum", 0, 0, 10, 1) 
+	LMAR LKJ 1
+	LMAR I 2
+	LMAR P 6 A_PlaySound("lasgguy/asgin")
+	TNT1 A 0 A_WeaponReady
+  Reload2:
+	TNT1 A 0
+	TNT1 A 0 A_TakeInventory("Reloading", 1)
+	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",16,"Full")
+	TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",1,3)
+	Goto Full
+    TNT1 AAAAAA 0
+	TNT1 A 0 A_Giveinventory("LegendaryShotgunDrum",1)
+	TNT1 A 0 A_Takeinventory("PBWP_ComplexAmmo",1,TIF_NOTAKEINFINITE)
+	Goto Reload2
+	TNT1 AAAAAAAAAA 0
+	TNT1 A 0 A_Takeinventory("Reloading",1)
+    Goto Full
+	TNT1 AAAA 0
+	TNT1 A 0 A_Takeinventory("Reloading",1)
+    Goto Full
+  Full:
+	LMAR NOG 2
+	LMAR FEDCBA 1
+	LMAG A 3 A_WeaponReady
+	LMAG A 5
+	Goto Ready3
 	
  WeaponSpecial:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
@@ -254,42 +261,38 @@ Deselect:
 	TNT1 A 0 A_Print("You lack of Power.")
 	TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
 	Goto Ready3
-  
-  Spawn:
-    	LMAP A -1
-    	Stop
 	
 FlashPunching:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
-	LMAR ABCDEFGGGGGGGGG 1
+	LMAR ABCDEFGGGGGFEDCBA 1
 	Stop
 
 FlashKicking:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
-	TNT1 A 0
+	LMAR ABCDEFGGGGGGGFEDCBA 1
 	Goto Ready3
 		
 FlashAirKicking:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
-	TNT1 A 0
+	LMAR ABCDEFGGGGGGGGGFEDCBA 1
 	Goto Ready3
 		
 FlashSlideKicking:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
-	TNT1 A 0
+	LMAR ABCDEFGGGGGGGGGGGG 1
 FlashSlideKickingStop:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
-	TNT1 A 0
+	LMAR GFEDCBA 1
 	Goto Ready3
   }
 }

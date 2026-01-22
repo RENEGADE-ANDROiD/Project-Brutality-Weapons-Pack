@@ -23,6 +23,14 @@ class PB_444Marlin : PB_500SW
 	}
 }
 
+class PB_Complex12GAPellet : PB_12GAPellet_ASG
+{
+	Default
+	{
+      PB_Projectile.BaseDamage 28;
+	}
+}
+
 class PB_SMGNail : PB_MGNail
 {
 	Default

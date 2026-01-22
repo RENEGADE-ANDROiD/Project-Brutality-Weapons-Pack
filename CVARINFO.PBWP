@@ -1,5 +1,5 @@
 //FractalDoom Monsters (custom 10% chance)
-server int ufd_max_iterations = 1;
+//server int ufd_max_iterations = 1;
 
 //PB Arcade 500HP//
 server int PBAT_PickupMode = 0;
