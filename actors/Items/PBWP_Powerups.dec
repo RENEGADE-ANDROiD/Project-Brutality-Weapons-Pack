@@ -279,7 +279,7 @@ ACTOR GrowthSphere : PowerupGiver
     Inventory.PickupMessage "GrowthSphere!"
     Inventory.MaxAmount 0
     Powerup.Type Growth
-    Powerup.Duration -40
+    Powerup.Duration -20
 
     +COUNTITEM
     +INVENTORY.AUTOACTIVATE
@@ -307,7 +307,7 @@ ACTOR ShrinkSphere : PowerupGiver
     Inventory.PickupMessage "ShrinkSphere!"
     Inventory.MaxAmount 0
     Powerup.Type Shrink
-    Powerup.Duration -40
+    Powerup.Duration -20
 
     +COUNTITEM
     +INVENTORY.AUTOACTIVATE
