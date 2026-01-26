@@ -10,7 +10,7 @@ ACTOR BatonSwing : PB_ProjectileAlt {
 	+NODAMAGETHRUST
 	+BLOODLESSIMPACT
 	+FORCEPAIN
-	PB_Projectile.BaseDamage 5
+	PB_Projectile.BaseDamage 25
 	Speed 40
 	Decal "SawDecalNew1"
 	States {
@@ -30,5 +30,5 @@ ACTOR BatonSwing : PB_ProjectileAlt {
 			TNT1 A 1
 			Stop	}}
 ACTOR SuperBatonSwing : BatonSwing {
-	PB_Projectile.BaseDamage 10
+	PB_Projectile.BaseDamage 75
 }

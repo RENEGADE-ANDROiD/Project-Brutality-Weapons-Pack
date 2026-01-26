@@ -7,7 +7,7 @@ ACTOR WrenchSwing : PB_ProjectileAlt {
 	+NOEXTREMEDEATH
 	+BLOODSPLATTER
 	+NODAMAGETHRUST
-	PB_Projectile.BaseDamage 20
+	PB_Projectile.BaseDamage 30
 	Speed 20
 	Decal "SawDecalNew1"
 	States {
@@ -30,5 +30,5 @@ ACTOR WrenchSwing : PB_ProjectileAlt {
 			Stop	}}
 ACTOR SuperWrenchSwing : WrenchSwing {
 	DamageType "ExtremePunches"
-	PB_Projectile.BaseDamage 40
+	PB_Projectile.BaseDamage 50
 }
