@@ -521,7 +521,7 @@ Actor SwordArgentSlash : Hellbullet
   -Solid
   Scale 0.4
   Speed 25
-  Damage 2
+  Damage 75
   RenderStyle Add
   Decal "SawVertical"
   States
