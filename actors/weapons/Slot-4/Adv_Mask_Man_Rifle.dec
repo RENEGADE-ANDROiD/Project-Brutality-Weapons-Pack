@@ -9,7 +9,7 @@ Inventory.Icon "4XRPA0"
 +IgnoreSkill
 }
 
-ACTOR Adv_MaskMan_Rifle : PBWP_Weapon
+ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 {
 		Weapon.AmmoGive1 40
 		Weapon.AmmoGive2 0

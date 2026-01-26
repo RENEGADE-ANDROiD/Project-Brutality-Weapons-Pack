@@ -120,6 +120,7 @@ version "4.14.2"
 #include "zscript/Weapons/Slot-3/CSSG/CSSG_Upgrades.zs"
 	// CSSG Stuff End
 #include "ZScript/Weapons/Slot-4/HeavySniperRifle.zs"
+#include "ZScript/Weapons/Slot-4/M41A.zs"
 #include "ZScript/Weapons/Slot-5/NeoHMG.zs"
 #include "ZScript/Weapons/Slot-6/Excavator.zs"
 #include "zscript/Weapons/Slot-8/LoRCalamityBlade.zs"

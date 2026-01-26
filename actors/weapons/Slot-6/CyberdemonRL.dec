@@ -1,4 +1,4 @@
-ACTOR CyberdemonsMissileLauncher : PBWP_Weapon	
+ACTOR CyberdemonsMissileLauncher : PB_WeaponBase	
 {
 	Inventory.Icon "HND7E0"
 	// Weapon.SlotNumber 6

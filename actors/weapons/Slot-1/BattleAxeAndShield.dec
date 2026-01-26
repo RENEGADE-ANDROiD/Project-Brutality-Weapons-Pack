@@ -30,7 +30,7 @@ Actor IsOverBlood : Inventory {Inventory.Maxamount 1}
 Actor IsCrouching : Inventory {Inventory.Maxamount 1}
 Actor DoUppercutNow : Inventory {Inventory.Maxamount 1}
 
-ACTOR BattleAxe : PBWP_Weapon
+ACTOR BattleAxe : PB_WeaponBase
 {
 	Game Doom
    	SpawnID 18

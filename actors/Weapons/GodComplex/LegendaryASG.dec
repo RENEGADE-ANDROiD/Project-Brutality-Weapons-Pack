@@ -1,4 +1,4 @@
-ACTOR LegendaryAssaultShotgun : PBWP_Weapon
+ACTOR LegendaryAssaultShotgun : PB_WeaponBase
 {
 //$Category Weapons/LCA
 //$Sprite LMAPA0

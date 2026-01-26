@@ -101,7 +101,7 @@ ACTOR M41AGrenade : PB_Projectile
 Actor M41ARespecter : Inventory { Inventory.MaxAmount 1 }
 Actor M41ChangeCart : Inventory { Inventory.MaxAmount 1 }
 
-Actor M41A : PBWP_Weapon
+Actor M41A : PB_WeaponBase
 {
 	Game Doom
     SpawnID 139

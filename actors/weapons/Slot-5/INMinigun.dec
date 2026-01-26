@@ -36,7 +36,7 @@ ACTOR MGExplosiveUpgrade : PB_UpgradeItem
 
 Actor INMGUpgrade : Inventory { Inventory.MaxAmount 1 }
 
-ACTOR INMiniGun: PBWP_Weapon 19443
+ACTOR INMiniGun: PB_WeaponBase 19443
 {
 Weapon.SelectionOrder 700
 Weapon.AmmoType1 "PB_HighCalMag"

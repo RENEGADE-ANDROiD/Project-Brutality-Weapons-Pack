@@ -10,7 +10,7 @@ Class ExcavatorRounds : Ammo{
 	}
 }
 //5DKFE0.png
-Class PB_Excavator : PB_Weapon
+Class PB_Excavator : PB_WeaponBase
 {
 	//$Title Excavator
 	//$Category Weapons

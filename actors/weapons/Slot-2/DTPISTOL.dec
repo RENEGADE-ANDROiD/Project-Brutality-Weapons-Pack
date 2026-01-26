@@ -77,7 +77,7 @@ Actor HellBullet5 : HellBullet
 	Damage 24
 }
 
-Actor HellPistol : PBWP_Weapon
+Actor HellPistol : PB_WeaponBase
 {
 	Inventory.PickupSound "HRPickup"
 	Obituary "%o was set ablaze by %k's hellish pistol."

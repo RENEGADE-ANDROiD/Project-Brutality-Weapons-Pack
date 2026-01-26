@@ -95,7 +95,7 @@ Actor CombatShotgunFired: Inventory {Inventory.MaxAmount 200}
 	kickflash states, and unload states.
  
 -----------------------------------------------------------------------------*/
-Actor PB_Doom2016Shotgun : PBWP_Weapon
+Actor PB_Doom2016Shotgun : PB_WeaponBase
 {
 	Game Doom
 	SpawnID 9300

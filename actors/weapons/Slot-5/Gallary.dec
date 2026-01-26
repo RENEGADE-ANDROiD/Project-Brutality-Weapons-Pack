@@ -4,7 +4,7 @@
 //
 // --------------------------------------------------------------------------
 
-ACTOR INNailGun : PBWP_Weapon
+ACTOR INNailGun : PB_WeaponBase
 {
 	Game Doom
 	Weapon.AmmoUse 0

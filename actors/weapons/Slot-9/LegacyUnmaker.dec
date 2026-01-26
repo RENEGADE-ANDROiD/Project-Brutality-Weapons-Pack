@@ -2,7 +2,7 @@ Actor LegacyUnmakerSelected : Inventory {Inventory.MaxAmount 1}
 
 Actor LegacyUnmakerFireSelected: Inventory {Inventory.MaxAmount 1}
 
-Actor PB_LegacyUnmaker : PBWP_Weapon
+Actor PB_LegacyUnmaker : PB_WeaponBase
 {
   //$Title Legacy Unmaker
   //$Category Weapons

@@ -8,7 +8,7 @@ Actor HasFiredWithZoom : Inventory { Inventory.MaxAmount 1 }
 
 Actor CryoShotgunUp : Inventory {Inventory.MaxAmount 1}
 
-ACTOR PB_CryoShotgun : PBWP_Weapon
+ACTOR PB_CryoShotgun : PB_WeaponBase
 {   
     Game Doom
     Weapon.BobRangeX 0.3

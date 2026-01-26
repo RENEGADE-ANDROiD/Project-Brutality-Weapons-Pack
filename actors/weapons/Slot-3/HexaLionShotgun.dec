@@ -23,7 +23,7 @@ Actor HexaSSGAltCooldown : Ammo
    +INVENTORY.IGNORESKILL
 }
 
-Actor HexaLionShotgun : PBWP_Weapon
+Actor HexaLionShotgun : PB_WeaponBase
 {
 	Game Doom
     SpawnID 3044

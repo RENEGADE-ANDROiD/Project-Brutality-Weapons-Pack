@@ -1,4 +1,4 @@
-Actor D4VortexRifle : PBWP_Weapon
+Actor D4VortexRifle : PB_WeaponBase
 {
     Game Doom
 	SpawnID 1300

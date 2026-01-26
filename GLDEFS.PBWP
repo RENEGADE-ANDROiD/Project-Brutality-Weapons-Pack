@@ -1,5 +1,49 @@
 #INCLUDE Brightmaps.bm
 
+//Sublimination Sword
+//SubliminationSword
+FlickerLight SBS
+{
+Color 0.7 0.4 0.0
+Size 30
+SecondarySize 40
+Chance 0.2
+Offset 0 24 0
+}
+
+FLICKERLIGHT BigWhiteLight
+{
+Color 1.0 1.0 1.0
+size 180
+SecondarySize 200
+Chance 0.2
+}
+
+pulselight RedDarkMatterLight 
+{
+color 0.8 0.0 0.0
+size 70
+secondarySize 90
+interval 0.7
+Subtractive 90
+}
+
+Object PB_SBSword
+{
+Frame WVBL { Light SBS }
+}
+
+Object MainyuSwordProjectile
+{
+Frame TNT1 { Light BigWhiteLight }
+}
+
+Object MainyuRedDarkMatter
+{
+Frame DMGB { Light RedDarkMatterLight }
+Frame TNT1 { Light RedDarkMatterLight }
+}
+
 //Earth boss
 pointlight EBOSSNECKDEATH
 {

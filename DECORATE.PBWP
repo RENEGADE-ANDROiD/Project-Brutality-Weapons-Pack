@@ -129,7 +129,7 @@
 #INCLUDE ACTORs/Weapons/Slot-4/ProSurv_Ballista.dec
 #INCLUDE ACTORs/Weapons/Slot-4/AK-47.dec
 //#INCLUDE ACTORs/Weapons/Slot-4/AssaultRifle.dec 
-#INCLUDE ACTORs/Weapons/Slot-4/M41A.dec
+//#INCLUDE ACTORs/Weapons/Slot-4/M41A.dec
 #INCLUDE ACTORs/Weapons/Slot-4/BoltRifle.dec
 #INCLUDE ACTORs/Weapons/Slot-4/Magnum_Sniper_Rifle.dec
 #INCLUDE ACTORs/Weapons/Doom4WeaponPack/D4Machinegun.dec

@@ -10,7 +10,7 @@ ACTOR Beretta_Clip_UpGrade : Ammo
 	Inventory.Icon "PTUPZ0"
 }
 
-Actor B92S : PBWP_Weapon
+Actor B92S : PB_WeaponBase
 {
 	Weapon.AmmoType2 "Beretta_Clip_UpGrade"
 	Weapon.AmmoUse 0

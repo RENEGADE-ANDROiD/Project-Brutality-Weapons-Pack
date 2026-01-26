@@ -1,4 +1,4 @@
-ACTOR RotationalSG : PBWP_Weapon
+ACTOR RotationalSG : PB_WeaponBase
 {
 	Weapon.SelectionOrder 3420
     Weapon.AmmoType1 "PB_Shell"

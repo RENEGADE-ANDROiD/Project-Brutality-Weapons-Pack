@@ -142,7 +142,11 @@ class KillStreakPowerUp : Inventory replaces MegaSphere
 		if (powerup && Owner)
 		{
 			Owner.GiveInventory(powerup, 1);
-			Owner.A_Print(message);
+			// Try this simple approach first - just extended duration
+			Owner.A_Print(message, 140);
+			
+			// If you want to try with font, uncomment this line and comment the one above:
+			//Owner.A_Print(message, "BIGFONT2", 140);
 		}
 		
 		// Return true to consume this item
