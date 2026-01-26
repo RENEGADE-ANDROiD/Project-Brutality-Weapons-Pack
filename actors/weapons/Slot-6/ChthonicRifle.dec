@@ -4,7 +4,7 @@
 //
 ////--------------------------------------------------------------------------
 
-ACTOR ChthonicRifle : PBWP_Weapon  //Daller-Faust's Won't use the Sprites. But I'll do this myself.
+ACTOR ChthonicRifle : PB_WeaponBase  //Daller-Faust's Won't use the Sprites. But I'll do this myself.
 {
     Weapon.SelectionOrder 5200
     Weapon.AmmoType1 "PB_HighCalMag"

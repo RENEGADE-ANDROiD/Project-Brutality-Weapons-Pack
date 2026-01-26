@@ -1,4 +1,4 @@
-Actor RotatingDoubleBarrel : PBWP_Weapon
+Actor RotatingDoubleBarrel : PB_WeaponBase
 {
 	Game Doom
 	SpawnID 28

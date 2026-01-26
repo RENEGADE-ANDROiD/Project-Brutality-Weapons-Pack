@@ -1,4 +1,4 @@
-ACTOR NemesisLMG : PBWP_Weapon
+ACTOR NemesisLMG : PB_WeaponBase
 {
    Height 14
    Weapon.SelectionOrder 7980

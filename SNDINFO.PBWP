@@ -723,6 +723,11 @@ MSSLD MSSLD
 MSSOP MSSOP
 
 //M41A-Alien-Rifle Sounds//
+M41A/Fire M41AFIRE
+M41A/MagTake CBMGOUT
+M41A/MagIn	CBMGINN
+M41A/Bolt	ALIEN_CK
+M41A/PickUp	M41PICUP
 weapons/M41APulseRifle M41AFIRE
 CBMGOUT CBMGOUT
 CBMGINN CBMGINN
@@ -3590,7 +3595,7 @@ MARLIMP3			MARLIMP3
 MARLIMP4			MARLIMP4
 
 
-//SBSW
+//SubliminationSword
 SubSword/Pickup					SUBPKUP
 SubSword/WallHit				SUBWHIT
 legsoul/attack2                 LEGSATK2

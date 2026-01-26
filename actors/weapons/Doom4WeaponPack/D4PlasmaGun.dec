@@ -1,4 +1,4 @@
-Actor D4PlasmaGun : PBWP_Weapon
+Actor D4PlasmaGun : PB_WeaponBase
 {
     Game Doom
 	SpawnID 1200

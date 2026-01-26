@@ -23,7 +23,7 @@ Scale 1.5
 Height 2.0
 }
 
-ACTOR HellPistoler : PBWP_Weapon
+ACTOR HellPistoler : PB_WeaponBase
 {
 	Weapon.SelectionOrder 2545
     Weapon.AmmoType1 "PB_Cell"

@@ -1,6 +1,6 @@
 Actor TrippleMissileFire : Inventory {Inventory.MaxAmount 1}
 
-Actor Paingiver : PBWP_Weapon
+Actor Paingiver : PB_WeaponBase
 {
     Game Doom
 	SpawnID 3400

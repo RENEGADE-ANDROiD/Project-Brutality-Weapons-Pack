@@ -116,7 +116,7 @@ Actor AutoCannonBarrelHeat3 : Inventory {Inventory.MaxAmount 200}
 
 Actor RespectAutoCannon : Inventory {Inventory.MaxAmount 1}
 
-Actor AutoCannon : PBWP_Weapon
+Actor AutoCannon : PB_WeaponBase
 {
     Game Doom
 	SpawnID 9577

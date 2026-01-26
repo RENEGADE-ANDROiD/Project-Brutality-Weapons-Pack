@@ -1,4 +1,4 @@
-class PB_CalamityBlade : PBWP_Weapon
+class PB_CalamityBlade : PB_WeaponBase
 {
  Int ChargeLevel;
 	default

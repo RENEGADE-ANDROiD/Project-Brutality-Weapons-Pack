@@ -12,7 +12,7 @@ inventory.maxamount 1
 }
 
 
-Actor PB_ArgentSith : PBWP_Weapon
+Actor PB_ArgentSith : PB_WeaponBase
 {
    Game Doom
    SpawnID 17

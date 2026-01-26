@@ -1,4 +1,4 @@
-ACTOR LegendaryChainsaw : PBWP_Weapon
+ACTOR LegendaryChainsaw : PB_WeaponBase
 {
 //$Category Weapons/LCA/DJB
 //$Sprite CLSWA0

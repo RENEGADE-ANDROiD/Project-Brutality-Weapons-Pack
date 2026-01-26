@@ -12,7 +12,7 @@ Actor DualWieldingBlasters: Inventory {Inventory.MaxAmount 1}
 
 Actor EMGSidearmFired: Inventory {Inventory.MaxAmount 200}
 
-Actor DoomBlaster : PBWP_Weapon
+Actor DoomBlaster : PB_WeaponBase
 {
 	Game Doom
 	SpawnID 44

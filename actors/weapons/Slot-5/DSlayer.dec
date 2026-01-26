@@ -28,7 +28,7 @@ Actor DragonSlayerEnergy : Ammo
     +INVENTORY.IGNORESKILL
     Inventory.Icon "CELLA0" 
 }
-ACTOR Fire_and_Ice-DragonSlayer : PBWP_Weapon
+ACTOR Fire_and_Ice-DragonSlayer : PB_WeaponBase
 {
   Game Doom
   Weapon.Kickback 800

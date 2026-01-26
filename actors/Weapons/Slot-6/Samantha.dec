@@ -14,7 +14,7 @@ ACTOR SGL_Ammo : Ammo
    Inventory.Icon "GLAUZ0"
 }
 
-ACTOR SuperGrenadeLauncher : PBWP_Weapon
+ACTOR SuperGrenadeLauncher : PB_WeaponBase
 {
 	Weapon.AmmoUse1 0
 	Weapon.AmmoGive1 6

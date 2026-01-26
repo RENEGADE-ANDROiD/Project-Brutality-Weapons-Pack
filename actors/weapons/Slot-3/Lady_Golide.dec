@@ -58,7 +58,7 @@ Actor HASGDrum : PB_UpgradeItem
 	}
 }
 
-ACTOR HASG : PBWP_Weapon
+ACTOR HASG : PB_WeaponBase
 {
 	Weapon.SelectionOrder 1300
 	Weapon.AmmoUse1 0

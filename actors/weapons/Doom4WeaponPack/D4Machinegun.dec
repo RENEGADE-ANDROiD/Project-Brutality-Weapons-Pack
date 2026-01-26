@@ -1,6 +1,6 @@
 Actor ChangeAltMode : Inventory {Inventory.MaxAmount 1}
 
-Actor D4Machinegun : PBWP_Weapon
+Actor D4Machinegun : PB_WeaponBase
 {
     Game Doom
 	SpawnID 1800

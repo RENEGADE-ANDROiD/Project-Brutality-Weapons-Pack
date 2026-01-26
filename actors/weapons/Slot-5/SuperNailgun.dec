@@ -23,7 +23,7 @@ ACTOR SNGAmmo : Ammo
    Inventory.Icon "NLMGF0"
 }
 
-Actor SuperNailgun : PBWP_Weapon {
+Actor SuperNailgun : PB_WeaponBase {
     Game Doom
     SpawnID 9440
     Weapon.BobRangeX 0.3

@@ -1,4 +1,4 @@
-Actor LegendaryBFG10K : PBWP_Weapon
+Actor LegendaryBFG10K : PB_WeaponBase
 {
 Height 20
 +WEAPON.BFG

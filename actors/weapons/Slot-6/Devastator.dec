@@ -1,4 +1,4 @@
-Actor Devastator : PBWP_Weapon
+Actor Devastator : PB_WeaponBase
 {
 	Game Doom
 	SpawnID 36

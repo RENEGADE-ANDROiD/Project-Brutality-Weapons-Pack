@@ -2,7 +2,7 @@ Actor SlashModeToken: Inventory { Inventory.MaxAmount 1 }
 
 Actor ActivateWeaponSpecial: Inventory { Inventory.MaxAmount 1 }
 
-Actor PB_BeamKatana : PBWP_Weapon
+Actor PB_BeamKatana : PB_WeaponBase
 {
    Game Doom
    SpawnID 17

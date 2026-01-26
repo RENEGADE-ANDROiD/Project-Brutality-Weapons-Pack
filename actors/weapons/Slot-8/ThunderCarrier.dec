@@ -9,7 +9,7 @@ Inventory.MaxAmount 1
 //
 // --------------------------------------------------------------------------
 
-ACTOR LightningGun : PBWP_Weapon
+ACTOR LightningGun : PB_WeaponBase
 {
 	Game Doom
     Weapon.BobRangeX 0.3

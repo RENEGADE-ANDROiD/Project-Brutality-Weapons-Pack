@@ -4,7 +4,7 @@
 //
 // --------------------------------------------------------------------------
 
-ACTOR Dark_Fate : PBWP_Weapon
+ACTOR Dark_Fate : PB_WeaponBase
 {
 	Weapon.AmmoUse1 0
 	Weapon.AmmoGive1 50

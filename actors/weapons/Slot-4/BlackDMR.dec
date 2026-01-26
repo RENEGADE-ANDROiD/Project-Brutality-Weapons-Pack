@@ -1,4 +1,4 @@
-ACTOR Black_DMR-RKX : PBWP_Weapon
+ACTOR Black_DMR-RKX : PB_WeaponBase
 {
 	Inventory.PickupSound "J2RCOCK"
 	Weapon.AmmoGive1 10

@@ -1,7 +1,7 @@
 ACTOR AssaultPlasResp : Inventory {Inventory.MaxAmount 1}
 Actor HeatBlastInterpol : Inventory { Inventory.MaxAmount 100 }
 Actor HeatBlastCharging : Inventory { Inventory.MaxAmount 2 }
-ACTOR PlasmaRifleAssault : PBWP_Weapon 23817
+ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 {
 	Weapon.AmmoType2 "Plasma-Mag"
 	Weapon.AmmoGive1 50

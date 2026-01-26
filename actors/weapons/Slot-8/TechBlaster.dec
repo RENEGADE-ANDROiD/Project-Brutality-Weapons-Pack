@@ -1,4 +1,4 @@
-Actor TechBlaster : PBWP_Weapon
+Actor TechBlaster : PB_WeaponBase
 {
    Height 12
    Weapon.SelectionOrder 7980

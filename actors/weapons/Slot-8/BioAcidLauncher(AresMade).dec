@@ -1,4 +1,4 @@
-ACTOR BioAcidLauncher : PBWP_Weapon //Caustic Ammo Used!
+ACTOR BioAcidLauncher : PB_WeaponBase //Caustic Ammo Used!
 {
 	Weapon.SelectionOrder 7385
     Weapon.AmmoType1 "PB_DTech"

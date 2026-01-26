@@ -47,7 +47,7 @@ Actor DemonTechShotgunSpawnerGiver : DemonTechShotgunGiver
 
 Actor DemonTechShotgunGiverCheck : Inventory { Inventory.Amount 1 Inventory.MaxAmount 1 Inventory.InterHubAmount 0 }
 
-Actor DTShotgun : PBWP_Weapon
+Actor DTShotgun : PB_WeaponBase
 {
   Scale 0.9
   Weapon.UpSound "DTShotgun/Pickup"

@@ -16,7 +16,7 @@ ACTOR BlasterPistolHeatLevel : PB_Ammo {
 	Inventory.Icon "TNT1A0"
 }
 
-ACTOR ProSurv_BlasterPistol : PBWP_Weapon 
+ACTOR ProSurv_BlasterPistol : PB_WeaponBase 
 {
 	Weapon.BobRangeX 0.3
 	Weapon.BobRangeY 0.5
