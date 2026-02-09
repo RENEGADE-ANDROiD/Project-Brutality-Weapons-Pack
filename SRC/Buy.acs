@@ -139,7 +139,7 @@ Script "BuyHellPistoler" (Void) {
 BuySomething(800, "HellPistoler", 1);
 }
 
-Script "BuyUZI" (Void) {
+Script "BuyPB_UZI" (Void) {
 BuySomething(500, "PB_UZI", 1);
 }
 
