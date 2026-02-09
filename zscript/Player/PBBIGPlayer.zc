@@ -99,7 +99,8 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		"P_SMG",
 		"HellPistol",
 		"HellPistoler",
-		"UZISMG";
+		"UZI",
+		"THMagnum";
 
 		Player.WeaponSlot 3,
 		"PB_Shotgun",

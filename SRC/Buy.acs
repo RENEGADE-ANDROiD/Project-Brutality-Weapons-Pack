@@ -139,8 +139,12 @@ Script "BuyHellPistoler" (Void) {
 BuySomething(800, "HellPistoler", 1);
 }
 
-Script "BuyUZISMG" (Void) {
-BuySomething(450, "UZISMG", 1);
+Script "BuyUZI" (Void) {
+BuySomething(500, "PB_UZI", 1);
+}
+
+Script "BuyTHMagnum" (Void) {
+BuySomething(800, "THMagnum", 1);
 }
 
 Script "BuyProsurv_LeverAction" (Void) {
@@ -239,8 +243,8 @@ Script "BuyDukeNukemRipper" (Void) {
 BuySomething(800, "DukeNukemRipper", 1);
 }
 
-Script "BuyOLDHMG" (Void) {
-BuySomething(500, "OLDHMG", 1);
+Script "BuyNeoHMG" (Void) {
+BuySomething(500, "PB_NeoHMG", 1);
 }
 
 Script "BuySuperNailgun" (Void) {
@@ -248,7 +252,7 @@ BuySomething(500, "SuperNailgun", 1);
 }
 
 Script "BuyAutoCannon" (Void) {
-BuySomething(650, "AutoCannon", 1);
+BuySomething(800, "AutoCannon", 1);
 }
 
 Script "BuySuperGrenadeLauncher" (Void) {

@@ -73,6 +73,7 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		"PB_Pistol",
 		"PB_Revolver",
 		"PB_Deagle",
+		"THMagnum",
 		"PB_SMG",
 		"PB_MP40",
 		// PBWP SLOT 2
@@ -84,7 +85,8 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		"P_SMG",
 		"HellPistol",
 		"HellPistoler",
-		"UZISMG";
+		"UZI",
+		"THMagnum";
 
 		Player.WeaponSlot 3,
 		"PB_Shotgun",

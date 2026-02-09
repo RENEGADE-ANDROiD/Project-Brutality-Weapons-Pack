@@ -84,7 +84,8 @@ class PB_PlayerPrawn : PlayerPawnBase
 		"P_SMG",
 		"HellPistol",
 		"HellPistoler",
-		"UZISMG";
+		"UZI",
+		"THMagnum";
 
 		Player.WeaponSlot 3,
 		"PB_Shotgun",
