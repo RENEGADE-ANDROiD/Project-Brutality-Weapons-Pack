@@ -596,7 +596,7 @@ OptionMenu "AmmunitionShopSystem"
 	StaticText " "
 	Command "Buy Sub-fusil - Holy Bastard (300 Points)",		"PukeName BuyW_SMG"
 	StaticText " "
-	Command "Buy UZI SMG (450 Points)",		"PukeName BuyUZISMG"
+	Command "Buy UZI (450 Points)",		"PukeName BuyPB_UZI"
 	StaticText " "
 	
 	StaticText "------------ SHOTGUNS ------------", gold
