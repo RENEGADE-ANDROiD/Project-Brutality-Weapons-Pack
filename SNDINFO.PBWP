@@ -336,7 +336,7 @@ Weapons/AMrifle/bolt MHC_BOLT
 Weapons/AMrifle/lock MHC_LOCK
 
 //UZI SOUNDS//
-UZIFIRE
+UZIFIRE UZIFIRE
 UZIRELO1 UZIRELO1
 UZIRELO2 UZIRELO2
 UZICLIP UZICLIP
@@ -347,7 +347,16 @@ RELO1 RELO1
 RELO2 RELO2
 
 //Thanatos Magnum Sounds//
+$random Weapons/thmagnum/fire {Weapons/thmagnumfire1 Weapons/thmagnumfire2 Weapons/thmagnumfire3}
+Weapons/thmagnumfire1 THMGF1
+Weapons/thmagnumfire2 THMGF2
+Weapons/thmagnumfire3 THMGF3
 
+Weapons/thmagnum/cocking THMGC
+
+Weapons/thmagnum/breakopen THMGR1
+
+Weapons/thmagnum/reload THMGR2
 
 //HexaLionShotgunSounds//
 HEXAFIR1 HEXAFIR1
