@@ -659,7 +659,7 @@ ACTOR DualUZI : PB_WeaponBase
 		UZI2 E 0 A_Takeinventory("Zoomed",1)
         UZI2 E 0 A_ZoomFactor(1.0)
 		UZI2 E 0 A_Takeinventory("Reloading",1)
-		TNT1 A 0
+		TNT1 A 0 A_JumpifInventory(UnloadedUZI,1,1)
 		TNT1 A 0 A_FireCustomMissile("EmptyClipMP40",-9,0,11,-4,-5)
 		UZI2 ABCD 1
 		TNT1 AA 1
@@ -677,6 +677,7 @@ ACTOR DualUZI : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("DualUziAmmo",31,"EndReloadSeq")
 	ContinueReloadLeft:
 		TNT1 A 0 A_PlaySound("UZIRELO1")
+		TNT1 A 0 A_JumpifInventory(UnloadedUZI,1,1)
 		TNT1 A 0 A_FireCustomMissile("EmptyClipMP40",-9,0,11,-4,-5)
 		UZ3R A 1
 		UZ2R ABCDEFGHIIII 1
@@ -722,7 +723,7 @@ ACTOR DualUZI : PB_WeaponBase
 		Goto InsertBullets2_Right
 		TNT1 A 0 {
 			A_Giveinventory("DualUziAmmo",1);
-			A_Takeinventory("PB_LowCalMag",3,TIF_NOTAKEINFINITE);
+			A_Takeinventory("PB_LowCalMag",1,TIF_NOTAKEINFINITE);
 		}
 		Goto InsertBullets2
 		
@@ -732,7 +733,7 @@ ACTOR DualUZI : PB_WeaponBase
 		Goto FinishInsertBullets
 		TNT1 A 0 {
 			A_Giveinventory("UziAmmo",1);
-			A_Takeinventory("PB_LowCalMag",3,TIF_NOTAKEINFINITE);
+			A_Takeinventory("PB_LowCalMag",1,TIF_NOTAKEINFINITE);
 		}
 		Goto InsertBullets2_Right
 		
@@ -747,7 +748,7 @@ ACTOR DualUZI : PB_WeaponBase
         UZI2 E 0 A_ZoomFactor(1.0)
 		UZI2 E 0 A_GiveInventory ("Pumping", 1)
 		UZI2 E 0 A_Takeinventory("Reloading",1)
-		UZI2 E 0 A_Giveinventory("HasUnloaded",1)
+		UZI2 E 0 A_GiveInventory("UnloadedUZI", 1)
 		UZI2 ABCD 1
 		UZ3R DCB 1
         UZIR ZYXWVTSSSRQ 1
@@ -770,7 +771,7 @@ ACTOR DualUZI : PB_WeaponBase
         TNT1 AAAAAA 0
 		UZI2 E 0 A_Takeinventory("UziAmmo",1)
 		UZI2 E 0 A_Takeinventory("DualUziAmmo",1)
-		UZI2 E 0 A_Giveinventory("PB_LowCalMag",1)
+		UZI2 E 0 A_Giveinventory("PB_LowCalMag",2)
 		Goto RemoveBullets
 		
 		TNT1 AAAAAAAAAA 0
@@ -804,15 +805,3 @@ ACTOR DualUziAmmo : PB_WeaponAmmo
    Ammo.BackpackMaxAmount 31
    Inventory.Icon "UZIIB0"
 }
-
-//#include "Weapons/Pistols/DualUZI.dec"
-// sry no more include
-/*ACTOR UZISpawner : RandomSpawner Replaces Pistol
-{
-Dropitem "PB_Pistol"
-Dropitem "PB_SMG"
-Dropitem "PB_Revolver"
-Dropitem "PB_Deagle"
-Dropitem "PB_MP40"
-Dropitem "UZI"
-}*/
