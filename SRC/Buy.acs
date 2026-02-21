@@ -179,8 +179,8 @@ Script "BuyDoom2016Shotgun" (Void) {
 BuySomething(500, "PB_Doom2016Shotgun", 1);
 }
 
-Script "BuyDemonTechShotgun" (Void) {
-BuySomething(800, "Demon Tech Shotgun", 1);
+Script "BuyDTShotgun" (Void) {
+BuySomething(800, "DTShotgun", 1);
 }
 
 Script "BuyM1887" (Void) {
@@ -223,8 +223,8 @@ Script "BuyDarkFate" (Void) {
 BuySomething(500, "Dark_Fate", 1);
 }
 
-Script "BuyHeavyAssaultRifle" (Void) {
-BuySomething(600, "Heavy_Assault_Rifle", 1);
+Script "BuyAssaultR1" (Void) {
+BuySomething(600, "AssaultR1", 1);
 }
 
 Script "BuyINMiniGun" (Void) {
