@@ -534,7 +534,7 @@ class DemonTechShotgunGiverSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
 	{
-	if (PBSpawnDemonTechShotgun)
+	if (PBSpawnDTShotgun)
 		{
 		handler.InjectSpawn('PB_SSGSpawnerT3', 'DemonTechShotgunGiver', 255, 1);
 		handler.InjectSpawn('PB_SSGSpawnerT4', 'DemonTechShotgunGiver', 255, 1);
