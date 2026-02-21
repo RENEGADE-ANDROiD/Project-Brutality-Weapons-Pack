@@ -163,10 +163,6 @@ Script "BuyHexaLionShotgun" (Void) {
 BuySomething(750, "HexaLionShotgun", 1);
 }
 
-Script "BuySSG" (Void) {
-BuySomething(500, "SSG", 1);
-}
-
 Script "BuyRotationalSG" (Void) {
 BuySomething(800, "RotationalSG", 1);
 }

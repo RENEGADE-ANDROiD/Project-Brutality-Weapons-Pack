@@ -384,7 +384,6 @@ OptionMenu "WeaponPackSpawnSettings"
 	Option "Spawn M1887 Winchester Lever-Action", "PBSpawnM1887", "OnOff"
 	Option "Spawn Marauder SSG", "PBSpawnMarauderSSG", "OnOff"
 	Option "Spawn Rotating Double Barrel", "PBSpawnRotatingDoubleBarrel", "OnOff"
-	Option "Spawn SSG", "PBSpawnSSG", "OnOff"
 
     StaticText ""
 	StaticText "---------------Slot 4 weapons---------------", gold
@@ -619,8 +618,6 @@ OptionMenu "AmmunitionShopSystem"
 	Command "Buy Rotating Double Barrel (700 Points)",		"PukeName BuyRotatingDoubleBarrel"
 	StaticText " "
 	Command "Buy Rotational SG (800 Points)",		"PukeName BuyRotationalSG"
-	StaticText " "
-	Command "Buy SSG (500 Points)",		"PukeName BuySSG"
 	StaticText " "
 	
 	StaticText "------------ RIFLES ------------", gold
