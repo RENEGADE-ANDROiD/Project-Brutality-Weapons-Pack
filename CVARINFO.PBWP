@@ -93,12 +93,14 @@ server bool PBSpawnPB_CSSG = True;
 server bool PBSpawnRotationalSG = True;
 server bool PBSpawnHASG = True;
 server bool PBSpawnHexaLionShotgun = True;
-server bool PBSpawnDemonTechShotgun = True;
+server bool PBSpawnDTShotgun = True;
 server bool PBSpawnM1887 = True;
 server bool PBSpawnMarauderSSG = True;
 server bool PBSpawnRotatingDoubleBarrel = True;
+server bool PBSpawnSSG = True;
 //Slot 4
 server bool PBSpawnProsurv_Ballista = true;
+server bool PBSpawnAssaultR1 = true;
 server bool PBSpawnAK47 = True;
 server bool PBSpawnPB_BoltRifle = True;
 server bool PBSpawnDark_Fate = True;
