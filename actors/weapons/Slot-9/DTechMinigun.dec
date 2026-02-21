@@ -1,7 +1,7 @@
 Actor DemonTechMinigunType : Inventory { Inventory.MaxAmount 1 }
 
 
-ACTOR DemonTechMinigun : PBWP_Weapon
+ACTOR DemonTechMinigun : PB_WeaponBase
 {
    Tag "Demon-Tech Minigun"
    Weapon.SelectionOrder 10

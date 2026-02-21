@@ -7,7 +7,7 @@ Inventory.MaxAmount 5
 // Doom God Complex Enraged Legendary BFG by Ultra Violence (Author Doom God Complex.)
 //
 //--------------------------------------------------------
-Actor GodEnragedBFG : PBWP_Weapon
+Actor GodEnragedBFG : PB_WeaponBase
 {
 game doom
 TAG "God Enraged Legendary BFG"

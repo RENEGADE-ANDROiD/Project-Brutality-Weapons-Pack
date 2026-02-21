@@ -16,6 +16,8 @@ version "4.14.2"
 // #include "zscript/PBWP_Core/Experiment.zs"
 
 // PBWP_Systems
+// FractalDoom_Monsters (custom 10% chance)
+//#include "zscript/PBWP_Systems/FractalDoom_Monsters/FractalMonsters.zs"
 // KillStreak// 
 #include "zscript/PBWP_Systems/Killstreak/KSHandler.zc"
 #include "zscript/PBWP_Systems/Killstreak/KillStreak.zc"
@@ -73,6 +75,7 @@ version "4.14.2"
 // Custom Player Class
 // #include "zscript/Player/INP]layer.zc"
 #include "ZScript/Player/PBMeleePlayer.zc"
+#include "ZScript/Player/PBBIGPlayer.zc"
 #include "ZScript/Player/miniPlayer.zc"
 
 // PBWP_Misc
@@ -87,12 +90,14 @@ version "4.14.2"
 #include "zscript/Insanity's Nightmare/ChainsawSpawn.zc"
 #include "zscript/Weapons/Slot-3/CSSG/CSSGEvent.zs"
 // Weapon Wheel Stuff
+#include "zscript/PBWP_Misc/Individual_WeaponWheels/PBWP_SpecialWheeltest.zs"
 #include "zscript/Weapons/Slot-3/CSSG/CSSG_Wheel.zs"
 #include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExt_Wheel.zs"
 #include "zscript/Insanity's Nightmare/IN_SpecialWheeltest.zs"
 #include "Zscript/PBWP_Misc/Individual_WeaponWheels/D2016Shotgun_Wheel.zs" 
 #include "Zscript/PBWP_Misc/Individual_WeaponWheels/ASG_Wheel.zs"
 // Casings
+#include "zscript/Weapons/PBWP_BulletSystem.zc"
 #include "zscript/Weapons/Slot-3/CSSG/Casings.zs"
 #include "zscript/Insanity's Nightmare/HASGCasings.zc"
 #include "zscript/Insanity's Nightmare/IN_BulletSystem.zc"
@@ -117,6 +122,7 @@ version "4.14.2"
 #include "zscript/Weapons/Slot-3/CSSG/CSSG_Upgrades.zs"
 	// CSSG Stuff End
 #include "ZScript/Weapons/Slot-4/HeavySniperRifle.zs"
+#include "ZScript/Weapons/Slot-4/M41A.zs"
 #include "ZScript/Weapons/Slot-5/NeoHMG.zs"
 #include "ZScript/Weapons/Slot-6/Excavator.zs"
 #include "zscript/Weapons/Slot-8/LoRCalamityBlade.zs"

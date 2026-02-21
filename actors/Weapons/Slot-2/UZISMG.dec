@@ -6,7 +6,7 @@ Actor UZISMGFired : Inventory {Inventory.MaxAmount 200}
 
 Actor UZISMGNoAutoReload : Inventory {Inventory.MaxAmount 1}
 
-Actor UZISMG : PBWP_Weapon
+Actor UZISMG : PB_WeaponBase
 {
     Game Doom
 	SpawnID 59

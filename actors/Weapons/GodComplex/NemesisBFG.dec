@@ -1,4 +1,4 @@
-Actor NemesisBFG : PBWP_Weapon
+Actor NemesisBFG : PB_WeaponBase
 {
 Scale 0.85
 +FORCEXYBILLBOARD

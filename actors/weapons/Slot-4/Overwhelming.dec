@@ -23,7 +23,7 @@ Actor DispenserOut : Inventory { Inventory.MaxAmount 1 }
 Actor DispenserDetonate : Inventory { Inventory.MaxAmount 1 }
 Actor DispenserCharge : Inventory { Inventory.MaxAmount 999 }
 
-Actor PowerOverwhelming : PBWP_Weapon
+Actor PowerOverwhelming : PB_WeaponBase
 {
     Game Doom
 	//$Category Weapons

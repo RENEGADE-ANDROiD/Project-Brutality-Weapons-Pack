@@ -5,7 +5,7 @@ Load order: Mapwad > Project Brutality Staging > PB Weapons Pack (last if you us
 YOU WILL NEED:
 Project Brutality Staging - https://github.com/pa1nki113r/Project_Brutality/tree/PB_Staging 
 
-IF YOU ARE USING GLORYKILL THEN DOWNLOAD THIS PATCH:
+IF YOU ARE USING GLORYKILL THEN DOWNLOAD THIS PATCH (load this after PBWP):
 https://drive.google.com/file/d/1DuZqrnH180qGrA_64HNT7TKsK2dmezW3/view?usp=drive_link
 
 -----------------

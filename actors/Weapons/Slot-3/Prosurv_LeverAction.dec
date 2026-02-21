@@ -33,7 +33,7 @@ Actor JustFiredLeverAction: Inventory
 Inventory.maxamount 200
 }
 
-ACTOR Prosurv_LeverAction : PBWP_Weapon
+ACTOR Prosurv_LeverAction : PB_WeaponBase
 {
 	Weapon.BobRangeX 0.3
 	Weapon.BobRangeY 0.5

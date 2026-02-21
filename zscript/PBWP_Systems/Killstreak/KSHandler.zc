@@ -113,41 +113,46 @@ class KillTracker : EventHandler
         switch (count)
         {
             case 5:
-                plr.GiveInventory("SpecialGrenadeBox",1);
+                plr.GiveInventory("KSFreeze", 1);
+                plr.GiveInventory("PB_Score", 15);
                 plr.GiveInventory("KillStreakPowerUp", 1);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","MultiKill",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received: Special Grenade Box and a KillStreak PowerUp!  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received: 15 Combat Points and a KillStreak PowerUp!  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 10:
+                plr.GiveInventory("KSFreeze", 1);
+                plr.GiveInventory("PB_Score", 25);
                 plr.GiveInventory("KillStreakPowerUp",1);
-                plr.GiveInventory("PB_Cell", 10);
-                plr.GiveInventory("PB_Fuel", 10);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Unstoppable",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received: 10 Cell Packs, Fuel and a KillStreak PowerUp!  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received: 25 Combat Points and a KillStreak PowerUp!  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 15:
-                plr.GiveInventory("KillStreakPowerUp",1);
-                plr.GiveInventory("ExplosivesCrate", 1);
+                plr.GiveInventory("KSFreeze", 1);
+                plr.GiveInventory("PB_Score", 50);
+                plr.GiveInventory("KillStreakPowerUp", 1);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Ownage",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received: Explosives Crate and a KillStreak PowerUp!  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received: 50 Combat Points and a KillStreak PowerUp!  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 20:
-                plr.GiveInventory("PB_Backpack",1);
+                plr.GiveInventory("KSFreeze", 1);
+                plr.GiveInventory("PB_Score",100);
                 plr.GiveInventory("KillStreakPowerUp",1);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Excellent",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received: Backpack and a KillStreak PowerUp!  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received: 100 Combat Points and a KillStreak PowerUp!  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 25:
-                plr.GiveInventory("PB_Berserk",1);
+                plr.GiveInventory("KSFreeze", 1);
+                plr.GiveInventory("PB_Score", 150);
                 plr.GiveInventory("KillStreakPowerUp", 1);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Wicked Sick",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received: Berserk and a KillStreak PowerUp!  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received: 150 Combat Points and a KillStreak PowerUp!  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);
                 break;
             case 30:
-                plr.GiveInventory("PB_NoEffectInvul",1);
+                plr.GiveInventory("KSFreeze", 1);
+                plr.GiveInventory("PB_Score", 250);
                 plr.GiveInventory("KillStreakPowerUp",1);
                 PandHUDMessageHandler.WaggleMsg(plr.PlayerNumber(),"BIGFONT2","Godlike",(240,120),(480,360),time:(0.2,3,0.5),.5, 2,id:11);
-                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received: Invulnerability and a KillStreak PowerUp!  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);					
+                PandHUDMessageHandler.PlainMsg(plr.PlayerNumber(),"CONFONT","-  Received: 250 Combat Points and a KillStreak PowerUp!  -",(240,140),(480,360),0,color:Font.CR_GOLD,time:(0.2,3,0.5),id:12);					
                 break;
             default:
                 break;

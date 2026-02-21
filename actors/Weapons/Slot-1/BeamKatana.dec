@@ -2,7 +2,7 @@ Actor SlashModeToken: Inventory { Inventory.MaxAmount 1 }
 
 Actor ActivateWeaponSpecial: Inventory { Inventory.MaxAmount 1 }
 
-Actor PB_BeamKatana : PBWP_Weapon
+Actor PB_BeamKatana : PB_WeaponBase
 {
    Game Doom
    SpawnID 17
@@ -458,7 +458,7 @@ Actor SwordPlasmaSlash : Plasma_Ball
 -Solid
 Scale 0.4
 Speed 25
-Damage 2
+Damage 75
 RenderStyle Add
 Decal "SawVertical"
 States

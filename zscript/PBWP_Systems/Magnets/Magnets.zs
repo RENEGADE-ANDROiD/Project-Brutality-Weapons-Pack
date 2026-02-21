@@ -249,7 +249,6 @@ Class PBWP_ItemMagnetUpgrade : Inventory
 			{
 				magnet.PickupRange = UpgradedRange;
 				magnet.PullSpeed = UpgradedSpeed;
-				if (ds_debugmessages && magnet) console.Printf("Pickup Range: %f - Speed: %f", magnet.PickupRange, magnet.PullSpeed);
 			}
 		}
 		return ret;

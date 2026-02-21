@@ -1,6 +1,6 @@
 Actor ChangeAltMode : Inventory {Inventory.MaxAmount 1}
 
-Actor D4Machinegun : PBWP_Weapon
+Actor D4Machinegun : PB_WeaponBase
 {
     Game Doom
 	SpawnID 1800
@@ -8,7 +8,7 @@ Actor D4Machinegun : PBWP_Weapon
     Weapon.BobRangeY 0.5
     Weapon.BobStyle InverseSmooth
     Weapon.BobSpeed 2.0
-	Weapon.AmmoUse1 1
+	Weapon.AmmoUse1 0
 	Weapon.AmmoGive1 25
 	Weapon.AmmoUse2 0
 	Weapon.AmmoGive2 0
@@ -46,10 +46,6 @@ Actor D4Machinegun : PBWP_Weapon
 		M2GL ABC 1 {
 		     A_DoPBWeaponAction(WRF_NOFIRE);
 			 }
-		TNT1 A 0 A_JumpIfInventory("D4AltMode",1,"Ready4")
-		TNT1 A 0 A_JumpIfInventory("MachinegunUpgrade",1,"Ready3")
-		TNT1 A 0 A_JumpIfInventory("IsUpgradingWeapons",1,"UpgradeWeapons")
-        TNT1 A 0 A_JumpIfInventory("Reloading",1,"ChangeAltMode")
 	Ready3:
 	    TNT1 A 0 {
 			 PB_HandleCrosshair(75);
@@ -57,13 +53,11 @@ Actor D4Machinegun : PBWP_Weapon
 			 A_SetRoll(0);
 			 A_TakeInventory("PB_LockScreenTilt",1);
 			 }
-	    TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("D4AltMode",1,"Ready4")
 	Doom4MachinegunReadyToFire:
 		TNT1 A 0 A_JumpIfInventory("IsUpgradingWeapons",1,"UpgradeWeapons")
         TNT1 A 0 A_JumpIfInventory("Reloading",1,"ChangeAltMode")
-		M2GG A 1 {
-			 Return A_DoPBWeaponAction;
-		     }
+		M2GG A 1 A_DoPBWeaponAction
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
 		Loop
 
@@ -78,9 +72,7 @@ Actor D4Machinegun : PBWP_Weapon
 	Doom4MachinegunScopeReadyToFire:
 		TNT1 A 0 A_JumpIfInventory("IsUpgradingWeapons",1,"UpgradeWeapons")
         TNT1 A 0 A_JumpIfInventory("Reloading",1,"ChangeAltMode")
-		MAGS A 1 {
-			 Return A_DoPBWeaponAction;
-		     }
+		MAGS A 1 A_DoPBWeaponAction
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
 		Loop
 
@@ -95,9 +87,7 @@ Actor D4Machinegun : PBWP_Weapon
 	Doom4MachinegunUpgradeReadyToFire:
 		TNT1 A 0 A_JumpIfInventory("IsUpgradingWeapons",1,"UpgradeWeapons")
         TNT1 A 0 A_JumpIfInventory("Reloading",1,"ChangeAltMode")
-		M3GG A 1 {
-			 Return A_DoPBWeaponAction;
-		     }
+		M3GG A 1 A_DoPBWeaponAction
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
 		Loop
 
@@ -202,6 +192,7 @@ Actor D4Machinegun : PBWP_Weapon
 		     A_FireCustomMissile("ShotgunParticles2", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
 		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 3, 0, 0, 0);
 			 A_GunFlash;
+          A_TakeInventory("PB_HighCalMag",1);
              PB_WeaponRecoil(-0.36,-0.02);
 			 }
 		MAGF B 1
@@ -217,12 +208,12 @@ Actor D4Machinegun : PBWP_Weapon
 			 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
 			 A_FireCustomMissile("PB_762x51mm", Random(-2,2),0,12,-6,0,Random(-1,1));
 		     A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14);
-		     A_FireBullets (2.0, 2.0, 1, 10, "MachinegunBulletPuff");
 			 A_AlertMonsters;
 			 A_FireCustomMissile("ShotgunParticles", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
 		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 3, 0, 0, 0);
 			 A_GunFlash;
+          A_TakeInventory("PB_HighCalMag",1);
              PB_WeaponRecoil(-0.36,-0.02);
 			 }
 		TNT1 A 0 A_PlaySound("HARFIR", 1)
@@ -240,12 +231,12 @@ Actor D4Machinegun : PBWP_Weapon
 			 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
 			 A_FireCustomMissile("PB_762x51mm", Random(-2,2),0,12,-6,0, Random(-1,1));
 		     A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14);
-		     A_FireBullets (2.0, 2.0, 1, 10, "MachinegunBulletPuff");
 			 A_AlertMonsters;
 			 A_FireCustomMissile("ShotgunParticles", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
 		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 3, 0, 0, 0);
 			 A_GunFlash;
+          A_TakeInventory("PB_HighCalMag",1);
              PB_WeaponRecoil(-0.36,-0.02);
 			 }
 		TNT1 A 0 A_PlaySound("HARFIR", 1)
@@ -263,12 +254,12 @@ Actor D4Machinegun : PBWP_Weapon
 			 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
 			 A_FireCustomMissile("PB_762x51mm", 0,0,0,-6,0,0);
 		     A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14);
-		     A_FireBullets (0.0, 0.0, 1, 10, "MachinegunBulletPuff");
 			 A_AlertMonsters;
 			 A_FireCustomMissile("ShotgunParticles", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
 		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 0, 1, 0, 0);
 			 A_GunFlash;
+          A_TakeInventory("PB_HighCalMag",1);
              PB_WeaponRecoil(-0.36,-0.02);
 			 }
 		TNT1 A 0 A_PlaySound("HARFIR", 1)
@@ -432,14 +423,6 @@ Actor D4Machinegun : PBWP_Weapon
 		TNT1 A 0 A_PlaySound("MICROEND", 4)
 		M3GA EEDCBA 1
 		Goto Ready4	
-    
-	Reload:	
-		TNT1 A 0 PB_CheckBarrelIdle1()
-	    TNT1 A 0 {
-		     A_Takeinventory("PB_LockScreenTilt",1);
-		     }
-		TNT1 A 0
-	    Goto Ready3
 
 	NoUpgrades:
 		TNT1 A 0
@@ -492,6 +475,7 @@ Actor D4Machinegun : PBWP_Weapon
 	   "####" "#" 0 A_PbvpInterpolate()
 		Loop
 
+	Reload:
 	WeaponSpecial:
 	    TNT1 A 0 PB_CheckBarrelIdle1()
 	    TNT1 A 0 {

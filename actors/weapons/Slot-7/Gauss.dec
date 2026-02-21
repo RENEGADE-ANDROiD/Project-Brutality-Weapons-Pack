@@ -122,7 +122,7 @@ Actor DoomerGaussSiegeShot : DoomerGaussShot {
    }
 }
 
-Actor PB_GaussCannon : PBWP_Weapon
+Actor PB_GaussCannon : PB_WeaponBase
 {
        Game Doom
 	   Weapon.BobRangeX 0.3

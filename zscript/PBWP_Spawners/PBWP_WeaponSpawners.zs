@@ -381,17 +381,17 @@ class P_SMGSpawnerInjector : PBInjector
 	}
 }
 
-//UZI SMG//
-class UZISMGSpawnerInjector : PBInjector
+//UZI//
+class UZISpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
 	{
-	if (PBSpawnUZISMG)
+	if (PBSpawnUZI)
 		{
-		handler.InjectSpawn('PB_PistolSpawnerT1', 'UZISMG', 255, 1);
-		handler.InjectSpawn('PB_PistolSpawnerT2', 'UZISMG', 255, 1);
-		handler.InjectSpawn('PB_PistolSpawnerT3', 'UZISMG', 255, 1);
-		handler.InjectSpawn('PB_PistolSpawnerT4', 'UZISMG', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT1', 'PB_UZI', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT2', 'PB_UZI', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT3', 'PB_UZI', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT4', 'PB_UZI', 255, 1);
 		}
 	}
 }
@@ -407,6 +407,21 @@ class PB_44PDWSpawnerInjector : PBInjector
 		handler.InjectSpawn('PB_PistolSpawnerT2', '44PDW', 255, 1);
 		handler.InjectSpawn('PB_PistolSpawnerT3', '44PDW', 255, 1);
 		handler.InjectSpawn('PB_PistolSpawnerT4', '44PDW', 255, 1);
+		}
+	}
+}
+
+//Thanatos Magnum//
+class THMagnumSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBSpawnTHMagnum)
+		{
+		//handler.InjectSpawn('PB_PistolSpawnerT1', 'THMagnum', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT2', 'THMagnum', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT3', 'THMagnum', 255, 1);
+		handler.InjectSpawn('PB_PistolSpawnerT4', 'THMagnum', 255, 1);
 		}
 	}
 }
@@ -519,7 +534,7 @@ class DemonTechShotgunGiverSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
 	{
-	if (PBSpawnDemonTechShotgun)
+	if (PBSpawnDTShotgun)
 		{
 		handler.InjectSpawn('PB_SSGSpawnerT3', 'DemonTechShotgunGiver', 255, 1);
 		handler.InjectSpawn('PB_SSGSpawnerT4', 'DemonTechShotgunGiver', 255, 1);
@@ -805,12 +820,12 @@ class MachineGunUpgradeSpawnerInjector : PBInjector //Upgrade Injector
 	override void Init(PB_EventHandler handler)
 	{
 		//this adds the machine gun upgrade to the invulnerability sphere spawner
-        handler.InjectSpawn('PB_InvulSpawnerT1', 'MachinegunUpgrade', 255, 3);
+        handler.InjectSpawn('PB_InvulSpawnerT1', 'UpgradeBot', 255, 3);
         //this adds the machine gun upgrade to the pack spawner
-        handler.InjectSpawn('PB_PackSpawnerT1', 'MachinegunUpgrade', 255, 2);
-        handler.InjectSpawn('PB_PackSpawnerT2', 'MachinegunUpgrade', 255, 1);
-        handler.InjectSpawn('PB_UpgradeSpawnerT3', 'MachinegunUpgrade', 255, 1);
-        handler.InjectSpawn('PB_UpgradeSpawnerT4', 'MachinegunUpgrade', 255, 1);
+        handler.InjectSpawn('PB_PackSpawnerT1', 'UpgradeBot', 255, 2);
+        handler.InjectSpawn('PB_PackSpawnerT2', 'UpgradeBot', 255, 1);
+        handler.InjectSpawn('PB_UpgradeSpawnerT3', 'UpgradeBot', 255, 1);
+        handler.InjectSpawn('PB_UpgradeSpawnerT4', 'UpgradeBot', 255, 1);
 	}
 }
 

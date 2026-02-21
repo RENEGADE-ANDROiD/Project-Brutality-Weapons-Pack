@@ -4,7 +4,7 @@
 //
 // --------------------------------------------------------------------------
 
-ACTOR P_SMG : PBWP_Weapon
+ACTOR P_SMG : PB_WeaponBase
 {
 	Weapon.AmmoUse1 0
 	Weapon.AmmoUse2 0

@@ -12,7 +12,7 @@ inventory.maxamount 1
 }
 
 
-Actor PB_ArgentSith : PBWP_Weapon
+Actor PB_ArgentSith : PB_WeaponBase
 {
    Game Doom
    SpawnID 17
@@ -521,7 +521,7 @@ Actor SwordArgentSlash : Hellbullet
   -Solid
   Scale 0.4
   Speed 25
-  Damage 2
+  Damage 75
   RenderStyle Add
   Decal "SawVertical"
   States

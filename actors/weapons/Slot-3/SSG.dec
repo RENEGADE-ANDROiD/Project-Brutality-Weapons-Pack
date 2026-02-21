@@ -13,7 +13,7 @@ ACTOR SSGAmmo : Ammo
 // Super Shotgun
 //
 // --------------------------------------------------------------------------
-ACTOR SSG : PBWP_Weapon 20196
+ACTOR SSG : PB_WeaponBase 20196
 {
     Weapon.Kickback 50
 	Weapon.SelectionOrder 400

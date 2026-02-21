@@ -1,5 +1,49 @@
 #INCLUDE Brightmaps.bm
 
+//Sublimination Sword
+//SubliminationSword
+FlickerLight SBS
+{
+Color 0.7 0.4 0.0
+Size 30
+SecondarySize 40
+Chance 0.2
+Offset 0 24 0
+}
+
+FLICKERLIGHT BigWhiteLight
+{
+Color 1.0 1.0 1.0
+size 180
+SecondarySize 200
+Chance 0.2
+}
+
+pulselight RedDarkMatterLight 
+{
+color 0.8 0.0 0.0
+size 70
+secondarySize 90
+interval 0.7
+Subtractive 90
+}
+
+Object PB_SBSword
+{
+Frame WVBL { Light SBS }
+}
+
+Object MainyuSwordProjectile
+{
+Frame TNT1 { Light BigWhiteLight }
+}
+
+Object MainyuRedDarkMatter
+{
+Frame DMGB { Light RedDarkMatterLight }
+Frame TNT1 { Light RedDarkMatterLight }
+}
+
 //Earth boss
 pointlight EBOSSNECKDEATH
 {
@@ -187,7 +231,7 @@ object PB_ArmorBonusYellow
     { light YELLOWITEM }
 }
 
-object PB_ArmorBonusWhite
+object ArmorWhite
 {
     frame BON2 
     { light WHITEITEM }
@@ -205,13 +249,13 @@ object PB_ArmorBonusCyan
     { light CYANITEM }
 }
 
-object PB_ArmorBonusOrange
+object ArmorOrange
 {
     frame BON2 
     { light ORANGEITEM }
 }
 
-object PB_ArmorBonusPink
+object ArmorDemon
 {
     frame BON2 
     { light PINKITEM }
@@ -251,24 +295,6 @@ object PB_HealthBonusCyan
 {
     frame BON1 
     { light CYANITEM }
-}
-
-object PB_HealthBonusOrange
-{
-    frame BON1 
-    { light ORANGEITEM }
-}
-
-object PB_HealthBonusWhite
-{
-    frame BON1 
-    { light WHITEITEM }
-}
-
-object PB_HealthBonusPink
-{
-    frame BON1 
-    { light PINKITEM }
 }
 
 //HelmetDrops//

@@ -1,3 +1,6 @@
+//FractalDoom Monsters (custom 10% chance)
+//server int ufd_max_iterations = 1;
+
 //PB Arcade 500HP//
 server int PBAT_PickupMode = 0;
 
@@ -49,7 +52,7 @@ user bool rw_switchEnabled = false;
 user bool rw_lockWeap = false;
 user bool rw_instSwitch = false;
 
-user int rw_DelayMin = 15;
+user int rw_DelayMin = 0;
 user int rw_DelayMax = 60;
 
 //Doorbuster//
@@ -60,7 +63,6 @@ server int busterAmmoChance = 1;
 
 //
 server int bossbarpos = 1;
-server bool ds_debugmessages = false;
 //
 User Noarchive Int d16_crosshair = 0;
 
@@ -78,7 +80,8 @@ server bool PBSpawnIN_Beretta = True;
 server bool PBSpawnB92S = True;
 server bool PBSpawnDoomBlaster = True;
 server bool PBSpawnSilverhandsDeagle = True;
-server bool PBSpawnUZISMG = True;
+server bool PBSpawnUZI = True;
+server bool PBSpawnTHMagnum = True;
 server bool PBSpawnHellPistol = True;
 server bool PBSpawnHellPistoler = True;
 server bool PBSpawnW_SMG = True;
@@ -90,12 +93,14 @@ server bool PBSpawnPB_CSSG = True;
 server bool PBSpawnRotationalSG = True;
 server bool PBSpawnHASG = True;
 server bool PBSpawnHexaLionShotgun = True;
-server bool PBSpawnDemonTechShotgun = True;
+server bool PBSpawnDTShotgun = True;
 server bool PBSpawnM1887 = True;
 server bool PBSpawnMarauderSSG = True;
 server bool PBSpawnRotatingDoubleBarrel = True;
+server bool PBSpawnSSG = True;
 //Slot 4
 server bool PBSpawnProsurv_Ballista = true;
+server bool PBSpawnAssaultR1 = true;
 server bool PBSpawnAK47 = True;
 server bool PBSpawnPB_BoltRifle = True;
 server bool PBSpawnDark_Fate = True;
@@ -192,7 +197,7 @@ server bool enableGiveCryoASG = true;
 server int Slot1Mask = 0;
 
 // Monsters
-server bool EyeTurretSpawn = true;
+//server bool EyeTurretSpawn = true;
 server bool CyberdemonBossSpawn = true;
 server bool EBossCellSpawn = true;
 server bool DeepOneSpawn = true;
