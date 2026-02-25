@@ -31,22 +31,7 @@ class Unmaker64SpawnerInjector : PBInjector
 }
 */
 
-// TEMPORARY FIX
-class PB_PackSpawnerT1 : PB_AmmoSpawner
-{
-	Default
-	{
-		Dropitem "UpgradeSpawner", 255, 1;
-	}
-}
-
-class PB_PackSpawnerT2 : PB_AmmoSpawner
-{
-	Default
-	{
-		Dropitem "UpgradeSpawner", 255, 1;
-	}
-}
+// PB_PackSpawnerT1 and PB_PackSpawnerT2 are now defined in PB Staging itself
 
 //GOD COMPLEX =====================================================================================
 class DevastadorSpawnerInjector : PBInjector

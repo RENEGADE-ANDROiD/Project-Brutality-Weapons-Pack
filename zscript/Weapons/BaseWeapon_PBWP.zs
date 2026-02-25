@@ -5,6 +5,8 @@
 // Credits to Jaih1r0 again for this functions from the HeavySniper, CSSG, and DemonExt mod
 extend class PB_WeaponBase
 {
+	string UnloaderToken;
+	property UnloaderToken : UnloaderToken;
 
     action bool PressingUser2(){return player.cmd.buttons & BT_USER2;}
 
@@ -149,6 +151,11 @@ extend class PB_WeaponBase
             }
         return victim;
     }
+
+	action state PB_ExecuteGK()
+	{
+		return PB_Execute();
+	}
 
 	action state FiretoExecute()
 	{
