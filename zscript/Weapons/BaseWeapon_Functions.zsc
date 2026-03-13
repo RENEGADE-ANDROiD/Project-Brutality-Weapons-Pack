@@ -2844,6 +2844,14 @@ action int getReadyFlags(int weapflags, bool noReload)
  return null;
  }
  
+	//Nailgun altfire, move when it gets zscripted
+	action void PB_NailgunAltFire() {
+		bool overheated = PB_GetOverheat() >= 450;
+		for(int i = -10; i <= 10; i++) {
+			A_FireProjectile(overheated ? "PB_MGNailHot" : "PB_MGNail",i);
+		}
+	}
+
  //Rails / Beams things
  //all this is done this way cause ideally, every weapon should have its own specific functions, though a generic version of this could be made for addons use or simple "laser" like things
  
@@ -3408,5 +3416,4 @@ action int getReadyFlags(int weapflags, bool noReload)
 }
 
 class LaserSightActivated : Inventory { Default { +INVENTORY.UNDROPPABLE; Inventory.MaxAmount 1; } }
-class HasLeech : Inventory { Default { +INVENTORY.UNDROPPABLE; Inventory.MaxAmount 1; } }
-class ThrownStunGrenade : Actor { Default { } States { Spawn: TNT1 A 1; Stop; } }
+class HasLeech : Inventory { Default { Inventory.MaxAmount 1; } }

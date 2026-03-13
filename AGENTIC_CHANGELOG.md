@@ -1,3 +1,52 @@
+# AGENTIC_CHANGELOG.md
+
+Agent-applied compatibility notes for this local PBWP workspace.
+
+This file supplements `CHANGELOG.md` with focused notes about recent maintenance work driven by PB Staging drift.
+
+## 2026-03-13 - PB_NailgunAltFire sync fix
+
+Summary:
+PB Staging added a new `PB_NailgunAltFire()` function to `BaseWeapon_Functions.zsc`. Because PBWP overrides that file at the same lump path, the engine was loading PBWP's forked copy instead of PB Staging's — causing the new function to be missing. This produced a fatal DECORATE parse error: `Invalid parameter 'PB_NailgunAltFire'` in `actors/weapons/slot5/nailgun.dec` line 688.
+
+Root cause:
+PBWP's `zscript/Weapons/BaseWeapon_Functions.zsc` collides with PB Staging's identically-pathed file. In GZDoom/UZDoom, `#include` resolves to the last-loaded pk3's version of a file when paths match. Since PBWP loads after PB Staging, PB Staging's `#include "zscript/Weapons/BaseWeapon_Functions.zsc"` resolves to PBWP's forked copy, which lacked the newly-added function.
+
+Fix applied:
+- Added `PB_NailgunAltFire()` to PBWP's `zscript/Weapons/BaseWeapon_Functions.zsc`, matching PB Staging's implementation exactly.
+
+Known file-path collisions (override by design):
+PBWP intentionally overrides three PB Staging files via lump-path collision. When PB Staging updates any of these, the changes must be manually synced into PBWP's copies:
+- `zscript/Weapons/BaseWeapon_Functions.zsc` (PBWP patches: `PB_Execute` return type, typed class params, stubs)
+- `zscript/Weapons/BaseWeapon_Melee.zsc` (PBWP patches: leg overlay migration, melee system extensions)
+- `zscript/Weapons/BaseWeapon_Equipment.zsc` (PBWP patches: equipment animation extensions)
+
+---
+
+## 2026-03-13 - PB Staging drift follow-up
+
+Summary:
+PB Staging was updated again after the original compatibility pass. A targeted drift audit found that most prior shims were still required, but two local compatibility placeholders had become stale against newer upstream definitions.
+
+Changes applied:
+- Removed the local `HasLeech` stub from `zscript/Weapons/BaseWeapon_Functions.zsc`. PB Staging now defines `HasLeech` in `PB_Staging/actors/Weapons/Throwables.dec`, so keeping the stub risked a duplicate-definition load/compile failure.
+- Removed the local `ThrownStunGrenade` stub from `zscript/Weapons/BaseWeapon_Functions.zsc`. PBWP no longer needs the placeholder after aligning with the current upstream class name.
+- Updated the stun grenade throw action in `zscript/Weapons/BaseWeapon_EquipmentAnims.zs` to fire `PB_ThrownStunGrenade` instead of `ThrownStunGrenade`, matching current PB Staging behavior.
+
+Compatibility shims intentionally kept:
+- `LaserSightActivated` stub in `zscript/Weapons/BaseWeapon_Functions.zsc`
+- `PB_VisualRailBlue` and `PB_VisualRailRed` stubs in `zscript/Weapons/BaseWeapon_Functions.zsc`
+- `action state PB_Execute()` compatibility change in `zscript/Weapons/BaseWeapon_Functions.zsc`
+- `UnloaderToken` property re-declaration in `zscript/Weapons/BaseWeapon_PBWP.zs`
+- `PB_ExecuteGK()` stub in `zscript/Weapons/BaseWeapon_PBWP.zs`
+
+Verification completed:
+- Confirmed no remaining local `class HasLeech` definition in PBWP-owned files.
+- Confirmed no remaining PBWP-owned references to legacy `ThrownStunGrenade`.
+- Confirmed the updated throw state now uses `PB_ThrownStunGrenade`.
+
+Verification still recommended outside source review:
+- Launch UZDoom with load order `Map WAD -> PB Staging -> PBWP` and perform a compile/load smoke test to catch any additional runtime or parser-level drift introduced by the newest PB Staging update.
 # CHANGELOG — Local Modifications vs Upstream
 
 All changes documented below are relative to the upstream source:

@@ -12,6 +12,8 @@ This is a weapons add-on package for **Project Brutality** (PB), a gameplay mod 
 
 **Load order:** Map WAD → Project Brutality Staging → PB Weapons Pack (loaded last)
 
+**Local reference:** The latest PB Staging branch source is kept in a root-level folder `PB_Staging/` for human and agentic reference only. It is not part of this add-on project — do not package it or treat it as PBWP source unless explicitly directed.
+
 ---
 
 ## Authoritative References
@@ -102,9 +104,10 @@ Project-Brutality-Weapons-Pack-main/
 │   └── Items/                         # Item/power-up actors
 ├── CREDITS/                           # Per-feature credit .txt files
 ├── TextColours*.txt                   # Text color definitions
-└── TRNSLATE.txt                       # Translation tables
+├── TRNSLATE.txt                       # Translation tables
+└── PB_Staging/                        # [NOT PART OF PROJECT] Local reference copy of PB Staging source — do not include in pk3
 
-(* = file added locally, not present in upstream repo)
+(* = file added locally, not present in upstream repo. PB_Staging/ = local reference only, not part of the add-on or pk3.)
 ```
 
 ---
@@ -343,7 +346,7 @@ Prefer ZScript class variables (`bool`, `int`, `enum`) over tokens for new weapo
 ## Build and Packaging
 
 - There is no build script. The source directory structure is the pk3 layout.
-- To package: zip the project root contents into a `.pk3` file (or load the directory directly in UZDoom/GZDoom).
+- To package: zip the project root contents into a `.pk3` file (or load the directory directly in UZDoom/GZDoom). **Exclude `PB_Staging/`** — it is local reference only, not part of the add-on or compile scope.
 - `ZSCRIPT.zc` is the engine entry point — all code must be reachable via its `#include` chain.
 - New files must be added to `ZSCRIPT.zc` with an `#include` directive to be compiled.
 
@@ -364,3 +367,4 @@ Prefer ZScript class variables (`bool`, `int`, `enum`) over tokens for new weapo
 - **Stub classes are local:** `LaserSightActivated`, `HasLeech`, and `ThrownStunGrenade` are minimal stubs defined at the end of `BaseWeapon_Functions.zsc`. They exist solely to satisfy references — they have no real behavior. If PB Staging re-adds these classes, the stubs should be removed to avoid duplicate definitions.
 - **`PB_VisualRailBlue`/`PB_VisualRailRed` are stubs:** These are local replacements appended to `BaseWeapon_Functions.zsc`. Both currently use identical `PB_LightVisualRail()` parameters (no actual color differentiation). If color-specific behavior is needed, the stub implementations must be updated.
 - **Case sensitivity in ZScript:** ZScript is case-sensitive. There is a known issue in `PB_UnloadMag` where `maxsize` (lowercase) is used on lines 1828–1829 instead of the parameter name `maxSize`. Be careful with casing when referencing parameters.
+- **Lump-path collisions with PB Staging:** PBWP overrides three PB Staging files by having identically-pathed files that the engine loads instead (last pk3 wins). When PB Staging adds new functions or changes logic in any of these files, those changes must be manually synced into PBWP's copies or the add-on will fail to load. The colliding files are: `zscript/Weapons/BaseWeapon_Functions.zsc`, `zscript/Weapons/BaseWeapon_Melee.zsc`, `zscript/Weapons/BaseWeapon_Equipment.zsc`. These overrides exist because PBWP needed to patch API signatures and add extension code that chains into PBWP-specific includes.

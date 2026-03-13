@@ -11,7 +11,7 @@ Class ShotgunCasing5HASG : Actor
    Radius 9;
    Speed 6;
    Scale 0.15;
-   +DOOMBOUNCE;
+   BounceType "Doom";
    - NOGRAVITY;
    +WINDTHRUST;
    +CLIENTSIDEONLY;
@@ -116,7 +116,7 @@ Class ExplosiveCasingHASG : Actor
    Radius 9;
    Speed 6;
    Scale 0.15;
-   +DOOMBOUNCE;
+   BounceType "Doom";
    - NOGRAVITY;
    +WINDTHRUST;
    +CLIENTSIDEONLY;
@@ -220,7 +220,7 @@ Class DanmakuCasingHASG : Actor
    Radius 9;
    Speed 6;
    Scale 0.15;
-   +DOOMBOUNCE;
+   BounceType "Doom";
    - NOGRAVITY;
    +WINDTHRUST;
    +CLIENTSIDEONLY;
@@ -325,7 +325,7 @@ Class WPhosphorusCasingHASG : Actor
    Radius 9;
    Speed 6;
    Scale 0.15;
-   +DOOMBOUNCE;
+   BounceType "Doom";
    - NOGRAVITY;
    +WINDTHRUST;
    +CLIENTSIDEONLY;
@@ -898,7 +898,7 @@ Class DarkDanmakuProjectile : Actor
 	{
 		projectile;
 		speed 80;
-		+doombounce;
+		BounceType "Doom";
 		bouncecount 3;
 		radius 5;
 		height 5;

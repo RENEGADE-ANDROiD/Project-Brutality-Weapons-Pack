@@ -368,7 +368,7 @@ Class DiggerTrail : Actor{
 		Scale 1.1;
 		+noteleport
 		+NOINTERACTION
-		+DOOMBOUNCE
+		BounceType "Doom";
 		+RANDOMIZE
 		height 1;
 		radius 1;
@@ -406,7 +406,7 @@ Class ExcavatorExplode : Actor{
 		Stop;
 	}
 }
-Class ExcavatorExplosion : actor{
+Class PBWP_ExcavatorExplosion : actor{
 	Default{
 		Radius 2;
 		Height 2;
@@ -422,7 +422,7 @@ Class ExcavatorExplosion : actor{
 	Spawn:
 		Goto Death;
 	Death:
-		TNT1 A 2 NODELAY A_SpawnItem("WhiteShockwaveBig");
+		TNT1 A 2 A_SpawnItem("WhiteShockwaveBig");
 		TNT1 A 0 A_Explode(200, 100, xf_hurtsource, 0, 90,0,0,"None","Explosive");
 		TNT1 A 0 A_Explode(125,140, xf_hurtsource, 0, 100);
 		Stop;
@@ -458,7 +458,7 @@ Class DropShotExplode : ExcavatorExplode{
 	Boom:
 	Death:
 		TNT1 A 0 A_Playsound("superbaron/spike");
-		TNT1 AAAAA 0 NODELAY {A_CustomMissile("MudDust", 0, 0, random(0, 360), 2, random(30, 150));A_CustomMissile("DirtChunk1", 0, 0, random(0, 360), 2, random(30, 150));A_CustomMissile("DirtChunk2", 10, 0, random(0, 360), 2, random(30, 150));A_CustomMissile("BrownCloud", 0, 0, random(0, 90), 2, random(30, 150));}
+		TNT1 AAAAA 0 {A_CustomMissile("MudDust", 0, 0, random(0, 360), 2, random(30, 150));A_CustomMissile("DirtChunk1", 0, 0, random(0, 360), 2, random(30, 150));A_CustomMissile("DirtChunk2", 10, 0, random(0, 360), 2, random(30, 150));A_CustomMissile("BrownCloud", 0, 0, random(0, 90), 2, random(30, 150));}
 		XXXX A 0 A_CustomMissile("ExplosionQuake", 1, 0, random(0, 360), 2, random(0, 160));
 		TNT1 A 0 {A_SpawnItemEx("DiggerTrail",random(-3, 0),random(-3, -1),0,0,0,0,0,SXF_NOCHECKPOSITION,0);A_SpawnItemEx("DiggerTrail",random(0, 3),random(1, 3),0,0,0,0,0,SXF_NOCHECKPOSITION,0);}
 		5DKP DDDDDDDDDDDDDD 1 A_CustomMissile("HeavyExplosionSmoke", 2, 0, random(0, 360), 2, random(0, 360));
@@ -468,7 +468,7 @@ Class DropShotExplode : ExcavatorExplode{
 		
 		TNT1 AAAAAAAAA 0 {A_CustomMissile("ExplosionParticleHeavy", 0, 0, random(0, 360), 2, random(0, 180));A_CustomMissile("ExplosionParticleVeryFast", 0, 0, random(0, 360), 2, random(0, 360));}
 		TNT1 AAAAA 0 {A_CustomMissile("MediumExplosionFlames", 0, 0, random(0, 360), 2, random(0, 360));A_CustomMissile("ExplosionSmokeFast22", 0, 0, random(0, 360), 2, random(0, 360));}
-		TNT1 A 0 A_SpawnItemEx("ExcavatorExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+		TNT1 A 0 A_SpawnItemEx("PBWP_ExcavatorExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
 		goto Super::Death;
 	}
 }
@@ -496,7 +496,7 @@ Class DrillBombExplode : ExcavatorExplode{
 		
 		TNT1 AAAAAAAAA 0 {A_CustomMissile("ExplosionParticleHeavy", 12, 0, random(0, 360), 2, random(0, 180));A_CustomMissile("ExplosionParticleVeryFast", 12, 0, random(0, 360), 2, random(0, 360));}
 		TNT1 AAAAA 0 {A_CustomMissile("MediumExplosionFlames", 12, 0, random(0, 360), 2, random(0, 360));A_CustomMissile("ExplosionSmokeFast22", 12, 0, random(0, 360), 2, random(0, 360));}
-		TNT1 A 0 A_SpawnItemEx("ExcavatorExplosion",0,0,12,0,0,0,0,SXF_NOCHECKPOSITION,0);
+		TNT1 A 0 A_SpawnItemEx("PBWP_ExcavatorExplosion",0,0,12,0,0,0,0,SXF_NOCHECKPOSITION,0);
 		goto Super::Death;
 	}
 }
@@ -589,7 +589,7 @@ Class ExcavatorDrill : Actor{
 		TNT1 AAAAAAAAA 0 {A_CustomMissile("ExplosionParticleHeavy", 0, 0, random(0, 360), 2, random(0, 180));A_CustomMissile("ExplosionParticleVeryFast", 0, 0, random(0, 360), 2, random(0, 360));}
 		TNT1 AAAAA 0 {A_CustomMissile("MediumExplosionFlames", 0, 0, random(0, 360), 2, random(0, 360));A_CustomMissile("ExplosionSmokeFast22", 0, 0, random(0, 360), 2, random(0, 360));}
 		TNT1 A 0 A_CustomMissile("ExcavatorExploFX", random(1,5), random(-10,10), random(0, 360), 2, random(0, 360));
-		TNT1 A 0 A_SpawnItemEx("ExcavatorExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+		TNT1 A 0 A_SpawnItemEx("PBWP_ExcavatorExplosion",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
 		TNT1 A 0 A_SpawnItemEx("LiquidExplosionEffectSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
 		TNT1 A 0 A_Playsound("excavator/explode", 1);
 		TNT1 A 0 A_PlaySound("FAREXPL", 3);
