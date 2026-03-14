@@ -5,7 +5,7 @@ ACTOR TLMGRespect : Inventory {Inventory.MaxAmount 1}
 //
 // --------------------------------------------------------------------------
 
-ACTOR MaskMan_Rifle : PBWP_Weapon 26051
+ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 {
 	Weapon.AmmoGive1 40
 	Weapon.AmmoGive2 0

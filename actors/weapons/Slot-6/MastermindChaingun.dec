@@ -3,7 +3,7 @@ Actor MastermindChaingunFired: Inventory
    Inventory.MaxAmount 200
 }
 
-Actor MastermindChaingun : PBWP_Weapon
+Actor MastermindChaingun : PB_WeaponBase
 {
 	Game Doom
 	SpawnID 3300

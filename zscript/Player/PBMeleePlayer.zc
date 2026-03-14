@@ -6,6 +6,7 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
     {
         Mass 500;
         GibHealth 20;
+		Player.MorphWeapon "PB_Axe";
         Species "Marines";
         BloodType "NashGoreBlood";
 
@@ -72,6 +73,7 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		"PB_Pistol",
 		"PB_Revolver",
 		"PB_Deagle",
+		"THMagnum",
 		"PB_SMG",
 		"PB_MP40",
 		// PBWP SLOT 2
@@ -81,8 +83,10 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		"DoomBlaster",
 		"W_SMG",
 		"P_SMG",
+		"HellPistol",
 		"HellPistoler",
-		"UZISMG";
+		"UZI",
+		"THMagnum";
 
 		Player.WeaponSlot 3,
 		"PB_Shotgun",
@@ -139,6 +143,7 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		"PB_SuperGL",
 		"PB_RocketLauncher",
 		// PBWP SLOT 6
+		"Devastator",
 		"SuperGrenadeLauncher",
 		"PB_Excavator",
 		"CyberdemonsMissileLauncher",
@@ -193,7 +198,8 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		"DemonTechMinigun",
 		"PB_DemonExt";
 
-        //Player.StartItem "PB_PDAWeaponContainer",1;
+        //Player.StartItem "PB_PDAWeaponContainer",1; 
+		Player.StartItem "PB_Axe",1;
 		Player.StartItem "PB_Fists";
 		Player.StartItem "CarbineFullAuto";
 		Player.StartItem "PB_HighCalMag",90;
@@ -239,7 +245,8 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		Player.StartItem "FlamerAmmo",90; 
         Player.StartItem "CryoRifleAmmo",60;
 
-		// Added
+		// Added 
+		Player.StartItem "ShieldsawAmmo",1;
 		Player.StartItem "MacheteDurability",30;
 		Player.StartItem "CryoDMRAmmo",60;
 		Player.StartItem "StandardMeleeSelected",1; // Melee Wheel

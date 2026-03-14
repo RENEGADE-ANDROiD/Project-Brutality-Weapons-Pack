@@ -4,7 +4,7 @@ Inventory.maxamount 1
 }
 
 
-Actor PhaseEradicatorBFG : PBWP_Weapon
+Actor PhaseEradicatorBFG : PB_WeaponBase
 {
 game doom
 Tag "Phase Eradicator BFG"

@@ -2,7 +2,7 @@ Actor CrossbowNeedsLoading : Inventory {Inventory.MaxAmount 1}
 
 Actor ExplosiveArrowsSelected : Inventory {Inventory.MaxAmount 1}
 
-Actor AncientCrossbow : PBWP_Weapon
+Actor AncientCrossbow : PB_WeaponBase
 {
 	Game Doom
 	Weapon.BobRangeX 0.3

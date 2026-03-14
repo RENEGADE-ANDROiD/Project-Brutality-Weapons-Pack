@@ -1,6 +1,6 @@
 ACTOR HasSemiFire : Inventory {Inventory.MaxAmount 1}
 ACTOR AK-47Respect : Inventory {Inventory.MaxAmount 1}
-ACTOR AK-47 : PBWP_Weapon
+ACTOR AK-47 : PB_WeaponBase
 {
     Weapon.SelectionOrder 4
 	Weapon.AmmoGive2 0

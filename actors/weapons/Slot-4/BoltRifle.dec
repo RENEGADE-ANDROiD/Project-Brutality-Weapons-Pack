@@ -22,7 +22,7 @@ Actor BoltRifleAmmo : Ammo
     Inventory.Icon "SILVA0"
 }
 
-Actor PB_BoltRifle : PBWP_Weapon
+Actor PB_BoltRifle : PB_WeaponBase
 {
     Game Doom
     SpawnID 7219

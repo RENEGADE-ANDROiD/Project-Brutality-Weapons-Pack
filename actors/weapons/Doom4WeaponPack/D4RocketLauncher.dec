@@ -1,4 +1,4 @@
-Actor D4RocketLauncher : PBWP_Weapon
+Actor D4RocketLauncher : PB_WeaponBase
 {
     Game Doom
 	SpawnID 1000

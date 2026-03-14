@@ -1,4 +1,4 @@
-ACTOR LegendaryPlasmaticRifle : PBWP_Weapon
+ACTOR LegendaryPlasmaticRifle : PB_WeaponBase
 {
 //$Category Weapons/LCA
 //$Sprite BTEPA0

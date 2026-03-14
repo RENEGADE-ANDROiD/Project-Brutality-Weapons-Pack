@@ -12,7 +12,7 @@ ACTOR Prosurv_SawSwing : PB_ProjectileAlt
 	+BLOODSPLATTER
 	+NODAMAGETHRUST
 	+FORCEPAIN
-	PB_Projectile.BaseDamage 10
+	PB_Projectile.BaseDamage 50
 	Speed 40
 	Decal "SawDecalNew1"
 	States {
@@ -33,5 +33,5 @@ ACTOR Prosurv_SawSwing : PB_ProjectileAlt
 			TNT1 A 1
 			Stop	}}
 ACTOR SuperSawSwing : Prosurv_SawSwing {
-	PB_Projectile.BaseDamage 20
+	PB_Projectile.BaseDamage 75
 }

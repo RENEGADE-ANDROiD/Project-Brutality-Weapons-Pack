@@ -1,0 +1,9 @@
+class PB_9x19mmHollowPoint : PB_Projectile
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 35;
+		PB_Projectile.RipperCount 5;
+		Obituary "%o met %k's Swiss Cheese.";
+	}
+}

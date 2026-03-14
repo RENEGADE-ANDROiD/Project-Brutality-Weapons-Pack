@@ -4,7 +4,7 @@
 //
 // --------------------------------------------------------------------------
 ACTOR AssaultRespecter : inventory {inventory.maxamount 1}
-ACTOR AssaultR1 : PBWP_Weapon 26050
+ACTOR AssaultR1 : PB_WeaponBase 26050
 {
 	Weapon.AmmoGive1 40
 	Weapon.AmmoGive2 0

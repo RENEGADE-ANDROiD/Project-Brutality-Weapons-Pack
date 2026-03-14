@@ -1,4 +1,4 @@
-class LoRCalamityBlade : PBWP_Weapon
+class LoRCalamityBlade : PB_WeaponBase
 {
     int ChargeLevel;
 	Default

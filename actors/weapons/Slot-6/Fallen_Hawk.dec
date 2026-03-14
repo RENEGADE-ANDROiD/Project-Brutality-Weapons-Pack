@@ -12,7 +12,7 @@ ACTOR HawkResp:Inventory
 Inventory.MaxAMount 1
 }
 
-ACTOR Fallen_Hawk : PBWP_Weapon 
+ACTOR Fallen_Hawk : PB_WeaponBase 
 {
 	Game Doom
 	Weapon.AmmoType1 "PB_HighCalMag"

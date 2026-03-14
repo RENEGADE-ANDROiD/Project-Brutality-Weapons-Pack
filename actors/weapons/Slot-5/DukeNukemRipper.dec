@@ -16,7 +16,7 @@ Actor RipperChaingunFired4: Inventory {Inventory.MaxAmount 200}
 
 Actor RipperChaingunFired5: Inventory {Inventory.MaxAmount 200}
 
-Actor DukeNukemRipper : PBWP_Weapon
+Actor DukeNukemRipper : PB_WeaponBase
 {
 	Game Doom
 	SpawnID 3337

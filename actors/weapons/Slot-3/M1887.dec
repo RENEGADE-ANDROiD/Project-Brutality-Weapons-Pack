@@ -6,7 +6,7 @@ Actor NoAutoReload : Inventory {Inventory.MaxAmount 1}
 
 Actor RespectM1887 : Inventory {Inventory.MaxAmount 1}
 
-Actor M1887 : PBWP_Weapon
+Actor M1887 : PB_WeaponBase
 {
 	Game Doom
 	SpawnID 3100

@@ -9,7 +9,7 @@ ACTOR MacheteSwing : PB_ProjectileAlt {
 	+NOEXTREMEDEATH
 	+BLOODSPLATTER
 	+NODAMAGETHRUST
-	Damage 20
+	Damage 40
 	Speed 20
 	Decal "SawDecalNew1"
 	States {
@@ -32,5 +32,5 @@ ACTOR MacheteSwing : PB_ProjectileAlt {
 			Stop	}}
 ACTOR SuperMacheteSwing : MacheteSwing {
 	DamageType "Saw"
-	Damage 40
+	Damage 65
 }

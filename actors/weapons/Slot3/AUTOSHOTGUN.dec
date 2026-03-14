@@ -106,7 +106,7 @@ Actor PB_AutoshotgunUpgrade: PB_UpgradeItem{
 	}
 }
 
-ACTOR PB_Autoshotgun  : PB_Weapon
+ACTOR PB_Autoshotgun  : PB_WeaponBase
 {
 	//$Title Autoshotgun
 	//$Category Weapons

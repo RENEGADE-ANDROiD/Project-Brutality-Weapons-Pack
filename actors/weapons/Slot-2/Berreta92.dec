@@ -41,7 +41,7 @@ ACTOR BerettaTypSpawner : PB_UpgradeItem
 	}
 }
 
-Actor IN_Beretta : PBWP_Weapon
+Actor IN_Beretta : PB_WeaponBase
 {
 	Scale 0.8
 	Weapon.AmmoType1 "PB_LowCalMag"

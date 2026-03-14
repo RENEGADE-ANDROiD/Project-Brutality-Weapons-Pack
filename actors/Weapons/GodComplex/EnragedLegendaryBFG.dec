@@ -1,4 +1,4 @@
-Actor EnragedLegendaryBFG : PBWP_Weapon
+Actor EnragedLegendaryBFG : PB_WeaponBase
 {
 game doom
 +WEAPON.NOAUTOAIM

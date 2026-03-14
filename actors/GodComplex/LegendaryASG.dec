@@ -1,0 +1,350 @@
+ACTOR LegendaryAssaultShotgun : PB_WeaponBase
+{
+//$Category Weapons/LCA
+//$Sprite LMAPA0
+//$Title "Legendary Assault Shotgun"
+	Scale 1
+	//Weapon.PreferredSkin "LegendaryASG-Marine"
+	Weapon.SelectionOrder 4500
+	Weapon.KickBack 160
+	Weapon.AmmoUse 0
+    //Weapon.AmmoGive 50
+    Weapon.AmmoGive2 16
+    Weapon.AmmoType "PBWP_ComplexAmmo"
+    Weapon.AmmoType2 "LegendaryShotgunDrum"
+	Inventory.PickupSound "LShotgun/Cock"
+	Inventory.PickupMessage "Daf(#? is that an Golden... things...? LEGENDARY ASSAULT SHOTGUN! (Slot-3)"
+	Obituary "%o ate several blue bullets from %k's Legendary Assault Shotgun."
+	Decal LegBulletChip
+	+WEAPON.AMMO_OPTIONAL
+	+WEAPON.NOALERT
+	+INVENTORY.UNDROPPABLE
+	// Weapon.SlotNumber 3
+	Weapon.SlotPriority 10
+	Tag "XFA-12A Legendary Auto Shotgun"
+	States
+  {
+  Spawn:
+    	LMAP A -1
+    	Stop
+
+Steady:
+	TNT1 A 1
+	Goto Ready
+	
+Ready:
+	TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
+	TNT1 A 0 PB_RespectIfNeeded
+WeaponRespect:
+    	TNT1 A 0 A_PlayWeaponSound("LShotgun/Cock")
+    	TNT1 A 0 A_DoPBWeaponAction
+	LMAG F 1 A_DoPBWeaponAction
+	LMCK A 1 A_DoPBWeaponAction
+	LMCK B 1 A_DoPBWeaponAction
+	LMCK C 1 A_DoPBWeaponAction
+	LMCK D 1 A_DoPBWeaponAction
+	LMCK C 1 A_DoPBWeaponAction
+	LMCK B 1 A_DoPBWeaponAction
+	LMCK A 1 A_DoPBWeaponAction
+
+	Goto Ready3
+SelectAnimation:
+	 TNT1 A 0 {
+		  PB_HandleCrosshair(98);
+		  A_WeaponOffset(0,32);
+		  A_SetRoll(0);
+		  A_TakeInventory("PB_LockScreenTilt",1);
+		  }
+	 LMAG A 1 {
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
+		  }
+	 TNT1 A 0
+	 TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
+
+Ready3:
+	TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
+	TNT1 A 0 {
+		  A_WeaponOffset(0,32);
+		  A_SetRoll(0);
+		  PB_HandleCrosshair(98);
+		  A_TakeInventory("PB_LockScreenTilt",1);
+		  }
+    	LMAG A 1 A_DoPBWeaponAction
+    	Loop
+Deselect: 
+	 TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	 TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	 TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	 TNT1 A 0 {
+		  A_WeaponOffset(0,32);
+		  A_SetRoll(0);
+		  PB_HandleCrosshair(98);
+		  A_TakeInventory("PB_LockScreenTilt",1);
+		  }
+    TNT1 A 0 A_PlaySound("weapons/weapondown")
+    LMAG A 0 A_Lower
+    Wait
+    
+  Select:
+	 TNT1 A 0 {
+		  A_WeaponOffset(0,32);
+		  A_SetRoll(0);
+		  PB_HandleCrosshair(98);
+		  A_TakeInventory("PB_LockScreenTilt",1);
+		  }
+    TNT1 A 0 A_TakeInventory("HasBarrel",1)
+	TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+	TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+	TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+	TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+	TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+	Goto SelectFirstPersonLegs
+  SelectContinue:
+	TNT1 A 0 A_Raise
+    	Wait	
+  Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			A_TakeInventory("PB_LockScreenTilt",1);
+			if(CountInv("NoFatality") == 0 && GetCVAR ("ttwcfbex") == 1) {
+				return PB_Execute();
+			}
+			return state("");
+		}
+	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum", 1, 1)
+	Goto Reload
+    	TNT1 A 0 
+    	LMAF A 1 Bright {
+    	A_SpawnItemEx("BlueShellCasing",30,5,25,Random(2,4),Random(3,6),Random(3,6),0);
+	PB_FireBullets("PB_Complex12GAPellet",10,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
+	A_PlaySound("Weapons/LegAutoShotgun", 1);
+	A_TakeInventory("LegendaryShotgunDrum",1);
+	Radius_Quake(3,3,0,1,0);
+	A_AlertMonsters;
+	}
+    	LMAF B 1 Bright
+    	LMAG BCDE 1
+	LMAG FA 2
+    	Goto Ready3
+  Empty:
+    	LMAG A 10 A_PlaySound("weapons/click")
+    	Goto Reload
+  AltFire:
+    	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum", 3, 2)
+	Goto Reload
+	TNT1 A 0
+    	LMAF A 1 Bright {
+    A_SpawnItemEx("BlueShellCasing",30,5,25,Random(2,4),Random(3,6),Random(3,6),0);
+	PB_FireBullets("PB_Complex12GAPellet",10,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
+	A_PlaySound("Weapons/LegAutoShotgun", CHAN_Weapon, CHANF_DEFAULT, 1.0);
+	A_TakeInventory("LegendaryShotgunDrum",1);
+	Radius_Quake(3,3,0,1,0);
+	A_AlertMonsters;
+	}
+    	LMAF B 1 Bright
+    	LMAF A 1 Bright {
+    	A_SpawnItemEx("BlueShellCasing",30,5,25,Random(2,4),Random(3,6),Random(3,6),0);
+	PB_FireBullets("PB_Complex12GAPellet",10,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
+	A_PlaySound("Weapons/LegAutoShotgun", Chan_Auto);
+	A_TakeInventory("LegendaryShotgunDrum",1);
+	Radius_Quake(3,3,0,1,0);
+	A_AlertMonsters;
+	}
+    	LMAF B 1 Bright
+    	LMAF A 1 Bright {
+    	A_SpawnItemEx("BlueShellCasing",30,5,25,Random(2,4),Random(3,6),Random(3,6),0);
+	PB_FireBullets("PB_Complex12GAPellet",10,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
+	A_PlaySound("Weapons/LegAutoShotgun", Chan_Auto);
+	A_TakeInventory("LegendaryShotgunDrum",1);
+	Radius_Quake(3,3,0,1,0);
+	A_AlertMonsters;
+	}
+    	LMAF B 1 Bright
+    	LMAG BCDE 1
+	LMAG FA 2
+    	Goto Ready3
+    
+  Reload:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	TNT1 A 0 {
+		 A_TakeInventory("PB_LockScreenTilt",1);
+		 }
+	TNT1 A 0 A_TakeInventory("Reloading", 1)
+   TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",16,"Ready3")
+   TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",1,1)
+	Goto Ready3
+	LMAR ABCDEF 1
+	LMAR GO 2
+	LMAR N 2 A_Playsound("ASGLUP",1,0.5)
+	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",1,"MaxReload")
+   LMAR H 3
+	LMAR I 2
+	LMAR J 1 A_Playsound("weapons/shotgun/detach",3)
+	LMAR KL 1
+	LMAR M 35 A_FireCustomMissile("LegendaryEmptyDrumSpawner", 0, 0, 10, 1) 
+	LMAR LKJ 1
+	LMAR I 2
+	TNT1 A 0 A_Playsound("weapons/autoshotgun/drumreload2",2)
+	LMAR P 6 
+	TNT1 A 0 A_WeaponReady
+	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",1,"Reload2")
+  InsertBullets:
+	TNT1 A 0
+	TNT1 A 0 A_TakeInventory("Reloading", 1)
+	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",15,"FullCock")
+	TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",1,3)
+	Goto Full
+    TNT1 AAAAAA 0
+	TNT1 A 0 A_Giveinventory("LegendaryShotgunDrum",1)
+	TNT1 A 0 A_Takeinventory("PBWP_ComplexAmmo",1,TIF_NOTAKEINFINITE)
+	Goto InsertBullets
+	TNT1 AAAAAAAAAA 0
+	TNT1 A 0 A_Takeinventory("Reloading",1)
+    Goto FullCock
+	TNT1 AAAA 0
+	TNT1 A 0 A_Takeinventory("Reloading",1)
+    Goto FullCock
+  FullCock:
+	LMAR NOG 2
+	LMAR FEDCBA 1
+	LMAG A 3
+	LMAG A 5
+	LMCK AB 2
+	LMCK C 1 A_Playsound("H4SGCOCK",5)
+	LMCK C 3
+	LMCK D 3
+	LMCK A 2
+	LMAG A 3 A_WeaponReady	
+	Goto Ready3
+  MaxReload:
+	LMAR H 3
+	LMAR I 2
+	LMAR J 1 A_Playsound("weapons/shotgun/detach",3)
+	LMAR KL 1
+	LMAR M 35 A_FireCustomMissile("LegendaryEmptyDrum", 0, 0, 10, 1) 
+	LMAR LKJ 1
+	LMAR I 2
+	TNT1 A 0 A_Playsound("weapons/autoshotgun/drumreload2",2)
+	LMAR P 6 
+	TNT1 A 0 A_WeaponReady
+  Reload2:
+	TNT1 A 0
+	TNT1 A 0 A_TakeInventory("Reloading", 1)
+	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",16,"Full")
+	TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",1,3)
+	Goto Full
+    TNT1 AAAAAA 0
+	TNT1 A 0 A_Giveinventory("LegendaryShotgunDrum",1)
+	TNT1 A 0 A_Takeinventory("PBWP_ComplexAmmo",1,TIF_NOTAKEINFINITE)
+	Goto Reload2
+	TNT1 AAAAAAAAAA 0
+	TNT1 A 0 A_Takeinventory("Reloading",1)
+    Goto Full
+	TNT1 AAAA 0
+	TNT1 A 0 A_Takeinventory("Reloading",1)
+    Goto Full
+  Full:
+	LMAR NOG 2
+	LMAR FEDCBA 1
+	LMAG A 3 A_WeaponReady
+	LMAG A 5
+	Goto Ready3
+	
+ WeaponSpecial:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	TNT1 A 0 A_Print("You lack of Power.")
+	TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+	Goto Ready3
+	
+FlashPunching:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+	LMAR ABCDEFGGGGGFEDCBA 1
+	Stop
+
+FlashKicking:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+	LMAR ABCDEFGGGGGGGFEDCBA 1
+	Goto Ready3
+		
+FlashAirKicking:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+	LMAR ABCDEFGGGGGGGGGFEDCBA 1
+	Goto Ready3
+		
+FlashSlideKicking:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+	LMAR ABCDEFGGGGGGGGGGGG 1
+FlashSlideKickingStop:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+	LMAR GFEDCBA 1
+	Goto Ready3
+  }
+}
+
+ACTOR LegendaryShotgunDrum : Ammo
+{
+	Inventory.Amount 16
+	Inventory.MaxAmount 16
+	Ammo.BackpackAmount 16
+	Ammo.BackpackMaxAmount 16
+	Inventory.Icon "LMAPA0"
+	+IGNORESKILL
+	+NOTIMEFREEZE
+}
+
+ACTOR LegendaryShell : Ammo 16801
+{
+//$Category Ammunition/LCA
+//$Sprite LESSA0
+//$Title "Legendary Shells"
+Scale 0.3
+Inventory.PickupMessage "Legendary Shells"
+Inventory.PickupSound "items/shell"
+Inventory.Amount 4
+Inventory.MaxAmount 40
+Ammo.BackpackAmount 5
+Ammo.BackpackMaxAmount 90
+Inventory.Icon "LHELA0"
++NOTIMEFREEZE
+States
+{
+  Spawn:
+    LESS A -1
+    Stop
+    }
+}
+
+ACTOR BlueSGTracer : Tracer
+{
+Speed 100
+Scale 0.075
++NOTIMEFREEZE
+States
+{
+Spawn:
+    BRAC A 10 Bright
+	Stop
+	}
+}
+

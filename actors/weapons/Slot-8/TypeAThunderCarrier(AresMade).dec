@@ -1,4 +1,4 @@
-ACTOR ThunderCarrierTI : PBWP_Weapon
+ACTOR ThunderCarrierTI : PB_WeaponBase
 {
 	Weapon.SelectionOrder 7390
     Weapon.AmmoType1 "PB_Cell"

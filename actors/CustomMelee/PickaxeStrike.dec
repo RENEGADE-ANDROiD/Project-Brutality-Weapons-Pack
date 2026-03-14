@@ -7,7 +7,7 @@ ACTOR PickaxeMeleeStrike : PB_ProjectileAlt
 	+FORCEXYBILLBOARD
 	+NOEXTREMEDEATH
 	+BLOODSPLATTER
-	PB_Projectile.BaseDamage 45
+	PB_Projectile.BaseDamage 50
 	Speed 45
 	ProjectileKickBack 300
 	DeathSound "PICKHSA"
@@ -31,6 +31,6 @@ ACTOR PickaxeMeleeStrike : PB_ProjectileAlt
 ACTOR PickaxeMeleeStrike2 : PickaxeMeleeStrike
 {
 	Radius 6
-	PB_Projectile.BaseDamage 50
+	PB_Projectile.BaseDamage 100
 }
 

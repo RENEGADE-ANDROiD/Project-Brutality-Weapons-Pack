@@ -10,7 +10,7 @@ ACTOR CrowbarSwing : PB_ProjectileAlt {
 	+NOEXTREMEDEATH
 	+BLOODSPLATTER
 	+NODAMAGETHRUST
-	PB_Projectile.BaseDamage 25
+	PB_Projectile.BaseDamage 35
 	Speed 20
 	Decal "SawDecalNew1"
 	States {
@@ -33,5 +33,5 @@ ACTOR CrowbarSwing : PB_ProjectileAlt {
 			Stop	}}
 ACTOR SuperCrowbarSwing : CrowbarSwing {
 	DamageType "ExtremePunches"
-	PB_Projectile.BaseDamage 50
+	PB_Projectile.BaseDamage 80
 }

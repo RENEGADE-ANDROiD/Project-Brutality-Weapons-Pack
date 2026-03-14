@@ -95,7 +95,7 @@ Actor CombatShotgunFired: Inventory {Inventory.MaxAmount 200}
 	kickflash states, and unload states.
  
 -----------------------------------------------------------------------------*/
-Actor PB_Doom2016Shotgun : PBWP_Weapon
+Actor PB_Doom2016Shotgun : PB_WeaponBase
 {
 	Game Doom
 	SpawnID 9300
@@ -507,7 +507,7 @@ Actor PB_Doom2016Shotgun : PBWP_Weapon
 		      A_GiveInventory("CombatShotgunFired",20);
 		      A_GunFlash;
 		      A_StartSound("weapons/Doom2016SG/Fire", CHAN_WEAPON);   
-		      A_FireBullets(2, 2,10,14,"ShotgunPuff",FBF_NORANDOM); 
+            PB_FireBullets("PB_12GAPellet",10,2,0,0,2);
 		    //Return State("FireAnimBegin");
 		       }
 		"####" B 1
@@ -601,7 +601,7 @@ Actor PB_Doom2016Shotgun : PBWP_Weapon
 		     A_GunFlash;
 		     PB_SpawnCasing("ShotgunCasing", 51, 10, 28.6, frandom(-3,5),frandom(3,7),frandom(3,7));
 		     A_StartSound("weapons/Doom2016SG/BurstFire", CHAN_WEAPON);   
-		     A_FireBullets(2, 2,10,14,"ShotgunPuff",FBF_NORANDOM); 
+            PB_FireBullets("PB_12GAPellet",10,2,0,0,2);
 	       //Return State("FireAnimBegin");
 		     }
 		DSBA B 1

@@ -16,7 +16,7 @@ Actor RazorType : Inventory { Inventory.MaxAmount 1 }
 
 ACTOR BouncerBladesLoaded : Inventory { Inventory.MaxAmount 1 }
 
-ACTOR Razorjack : PBWP_Weapon
+ACTOR Razorjack : PB_WeaponBase
 { 
     	Game Doom
 	//$Category Weapons

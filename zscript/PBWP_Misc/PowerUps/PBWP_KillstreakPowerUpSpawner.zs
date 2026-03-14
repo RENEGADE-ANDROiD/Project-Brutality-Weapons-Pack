@@ -5,9 +5,8 @@ class KillStreakPowerUp : Inventory replaces MegaSphere
 		Inventory.PickupMessage "You got a Random Power Up!";
 		Inventory.PickupSound "misc/p_pkup";
 		+INVENTORY.ALWAYSPICKUP;
-		+INVENTORY.INTERHUBSTRIP;
 		+INVENTORY.AUTOACTIVATE;
-		Inventory.Icon "MEGA0";
+		Inventory.Icon "MEGAA0";
 	}
 	
 	override bool Use(bool pickup)
@@ -57,7 +56,7 @@ class KillStreakPowerUp : Inventory replaces MegaSphere
 			}
 			else{
 				powerup = "ShrinkSphere";
-				message = "\ctSHRINK SPHERE! \n\cjWhy So Small?";
+				message = "\ctSHRINK SPHERE! \n\cjHell got HUGE!";
 			}
 			break;
 		case 4:
@@ -76,8 +75,8 @@ class KillStreakPowerUp : Inventory replaces MegaSphere
 				message = "MEGASPHERE!";
 			}
 			else{
-				powerup = "Crucifix";
-				message = "\cxCRUCIFIX! n\cjEnemies will be frightened by you";
+				powerup = "GrowthSphere";
+				message = "\cxGrowth Sphere! n\cjSMASH THE PUNY DEMONS";
 			}
 			break;
 		case 6:
@@ -142,7 +141,11 @@ class KillStreakPowerUp : Inventory replaces MegaSphere
 		if (powerup && Owner)
 		{
 			Owner.GiveInventory(powerup, 1);
-			Owner.A_Print(message);
+			// Try this simple approach first - just extended duration
+			Owner.A_Print(message, 140);
+			
+			// If you want to try with font, uncomment this line and comment the one above:
+			//Owner.A_Print(message, "BIGFONT2", 140);
 		}
 		
 		// Return true to consume this item

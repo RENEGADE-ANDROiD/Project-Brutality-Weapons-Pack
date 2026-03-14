@@ -91,7 +91,7 @@ extend class PB_WeaponBase
 					A_ZoomFactor(1.0);
 					A_TakeInventory("ADSmode",1);
 					A_TakeInventory("BloodPunchKilled");
-					A_Overlay(-10, "FirstPersonLegsStand");
+					A_LegOverlay(-1000, "FirstPersonLegsStand");
 			}
 			SCL0 A 0 A_StopSound(1);
 			SCL0 A 0 A_StopSound(6);

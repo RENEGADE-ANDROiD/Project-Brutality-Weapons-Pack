@@ -12,7 +12,7 @@ inventory.maxamount 1
 }
 
 
-Actor PB_ArgentSith : PBWP_Weapon
+Actor PB_ArgentSith : PB_WeaponBase
 {
    Game Doom
    SpawnID 17
@@ -269,7 +269,7 @@ Actor PB_ArgentSith : PBWP_Weapon
 			A_ZoomFactor(1.0);
 			A_TakeInventory("ADSmode",1);
 			A_SetRoll(0);
-			A_Overlay(-10, "FirstPersonLegsStand");
+			A_LegOverlay(-1000, "FirstPersonLegsStand");
 		}
 		JSML ABCDEF 1
 		PUFF A 0 A_PlaySound("player/cyborg/fist", 3)
@@ -521,7 +521,7 @@ Actor SwordArgentSlash : Hellbullet
   -Solid
   Scale 0.4
   Speed 25
-  Damage 2
+  Damage 75
   RenderStyle Add
   Decal "SawVertical"
   States

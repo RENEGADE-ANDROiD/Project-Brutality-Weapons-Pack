@@ -1,4 +1,4 @@
-ACTOR 44PDW : PBWP_Weapon
+ACTOR 44PDW : PB_WeaponBase
 {
 	Weapon.AmmoUse1 0
 	Weapon.AmmoGive1 20

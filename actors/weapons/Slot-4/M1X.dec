@@ -1,6 +1,6 @@
 ACTOR EXPM1X : Inventory {Inventory.MaxAmount 1}
 ACTOR M1XRespect : Inventory {Inventory.MaxAmount 1}
-ACTOR M1X : PBWP_Weapon //Back For This Weapon Again.
+ACTOR M1X : PB_WeaponBase //Back For This Weapon Again.
 {
 	Game Doom
 	Weapon.AmmoType1 "PB_HighCalMag"

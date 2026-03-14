@@ -6,7 +6,7 @@
 Actor IN_LaserShot : LaserShot {+RIPPER Damage (50) Speed 300 Damagetype "Cut"}
 Actor IN_LaserRay : LaserShot {+RIPPER Damage (35) Speed 300}
 Actor IN_AcceleratorRayShot : LaserShot {+FORCEPAIN +RIPPER Damage (50) Speed 300 Damagetype "Explosive"}
-ACTOR Extinction_Ray : PBWP_Weapon //Flamethrower?
+ACTOR Extinction_Ray : PB_WeaponBase //Flamethrower?
 {
 	Weapon.AmmoUse1 0
 	Weapon.AmmoUse2 0

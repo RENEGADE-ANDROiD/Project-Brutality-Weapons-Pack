@@ -90,7 +90,7 @@ ACTOR HMGExplosiveProjectile : FastProjectile
 	}
 }
 
-ACTOR HeavySniperRifle : PBWP_Weapon
+ACTOR HeavySniperRifle : PB_WeaponBase
 {
 	Inventory.PickupSound "Phalanx/PickUp"
 	Weapon.AmmoType2 "HAR_DM"

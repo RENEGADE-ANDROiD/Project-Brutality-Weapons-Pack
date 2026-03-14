@@ -1,11 +1,19 @@
+------------------
+FULL TRANSPARENCY:
+
+THIS MOD WAS FIXED FOR THE LATEST PB STAGING by DOC's A.I. AGENT.  
+
+AGENT.MD FILE INCLUDED SO ANYONE CAN USE IT.
+
 [Click on the green "Code" button, Click to Download Zip, then load the zip as a pk3 mod]
+-------------------------------------
 
 Load order: Mapwad > Project Brutality Staging > PB Weapons Pack (last if you use other addons)
 
 YOU WILL NEED:
 Project Brutality Staging - https://github.com/pa1nki113r/Project_Brutality/tree/PB_Staging 
 
-IF YOU ARE USING GLORYKILL THEN DOWNLOAD THIS PATCH:
+IF YOU ARE USING GLORYKILL THEN DOWNLOAD THIS PATCH (load this after PBWP):
 https://drive.google.com/file/d/1DuZqrnH180qGrA_64HNT7TKsK2dmezW3/view?usp=drive_link
 
 -----------------
@@ -34,6 +42,7 @@ TEAM MEMBERS:
 - Warcarlsson
 - Doc
 - JhulkerCraft
+- Ares
 - Runner
 -----------------
 Originally assembled by RENEGADE ANDROiD using Insanity's Nightmare as a base combined with Demon-Tech, Gadgets & Equipments (GEM) & Fire and Ice Power Fantasy, then Project Survival and every other functioning weapon addon we could find.  Most of these weapons have been around the Project Brutality Discord and former Brutal Repository over these previous years.  BeefRice aka LovecraftNeko has implemented complex systems that help make this mod the complete & refined package that it is today.  

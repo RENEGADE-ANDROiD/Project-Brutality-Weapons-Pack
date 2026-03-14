@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------
 
 
-Actor Devastador : PBWP_Weapon
+Actor Devastador : PB_WeaponBase
 {
 	Game Doom
 	Height 20

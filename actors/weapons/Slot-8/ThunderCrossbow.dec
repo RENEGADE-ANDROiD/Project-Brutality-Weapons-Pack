@@ -9,7 +9,7 @@ Inventory.MaxAmount 1
 Actor ThunderCrossbowHasUnloaded: Inventory {inventory.maxamount 1}
 Actor PulseCannonHasUnloaded: Inventory {inventory.maxamount 1}
 // ThunderCrossbow from Brutal Hexen RPG
-ACTOR ThunderCrossbow : PBWP_Weapon
+ACTOR ThunderCrossbow : PB_WeaponBase
 {
 	Inventory.Amount 1
 	+BLOODSPLATTER

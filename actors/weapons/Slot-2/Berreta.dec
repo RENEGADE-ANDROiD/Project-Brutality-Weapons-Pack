@@ -10,7 +10,7 @@ ACTOR Beretta_Clip_UpGrade : Ammo
 	Inventory.Icon "PTUPZ0"
 }
 
-Actor B92S : PBWP_Weapon
+Actor B92S : PB_WeaponBase
 {
 	Weapon.AmmoType2 "Beretta_Clip_UpGrade"
 	Weapon.AmmoUse 0
@@ -190,14 +190,16 @@ Actor B92S : PBWP_Weapon
 		UPZF D 1 {
 			A_DoPBWeaponAction;
 			}
-		TNT1 A 0 A_ZoomFactor(2.0)
+		TNT1 A 0 A_ZoomFactor(1.8)
 		TNT1 A 0 A_JumpIfInventory("Berreta_No_Tri",1,"EndFireZoom")
 		Goto FireZoom
 	EndFireZoom:
+		TNT1 A 0 A_ZoomFactor(1.8)
 		TNT1 A 0 A_TakeInventory("Berreta_Burst",3)
 		UPGZ A 1 A_DoPBWeaponAction
 	TriFinishedZoom:
 		TNT1 A 0 {
+			A_ZoomFactor(1.8);
 			A_TakeInventory("Berreta_Burst",3);
 			A_DoPBWeaponAction;}
 		Goto ZoomReady
@@ -209,9 +211,9 @@ Actor B92S : PBWP_Weapon
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
 		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"NoAim")
 		TNT1 A 0 A_Giveinventory("Zoomed",1)
-        TNT1 A 0 A_ZoomFactor(1.8)
+        	TNT1 A 0 A_ZoomFactor(1.8)
 		TNT1 A 0 A_PlaySound("Weapon/IronSit")
-        BERZ AB 1
+        	BERZ AB 1
 		TNT1 A 0 A_SetPitch(+1.0 + pitch)
 		BERZ CD 1
 		TNT1 A 0 A_SetPitch(+1.0 + pitch)
@@ -219,9 +221,9 @@ Actor B92S : PBWP_Weapon
         Goto ZoomReady
 		
     NoAim:
-        TNT1 A 0 A_ZoomFactor(1.0)
+        	TNT1 A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_PlaySound("Weapon/IronSit")
-        BERZ DC 1
+        	BERZ DC 1
 		TNT1 A 0 A_SetPitch(-1.0 + pitch)
 		BERZ BA 1
 		TNT1 A 0 A_SetPitch(-1.0 + pitch)

@@ -6,7 +6,7 @@ ACTOR BallistaUpgraded : Inventory { Inventory.MaxAmount 1 }
 ACTOR SwapToDemonicMode : Inventory { Inventory.MaxAmount 1 }
 
 /////WEAPON//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-ACTOR Prosurv_Ballista : PBWP_weapon {
+ACTOR Prosurv_Ballista : PB_WeaponBase {
 	Game Doom
 	Weapon.AmmoUse1 0
 	Weapon.AmmoGive1 15

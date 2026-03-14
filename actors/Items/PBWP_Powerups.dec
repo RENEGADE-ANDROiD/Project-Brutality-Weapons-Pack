@@ -1,3 +1,37 @@
+actor KSFreeze : PowerupGiver
+{
+	//$Title Haste Sphere
+	//$Category Powerups
+	//$Sprite HASTA0
+	Game Doom
+	SpawnID 7210
+	inventory.pickupmessage "Killstreak Acquired:  You move faster!"
+	inventory.maxamount 0
+	powerup.duration -5
+	powerup.color "FF FF 00", 0.05
+	powerup.type Speed
+	-COUNTITEM
+	+FloatBob
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.PickupSound "DEM"
+	States
+	{
+	Spawn:
+	
+	TNT1 AA 0
+    HAST AAABBBCCC 2 A_SpawnItem("YellowFlareMedium",0,30)
+    Goto Spawn+2
+	
+	
+	
+	Pickup:
+        TNT1 AAAAAAAAAAAAA 0 A_CustomMissile ("ShinnySmoke", 0, 0, random (0, 360), 2, random (0, 360))
+		TNT1 A 0 A_Print ("You got the Haste Sphere. Your body trembles with energy...")
+		Stop
+	}
+}
+
 ACTOR CoffeeTime : PowerupGiver
 {
 	//$Category Powerups
@@ -35,7 +69,7 @@ Actor TFST : PowerupGiver
 	+FORCEXYBILLBOARD
     Inventory.MaxAmount 0
     Powerup.Type TimeFreezer
-    Powerup.Color GoldMap
+    Powerup.Color GoldMap, 0.5
     Inventory.PickupMessage "Time freeze!"
     States
     {
@@ -79,7 +113,7 @@ Actor AmmoSphere : PowerupGiver
 	Inventory.PickupSound "misc/p_pkup"
 	Powerup.Duration -30
 	Powerup.Type "PowerInfiniteAmmo"
-	Powerup.Color "255 0 0" 0.4
+	Powerup.Color "255 0 0" 0.015
 	States
 	{
 	Spawn:
@@ -99,8 +133,8 @@ Actor Crucifix : PowerupGiver
 	Inventory.MaxAmount 10
 	Inventory.InterHubAmount 10
 	Powerup.Type Frightener
-	Powerup.Color White 0.1
-	Powerup.Duration -30
+	Powerup.Color White, 0.015
+	Powerup.Duration -20
 	Inventory.PickupMessage "You got a crucifix rosary! Make 'em repent!"
 	Inventory.Icon "CRFXZ0"
 	Inventory.UseSound "crucifix/use"
@@ -141,7 +175,7 @@ Actor GuardsphereST : PowerupGiver 5037
   +Inventory.AlwaysPickup
   Inventory.MaxAmount 0
   Powerup.Type QuarterDamageST
-  Powerup.Color GreenMap
+  Powerup.Color GreenMap, 0.015
   Inventory.PickupMessage "Guardsphere! Gain 75% Damage Reduction"
   States
   {
@@ -159,7 +193,7 @@ ACTOR LegendSphere : PowerupGiver
   Inventory.MaxAmount 0
   Scale 0.73
   Powerup.Type "Buddha"
-  Powerup.Color 00 00 128, 0.3
+  Powerup.Color 00 00 128, 0.015
   Inventory.PickupMessage "Legend Sphere! You Can't Go Below 1 HP! Go Crazy!" 
   States
   {
@@ -209,7 +243,7 @@ ACTOR LifeshieldSphere : CustomInventory
 ACTOR PowerLifeshield : PowerProtection
 {
   DamageFactor "Normal", 0
-  Powerup.Color 255, 176, 0, 0.125
+  Powerup.Color 255, 176, 0, 0.015
   Powerup.Duration 0x7FFFFFFF // A VERY long duration
 }
 
@@ -218,8 +252,8 @@ actor RegenSphere : PowerupGiver
 	Game Doom
 	inventory.pickupmessage "Regeneration!!."
 	inventory.maxamount 0
-	powerup.duration -60
-	powerup.color "FF FF FF", 0.1
+	powerup.duration -30
+	powerup.color "FF FF FF", 0.015
 	powerup.type Regeneration
 	+COUNTITEM
 	+INVENTORY.AUTOACTIVATE
@@ -240,12 +274,40 @@ actor RegenSphere : PowerupGiver
 //
 // ------------------------------------------------------------------------------------------------
 
+ACTOR GrowthSphere : PowerupGiver 
+{
+    Inventory.PickupMessage "GrowthSphere!"
+    Inventory.MaxAmount 0
+    Powerup.Type Growth
+    Powerup.Duration -20
+
+    +COUNTITEM
+    +INVENTORY.AUTOACTIVATE
+    +INVENTORY.ALWAYSPICKUP
+    +INVENTORY.BIGPOWERUP
+
+    States
+    {
+    Spawn:
+        Z1NS ABCDCB 6 Bright
+        Loop
+    }
+}
+
+ACTOR PowerGrowth : PowerMorph
+{
+    PowerMorph.PlayerClass "PB_BIGPlayerPrawn"
+    PowerMorph.MorphFlash "ShrinkFlashDummy"
+    PowerMorph.UnMorphFlash "UnShrinkFlashDummy"
+    PowerMorph.MorphStyle (MRF_TRANSFERTRANSLATION)
+}
+
 ACTOR ShrinkSphere : PowerupGiver 
 {
-    Inventory.PickupMessage "Shrinksphere!"
+    Inventory.PickupMessage "ShrinkSphere!"
     Inventory.MaxAmount 0
     Powerup.Type Shrink
-    Powerup.Duration -30
+    Powerup.Duration -20
 
     +COUNTITEM
     +INVENTORY.AUTOACTIVATE
@@ -267,18 +329,6 @@ ACTOR PowerShrink : PowerMorph
     PowerMorph.UnMorphFlash "UnShrinkFlashDummy"
     PowerMorph.MorphStyle (MRF_TRANSFERTRANSLATION)
 }
-
-// ACTOR MiniPlayer : PB_PlayerPrawn
-// {
-//     Radius 4
-//     Height 14
-//     Scale 0.25
-//     PainSound "miniplayer/pain"
-//     Player.ViewHeight 10
-//     Player.SoundClass "mini"
-
-//     -PICKUP
-// }
 
 // ------------------------------------------------------------------------------------------------
 //

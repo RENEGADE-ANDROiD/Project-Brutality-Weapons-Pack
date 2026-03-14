@@ -20,3 +20,31 @@ actor WarpTimer : Inventory
 Inventory.maxamount 200
 +INVENTORY.UNDROPPABLE
 }
+Actor D4AltMode : Inventory {Inventory.MaxAmount 1}
+
+Actor IsD4Weapon : Inventory {Inventory.MaxAmount 1}
+
+Actor MachinegunUpgrade : Ammo
+{
+	Inventory.PickupMessage "Picked Up A Shotgun Upgrade."
+	Inventory.Amount 1
+	Inventory.MaxAmount 2
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 2
+	States
+	{
+	Spawn:
+		CLIP A -1
+		Stop
+	}
+}
+
+Actor D4MachinegunSelected : Inventory {Inventory.MaxAmount 1}
+
+Actor D4ChaingunSelected : Inventory {Inventory.MaxAmount 1}
+
+Actor D4PlasmaSelected : Inventory {Inventory.MaxAmount 1}
+
+Actor D4RocketSelected : Inventory {Inventory.MaxAmount 1}
+
+Actor IsUpgradingWeapons : Inventory {Inventory.MaxAmount 1}
