@@ -143,7 +143,7 @@ pulselight WHITEITEM
     dontlightself 1
 }
 
-pulselight YELLOWITEM
+pulselight GOLDITEM
 {
     color 1.0 1.0 0.1
     size 14
@@ -209,94 +209,111 @@ pulselight ORANGEITEM
 
 object PB_ArmorBonus1
 {
-    frame BON2 
+    frame B0N2 
     { light GREENITEM }
 }
 
 object PB_ArmorBonusBlue
 {
-    frame BON2 
+    frame B0N2
     { light BLUEITEM }
 }
 
 object PB_ArmorBonusRed
 {
-    frame BON2 
+    frame B0N2 
     { light REDITEM }
 }
 
-object PB_ArmorBonusYellow
+object PB_ArmorBonusGold
 {
-    frame BON2 
-    { light YELLOWITEM }
+    frame B0N2 
+    { light GOLDITEM }
 }
 
-object ArmorWhite
+object PB_ArmorBonusWhite
 {
-    frame BON2 
+    frame B0N2 
     { light WHITEITEM }
 }
 
 object PB_ArmorBonusPurple
 {
-    frame BON2 
+    frame B0N2 
     { light PURPLEITEM }
 }
 
 object PB_ArmorBonusCyan
 {
-    frame BON2 
+    frame B0N2 
     { light CYANITEM }
 }
 
-object ArmorOrange
+object PB_ArmorBonusOrange
 {
-    frame BON2 
+    frame B0N2 
     { light ORANGEITEM }
 }
 
-object ArmorDemon
+object PB_ArmorBonusPink
 {
-    frame BON2 
+    frame B0N2 
     { light PINKITEM }
 }
 
 object PB_HealthBonus1
 {
-    frame BON1
+    frame B0N1
     { light BLUEITEM }
 }
 
 object PB_HealthBonusGreen
 {
-    frame BON1 
+    frame B0N1 
     { light GREENITEM }
 }
 
 object PB_HealthBonusRed
 {
-    frame BON1 
+    frame B0N1 
     { light REDITEM }
 }
 
-object PB_HealthBonusYellow
+object PB_HealthBonusGold
 {
-    frame BON1 
-    { light YELLOWITEM }
+    frame B0N1 
+    { light GOLDITEM }
 }
 
 object PB_HealthBonusPurple
 {
-    frame BON1 
+    frame B0N1 
     { light PURPLEITEM }
 }
 
 object PB_HealthBonusCyan
 {
-    frame BON1 
+    frame B0N1 
     { light CYANITEM }
 }
 
+object PB_HealthBonusOrange
+{
+    frame B0N1 
+    { light ORANGEITEM }
+}
+
+object PB_HealthBonusWhite
+{
+    frame B0N1 
+    { light WHITEITEM }
+}
+
+object PB_HealthBonusPink
+{
+    frame B0N1 
+    { light PINKITEM }
+}
 //HelmetDrops//
 pointlight DroppedHelm1
 {
