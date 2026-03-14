@@ -295,7 +295,7 @@ Actor PB_GaussCannon : PB_WeaponBase
 				 PB_GunSmoke(0,0,0);
 				 A_FireCustomMissile("GaussSiegeDamageAndPuff", 0, 0, 0, 0);
 				 A_RailAttack(200, 0, 0, "Green","Cyan", RGF_SILENT, 0, "RAILGUNPUFF1",0,0,0,0,5,1.0,"GaussTrailMain");
-				 PB_VisualRailBlue();
+				 PB_VisualRailBlue(0);
 				 A_ZoomFactor(0.96);
 				 A_GunFlash;
 			     }

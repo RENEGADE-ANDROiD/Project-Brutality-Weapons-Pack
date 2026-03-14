@@ -5,9 +5,8 @@ class KillStreakPowerUp : Inventory replaces MegaSphere
 		Inventory.PickupMessage "You got a Random Power Up!";
 		Inventory.PickupSound "misc/p_pkup";
 		+INVENTORY.ALWAYSPICKUP;
-		+INVENTORY.INTERHUBSTRIP;
 		+INVENTORY.AUTOACTIVATE;
-		Inventory.Icon "MEGA0";
+		Inventory.Icon "MEGAA0";
 	}
 	
 	override bool Use(bool pickup)

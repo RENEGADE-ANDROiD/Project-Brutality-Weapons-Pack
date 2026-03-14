@@ -116,7 +116,7 @@ Class PB_NeoHMG : PB_WeaponBase
 				A_WeaponOffset(0,32);
 			}
 			TNT1 A 0 PB_jumpIfHasBarrel("IdleBarrel","IdleFlameBarrel","IdleIceBarrel");
-			TNT1 A 0 PB_checkReload(null,"Ready","NoAmmo",80,1);
+			TNT1 A 0 PB_CheckReload(null,null,null,"Ready","NoAmmo",80,1);
 			HG0R ABCD 1;
 			HG0R EFGH 1;
 			TNT1 A 0 A_StartSound("weapons/sgl/detach",33);

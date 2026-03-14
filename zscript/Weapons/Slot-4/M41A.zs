@@ -142,7 +142,7 @@ Class M41A : PB_WeaponBase
 			}
 			TNT1 A 0 PB_jumpIfHasBarrel("IdleBarrel","IdleFlameBarrel","IdleIceBarrel");
 			TNT1 A 0 A_JumpIf(A_CheckAkimbo(), "ReloadDualWield");	
-			TNT1 A 0 PB_checkReload(null,"Ready","NoAmmo",m41a_ammoFull,1);
+			TNT1 A 0 PB_CheckReload(null,null,null,"Ready","NoAmmo",m41a_ammoFull,1);
 			PMAR ABCD 1;
 			PMAR EFGH 1;
 			PMAR IJKL 1;

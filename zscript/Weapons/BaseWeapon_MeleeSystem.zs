@@ -33,7 +33,7 @@ extend class PB_WeaponBase
 			A_ZoomFactor(1.0);
 			A_TakeInventory("ADSmode",1);
 			A_SetRoll(0);
-			A_Overlay(-10, "FirstPersonLegsStand");
+			A_LegOverlay(-1000, "FirstPersonLegsStand");
 		}
     // Add Tokens Here
         // Two Handed Melee
