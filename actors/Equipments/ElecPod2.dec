@@ -30,6 +30,7 @@ ACTOR ElecPod : CustomInventory
 	
 	Pickup:
 		TNT1 A 0 A_GiveInventory("ElecPodAmmo",1) 
+		TNT1 A 0 A_GiveInventory("PBWP_ElecPodToken",1)
 		TNT1 A 20
   }
 }

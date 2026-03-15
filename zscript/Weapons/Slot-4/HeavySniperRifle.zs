@@ -635,13 +635,6 @@ Class HeavySniperRifle : PB_WeaponBase
 		invoker.isZooming = set;
 	}
 	
-	Action state PB_CheckAmmoFire(int min = 1, statelabel Relstate = "Reload")
-	{
-		if(countinv(invoker.ammotype2) < min)
-			return resolvestate(Relstate);
-		return resolvestate(null);
-	}
-	
 	action void MS_SetGrenadeQ(bool q = 0)
 	{
 		invoker.grenadeloaded = q;
@@ -687,36 +680,6 @@ Class HeavySniperRifle : PB_WeaponBase
 		if((bt & button) && !(oldbt & button))
 			return true;
 		return false;
-	}
-	
-	Action State PB_CheckBarrelThrow1()
-	{
-		//got nukage barrel
-		if(countinv("GrabbedBarrel")>0)
-			return resolvestate("ThrowBarrel");
-		//got flame barrel
-		if(countinv("GrabbedFlameBarrel")>0)
-			return resolvestate("ThrowFlameBarrel");
-		//got ice barrel
-		if(countinv("GrabbedIceBarrel")>0)
-			return resolvestate("ThrowIceBarrel");
-		//no barrel
-		return resolvestate(null);
-	}
-	
-	Action State PB_CheckBarrelPlace1()
-	{
-		//got nukage barrel
-		if(countinv("GrabbedBarrel")>0)
-			return resolvestate("PlaceBarrel");
-		//got flame barrel
-		if(countinv("GrabbedFlameBarrel")>0)
-			return resolvestate("PlaceFlameBarrel");
-		//got ice barrel
-		if(countinv("GrabbedIceBarrel")>0)
-			return resolvestate("PlaceIceBarrel");
-		//no barrel
-		return resolvestate(null);
 	}
 	
 	override void postbeginplay()

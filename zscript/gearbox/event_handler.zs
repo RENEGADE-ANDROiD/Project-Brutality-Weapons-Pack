@@ -31,7 +31,7 @@
  * network - even for the current player, even for the single-player game.
  */
 
-#include "./meleemenu.zs" 
+#include "./meleemenu.zs"
 class gb_EventHandler : EventHandler
 {
 
@@ -65,8 +65,8 @@ class gb_EventHandler : EventHandler
       // initializing weapon menu.
       mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
     }
-    else if (mOptions.getViewType() == VIEW_TYPE_WHEEL 
-    || mActivity.isSpecials() || mActivity.isequipment() || mActivity.ismelee())
+    else if (mOptions.getViewType() == VIEW_TYPE_WHEEL
+		|| mActivity.isSpecials() || mActivity.isequipment() || mActivity.ismelee())
     {
       mWheelController.process();
     }
@@ -94,7 +94,7 @@ class gb_EventHandler : EventHandler
 		case InputRotateWeaponSlot:     rotateWeaponSlot(); 			break;
 		case InputToggleSpecialMenu:	toggleSpecials();				break;
 		case InputToggleEquipMenu:		toggleEquipments();				break;
-    case InputToggleMeleeMenu:		toggleMelee();				break;
+		case InputToggleMeleeMenu:		toggleMelee();					break;
     }
 
     if (!mActivity.isNone()) mWheelController.reset();
@@ -174,7 +174,6 @@ class gb_EventHandler : EventHandler
 	}
 	else if (mactivity.isEquipment())
 	{
-		//gb_Activity.Equipments
 		switch (input)
 		{
 			case InputSelectNextWeapon: tickIf(mEquipmenu.selectNext()); mWheelController.reset(); break;
@@ -194,9 +193,8 @@ class gb_EventHandler : EventHandler
 		}
 		return true;
 	}
-  else if (mactivity.ismelee())
+	else if (mactivity.ismelee())
 	{
-		//gb_Activity.Melee
 		switch (input)
 		{
 			case InputSelectNextWeapon: tickIf(mMeleemenu.selectNext()); mWheelController.reset(); break;
@@ -288,7 +286,7 @@ class gb_EventHandler : EventHandler
     else if (mActivity.isInventory()) mInventoryMenu.fill(viewModel);
 	else if (mActivity.isSpecials())  mspecialsmenu.fill(viewModel);
 	else if (mActivity.isEquipment()) mEquipmenu.fill(viewModel);
-  else if (mActivity.ismelee()) mMeleemenu.fill(viewModel);
+	else if (mActivity.ismelee())     mMeleemenu.fill(viewModel);
 
     verifyViewModel(viewModel);
 
@@ -300,7 +298,7 @@ class gb_EventHandler : EventHandler
 		case mActivity.Inventory: 											break;
 		case mActivity.Specials:	viewtype = VIEW_TYPE_WHEEL;				break;
 		case mActivity.Equipments:	viewtype = VIEW_TYPE_WHEEL;				break;
-    case mActivity.Melee:	viewtype = VIEW_TYPE_WHEEL;				break;
+		case mActivity.Melee:		viewtype = VIEW_TYPE_WHEEL;				break;
 	}
 
     switch (viewtype)
@@ -323,7 +321,7 @@ class gb_EventHandler : EventHandler
       else if (mActivity.isInventory()) tickIf(mInventoryMenu.setSelectedIndex(selectedViewIndex));
 	  else if (mActivity.isSpecials())	tickIf(mspecialsmenu.setSelectedIndex(selectedViewIndex));
 	  else if (mactivity.isequipment())	tickIf(mEquipmenu.setSelectedIndex(selectedViewIndex));
-     else if (mactivity.ismelee())	tickIf(mMeleemenu.setSelectedIndex(selectedViewIndex));
+	  else if (mactivity.ismelee())		tickIf(mMeleemenu.setSelectedIndex(selectedViewIndex));
       if (selectedViewIndex != -1) 		viewModel.selectedIndex = selectedViewIndex;
 
       int selectedIndex;
@@ -333,7 +331,7 @@ class gb_EventHandler : EventHandler
 		case mActivity.Inventory: 	selectedIndex = mInventoryMenu.getSelectedIndex();	break;
 		case mActivity.Specials:	selectedIndex = mspecialsmenu.getSelectedIndex();	break;
 		case mActivity.Equipments:	selectedIndex = mEquipmenu.getSelectedIndex();		break;
-    case mActivity.Melee:	selectedIndex = mMeleemenu.getSelectedIndex();		break;
+		case mActivity.Melee:		selectedIndex = mMeleemenu.getSelectedIndex();		break;
 	  }
 
       mWheelView.setAlpha(alpha);
@@ -420,6 +418,7 @@ class gb_EventHandler : EventHandler
 
     mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
     mSounds.playOpen();
+	if(mOptions.getViewType() == VIEW_TYPE_WHEEL) gb_Sender.sendGiveItemEvent("PlayerWheelOpen");
     mActivity.openWeapons();
   }
 
@@ -433,6 +432,7 @@ class gb_EventHandler : EventHandler
     }
 
     mSounds.playOpen();
+	if(mOptions.getViewType() == VIEW_TYPE_WHEEL) gb_Sender.sendGiveItemEvent("PlayerWheelOpen");
     mActivity.openInventory();
   }
   
@@ -444,16 +444,15 @@ class gb_EventHandler : EventHandler
 		return;
 	}
 	
-	mspecialsmenu.getspecials(players[consolePlayer].readyweapon);//(gb_WeaponWatcher.current());
+	mspecialsmenu.getspecials(players[consolePlayer].readyweapon);
 	if(mspecialsmenu.thereAreNoSpecials())
 	{
-		
-		//mSounds.playNope();
-		gb_Sender.sendGiveItemEvent("GoWeaponSpecialAbility");	//no wheel, instead go normal
+		gb_Sender.sendGiveItemEvent("GoWeaponSpecialAbility");
 		return;
 	}
 	
 	mSounds.playOpen();
+	gb_Sender.sendGiveItemEvent("PlayerWheelOpen");
 	mActivity.openSpecials();
   }
   
@@ -466,6 +465,7 @@ class gb_EventHandler : EventHandler
 	}
 	
 	mSounds.playOpen();
+	gb_Sender.sendGiveItemEvent("PlayerWheelOpen");
 	mActivity.openEquipment();
   }
 
@@ -478,12 +478,14 @@ class gb_EventHandler : EventHandler
 	}
 	
 	mSounds.playOpen();
+	gb_Sender.sendGiveItemEvent("PlayerWheelOpen");
 	mActivity.openMelee();
   }
 
 	private clearscope void close()
 	{
-		mSounds.playClose();
+		if(mActivity.isWeapons() || mActivity.isSpecials() || mActivity.isEquipment() || mActivity.isInventory() || mActivity.ismelee()) mSounds.playClose();
+		gb_Sender.sendTakeItemEvent("PlayerWheelOpen");
 		mActivity.close();
 	}
   
@@ -501,12 +503,12 @@ class gb_EventHandler : EventHandler
 			case gb_activity.Inventory:
 				gb_Sender.sendUseItemEvent(mInventoryMenu.confirmSelection());	break;
 			case gb_activity.Specials:
-				gb_Sender.sendGiveItemEvent("GoWeaponSpecialAbility");	//AAAA i forgot this, and was wondering why this wasnt working
+				gb_Sender.sendGiveItemEvent("GoWeaponSpecialAbility");
 				gb_Sender.sendGiveItemEvent(mspecialsmenu.ConfirmSelection());	break;
 			case gb_activity.Equipments:
 				gb_Sender.sendGiveItemEvent("ToggleEquipment");	
 				gb_Sender.sendGiveItemEvent(mEquipmenu.ConfirmSelection());		break;
-      case gb_activity.Melee:
+			case gb_activity.Melee:
 				gb_Sender.sendGiveItemEvent("ToggleMelee");	
 				gb_Sender.sendGiveItemEvent(mMeleemenu.ConfirmSelection());		break;
 		}
@@ -594,9 +596,9 @@ class gb_EventHandler : EventHandler
     }
   }
   
-  bool isOpened()		//ig this could work to indicate when the wheel is opened, just need a pointer to the handler
+  bool isOpened()
   {
-	if(!mIsInitialized)	//it cant be opened if its not initialized
+	if(!mIsInitialized)
 		return false;
 	return !mActivity.isNone();
   }
@@ -623,7 +625,7 @@ class gb_EventHandler : EventHandler
     mInventoryMenu   = gb_InventoryMenu.from();
 	mSpecialsmenu = gb_specialsmenu.from();
 	mEquipmenu = gb_equipmentmenu.from();
-  mMeleemenu = gb_meleemenu.from();
+	mMeleemenu = gb_meleemenu.from();
 
     mActivity        = gb_Activity.from();
     mFadeInOut       = gb_FadeInOut.from();
@@ -659,8 +661,8 @@ class gb_EventHandler : EventHandler
   private string           mWeaponSetHash;
   private gb_WeaponMenu    mWeaponMenu;
   private gb_InventoryMenu mInventoryMenu; 
-  private gb_specialsmenu  mspecialsmenu;	//pb specials thing
-  private gb_equipmentmenu mEquipmenu;		//pb equipments thing
+  private gb_specialsmenu  mspecialsmenu;
+  private gb_equipmentmenu mEquipmenu;
   private gb_meleemenu     mMeleemenu;
   private gb_Activity      mActivity;
   private gb_FadeInOut     mFadeInOut;

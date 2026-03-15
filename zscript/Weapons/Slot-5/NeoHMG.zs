@@ -102,7 +102,7 @@ Class PB_NeoHMG : PB_WeaponBase
 			HG0R QQQ 1;
 			HG0R QRST 1;
 			TNT1 A 0 A_Startsound("weapon/HMG/Reload1",34);
-			TNT1 A 0 PB_UnloadMag(invoker.ammo2.getclassname(),invoker.ammo1.getclassname(),1);
+			TNT1 A 0 PB_UnloadMag(invoker.ammotype2, invoker.ammotype1, 1);
 			TNT1 A 0 A_giveinventory(invoker.UnloaderToken,1);
 			HG0R UVWXX 1;
 			HG0R YYZ 1;

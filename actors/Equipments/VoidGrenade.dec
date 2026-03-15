@@ -29,10 +29,11 @@ ACTOR VoidGrenade: CustomInventory {
 		Spawn:
 			VGR1 C 1 A_SpawnItem("PurpleFlareSmall",-1,1)
 			Loop
-		Pickup:
-			TNT1 A 0 A_GiveInventory("VoidGrenadeAmmo",1) 
-			TNT1 A 20
-			Stop	}}
+	Pickup:
+		TNT1 A 0 A_GiveInventory("VoidGrenadeAmmo",1) 
+		TNT1 A 0 A_GiveInventory("PBWP_VoidGrenadeToken",1)
+		TNT1 A 20
+		Stop	}}
 			
 ACTOR ThrownVoidGrenade {
 	Radius 2

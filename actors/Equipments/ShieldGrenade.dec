@@ -13,10 +13,11 @@ ACTOR ShieldGrenade: CustomInventory {
 		Spawn:
 			SHIG A 1 A_SpawnItem("YellowFlareSmall",-1,1)
 			Loop
-		Pickup:
-			TNT1 A 0 A_GiveInventory("ShieldGrenadeAmmo",1) 
-			TNT1 A 20
-			Stop	}
+	Pickup:
+		TNT1 A 0 A_GiveInventory("ShieldGrenadeAmmo",1) 
+		TNT1 A 0 A_GiveInventory("PBWP_ShieldGrenadeToken",1)
+		TNT1 A 20
+		Stop	}
 		}
 			
 ACTOR ShieldGrenadeAmmo : Ammo

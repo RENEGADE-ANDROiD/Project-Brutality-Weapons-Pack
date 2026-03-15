@@ -408,13 +408,6 @@ Class PB_CSSG : PB_WeaponBase
 	};
 	//for easier weapon control, ig
 	//this checks if there's at least one ammu loaded, if not, goes to reload instead
-	Action state PB_CheckAmmoFire(int min = 1)
-	{
-		if(countinv(invoker.ammotype2) < min)
-			return resolvestate("Reload");
-		return resolvestate(null);
-	}
-	
 	//this checks if theres ammo to reload, if the weapon is empty, and if its full already
 	//and jumps to the respective state, if none of the above its true, just go to normal reload
 	Action State PB_CheckReload(int min = 1,statelabel noammo = null,statelabel empty = null,statelabel fully = null, int alreadyfull = 1)
@@ -436,38 +429,6 @@ Class PB_CSSG : PB_WeaponBase
 		
 		return resolvestate(null); //continue to normal reload
 	}
-	
-	//to not copypaste the A_Jumpifinventory(barrel,1,barrel) block
-	Action State PB_CheckBarrelThrow1()
-	{
-		//got nukage barrel
-		if(countinv("GrabbedBarrel")>0)
-			return resolvestate("ThrowBarrel");
-		//got flame barrel
-		if(countinv("GrabbedFlameBarrel")>0)
-			return resolvestate("ThrowFlameBarrel");
-		//got ice barrel
-		if(countinv("GrabbedIceBarrel")>0)
-			return resolvestate("ThrowIceBarrel");
-		//no barrel
-		return resolvestate(null);
-	}
-	
-	Action State PB_CheckBarrelPlace1()
-	{
-		//got nukage barrel
-		if(countinv("GrabbedBarrel")>0)
-			return resolvestate("PlaceBarrel");
-		//got flame barrel
-		if(countinv("GrabbedFlameBarrel")>0)
-			return resolvestate("PlaceFlameBarrel");
-		//got ice barrel
-		if(countinv("GrabbedIceBarrel")>0)
-			return resolvestate("PlaceIceBarrel");
-		//no barrel
-		return resolvestate(null);
-	}
-	
 	
 	//for easier sprites manipulation
 	//gets a pointer to the asked layer and sets the defined sprite 
