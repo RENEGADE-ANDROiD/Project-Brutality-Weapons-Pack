@@ -1692,6 +1692,7 @@ extend class PB_WeaponBase
 			PB_SetUsingMelee(false);
 			A_TakeInventory("ToggleMelee", 1);
 			PB_CheckBarrelIdle1();
+			A_ClearOverlays(PSP_FLASH, PSP_FLASH);
 		}
 		Goto GoingToReady2;
 	
@@ -1719,6 +1720,7 @@ extend class PB_WeaponBase
 			PB_SetUsingMelee(false);
 			A_TakeInventory("ToggleMelee", 1);
 			PB_CheckBarrelIdle1();
+			A_ClearOverlays(PSP_FLASH, PSP_FLASH);
 		}
 		Goto GoingToReady2;
 		
@@ -1747,6 +1749,7 @@ extend class PB_WeaponBase
 			PB_SetUsingMelee(false);
 			A_TakeInventory("ToggleMelee", 1);
 			PB_CheckBarrelIdle1();
+			A_ClearOverlays(PSP_FLASH, PSP_FLASH);
 		}
 		Goto GoingToReady2;
 	
@@ -1775,6 +1778,7 @@ extend class PB_WeaponBase
 			PB_SetUsingMelee(false);
 			A_TakeInventory("ToggleMelee", 1);
 			PB_CheckBarrelIdle1();
+			A_ClearOverlays(PSP_FLASH, PSP_FLASH);
 		}
 		Goto GoingToReady2;
 		
@@ -1792,6 +1796,7 @@ extend class PB_WeaponBase
 			PB_SetUsingMelee(false);
 			A_TakeInventory("ToggleMelee", 1);
 			PB_CheckBarrelIdle1();
+			A_ClearOverlays(PSP_FLASH, PSP_FLASH);
 		}
 		Goto GoingToReady2;
 
@@ -1837,6 +1842,7 @@ extend class PB_WeaponBase
 			PB_SetUsingMelee(false);
 			A_TakeInventory("ToggleMelee", 1);
 			PB_CheckBarrelIdle1();
+			A_ClearOverlays(PSP_FLASH, PSP_FLASH);
 		}
 		Goto GoingToReady2;
 

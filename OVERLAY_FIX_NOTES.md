@@ -39,7 +39,7 @@ In PB Staging's **original** design (without PBWP's melee system), the melee ani
 | Layer | Name / Purpose | Created By |
 |---|---|---|
 | **PSP_WEAPON (1)** | Main weapon display | Engine / weapon states |
-| **PSP_FLASH (2)** | Muzzle flash / FlashPunching | Fire states / melee one-handed |
+| **PSP_FLASH (1000)** | Muzzle flash / FlashPunching | Fire states / melee one-handed |
 | **10, 11** | Dual-wield left/right overlays | Akimbo weapons |
 | **-777** | `Melee_Equipment_Handler_Overlay` | `PB_WeaponRaise` |
 | **-778** | `KickHandler_Overlay` | `PB_WeaponRaise` |
@@ -130,11 +130,42 @@ These weapons define their own `GoMeleeInstead` and bypass the base class redire
 
 For these weapons, during the melee animation, both PSP_WEAPON (idle) and -998 (melee animation) are visible simultaneously — matching PB Staging's original design where the weapon stays on screen during melee. The `GoingToReady` override ensures -998 is cleaned up when the melee ends, preventing the ghost idle frame from persisting into subsequent actions.
 
-## Kick Overlay Behavior (Layer -999, Not Changed)
+## Kick Overlay Behavior (Layer -999)
 
 Kicks are dispatched to layer **-999** by `KickHandler_Overlay`. The PBWP `DoKick` state (in `BaseWeapon_Melee.zsc`) sets `PSP_WEAPON` to `FlashKicking` (weapon-specific kick sprites for ~15 frames, then `goto Ready3`) or `HideWeaponDuringAction` (fallback). After the kick, -999 is destroyed via `Stop;` at the end of the kick animation. `FlashKicking` naturally returns `PSP_WEAPON` to `Ready3`.
 
-No changes were needed for kicks. Layer -999 is also cleared by the expanded `A_ClearOverlays(-999, -998)` in `SelectingAnimation` and `A_ClearOverlays(-999, -997)` in `PB_WeaponRaise` as a safety net.
+Layer -999 is also cleared by the expanded `A_ClearOverlays(-999, -998)` in `SelectingAnimation` and `A_ClearOverlays(-999, -997)` in `PB_WeaponRaise` as a safety net.
+
+### PSP_FLASH (1000) Clear During Kick — Fix Applied
+
+**Problem:** After performing a one-handed punch melee, subsequent kick animations displayed the gun on top of the kick foot sprites. The weapon was visible throughout the kick even though `PSP_WEAPON` was correctly redirected to `FlashKicking`/`HideWeaponDuringAction`.
+
+**Root cause:** PBWP's `MeleeDispatch` (running on `PSP_WEAPON`) creates `FlashPunching` on **PSP_FLASH** (layer 1000) to show the weapon during one-handed punch melee. Many DECORATE weapons' `FlashPunching` states call `A_DoPBWeaponAction`, which can return non-null states (e.g., `"GunEmpty"`, `"ReadyBarrel"`, `"Unload"`), causing PSP_FLASH to jump into weapon state loops that never terminate. Even when `FlashPunching` ends normally with `Stop`, PSP_FLASH (layer 1000) was never explicitly cleared — neither by `DoKick`, `GoingToReady2`, nor `SelectingAnimation`. Since PSP_FLASH renders at a higher priority than all negative-numbered layers, any stale weapon sprite on PSP_FLASH appeared on top of the kick animation.
+
+**Fix (2 parts):**
+
+1. **DoKick clears PSP_FLASH** (`BaseWeapon_Melee.zsc`): Added `A_ClearOverlays(PSP_FLASH, PSP_FLASH)` at the start of `DoKick`, before the leg overlay and kick branching. This runs for all kick variants (regular, slide, air, drop) since they all branch from `DoKick`.
+
+2. **SelectingAnimation clears PSP_FLASH** (`BaseWeapon_MeleeSystem.zs`): Added `A_ClearOverlays(PSP_FLASH, PSP_FLASH)` in the `SelectingAnimation` cleanup block as a safety net, ensuring PSP_FLASH is cleared whenever returning to the ready state from any action.
+
+### GoingToReady2 Override — PSP_FLASH Persistence After One-Handed Melee
+
+**Problem:** After performing a one-handed punch melee (StandardMelee, SwingRight, LeftBackhand, RightBackhand, ElbowStrike, Uppercut), the gun appeared over subsequent kick animations. The gun was visible on PSP_FLASH (layer 1000) for the entire duration between the melee ending and the next weapon switch.
+
+**Root cause:** One-handed melee dispatch (`MeleeDispatch` in `BaseWeapon_MeleeSystem.zs`) creates `FlashPunching` on **PSP_FLASH (layer 1000)** to show the weapon held to the side during the punch. For weapons like PB_DMR, `FlashPunching` ends with `Goto Ready3` (not `Stop`), causing PSP_FLASH to enter the weapon's idle loop — running `A_DoPBWeaponAction()` and showing the gun sprite on the highest-priority overlay layer indefinitely.
+
+All one-handed melee animations exit via `Goto GoingToReady2`. PB Staging's `GoingToReady2` (in `BaseWeapon.zc`) does **not** clear PSP_FLASH — it only handles `KeepLaserDeactivated`, `ToggleEquipment`, leg overlays, and `A_ClearReFire()`. The previous fix added PSP_FLASH clearing to `DoKick` and `GoingToReady`/`SelectingAnimation`, but `GoingToReady2` is a completely separate code path used exclusively by melee exits, and was missed.
+
+**Why the DoKick PSP_FLASH clear alone was insufficient:**
+
+1. Between punch and kick, PSP_FLASH persisted showing the gun. `A_DoPBWeaponAction` running on PSP_FLASH could trigger state jumps (e.g., `GunEmpty`, `ReadyBarrel`, `Unload`) changing the sprite/offset.
+2. During kicks, if weapon fire-state logic recreated PSP_FLASH, it reappeared mid-kick.
+
+**Fix (2 parts):**
+
+1. **GoingToReady2 override** (`BaseWeapon_MeleeSystem.zs`): Added a `GoingToReady2` state that replicates PB Staging's original behavior plus `A_ClearOverlays(PSP_FLASH, PSP_FLASH)` and `A_ClearOverlays(-999, -998)`. This is the primary fix — it catches all melee exits (both one-handed and two-handed) that route through `GoingToReady2`.
+
+2. **Belt-and-suspenders: one-handed melee exit blocks** (`BaseWeapon_MeleeAnimations.zs`): Added `A_ClearOverlays(PSP_FLASH, PSP_FLASH)` inside the cleanup block of each one-handed melee state (`StandardMelee`, `PBWP_SwingRight`, `PBWP_LeftBackhand`, `PBWP_RightBackhand`, `PBWP_ElbowStrike`, `PBWP_Uppercut`) right before `Goto GoingToReady2`. This ensures PSP_FLASH is cleared even before the `GoingToReady2` override runs.
 
 ## GZDoom/UZDoom Engine Behavior Notes
 

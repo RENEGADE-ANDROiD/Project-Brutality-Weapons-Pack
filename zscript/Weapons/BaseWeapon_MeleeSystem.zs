@@ -109,11 +109,29 @@ extend class PB_WeaponBase
 			PB_SetExecutingEnemy(false);
 			A_ClearReFire();
 			A_ClearOverlays(-999, -998);
+			A_ClearOverlays(PSP_FLASH, PSP_FLASH);
 		}
 		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Ready2");
 		TNT1 A 0 A_Jump(256,"Ready3");
 		TNT1 A 0 A_Jump(256,"Ready");
 		Wait;
+
+	// Override PB Staging's GoingToReady2 to clear PSP_FLASH from one-handed melee
+	GoingToReady2:
+		TNT1 A 0 {
+			A_TakeInventory("KeepLaserDeactivated",1);
+			A_TakeInventory("ToggleEquipment",1);
+			PB_SetUsingMelee(false);
+			PB_SetUsingEquipment(false);
+			A_LegOverlay(-1000, "FirstPersonLegsStand");
+			A_ClearReFire();
+			A_ClearOverlays(PSP_FLASH, PSP_FLASH);
+			A_ClearOverlays(-999, -998);
+		}
+		TNT1 A 0 A_JumpIfInventory("SawSelected", 1, "Reselect");
+		TNT1 AAAA 0 A_Jump(256, "SelectAnimation");
+		TNT1 AAAA 1 A_Jump(256, "Ready");
+		Loop;
 
     // Reset Melee Wheel Tokens
     WheelCancelMelee:

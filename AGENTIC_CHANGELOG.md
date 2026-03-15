@@ -2,6 +2,17 @@
 
 Agent-applied compatibility notes for this local PBWP workspace.
 
+## 2026-03-15 - Fix: Gun visible over kick animation after punch melee
+
+**Bug:** After performing a one-handed punch melee attack, the gun remained visible on screen during subsequent kick animations (regular, slide, air, and drop kicks).
+
+**Root cause:** PBWP's `MeleeDispatch` creates `FlashPunching` on PSP_FLASH (layer 1000) for one-handed punch melee. PSP_FLASH was never cleared by `DoKick` or any return-to-ready path, so stale weapon sprites persisted over kick animations. PSP_FLASH renders at highest layer priority, drawing on top of kick foot sprites on layer -999.
+
+**Files changed:**
+- `zscript/Weapons/BaseWeapon_Melee.zsc` — Added `A_ClearOverlays(PSP_FLASH, PSP_FLASH)` at start of `DoKick` (covers all kick variants)
+- `zscript/Weapons/BaseWeapon_MeleeSystem.zs` — Added `A_ClearOverlays(PSP_FLASH, PSP_FLASH)` in `SelectingAnimation` cleanup block (safety net for return-to-ready)
+- `OVERLAY_FIX_NOTES.md` — Documented fix; corrected PSP_FLASH layer number from 2 to 1000
+
 ## 2026-03-15 - Weapon reload audit Phase 1: base reload layer verification and dedup
 
 Summary:
