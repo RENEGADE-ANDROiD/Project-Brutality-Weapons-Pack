@@ -34,7 +34,7 @@ class gb_EventProcessor
 	if (event.name == "pb_equip_wheel") 	return InputToggleEquipMenu;
 	if (event.name == "pb_equip_wheel_up" && isSelectOnKeyUp) return InputConfirmSelection;
 
-  if (event.name == "pb_melee_wheel") 	return InputToggleMeleeMenu;
+	if (event.name == "pb_melee_wheel") 	return InputToggleMeleeMenu;
 	if (event.name == "pb_melee_wheel_up" && isSelectOnKeyUp) return InputConfirmSelection;
 	
     return InputNothing;

@@ -34,15 +34,21 @@ extend class PB_WeaponBase
 			A_TakeInventory("ADSmode",1);
 			A_SetRoll(0);
 			A_LegOverlay(-1000, "FirstPersonLegsStand");
+			A_OverlayFlags(-1000, PSPF_ADDWEAPON|PSPF_ADDBOB, False);
+			// Redirect melee to PSP_WEAPON so layer -998 can be destroyed
+			A_Overlay(PSP_WEAPON, "MeleeDispatch");
+			A_OverlayOffset(PSP_WEAPON, 0, 32);
 		}
-    // Add Tokens Here
+		Stop; // Kill layer -998 — prevents ghost idle frame during reload
+
+	MeleeDispatch:
         // Two Handed Melee
         TNT1 A 0 A_JumpIfInventory("MeleeAxeSelected", 1, "PrepDualHandsAxe");
         TNT1 A 0 A_JumpIfInventory("KatanaMeleeSelected", 1, "PrepDualHands");
         TNT1 A 0 A_JumpIfInventory("JohnnyHandsMeleeSelected", 1, "ExplosiveHands");
         TNT1 A 0 A_JumpIfInventory("SawMeleeSelected", 1, "SawComboStart");
         TNT1 A 0 A_JumpIfInventory("HammerMeleeSelected", 1, "PrepDualHands");
-        // One Handed Malee
+        // One Handed Melee
         TNT1 A 0 A_Overlay(PSP_FLASH, "FlashPunching");
         TNT1 A 0 A_JumpIfInventory("StandardMeleeSelected", 1, "StandardMelee");
         TNT1 A 0 A_JumpIfInventory("BladeMeleeSelected", 1, "MeleeBlade");
@@ -74,6 +80,58 @@ extend class PB_WeaponBase
 		TNT1 AAAA 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
         Goto AxeSwingRight;
 
+
+	HideWeaponDuringAction:
+		TNT1 A 1 {
+			if(!PB_usingMelee() && !PB_usingKick()) return ResolveState("GoingToReady");
+			return ResolveState(null);
+		}
+		Loop;
+
+	// Override PB Staging's GoingToReady to clear stale melee overlay (-998)
+	GoingToReady:
+		TNT1 A 0 A_JumpIfInventory ("HasBarrel", 1, "ReadyBarrel");
+		TNT1 A 0 A_JumpIfInventory ("HasFlameBarrel", 1, "ReadyFlameBarrel");
+		TNT1 A 0 A_JumpIfInventory ("HasIceBarrel", 1, "ReadyIceBarrel");
+	SelectingAnimation:
+		TNT1 A 0 {
+			A_TakeInventory("KeepLaserDeactivated",1);
+			A_TakeInventory("DoGrenade",1);
+			A_TakeInventory("IsRunning",1);
+			A_TakeInventory("Reloading",1);
+			A_LegOverlay(-1000, "FirstPersonLegsStand");
+			A_OverlayFlags(-1000, PSPF_ADDWEAPON|PSPF_ADDBOB, False);
+			A_SetInventory("Grabbing_A_Ledge",0);
+			A_SetInventory("Kicking",0);
+			PB_SetUsingKick(false);
+			PB_SetUsingMelee(false);
+			PB_SetUsingEquipment(false);
+			PB_SetExecutingEnemy(false);
+			A_ClearReFire();
+			A_ClearOverlays(-999, -998);
+			A_ClearOverlays(PSP_FLASH, PSP_FLASH);
+		}
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Ready2");
+		TNT1 A 0 A_Jump(256,"Ready3");
+		TNT1 A 0 A_Jump(256,"Ready");
+		Wait;
+
+	// Override PB Staging's GoingToReady2 to clear PSP_FLASH from one-handed melee
+	GoingToReady2:
+		TNT1 A 0 {
+			A_TakeInventory("KeepLaserDeactivated",1);
+			A_TakeInventory("ToggleEquipment",1);
+			PB_SetUsingMelee(false);
+			PB_SetUsingEquipment(false);
+			A_LegOverlay(-1000, "FirstPersonLegsStand");
+			A_ClearReFire();
+			A_ClearOverlays(PSP_FLASH, PSP_FLASH);
+			A_ClearOverlays(-999, -998);
+		}
+		TNT1 A 0 A_JumpIfInventory("SawSelected", 1, "Reselect");
+		TNT1 AAAA 0 A_Jump(256, "SelectAnimation");
+		TNT1 AAAA 1 A_Jump(256, "Ready");
+		Loop;
 
     // Reset Melee Wheel Tokens
     WheelCancelMelee:

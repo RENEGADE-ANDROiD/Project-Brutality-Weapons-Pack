@@ -27,18 +27,19 @@ ACTOR LaserCharge: CustomInventory {
 		Spawn:
 			LSRC R 1 A_SpawnItem("RedFlareSmall",-1,1)
 			Loop
-		Pickup:
-			//TNT1 A 0 A_TakeInventory("MineAmmo",1) 
-			TNT1 A 0 A_GiveInventory("LaserChargeAmmo",1) 
-			TNT1 A 0 A_GiveInventory("DetonatorAmmo",1)
-			//TNT1 A 0 A_TakeInventory("SwarmChargeAmmo",1)
-			//TNT1 A 0 A_TakeInventory("PickedUpRemoteCharge",1) 
-			//TNT1 A 0 A_GiveInventory("PickedUpLaserCharge",1) 
-			//TNT1 A 0 A_TakeInventory("PickedUpSwarmCharge",1)
-			//TNT1 A 0 A_GiveInventory("PrepLaserCharge",1) 
-			//TNT1 A 0 A_GiveInventory("CycleEquipment",1)
-			TNT1 A 20
-			Stop	}}
+	Pickup:
+		//TNT1 A 0 A_TakeInventory("MineAmmo",1) 
+		TNT1 A 0 A_GiveInventory("LaserChargeAmmo",1) 
+		TNT1 A 0 A_GiveInventory("DetonatorAmmo",1)
+		TNT1 A 0 A_GiveInventory("PBWP_LaserChargeToken",1)
+		//TNT1 A 0 A_TakeInventory("SwarmChargeAmmo",1)
+		//TNT1 A 0 A_TakeInventory("PickedUpRemoteCharge",1) 
+		//TNT1 A 0 A_GiveInventory("PickedUpLaserCharge",1) 
+		//TNT1 A 0 A_TakeInventory("PickedUpSwarmCharge",1)
+		//TNT1 A 0 A_GiveInventory("PrepLaserCharge",1) 
+		//TNT1 A 0 A_GiveInventory("CycleEquipment",1)
+		TNT1 A 20
+		Stop	}}
 actor LaserChargeShot {
 	+NOBLOCKMAP
 	+MISSILE

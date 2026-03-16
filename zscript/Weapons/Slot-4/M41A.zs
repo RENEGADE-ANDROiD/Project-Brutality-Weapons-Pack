@@ -181,20 +181,20 @@ Class M41A : PB_WeaponBase
 			PMAR YZZZZZZZZ 1;
 			TNT1 A 0 A_Startsound("M41A/MagIn",34);
 			PMAT ABCD 1;
-			TNT1 A 0 PB_UnloadMag(invoker.ammo2.getclassname(),invoker.ammo1.getclassname(),1);
-			TNT1 A 0 A_giveinventory(invoker.UnloaderToken,1);
-			PMAT EFGH 1;
-			PMAT IJKL 1;
-			
-			PMAT MNOP 1;
-			TNT1 A 0 A_Startsound("M41A/Bolt",35);
-			PMAT QRRRST 1;
-			PMAT UVWX 1;
-			PMAT YYYY 1;
-			
-			PMAR KJIH 1;
-			PMAR GFEDCBA 1;
-			goto ready;
+		TNT1 A 0 PB_UnloadMag(invoker.ammotype2, invoker.ammotype1, 1);
+		TNT1 A 0 A_giveinventory(invoker.UnloaderToken,1);
+		PMAT EFGH 1;
+		PMAT IJKL 1;
+		
+		PMAT MNOP 1;
+		TNT1 A 0 A_Startsound("M41A/Bolt",35);
+		PMAT QRRRST 1;
+		PMAT UVWX 1;
+		PMAT YYYY 1;
+		
+		PMAR KJIH 1;
+		PMAR GFEDCBA 1;
+		goto ready;
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
@@ -533,12 +533,12 @@ Class M41A : PB_WeaponBase
 			TNT1 A 0 cleardualoverlays();
 			PMDU DCBA 1;
 			TNT1 A 15;
-			TNT1 A 0 A_Startsound("M41A/MagTake",33);
-			TNT1 A 0 PB_UnloadMag(invoker.ammo2.getclassname(),invoker.ammo1.getclassname(),1);
-			TNT1 A 0 A_giveinventory(invoker.UnloaderToken,1);
-			TNT1 A 15;
-			TNT1 A 0 A_Startsound("M41A/MagTake",33);
-			TNT1 A 0 PB_UnloadMag(invoker.ammoLeft.getclassname(),invoker.ammo1.getclassname(),1);
+		TNT1 A 0 A_Startsound("M41A/MagTake",33);
+		TNT1 A 0 PB_UnloadMag(invoker.ammotype2, invoker.ammotype1, 1);
+		TNT1 A 0 A_giveinventory(invoker.UnloaderToken,1);
+		TNT1 A 15;
+		TNT1 A 0 A_Startsound("M41A/MagTake",33);
+		TNT1 A 0 PB_UnloadMag(invoker.AmmoTypeLeft, invoker.ammotype1, 1);
 			TNT1 A 0 A_giveinventory(invoker.UnloaderToken,1);
 			goto BackToReadyDual;
 			

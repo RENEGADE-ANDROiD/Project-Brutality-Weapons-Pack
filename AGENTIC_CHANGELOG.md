@@ -2,6 +2,46 @@
 
 Agent-applied compatibility notes for this local PBWP workspace.
 
+## 2026-03-15 - Fix: Gun visible over kick animation after punch melee
+
+**Bug:** After performing a one-handed punch melee attack, the gun remained visible on screen during subsequent kick animations (regular, slide, air, and drop kicks).
+
+**Root cause:** PBWP's `MeleeDispatch` creates `FlashPunching` on PSP_FLASH (layer 1000) for one-handed punch melee. PSP_FLASH was never cleared by `DoKick` or any return-to-ready path, so stale weapon sprites persisted over kick animations. PSP_FLASH renders at highest layer priority, drawing on top of kick foot sprites on layer -999.
+
+**Files changed:**
+- `zscript/Weapons/BaseWeapon_Melee.zsc` — Added `A_ClearOverlays(PSP_FLASH, PSP_FLASH)` at start of `DoKick` (covers all kick variants)
+- `zscript/Weapons/BaseWeapon_MeleeSystem.zs` — Added `A_ClearOverlays(PSP_FLASH, PSP_FLASH)` in `SelectingAnimation` cleanup block (safety net for return-to-ready)
+- `OVERLAY_FIX_NOTES.md` — Documented fix; corrected PSP_FLASH layer number from 2 to 1000
+
+## 2026-03-15 - Weapon reload audit Phase 1: base reload layer verification and dedup
+
+Summary:
+Verified all PBWP stubs and re-declarations against PB 0.4.1 reference. Removed redundant per-weapon barrel helper and PB_CheckAmmoFire duplicates.
+
+Stubs verified still needed (PB 0.4.1 does not define them):
+- `PB_VisualRailBlue` / `PB_VisualRailRed` in `BaseWeapon_Functions.zsc`
+- `LaserSightActivated` class in `BaseWeapon_Functions.zsc`
+- `UnloaderToken` property in `BaseWeapon_PBWP.zs`
+- `PB_ExecuteGK()` stub in `BaseWeapon_PBWP.zs`
+
+Stubs already removed (confirmed in prior session):
+- `HasLeech` — defined in PB 0.4.1 `actors/Weapons/Throwables.dec`
+- `ThrownStunGrenade` — replaced with `PB_ThrownStunGrenade` reference
+
+Barrel helper deduplication:
+- Removed identical `PB_CheckBarrelThrow1()` / `PB_CheckBarrelPlace1()` copies from CSSG.zs, HeavySniperRifle.zs, CalamityBlade.zs, LoRCalamityBlade.zs. These now inherit from the canonical definitions in `BaseWeapon_PBWP.zs`.
+- Kept DemonicExterminator's `PB_CheckBarrelThrow1()` override — it has unique berserk-gated logic (falls through to Place if player lacks `PB_powerstrength`).
+- WEAPON_TEMPLATE.zs copies were already inside a comment block — no change needed.
+
+PB_CheckAmmoFire deduplication:
+- Removed identical `PB_CheckAmmoFire()` copies from CSSG.zs and HeavySniperRifle.zs. Both now inherit from the canonical 2-parameter version in `BaseWeapon_PBWP.zs`.
+- CSSG's removed version had only 1 parameter (no Relstate); CSSG's callers pass 0 or 1 args, so the base version's default `Relstate = "Reload"` produces identical behavior.
+
+PB_CheckAmmoFire compatibility:
+- Uses `countinv(invoker.ammotype2)` — standard ZDoom API, fully compatible with PB 0.4.1.
+
+---
+
 This file supplements `CHANGELOG.md` with focused notes about recent maintenance work driven by PB Staging drift.
 
 ## 2026-03-13 - PB_NailgunAltFire sync fix

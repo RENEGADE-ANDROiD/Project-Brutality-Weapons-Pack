@@ -396,36 +396,6 @@ TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 		}
 		invoker.ChargeLevel = 0;
 	}
-	Action State PB_CheckBarrelThrow1()
-	{
-		//got nukage barrel
-		if(countinv("GrabbedBarrel")>0)
-			return resolvestate("ThrowBarrel");
-		//got flame barrel
-		if(countinv("GrabbedFlameBarrel")>0)
-			return resolvestate("ThrowFlameBarrel");
-		//got ice barrel
-		if(countinv("GrabbedIceBarrel")>0)
-			return resolvestate("ThrowIceBarrel");
-		//no barrel
-		return resolvestate(null);
-	}
-	
-	Action State PB_CheckBarrelPlace1()
-	{
-		//got nukage barrel
-		if(countinv("GrabbedBarrel")>0)
-			return resolvestate("PlaceBarrel");
-		//got flame barrel
-		if(countinv("GrabbedFlameBarrel")>0)
-			return resolvestate("PlaceFlameBarrel");
-		//got ice barrel
-		if(countinv("GrabbedIceBarrel")>0)
-			return resolvestate("PlaceIceBarrel");
-		//no barrel
-		return resolvestate(null);
-	}
-
 	Action void A_LoudFlash() 
 	{
 		A_GunFlash();
