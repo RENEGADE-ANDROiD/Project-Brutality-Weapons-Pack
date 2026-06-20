@@ -52,10 +52,10 @@ class PBWP_Dismantler : PBWP_CA_WeaponBase
 		TNT1 A 0 PB_WeaponRaise("VeneratedTruncheon/Up");
 		TNT1 A 0 PB_WeapTokenSwitch("PlasmagunSelected");
 		TNT1 A 0 PB_SetMagUnloaded(false);
-		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE);
+		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
-		LTBR BCD 1 A_WeaponReady(WRF_NOFIRE);
+		LTBS ABC 1 A_WeaponReady(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:
@@ -65,7 +65,7 @@ class PBWP_Dismantler : PBWP_CA_WeaponBase
 
 	Ready3:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
-		TNT1 A 0 { PBWP_CA_ReadyPose(76); }
+		TNT1 A 0 { PBWP_CA_ReadyPose(); }
 		LTBR BCDE 2 A_DoPBWeaponAction(WRF_ALLOWRELOAD);
 		Loop;
 

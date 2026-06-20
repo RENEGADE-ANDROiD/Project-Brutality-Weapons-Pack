@@ -53,10 +53,10 @@ class PBWP_Warbringer : PBWP_CA_WeaponBase
 		TNT1 A 0 PB_WeaponRaise("dcy/riflepickup");
 		TNT1 A 0 PB_WeapTokenSwitch("RifleSelected");
 		TNT1 A 0 PB_SetMagUnloaded(false);
-		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE);
+		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
-		R1F_ ABCDEF 1 A_WeaponReady(WRF_NOFIRE);
+		RFL_ ABCDEF 1 A_WeaponReady(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:
@@ -66,8 +66,8 @@ class PBWP_Warbringer : PBWP_CA_WeaponBase
 
 	Ready3:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
-		TNT1 A 0 { PBWP_CA_ReadyPose(44); }
-		R1F_ A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD);
+		TNT1 A 0 { PBWP_CA_ReadyPose(); }
+		RFL_ A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD);
 		Loop;
 
 		Fire:
@@ -78,12 +78,12 @@ class PBWP_Warbringer : PBWP_CA_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
 		TNT1 A 0 A_JumpIfInventory("PBWP_WarbringerMag", 1, 2);
 		Goto Reload;
-		TNT1 A 0 { PBWP_CA_ReadyPose(44); }
-		R1F_ B 1 Bright;
-		R1F_ C 1 Bright { PBWP_WarbringerFire(); A_TakeInventory("PBWP_WarbringerMag", 1); }
-		R1F_ D 1 Bright;
-		R1F_ E 1;
-		R1F_ F 1 A_Refire("Fire");
+		TNT1 A 0 { PBWP_CA_ReadyPose(); }
+		RFL_ B 1 Bright;
+		RFL_ C 1 Bright { PBWP_WarbringerFire(); A_TakeInventory("PBWP_WarbringerMag", 1); }
+		RFL_ D 1 Bright;
+		RFL_ E 1;
+		RFL_ F 1 A_Refire("Fire");
 		Goto Ready3;
 
 		Reload:

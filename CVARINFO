@@ -178,7 +178,6 @@ server bool PBSpawnKarnageShotgunV1 = True;
 server bool PBSpawnKarnageRainmaker = True;
 server bool PBSpawnKarnageSSVXAR = True;
 server bool PBSpawnKarnageGrenadeLauncher = True;
-server bool PBSpawnKarnageRPG7 = False;
 server bool PBSpawnKarnagePlasmastinger = True;
 // UAC / LiT master weapon folds
 server bool PBSpawnLiTRevolver = True;

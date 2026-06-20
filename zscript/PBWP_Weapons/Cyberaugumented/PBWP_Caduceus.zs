@@ -61,10 +61,10 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 		TNT1 A 0 PB_WeaponRaise("dcy/plasmariflepickup");
 		TNT1 A 0 PB_WeapTokenSwitch("PlasmagunSelected");
 		TNT1 A 0 PB_SetMagUnloaded(false);
-		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE);
+		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
-		NW3_ ABCDE 1 Bright A_WeaponReady(WRF_NOFIRE);
+		C_AD XYZ 1 Bright A_WeaponReady(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:
@@ -74,8 +74,8 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 
 	Ready3:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
-		TNT1 A 0 { PBWP_CA_ReadyPose(76); }
-		NW3_ A 1 Bright A_DoPBWeaponAction(WRF_ALLOWRELOAD);
+		TNT1 A 0 { PBWP_CA_ReadyPose(); }
+		C_AD A 1 Bright A_DoPBWeaponAction(WRF_ALLOWRELOAD);
 		Loop;
 
 		Reload:
@@ -104,10 +104,10 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 				return ResolveState(null);
 			return ResolveState("Reload");
 		}
-		NW3_ B 1 Bright;
-		NW3_ C 1 Bright { PBWP_CaduceusFire(); }
-		NW3_ D 1 Bright;
-		NW3_ E 1 Bright A_Refire("Fire");
+		C_AD B 1 Bright;
+		C_AD C 1 Bright { PBWP_CaduceusFire(); }
+		C_AD D 1 Bright;
+		C_AD E 1 Bright A_Refire("Fire");
 		Goto Ready3;
 
 		Weaponspecial:
@@ -117,7 +117,7 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 			A_StartSound("NeonicWand/Switch", CHAN_WEAPON);
 			invoker.weaponmode = !invoker.weaponmode;
 		}
-		NW3_ BCD 2 Bright;
+		C_AD BCD 2 Bright;
 		Goto Ready3;
 
 		FlashPunching:

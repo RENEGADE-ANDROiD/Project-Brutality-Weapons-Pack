@@ -15,20 +15,3 @@
 	}
 }
 
-Actor Krg_Rpgammo : Ammo
-{
-	Inventory.amount 0
-	Inventory.maxamount 1
-	Ammo.Backpackamount 0
-	Ammo.backpackmaxamount 1
-	Inventory.icon "RP7AA0"
-	Inventory.pickupmessage "Picked up Rpg ammo"
-	States
-	{
-	Spawn:
-		RP7A A -1
-		stop
-	}
-}
-
-

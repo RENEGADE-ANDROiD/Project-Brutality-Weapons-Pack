@@ -49,7 +49,7 @@ class PBWP_AmnesiaProtonPhaser : PBWP_CA_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
 		TNT1 A 0 PB_WeaponRaise("BFG10000Proto/UP");
 		TNT1 A 0 PB_WeapTokenSwitch("BFGSelected");
-		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE);
+		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
 		BFG_ ABCDEFGHI 1 Bright A_WeaponReady(WRF_NOFIRE);
@@ -62,7 +62,7 @@ class PBWP_AmnesiaProtonPhaser : PBWP_CA_WeaponBase
 
 	Ready3:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
-		TNT1 A 0 { PBWP_CA_ReadyPose(39); }
+		TNT1 A 0 { PBWP_CA_ReadyPose(); }
 		BFG_ A 1 Bright A_DoPBWeaponAction();
 		Loop;
 

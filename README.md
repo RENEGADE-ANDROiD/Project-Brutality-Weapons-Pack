@@ -215,7 +215,7 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | Totenheim Integridar Nuke | Hellbound Tactical Nuke Launcher |
 | **Insanity's Nightmare** | Chthonic Rifle, Fallen Hawk, Super Grenade Launcher (Samantha) |
 | **Doom 2016** | Doom 2016 Rocket Launcher |
-| **Karnage Legacy** | PA Grenade Launcher, RPG-7 |
+| **Karnage Legacy** | PA Grenade Launcher |
 | **VietDoom (BD v22)** | RPG-7, M79 Grenade Launcher |
 | **Duke Nukem 3D** | RPG, Devastator |
 | **Cyberaugumented** | Intervention Y0, Caduceus |

@@ -52,7 +52,7 @@ class PBWP_CinerealOrdnance : PBWP_CA_WeaponBase
 		TNT1 A 0 PB_WeapTokenSwitch("BFGSelected");
 		TNT1 A 0 PB_SetMagUnloaded(false);
 		TNT1 A 0 A_StartSound("CinerealOrdnance/Idle", CHAN_6, CHANF_LOOPING, 1, 0.5);
-		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE);
+		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
 		CINR WXY 1 A_WeaponReady(WRF_NOFIRE);
@@ -66,7 +66,7 @@ class PBWP_CinerealOrdnance : PBWP_CA_WeaponBase
 
 	Ready3:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
-		TNT1 A 0 { PBWP_CA_ReadyPose(39); }
+		TNT1 A 0 { PBWP_CA_ReadyPose(); }
 		CINR A 1 Bright A_DoPBWeaponAction(WRF_ALLOWRELOAD);
 		Loop;
 

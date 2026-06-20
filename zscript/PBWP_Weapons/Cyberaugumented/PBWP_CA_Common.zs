@@ -3,13 +3,21 @@
 
 class PBWP_CA_WeaponBase : PB_WeaponBase
 {
-	action void PBWP_CA_ReadyPose(int crosshair = 44)
+	action void PBWP_CA_ReadyPose(int crosshair = 0)
 	{
 		A_WeaponOffset(0, 32);
+		A_OverlayScale(PSP_WEAPON, 1.0, 1.0);
 		A_SetRoll(0);
 		PB_HandleCrosshair(crosshair);
 		A_TakeInventory("PB_LockScreenTilt", 1);
 		A_ClearOverlays(10, 11);
+	}
+
+	action void PBWP_CA_SelectPose()
+	{
+		A_WeaponOffset(2, 34, WOF_INTERPOLATE);
+		A_OverlayScale(PSP_WEAPON, 1.0, 1.0);
+		A_SetRoll(0);
 	}
 
 	action void PBWP_CA_LockTilt()
@@ -37,6 +45,7 @@ class PBWP_CA_WeaponBase : PB_WeaponBase
 	action void PBWP_CA_DeselectCleanup()
 	{
 		A_WeaponOffset(0, 32);
+		A_OverlayScale(PSP_WEAPON, 1.0, 1.0);
 		A_SetRoll(0);
 		A_TakeInventory("PB_LockScreenTilt", 1);
 		A_TakeInventory("Unloading", 1);

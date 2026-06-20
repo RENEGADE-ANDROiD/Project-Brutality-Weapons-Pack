@@ -51,7 +51,7 @@ class PBWP_Liquidation : PBWP_CA_WeaponBase
 		TNT1 A 0 PB_WeaponRaise("BFG10000Proto/UP");
 		TNT1 A 0 PB_WeapTokenSwitch("BFGSelected");
 		TNT1 A 0 A_PlaySound("BFG10000Proto/Idle", 5, 1, 1);
-		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE);
+		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
 		L1QU ABCDEFGHI 1 A_WeaponReady(WRF_NOFIRE);
@@ -65,7 +65,7 @@ class PBWP_Liquidation : PBWP_CA_WeaponBase
 
 	Ready3:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
-		TNT1 A 0 { PBWP_CA_ReadyPose(39); }
+		TNT1 A 0 { PBWP_CA_ReadyPose(); }
 		L1QU A 1 Bright A_DoPBWeaponAction();
 		Loop;
 
@@ -79,17 +79,22 @@ class PBWP_Liquidation : PBWP_CA_WeaponBase
 		Goto Ready3;
 		TNT1 A 0 PBWP_CA_LockTilt();
 		L1QU A 2 Bright A_StopSound(CHAN_5);
-		TNT1 A 20 Bright A_StartSound("BFG10000Proto/Charge", CHAN_WEAPON, 0, 0.85);
+		TNT1 A 0 A_StartSound("BFG10000Proto/Charge", CHAN_WEAPON, 0, 0.85);
+		L1QU AAAABBBB 1 Bright;
+		L1QU CCCCDDDD 1 Bright;
+		L1QU EEEEFFFGGGHHH 1 Bright;
 		TNT1 A 0 Bright
 		{
+			A_QuakeEx(5, 5, 5, 12, 0, 300, "", QF_RELATIVE | QF_SCALEDOWN, rollintensity: 2.0, rollwave: 2.0);
+			A_WeaponOffset(0, 32, WOF_INTERPOLATE);
 			A_StartSound("BFG10kLaser/Fire", CHAN_6, CHANF_DEFAULT, 0.75);
 			A_SetBlend("White", 0.85, 20, "Yellow");
 		}
-		TNT1 AAAAAAAAAAA 1 Bright { PBWP_LiquidationBeam(); }
+		L1QU IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII 1 Bright { PBWP_LiquidationBeam(); }
 		Goto Hold;
 
 		Hold:
-		TNT1 A 1 Bright
+		L1QU I 1 Bright
 		{
 			PBWP_LiquidationBeam();
 			A_StartSound("BFG10kLaser/Hold", CHAN_7, CHANF_LOOPING, 0.75);
@@ -97,7 +102,10 @@ class PBWP_Liquidation : PBWP_CA_WeaponBase
 		TNT1 A 0 A_Refire("Hold");
 		TNT1 A 1 Bright;
 		TNT1 A 10 { A_StopSound(CHAN_7); A_StartSound("BFG10kLaser/Stop", CHAN_6, CHANF_DEFAULT, 0.75); }
-		L1QU IJKLMNOPQR 1 Bright;
+		L1QU IJ 2 Bright;
+		L1QU KKKKKKKKKK 1 Bright;
+		L1QU LLLMMMNNNOOOPPPQQQRRR 1 Bright;
+		L1QU A 5 Bright A_WeaponOffset(0, 32, WOF_INTERPOLATE);
 		TNT1 A 0 PBWP_CA_UnlockTilt();
 		TNT1 A 0 A_StartSound("BFG10000Proto/Idle", 5, 1, 1);
 		Goto Ready3;

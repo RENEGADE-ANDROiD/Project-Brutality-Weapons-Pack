@@ -62,22 +62,23 @@ class PBWP_Nightfall : PBWP_CA_WeaponBase
 		TNT1 A 0 PB_WeaponRaise("dcy/rocketpickup");
 		TNT1 A 0 PB_WeapTokenSwitch("MinigunSelected");
 		TNT1 A 0 PB_SetMagUnloaded(false);
-		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE);
+		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
-		CHA_ ABCD 1 A_WeaponReady(WRF_NOFIRE);
+		CHG_ WXY 1 A_WeaponReady(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:
 		TNT1 A 0 PBWP_CA_DeselectCleanup();
-		CHA_ D 0 A_StopSound(CHAN_WEAPON);
+		CHG_ Y 0 A_StopSound(CHAN_WEAPON);
+		CHG_ YXW 1;
 		TNT1 A 0 A_Lower(120);
 		Wait;
 
 	Ready3:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
-		TNT1 A 0 { PBWP_CA_ReadyPose(90); }
-		CHA_ A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD);
+		TNT1 A 0 { PBWP_CA_ReadyPose(); }
+		CHG_ A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD);
 		Loop;
 
 		Fire:
@@ -89,10 +90,15 @@ class PBWP_Nightfall : PBWP_CA_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("PBWP_NightfallMag", 1, 2);
 		Goto Reload;
 		TNT1 A 0 PBWP_CA_LockTilt();
-		C1GF A 1 Bright { PBWP_NightfallFire(); }
-		C1GF B 1 Bright A_WeaponReady(WRF_NOFIRE | WRF_NOSWITCH);
-		C1GF C 0 Bright A_Refire("Fire");
-		C1GF D 1 { A_StopSound(CHAN_WEAPON); A_StartSound("Minigun/WindDown", CHAN_WEAPON, 0, 0.75); PBWP_CA_UnlockTilt(); }
+		CHG_ F 1 Bright { PBWP_NightfallFire(); }
+		CHG_ H 1 Bright A_WeaponReady(WRF_NOFIRE | WRF_NOSWITCH);
+		CHG_ H 0 Bright A_Refire("Fire");
+		CHG_ A 1
+		{
+			A_StopSound(CHAN_WEAPON);
+			A_StartSound("Minigun/WindDown", CHAN_WEAPON, 0, 0.75);
+			PBWP_CA_UnlockTilt();
+		}
 		Goto Ready3;
 
 		Reload:
