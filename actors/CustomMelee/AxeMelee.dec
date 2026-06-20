@@ -1,6 +1,6 @@
 ///FIRE AXE////////////////////////////////////////////////////////////////////
 
-ACTOR AxeSwing2 : AxeAttack { // The Actual Attack that take durability
+ACTOR AxeSwing2 : AxeAttack { // The Actual Attack that take durability 
     DamageType Saw
 	PB_Projectile.BaseDamage 55
 	States {

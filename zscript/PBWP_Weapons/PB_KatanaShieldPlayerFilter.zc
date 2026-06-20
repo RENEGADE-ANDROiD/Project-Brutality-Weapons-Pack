@@ -1,0 +1,90 @@
+// Monster-sourced explosive splash next to beam-katana / Argent barrier tiles should not hurt the player.
+
+class PB_KatanaShieldFilter
+{
+	static bool PlayerAdjacentKatanaShield(PlayerPawn p)
+	{
+		if (!p)
+			return false;
+		let it = BlockThingsIterator.Create(p, 112);
+		while (it.Next())
+		{
+			let a = it.thing;
+			if (!a)
+				continue;
+			Name n = a.GetClassName();
+			if (n == 'KatShieldPart' || n == 'KatShieldPart2')
+				return true;
+		}
+		return false;
+	}
+
+	static bool ExplosiveDamage(Name mod)
+	{
+		return mod == 'Explosive' || mod == 'Rocket' || mod == 'ExplosiveImpact'
+			|| mod == 'BarrelExplosion' || mod == 'Grenade' || mod == 'Frag';
+	}
+
+	static bool MonsterAuthored(PlayerPawn victim, Actor source, Actor inflictor)
+	{
+		if (source && source != victim && source.bIsMonster)
+			return true;
+		if (inflictor && inflictor != victim)
+		{
+			if (inflictor.bIsMonster)
+				return true;
+			if (inflictor.target && inflictor.target != victim && inflictor.target.bIsMonster)
+				return true;
+			if (inflictor.master && inflictor.master != victim && inflictor.master.bIsMonster)
+				return true;
+		}
+		return false;
+	}
+
+	static bool SuppressPlayerSplash(PlayerPawn victim, Actor inflictor, Actor source, int damage, Name mod, int flags)
+	{
+		if (damage <= 0 || !victim || !victim.player)
+			return false;
+		if (!PlayerAdjacentKatanaShield(victim))
+			return false;
+		if (!ExplosiveDamage(mod))
+			return false;
+		if (!MonsterAuthored(victim, source, inflictor))
+			return false;
+		return true;
+	}
+}
+
+class PB_KatanaShieldPlayerGuard : Inventory
+{
+	Default
+	{
+		Inventory.MaxAmount 1;
+		+INVENTORY.UNDROPPABLE
+		+INVENTORY.UNTOSSABLE
+	}
+
+	override void ModifyDamage(int damage, Name damageType, out int newDamage, bool passive,
+		Actor inflictor, Actor source, int flags)
+	{
+		if (!passive || !owner)
+			return;
+		let pp = PlayerPawn(owner);
+		if (!pp || !pp.player)
+			return;
+		if (PB_KatanaShieldFilter.SuppressPlayerSplash(pp, inflictor, source, damage, damageType, flags))
+			newDamage = 0;
+	}
+}
+
+class PB_KatanaShieldHandler : EventHandler
+{
+	override void PlayerEntered(PlayerEvent e)
+	{
+		if (!e || e.PlayerNumber < 0 || e.PlayerNumber >= MAXPLAYERS)
+			return;
+		if (!playeringame[e.PlayerNumber] || !players[e.PlayerNumber].mo)
+			return;
+		players[e.PlayerNumber].mo.GiveInventory("PB_KatanaShieldPlayerGuard", 1);
+	}
+}

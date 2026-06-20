@@ -1,0 +1,51 @@
+// Karnage Legacy — per-weapon magazine / chamber ammo and tokens
+
+Actor Rainmakerclip : Ammo
+{
+	Inventory.MaxAmount 3
+}
+
+Actor Handgunclip : Ammo
+{
+	Inventory.MaxAmount 12
+}
+
+Actor SGUNclip : Ammo
+{
+	Inventory.MaxAmount 7
+}
+
+Actor mp5clip : Ammo
+{
+	Inventory.MaxAmount 30
+}
+
+Actor SSARclip : Ammo
+{
+	Inventory.MaxAmount 30
+}
+
+Actor GRENclip : Ammo
+{
+	Inventory.MaxAmount 5
+}
+
+Actor firetoken : Inventory
+{
+	Inventory.MaxAmount 32
+}
+
+Actor noammosg : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+Actor Mp5fireswitch : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+Actor SSARaimswitch : Inventory
+{
+	Inventory.MaxAmount 1
+}

@@ -1,0 +1,100 @@
+// UZDoom 4.14.x: GetPlayerInput (ACS or ZScript) before the play loop is ready hard-crashes (+0x58).
+// Backrooms compat defers heavy map-start work until the player is spawned; same guard here.
+
+// ZScript player.cmd guard — ACS policy is selective (block GPI only, not all autorun).
+const PB_MapStartSafeTics = 120;
+
+class PB_MapStartGuard
+{
+	static bool PlayerReady(int pn)
+	{
+		return pn >= 0 && pn < MAXPLAYERS && playeringame[pn] && players[pn].mo != null;
+	}
+
+	static bool PlayerInputReady(int pn)
+	{
+		return PlayerReady(pn) && level.maptime >= PB_MapStartSafeTics;
+	}
+
+	static bool PlayerInputReadyForActor(Actor mo)
+	{
+		if (!mo || !mo.player)
+			return false;
+		return PlayerInputReady(mo.PlayerNumber());
+	}
+}
+
+// External PWADs (Backrooms Redux, etc.) often run ENTER ACS that sets walk speed to ~20%.
+// BackroomsPBCompat.pk3 restores speed on those maps; this core handler covers other add-on maps.
+// Deferred chasecam reset (script 171) — safe ACS runs at map start; no blanket freeze.
+class PB_MapStartInputLockHandler : StaticEventHandler
+{
+	private bool cameraResetDone;
+	private bool inputUnlocked;
+
+	override void PlayerEntered(PlayerEvent e)
+	{
+		cameraResetDone = false;
+		inputUnlocked = false;
+	}
+
+	override void WorldTick()
+	{
+		// No Level.SetFrozen — menu New Game can AV before view/cmd are ready with a frozen level.
+		if (level.maptime <= PB_MapStartSafeTics)
+		{
+			inputUnlocked = false;
+			for (int p = 0; p < MAXPLAYERS; p++)
+			{
+				if (!playeringame[p])
+					continue;
+				players[p].cheats |= CF_TOTALLYFROZEN;
+			}
+			return;
+		}
+
+		if (!inputUnlocked)
+		{
+			for (int p = 0; p < MAXPLAYERS; p++)
+			{
+				if (!playeringame[p])
+					continue;
+				players[p].cheats &= ~CF_TOTALLYFROZEN;
+			}
+			inputUnlocked = true;
+		}
+
+		if (!cameraResetDone)
+		{
+			ACS_ExecuteAlways(171, 0, 0, 0, 0);
+			cameraResetDone = true;
+		}
+	}
+}
+
+class PB_ExternalMapCompatHandler : StaticEventHandler
+{
+	void RestoreWalkSpeed()
+	{
+		for (int p = 0; p < MAXPLAYERS; p++)
+		{
+			if (!playeringame[p] || !players[p].mo)
+				continue;
+			if (players[p].mo.speed < 0.25)
+				players[p].mo.speed = 1.0;
+		}
+	}
+
+	override void PlayerEntered(PlayerEvent e)
+	{
+		if (!e)
+			return;
+		RestoreWalkSpeed();
+	}
+
+	override void WorldTick()
+	{
+		if (level.maptime <= PB_MapStartSafeTics)
+			RestoreWalkSpeed();
+	}
+}

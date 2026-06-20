@@ -106,10 +106,11 @@ States    {
 		BXPL ABCDEFGH 1 Bright
 		BXPL IJKLLM 1 Bright A_FadeOut(0.1)
        
-	   Stop}
+	   Stop
 		
 		}
 		
+}
 ACTOR FreezeDotDamage1
 {
   Radius 6
@@ -1147,7 +1148,11 @@ ACTOR BigCryoSmoke : CryoSmoke
 Scale 1.2
 }
 
-Actor CryoSmoke2 : CryoSmoke { StencilColor "DD DD DD" Scale 0.7 Alpha 0.5 VSpeed 2.5
+Actor CryoSmoke2 : CryoSmoke {
+	StencilColor "DD DD DD"
+	Scale 0.7
+	Alpha 0.5
+	VSpeed 2.5
 	States {
 	Spawn:
 		TNT1 A 0
@@ -1156,7 +1161,11 @@ Actor CryoSmoke2 : CryoSmoke { StencilColor "DD DD DD" Scale 0.7 Alpha 0.5 VSpee
 	}
 }
 
-Actor CryoSmoke3 : CryoSmoke { StencilColor "AA FF FF" Scale 0.7 Alpha 0.4 VSpeed 2.25
+Actor CryoSmoke3 : CryoSmoke {
+	StencilColor "AA FF FF"
+	Scale 0.7
+	Alpha 0.4
+	VSpeed 2.25
 	States {
 	Spawn:
 		TNT1 A 0
@@ -1166,8 +1175,11 @@ Actor CryoSmoke3 : CryoSmoke { StencilColor "AA FF FF" Scale 0.7 Alpha 0.4 VSpee
 	}
 }
 
-Actor MiniCryoSmoke1 : CryoSmoke { StencilColor "AA FF FF" Scale 0.7 Alpha 0.4 VSpeed 2.25
+Actor MiniCryoSmoke1 : CryoSmoke {
+	StencilColor "AA FF FF"
 	Scale 0.25
+	Alpha 0.4
+	VSpeed 2.25
 	States {
 	Spawn:
 		TNT1 A 0
@@ -1904,11 +1916,13 @@ States
 }
 
 ACTOR IceShard1 : IceShard0
-{Damagetype Shotgun
+{
+	Damagetype Shotgun
  speed 43
  wallbouncefactor 0.80
- bouncefactor 0.78}
+ bouncefactor 0.78
 
+}
 ACTOR IceShardSmall : IceShard0
 {
 	damage (2*random(0, 8))
@@ -2923,14 +2937,16 @@ ACTOR FreezeImmunity : PowerupGiver
 //  Powerup.Color Pink, 0.05
   +INVENTORY.AUTOACTIVATE
   -ADDITIVETIME
-}
 
+}
 actor PowerFreezeImmunity : PowerProtection
 {
 DamageFactor "Freeze", 0
 DamageFactor "Ice", 0
+
+
+//=========================================================================
+//=========================================================================
+
+
 }
-
-
-//=========================================================================
-//=========================================================================

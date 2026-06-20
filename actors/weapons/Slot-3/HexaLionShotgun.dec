@@ -1,8 +1,8 @@
-Actor HexaLionHasUnloaded : Inventory {Inventory.MaxAmount 1}
+Actor HexaLionHasUnloaded : Inventory { Inventory.MaxAmount 1 }
 
-Actor HexaLionBoyBarrelHeat: Inventory {Inventory.MaxAmount 200}
+Actor HexaLionBoyBarrelHeat : Inventory { Inventory.MaxAmount 200 }
 
-Actor RespectHexaLionShotgun : Inventory {Inventory.MaxAmount 1}
+Actor RespectHexaLionShotgun : Inventory { Inventory.MaxAmount 1 }
 
 Actor HexaLionAmmo : Ammo
 {
@@ -66,7 +66,7 @@ Actor HexaLionShotgun : PB_WeaponBase
 	Ready:
 	    TNT1 A 0
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
-		TNT1 A 0 PB_RespectIfNeeded
+		TNT1 A 0 { PB_RespectIfNeeded; }
 	WeaponRespect:
 		TNT1 A 0 {
 			 PB_HandleCrosshair(92);
@@ -142,6 +142,9 @@ Actor HexaLionShotgun : PB_WeaponBase
 		     A_DoPBWeaponAction(WRF_NOFIRE);
 		     }
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+			TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+			Goto Ready3
+	ReadySettle:
 	Ready3:
 	    TNT1 A 0 {
 			 A_WeaponOffset(0,32);
@@ -153,8 +156,7 @@ Actor HexaLionShotgun : PB_WeaponBase
 	HexaLionBoyReadyToFire:
 		TNT1 A 0 A_GiveInventory("HexaSSGAltCooldown", 2)
 		XSGF T 1 {
-		     if (CountInv("HexaLionBoyBarrelHeat") >= 60) { A_GunFlash("HexaLionBoyBarrelSmoke");
-		     }
+		     if (CountInv("HexaLionBoyBarrelHeat") >= 60) { A_GunFlash("HexaLionBoyBarrelSmoke"); }
 			 if (PressingFire() && CountInv("HexaLionAmmo") > 0){
 		         return state("Fire");
 		     }
@@ -185,8 +187,9 @@ Actor HexaLionShotgun : PB_WeaponBase
 		TNT1 A 0
 		TNT1 A 0 A_GiveInventory("HexaSSGAltCooldown", 100)
 		SHTZ A 0 A_TakeInventory("Zoomed",1)
-		XSGS ABCDEF 1
-		TNT1 A 0 A_Lower
+		Goto DeselectDown
+	DeselectDown:
+				TNT1 A 0 A_Lower(120)
 		Wait
 
 	Select:
@@ -204,8 +207,8 @@ Actor HexaLionShotgun : PB_WeaponBase
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 		SelectContinue:
-		TNT1 A 0 A_Raise
-		Wait
+				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+				Goto Ready3
 
 	NoAmmo:
 		XSGF T 1 {
@@ -260,6 +263,7 @@ Actor HexaLionShotgun : PB_WeaponBase
 		XSGF ABC 1 Bright {
 			 A_FireCustomMissile("YellowFlareSpawn", 0, 0, 0, 0);
 			 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+			 A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
 			 PB_FireBullets("PB_10GAPellet_LP",1,0,0,0,0);
 			 A_AlertMonsters;
 			 PB_GunSmoke(0,0,-0.9);
@@ -277,12 +281,19 @@ Actor HexaLionShotgun : PB_WeaponBase
 		TNT1 A 0 Bright {
 			 A_FireCustomMissile("ShotgunParticles", random(-19,19), 0, -1, 0, 0, random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", random(-19,19), 0, -1, 0, 0, random(-9,9));
+			 A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
 			 PB_FireBullets("PB_10GAPellet",9,7,0,0,3);
+			 A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
 			 PB_FireBullets("PB_10GAPellet",9,3,0,0,5);
+			 A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
 			 PB_FireBullets("PB_10GAPellet",9,4,0,0,4);
+			 A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
 			 PB_FireBullets("PB_10GAPellet",9,6,0,0,3);
+			 A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
 			 PB_FireBullets("PB_10GAPellet",9,5,0,0,5);
+			 A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
 			 PB_FireBullets("PB_10GAPellet",9,7,0,0,3);
+			 A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
 			 PB_FireBullets("PB_10GAPellet",9,5,0,0,3);
 			 A_AlertMonsters;
 			 PB_GunSmoke(0,0,-0.9);
@@ -290,18 +301,18 @@ Actor HexaLionShotgun : PB_WeaponBase
 			 A_GunFlash;
 			 A_Giveinventory("HexaLionBoyBarrelHeat",120);
 			 }
-		SHTZ A 0 PB_WeaponRecoil(-10, 0)
+		SHTZ A 0 { PB_WeaponRecoil(-10, 0); }
 		SHTZ A 0 A_ZoomFactor(1.3)
 		SHTZ A 0 A_ZoomFactor(1.2)
-		SHTZ A 0 PB_WeaponRecoil(-8, 0)
+		SHTZ A 0 { PB_WeaponRecoil(-8, 0); }
 		SHTZ A 0 A_ZoomFactor(1.00)
         SHTZ A 0 A_TakeInventory("Reloading",1)
-		XSGF DE 1 PB_WeaponRecoil(-4, 0)
-		XSGF EEEFGH 1 PB_WeaponRecoil(1, 0)
-		XSGF IJKLMNOPQR 1 PB_WeaponRecoil(2, 0)
+		XSGF DE 1 { PB_WeaponRecoil(-4, 0); }
+		XSGF EEEFGH 1 { PB_WeaponRecoil(1, 0); }
+		XSGF IJKLMNOPQR 1 { PB_WeaponRecoil(2, 0); }
 		XSGF S 1
 		XSGF T 1 Offset(0,34)
-		QSGF AAA 0 PB_WeaponRecoil(0.5, 0)
+		QSGF AAA 0 { PB_WeaponRecoil(0.5, 0); }
 		XSGF TT 1 Offset(0,33)
 		XSGF T 1 Offset(0,32)
 		XSGF T 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_NOBOB)
@@ -342,6 +353,7 @@ Actor HexaLionShotgun : PB_WeaponBase
 			 A_FireCustomMissile("YellowFlareSpawn", 0, 0, -2, 0);
 		     A_FireCustomMissile("YellowFlareSpawn", 0, 0, 2, 0);
 			 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+          A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
           PB_FireBullets("PB_10GAPellet_LP",1,0,0,0,0);
 			 A_AlertMonsters;
 			 PB_GunSmoke(0,0,-2);
@@ -350,17 +362,18 @@ Actor HexaLionShotgun : PB_WeaponBase
 		TNT1 A 0 Bright {
 			 A_FireCustomMissile("ShotgunParticles", random(-19,19), 0, -1, 0, 0, random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", random(-19,19), 0, -1, 0, 0, random(-9,9));
+			 A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
 			 PB_FireBullets("PB_10GAPellet",20,8,0,0,6);
 			 A_AlertMonsters;
 			 PB_GunSmoke(0,0,-2);
 			 PB_GunSmoke(0,0,2);
 			 }
-		SHTZ A 0 PB_WeaponRecoil(-20, 0)
+		SHTZ A 0 { PB_WeaponRecoil(-20, 0); }
 		TNT1 AA 0
-		SHTZ A 0 PB_WeaponRecoil(-12, 0)
+		SHTZ A 0 { PB_WeaponRecoil(-12, 0); }
 		SHTZ A 0 A_ZoomFactor(1.00)
         SHTZ A 0 A_TakeInventory("Reloading",1)
-		XS2F CDDDDE 1 PB_WeaponRecoil(2, 0)
+		XS2F CDDDDE 1 { PB_WeaponRecoil(2, 0); }
 		XS2F EFFGI 1
 		XS2F J 2
 		XS2F KLMN 1

@@ -1,34 +1,4 @@
-Class MetalSniperWheel : wheelinfocontainer
-{
-	override int GetSPCount(actor requester)
-	{
-		return 2;
-	}
-	
-	override void GetSpecials(in out array <PB_SpecialWheel_Mode> spw, actor requester)
-	{
-		super.GetSpecials(spw,requester);
-		
-		PB_SpecialWheel_Mode MS_AimMode = new ("PB_SpecialWheel_Mode");
-		MS_AimMode.img = "graphics/weap/ADSAlt.png";
-		MS_AimMode.Alias = "Aim Secondary";
-		MS_AimMode.tokentogive = "MS_Select_AimMode";
-		MS_AimMode.scalex = 0.6;
-		MS_AimMode.scaley = 0.6;
-		spw.push(MS_AimMode);
-		
-		PB_SpecialWheel_Mode MS_GrenMode = new ("PB_SpecialWheel_Mode");
-		MS_GrenMode.img = "graphics/weap/GrenadeAlt.png";
-		MS_GrenMode.Alias = "Grenade Secondary";
-		MS_GrenMode.tokentogive = "MS_Select_GrenMode";
-		MS_GrenMode.scalex = 0.6;
-		MS_GrenMode.scaley = 0.6;
-		spw.push(MS_GrenMode);
-		
-		
-	}
-}
-
+// MetalSniperWheel — provided by PBX-Weapons (PBX_MetalSniper)
 
 //in Progress
 
@@ -174,6 +144,86 @@ Class HASGWheel : wheelinfocontainer
 		spw.push(HASG_EXP);
 		spw.push(HASG_DANM);
 		spw.push(HASG_WP);
+		}
+	}
+}
+
+Class HarmonyWheel : wheelinfocontainer
+{
+	override int GetSPCount(actor requester)
+	{
+		return 4;
+	}
+
+	override void GetSpecials(in out array <PB_SpecialWheel_Mode> spw, actor requester)
+	{
+		if(!spw || !requester)
+			return;
+
+		let weap = PB_WeaponBase(requester.player.readyweapon);
+		vector2 iconScale = (0.65, 0.65);
+
+		if(weap.akimboMode)
+		{
+			PB_SpecialWheel_Mode harmony_single = new ("PB_SpecialWheel_Mode");
+			harmony_single.img = "graphics/weap/harmonydetached.png";
+			harmony_single.Alias = "Single Wield";
+			harmony_single.tokentogive = "SelectDual_Berreta";
+			harmony_single.scalex = iconScale.x;
+			harmony_single.scaley = iconScale.y;
+			spw.Push(harmony_single);
+		}
+		else
+		{
+			PB_SpecialWheel_Mode harmony_dual = new ("PB_SpecialWheel_Mode");
+			harmony_dual.img = "graphics/weap/harmonydual.png";
+			harmony_dual.Alias = "Dual Wield";
+			harmony_dual.tokentogive = "SelectDual_Berreta";
+			harmony_dual.scalex = iconScale.x;
+			harmony_dual.scaley = iconScale.y;
+			spw.Push(harmony_dual);
+		}
+
+		if(requester.FindInventory("Attached_Berreta"))
+		{
+			PB_SpecialWheel_Mode harmony_detach = new ("PB_SpecialWheel_Mode");
+			harmony_detach.img = "graphics/weap/harmonydetached.png";
+			harmony_detach.Alias = "Detach Suppressor";
+			harmony_detach.tokentogive = "SelectAttach_Berreta";
+			harmony_detach.scalex = iconScale.x;
+			harmony_detach.scaley = iconScale.y;
+			spw.Push(harmony_detach);
+		}
+		else
+		{
+			PB_SpecialWheel_Mode harmony_attach = new ("PB_SpecialWheel_Mode");
+			harmony_attach.img = "graphics/weap/harmonyattach.png";
+			harmony_attach.Alias = "Attach Suppressor";
+			harmony_attach.tokentogive = "SelectAttach_Berreta";
+			harmony_attach.scalex = iconScale.x;
+			harmony_attach.scaley = iconScale.y;
+			spw.Push(harmony_attach);
+		}
+
+		if(requester.FindInventory("Bursted_Berreta"))
+		{
+			PB_SpecialWheel_Mode harmony_semi = new ("PB_SpecialWheel_Mode");
+			harmony_semi.img = "graphics/weap/harmony_semi.png";
+			harmony_semi.Alias = "Semi-Auto";
+			harmony_semi.tokentogive = "SelectBursted_Berreta";
+			harmony_semi.scalex = iconScale.x;
+			harmony_semi.scaley = iconScale.y;
+			spw.Push(harmony_semi);
+		}
+		else
+		{
+			PB_SpecialWheel_Mode harmony_burst = new ("PB_SpecialWheel_Mode");
+			harmony_burst.img = "graphics/weap/harmony_bursted.png";
+			harmony_burst.Alias = "Burst Fire";
+			harmony_burst.tokentogive = "SelectBursted_Berreta";
+			harmony_burst.scalex = iconScale.x;
+			harmony_burst.scaley = iconScale.y;
+			spw.Push(harmony_burst);
 		}
 	}
 }

@@ -4,26 +4,28 @@
 
 // Inventory Tokens that the the Spawner will look for
 class AlreadyHaveMeatHook : inventory{default{inventory.maxamount 1;}}
-class AlreadyHaveArgentSith : inventory{default{inventory.maxamount 1;}}
 
-// MELEE
+// MELEE — tier labels match PB_SpawnerBase StartChoose (Tier1 = early maps, Tier4 = late).
 Class MeleeDropSpawner : PBWP_Spawner
 {
     States
 	{
-		Tier4:
+		Spawn:
+			TNT1 A 0;
+			Goto StartChoose;
+		Tier1:
 			TNT1 A 0;
 			TNT1 A 0 A_SpawnItemEx("PB_MeleeDropSpawnerT1");
 			Stop;
-		Tier3:
+		Tier2:
 			TNT1 A 0;
 			TNT1 A 0 A_SpawnItemEx("PB_MeleeDropSpawnerT2");
 			Stop;
-		Tier2:
+		Tier3:
 			TNT1 A 0;
 			TNT1 A 0 A_SpawnItemEx("PB_MeleeDropSpawnerT3");
 			Stop;
-		Tier1:
+		Tier4:
 			TNT1 A 0;
 			TNT1 A 0 A_SpawnItemEx("PB_MeleeDropSpawnerT4");
 			Stop;
@@ -77,6 +79,9 @@ Class DTechSpawner : PBWP_Spawner
 {
     States
 	{
+		Spawn:
+			TNT1 A 0;
+			Goto StartChoose;
 		Tier4:
 			TNT1 A 0;
 			TNT1 A 0 A_SpawnItemEx("PB_DTechAllGRSpawnerT4");
@@ -126,11 +131,7 @@ Class BeamKatanaSpawner : PBWP_Spawner
 		Tier2:
 		Tier1:
 			TNT1 A 0;
-			TNT1 A 0 {
-				if(players[consoleplayer].mo.CountInv("AlreadyHaveArgentSith") == 1){
-					PB_SpawnerSpawn("ArgentSithAmmoSpawner");}
-				else {PB_SpawnerSpawn("PB_BeamKatanaSpawner");}
-			}
+			TNT1 A 0 PB_SpawnerSpawn("PB_BeamKatanaSpawner");
 			Stop;
 		Death:
 			TNT1 A 0;

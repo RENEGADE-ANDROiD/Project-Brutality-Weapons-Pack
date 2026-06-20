@@ -1,4 +1,4 @@
-ACTOR Black_DMR-RKX : PB_WeaponBase
+﻿ACTOR Black_DMR-RKX : PB_WeaponBase
 {
 	Inventory.PickupSound "J2RCOCK"
 	Weapon.AmmoGive1 10
@@ -33,7 +33,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		
 	Ready:
 		TNT1 A 0
-		TNT1 A 0 PB_RespectIfNeeded
+		TNT1 A 0 { PB_RespectIfNeeded; }
 	WeaponRespect:
 		TNT1 A 0 A_GiveInventory("JustStartGameWithRifle",1)
 		J2FR GGGGGGGGGG 1
@@ -59,7 +59,8 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		J2PU C 1 FAST A_SetPitch(Pitch-0.4)
 		TNT1 A 0 A_PlaySound("J2RCLIPO",16)
 		TNT1 A 0 A_SetCrosshair(14)
-		Goto Ready3
+				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+				Goto Ready3
 	DualSelectAnimation:
 		TNT1 A 0 A_PlaySound("J2RCLIPO", "AUTO")
 		J2DA A 1 FAST A_SetPitch(Pitch+0.8)
@@ -70,10 +71,11 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		J2DS F 1 FAST A_SetPitch(Pitch-0.1)
 		TNT1 A 0 A_PlaySound("J2RCLIPO", "AUTO")
 		TNT1 A 0 A_SetCrosshair(14)
+	ReadySettle:
 	Ready3:
 		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Ready2")
 		J2FG A 1 {
-			if (countinv("DualWieldWithRKX") == 1) {A_SetWeaponSprite("J2DG");}
+			if (countinv("DualWieldWithRKX") == 1) {A_SetWeaponSprite("J2DG"); }
 			
 			return A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM);
 			}
@@ -106,8 +108,8 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 	SelectContinue:
-		TNT1 A 0 A_Raise
-		Wait
+				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+				Goto Ready3
 
 	Deselect:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
@@ -115,16 +117,17 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
 	    TNT1 A 0 A_PlaySound("MINY",18)
 		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"DeselectWithDual")
-	    J2PU CBA 1
 		TNT1 A 0 A_Takeinventory("Zoomed",1)
 		TNT1 A 0 A_ZoomFactor(1.0)
-	    TNT1 A 0 A_Lower
-	    Wait
+	    Goto DeselectDown
 	
 	DeselectWithDual:
 		J2DS FEDCBA 1
 		TNT1 A 0 A_ZoomFactor(1.0)
-	    TNT1 A 0 A_Lower
+	    Goto DeselectDown
+
+	DeselectDown:
+				TNT1 A 0 A_Lower(120)
 	    Wait
 	
 	FireNoreload:
@@ -167,6 +170,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 				PB_LowAmmoSoundWarning;
 			}
 			else { 
+				A_FireCustomMissile("PBWP_Tracer_Rifle", frandom(-2, 2), 0, 0, 0, 0, frandom(-2, 2));
 				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
 				PB_LowAmmoSoundWarning;
 			}
@@ -208,7 +212,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		
 		TNT1 A 0 A_CheckReload
 		TNT1 A 0 A_JumpIfInventory("SemiSong",1,"Ready3") // Thinking already has been...
-		TNT1 A 0 PB_ReFire
+		TNT1 A 0 { PB_ReFire; }
 		Goto Ready3
 		
 	NoAmmoOnRight:
@@ -234,7 +238,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		TNT1 A 0 A_ZoomFactor(0.97)
 		J2D1 A 1
 		TNT1 A 0 A_ZoomFactor(0.98)
-		J2DG A 0 PB_ReFire
+		J2DG A 0 { PB_ReFire; }
 		Goto Ready3
 	
 	NoAmmoOnLeft:
@@ -260,7 +264,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		TNT1 A 0 A_ZoomFactor(0.97)
 		J2D2 A 1
 		TNT1 A 0 A_ZoomFactor(0.98)
-		J2DG A 0 PB_ReFire
+		J2DG A 0 { PB_ReFire; }
 		Goto Ready3
 	
 	DualFire:
@@ -286,7 +290,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		J2D2 A 1
 		TNT1 A 0 A_ZoomFactor(0.97)
 		TNT1 A 0 A_ZoomFactor(0.98)
-		J2DG A 0 PB_ReFire
+		J2DG A 0 { PB_ReFire; }
 		Goto Ready3
 		
 	LeftDualFire:
@@ -311,7 +315,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		J2D1 A 1
 		TNT1 A 0 A_ZoomFactor(0.97)
 		TNT1 A 0 A_ZoomFactor(0.98)
-		J2DG A 0 PB_ReFire
+		J2DG A 0 { PB_ReFire; }
 		Goto Ready3
 		
 	//GunFlashInitiate
@@ -430,7 +434,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		TNT1 A 0 A_ZoomFactor(1.0)
 		
 		TNT1 A 0 A_CheckReload
-		TNT1 A 0 PB_ReFire
+		TNT1 A 0 { PB_ReFire; }
 		Goto Ready3
 
 
@@ -510,6 +514,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 				PB_LowAmmoSoundWarning;
 			}
 			else { 
+				A_FireCustomMissile("PBWP_Tracer_Rifle", frandom(-2, 2), 0, 0, 0, 0, frandom(-2, 2));
 				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
 				PB_LowAmmoSoundWarning;
 			}
@@ -542,7 +547,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		TNT1 A 0 A_ZoomFactor(2.0)
 		TNT1 A 0 A_CheckReload
 		TNT1 A 0 A_JumpIfInventory("SemiSong",1,"Ready2")
-		TNT1 A 0 PB_ReFire
+		TNT1 A 0 { PB_ReFire; }
 		Goto Ready2
 		
 	BurstFire2:
@@ -559,6 +564,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 				PB_LowAmmoSoundWarning;
 			}
 			else { 
+				A_FireCustomMissile("PBWP_Tracer_Rifle", frandom(-2, 2), 0, 0, 0, 0, frandom(-2, 2));
 				A_FireProjectile("IN_556x45mmRKX", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
 				PB_LowAmmoSoundWarning;
 			}
@@ -639,7 +645,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		J22F E 10
 		TNT1 A 0 A_ZoomFactor(2.0)
 		TNT1 A 0 A_CheckReload
-		TNT1 A 0 PB_ReFire
+		TNT1 A 0 { PB_ReFire; }
 		Goto Ready2
 	
 	NoAmmo:
@@ -776,7 +782,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		J2DL FGH 1
 		J2DL IJKL 1
 		TNT1 A 0 A_PlaySound ("RIFCL_IN", 11)
-		TNT1 A 0 PB_AmmoIntoMag("Black_Clip","PB_HighCalMag", 31, 1) 
+		TNT1 A 0 { PB_AmmoIntoMag("Black_Clip","PB_HighCalMag", 31, 1); }
 		J2DL MNOOO 1
 		TNT1 A 0 A_PlaySound ("RIFCL_CL", 12)
 		TNT1 A 0 A_JumpIfInventory("LeftBlack_Clip",31,"StopTheReeload")
@@ -789,7 +795,7 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		J2DR FGH 1
 		J2DR IJKL 1
 		TNT1 A 0 A_PlaySound ("RIFCL_IN", 11)
-		TNT1 A 0 PB_AmmoIntoMag("LeftBlack_Clip","PB_HighCalMag", 31, 1) 
+		TNT1 A 0 { PB_AmmoIntoMag("LeftBlack_Clip","PB_HighCalMag", 31, 1); }
 		J2DR MNOOO 1
 		TNT1 A 0 A_PlaySound ("RIFCL_CL", 12)
 	StopTheReeload:
@@ -804,11 +810,11 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"FlashDualKicking")
 		J2FR BBATTTTTTTABB 1 A_DoPBWeaponAction
-		Goto Ready3
+		Stop
 		
 	FlashDualKicking:
 		J2DS FEDCBAAAAABCDEF 1 A_DoPBWeaponAction
-		Goto Ready3
+		Stop
 		
 	FlashAirKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
@@ -816,11 +822,11 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
 		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"FlashDualAirKicking")
 		J2FR BBATTTTTTTTABB 1 A_DoPBWeaponAction
-		Goto Ready3
+		Stop
 		
 	FlashDualAirKicking:
 		J2DS FEDCBAAAAAABCDEF 1 A_DoPBWeaponAction
-		Goto Ready3
+		Stop
 		
 	FlashSlideKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
@@ -834,14 +840,14 @@ ACTOR Black_DMR-RKX : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0 A_JumpIfInventory("DualWieldWithRKX",1,"FlashDualSlideKickingStop")
 		J2FR TAB 1 A_DoPBWeaponAction
-		Goto Ready3
+		Stop
 		
 	FlashDualSlideKicking:
 		J2DS FEDCB 1 A_DoPBWeaponAction
 		J2DS A 9
 	FlashDualSlideKickingStop:
 		J2DS AABCDEF 1 A_DoPBWeaponAction
-		Goto Ready3
+		Stop
 
 	Unload:
 		TNT1 A 0 A_ZoomFactor(1.0)
@@ -915,7 +921,7 @@ Inventory.Icon "J2SPB0"
 +IgnoreSkill
 }
 
-ACTOR JustStartGamesWithRifle : Inventory {Inventory.MaxAmount 1}
+ACTOR JustStartGamesWithRifle : Inventory { Inventory.MaxAmount 1 }
 Actor Unloaded_ShadowSong : Inventory { Inventory.MaxAmount 1 }
 Actor SemiSong : Inventory { Inventory.MaxAmount 1 }
 Actor BurstSong : Inventory { Inventory.MaxAmount 1 }

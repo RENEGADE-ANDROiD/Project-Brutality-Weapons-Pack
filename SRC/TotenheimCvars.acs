@@ -1,0 +1,12 @@
+#library "TotenheimCvars"
+#include "zcommon.acs"
+
+script "FD_Particles" (void)
+{
+    SetResultValue(GetCVar("FD_particles"));
+}
+
+script "FD_Quakes" (void)
+{
+    SetResultValue(GetCVar("FD_quakes"));
+}

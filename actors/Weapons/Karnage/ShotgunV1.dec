@@ -1,0 +1,354 @@
+/*Actor ShotgunV1spawner : Randomspawner replaces Shotgun
+{ 
+Dropitem "ShotgunV1PICKUP",256,1
+Dropitem "PB_SgMagazine",256,1
+Dropitem "PB_Shotgun",256,1
+Dropitem "PB_Autoshotgun",256,1
+}
+
+Actor ShotgunV1PICKUP : Custominventory
+{
+	Scale 0.65
+	+INVENTORY.ALWAYSPICKUP
+	states
+	{
+	Spawn:
+		SGNP A 1 
+		Loop
+	Pickup:
+		TNT1 A 0 A_Jumpifinventory("ShotgunV1",1,2)
+		TNT1 A 0 A_Giveinventory("ShotgunV1")
+		TNT1 A 0 A_Giveinventory("PB_Shell",4)
+		stop
+		TNT1 A 0 A_Giveinventory("PB_Shell",8)
+		stop
+	Ready3:
+	Ready:
+		TNT1 A 0 A_Jumpifinventory("noammosg",1,"noShellleft")
+		SGUN A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		Loop
+	Readywammo:
+		TNT1 A 0 A_Takeinventory("noammosg",1)
+	Readys:
+		SGUN A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		Loop
+	noShellcheck:
+		TNT1 A 0 A_Giveinventory("noammosg",1)	TNT1 A 0 A_Giveinventory("noammosg",1)
+	noShellleft:
+		TNT1 A 0 A_Jumpifinventory("PB_Shell",11,"readywammo")
+		SGUN Z 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		Loop
+	Deselect:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		SGUN A 1 offset(0,34) //A_Playsound
+		goto down
+	Down:
+		SGUN AA 0 A_Lower
+		SGUN A 1 A_Lower
+		Loop
+	Select:
+	    TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		Goto SelectFirstPersonLegs
+		SelectContinue:
+		SGUN A 1 Offset(40,100)
+		TNT1 A 0 A_Setpitch(pitch+2)
+		SGUN A 1 Offset(30,80)A_Playsound("ARDN")
+		TNT1 A 0 A_Setpitch(pitch-0.5)
+		SGUN A 1 Offset(20,50)
+		TNT1 A 0 A_Setpitch(pitch-0.5)
+		SGUN A 1 Offset(10,42)
+		TNT1 A 0 A_Setpitch(pitch-0.5)
+		SGUN A 1 Offset(6,38)
+		TNT1 A 0 A_Setpitch(pitch-0.5)
+		SGUN A 1 Offset(3,35)
+		SGUN A 1 A_Raise
+		Loop
+	Fire:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 A_Jumpifinventory("noammosg",1,"FirenoShell")
+		TNT1 A 0 A_JumpIfInventory("SGUNClip",1,1)
+		GOTO RELOAD
+		SGUF A 1 Offset(1,31) Bright{
+		A_Alertmonsters;
+		PB_FireBullets("PB_12GAPellet",10,5,0,0,5);
+		A_Playsound("SHOTGUNFIRE",7);
+		PB_LowAmmoSoundWarning("Shotgun");
+		A_FireCustomMissile("muzzlelight", 1,0,4,15);
+		A_FireCustomMissile("muzzlesmoker", 1,0,4,15);
+		A_Takeinventory("SGUNClip",1);
+		A_FireCustomMissile("muzzlesmokeblst", 1,0,6,15);
+		}
+		SGUF B 1 offset(2,30) Bright{
+		PB_WeaponRecoil(-1.10,+1.00);
+		A_quake(2,3,0,50);
+		}
+		SGUF C 1 offset(25,58)
+		SGUN A 3 offset(24,56)
+		SGUN A 1 offset(19,50)
+		SGUN A 1 offset(13,44)
+		SGUN A 1 offset(7,38)
+		SGUN A 1 offset(4,35)A_Playsound("SHOTHUM",5)
+		SGUN A 1 offset(3,34)
+		//SGUN A 1 offset(2,33)
+		SGUN A 1 offset(1,32)
+		goto pump
+	FirenoShell:
+	    TNT1 A 0 A_JumpIfInventory("SGUNClip",1,1)
+		GOTO RELOAD
+		SGUN Z 1 Offset(1,31) Bright {
+		A_Alertmonsters;
+		PB_FireBullets("PB_10GAPellet",10,5,0,0,5);
+		A_Playsound("SHOTGUNFIRE",7);
+		PB_LowAmmoSoundWarning("Shotgun");
+		A_FireCustomMissile("muzzlelight", 1,0,4,15);
+		A_FireCustomMissile("muzzlesmoker", 1,0,4,15);
+		A_Takeinventory("SGUNClip",1);
+		A_FireCustomMissile("muzzlesmokeblst", 1,0,6,15);
+		}
+		SGUN Z 1 offset(2,30) Bright{
+		PB_WeaponRecoil(-1.10,+1.00);
+		A_quake(2,3,0,50);
+		}
+		SGUN Z 1 offset(25,58)
+		SGUN Z 3 offset(24,56)
+		SGUN Z 1 offset(19,50)
+		SGUN Z 1 offset(13,44)
+		SGUN Z 1 offset(7,38)
+		SGUN Z 1 offset(4,35)A_Playsound("SHOTHUM",5)
+		SGUN Z 1 offset(3,34)
+		//SGUN A 1 offset(2,33)
+		SGUN Z 1 offset(1,32)
+		goto pumpnoShell
+	Doneandpump:
+		SGUN PO 1 offset(1,33)
+		goto pumpfull
+	Pump:
+		TNT1 A 0 A_Playsound("SHOTGUNPUMP",6)
+		SGUN A 1 offset(1,33)
+		SGUN B 1 offset(2,34)
+		TNT1 A 0 A_FireCustomMissile("EmptyCasespawnsg",5,0,16,-11)
+		SGUN C 1 offset(3,35)
+		SGUN D 1 offset(4,36)
+		SGUN E 1 offset(5,37)
+		TNT1 A 0 A_Setpitch(pitch+2)
+		SGUN E 1 offset(6,38)
+		TNT1 A 0 A_Setpitch(pitch-2)
+		SGUN E 1 offset(7,39)
+		//SGUN E 1 offset(7,39)
+		//SGUN E 1 offset(6,38)
+		SGUN E 1 offset(5,37)
+		SGUN D 1 offset(4,36)
+		SGUN C 1 offset(3,35)
+		SGUN B 1 offset(2,34)
+		SGUN A 1 offset(1,33)
+		TNT1 A 0 A_Refire
+		goto ready
+	PumpnoShell:
+		TNT1 A 0 A_Playsound("SHOTGUNPUMP",6)
+		SGUN Z 1 offset(1,33)
+		SGUN X 1 offset(2,34)
+		SGUN Y 1 offset(3,35)
+		SGUN Y 1 offset(4,36)
+		SGUN Y 1 offset(5,37)
+		TNT1 A 0 A_Setpitch(pitch+2)
+		SGUN Y 1 offset(6,38)
+		TNT1 A 0 A_Setpitch(pitch-2)
+		SGUN Y 1 offset(7,39)
+		SGUN Y 1 offset(5,37)
+		SGUN X 1 offset(4,36)
+		SGUN Z 1 offset(3,35)
+		SGUN Z 1 offset(2,34)
+		SGUN Z 1 offset(1,33)
+		TNT1 A 0 A_Refire
+		goto ready
+	Pumpfull:
+		TNT1 A 0 A_Playsound("SHOTGUNPUMP",6)
+		SGUN A 1 offset(1,33)
+		SGUN B 1 offset(2,34)
+		SGUN C 1 offset(3,35)
+		SGUN D 1 offset(4,36)
+		SGUN E 1 offset(5,37)
+		SGUN E 1 offset(6,38)
+		TNT1 A 0 A_Setpitch(pitch+2)
+		SGUN E 1 offset(7,39)
+		TNT1 A 0 A_Setpitch(pitch-2)
+		SGUN E 2 offset(6,38)
+		SGUN E 1 offset(5,37)
+		SGUN D 1 offset(4,36)
+		SGUN C 1 offset(3,35)
+		SGUN B 1 offset(2,34)
+		SGUN A 1 offset(1,33)
+		TNT1 A 0 A_Refire
+		goto ready
+	Reload:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("HasBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("HasFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("HasIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 A_Playsound("PRESS")
+		TNT1 A 0 A_Jumpifinventory("PB_Shell",1,"doreload")
+		goto Noammo
+	Doreload:
+		TNT1 A 0 A_Jumpifinventory("SGUNclip",7,"ready")
+		TNT1 A 0 A_Jumpifinventory("noammosg",1,"startreload")
+		SGUN A 1 offset(1,35)
+	Reloadwork:
+		TNT1 A 0 A_Takeinventory("noammosg",1)
+		SGUN A 1 offset(1,37)
+		SGUN B 1 offset(1,36)
+		SGUN O 1 offset(1,35)
+		SGUN P 1 offset(1,34)
+		TNT1 A 0 A_Jumpifinventory("PB_Shell",1,"ReloadCounter")
+		SGUN R 1 offset(1,33)
+	reloadcounter:
+		TNT1 A 0 A_Jumpifinventory("PB_Shell",1,1)
+		goto noShellcheck
+		TNT1 A 0 A_Jumpifinventory("SGUNclip",7,"doneandpump")
+		SGUN R 1 offset(-1,32)//Loading Shell anim
+		TNT1 A 0 A_Playsound("SHOTGUNLOAD",7)
+		SGUN R 1 offset(-2,30)
+		SGUN R 1 offset(-3,29)
+		SGUN R 2 offset(-4,28)
+		SGUN R 1 offset(-3,29)
+		SGUN R 1 offset(-2,30)
+		SGUN R 1 offset(-1,31)A_Weaponready(WRF_NOBOB)
+		SGUN R 1 offset(-1,32)A_Weaponready(WRF_NOBOB)
+		SGUN R 2 offset(-1,33)A_Weaponready(WRF_NOBOB)
+		TNT1 A 0 A_Takeinventory("PB_Shell",1,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_Giveinventory("SGUNclip",1)
+		goto reloadcounter
+	Startreload:
+		SGUN Z 1 offset(-5,37)
+		SGUN Z 1 offset(-10,42)
+		SGUN Z 1 offset(-15,50)
+		SGUN Z 1 offset(-20,60)
+		TNT1 A 0 A_Jumpifinventory("PB_Shell",1,"ReloadCounterZ")
+		TNT1 A 0 A_Takeinventory("noammosg",1)
+		SGUN Z 1 offset(-25,70)
+	reloadcounterZ:
+		TNT1 A 0 A_Jumpifinventory("PB_Shell",1,1)
+		goto ready
+		TNT1 A 0 A_Jumpifinventory("SGUNclip",7,"doneandpump")
+		SGUN Z 1 offset(-25,70)//Loading Shell anim
+		TNT1 A 0 A_Playsound("SHOTGUNLOAD",7)
+		SGUN Z 1 offset(-26,71)
+		SGUN Z 1 offset(-27,72)
+		SGUN Z 2 offset(-28,73)
+		SGUN Z 1 offset(-27,72)
+		SGUN Z 1 offset(-26,71)
+		SGUN Z 1 offset(-25,70)A_Weaponready(WRF_NOBOB)
+		SGUN Z 1 offset(-25,70)A_Weaponready(WRF_NOBOB)
+		SGUN Z 2 offset(-25,70)A_Weaponready(WRF_NOBOB)
+		TNT1 A 0 A_Takeinventory("PB_Shell",1,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_Giveinventory("SGUNclip",1)
+		goto reloadcounterZ
+	Zoom:
+		TNT1 A 0 A_Playsound("Melee_kick")
+		HAND A 1 Offset(1,50)
+		TNT1 A 0 A_Gunflash("pitch")
+		HAND A 1 Offset(1,57)
+		KICK A 1 Offset(10,50)
+		KICK A 1 Offset(5,40)
+		KICK B 1 Offset(10,40)
+		KICK B 1 Offset(5,36) A_customPunch(7,0,0,"meleehit")
+		KICK B 1 Offset(1,33)
+		KICK B 1 Offset(-2,34)
+		KICK B 1 Offset(-3,35)
+		KICK B 1 Offset(-4,36)
+		KICK B 1 Offset(-5,37)
+		KICK B 1 Offset(-6,38)
+		KICK B 1 Offset(10,50)
+		KICK A 1 Offset(5,40)
+		KICK A 1 Offset(10,50)
+		goto select
+	Pitch:
+		TNT1 A 0 A_Setpitch(pitch-2)
+		NULL A 1 A_Setpitch(pitch-1)
+		TNT1 A 0 A_Setangle(angle-2)
+		NULL A 1 A_Setangle(angle-1)
+		TNT1 A 0 A_Setpitch(pitch+1)
+		NULL A 1 A_Setangle(angle+1)
+		TNT1 A 0 A_Setpitch(pitch+1)
+		NULL A 1 A_Setangle(angle+1)
+		TNT1 A 0 A_Setpitch(pitch+1)
+		NULL A 1 A_Setangle(angle+1)
+		Stop
+	Altfire:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 A_Playsound("handgun_raise")
+		SGUN A 1 Offset(5,40)
+		SGUN A 1 Offset(10,60)
+		TNT1 A 1
+		KARQ A 1 offset(-200,110)A_Playsound("Melee_knive")
+		KARQ A 1 offset(-140,90)
+		KARQ A 1 offset(-90,70)
+		KARQ A 1 offset(-50,50)
+		KARQ A 1 offset(-20,36)A_Custompunch(15,0,CPF_PULLIN,"knivehit")
+		KARQ B 1 offset(10,40)
+		KARQ B 1 offset(40,55)
+		KARQ B 1 offset(70,75)
+		KARQ B 1 offset(100,93)
+		goto select
+	Noammo:
+		TNT1 A 0 A_Jumpifnoammo("noammonoShell")
+		TNT1 A 0 A_Print("---ammo for reload---",1)
+		TNT1 A 0 A_Playsound("DRYFIRE")
+		TNT1 A 0 A_Zoomfactor(1)
+		SGUN A 15 offset(2,34)
+		Goto ready
+	NoammoNoShell:
+		TNT1 A 0 A_Print("---zero ammo for reload---",1)
+		TNT1 A 0 A_Playsound("DRYFIRE")
+		TNT1 A 0 A_Zoomfactor(1)
+		TNT1 A 0 A_Giveinventory("noammosg",1)
+		SGUN Z 15 offset(2,34)
+		Goto ready
+ 	Spawn:
+		SGNP A -1
+		Stop
+		
+	WeaponSpecial:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+			TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
+			Goto Ready3
+		
+	FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0
+		Goto Ready3
+		
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
+		TNT1 A 0
+		Goto Ready3
+		
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0
+		Goto Ready3

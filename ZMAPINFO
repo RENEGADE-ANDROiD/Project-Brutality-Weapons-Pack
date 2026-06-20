@@ -1,0 +1,58 @@
+Gameinfo
+{
+	ForceKillScripts = true
+
+	PlayerClasses =
+	"PB_PlayerPrawn",
+	"PB_MeleePlayerPrawn",
+	"PB_BIGPlayerPrawn",
+	"MiniPlayer"
+
+	AddEventHandlers =
+	// CORE
+	"BeefRiceWeaponDrop",
+	"BeefCustomAmmoDrop",
+	"BeefSpawnPresets",
+	"BeefModChecker",
+	"BeefMeleeDrop",
+	"BeefMiscHandler",
+	/* "BeefEnums", */
+	// WEAPONS (CSSGEvent / ExterminatorStuff provided by PBX-Weapons)
+	// SYSTEMS
+	"HelmetDropHandler",
+	"OuchieFlashHandler",
+	"D4DHandler",
+    "RandomWeaponSwitcher",
+	"PB_KillstreakHandler",
+	"PB_KillstreakRareFlare",
+	"BusterHandler",
+	"cl_Handler",
+	// MISC
+	//"FractalDoom_Game",
+	"KSHUDMessageHandler",
+	"PB_KillstreakThrottleHandler",
+	"PBWP_MagnetHandler",
+	"PBWP_FXThrottleHandler",
+	"PBWP_PDAPlayHandler",
+	"PBWP_PDAHandler",
+	"PBWP_PackPresetPoll",
+	"PBWP_WeaponPackPresets",
+	"PBWP_VietDoomDurabilityHandler",
+	"PBWP_RoboDogFamiliarHandler",
+	"PB_PDAShopPurchaseHandler",
+	"PB_XPRewardsHandler",
+	"DamNumEventHandler",
+	"PB_HazardDamageHudHandler",
+	"VUAS_AchievementHandler",
+	"VUAS_PersistentTracker",
+	"VUAS_AchievementRenderer",
+	"VUAS_AchievementCommands",
+	"PB_AchievementSetup",
+	"PB_AchievementCombatHandler",
+	"GC_EnhancementsHandler",
+	"PB_TacticalFeelHandler",
+	"PB_KatanaShieldHandler",
+	"PBWP_PBXWeaponSlotHandler",
+	"PBWP_GKAchievementHandler",
+	"PBWP_CombatDamageHandler"
+}

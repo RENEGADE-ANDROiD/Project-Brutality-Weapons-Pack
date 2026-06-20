@@ -1,0 +1,18 @@
+/*
+ * DamNums: by Xaser Acheron
+ *
+ * Not-So-Big Class o' Constants.
+ */
+
+enum DamNum_Physics
+{
+	DAM_PHYSICS_TOSS  = 0,
+	DAM_PHYSICS_FLOAT = 1,
+};
+
+const DamNum_DefaultFontName = "DamNumFontGameDefault";
+const DamNum_DefaultFontPrefix = "FC";
+const DamNum_DefaultTranslation = "DamWhite";
+const DamNum_DefaultDamagetype = "None";
+const DamNum_LanguageTypecolorPrefix = "DAMNUM_TYPECOLOR_";
+const DamNum_PlaceholderTranslation = "DamDefault";

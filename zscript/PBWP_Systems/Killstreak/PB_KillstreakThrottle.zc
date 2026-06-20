@@ -1,0 +1,149 @@
+// Declusters kill-streak rewards / announcer / globe rolls when kills arrive in bursts
+// (large PB rosters). Pattern mirrors PB_BurnFXThrottleHandler tier + RNG gates.
+// Always on — no menu/cvars (tune enum values here if needed).
+
+enum PB_KillstreakThrottleTune
+{
+	PB_KS_THROTTLE_SOFT = 5,
+	PB_KS_KILL_WINDOW_TICS = 105,
+	PB_KS_REWARD_GAP_TICS = 140
+};
+
+class PB_KillstreakThrottleHandler : StaticEventHandler
+{
+	int killWindowCount[MAXPLAYERS];
+	int killWindowStartTic[MAXPLAYERS];
+	int lastRewardTic[MAXPLAYERS];
+
+	clearscope static PB_KillstreakThrottleHandler Get()
+	{
+		return PB_KillstreakThrottleHandler(StaticEventHandler.Find("PB_KillstreakThrottleHandler"));
+	}
+
+	void ResetAll()
+	{
+		for (int i = 0; i < MAXPLAYERS; i++)
+		{
+			killWindowCount[i] = 0;
+			killWindowStartTic[i] = 0;
+			lastRewardTic[i] = 0;
+		}
+	}
+
+	override void WorldLoaded(WorldEvent e)
+	{
+		ResetAll();
+	}
+
+	void RegisterKill(int pnum)
+	{
+		if (pnum < 0 || pnum >= MAXPLAYERS)
+			return;
+		let h = Get();
+		if (!h)
+			return;
+		int win = PB_KS_KILL_WINDOW_TICS;
+		if (level.maptime - h.killWindowStartTic[pnum] > win)
+		{
+			h.killWindowCount[pnum] = 0;
+			h.killWindowStartTic[pnum] = level.maptime;
+		}
+		h.killWindowCount[pnum]++;
+	}
+
+	int ComputeDensityLevel(int pnum)
+	{
+		let h = Get();
+		if (!h)
+			return 0;
+		int k = h.killWindowCount[pnum];
+		int soft = PB_KS_THROTTLE_SOFT;
+		if (k < soft + 1)
+			return 0;
+		if (k < soft + 4)
+			return 1;
+		if (k < soft + 8)
+			return 2;
+		return 3;
+	}
+
+	int WorstActiveStreakDensity()
+	{
+		int worst = 0;
+		for (int i = 0; i < MAXPLAYERS; i++)
+		{
+			if (!playeringame[i] || !players[i].mo)
+				continue;
+			let plr = PlayerPawn(players[i].mo);
+			if (!plr || !plr.FindInventory("PB_KillstreakMode"))
+				continue;
+			worst = max(worst, ComputeDensityLevel(i));
+		}
+		return worst;
+	}
+
+	static bool PassDensityGate(int lvl)
+	{
+		if (lvl >= 3)
+			return random(0, 3) == 0;
+		if (lvl >= 2)
+			return random(0, 1) == 0;
+		if (lvl >= 1)
+			return random(0, 3) != 3;
+		return true;
+	}
+
+	bool ShouldQueueRewardImpl(int pnum, int streakCount)
+	{
+		if (streakCount < 5 || (streakCount % 5) != 0)
+			return false;
+		if (level.maptime - lastRewardTic[pnum] < PB_KS_REWARD_GAP_TICS)
+			return false;
+		return PassDensityGate(ComputeDensityLevel(pnum));
+	}
+
+	static bool ShouldQueueReward(int pnum, int streakCount)
+	{
+		let h = Get();
+		if (!h)
+			return streakCount >= 5 && (streakCount % 5) == 0;
+		return h.ShouldQueueRewardImpl(pnum, streakCount);
+	}
+
+	void RecordRewardGranted(int pnum)
+	{
+		if (pnum < 0 || pnum >= MAXPLAYERS)
+			return;
+		lastRewardTic[pnum] = level.maptime;
+	}
+
+	static void OnRewardGranted(int pnum)
+	{
+		let h = Get();
+		if (h)
+			h.RecordRewardGranted(pnum);
+	}
+
+	static bool ShouldPlayAnnouncer(int pnum)
+	{
+		let h = Get();
+		if (!h)
+			return true;
+		return PassDensityGate(h.ComputeDensityLevel(pnum));
+	}
+
+	static bool ShouldRollRareFlare()
+	{
+		let h = Get();
+		if (!h)
+			return true;
+		return PassDensityGate(h.WorstActiveStreakDensity());
+	}
+
+	static void RegisterKillForPlayer(int pnum)
+	{
+		let h = Get();
+		if (h)
+			h.RegisterKill(pnum);
+	}
+}

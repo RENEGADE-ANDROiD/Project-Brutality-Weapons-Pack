@@ -1,0 +1,32 @@
+﻿// Clip --------------------------------------------------------------------
+
+ACTOR Krg_pistolammo : Ammo replaces clip
+{
+	Inventory.PickupMessage "collected some pistol ammo"
+	Inventory.Amount 10
+	Inventory.MaxAmount 150
+	Ammo.BackpackAmount 15
+	Ammo.BackpackMaxAmount 300
+	scale 0.8
+	Inventory.Icon "CLIPA0"
+	States
+	{
+	Spawn:
+		CLIP A -1
+		Stop
+	}
+}
+
+// Clip box ----------------------------------------------------------------
+
+ACTOR Krg_pistolammoBox : Krg_pistolammo replaces clipbox
+{
+	Inventory.Amount 40
+	scale 1.1
+	States
+	{
+	Spawn:
+		BXSA A -1
+		Stop
+	}
+}

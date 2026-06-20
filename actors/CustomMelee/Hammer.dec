@@ -33,7 +33,9 @@ ACTOR HammerSwing : PB_ProjectileAlt {
 			TNT1 AAAA 0 A_CustomMissile ("HitSpark23", 2, 0, frandom(0,1)*frandom (0, 360), 2, frandom(0,1)*frandom (30, 360))
 			TNT1 A 0 Radius_Quake (2, 6, 0, 5, 0)
 			TNT1 A 1
-			Stop	}}
+			Stop	
+}
+}
 ACTOR HammerSwing2 : HammerSwing {
 	PB_Projectile.BaseDamage 0
 	States {
@@ -45,7 +47,9 @@ ACTOR HammerSwing2 : HammerSwing {
 		Crash:
 		XDeath:
 			TNT1 A 0 A_TakeFromTarget("HammerDurability",1)
-			Stop	}}
+			Stop	
+}
+}
 ACTOR SuperHammerSwing : HammerSwing {
 	PB_Projectile.BaseDamage 90
 }

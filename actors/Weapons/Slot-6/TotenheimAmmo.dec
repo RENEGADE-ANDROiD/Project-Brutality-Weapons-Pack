@@ -1,0 +1,20 @@
+Actor NuclearMissile: Ammo
+{
+   Inventory.Amount 2
+   Inventory.MaxAmount 10
+   Ammo.BackpackAmount 10
+   Ammo.BackpackMaxAmount 20
+   Inventory.PickupMessage "Picked up a Nuclear Missile."
+   Inventory.Icon "NUKAA0"
+   States
+   {
+   Spawn:
+      NUKA A -1
+      Stop
+
+
+
+}
+
+
+}

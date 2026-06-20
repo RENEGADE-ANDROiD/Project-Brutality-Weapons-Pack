@@ -1,0 +1,90 @@
+// DN3DooM TC projectile / impact visuals Ã¢â‚¬â€ PB-compatible (no Duke ZScript required).
+
+ACTOR DukeDN3D_MuzzleFlashSmall
+{
+	+NOBLOCKMAP +NOGRAVITY +NOINTERACTION +CLIENTSIDEONLY
+	RenderStyle Add
+	Alpha 0.9
+	States
+	{
+	Spawn:
+		TNT1 AB 4 Bright
+		Stop
+
+}
+
+}
+ACTOR DukeDN3D_MuzzleFlashMedium : DukeDN3D_MuzzleFlashSmall
+{
+	States
+	{
+	Spawn:
+		TNT1 A 3 Bright
+		TNT1 B 2 Bright
+		Stop
+
+}
+
+}
+ACTOR DukeDN3D_RPGExplosion
+{
+	+NOBLOCKMAP +NOGRAVITY +NOINTERACTION +CLIENTSIDEONLY +FORCEXYBILLBOARD
+	RenderStyle Add
+	Alpha 0.85
+	Scale 0.75
+	States
+	{
+	Spawn:
+		RPGB BCDEFGHIJKLMNOPQRSTUV 2 Bright
+		Stop
+
+}
+
+}
+ACTOR DukeDN3D_ExplosionAirDisplacement
+{
+	+NOBLOCKMAP +NOGRAVITY +NOCLIP +NOINTERACTION +CLIENTSIDEONLY +FORCEXYBILLBOARD
+	RenderStyle Add
+	Alpha 0.4
+	Scale 0.9
+	States
+	{
+	Spawn:
+		SHWK ACEGIKMOQR 1 A_FadeOut(0.03)
+		Stop
+
+}
+
+}
+ACTOR DukeDN3D_ShotgunBlastFX
+{
+	+NOBLOCKMAP +NOGRAVITY +NOINTERACTION +CLIENTSIDEONLY +FORCEXYBILLBOARD
+	RenderStyle Add
+	Alpha 0.7
+	Scale 0.3
+	States
+	{
+	Spawn:
+		DKSX ABCDEFGH 2 Bright
+		DKSX IJKLMNOPQ 1 Bright
+		Stop
+
+}
+
+}
+ACTOR DukeDN3D_RicoSpark
+{
+	+NOBLOCKMAP +NOGRAVITY +NOINTERACTION +CLIENTSIDEONLY +FORCEXYBILLBOARD
+	RenderStyle Add
+	Alpha 1.0
+	Scale 0.09
+	States
+	{
+	Spawn:
+		IPF2 AABB 1 Bright A_SpawnItem("YellowFlareSmall", 0)
+		Stop
+
+}
+
+
+}

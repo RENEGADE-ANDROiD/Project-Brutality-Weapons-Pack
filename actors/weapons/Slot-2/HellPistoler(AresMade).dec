@@ -1,26 +1,26 @@
-ACTOR HellPistolerFirer : HellBullet
+ACTOR HellPistolerFirer : StingerHellBullet
 {
-Damage 20
-Speed 100
-DamageType Fire
+	Damage 22
+	Speed 100
+	DamageType Fire
 }
 
-ACTOR HellPistolerFirerSingle : HellBullet
+ACTOR HellPistolerFirerSingle : StingerHellBullet
 {
-+Ripper
-Damage 35
-Speed 350
-DamageType Fire
+	+Ripper
+	Damage 39
+	Speed 350
+	DamageType Fire
 }
 
-ACTOR HellPistolerFirerCharge : HellBullet
+ACTOR HellPistolerFirerCharge : StingerHellBullet
 {
-+Ripper
-Damage 150
-DamageType Fire
-Speed 350
-Scale 1.5
-Height 2.0
+	+Ripper
+	Damage 165
+	DamageType Fire
+	Speed 350
+	Scale 1.5
+	Height 2.0
 }
 
 ACTOR HellPistoler : PB_WeaponBase
@@ -44,18 +44,16 @@ ACTOR HellPistoler : PB_WeaponBase
 	Obituary "%o was decapitated by %k's Assasin."
     AttackSound "None"
     Scale 0.8
-	Tag "UAC-UM-03∅ HP Plasma Blaster - Annihilation Assassin"
+	Tag "UAC-UM-03âˆ… HP Plasma Blaster - Annihilation Assassin"
+	PB_WeaponBase.WheelInfo "HellPistoler_Wheel"
 	States
 	{
-	
 	Steady:
 		TNT1 A 1
 		Goto Ready
-	
 	Spawn:
 		ARMZ A -1
 		Stop
-		
 		Ready:
 			TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
 			AMGR A 0
@@ -71,7 +69,6 @@ ACTOR HellPistoler : PB_WeaponBase
 			AMGL A 0
 			"####" A 1 A_DoPBWeaponAction
 			Loop
-		
 		Deselect:
 			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
@@ -85,10 +82,8 @@ ACTOR HellPistoler : PB_WeaponBase
 			TNT1 A 0 A_TakeInventory("Spin",1)
 			TNT1 A 0 A_StopSound(1)
 			AMGR A 0
-			"####" ABCDEF 1
-			TNT1 A 0 A_Lower
+					TNT1 A 0 A_Lower(120)
 			Wait
-			
 		Select:
 			TNT1 A 0 {
 				A_WeaponOffset(0,32);
@@ -105,13 +100,11 @@ ACTOR HellPistoler : PB_WeaponBase
 			Goto SelectFirstPersonLegs
 			SelectContinue:
 			TNT1 A 0 
-			TNT1 A 0 A_Raise
-			wait
-			
+					TNT1 A 0 A_WeaponOffset(0, 32)
+					Goto Ready3
 		Noammo:
 		TNT1 A 0
 		Goto ReadyLoop
-			
 		Fire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
@@ -126,44 +119,64 @@ ACTOR HellPistoler : PB_WeaponBase
 			}
 			return state("");
 		}
+		TNT1 A 0 A_JumpIfInventory("HellPistolerBeamMode", 1, "FireShrink")
 		TNT1 A 0 A_JumpIfInventory("PistolerMod", 1, "SemiFire")
 		TNT1 A 0 A_JumpIfInventory ("HellPistolerAmmo", 1, 2)
 		Goto Reload
 		AMGF A 1
-		AMGF B 1 A_PlaySound("BEP",3)
+		AMGF B 1 A_StartSound("BEP", CHAN_WEAPON)
 		AMGF C 1
 		Hold:
 		TNT1 A 0 A_JumpIfInventory ("HellPistolerAmmo", 1, 2)
 		Goto Reload
 		TNT1 A 0
 		TNT1 A 0 A_PlaySound("HRFire", CHAN_WEAPON)
-		AMGF D 1 A_FireCustomMissile("HellPistolerFirerSingle")
+		TNT1 A 0 A_FireCustomMissile("RedFlareSpawn", 0, 0, 0, 0)
+		AMGF D 1 A_FireCustomMissile("HellPistolerFirerSingle", frandom(-0.2, 0.2), 1, 4, 5, 0, frandom(-0.2, 0.2))
 		AMGF E 1 A_TakeInventory("HellPistolerAmmo",1)
 		AMGF F 1
-		TNT1 A 0 PB_ReFire("Hold")
+		TNT1 A 0 { PB_ReFire("Hold"); }
 		Goto ReadyLoop
-		
+
+	FireShrink:
+		TNT1 A 0 A_JumpIfInventory ("HellPistolerAmmo", 1, 2)
+		Goto Reload
+		AMGF A 1
+		AMGF B 1 A_StartSound("BEP", CHAN_WEAPON)
+		AMGF C 1
+	HoldShrink:
+		TNT1 A 0 A_JumpIfInventory ("HellPistolerAmmo", 1, 2)
+		Goto Reload
+		TNT1 A 0 A_PlaySound("HRFire", CHAN_WEAPON)
+		TNT1 A 0 A_GunFlash
+		AMGF D 1 A_FireCustomMissile("ShrinkBeam", 0, 1, 0, 0)
+		AMGF E 1 A_TakeInventory("HellPistolerAmmo", 1)
+		AMGF F 1
+		TNT1 A 0 { PB_ReFire("HoldShrink"); }
+		Goto ReadyLoop
+
 	SemiFire:
 		TNT1 A 0 A_JumpIfInventory ("HellPistolerAmmo", 1, 2)
 		Goto Reload
 		AMGF A 1
-		AMGF B 1 A_PlaySound("BEP",3)
+		AMGF B 1 A_StartSound("BEP", CHAN_WEAPON)
 		AMGF C 1
 		TNT1 A 0 A_JumpIfInventory ("HellPistolerAmmo", 1, 2)
 		Goto Reload
 		TNT1 A 0
 		TNT1 A 0 A_PlaySound("HRFire", CHAN_WEAPON)
-		AMGF D 1 A_FireCustomMissile("HellPistolerFirer")
+		TNT1 A 0 A_FireCustomMissile("RedFlareSpawn", 0, 0, 0, 0)
+		AMGF D 1 A_FireCustomMissile("HellPistolerFirer", frandom(-0.2, 0.2), 1, 4, 5, 0, frandom(-0.2, 0.2))
 		AMGF E 1 A_TakeInventory("HellPistolerAmmo",1)
 		AMGF F 1
 		Goto ReadyLoop
-		
 
 
 		AltFire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 A_JumpIfInventory("HellPistolerBeamMode", 1, "ReadyLoop")
 		TNT1 A 0 {
 			A_WeaponOffset(0,32);
 			A_SetRoll(0);
@@ -174,47 +187,49 @@ ACTOR HellPistoler : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("PistolerMod", 1, "ChargeFire")
 		TNT1 A 0 A_JumpIfInventory ("HellPistolerAmmo", 3, 2)
 		Goto Reload
-		AMGF A 1 A_PlaySound("BEP",7)
-		AMGF B 1 A_PlaySound("BEP",8)
-		AMGF C 1 A_PlaySound("BEP",9)
+		AMGF A 1 A_StartSound("BEP", CHAN_WEAPON)
+		AMGF B 1 A_StartSound("BEP", CHAN_WEAPON)
+		AMGF C 1 A_StartSound("BEP", CHAN_WEAPON)
 		Hold2:
 		TNT1 A 0 A_JumpIfInventory ("HellPistolerAmmo", 3, 2)
 		Goto Reload
 		AMGF D 0 A_PlaySound("HRFire")
-		AMGF D 1 A_FireCustomMissile("HellPistolerFirer")
+		TNT1 A 0 A_FireCustomMissile("RedFlareSpawn", 0, 0, 0, 0)
+		AMGF D 1 A_FireCustomMissile("HellPistolerFirer", frandom(-0.2, 0.2), 1, 4, 5, 0, frandom(-0.2, 0.2))
 		AMGF E 1 A_TakeInventory("HellPistolerAmmo",1)
 		AMGF F 1
 		AMGF D 0 A_PlaySound("HRFire")
-		AMGF D 1 A_FireCustomMissile("HellPistolerFirer")
+		TNT1 A 0 A_FireCustomMissile("RedFlareSpawn", 0, 0, 0, 0)
+		AMGF D 1 A_FireCustomMissile("HellPistolerFirer", frandom(-0.2, 0.2), 1, 4, 5, 0, frandom(-0.2, 0.2))
 		AMGF E 1 A_TakeInventory("HellPistolerAmmo",1)
 		AMGF F 1
 		AMGF D 0 A_PlaySound("HRFire")
-		AMGF D 1 A_FireCustomMissile("HellPistolerFirer")
+		TNT1 A 0 A_FireCustomMissile("RedFlareSpawn", 0, 0, 0, 0)
+		AMGF D 1 A_FireCustomMissile("HellPistolerFirer", frandom(-0.2, 0.2), 1, 4, 5, 0, frandom(-0.2, 0.2))
 		AMGF E 1 A_TakeInventory("HellPistolerAmmo",1)
 		AMGF F 1
 		AMGL A 10
-		TNT1 A 0 PB_ReFire("Hold2")
+		TNT1 A 0 { PB_ReFire("Hold2"); }
 		Goto ReadyLoop
-		
 	ChargeFire:
 		TNT1 A 0 A_JumpIfInventory ("HellPistolerAmmo", 2, 2)
 		Goto Reload
-		AMGF A 1 A_PlaySound("BEP",7)
-		AMGF B 1 A_PlaySound("BEP",8)
-		AMGF C 1 A_PlaySound("BEP",9)
+		AMGF A 1 A_StartSound("BEP", CHAN_WEAPON)
+		AMGF B 1 A_StartSound("BEP", CHAN_WEAPON)
+		AMGF C 1 A_StartSound("BEP", CHAN_WEAPON)
 		Holding:
 		AMGF C 5
 		OkTillHold:
 		AMGF C 1 A_FireCustomMissile("RedFlareSpawn", 0, 0, 0, 0)
-		TNT1 A 0 PB_ReFire("OkTillHold")
+		TNT1 A 0 { PB_ReFire("OkTillHold"); }
 		Ok:
 		AMGF D 0 A_PlaySound("HRFire")
-		AMGF D 1 A_FireCustomMissile("HellPistolerFirerCharge")
+		TNT1 A 0 A_FireCustomMissile("RedFlareSpawn", 0, 0, 0, 0)
+		AMGF D 1 A_FireCustomMissile("HellPistolerFirerCharge", frandom(-0.15, 0.15), 1, 4, 5, 0, frandom(-0.15, 0.15))
 		AMGF E 1 A_TakeInventory("HellPistolerAmmo",2)
 		AMGF F 1
 		AMGL A 10
 		Goto ReadyLoop
-		
 	Reload:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
@@ -240,7 +255,6 @@ ACTOR HellPistoler : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("HellPistolerAmmo",1,"InsertBullets2")
 		TNT1 A 0
 		Goto InsertBullets
-		
 		InsertBullets:
 		TNT1 AAAA 0
 		TNT1 A 0 A_JumpIfInventory("HellPistolerAmmo",15,"EndReload")
@@ -250,12 +264,10 @@ ACTOR HellPistoler : PB_WeaponBase
 		TNT1 A 0 A_Giveinventory("HellPistolerAmmo",1)
 		TNT1 A 0 A_Takeinventory("PB_Cell",1,TIF_NOTAKEINFINITE)
 		Goto InsertBullets
-		
 		EndReload:
 		TNT1 A 0 A_Takeinventory("Reloading",1)
-		TNT1 A 0 PB_ReFire
+		TNT1 A 0 { PB_ReFire; }
 		Goto Ready
-		
 		InsertBullets2:
 		TNT1 AAAA 0
 		TNT1 A 0 A_JumpIfInventory("HellPistolerAmmo",16,"EndReload")
@@ -265,41 +277,67 @@ ACTOR HellPistoler : PB_WeaponBase
 		TNT1 A 0 A_Giveinventory("HellPistolerAmmo",1)
 		TNT1 A 0 A_Takeinventory("PB_Cell",1,TIF_NOTAKEINFINITE)
 		Goto InsertBullets2
-		
 	WeaponSpecial:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
-		TNT1 A 0 A_JumpIfInventory("PistolerMod", 1, "Auto")
-		TNT1 A 0 A_PlaySound("BEP")
+		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
+		TNT1 A 0 A_JumpIfInventory("Select_HP_Shrink", 1, "WSpec_HP_Shrink")
+		TNT1 A 0 A_JumpIfInventory("Select_HP_Hellfire", 1, "WSpec_HP_Hellfire")
+		TNT1 A 0 A_JumpIfInventory("Select_HP_ToggleROF", 1, "WSpec_HP_ToggleROF")
+		Goto ReadyLoop
+
+	WSpec_HP_Hellfire:
+		TNT1 A 0 {
+			A_TakeInventory("Select_HP_Hellfire", 1);
+			A_TakeInventory("Select_HP_Shrink", 1);
+			A_TakeInventory("Select_HP_ToggleROF", 1);
+			A_TakeInventory("HellPistolerBeamMode", 10);
+			A_PlaySound("menu/choose", CHAN_AUTO);
+		}
+		Goto ReadyLoop
+
+	WSpec_HP_Shrink:
+		TNT1 A 0 {
+			A_TakeInventory("Select_HP_Hellfire", 1);
+			A_TakeInventory("Select_HP_Shrink", 1);
+			A_TakeInventory("Select_HP_ToggleROF", 1);
+			A_TakeInventory("HellPistolerBeamMode", 10);
+			A_GiveInventory("HellPistolerBeamMode", 1);
+			A_PlaySound("menu/choose", CHAN_AUTO);
+		}
+		Goto ReadyLoop
+
+	WSpec_HP_ToggleROF:
+		TNT1 A 0 {
+			A_TakeInventory("Select_HP_Hellfire", 1);
+			A_TakeInventory("Select_HP_Shrink", 1);
+			A_TakeInventory("Select_HP_ToggleROF", 1);
+			A_StartSound("BEP", CHAN_WEAPON);
+		}
+		TNT1 A 0 A_JumpIfInventory("PistolerMod", 1, "WSpec_HP_ToFullAuto")
 		TNT1 A 0 A_GiveInventory("PistolerMod", 1)
 		TNT1 A 0 A_Print("\ca Fire: Semi-Auto \n \cv AltFire: Charge-Fire")
-		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
-		Goto Ready3
-		
-	Auto:
+		Goto ReadyLoop
+
+	WSpec_HP_ToFullAuto:
 		TNT1 A 0 A_TakeInventory("PistolerMod", 1)
-		TNT1 A 0 A_PlaySound("BEP")
 		TNT1 A 0 A_Print("\cx Fire: Full-Auto \n \ct AltFire: Burst-Fire")
-		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
-		Goto Ready3
-		
+		Goto ReadyLoop
 	FlashKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0
 		AMGR BCDEFGHIIIIIIIII 1
-		Goto Ready3
-		
+		Stop
 	FlashAirKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
 		TNT1 A 0
         	AMGR BCDEFGHIIIIIIIIIII 1
-		Goto Ready3
-		
+		Stop
 	FlashSlideKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
@@ -312,8 +350,7 @@ ACTOR HellPistoler : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0
 		AMGR IIIIIHGFEDCB 1
-		Goto Ready3
-		
+		Stop
 	}
 }
 
@@ -325,3 +362,6 @@ ACTOR HellPistolerAmmo : Ammo
 }
 
 Actor PistolerMod : Inventory { Inventory.MaxAmount 1 }
+Actor Select_HP_Hellfire : Inventory { Inventory.MaxAmount 1 }
+Actor Select_HP_Shrink : Inventory { Inventory.MaxAmount 1 }
+Actor Select_HP_ToggleROF : Inventory { Inventory.MaxAmount 1 }

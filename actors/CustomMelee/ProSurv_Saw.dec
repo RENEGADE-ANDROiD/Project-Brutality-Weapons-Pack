@@ -1,5 +1,5 @@
 ///POWER SAW/////////////////////////////////////////////////////////////////
-Actor SawHasHit : Inventory { inventory.maxamount 1 } 
+Actor SawHasHit : Inventory { inventory.maxamount 1 }
 
 ACTOR Prosurv_SawSwing : PB_ProjectileAlt 
 {
@@ -31,7 +31,9 @@ ACTOR Prosurv_SawSwing : PB_ProjectileAlt
 			TNT1 A 0 A_SpawnItemEx("SSawPuff3",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
 			TNT1 A 0 Radius_Quake (2, 6, 0, 5, 0)
 			TNT1 A 1
-			Stop	}}
+			Stop	
+}
+}
 ACTOR SuperSawSwing : Prosurv_SawSwing {
 	PB_Projectile.BaseDamage 75
 }

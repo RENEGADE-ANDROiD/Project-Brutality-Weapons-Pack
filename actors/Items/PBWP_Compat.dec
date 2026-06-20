@@ -1,0 +1,29 @@
+// Missing inventory tokens referenced by PBWP weapons/equipment.
+// (Actor stubs live in PBWP_ActorStubs.dec — loaded first from DECORATE.PBWP.)
+
+Actor RazorjackEmpower : Inventory { Inventory.MaxAmount 1 }
+
+// PDA Throwables.dec has LeechGrenade commented out; PBWP monsters still drop it.
+Actor HasLeech : Inventory { inventory.maxamount 1 }
+
+ACTOR LeechGrenade : CustomInventory
+{
+	Game Doom
+	Scale 0.45
+	+DONTGIB
+	+FLOORCLIP
+	Inventory.PickupMessage "What the hell is this thing..?"
+	Inventory.PickupSound "SiphonGrowl"
+	States
+	{
+	Spawn:
+		FLSP BAFEFA 6
+		Loop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("HasLeech", 1)
+		TNT1 A 20
+		Stop
+	}
+
+
+}

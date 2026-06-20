@@ -1,4 +1,4 @@
-Actor D2016ShotgunFireSmokeEffect : Inventory {Inventory.MaxAmount 1}
+Actor D2016ShotgunFireSmokeEffect : Inventory { Inventory.MaxAmount 1 }
 
 Actor D2016ShotgunExplosionSmoke
 {
@@ -73,7 +73,6 @@ Actor D2016ShotgunFireSmoke : D2016ShotgunExplosionSmoke
 		TNT1 A 0
 		TNT1 A 0 A_CustomMissile("D2016ShotgunFireSmoke4", 7, 0, 180, 0, 0)
 		Stop	
-		
     }
 }
 
@@ -93,13 +92,13 @@ Actor D2016ShotgunFireSmoke1 : D2016ShotgunFireSmoke
 		TNT1 A 0 A_Stop
 		TNT1 A 0 A_Recoil(-2)
 		SMOK ABCDEFGHIJKLM 2 {
-		If(CountInv("D2016ShotgunFireSmokeEffect")) {
-			 A_SetRoll(Roll+Random(1,5), SPF_INTERPOLATE);
-			 }
-		Else {
-			 A_SetRoll(Roll-Random(1,5), SPF_INTERPOLATE);
-			 }
-		     }
+			if(CountInv("D2016ShotgunFireSmokeEffect")) {
+				A_SetRoll(Roll+Random(1,5), SPF_INTERPOLATE);
+			}
+			else {
+				A_SetRoll(Roll-Random(1,5), SPF_INTERPOLATE);
+			}
+		}
 		SMOK NOPQ 1 A_FadeOut(0.25)
 		Stop
     }

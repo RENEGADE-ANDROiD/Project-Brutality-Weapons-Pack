@@ -1,0 +1,41 @@
+// Cyberaugumented fold — magazine / support inventory (DECORATE).
+
+Actor PBWP_WarbringerMag : Ammo
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 20
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 20
+}
+
+Actor PBWP_NightfallMag : Ammo
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 200
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 200
+}
+
+Actor PBWP_CaduceusMag : Ammo
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 60
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 60
+}
+
+Actor PBWP_DismantlerMag : Ammo
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 100
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 100
+}
+
+Actor PBWP_CinerealMag : Ammo
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 100
+	Ammo.BackpackAmount 0
+		Ammo.BackpackMaxAmount 100
+}

@@ -1,3 +1,10 @@
+// Compat stubs must load before actors that reference missing PB/PDA classes.
+#include "Actors/Items/PBWP_ActorStubs.dec"
+#include "Actors/Items/PBWP_Compat.dec"
+
+// ICE FX (canonical cryo actors — must load before Freezebot / FreezeNade)
+#INCLUDE ACTORs/Effects/ICE.dec
+
 // Equipments
 #INCLUDE ACTORs/Equipments/ShieldGrenade.dec
 #INCLUDE ACTORs/Equipments/VoidGrenade.dec
@@ -16,26 +23,28 @@
 
 // Powerups
 #include "Actors/Items/PBWP_Powerups.dec"
+#include "Actors/Items/DroneFamiliar.dec"
+#include "Actors/Items/PBWP_RoboDogFamiliar.dec"
+#include "Actors/Items/Realm667Powerups/Realm667Powerups.dec"
+#include "Actors/Items/PBWP_Killstreak.dec"
+#include "Actors/Items/PBWP_MonsterWeaponDrops.dec"
 
 // FX
 #INCLUDE ACTORs/Weapons/Doom4WeaponPack/Doom4WeaponPackGunSmokeEffects.dec
 #INCLUDE ACTORs/Weapons/FX/D2016SHOTGUNSMOKE-EFFECTS.dec
 #INCLUDE ACTORs/Weapons/FX/DistantFireWeapons.dec
-#INCLUDE ACTORs/Weapons/FX/FLARES.PhaseEra
+//#INCLUDE ACTORs/Weapons/FX/FLARES.PhaseEra // PDA: actors/Effects/FLARES.dec (PurpleFlareMedium)
 #INCLUDE ACTORs/Weapons/FX/PhaseEraProjectiles.dec
 #INCLUDE ACTORs/Weapons/FX/PhaseSFX.dec
 #INCLUDE ACTORs/Weapons/FX/GCFXGaussCannon.dec
+#INCLUDE ACTORs/Weapons/FX/GCLeg10K_FX.dec
 #INCLUDE ACTORs/Weapons/FX/GCParticles.dec
-#INCLUDE ACTORs/Weapons/FX/GCPuff.dec
 #INCLUDE ACTORs/Weapons/FX/GCSFX.dec
 #INCLUDE ACTORs/Weapons/FX/GCSmoke.dec
-#INCLUDE ACTORs/Effects/ICE.dec
 
-// Scientist
+// D4 weapon tokens + health pickup replacements
 #include "Actors/Tokens.txt"
-#include "Actors/Monsters/Scientist.dec"
-#include "Actors/Monsters/rat.dec"
-#include "Actors/Items/BloodSamples.dec"
+#include "Actors/Items/HealthReplacements.dec"
 
 // Entities
 #include "Actors/Entities/HealthPickups.dec"
@@ -48,27 +57,17 @@
 #include "Actors/Entities/Shells.dec"
 #include "Actors/Entities/Stims.dec"
 
-// Monsters
-#INCLUDE ACTORs/Monsters/DEEPONE.dec
-#INCLUDE ACTORs/Monsters/E1BOSS.dec
-#INCLUDE ACTORs/Monsters/E1BOSS2.dec
-#INCLUDE ACTORs/Monsters/BeholdRandomItems.dec
-#INCLUDE ACTORs/Monsters/PaingiverHelltrooper.dec
-#INCLUDE ACTORs/Monsters/STONEGAR.dec
-#INCLUDE ACTORs/Monsters/SpecialDoom1Bosses.dec
-
-// Spawners
-#INCLUDE ACTORs/Spawners/BEHOLD.dec
-
 // Special
 #INCLUDE ACTORs/Weapons/Special/AncientCrossbowArrow.dec
 #INCLUDE ACTORs/Weapons/Special/Blaster_Projectile.dec
 #INCLUDE ACTORs/Weapons/Special/Incinerator_Flame.dec
-#INCLUDE ACTORs/Weapons/Special/Incinerator_HellBullet.dec
+//#INCLUDE ACTORs/Weapons/Special/Incinerator_HellBullet.dec // superseded by DemonTech_Hellbullet.dec (PB 2022 Hellbullet FX)
 #INCLUDE ACTORs/Weapons/Special/ShieldSaw.dec
-#INCLUDE ACTORs/Weapons/Special/Unload_Tokens.dec
+//#INCLUDE ACTORs/Weapons/Special/Unload_Tokens.dec // PB Staging PDA defines Unloaded_* tokens
 #INCLUDE ACTORs/Weapons/Special/OverwhelmingProjectile.dec
 #INCLUDE ACTORs/Weapons/Special/RazorjackProjectile.dec
+#INCLUDE ACTORs/Weapons/DukeNukem/DukeNukem_FX.dec
+#INCLUDE ACTORs/Weapons/Slot-0/DukePipebomb.dec
 
 //MELEE//
 #INCLUDE ACTORs/CustomMelee/MeleePickupItems.dec
@@ -97,58 +96,86 @@
 #INCLUDE ACTORs/Weapons/GodComplex/LegendaryPlasmaticRifle.dec
 #INCLUDE ACTORs/Weapons/GodComplex/NemesisBFG.dec
 #INCLUDE ACTORs/Weapons/GodComplex/NemesisLMG.dec
-#INCLUDE ACTORs/Weapons/GodComplex/SubliminationSword.dec
+#INCLUDE ACTORs/Weapons/GodComplex/LegendaryBFG10K.dec
+#include "Actors/Items/GC_Enhancements.dec"
 
 	//Slot-1
-#INCLUDE ACTORs/Weapons/Slot-1/BeamKatana.dec
+#INCLUDE ACTORs/Weapons/Slot-1/BeamKatanaSupport.dec
 #INCLUDE ACTORs/Weapons/Slot-1/ArgentSith.dec
 #INCLUDE ACTORs/Weapons/Slot-1/BattleAxeAndShield.dec
 #INCLUDE ACTORs/Weapons/Slot-1/Razorjack.dec
+#INCLUDE ACTORs/Weapons/Slot-1/VorpalBladeSupport.dec
 	//Slot-2
 #INCLUDE ACTORs/Weapons/Slot-2/44PDW.dec
 #INCLUDE ACTORs/Weapons/Slot-2/Berreta.dec 
+#INCLUDE ACTORs/Weapons/Slot-2/Berreta92.dec
 #INCLUDE ACTORs/Weapons/Slot-2/W_SMG.dec
 #INCLUDE ACTORs/Weapons/Slot-2/Blood_Stains.dec
-#INCLUDE ACTORs/Weapons/Slot-2/ProSurv_BlasterPistol.dec
 #INCLUDE ACTORs/Weapons/Slot-2/Blaster_Pistol.dec
+#INCLUDE ACTORs/Weapons/Special/DemonTech_Hellbullet.dec
+#INCLUDE ACTORs/Weapons/FX/PBWP_ProjectileFamilies.dec
 #INCLUDE ACTORs/Weapons/Slot-2/HellPistoler(AresMade).dec 
 #INCLUDE ACTORs/Weapons/Slot-2/DTPISTOL.dec
 #INCLUDE ACTORs/Weapons/Slot-2/UZI.dec
+#INCLUDE ACTORs/Weapons/Slot-2/DukePistol.dec
+#INCLUDE ACTORs/Weapons/Slot-2/DualDukePistol.dec
 #INCLUDE ACTORs/Weapons/Slot-2/THMagnum.dec
+#INCLUDE ACTORs/Weapons/Slot-2/MP12Upgrade.dec
+#INCLUDE ACTORs/Weapons/Slot-2/MP12.dec
+#INCLUDE ACTORs/Weapons/Slot-2/RiotShield.dec
+#INCLUDE ACTORs/Weapons/Slot-2/LiTRevolver.dec
 	//Slot-3
-#INCLUDE ACTORs/Weapons/Slot-3/ProSurv_LeverAction.dec
+//#INCLUDE ACTORs/Weapons/Slot-3/ProSurv_LeverAction.dec // PBX: PBX_Prosurv_LeverAction
 #INCLUDE ACTORs/Weapons/Slot-3/Lady_Golide.dec
 #INCLUDE ACTORs/Weapons/Slot-3/RotationalSG(AresMade).dec 
 #INCLUDE ACTORs/Weapons/Slot-3/D2016SHOTGUN.dec	//BORING GUN // Skill Issue :cacotroll:
 #INCLUDE ACTORs/Weapons/Slot-3/DTShotgun.dec
-#INCLUDE ACTORs/Weapons/Slot-3/CryoShotgun.dec
+#INCLUDE ACTORs/Weapons/Slot-3/PB_CryoShotgun_Tokens.dec
+#INCLUDE ACTORs/Weapons/MonsterWeaponDurability.dec
 #INCLUDE ACTORs/Weapons/Slot-3/HexaLionShotgun.dec
 #INCLUDE ACTORs/Weapons/Slot-3/MarauderSSG.dec
+#INCLUDE ACTORs/Weapons/Slot-3/DukeShotgun.dec
 #INCLUDE ACTORs/Weapons/Slot-3/M1887.dec
 #INCLUDE ACTORs/Weapons/Slot-3/RotatingDoubleBarrel.dec
+#INCLUDE ACTORs/Weapons/Slot-3/X12ShotgunSupport.dec
+#INCLUDE ACTORs/Weapons/Slot-3/X12Shotgun.dec
+#INCLUDE ACTORs/Weapons/Slot-3/M45Shotgun.dec
 	//Slot-4
-#INCLUDE ACTORs/Weapons/Slot-4/ProSurv_Ballista.dec
+//#INCLUDE ACTORs/Weapons/Slot-4/ProSurv_Ballista.dec // PBX: PBX_Prosurv_Ballista
 #INCLUDE ACTORs/Weapons/Slot-4/AK-47.dec
-//#INCLUDE ACTORs/Weapons/Slot-4/AssaultRifle.dec 
-//#INCLUDE ACTORs/Weapons/Slot-4/M41A.dec
+#INCLUDE ACTORs/Weapons/Slot-4/AssaultRifle.dec
+#INCLUDE ACTORs/Weapons/Slot-4/BlackDMR.dec
+#INCLUDE ACTORs/Weapons/Slot-4/Adv_Mask_Man_Rifle.dec
+#INCLUDE ACTORs/Weapons/Slot-4/Mask_Man_Rifle.dec
+#INCLUDE ACTORs/Weapons/Slot-4/M1X.dec
 #INCLUDE ACTORs/Weapons/Slot-4/BoltRifle.dec
 #INCLUDE ACTORs/Weapons/Slot-4/Magnum_Sniper_Rifle.dec
 #INCLUDE ACTORs/Weapons/Doom4WeaponPack/D4Machinegun.dec
 #INCLUDE ACTORs/Weapons/Slot-4/Overwhelming.dec
+//#INCLUDE ACTORs/Weapons/Slot-4/ACR.dec
+#INCLUDE ACTORs/Weapons/Slot-4/Kar98k.dec
+#INCLUDE ACTORs/Weapons/Slot-4/PB_Fusil.dec
 	//Slot-5
 #INCLUDE ACTORs/Weapons/Slot-5/Dark_Fate.dec
 #INCLUDE ACTORs/Weapons/Slot-5/Gallary.dec
+#INCLUDE ACTORs/Weapons/Slot-5/TacticalNailgun.dec
+#INCLUDE ACTORs/Weapons/Slot-5/HYDRA.dec
 #INCLUDE ACTORs/Weapons/Slot-5/INMinigun.dec
+#INCLUDE ACTORs/Weapons/Slot-5/Apocalypse_Killer.dec
 #INCLUDE ACTORs/Weapons/Slot-5/DSlayer.dec
 #INCLUDE ACTORs/Weapons/Slot-5/SuperNailgun.dec
 #INCLUDE ACTORs/Weapons/Slot-5/DukeNukemRipper.dec
 #INCLUDE ACTORs/Weapons/Slot-5/AutoCannon.dec
 	//Slot-6
 #INCLUDE ACTORs/Weapons/Slot-6/ChthonicRifle.dec
-#INCLUDE ACTORs/Weapons/Slot-6/MastermindChaingun.dec
+#INCLUDE ACTORs/Weapons/Slot-6/Fallen_Hawk.dec
+//#INCLUDE ACTORs/Weapons/Slot-6/MastermindChaingun.dec // PBX: PBX_MastermindChaingun
 #INCLUDE ACTORs/Weapons/Slot-6/Paingiver.dec
 #INCLUDE ACTORs/Weapons/Slot-6/Devastator.dec
-#INCLUDE ACTORs/Weapons/Slot-6/CyberdemonRL.dec
+#INCLUDE ACTORs/Weapons/Slot-6/DukeRPG.dec
+#INCLUDE ACTORs/Weapons/Slot-6/TotenheimAmmo.dec
+#INCLUDE ACTORs/Weapons/Slot-6/TotenheimNuclearLauncher.dec
+//#INCLUDE ACTORs/Weapons/Slot-6/CyberdemonRL.dec // PBX: PBX_CyberdemonRL
 #INCLUDE ACTORs/Weapons/Slot-6/Samantha.dec 
 #INCLUDE ACTORs/Weapons/Doom4WeaponPack/D4RocketLauncher.dec
 	//Slot-7
@@ -160,49 +187,38 @@
 #INCLUDE ACTORs/Weapons/Slot-8/PlasmaRifle.dec
 #INCLUDE ACTORs/Weapons/Slot-8/Ion_Rifle.dec
 #INCLUDE ACTORs/Weapons/Slot-8/Extinction_Ray.dec
+//#INCLUDE ACTORs/Weapons/Slot-8/PB_CryoRifle.dec
 #INCLUDE ACTORs/Weapons/Slot-8/BioAcidLauncher(AresMade).dec
 #INCLUDE ACTORs/Weapons/Slot-8/TypeAThunderCarrier(AresMade).dec
 #INCLUDE ACTORs/Weapons/Slot-8/TechBlaster.dec
-//#INCLUDE ACTORs/Weapons/Slot-8/ThunderCrossbow.dec
+#INCLUDE ACTORs/Weapons/Slot-8/ThunderCrossbow.dec
+#INCLUDE ACTORs/Weapons/Slot-8/PB_DarkMatterRifle.dec
 	//Slot-9
-#INCLUDE ACTORs/Weapons/Slot-9/Ballista.dec
+//#INCLUDE ACTORs/Weapons/Slot-9/Ballista.dec // PBX: PBX_Prosurv_Ballista + PDA ObeliskProjectile 
 #INCLUDE ACTORs/Weapons/Slot-9/DTechMinigun.dec 
 #INCLUDE ACTORs/Weapons/Slot-9/LegacyUnmaker.dec 
+#INCLUDE ACTORs/Weapons/Slot-9/Satan_Scream.dec
 #INCLUDE ACTORs/Weapons/Slot-9/STRMC.dec
 #INCLUDE ACTORs/Weapons/Slot-9/PhaseEradicatorBFG.dec
 #INCLUDE ACTORs/Weapons/Slot-9/MancubusFlameCannon.dec
+#INCLUDE ACTORs/Weapons/Slot-9/DualFlameCannon.dec
+#INCLUDE ACTORs/Weapons/Slot-9/DualFlameCannonDrop.dec
+#INCLUDE ACTORs/Weapons/Slot-9/BFG9500.dec
+#INCLUDE ACTORs/Weapons/Karnage/Karnage.dec
+#INCLUDE ACTORs/Weapons/VietDoom/VietDoom.dec
+#INCLUDE ACTORs/Weapons/Cyberaugumented/Cyberaugumented.dec
 
-// Tokens
-	// BD stuff for some weapons in Fire and Ice
-ACTOR bd_Token : Inventory
-{
-    Inventory.MaxAmount 1
-    +inventory.Undroppable
-    -inventory.Invbar
-    +NONETID
-    +INVISIBLE
-    +NOCLIP
-    +NOTARGET
-    +NOBLOCKMAP
-    +NOINTERACTION
-    Radius 0
-    Height 0
-    Alpha 0.0
-    Mass 0
-    RenderStyle "None"
-}
+// Tokens (bd_Token defined in VietDoom_Compat.dec before VietDoom weapons)
 ACTOR BDWeaponACtion : bd_Token {}
 ACTOR InAction : bd_Token {}
 	// IN thingy
 ACTOR IsUsingAddictivePackTypeIN : Inventory { Inventory.MaxAmount 1 }
 
-//CombatRatingShop
+// Combat challenges (Progression.acs) — currency is PB_XPBank (ZScript inventory)
 ACTOR MonsterKilled : Inventory {
 Inventory.MaxAmount 10 }
-ACTOR PB_Score : Inventory {
-Inventory.MaxAmount 10000 }
 
 // By Warcarlsson
-#INCLUDE ACTORs/Weapons/DROPABLES.dec
+//#INCLUDE ACTORs/Weapons/DROPABLES.dec // PDA: actors/Weapons/DROPABLES.dec
 #INCLUDE ACTORs/monsters/NoDropFrozenACTORs.dec
 

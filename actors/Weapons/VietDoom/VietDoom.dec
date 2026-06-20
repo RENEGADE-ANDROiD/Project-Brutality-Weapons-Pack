@@ -1,0 +1,23 @@
+// VietDoom v22 — folded from Brutal Doom addon; runs on PB Staging via VietDoom_Compat.
+#INCLUDE ACTORs/Weapons/VietDoom/VietDoom_Compat.dec
+#INCLUDE ACTORs/Weapons/VietDoom/VietDoom_Durability.dec
+#INCLUDE ACTORs/Weapons/VietDoom/VietDoom_FX.dec
+#INCLUDE ACTORs/Weapons/VietDoom/Machete.dec
+#INCLUDE ACTORs/Weapons/VietDoom/M1911.dec
+#INCLUDE ACTORs/Weapons/VietDoom/M3A1.dec
+#INCLUDE ACTORs/Weapons/VietDoom/Thompson.dec
+#INCLUDE ACTORs/Weapons/VietDoom/MAT49.dec
+#INCLUDE ACTORs/Weapons/VietDoom/PPS.dec
+#INCLUDE ACTORs/Weapons/VietDoom/Ithaca.dec
+#INCLUDE ACTORs/Weapons/VietDoom/M16.dec
+#INCLUDE ACTORs/Weapons/VietDoom/M14.dec
+#INCLUDE ACTORs/Weapons/VietDoom/XM21.dec
+#INCLUDE ACTORs/Weapons/VietDoom/AK.dec
+#INCLUDE ACTORs/Weapons/VietDoom/SKS.dec
+#INCLUDE ACTORs/Weapons/VietDoom/Mosin.dec
+#INCLUDE ACTORs/Weapons/VietDoom/M60.dec
+#INCLUDE ACTORs/Weapons/VietDoom/BAR.dec
+#INCLUDE ACTORs/Weapons/VietDoom/RPD.dec
+#INCLUDE ACTORs/Weapons/VietDoom/Stoner.dec
+#INCLUDE ACTORs/Weapons/VietDoom/RPG.dec
+#INCLUDE ACTORs/Weapons/VietDoom/M79.dec

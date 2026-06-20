@@ -1,0 +1,86 @@
+// PB 2022 kill-streak actors (folded into PBWP)
+
+actor PB_KSFreeze : PowerupGiver
+{
+	//$Title Kill streak haste
+	Game Doom
+	-COUNTITEM
+	+FLOATBOB
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.MaxAmount 0
+	Powerup.Type Speed
+	Powerup.Duration -2
+	Powerup.Color "FF FF 00", 0.002
+	Inventory.PickupSound "DEM"
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		Stop
+	Pickup:
+		TNT1 A 0
+		Stop
+	}
+}
+
+actor PB_KSHasteSphere : HasteSphere
+{
+	powerup.duration -15
+	powerup.color "FF FF 00", 0.002
+}
+
+actor PB_KSDoubleSphere : DoubleSphere
+{
+	Powerup.Duration -15
+	Powerup.Color 255, 0, 255, 0.002
+}
+
+// PDA uses PB_Invul (replaces InvulnerabilitySphere); no InvulnerabilitySphere_ in staging stack.
+actor PB_KSInvulnerabilitySphere : PowerupGiver
+{
+	Game Doom
+	-COUNTITEM
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.BIGPOWERUP
+	+FloatBob
+	Inventory.MaxAmount 0
+	Powerup.Type Invulnerable
+	Powerup.Duration -15
+	Powerup.Color White, 0.002
+	Inventory.PickupMessage "Invulnerability!"
+	Inventory.PickupSound "INVUL"
+	States
+	{
+	Spawn:
+		PINV ABCD 6 Bright
+		Loop
+	}
+}
+
+Actor PB_PowerQuarterDamageST : PowerProtection
+{
+	Damagefactor "Normal", 0.25
+}
+
+Actor PB_GuardsphereST : PowerupGiver 23165
+{
+	+CountItem
+	+NoGravity
+	+Inventory.AutoActivate
+	+Inventory.AlwaysPickup
+	Inventory.MaxAmount 0
+	Powerup.Type "PB_PowerQuarterDamageST"
+	Powerup.Duration -15
+	Powerup.Color GreenMap, 0.002
+	Inventory.PickupMessage "Guardsphere! Gain 75% Damage Reduction"
+	States
+	{
+	Spawn:
+		GARD ABCD 6 Bright
+		Loop
+	}
+
+
+}

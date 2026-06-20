@@ -13,6 +13,7 @@ Actor VoidGrenadeAmmo : ammo
 	Ammo.BackPackAmount 1
 	Ammo.BackPackMaxAmount 2
 	Inventory.PickUpMessage ""
+	+INVENTORY.QUIET
 	Inventory.Icon VGR1A0
 	+INVENTORY.IGNORESKILL
 	Scale 0.45
@@ -32,8 +33,9 @@ ACTOR VoidGrenade: CustomInventory {
 		Pickup:
 			TNT1 A 0 A_GiveInventory("VoidGrenadeAmmo",1) 
 			TNT1 A 20
-			Stop	}}
-			
+			Stop
+		}
+}
 ACTOR ThrownVoidGrenade {
 	Radius 2
 	Height 3
@@ -91,6 +93,7 @@ ACTOR ThrownVoidGrenade {
 					Radius_Quake (8, 16, 0, 200, 0);//(intensity, duration, damrad, tremrad, tid)
 				}
 				TNT1 A 0 A_SpawnItemEx ("BlackHole",0,0,40,0,0,0,0,SXF_NOCHECKPOSITION,0)
-				Stop	
-				}
-			}
+				Stop
+		}
+
+}

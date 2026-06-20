@@ -14,27 +14,18 @@ class BeefRiceWeaponDrop : EventHandler
         // Get CVARs
         let DTechDrop = CVar.GetCVAR('PBSpawnALLDTechDrop').GetBool();
         let MSSGDrop = CVar.GetCVAR('PBSpawnMSSGDrop').GetBool();
-        let MastermindCGDrop = CVar.GetCVAR('PBSpawnMastermindCGDrop').GetBool();
         let PaingiverDrop = CVar.GetCVAR('PBSpawnPaingiverDrop').GetBool();
+        let CryoRifleDrop = CVar.GetCVAR('PBSpawnCryoRifleDrop').GetBool();
+        let ThunderCrossbowDrop = CVar.GetCVAR('PBSpawnThunderCrossbowDrop').GetBool();
+        let StormcastDrop = CVar.GetCVAR('PBSpawnStormcastDrop').GetBool();
+        let BioAcidLauncherDrop = CVar.GetCVAR('PBSpawnBioAcidLauncherDrop').GetBool();
 
         let ShieldGRDrop = CVar.GetCVAR('EQSpawnShieldGR').GetBool();
 
         // Check what monster was killed
         switch(actor.GetClassName())
         {
-            // Different Monsters spawn Different Things
-            // Custom Monsters
-            case 'HellTrooperPaingiver':
-                if(PaingiverDrop) { self.spawnThings("Paingiver", monsPos); } // ALWAYS DROP PAINGIVER
-                break;
-
-            //case 'PB_JuggernautGK': //Should we make the Juggernaut Drop MastermindCG?
-            case 'PB_MastermindGK': 
-            case 'PB_DemolisherGK': 
-            case 'PB_Mastermind': 
-            case 'PB_Demolisher':
-                if(MastermindCGDrop) { self.spawnThings("MastermindChaingun", monsPos); } // ALWAYS DROP MASTERMIND CG
-                break;
+            // PBX_MastermindChaingun drops — handled by PBX-Weapons (PBXWeapons_WeaponSpawner)
 
             case 'PB_DemonTechZombieGK':  
             case 'PB_DemonTechZombie':
@@ -50,8 +41,35 @@ class BeefRiceWeaponDrop : EventHandler
                 if(MSSGDrop){ self.spawnThings("MarauderDropSpawner", monsPos); } 
                 break;
 
-            // PB Monsters 
-            // Add more here 
+            // Frost dark imp / volcabus — Cryo Rifle
+            case 'PB_DarkImpST':
+            case 'PB_Volcabus':
+                if (CryoRifleDrop) { self.spawnThings("PBWP_CryoRifleDrop", monsPos); }
+                break;
+
+            // Revenant family — Thunder Crossbow
+            case 'PB_Revenant':
+            case 'PB_BeamRev':
+            case 'PB_Draugr':
+                if (ThunderCrossbowDrop) { self.spawnThings("PBWP_ThunderCrossbowDrop", monsPos); }
+                break;
+
+            // Arch-vile — Stormcast
+            case 'PB_Archvile':
+            case 'PB_Hellion':
+                if (StormcastDrop) { self.spawnThings("PBWP_StormcastDrop", monsPos); }
+                break;
+
+            // Cacodemon — Bio-Acid Launcher
+            case 'PB_Cacodemon':
+                if (BioAcidLauncherDrop) { self.spawnThings("PBWP_BioAcidLauncherDrop", monsPos); }
+                break;
+
+            // Rocket Hell Trooper — Paingiver
+            case 'HellTrooper':
+            case 'FrozenHellTrooper':
+                if (PaingiverDrop) { self.spawnThings("PBWP_PaingiverDrop", monsPos); }
+                break;
         }
 	}
 
@@ -67,23 +85,16 @@ class BeefRiceWeaponDrop : EventHandler
 
         // Get CVARs
         let MancFLameCNDrop = CVAR.GetCVAR('PBSpawnMancFlameCannonDrop').GetBool();
-        let CyberRLDrop = CVAR.GetCVAR('PBSpawnCyberdemonRLDrop').GetBool();
 
         // Check and Spawn
         switch(actor.GetClassName())
         {
-            case 'XDeathCyberdemonGun':
-                if(CyberRLDrop)
-                { 
-                    self.spawnThings("CyberdemonsMissileLauncher", monsPos);
-                    self.destroy(); 
-                } 
-                break;
+            // PBX_CyberdemonRL drops — handled by PBX-Weapons (PBXWeapons_WeaponSpawner)
 
             case 'PB_FlamethrowerMancubusGas':
                 if(MancFLameCNDrop)
                 { 
-                    self.spawnThings("MancubusFlameCannon", monsPos);
+                    self.spawnThings("PB_MancubusFlameDrop", monsPos);
                     self.destroy(); 
                 } 
                 break;
@@ -106,9 +117,9 @@ class BeefModChecker : EventHandler
 {
     override void WorldLoaded (WorldEvent e)
     {
-        // Dragon Sector
-        string DScompat = "DS_HealthBonus";
-        class <actor> isDScompat = DScompat; 
+        // Dragon Sector addon probe (external mod; not PBWP magnet)
+        string dragonSectorProbe = "DS_HealthBonus";
+        class <actor> dragonSectorPresent = dragonSectorProbe;
 
         // Custom Marines
         string cmcompat = "Marine_SpawnRifle";
@@ -116,17 +127,24 @@ class BeefModChecker : EventHandler
 
         // GloryKill
         string gkcompat = "ASGGuyGK";
-        class <actor> isgkcompat = gkcompat; 
+        class <actor> isgkcompat = gkcompat;
 
-        // Check if DragonSector is loaded
-        if(isDScompat)
-        {
-            CVAR.FindCVar('isDSLoaded').SetBool(true);
-        }
+        // PBX-Weapons (optional addon)
+        string pbxcompat = "PBX_PlasmaBlaster";
+        class <actor> ispbxcompat = pbxcompat;
+
+        if (ispbxcompat)
+            CVar.FindCVar('isPBXLoaded').SetBool(true);
         else
         {
-            CVAR.FindCVar('isDSLoaded').SetBool(false);
+            CVar.FindCVar('isPBXLoaded').SetBool(false);
+            console.printf("\x1b[1;33mPBWP:\x1b[0m PBX-Weapons not loaded — PBX weapon spawns, drops, and scroll slots are disabled.");
         }
+
+        if (dragonSectorPresent)
+            CVAR.FindCVar('pbwp_compat_dragonsector').SetBool(true);
+        else
+            CVAR.FindCVar('pbwp_compat_dragonsector').SetBool(false);
 
         // Check if CustomMarines is loaded
         if(iscmcompat)
@@ -138,14 +156,18 @@ class BeefModChecker : EventHandler
             CVAR.FindCVar('isCMLoaded').SetBool(false);
         }
 
-         // Check if GloryKill is loaded
-        if(isgkcompat)
+         // Check if GloryKill is loaded (cvar from Glory Kills pk3 when present)
+        let gkCv = CVar.FindCVar('isGKLoaded');
+        if (gkCv)
         {
-            CVAR.FindCVar('isGKLoaded').SetBool(true);
+            if (isgkcompat)
+                gkCv.SetBool(true);
+            else
+                gkCv.SetBool(false);
         }
-        else
+        else if (!isgkcompat)
         {
-            CVAR.FindCVar('isGKLoaded').SetBool(false);
+            console.printf("\x1b[1;33mPBWP:\x1b[0m Glory Kills not loaded — using PB fatality executions only.");
         }
     }
 }
@@ -156,21 +178,21 @@ class BeefMiscHandler : EventHandler
     override void NetworkProcess(ConsoleEvent e)
     {
         let pmo = players[consoleplayer].mo;
-        if (e.Name == "MagnetModeOn")
+        if (e.Name == "PBWP_MagnetModeOn")
 		{
 			let mag = PBWP_ItemMagnet(pmo.FindInventory("PBWP_ItemMagnet"));
 			if (mag)
 			{
-                console.printf("Magnet Enabled");
+                console.printf("PBWP item magnet enabled");
 				mag.IsMagnetOn = true;
 			}
 		}
-		if (e.Name == "MagnetModeOff")
+		if (e.Name == "PBWP_MagnetModeOff")
 		{
 			let mag = PBWP_ItemMagnet(pmo.FindInventory("PBWP_ItemMagnet"));
 			if (mag)
 			{
-                console.printf("Magnet Disabled");
+                console.printf("PBWP item magnet disabled");
 				mag.IsMagnetOn = false;
 			}
 		}
@@ -181,8 +203,12 @@ class BeefMiscHandler : EventHandler
     {
         // Sets the PB Monster Drop to Just Ammo on First Time Loading
         if (!FirstTimeLoadingPBWP) return;
-        CVAR.FindCVar('PB_WeaponDrops').SetInt(0);
-        CVAR.FindCVar('FirstTimeLoadingPBWP').SetBool(false);
+        let weaponDrops = CVar.FindCVar('PB_WeaponDrops');
+        if (weaponDrops)
+            weaponDrops.SetInt(0);
+        let firstLoad = CVar.FindCVar('FirstTimeLoadingPBWP');
+        if (firstLoad)
+            firstLoad.SetBool(false);
         //destroy();
     }
 
@@ -215,7 +241,7 @@ class BeefMeleeDrop : EventHandler
 
         if (monsHealth <= 20) return;
         if (monsHealth >= 200) return;
-        if (Random(1, 100) >= 20) return; // BASICALLY, BETWEEN 20-200 HP WILL HAVE A 20% CHANCE OF SPAWNING
+        if (Random(1, 100) >= 10) return; // 20-200 HP monsters: 10% chance for a tier-scaled melee drop
         //console.printf("Spawn Succesful");
         actor.A_SpawnItemEx('MeleeDropSpawner', 0, 0, 0, frandom(0.5, 2.0), 0, frandom(1.0, 4.0), random(0, 359), SXF_NOCHECKPOSITION);
     } 
@@ -227,9 +253,13 @@ class BeefCustomAmmoDrop : EventHandler
 	{
         if (!e || !e.thing) return;
         if (!e.thing.bISMONSTER) return;
-        int monsHealth = e.Thing.getMaxHealth();  
         let player = e.thing.target;
         PlayerPawn pm = PlayerPawn(player);
+        if (!pm)
+            return;
+        if (!GC_Enhancements.ComplexAmmo(pm.player))
+            return;
+        int monsHealth = e.Thing.getMaxHealth();
 
         if (monsHealth > 1000)
         {
@@ -251,155 +281,7 @@ class BeefCustomAmmoDrop : EventHandler
 }
 
 
-// Spawn Presets
-// This is a pretty rough implementation and I can probaly use switch cases for this
-// But for now it'll do
-
+// Spawn presets moved to PBWP_WeaponPackPresets.zs
 class BeefSpawnPresets : StaticEventHandler
 {
-    override void NetworkProcess(ConsoleEvent e)
-    {
-        let LookForPresets = e.Name;
-        if(LookForPresets ~== "PBWP_EnableAll")
-        {
-            CVAR.FindCVar('PBSpawnArgentSith').SetBool(true);
-            CVAR.FindCVar('PBSpawnBattleAxe').SetBool(true);
-            CVAR.FindCVar('PBSpawnRazorjack').SetBool(true);
-            //Slot 2
-            CVAR.FindCVar('PBSpawnSilverhandsDeagle').SetBool(true);
-            CVAR.FindCVar('PBSpawnHellPistol').SetBool(true);
-            CVAR.FindCVar('PBSpawnHellPistoler').SetBool(true);
-            CVAR.FindCVar('PBSpawnW_SMG').SetBool(true);
-            //Slot 3
-            CVAR.FindCVar('PBSpawnPB_Doom2016Shotgun').SetBool(true);
-            CVAR.FindCVar('PBSpawnPB_CryoShotgun').SetBool(true);
-            CVAR.FindCVar('PBSpawnPB_CSSG').SetBool(true);
-            CVAR.FindCVar('PBSpawnRotationalSG').SetBool(true);
-            CVAR.FindCVar('PBSpawnHASG').SetBool(true);
-            CVAR.FindCVar('PBSpawnHexaLionShotgun').SetBool(true);
-            CVAR.FindCVar('PBSpawnDemonTechShotgun').SetBool(true);
-            CVAR.FindCVar('PBSpawnM1887').SetBool(true);
-            CVAR.FindCVar('PBSpawnMarauderSSG').SetBool(true);
-            CVAR.FindCVar('PBSpawnRotatingDoubleBarrel').SetBool(true);
-            //Slot 4
-            CVAR.FindCVar('PBSpawnAK47').SetBool(true);
-            CVAR.FindCVar('PBSpawnPB_BoltRifle').SetBool(true);
-            CVAR.FindCVar('PBSpawnDark_Fate').SetBool(true);
-            CVAR.FindCVar('PBSpawnHeavySniperRifle').SetBool(true);
-            CVAR.FindCVar('PBSpawnMagnumSniperRifle').SetBool(true);
-            CVAR.FindCVar('PBSpawnM41A').SetBool(true);
-            CVAR.FindCVar('PBSpawnPowerOverwhelming').SetBool(true);
-            //Slot 5
-            CVAR.FindCVar('PBSpawnFire_and_IceDragonSlayer').SetBool(true);
-            CVAR.FindCVar('PBSpawnINNailGun').SetBool(true);
-            CVAR.FindCVar('PBSpawnOldHMG').SetBool(true);
-            CVAR.FindCVar('PBSpawnD4Machinegun').SetBool(true);
-            CVAR.FindCVar('PBSpawnINMiniGun').SetBool(true);
-            CVAR.FindCVar('PBSpawnDukeNukemRipper').SetBool(true);
-            CVAR.FindCVar('PBSpawnSuperNailgun').SetBool(true);
-            //Slot 6
-            CVAR.FindCVar('PBSpawnChthonicRifle').SetBool(true);
-            CVAR.FindCVar('PBSpawnCyberdemonsMissileLauncher').SetBool(true);
-            CVAR.FindCVar('PBSpawnDevastator').SetBool(true);
-            CVAR.FindCVar('PBSpawnPB_Excavator').SetBool(true);
-            CVAR.FindCVar('PBSpawnMastermindChaingun').SetBool(true);
-            CVAR.FindCVar('PBSpawnPaingiver').SetBool(true);
-            CVAR.FindCVar('PBSpawnD4RocketLauncher').SetBool(true);
-            CVAR.FindCVar('PBSpawnSuperGrenadeLauncher').SetBool(true);
-            //Slot 7
-            CVAR.FindCVar('PBSpawnPlasmaRifleAssault').SetBool(true);
-            CVAR.FindCVar('PBSpawnD4PlasmaGun').SetBool(true);
-            CVAR.FindCVar('PBSpawnThunderCarrierTI').SetBool(true);
-            CVAR.FindCVar('PBSpawnD4VortexRifle').SetBool(true);
-            //Slot 8
-            CVAR.FindCVar('PBSpawnExtinction_Ray').SetBool(true);
-            CVAR.FindCVar('PBSpawnCalamityBlade').SetBool(true);
-            CVAR.FindCVar('PBSpawnPB_GaussCannon').SetBool(true);
-            CVAR.FindCVar('PBSpawnIon_Heavy').SetBool(true);
-            CVAR.FindCVar('PBSpawnPB_MancubusFlameCannon').SetBool(true);
-            //Slot 9
-            CVAR.FindCVar('PBSpawnBioAcidLauncher').SetBool(true);
-            CVAR.FindCVar('PBSpawnBallistagun').SetBool(true);
-            CVAR.FindCVar('PBSpawnLegacyUnmaker').SetBool(true);
-            CVAR.FindCVar('PBSpawnStormcast').SetBool(true);
-            CVAR.FindCVar('PBSpawnThunderCrossbow').SetBool(true);
-            //Slot 0
-            CVAR.FindCVar('PBSpawnAncientCrossbow').SetBool(true);
-            CVAR.FindCVar('PBSpawnTechBlaster').SetBool(true);
-            CVAR.FindCVar('PBSpawnPB_DemonExt').SetBool(true);
-            CVAR.FindCVar('PBSpawnDemonTechMinigun').SetBool(true);
-            CVAR.FindCVar('PBSpawnPhaseEradicatorBFG').SetBool(true);
-        }
-        else if(LookForPresets ~== "PBWP_DisableAll")
-        {
-            CVAR.FindCVar('PBSpawnArgentSith').SetBool(false);
-            CVAR.FindCVar('PBSpawnArgentSith').SetBool(false);
-            CVAR.FindCVar('PBSpawnBattleAxe').SetBool(false);
-            CVAR.FindCVar('PBSpawnRazorjack').SetBool(false);
-            //Slot 2
-            CVAR.FindCVar('PBSpawnSilverhandsDeagle').SetBool(false);
-            CVAR.FindCVar('PBSpawnHellPistol').SetBool(false);
-            CVAR.FindCVar('PBSpawnHellPistoler').SetBool(false);
-            CVAR.FindCVar('PBSpawnW_SMG').SetBool(false);
-            //Slot 3
-            CVAR.FindCVar('PBSpawnPB_Doom2016Shotgun').SetBool(false);
-            CVAR.FindCVar('PBSpawnPB_CryoShotgun').SetBool(false);
-            CVAR.FindCVar('PBSpawnPB_CSSG').SetBool(false);
-            CVAR.FindCVar('PBSpawnRotationalSG').SetBool(false);
-            CVAR.FindCVar('PBSpawnHASG').SetBool(false);
-            CVAR.FindCVar('PBSpawnHexaLionShotgun').SetBool(false);
-            CVAR.FindCVar('PBSpawnDemonTechShotgun').SetBool(false);
-            CVAR.FindCVar('PBSpawnM1887').SetBool(false);
-            CVAR.FindCVar('PBSpawnMarauderSSG').SetBool(false);
-            CVAR.FindCVar('PBSpawnRotatingDoubleBarrel').SetBool(false);
-            //Slot 4
-            CVAR.FindCVar('PBSpawnAK47').SetBool(false);
-            CVAR.FindCVar('PBSpawnPB_BoltRifle').SetBool(false);
-            CVAR.FindCVar('PBSpawnDark_Fate').SetBool(false);
-            CVAR.FindCVar('PBSpawnHeavySniperRifle').SetBool(false);
-            CVAR.FindCVar('PBSpawnMagnumSniperRifle').SetBool(false);
-            CVAR.FindCVar('PBSpawnM41A').SetBool(false);
-            CVAR.FindCVar('PBSpawnPowerOverwhelming').SetBool(false);
-            //Slot 5
-            CVAR.FindCVar('PBSpawnFire_and_IceDragonSlayer').SetBool(false);
-            CVAR.FindCVar('PBSpawnINNailGun').SetBool(false);
-            CVAR.FindCVar('PBSpawnOldHMG').SetBool(false);
-            CVAR.FindCVar('PBSpawnD4Machinegun').SetBool(false);
-            CVAR.FindCVar('PBSpawnINMiniGun').SetBool(false);
-            CVAR.FindCVar('PBSpawnDukeNukemRipper').SetBool(false);
-            CVAR.FindCVar('PBSpawnSuperNailgun').SetBool(false);
-            //Slot 6
-            CVAR.FindCVar('PBSpawnChthonicRifle').SetBool(false);
-            CVAR.FindCVar('PBSpawnCyberdemonsMissileLauncher').SetBool(false);
-            CVAR.FindCVar('PBSpawnDevastator').SetBool(false);
-            CVAR.FindCVar('PBSpawnPB_Excavator').SetBool(false);
-            CVAR.FindCVar('PBSpawnMastermindChaingun').SetBool(false);
-            CVAR.FindCVar('PBSpawnPaingiver').SetBool(false);
-            CVAR.FindCVar('PBSpawnD4RocketLauncher').SetBool(false);
-            CVAR.FindCVar('PBSpawnSuperGrenadeLauncher').SetBool(false);
-            //Slot 7
-            CVAR.FindCVar('PBSpawnPlasmaRifleAssault').SetBool(false);
-            CVAR.FindCVar('PBSpawnD4PlasmaGun').SetBool(false);
-            CVAR.FindCVar('PBSpawnThunderCarrierTI').SetBool(false);
-            CVAR.FindCVar('PBSpawnD4VortexRifle').SetBool(false);
-            //Slot 8
-            CVAR.FindCVar('PBSpawnExtinction_Ray').SetBool(false);
-            CVAR.FindCVar('PBSpawnCalamityBlade').SetBool(false);
-            CVAR.FindCVar('PBSpawnPB_GaussCannon').SetBool(false);
-            CVAR.FindCVar('PBSpawnIon_Heavy').SetBool(false);
-            CVAR.FindCVar('PBSpawnPB_MancubusFlameCannon').SetBool(false);
-            //Slot 9
-            CVAR.FindCVar('PBSpawnBioAcidLauncher').SetBool(false);
-            CVAR.FindCVar('PBSpawnBallistagun').SetBool(false);
-            CVAR.FindCVar('PBSpawnLegacyUnmaker').SetBool(false);
-            CVAR.FindCVar('PBSpawnStormcast').SetBool(false);
-            CVAR.FindCVar('PBSpawnThunderCrossbow').SetBool(false);
-            //Slot 0
-            CVAR.FindCVar('PBSpawnAncientCrossbow').SetBool(false);
-            CVAR.FindCVar('PBSpawnTechBlaster').SetBool(false);
-            CVAR.FindCVar('PBSpawnPB_DemonExt').SetBool(false);
-            CVAR.FindCVar('PBSpawnDemonTechMinigun').SetBool(false);
-            CVAR.FindCVar('PBSpawnPhaseEradicatorBFG').SetBool(false);
-        }
-    }
 }

@@ -55,23 +55,23 @@ actor 2016PistolplasmaTracerTrail
 
 
 
-actor 2016PistolplasmaTracerTrail2: 2016PistolplasmaTracerTrail {    Alpha 0.85 }
-actor 2016PistolplasmaTracerTrail3: 2016PistolplasmaTracerTrail {    Alpha 0.80 }
-actor 2016PistolplasmaTracerTrail4: 2016PistolplasmaTracerTrail {    Alpha 0.75 }
-actor 2016PistolplasmaTracerTrail5: 2016PistolplasmaTracerTrail {    Alpha 0.70 }
-actor 2016PistolplasmaTracerTrail6: 2016PistolplasmaTracerTrail {    Alpha 0.65 }
-actor 2016PistolplasmaTracerTrail7: 2016PistolplasmaTracerTrail {    Alpha 0.60 }
-actor 2016PistolplasmaTracerTrail8: 2016PistolplasmaTracerTrail {    Alpha 0.55 }
-actor 2016PistolplasmaTracerTrail9: 2016PistolplasmaTracerTrail {    Alpha 0.50 }
-actor 2016PistolplasmaTracerTrail10: 2016PistolplasmaTracerTrail {    Alpha 0.45 }
-actor 2016PistolplasmaTracerTrail11: 2016PistolplasmaTracerTrail {    Alpha 0.40 }
-actor 2016PistolplasmaTracerTrail12: 2016PistolplasmaTracerTrail {    Alpha 0.35 }
-actor 2016PistolplasmaTracerTrail13: 2016PistolplasmaTracerTrail {    Alpha 0.30 }
-actor 2016PistolplasmaTracerTrail14: 2016PistolplasmaTracerTrail {    Alpha 0.25 }
-actor 2016PistolplasmaTracerTrail15: 2016PistolplasmaTracerTrail {    Alpha 0.20 }
-actor 2016PistolplasmaTracerTrail16: 2016PistolplasmaTracerTrail {    Alpha 0.15 }
-actor 2016PistolplasmaTracerTrail17: 2016PistolplasmaTracerTrail {    Alpha 0.10 }
-actor 2016PistolplasmaTracerTrail18: 2016PistolplasmaTracerTrail {    Alpha 0.05 }
+actor 2016PistolplasmaTracerTrail2 : 2016PistolplasmaTracerTrail { Alpha 0.85 }
+actor 2016PistolplasmaTracerTrail3 : 2016PistolplasmaTracerTrail { Alpha 0.80 }
+actor 2016PistolplasmaTracerTrail4 : 2016PistolplasmaTracerTrail { Alpha 0.75 }
+actor 2016PistolplasmaTracerTrail5 : 2016PistolplasmaTracerTrail { Alpha 0.70 }
+actor 2016PistolplasmaTracerTrail6 : 2016PistolplasmaTracerTrail { Alpha 0.65 }
+actor 2016PistolplasmaTracerTrail7 : 2016PistolplasmaTracerTrail { Alpha 0.60 }
+actor 2016PistolplasmaTracerTrail8 : 2016PistolplasmaTracerTrail { Alpha 0.55 }
+actor 2016PistolplasmaTracerTrail9 : 2016PistolplasmaTracerTrail { Alpha 0.50 }
+actor 2016PistolplasmaTracerTrail10 : 2016PistolplasmaTracerTrail { Alpha 0.45 }
+actor 2016PistolplasmaTracerTrail11 : 2016PistolplasmaTracerTrail { Alpha 0.40 }
+actor 2016PistolplasmaTracerTrail12 : 2016PistolplasmaTracerTrail { Alpha 0.35 }
+actor 2016PistolplasmaTracerTrail13 : 2016PistolplasmaTracerTrail { Alpha 0.30 }
+actor 2016PistolplasmaTracerTrail14 : 2016PistolplasmaTracerTrail { Alpha 0.25 }
+actor 2016PistolplasmaTracerTrail15 : 2016PistolplasmaTracerTrail { Alpha 0.20 }
+actor 2016PistolplasmaTracerTrail16 : 2016PistolplasmaTracerTrail { Alpha 0.15 }
+actor 2016PistolplasmaTracerTrail17 : 2016PistolplasmaTracerTrail { Alpha 0.10 }
+actor 2016PistolplasmaTracerTrail18 : 2016PistolplasmaTracerTrail { Alpha 0.05 }
 
 
 Actor 2016PistolplasmaMonster : 2016PistolplasmaTracer
@@ -154,20 +154,21 @@ actor 2016PistolheavyplasmaTracerTrail
 
 
 
-actor 2016PistolheavyplasmaTracerTrail2: 2016PistolheavyplasmaTracerTrail {    Alpha 0.85 }
-actor 2016PistolheavyplasmaTracerTrail3: 2016PistolheavyplasmaTracerTrail {    Alpha 0.80 }
-actor 2016PistolheavyplasmaTracerTrail4: 2016PistolheavyplasmaTracerTrail {    Alpha 0.75 }
-actor 2016PistolheavyplasmaTracerTrail5: 2016PistolheavyplasmaTracerTrail {    Alpha 0.70 }
-actor 2016PistolheavyplasmaTracerTrail6: 2016PistolheavyplasmaTracerTrail {    Alpha 0.65 }
-actor 2016PistolheavyplasmaTracerTrail7: 2016PistolheavyplasmaTracerTrail {    Alpha 0.60 }
-actor 2016PistolheavyplasmaTracerTrail8: 2016PistolheavyplasmaTracerTrail {    Alpha 0.55 }
-actor 2016PistolheavyplasmaTracerTrail9: 2016PistolheavyplasmaTracerTrail {    Alpha 0.50 }
-actor 2016PistolheavyplasmaTracerTrail10: 2016PistolheavyplasmaTracerTrail {    Alpha 0.45 }
-actor 2016PistolheavyplasmaTracerTrail11: 2016PistolheavyplasmaTracerTrail {    Alpha 0.40 }
-actor 2016PistolheavyplasmaTracerTrail12: 2016PistolheavyplasmaTracerTrail {    Alpha 0.35 }
-actor 2016PistolheavyplasmaTracerTrail13: 2016PistolheavyplasmaTracerTrail {    Alpha 0.30 }
-actor 2016PistolheavyplasmaTracerTrail14: 2016PistolheavyplasmaTracerTrail {    Alpha 0.25 }
-actor 2016PistolheavyplasmaTracerTrail15: 2016PistolheavyplasmaTracerTrail {    Alpha 0.20 }
-actor 2016PistolheavyplasmaTracerTrail16: 2016PistolheavyplasmaTracerTrail {    Alpha 0.15 }
-actor 2016PistolheavyplasmaTracerTrail17: 2016PistolheavyplasmaTracerTrail {    Alpha 0.10 }
-actor 2016PistolheavyplasmaTracerTrail18: 2016PistolheavyplasmaTracerTrail {    Alpha 0.05 }
+actor 2016PistolheavyplasmaTracerTrail2 : 2016PistolheavyplasmaTracerTrail { Alpha 0.85 }
+actor 2016PistolheavyplasmaTracerTrail3 : 2016PistolheavyplasmaTracerTrail { Alpha 0.80 }
+actor 2016PistolheavyplasmaTracerTrail4 : 2016PistolheavyplasmaTracerTrail { Alpha 0.75 }
+actor 2016PistolheavyplasmaTracerTrail5 : 2016PistolheavyplasmaTracerTrail { Alpha 0.70 }
+actor 2016PistolheavyplasmaTracerTrail6 : 2016PistolheavyplasmaTracerTrail { Alpha 0.65 }
+actor 2016PistolheavyplasmaTracerTrail7 : 2016PistolheavyplasmaTracerTrail { Alpha 0.60 }
+actor 2016PistolheavyplasmaTracerTrail8 : 2016PistolheavyplasmaTracerTrail { Alpha 0.55 }
+actor 2016PistolheavyplasmaTracerTrail9 : 2016PistolheavyplasmaTracerTrail { Alpha 0.50 }
+actor 2016PistolheavyplasmaTracerTrail10 : 2016PistolheavyplasmaTracerTrail { Alpha 0.45 }
+actor 2016PistolheavyplasmaTracerTrail11 : 2016PistolheavyplasmaTracerTrail { Alpha 0.40 }
+actor 2016PistolheavyplasmaTracerTrail12 : 2016PistolheavyplasmaTracerTrail { Alpha 0.35 }
+actor 2016PistolheavyplasmaTracerTrail13 : 2016PistolheavyplasmaTracerTrail { Alpha 0.30 }
+actor 2016PistolheavyplasmaTracerTrail14 : 2016PistolheavyplasmaTracerTrail { Alpha 0.25 }
+actor 2016PistolheavyplasmaTracerTrail15 : 2016PistolheavyplasmaTracerTrail { Alpha 0.20 }
+actor 2016PistolheavyplasmaTracerTrail16 : 2016PistolheavyplasmaTracerTrail { Alpha 0.15 }
+actor 2016PistolheavyplasmaTracerTrail17 : 2016PistolheavyplasmaTracerTrail { Alpha 0.10 }
+actor 2016PistolheavyplasmaTracerTrail18 : 2016PistolheavyplasmaTracerTrail { Alpha 0.05 }
+

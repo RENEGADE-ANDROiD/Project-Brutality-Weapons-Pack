@@ -156,98 +156,17 @@ brightmap sprite VRTFC0 { map "Brightmaps/Weapons/Doom4WeaponPack/VRTFC0.png" }
 Brightmap Sprite M87FA0	{ Map "Brightmaps/Weapons/M1887/M87FA0.png"	DisableFullBright }
 Brightmap Sprite M87FB0	{ Map "Brightmaps/Weapons/M1887/M87FB0.png"	DisableFullBright }
 
-Brightmap Sprite HMA4A0 { Map "Brightmaps/Weapons/OLD-HMG/HMA4A0.png" DisableFullBright }
-Brightmap Sprite HMA4B0 { Map "Brightmaps/Weapons/OLD-HMG/HMA4B0.png" DisableFullBright }
-Brightmap Sprite HMA4C0 { Map "Brightmaps/Weapons/OLD-HMG/HMA4C0.png" DisableFullBright }
-Brightmap Sprite HMA4D0 { Map "Brightmaps/Weapons/OLD-HMG/HMA4D0.png" DisableFullBright }
 
-Brightmap Sprite HMAFA0 { Map "Brightmaps/Weapons/OLD-HMG/HMAFA0.png" DisableFullBright }
-Brightmap Sprite HMAFB0 { Map "Brightmaps/Weapons/OLD-HMG/HMAFB0.png" DisableFullBright }
-Brightmap Sprite HMAFC0 { Map "Brightmaps/Weapons/OLD-HMG/HMAFC0.png" DisableFullBright }
-Brightmap Sprite HMAFD0 { Map "Brightmaps/Weapons/OLD-HMG/HMAFD0.png" DisableFullBright }
 
-Brightmap Sprite HMAGA0 { Map "Brightmaps/Weapons/OLD-HMG/HMAGA0.png" DisableFullBright }
-Brightmap Sprite HMAGB0 { Map "Brightmaps/Weapons/OLD-HMG/HMAGB0.png" DisableFullBright }
 
-Brightmap Sprite HMARA0 { Map "Brightmaps/Weapons/OLD-HMG/HMARA0.png" DisableFullBright }
-Brightmap Sprite HMARB0 { Map "Brightmaps/Weapons/OLD-HMG/HMARB0.png" DisableFullBright }
-Brightmap Sprite HMARC0 { Map "Brightmaps/Weapons/OLD-HMG/HMARC0.png" DisableFullBright }
-Brightmap Sprite HMARD0 { Map "Brightmaps/Weapons/OLD-HMG/HMARD0.png" DisableFullBright }
-Brightmap Sprite HMARE0 { Map "Brightmaps/Weapons/OLD-HMG/HMARE0.png" DisableFullBright }
-Brightmap Sprite HMARF0 { Map "Brightmaps/Weapons/OLD-HMG/HMARF0.png" DisableFullBright }
-Brightmap Sprite HMARG0 { Map "Brightmaps/Weapons/OLD-HMG/HMARG0.png" DisableFullBright }
-Brightmap Sprite HMARH0 { Map "Brightmaps/Weapons/OLD-HMG/HMARH0.png" DisableFullBright }
-Brightmap Sprite HMARI0 { Map "Brightmaps/Weapons/OLD-HMG/HMARI0.png" DisableFullBright }
-Brightmap Sprite HMARJ0 { Map "Brightmaps/Weapons/OLD-HMG/HMARJ0.png" DisableFullBright }
-Brightmap Sprite HMARK0 { Map "Brightmaps/Weapons/OLD-HMG/HMARK0.png" DisableFullBright }
-Brightmap Sprite HMARL0 { Map "Brightmaps/Weapons/OLD-HMG/HMARL0.png" DisableFullBright }
-Brightmap Sprite HMARM0 { Map "Brightmaps/Weapons/OLD-HMG/HMARM0.png" DisableFullBright }
-Brightmap Sprite HMARN0 { Map "Brightmaps/Weapons/OLD-HMG/HMARN0.png" DisableFullBright }
-Brightmap Sprite HMARO0 { Map "Brightmaps/Weapons/OLD-HMG/HMARO0.png" DisableFullBright }
-Brightmap Sprite HMARP0 { Map "Brightmaps/Weapons/OLD-HMG/HMARP0.png" DisableFullBright }
-Brightmap Sprite HMARQ0 { Map "Brightmaps/Weapons/OLD-HMG/HMARQ0.png" DisableFullBright }
 
-Brightmap Sprite HMASA0 { Map "Brightmaps/Weapons/OLD-HMG/HMASA0.png" DisableFullBright }
-Brightmap Sprite HMASB0 { Map "Brightmaps/Weapons/OLD-HMG/HMASB0.png" DisableFullBright }
-Brightmap Sprite HMASC0 { Map "Brightmaps/Weapons/OLD-HMG/HMASC0.png" DisableFullBright }
-Brightmap Sprite HMASD0 { Map "Brightmaps/Weapons/OLD-HMG/HMASD0.png" DisableFullBright }
-Brightmap Sprite HMASE0 { Map "Brightmaps/Weapons/OLD-HMG/HMASE0.png" DisableFullBright }
 
-Brightmap Sprite HMGNA0 { Map "Brightmaps/Weapons/OLD-HMG/HMGNA0.png" DisableFullBright }
 
-Brightmap Sprite HMGTA0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTA0.png" DisableFullBright }
-Brightmap Sprite HMGTB0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTB0.png" DisableFullBright }
-Brightmap Sprite HMGTC0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTC0.png" DisableFullBright }
-Brightmap Sprite HMGTD0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTD0.png" DisableFullBright }
-Brightmap Sprite HMGTE0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTE0.png" DisableFullBright }
-Brightmap Sprite HMGTF0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTF0.png" DisableFullBright }
-Brightmap Sprite HMGTG0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTG0.png" DisableFullBright }
-Brightmap Sprite HMGTH0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTH0.png" DisableFullBright }
-Brightmap Sprite HMGTI0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTI0.png" DisableFullBright }
-Brightmap Sprite HMGTJ0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTJ0.png" DisableFullBright }
-Brightmap Sprite HMGTK0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTK0.png" DisableFullBright }
-Brightmap Sprite HMGTL0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTL0.png" DisableFullBright }
-Brightmap Sprite HMGTM0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTM0.png" DisableFullBright }
-Brightmap Sprite HMGTN0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTN0.png" DisableFullBright }
-Brightmap Sprite HMGTO0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTO0.png" DisableFullBright }
-Brightmap Sprite HMGTP0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTP0.png" DisableFullBright }
-Brightmap Sprite HMGTV0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTV0.png" DisableFullBright }
-Brightmap Sprite HMGTW0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTW0.png" DisableFullBright }
-Brightmap Sprite HMGTX0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTX0.png" DisableFullBright }
-Brightmap Sprite HMGTY0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTY0.png" DisableFullBright }
-Brightmap Sprite HMGTZ0 { Map "Brightmaps/Weapons/OLD-HMG/HMGTZ0.png" DisableFullBright }
 
-Brightmap Sprite NLG4A0 { Map "Brightmaps/Weapons/OLD-HMG/NLG4A0.png" DisableFullBright }
-Brightmap Sprite NLG4B0 { Map "Brightmaps/Weapons/OLD-HMG/NLG4B0.png" DisableFullBright }
-Brightmap Sprite NLG4C0 { Map "Brightmaps/Weapons/OLD-HMG/NLG4C0.png" DisableFullBright }
-Brightmap Sprite NLG4D0 { Map "Brightmaps/Weapons/OLD-HMG/NLG4D0.png" DisableFullBright }
 
-Brightmap Sprite NLGFA0 { Map "Brightmaps/Weapons/OLD-HMG/NLGFA0.png" DisableFullBright }
-Brightmap Sprite NLGFB0 { Map "Brightmaps/Weapons/OLD-HMG/NLGFB0.png" DisableFullBright }
-Brightmap Sprite NLGFC0 { Map "Brightmaps/Weapons/OLD-HMG/NLGFC0.png" DisableFullBright }
-Brightmap Sprite NLGFD0 { Map "Brightmaps/Weapons/OLD-HMG/NLGFD0.png" DisableFullBright }
-Brightmap Sprite NLGFE0 { Map "Brightmaps/Weapons/OLD-HMG/NLGFE0.png" DisableFullBright }
-Brightmap Sprite NLGFF0 { Map "Brightmaps/Weapons/OLD-HMG/NLGFF0.png" DisableFullBright }
 
-Brightmap Sprite NLGNA0 { Map "Brightmaps/Weapons/OLD-HMG/NLGNA0.png" DisableFullBright }
-Brightmap Sprite NLGNB0 { Map "Brightmaps/Weapons/OLD-HMG/NLGNB0.png" DisableFullBright }
 
-Brightmap Sprite NLGRA0 { Map "Brightmaps/Weapons/OLD-HMG/NLGRA0.png" DisableFullBright }
-Brightmap Sprite NLGRB0 { Map "Brightmaps/Weapons/OLD-HMG/NLGRB0.png" DisableFullBright }
-Brightmap Sprite NLGRC0 { Map "Brightmaps/Weapons/OLD-HMG/NLGRC0.png" DisableFullBright }
-Brightmap Sprite NLGRD0 { Map "Brightmaps/Weapons/OLD-HMG/NLGRD0.png" DisableFullBright }
-Brightmap Sprite NLGRE0 { Map "Brightmaps/Weapons/OLD-HMG/NLGRE0.png" DisableFullBright }
-Brightmap Sprite NLGRF0 { Map "Brightmaps/Weapons/OLD-HMG/NLGRF0.png" DisableFullBright }
-Brightmap Sprite NLGRG0 { Map "Brightmaps/Weapons/OLD-HMG/NLGRG0.png" DisableFullBright }
-Brightmap Sprite NLGRH0 { Map "Brightmaps/Weapons/OLD-HMG/NLGRH0.png" DisableFullBright }
-Brightmap Sprite NLGRI0 { Map "Brightmaps/Weapons/OLD-HMG/NLGRI0.png" DisableFullBright }
-Brightmap Sprite NLGRJ0 { Map "Brightmaps/Weapons/OLD-HMG/NLGRJ0.png" DisableFullBright }
 
-Brightmap Sprite NLGSA0 { Map "Brightmaps/Weapons/OLD-HMG/NLGSA0.png" DisableFullBright }
-Brightmap Sprite NLGSB0 { Map "Brightmaps/Weapons/OLD-HMG/NLGSB0.png" DisableFullBright }
-Brightmap Sprite NLGSC0 { Map "Brightmaps/Weapons/OLD-HMG/NLGSC0.png" DisableFullBright }
-Brightmap Sprite NLGSD0 { Map "Brightmaps/Weapons/OLD-HMG/NLGSD0.png" DisableFullBright }
-Brightmap Sprite NLGSE0 { Map "Brightmaps/Weapons/OLD-HMG/NLGSE0.png" DisableFullBright }
 
 //These sprites are not in the folder//
 /*

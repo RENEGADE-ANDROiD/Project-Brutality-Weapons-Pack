@@ -1,0 +1,414 @@
+class PB_XPBank : Inventory
+{
+	Default
+	{
+		+INVENTORY.UNDROPPABLE
+		Inventory.MaxAmount 999999999;
+	}
+}
+
+// Legacy score token (PB Staging / older Progression.acs). Converts to PB_XPBank on give.
+class PB_Score : Inventory
+{
+	Default
+	{
+		+INVENTORY.UNDROPPABLE
+		Inventory.MaxAmount 999999999;
+	}
+
+	override bool TryPickup(in out Actor toucher)
+	{
+		if (!toucher)
+			return false;
+		int give = Amount > 0 ? Amount : 1;
+		toucher.GiveInventory("PB_XPBank", give);
+		return true;
+	}
+}
+
+class PB_XPRank : Inventory
+{
+	Default
+	{
+		+INVENTORY.UNDROPPABLE
+		Inventory.MaxAmount 100;
+	}
+}
+
+class PB_RewardSpin : Inventory
+{
+	Default
+	{
+		+INVENTORY.UNDROPPABLE
+		Inventory.MaxAmount 999999;
+	}
+}
+
+class PB_XPRewardsHandler : EventHandler
+{
+	const SPIN_COST = 250;
+	const PB_XP_HUDFLO_RANK_TTL = 78;
+
+	int pbXpHudRankBorn[MAXPLAYERS];
+	int pbXpHudRankVal[MAXPLAYERS];
+
+	void HudQueueRankFloater(int pn, int newRank)
+	{
+		if (netgame || pn < 0 || pn >= MAXPLAYERS || newRank < 1)
+			return;
+		pbXpHudRankBorn[pn] = level.maptime;
+		pbXpHudRankVal[pn] = newRank;
+	}
+
+	clearscope static int SpinCost()
+	{
+		return SPIN_COST;
+	}
+
+	static int RankFromXP(int xp)
+	{
+		if (xp >= 127000) return 25;
+		if (xp >= 111500) return 24;
+		if (xp >= 97500) return 23;
+		if (xp >= 85000) return 22;
+		if (xp >= 74000) return 21;
+		if (xp >= 64300) return 20;
+		if (xp >= 55800) return 19;
+		if (xp >= 48300) return 18;
+		if (xp >= 41700) return 17;
+		if (xp >= 35900) return 16;
+		if (xp >= 30800) return 15;
+		if (xp >= 26300) return 14;
+		if (xp >= 22300) return 13;
+		if (xp >= 18800) return 12;
+		if (xp >= 15700) return 11;
+		if (xp >= 13000) return 10;
+		if (xp >= 10600) return 9;
+		if (xp >= 8500) return 8;
+		if (xp >= 6600) return 7;
+		if (xp >= 5000) return 6;
+		if (xp >= 3600) return 5;
+		if (xp >= 2500) return 4;
+		if (xp >= 1600) return 3;
+		if (xp >= 900) return 2;
+		if (xp >= 400) return 1;
+		return 0;
+	}
+
+	static int XPAwardForMonster(Actor dead)
+	{
+		if (!dead)
+			return 0;
+		int sh = dead.SpawnHealth();
+		if (sh >= 1200)
+			return 120;
+		if (sh >= 800)
+			return 90;
+		if (sh >= 500)
+			return 65;
+		if (sh >= 350)
+			return 50;
+		if (sh >= 200)
+			return 35;
+		if (sh >= 120)
+			return 25;
+		if (sh >= 80)
+			return 18;
+		if (sh >= 40)
+			return 12;
+		return 8;
+	}
+
+	static void SetRankFromXP(PlayerPawn plr, int rank)
+	{
+		if (!plr)
+			return;
+		plr.TakeInventory("PB_XPRank", 1000);
+		if (rank > 0)
+			plr.GiveInventory("PB_XPRank", rank);
+	}
+
+	// awardRankBonus: only true when XP was just earned (e.g. a kill). Map-load sync must not
+	// grant bonus XP or ranks will inflate every time stored rank lags behind the XP bank.
+	static int ApplyRankFromXP(PlayerPawn plr, bool awardRankBonus = false)
+	{
+		if (!plr || !plr.player)
+			return -1;
+		let bank = plr.FindInventory("PB_XPBank");
+		let rankInv = plr.FindInventory("PB_XPRank");
+		int xp = bank ? bank.Amount : 0;
+		int oldRank = rankInv ? rankInv.Amount : 0;
+		int newRank = RankFromXP(xp);
+		if (newRank <= oldRank)
+			return -1;
+		SetRankFromXP(plr, newRank);
+		if (awardRankBonus)
+		{
+			int delta = newRank - oldRank;
+			plr.GiveInventory("PB_XPBank", delta * 100);
+		}
+		return newRank;
+	}
+
+	static void SyncRankFromXPQuiet(PlayerPawn plr)
+	{
+		ApplyRankFromXP(plr, false);
+	}
+
+	static bool XPDamageNumbersEnabled(PlayerPawn plr)
+	{
+		if (!plr || !plr.player)
+			return false;
+		let cv = CVar.GetCVar("dam_enabled", plr.player);
+		return cv && cv.GetBool();
+	}
+
+	static bool PB_FloatingHudExtrasEnabled(PlayerPawn plr)
+	{
+		if (!plr || !plr.player)
+			return false;
+		if (XPDamageNumbersEnabled(plr))
+			return true;
+		return PBWP_XPCompat.PB_XP_RewardsOn();
+	}
+
+	static Vector3 PB_XP_FloatSpot(Actor at, double zFrac = 0.88)
+	{
+		if (!at)
+			return (0, 0, 0);
+		Vector3 p = at.pos;
+		p.z += at.height * zFrac;
+		return p;
+	}
+
+	static Name PB_XP_DamTypeFor(PlayerPawn plr, Name preferred, Name fallback)
+	{
+		if (!plr || !plr.player)
+			return fallback;
+		let cvt = CVar.GetCVar("dam_usetypes", plr.player);
+		if (cvt && cvt.GetBool())
+			return preferred;
+		return fallback;
+	}
+
+	static void SpawnXPFloaters(PlayerPawn plr, Actor victim, int add)
+	{
+		if (!XPDamageNumbersEnabled(plr) || add < 1)
+			return;
+		Vector3 p = PB_XP_FloatSpot(victim);
+		p.x += frandom(-10., 10.);
+		p.y += frandom(-10., 10.);
+		Name dt = PB_XP_DamTypeFor(plr, 'PBXP', 'Disintegrate');
+		DamNum.spawnDamageNumbers(p, add, dt, true, 1.15);
+	}
+
+	static void SpawnRankFloaters(PlayerPawn plr, int newRank)
+	{
+		if (!plr || newRank < 1)
+			return;
+		if (PBWP_XPCompat.PB_XP_RewardsOn() && !netgame)
+		{
+			let h = PB_XPRewardsHandler(EventHandler.Find("PB_XPRewardsHandler"));
+			if (h)
+				h.HudQueueRankFloater(plr.PlayerNumber(), newRank);
+		}
+		plr.A_SetBlend("Gold", 0.2, 16);
+		plr.A_StartSound("misc/trkey", CHAN_6, CHANF_OVERLAP, 0.75, ATTN_NONE);
+	}
+
+	override void WorldLoaded(WorldEvent e)
+	{
+		for (int i = 0; i < MAXPLAYERS; i++)
+		{
+			pbXpHudRankBorn[i] = -1;
+			pbXpHudRankVal[i] = 0;
+		}
+	}
+
+	override void PlayerEntered(PlayerEvent e)
+	{
+		if (!PBWP_XPCompat.PB_XP_RewardsOn() || netgame || !e)
+			return;
+		if (e.PlayerNumber < 0 || e.PlayerNumber >= MAXPLAYERS)
+			return;
+		if (!playeringame[e.PlayerNumber])
+			return;
+		let plr = PlayerPawn(players[e.PlayerNumber].mo);
+		if (plr)
+			SyncRankFromXPQuiet(plr);
+	}
+
+	override void WorldTick()
+	{
+		int gt = level.maptime;
+		for (int i = 0; i < MAXPLAYERS; i++)
+		{
+			if (pbXpHudRankBorn[i] >= 0 && gt - pbXpHudRankBorn[i] > PB_XP_HUDFLO_RANK_TTL)
+				pbXpHudRankBorn[i] = -1;
+		}
+	}
+
+	override void RenderOverlay(RenderEvent e)
+	{
+		if (!e || gamestate != GS_LEVEL || menuactive || Level.MapName == "TITLEMAP")
+			return;
+		if (gametic < 35)
+			return;
+		if (consoleplayer < 0 || consoleplayer >= MAXPLAYERS || !playeringame[consoleplayer])
+			return;
+		if (!playeringame[consoleplayer])
+			return;
+		let mo = players[consoleplayer].mo;
+		if (!mo || mo.CountInv("CameraRunner") > 0)
+			return;
+		int pn = consoleplayer;
+		if (pn < 0 || pn >= MAXPLAYERS)
+			return;
+
+		int sw = Screen.getWidth();
+		int sh = Screen.getHeight();
+		double txtSc = clamp(sh / 480.0, 1.0, 3.0);
+		double halfSc = txtSc * 0.52;
+
+		if (pbXpHudRankBorn[pn] >= 0)
+		{
+			int age = level.maptime - pbXpHudRankBorn[pn];
+			if (age >= 0 && age <= PB_XP_HUDFLO_RANK_TTL)
+			{
+				double rise = age * 2.55;
+				double fade = clamp(1.0 - double(age) / double(PB_XP_HUDFLO_RANK_TTL), 0., 1.);
+				String s = String.Format("RANK %d", pbXpHudRankVal[pn]);
+				int tw = int(BigFont.StringWidth(s) * halfSc);
+				int tx = int(sw * 0.5 - tw / 2);
+				int ty = int(sh * 0.5 - rise);
+				Screen.DrawText(BigFont, Font.CR_BLACK, tx + 2, ty + 2, s,
+					DTA_ScaleX, halfSc, DTA_ScaleY, halfSc, DTA_Alpha, fade * 0.38);
+				Screen.DrawText(BigFont, Font.CR_GOLD, tx, ty, s,
+					DTA_ScaleX, halfSc, DTA_ScaleY, halfSc, DTA_Alpha, fade);
+			}
+		}
+	}
+
+	override void WorldThingDied(WorldEvent e)
+	{
+		if (!PBWP_XPCompat.PB_XP_RewardsOn())
+			return;
+		if (netgame)
+			return;
+		if (!e)
+			return;
+		Actor t = e.Thing;
+		if (!t || !t.bISMONSTER || !t.bCOUNTKILL || t is "PlayerPawn")
+			return;
+		PlayerPawn killer = PBWP_XPCompat.PB_PDA_ResolveKiller(e);
+		if (!killer || !killer.player)
+			return;
+		int add = XPAwardForMonster(t);
+		if (add < 1)
+			return;
+		killer.GiveInventory("PB_XPBank", add);
+		SpawnXPFloaters(killer, t, add);
+		for (int guard = 0; guard < 8; guard++)
+		{
+			int newRank = ApplyRankFromXP(killer, true);
+			if (newRank < 1)
+				break;
+			SpawnRankFloaters(killer, newRank);
+			PB_Achievements.OnRankReached(newRank);
+		}
+	}
+
+	static void DoSpin(PlayerPawn plr)
+	{
+		if (!plr || !plr.player)
+			return;
+		if (!PBWP_XPCompat.PB_XP_RewardsOn())
+			return;
+		if (netgame)
+			return;
+		if (plr.CountInv("PB_XPBank") < SPIN_COST)
+		{
+			plr.A_Print("\cgNeed \cf" .. SPIN_COST .. " \cgexperience.");
+			return;
+		}
+		plr.A_TakeInventory("PB_XPBank", SPIN_COST);
+		if (TryGrantRandomWeapon(plr))
+		{
+			plr.A_Print("\cdReward reel: \cfweapon granted!");
+			return;
+		}
+		plr.A_Print("\cgNo eligible weapon. XP refunded (already carried / codex).");
+	}
+
+	static bool WeaponFoundInPlayerCodex(PlayerPawn plr, class<Inventory> cls)
+	{
+		if (!plr || !cls)
+			return false;
+		let wc = PB_PDAWeaponContainer(plr.FindInventory("PB_PDAWeaponContainer", true));
+		if (!wc || wc.pdaWeapTextArray.Size() < 1)
+			return false;
+		readonly<Inventory> defInv = GetDefaultByType(cls);
+		if (!defInv)
+			return false;
+		string want = PBWP_XPCompat.PB_PDA_NormClassStr(defInv.GetClassName());
+		for (int i = 0; i < int(wc.pdaWeapTextArray.Size()); i++)
+		{
+			if (!wc.pdaWeapTextArray[i].found)
+				continue;
+			string row = PBWP_XPCompat.PB_PDA_NormClassStr(wc.pdaWeapTextArray[i].PDAWeapClassName);
+			if (row == want)
+				return true;
+		}
+		return false;
+	}
+
+	static bool TryGrantRandomWeapon(PlayerPawn plr)
+	{
+		for (int attempt = 0; attempt < 32; attempt++)
+		{
+			int idx = random[PBXPWPN](0, 9);
+			Name nm;
+			switch (idx)
+			{
+			case 0: nm = 'PB_Shotgun'; break;
+			case 1: nm = 'PB_Autoshotgun'; break;
+			case 2: nm = 'PB_SSG'; break;
+			case 3: nm = 'PB_Carbine'; break;
+			case 4: nm = 'Rifle'; break;
+			case 5: nm = 'PB_Minigun'; break;
+			case 6: nm = 'PB_M2Plasma'; break;
+			case 7: nm = 'PB_RocketLauncher'; break;
+			case 8: nm = 'PB_BFG9000'; break;
+			case 9: nm = 'PB_Fusil'; break;
+			default: nm = 'PB_Shotgun'; break;
+			}
+			class<Inventory> cls = (class<Inventory>)(nm);
+			if (!cls)
+				continue;
+			if (plr.FindInventory(cls))
+				continue;
+			if (WeaponFoundInPlayerCodex(plr, cls))
+				continue;
+			plr.GiveInventory(cls, 1);
+			return true;
+		}
+		plr.GiveInventory("PB_XPBank", SPIN_COST);
+		return false;
+	}
+
+	override void NetworkProcess(ConsoleEvent e)
+	{
+		if (!e || !(e.Name ~== "pb_xp_spin"))
+			return;
+		if (netgame)
+			return;
+		if (e.Player < 0 || e.Player >= MAXPLAYERS)
+			return;
+		if (!playeringame[e.Player])
+			return;
+		let plr = PlayerPawn(players[e.Player].mo);
+		if (!plr)
+			return;
+		DoSpin(plr);
+	}
+}

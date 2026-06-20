@@ -1,0 +1,239 @@
+// PB 2022 — multi-kill (one shot / one blast) + rocket jump / plasma climb detection.
+
+class PB_AchievementCombatHandler : EventHandler
+{
+	const MK_CLUSTER_WINDOW = 3;
+	const MK_MIN_KILLS = 2;
+
+	transient Array<Actor> mkInflictor;
+	transient Array<int> mkStartTic;
+	transient Array<int> mkCount;
+	transient Array<int> mkCategory;
+	transient Array<bool> mkAwarded;
+
+	transient int prevBlastMom[MAXPLAYERS];
+
+	override void WorldLoaded(WorldEvent e)
+	{
+		ClearMkClusters();
+		for (int i = 0; i < MAXPLAYERS; i++)
+			prevBlastMom[i] = 0;
+	}
+
+	override void WorldTick()
+	{
+		int now = Level.MapTime;
+		for (int i = mkStartTic.Size() - 1; i >= 0; i--)
+		{
+			if (now - mkStartTic[i] > MK_CLUSTER_WINDOW + 2)
+			{
+				mkInflictor.Delete(i);
+				mkStartTic.Delete(i);
+				mkCount.Delete(i);
+				mkCategory.Delete(i);
+				mkAwarded.Delete(i);
+			}
+		}
+
+		if (netgame || !VUAS_AchievementHandler.SessionActive())
+			return;
+
+		// PBWPE: rocket-jump / plasma-climb momentum token (PBBlastMomentum) not shipped yet.
+	}
+
+	override void WorldThingDied(WorldEvent e)
+	{
+		if (!e || !e.Thing || netgame || !VUAS_AchievementHandler.SessionActive())
+			return;
+		if (!e.Thing.bIsMonster || e.Thing is "PlayerPawn")
+			return;
+		if (!e.Thing.target || !e.Thing.target.player)
+			return;
+
+		Actor inf = ResolveKillInflictor(e);
+		int cat = ClassifyKill(inf, PlayerPawn(e.Thing.target));
+		if (cat == PB_MK_NONE)
+			return;
+
+		int tic = Level.MapTime;
+		int idx = FindMkCluster(inf, tic, cat);
+		if (idx < 0)
+		{
+			mkInflictor.Push(inf);
+			mkStartTic.Push(tic);
+			mkCount.Push(1);
+			mkCategory.Push(cat);
+			mkAwarded.Push(false);
+			return;
+		}
+
+		mkCount[idx]++;
+		if (!mkAwarded[idx] && mkCount[idx] >= MK_MIN_KILLS)
+		{
+			mkAwarded[idx] = true;
+			PB_Achievements.OnMultikill(cat);
+		}
+	}
+
+	void ClearMkClusters()
+	{
+		mkInflictor.Clear();
+		mkStartTic.Clear();
+		mkCount.Clear();
+		mkCategory.Clear();
+		mkAwarded.Clear();
+	}
+
+	int FindMkCluster(Actor inf, int tic, int cat)
+	{
+		for (int i = 0; i < mkInflictor.Size(); i++)
+		{
+			if (mkCategory[i] != cat)
+				continue;
+			if (mkInflictor[i] != inf)
+				continue;
+			if (abs(tic - mkStartTic[i]) <= MK_CLUSTER_WINDOW)
+				return i;
+		}
+		return -1;
+	}
+
+	static Actor ResolveKillInflictor(WorldEvent e)
+	{
+		Actor inf = e.Inflictor;
+		if (!inf)
+			inf = e.DamageSource;
+		if (!inf)
+			return null;
+
+		int guard = 0;
+		while (guard < 10)
+		{
+			guard++;
+			if (inf is "PlayerPawn")
+				return null;
+			if (inf.target && inf.target is "PlayerPawn")
+				return inf;
+			if (inf.master && inf.master != inf)
+			{
+				inf = inf.master;
+				continue;
+			}
+			if (inf.tracer && inf.tracer != inf)
+			{
+				inf = inf.tracer;
+				continue;
+			}
+			break;
+		}
+		return inf;
+	}
+
+	static int ClassifyKill(Actor inf, PlayerPawn killer)
+	{
+		if (inf)
+		{
+			int c = ClassifyInflictorActor(inf);
+			if (c != PB_MK_NONE)
+				return c;
+		}
+		if (!killer || !killer.player || !killer.player.ReadyWeapon)
+			return PB_MK_NONE;
+		return ClassifyWeaponClass(killer.player.ReadyWeapon.GetClassName());
+	}
+
+	static bool ActorIsNamed(Actor inf, Name cls)
+	{
+		return inf && inf.GetClassName() == cls;
+	}
+
+	static int ClassifyInflictorActor(Actor inf)
+	{
+		if (!inf)
+			return PB_MK_NONE;
+
+		if (inf is "PB_Rocket" || inf is "Rocket"
+			|| inf is "RocketExplosion"
+			|| inf is "SeekerRocket"
+			|| inf is "HandGrenadeExplosion" || inf is "GrenadeExplosion"
+			|| inf is "ExcavatorExplosion" || inf is "StickyExplosion"
+			|| inf is "ImpactGrenadeExplosion")
+			return PB_MK_EXPLOSIVE;
+
+		if (inf is "DoomerRailShot" || inf is "RailgunLaserBlast1")
+			return PB_MK_RAIL;
+
+		if (inf is "BFGBall" || inf is "SuperBFGBall" || inf is "BFGExtra"
+			|| inf is "SuperBFGExtra" || inf is "PB_SuperBFGBall")
+			return PB_MK_BFG;
+
+		if (inf is "PB_762x51mmAP")
+			return PB_MK_SNIPER;
+
+		if (inf is "Plasma_Ball" || inf is "UltPlasma_Ball"
+			|| inf is "LightningMissile2")
+			return PB_MK_PLASMA;
+
+		if (ActorIsNamed(inf, 'SC_CryoGrenade') || inf is "ThrownGrenade1"
+			|| inf is "FreezenadeExplosion" || inf is "StunGrenadeExplosion")
+			return PB_MK_EQUIPMENT;
+
+		return PB_MK_NONE;
+	}
+
+	static int ClassifyWeaponClass(Name wpn)
+	{
+		if (wpn == 'PB_RocketLauncher' || wpn == 'PB_SuperGL' || wpn == 'PB_Excavator'
+			|| wpn == 'Paingiver' || wpn == 'PB_CF_RocketLauncher'
+			|| wpn == 'MastermindChaingun' || wpn == 'PB_CyberdemonRL')
+			return PB_MK_EXPLOSIVE;
+
+		if (wpn == 'PB_Railgun')
+			return PB_MK_RAIL;
+
+		if (wpn == 'PB_BFG9000' || wpn == 'PB_BFGMKIV' || wpn == 'PB_BFGBeam'
+			|| wpn == 'BHGen' || wpn == 'PB_Unmaker')
+			return PB_MK_BFG;
+
+		if (wpn == 'PB_XM21' || wpn == 'PB_MetalSniper')
+			return PB_MK_SNIPER;
+
+		if (wpn == 'PB_PlasmaGun' || wpn == 'PB_M2Plasma' || wpn == 'PB_DarkMatterRifle'
+			|| wpn == 'ChexRifle' || wpn == 'PB_CryoShotgun')
+			return PB_MK_PLASMA;
+
+		if (wpn == 'WW_FreezenadeSelected')
+			return PB_MK_EQUIPMENT;
+
+		return PB_MK_NONE;
+	}
+
+	void CheckBlastMomentumAward(Actor mo)
+	{
+		if (!mo || !mo.player)
+			return;
+
+		let cvRJ = CVar.FindCVar("pb_rocketjump");
+		let cvPC = CVar.FindCVar("pb_plasma_wallclimb");
+		bool rjOn = cvRJ && cvRJ.GetBool();
+		bool pcOn = cvPC && cvPC.GetBool();
+		if (!rjOn && !pcOn)
+			return;
+
+		Name wpn = Name("");
+		if (mo.player.ReadyWeapon)
+			wpn = mo.player.ReadyWeapon.GetClassName();
+
+		bool plasmaWpn = (ClassifyWeaponClass(wpn) == PB_MK_PLASMA);
+		bool boomWpn = (ClassifyWeaponClass(wpn) == PB_MK_EXPLOSIVE);
+
+		if (pcOn && (plasmaWpn || (!boomWpn && !rjOn)))
+			PB_Achievements.OnPlasmaClimb();
+		else if (rjOn && (boomWpn || !pcOn))
+			PB_Achievements.OnRocketJump();
+		else if (pcOn)
+			PB_Achievements.OnPlasmaClimb();
+		else if (rjOn)
+			PB_Achievements.OnRocketJump();
+	}
+}

@@ -1,0 +1,37 @@
+/*
+ * DamNums: by Xaser Acheron
+ *
+ * Doom Classic font.
+ */
+
+class DamNumFontClassic : DamNumFont
+{
+	Default
+	{
+		DamNumFont.Prefix "_C";
+		DamNumFont.DefaultTranslation "DamRed";
+		Scale 0.75;
+		Alpha 0.75;
+		RenderStyle 'Translucent';
+	}
+	States
+	{
+	Spawn:
+		_C11 A 0;
+		_C21 A 0;
+		_C22 A 0;
+		_C31 A 0;
+		_C32 A 0;
+		_C33 A 0;
+		_C41 A 0;
+		_C42 A 0;
+		_C43 A 0;
+		_C44 A 0;
+		_C51 A 0;
+		_C52 A 0;
+		_C53 A 0;
+		_C54 A 0;
+		_C55 A 0;
+		Stop;
+	}
+}

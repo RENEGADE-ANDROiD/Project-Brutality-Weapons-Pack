@@ -7,7 +7,8 @@ Actor HookAmmo : ammo
 	Ammo.BackPackAmount 1
 	Ammo.BackPackMaxAmount 1
 	Inventory.PickUpMessage ""
-	Inventory.Icon H00K0
+	+INVENTORY.QUIET
+	Inventory.Icon "H00KA0"
 	+INVENTORY.IGNORESKILL
 	Scale 0.45
 }
@@ -79,7 +80,7 @@ Actor HookShot : FastProjectile
 
 Actor HookShooter : CustomInventory
 {
-	Inventory.AltHudIcon "doomcur"
+	Inventory.AltHudIcon "H00KA0"
 	States
 	{
 		Pickup:

@@ -65,7 +65,7 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 
 	Ready:
 		TNT1 A 0
-		TNT1 A 0 PB_RespectIfNeeded
+		TNT1 A 0 { PB_RespectIfNeeded; }
 	WeaponRespect:
 		TNT1 A 0 A_PlaySound("FLMDRAW")
 		FUMS ABCD 1 A_DoPBWeaponAction
@@ -82,9 +82,12 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 	SelectAnimation:
         TNT1 A 0 A_PlaySound("FLMDRAW")
 		FUMS ABCD 1 {
-			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetWeaponSprite("FVMS");}
+			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetWeaponSprite("FVMS"); }
 			}
         TNT1 AAAAAAAA 0
+				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+				Goto Ready3
+	ReadySettle:
 	Ready3:
     		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
 		TNT1 A 0 A_JumpIfInventory("PB_Fuel", 4, 1)
@@ -141,6 +144,19 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		TNT1 A 0 A_PlaySound("HRSteam")//FLMDRAW
 		TNT1 AAAA 0 A_FireCustomMissile("GunFireSmoke", random(-5,5), 0, random(-3,3),random(-4,-2))
 	    FUMY ABCDBAAA 2 //A_PlaySound("weapons/empty")
+
+	WeaponBreak:
+		TNT1 A 0
+		{
+			A_CustomMissile ("MetalShard1", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_CustomMissile ("MetalShard2", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_CustomMissile ("MetalShard3", 5, 0, random (-10, -20), 2, random (0, 30));
+			A_TakeInventory("MancubusFlameCannon", 1);
+			A_StartSound("meleeweapon/break", CHAN_AUTO);
+			A_AlertMonsters;
+		}
+		Stop
+
 	NoAmmo:
 		TNT1 A 0 A_StopSound(6)
 		TNT1 A 0 A_StopSound(3)
@@ -165,10 +181,12 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 	    TNT1 A 0 A_StopSound(CHAN_WEAPON)
 	    TNT1 A 0 A_StopSound(6)
 		TNT1 A 0 A_JumpIfInventory("GotMeatShield", 1, "GrabEnemy")
-		FUMS DCBA 1 {
-			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetWeaponSprite("FVMS");}
+		TNT1 A 0 {
+			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetWeaponSprite("FVMS"); }
 			}
-		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+		Goto DeselectDown
+	DeselectDown:
+				TNT1 A 0 A_Lower(120)
 		Wait
 
 	Select:
@@ -186,9 +204,8 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 	TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 	Goto SelectFirstPersonLegs
   SelectContinue:
-		 TNT1 AAAAAAAAAAAAAAAAAA 0 A_Raise
- 		TNT1 AAAAAAAA 1 A_Raise
-	    Wait
+				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+				Goto Ready3
 
 	AltFire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
@@ -201,8 +218,11 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		Goto DryFire
 
 	Fireball:	
+		TNT1 A 0 A_JumpIfInventory("MancubusFlameCannonDurability",1,1)
+		Goto WeaponBreak
         FUMF A 1 BRIGHT A_FireCustomMissile("BigFireBall_II", 0, 1, 0, 0)
 		TNT1 A 0 A_TakeInventory("PB_Fuel", 15)
+		TNT1 A 0 A_TakeInventory("MancubusFlameCannonDurability",1,TIF_NOTAKEINFINITE)
 		TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
         FUMF BC 1 BRIGHT 
         FUMF CD 1 
@@ -214,6 +234,8 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 A_JumpIfInventory("MancubusFlameCannonDurability",1,1)
+		Goto WeaponBreak
 		TNT1 A 0 {
 // 			A_GiveInventory("PB_LockScreenTilt",1);
 			A_WeaponOffset(0,32);
@@ -230,18 +252,19 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
         TNT1 AAAA 0
 		TNT1 A 0 A_StopSound(6)
         TNT1 A 0 A_TakeInventory("PB_Fuel",15)
+		TNT1 A 0 A_TakeInventory("MancubusFlameCannonDurability",1,TIF_NOTAKEINFINITE)
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_ZoomFactor(0.97)
         FUMF A 2 BRIGHT A_FireCustomMissile("BigFireBall_II", 0, 1, 0, 0)
 		TNT1 A 0 A_ZoomFactor(1.0)
 	    TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
 		TNT1 AAAAA 0 BRIGHT A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-12,12))
-		TNT1 A 0 PB_WeaponRecoil(-3.2, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-3.2, 0); }
 
         FUMF BCD 2 BRIGHT
         FUMF EF 2
 	    FUMG GHI 2
-		FUMG A 0 PB_ReFire
+		FUMG A 0 { PB_ReFire; }
 	    Goto Ready3
 
 	FireSlime:
@@ -257,12 +280,12 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		TNT1 AAAAA 0 BRIGHT A_FireCustomMissile("PlasmaParticle", random(-17,17), 0, -1, random(-9,9))
 		TNT1 A 0 A_ZoomFactor(1.0)
 	    TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
-	    TNT1 A 0 PB_WeaponRecoil(-3.2, 0)
+	    TNT1 A 0 { PB_WeaponRecoil(-3.2, 0); }
 
         FUMF HIJ 2 BRIGHT
         FUMF KL 2
 	    FUMG JKL 1
-		FUMF A 0 PB_ReFire
+		FUMF A 0 { PB_ReFire; }
 	    Goto Ready3
 
 
@@ -270,6 +293,8 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 A_JumpIfInventory("MancubusFlameCannonDurability",1,1)
+		Goto WeaponBreak
 		TNT1 A 0 A_WeaponOffset(0,32)
 		TNT1 A 0 A_JumpIfInventory("DaedabusSlimeSelected", 1, "AltFireSlime")
         TNT1 A 0 A_JumpIfInventory("PB_Fuel",4,2)
@@ -298,11 +323,11 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		TNT1 A 0 A_FireCustomMissile("FlamethrowerMissileNew", 0, 1, 0, -1)
         FUMF Z 1 BRIGHT
 		TNT1 A 0 A_PlaySoundEx("FLMRLOP", "Weapon",1)
-		TNT1 A 0 PB_ReFire("AltHold")
+		TNT1 A 0 { PB_ReFire("AltHold"); }
 		TNT1 A 0 A_StopSoundEx("Weapon")
 		TNT1 A 0 A_PlaySoundEx("FLMREND", "Weapon")
 		TNT1 A 0 A_ZoomFactor(1.0)
-		TNT1 A 0 PB_ReFire("AltHold")
+		TNT1 A 0 { PB_ReFire("AltHold"); }
         Goto StopFlamer
 
 	AltFireSlime:
@@ -329,7 +354,7 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		TNT1 AAA 0 BRIGHT A_FireCustomMissile("PlasmaParticle", random(-17,17), 0, -1, random(-9,9))
 		TNT1 A 0 A_FireCustomMissile("GreenCloudMissile", 0, 0, 0, -5)
         FUMF H 1 BRIGHT
-		TNT1 A 0 PB_ReFire("SlimeHold")
+		TNT1 A 0 { PB_ReFire("SlimeHold"); }
 		TNT1 A 0 A_ZoomFactor(1.0)
         Goto StopAcid
 
@@ -356,7 +381,6 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		FUMF CD 1 BRIGHT
 		FUMF EF 1 
 		Goto Ready3
-		
 	Reload:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
@@ -372,25 +396,25 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		 TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
 		 FVMK A 0 A_JumpIfInventory("DaedabusSlimeSelected",1,2)
 		 FUMK A 0
-		"####" A 1 A_OverlayOffset(PSP_FLASH,0,0)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-12,5)
-		"####" B 1 A_OverlayOffset(PSP_FLASH,-24,10) 
-		"####" C 1 A_OverlayOffset(PSP_FLASH,-36,15)
-		"####" D 1 A_OverlayOffset(PSP_FLASH,-48,20)
-		"####" D 1 A_OverlayOffset(PSP_FLASH,-46,18)
-		"####" D 1 A_OverlayOffset(PSP_FLASH,-36,15)
-		"####" D 1 A_OverlayOffset(PSP_FLASH,-24,10)
-		"####" C 1 A_OverlayOffset(PSP_FLASH,-12,5)
-		"####" B 1 A_OverlayOffset(PSP_FLASH,0,0)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,0,0)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-12,5)
+		"####" B 1 A_OverlayOffset(PSP_WEAPON,-24,10) 
+		"####" C 1 A_OverlayOffset(PSP_WEAPON,-36,15)
+		"####" D 1 A_OverlayOffset(PSP_WEAPON,-48,20)
+		"####" D 1 A_OverlayOffset(PSP_WEAPON,-46,18)
+		"####" D 1 A_OverlayOffset(PSP_WEAPON,-36,15)
+		"####" D 1 A_OverlayOffset(PSP_WEAPON,-24,10)
+		"####" C 1 A_OverlayOffset(PSP_WEAPON,-12,5)
+		"####" B 1 A_OverlayOffset(PSP_WEAPON,0,0)
 		 FUMK A 1 {
-			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetFlashWeaponSprite("FVMK AABCDDDDCBA 0");}
+			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetFlashWeaponSprite("FVMK AABCDDDDCBA 0"); }
 			}
 		 Stop
 
 	FlashPunchingStop:
 		FVMK A 0 A_JumpIfInventory("DaedabusSlimeSelected",1,2)
 		FUMG GHI 0 {
-			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetFlashWeaponSprite("FVMKA0");}
+			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetFlashWeaponSprite("FVMKA0"); }
 			}
 	     Stop
 
@@ -401,20 +425,20 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
 		FVMK A 0 A_JumpIfInventory("DaedabusSlimeSelected",1,2)
 		FUMK A 0
-		"####" A 1 A_OverlayOffset(PSP_FLASH,0,0)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-12,5)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-24,10) 
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-36,15)
-		"####" A 3 A_OverlayOffset(PSP_FLASH,-48,20)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-46,18)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-36,15)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-24,10)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-12,5)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,0,0)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,0,0)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-12,5)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-24,10) 
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-36,15)
+		"####" A 3 A_OverlayOffset(PSP_WEAPON,-48,20)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-46,18)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-36,15)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-24,10)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-12,5)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,0,0)
 		 FUMG A 2 {
-			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetFlashWeaponSprite("FVMG");}
+			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetFlashWeaponSprite("FVMG"); }
 			}
-		Goto Ready3
+		Stop
 
 	FlashAirKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
@@ -422,57 +446,55 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
 		FVMK A 0 A_JumpIfInventory("DaedabusSlimeSelected",1,2)
 		FUMK A 0
-		"####" A 1 A_OverlayOffset(PSP_FLASH,0,0)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-12,5)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-24,10) 
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-36,15)
-		"####" A 3 A_OverlayOffset(PSP_FLASH,-48,20)
-		"####" A 2  A_OverlayOffset(PSP_FLASH,-46,18)
-		"####" A 1  A_OverlayOffset(PSP_FLASH,-42,16)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-36,15)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-24,10)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-12,5)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,0,0)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,0,0)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-12,5)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-24,10) 
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-36,15)
+		"####" A 3 A_OverlayOffset(PSP_WEAPON,-48,20)
+		"####" A 2  A_OverlayOffset(PSP_WEAPON,-46,18)
+		"####" A 1  A_OverlayOffset(PSP_WEAPON,-42,16)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-36,15)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-24,10)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-12,5)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,0,0)
 		FUMG A 2  {
-			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetFlashWeaponSprite("FVMG");}
+			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetFlashWeaponSprite("FVMG"); }
 			}
-		Goto Ready3
-		
+		Stop
 	FlashSlideKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
 		FVMK A 0 A_JumpIfInventory("DaedabusSlimeSelected",1,2)
 		FUMK A 0
-		"####" A 1 A_OverlayOffset(PSP_FLASH,0,0)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-12,5)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-24,10) 
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-36,15)
-		"####" A 13 A_OverlayOffset(PSP_FLASH,-48,20)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-46,18)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-36,15)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-24,10)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-12,5)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,0,0)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,0,0)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-12,5)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-24,10) 
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-36,15)
+		"####" A 13 A_OverlayOffset(PSP_WEAPON,-48,20)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-46,18)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-36,15)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-24,10)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-12,5)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,0,0)
 		 FUMG A 2 {
-			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetFlashWeaponSprite("FVMG");}
+			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetFlashWeaponSprite("FVMG"); }
 			}
-		Goto Ready3
-		
+		Stop
 	FlashSlideKickingStop:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
 		FVMK A 0 A_JumpIfInventory("DaedabusSlimeSelected",1,2)
 		FUMK A 0
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-46,18)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-36,15)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-24,10)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,-12,5)
-		"####" A 1 A_OverlayOffset(PSP_FLASH,0,0)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-46,18)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-36,15)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-24,10)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,-12,5)
+		"####" A 1 A_OverlayOffset(PSP_WEAPON,0,0)
 		FUMG A 2 {
-			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetFlashWeaponSprite("FVMG");}
+			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetFlashWeaponSprite("FVMG"); }
 			}
-		Goto Ready3
+		Stop
 	}
 }

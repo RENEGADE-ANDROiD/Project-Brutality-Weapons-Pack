@@ -1,3 +1,41 @@
+// Legacy durability/charge checks for melee wheel (must live in gearbox TU — not PBWP ZSCRIPT.zc).
+class PBWP_MeleeWheelHelper
+{
+	static bool HasLegacyUnlock(Actor player, string ownedToken)
+	{
+		if (!player) return false;
+
+		Name n = Name(ownedToken);
+		switch (n)
+		{
+		case 'PBWP_KatanaMeleeToken':
+			return player.CountInv("KatanaDurability") > 0 || player.CountInv("HasDemonicKatana") > 0;
+		case 'PBWP_PickAxeMeleeToken':
+			return player.CountInv("PickAxeDurability") > 0;
+		case 'PBWP_ImpactorMeleeToken':
+			return player.CountInv("ImpactorCharges") > 0;
+		case 'PBWP_ClawMeleeToken':
+			return player.CountInv("ClawCharges") > 0;
+		case 'PBWP_SentinelHammerMeleeToken':
+			return player.CountInv("SentinelhammerCharges") > 0;
+		case 'PBWP_JohnnyHandsMeleeToken':
+			return player.CountInv("ExplosiveHandCharges") > 0;
+		case 'PBWP_WrenchMeleeToken':
+			return player.CountInv("WrenchDurability") > 0;
+		case 'PBWP_CrowbarMeleeToken':
+			return player.CountInv("CrowbarDurability") > 0;
+		case 'PBWP_SledgeHammerMeleeToken':
+			return player.CountInv("HammerDurability") > 0;
+		case 'PBWP_BatonMeleeToken':
+			return player.CountInv("HasShockBaton") > 0;
+		case 'PBWP_MacheteMeleeToken':
+			return player.CountInv("MacheteDurability") > 0;
+		default:
+			return false;
+		}
+	}
+}
+
 Class gb_meleemenu
 {
 	static gb_meleemenu from()
@@ -8,20 +46,14 @@ Class gb_meleemenu
 		return nc;
 	}
 	
-	//this shouldnt be needed, but anyways
 	bool noMelee()
 	{
-		return getMeleeNumber() == 0;
-	}
-	
-	int getMeleeNumber()
-	{	
-		return tags.size();
+		return tags.size() == 0;
 	}
 	
 	ui bool selectNext()
 	{
-		int nItems = getMeleeNumber();
+		int nItems = helditems.size();
 		if (nItems == 0) return false;
 
 		mSelectedIndex = (mSelectedIndex + 1) % nItems;
@@ -31,7 +63,7 @@ Class gb_meleemenu
 	
 	ui bool selectPrev()
 	{
-		int nItems = getMeleeNumber();
+		int nItems = helditems.size();
 		if (nItems == 0) return false;
 
 		mSelectedIndex = (mSelectedIndex - 1 + nItems) % nItems;
@@ -43,11 +75,10 @@ Class gb_meleemenu
 	{
 		if (index == -1 || mSelectedIndex == index) return false;
 		
-		int nItems = getMeleeNumber();
+		int nItems = helditems.size();
 		if(nItems == 0)
 			return false;
-		index = clamp(index,0,nItems);
-		
+		index = clamp(index, 0, nItems - 1);
 		
 		mSelectedIndex = index;
 
@@ -61,8 +92,8 @@ Class gb_meleemenu
 	
 	string ConfirmSelection() const
 	{
-		if(token.size() > 0)
-			return token[clamp(mSelectedIndex,0,token.size() - 1)];
+		if(helditems.size() > 0)
+			return token[helditems[clamp(mSelectedIndex, 0, helditems.size() - 1)]];
 		return "";
 	}
 	
@@ -78,32 +109,45 @@ Class gb_meleemenu
 			{
 				let eq = meleeCard(new(AllClasses[i]));
 				if(eq)
-					eq.InfoFiller(tags,token,img,scalex,scaley);
+					eq.InfoFiller(tags,token,ownedtokens,img,scalex,scaley);
 			}
 		}
 	}
 	
 	ui void fill(out gb_ViewModel viewModel)
 	{
+		let player = players[consoleplayer].mo;
+		helditems.clear();
 		for(int i = 0; i < tags.size(); i++)
 		{
-			viewModel.tags        .push(tags[i]);
-			viewModel.slots       .push(i + 1);
-			viewModel.indices     .push(i);
-			viewModel.icons       .push(texman.checkfortexture(img[i]));
-			viewModel.iconScaleXs .push(scalex[i]);
-			viewModel.iconScaleYs .push(scaley[i]);
-			viewModel.quantity1   .push(-1);		//no ammount for you >:(
-			viewModel.maxQuantity1.push(-1);		//
-			viewModel.quantity2   .push(-1);		//
-			viewModel.maxQuantity2.push(-1);		//
+			if(ownedtokens[i] == "" || player.FindInventory(ownedtokens[i])
+				|| PBWP_MeleeWheelHelper.HasLegacyUnlock(player, ownedtokens[i]))
+			{
+				int filteredIdx = helditems.size();
+				viewModel.tags        .push(tags[i]);
+				viewModel.slots       .push(filteredIdx + 1);
+				viewModel.indices     .push(filteredIdx);
+				viewModel.icons       .push(texman.checkfortexture(img[i]));
+				viewModel.iconScaleXs .push(scalex[i]);
+				viewModel.iconScaleYs .push(scaley[i]);
+				viewModel.quantity1   .push(-1);
+				viewModel.maxQuantity1.push(-1);
+				viewModel.quantity2   .push(-1);
+				viewModel.maxQuantity2.push(-1);
+				helditems.push(i);
+			}
 		}
 		
-		viewModel.selectedIndex = clamp(mSelectedIndex,0,tags.size()-1);	//without this, blocks/text wont work
+		if(helditems.size() > 0)
+			viewModel.selectedIndex = clamp(mSelectedIndex, 0, helditems.size() - 1);
+		else
+			viewModel.selectedIndex = 0;
 	}
 	
+	array <int>    helditems;
 	array <string> tags;
 	array <string> token;
+	array <string> ownedtokens;
 	array <string> img;
 	array <double> scalex;
 	array <double> scaley;

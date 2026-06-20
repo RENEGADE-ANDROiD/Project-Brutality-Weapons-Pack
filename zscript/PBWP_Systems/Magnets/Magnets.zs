@@ -1,13 +1,13 @@
-// Dragon Sector Item Magnet
-// Container Object for Storing items that can't be picked up right now.
-class itemInfo : Object 
+// PBWP item magnet (forked from Dragon Sector; all symbols/sprites use PBWP_ / PBWM prefix).
+// Container for items that could not be picked up on the previous attempt.
+class PBWP_ItemMagnetInfo : Object 
 {
     Inventory item; // Item pointer of item that failed to be picked up.
     int timeAdded; // The time at which it was added to the array.
 
-    static itemInfo Create(Inventory item, int time)
+    static PBWP_ItemMagnetInfo Create(Inventory item, int time)
     {
-        let itm = new("itemInfo");
+        let itm = new("PBWP_ItemMagnetInfo");
         itm.item = item;
         itm.timeAdded = time;
         return itm;
@@ -21,7 +21,7 @@ Class PBWP_ItemMagnet : Inventory
 	double PullSpeed; // How fast items will be pulled toward you.
 	property PullSpeed : PullSpeed;
 	array <Inventory> FoundItems; // Dynamic Array to store potentially pullable items into.
-	Array<itemInfo> CantPickupForNow; // Items that couldn't be picked up are added here for a time.
+	Array<PBWP_ItemMagnetInfo> CantPickupForNow; // Items that couldn't be picked up are added here for a time.
 	bool IsMagnetOn;
 
 	// Set Magnet On
@@ -43,12 +43,8 @@ Class PBWP_ItemMagnet : Inventory
 		// --- Project Brutality Specific Excludes
 		'PB_SGMagazine', 'PB_AutoshotgunUpgrade', 'RifleUpgrade', 'PB_MinigunUpgrade',
 		'PB_M2Upgrade', 'PB_FlamethrowerUpgrade', 'PB_Backpack', 'PB_BlueArmor',
-		'PB_GreenArmor', 'PB_Stimpack', 'PB_Medikit', 'PB_Doomsphere', 'PB_Haste'
-		
-		// --- Dragon Sector Specific Excludes
-		// 'PBWP_HealthSphere', 'PBWP_HealthRegen', 'PBWP_PoisonImmunePickup', 'Rebreather',
-		// 'PBWP_DamageAbsorb', 'PBWP_DamageAmp', 'PBWP_PowerUpExtender', 'PBWP_ItemMagnet', 'PBWP_ItemMagnetUpgrade',
-		// 'PBWP_MegaPower', 'PBWP_ArmorBuff'
+		'PB_GreenArmor', 'PB_Stimpack', 'PB_Medikit', 'PB_Doomsphere', 'PB_Haste',
+		'PBWP_ItemMagnet', 'PBWP_ItemMagnetUpgrade'
 	};
 
 	// Call to start the process of pulling:
@@ -161,20 +157,26 @@ Class PBWP_ItemMagnet : Inventory
 			{
 				if (item.CallTryPickup(owner))
 				{
-					item.PlayPickupSound(owner);
-					item.PrintPickupMessage(owner.CheckLocalView(), item.PickupMessage());
-                    item.SetGiveAmount(owner, item.Amount, false);
+					if (!PBWP_PickupMessageUtil.IsSilentMsg(item))
+					{
+						item.PlayPickupSound(owner);
+						item.PrintPickupMessage(owner.CheckLocalView(), item.PickupMessage());
+					}
+					item.SetGiveAmount(owner, item.Amount, false);
 					if (item.bCOUNTITEM) // If the item should be counted , increment item counts.
 					{
 						if (owner.player)
 							owner.player.itemcount++;
 						level.found_items++;
 					}
+					// ALWAYSPICKUP / failed GoAwayAndDie can leave pullable pickups overlapping the player.
+					if (!item.owner)
+						item.Destroy();
 				}
 				else  // Stop the item and then add it it's the current game tic to the CantPickupForNow array.
 				{
 					item.A_Stop();
-					CantPickupForNow.Push(itemInfo.Create(item, level.time));
+					CantPickupForNow.Push(PBWP_ItemMagnetInfo.Create(item, level.time));
 				}
 				FoundItems.Delete(i);
 				continue;
@@ -223,7 +225,7 @@ Class PBWP_ItemMagnet : Inventory
 	states 
 	{
 	Spawn:
-		ITMG A -1 Bright;
+		TNT1 A -1;
 		stop;
 	}
 }
@@ -269,48 +271,13 @@ Class PBWP_ItemMagnetUpgrade : Inventory
 	states 
 	{
 	Spawn:
-		ITMG B -1 Bright;
+		TNT1 A -1;
 		stop;
 	}
 }
 
 Class PBWP_MagnetHandler : EventHandler
 {
-	// Shortcut function for displaying item icons.
-	ui void PBWP_DisplayIcon(TextureID icon, double xpos = 10, double ypos = 10, int vwidth = 1280, int vheight = 720, double xyscale = 0.21, double opacity = 1.0)
-	{
-		Screen.DrawTexture(icon, 
-		true, xpos, ypos,
-		DTA_ScaleX, xyscale,
-		DTA_ScaleY, xyscale,
-		DTA_Alpha, opacity,
-		DTA_VirtualWidth, vwidth,
-		DTA_VirtualHeight, vheight,
-		DTA_KeepRatio,true);
-	}
-
-	// Overlay for the HUD Elements.
-	override void RenderOverlay(renderevent e)
-	{
-		let pmo = players[consoleplayer].mo; // Player Map Object
-		let plarmor = BasicArmor(pmo.FindInventory("BasicArmor")); // How much armor the player has.
-
-		if (!pmo) return; // If the Player Map Object isn't found, just stop.
-
-		// Left Side of the Screen.
-		// Setup the Item Magnet Icon
-		TextureID mag1icon = TexMan.CheckForTexture("ITMGA0"); // Level 1 Magnet Icon
-		TextureID mag2icon = TexMan.CheckForTexture("ITMGB0"); // Level 2 Magnet Icon
-		TextureID magofficon = TexMan.CheckForTexture("ITMGC0"); // Inactive Magnet Icon
-		let magnet1 = PBWP_ItemMagnet(pmo.FindInventory("PBWP_ItemMagnet"));
-		let magnet2 = PBWP_ItemMagnetUpgrade(pmo.FindInventory("PBWP_ItemMagnetUpgrade"));
-
-		if (magnet1 || magnet2)
-		{
-			PBWP_DisplayIcon((plarmor && plarmor.Amount < 1) ? magofficon : (magnet1 && magnet2) ? mag2icon : mag1icon, xpos: 24, ypos: 309);
-		}
-	}
-
 	override void PlayerSpawned (PlayerEvent e)
 	{
 		PlayerInfo player = players[e.PlayerNumber];

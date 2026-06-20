@@ -76,7 +76,7 @@ ACTOR SilentRazPuff : RazorPuff
    }
 }
 
-Actor Razorblade
+Actor PBWP_Razorblade
 {
 	Radius 6
 	Height 8
@@ -104,7 +104,7 @@ Actor Razorblade
 	Spawn:
 		RAZS A 0 NoDelay A_ChangeVelocity(0,0,2)
 	SpawnMain:
-		RAZS A 1 A_SpawnItemEx("RazorbladeTrail",0,0,0,0,0,0,0,SXF_TRANSFERSPRITEFRAME|SXF_CLIENTSIDE)
+		RAZS A 1 A_SpawnItemEx("PBWP_RazorbladeTrail",0,0,0,0,0,0,0,SXF_TRANSFERSPRITEFRAME|SXF_CLIENTSIDE)
 		Wait
 	Bounce:
 		"####" "#" 0 {
@@ -141,7 +141,7 @@ Actor Razorblade
 	}
 }
 
-ACTOR RazorbladeTrail
+ACTOR PBWP_RazorbladeTrail
 {
 	radius 6
 	height 8
@@ -157,7 +157,7 @@ ACTOR RazorbladeTrail
 	}
 }
 
-Actor EmpoweredRazorblade : Razorblade
+Actor EmpoweredRazorblade : PBWP_Razorblade
 {
 	speed 95
 	damage 60
@@ -167,12 +167,12 @@ Actor EmpoweredRazorblade : Razorblade
 	{
 	Spawn:
 	SpawnMain:
-		RAZS ABCDEFGH 1 A_SpawnItemEx("RazorbladeTrail",0,0,0,0,0,0,0,SXF_TRANSFERSPRITEFRAME|SXF_CLIENTSIDE)
+		RAZS ABCDEFGH 1 A_SpawnItemEx("PBWP_RazorbladeTrail",0,0,0,0,0,0,0,SXF_TRANSFERSPRITEFRAME|SXF_CLIENTSIDE)
 		Loop
 	}
 }
 
-ACTOR RazorbladeTrailA : RazorbladeTrail
+ACTOR PBWP_RazorbladeTrailA : PBWP_RazorbladeTrail
 {
 	Alpha 1
 	States
@@ -183,7 +183,7 @@ ACTOR RazorbladeTrailA : RazorbladeTrail
 	}
 }
 
-ACTOR RazorbladeTrailB : RazorbladeTrail
+ACTOR PBWP_RazorbladeTrailB : PBWP_RazorbladeTrail
 {
 	Alpha 1
 	States
@@ -194,7 +194,7 @@ ACTOR RazorbladeTrailB : RazorbladeTrail
 	}
 }
 
-ACTOR RazorbladeTrailC : RazorbladeTrail
+ACTOR PBWP_RazorbladeTrailC : PBWP_RazorbladeTrail
 {
 	Alpha 1
 	States
@@ -205,7 +205,7 @@ ACTOR RazorbladeTrailC : RazorbladeTrail
 	}
 }
 
-ACTOR RazorbladeTrailD : RazorbladeTrail
+ACTOR PBWP_RazorbladeTrailD : PBWP_RazorbladeTrail
 {
 	Alpha 1
 	States
@@ -216,7 +216,7 @@ ACTOR RazorbladeTrailD : RazorbladeTrail
 	}
 }
 
-ACTOR RazorbladeTrailE : RazorbladeTrail
+ACTOR PBWP_RazorbladeTrailE : PBWP_RazorbladeTrail
 {
 	Alpha 1
 	States
@@ -227,7 +227,7 @@ ACTOR RazorbladeTrailE : RazorbladeTrail
 	}
 }
 
-ACTOR RazorbladeTrailF : RazorbladeTrail
+ACTOR PBWP_RazorbladeTrailF : PBWP_RazorbladeTrail
 {
 	Alpha 1
 	States
@@ -238,7 +238,7 @@ ACTOR RazorbladeTrailF : RazorbladeTrail
 	}
 }
 
-ACTOR RazorbladeTrailG : RazorbladeTrail
+ACTOR PBWP_RazorbladeTrailG : PBWP_RazorbladeTrail
 {
 	Alpha 1
 	States
@@ -249,7 +249,7 @@ ACTOR RazorbladeTrailG : RazorbladeTrail
 	}
 }
 
-ACTOR RazorbladeTrailH : RazorbladeTrail
+ACTOR PBWP_RazorbladeTrailH : PBWP_RazorbladeTrail
 {
 	Alpha 1
 	States
@@ -271,7 +271,7 @@ Actor BladeAmmo : Ammo
 	Ammo.BackpackMaxAmount 40
 	Inventory.PickupMessage "Picked up a Sawblade."
 	Inventory.PickupSound "blade/pick"
-	Inventory.Icon "BLADE0"
+	Inventory.Icon "RAZSA0"
 	States
 	{
 	Spawn:
@@ -280,7 +280,7 @@ Actor BladeAmmo : Ammo
 	}
 }
 
-Actor RazorbladeStruck : BladeAmmo
+Actor PBWP_RazorbladeStruck : BladeAmmo
 {
 	+NoGravity
 }

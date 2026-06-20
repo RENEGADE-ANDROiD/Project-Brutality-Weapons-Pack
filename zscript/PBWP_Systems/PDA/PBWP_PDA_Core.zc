@@ -1,0 +1,1027 @@
+// Standalone PDA core for PBWP addon (UZDoom 4.14 — no cross-pk3 extend of PB_EventHandler).
+// Weapon codex: PDAWEAP/PDAWEAPT lumps, pickup-style preview sprites, hover detail panel.
+
+class PB_PDAWeapTextContainer
+{
+	string PDAWeaponText;
+	string PDAWeaponHeader;
+	string PDAWeaponExtraText;
+	string PDAWeaponTextVSize, PDAWeaponTextHSize;
+	string PDAWeapClassName;
+	bool found;
+}
+
+class PB_PDAWeaponContainer : Inventory
+{
+	Array<String> PDAWeaponExtraTexts;
+	Array<String> PDAWeaponHeaders;
+	Array<String> PDAWeaponTexts;
+	Array<String> PDAWeaponStrings;
+	Array<Double> PDAWeaponTextVSize, PDAWeaponTextHSize;
+	Array<PB_PDAWeapTextContainer> pdaWeapTextArray;
+
+	override void AttachToOwner(Actor other)
+	{
+		Super.AttachToOwner(other);
+		if (!other || !other.player)
+			return;
+		if (Wads.FindLump("PDAWEAPT") < 0)
+			return;
+		InitializePDATexts();
+		SyncWeaponCodexFromOwner(PlayerPawn(other));
+	}
+
+	void InitializePDATexts()
+	{
+		if (pdaWeapTextArray.Size() > 0)
+			return;
+
+		int weaplump = Wads.FindLump("PDAWEAP");
+		if (weaplump < 0)
+			return;
+		int weaptlump = Wads.FindLump("PDAWEAPT");
+		if (weaptlump < 0)
+			return;
+
+		string weapstuff = Wads.ReadLump(weaplump);
+		weapstuff.Split(PDAWeaponStrings, ",");
+
+		string weaptstuff = Wads.ReadLump(weaptlump);
+		Array<String> blocks;
+		weaptstuff.Split(blocks, "#");
+		for (int i = 0; i < blocks.Size(); i++)
+		{
+			string blk = blocks[i];
+			blk.Replace("\r", "");
+			while (blk.Length() > 0 && (blk.ByteAt(0) == 10 || blk.ByteAt(0) == 13))
+				blk = blk.Mid(1, blk.Length() - 1);
+			if (blk.Length() < 1)
+				continue;
+
+			Array<String> fields;
+			blk.Split(fields, "$");
+			if (fields.Size() < 3)
+				continue;
+
+			string header = fields[0];
+			string body = fields[1];
+			string cls = fields[2];
+			header.Replace("\n", "");
+			cls.Replace("\n", "");
+			cls.Replace(" ", "");
+
+			string extra = fields.Size() > 3 ? fields[3] : "";
+			for (int fi = 4; fi < fields.Size(); fi++)
+				extra = extra .. "\n" .. fields[fi];
+
+			let row = new("PB_PDAWeapTextContainer");
+			row.PDAWeaponHeader = header;
+			row.PDAWeaponText = body;
+			row.PDAWeaponExtraText = extra;
+			row.PDAWeapClassName = cls;
+			row.found = false;
+			pdaWeapTextArray.Push(row);
+
+			PDAWeaponHeaders.Push(header);
+			PDAWeaponTexts.Push(body);
+			PDAWeaponExtraTexts.Push(extra);
+			PDAWeaponTextVSize.Push(1);
+			PDAWeaponTextHSize.Push(1);
+		}
+	}
+
+	void SyncWeaponCodexFromOwner(PlayerPawn mo)
+	{
+		if (!mo)
+			return;
+		for (Inventory ch = mo.Inv; ch != null; ch = ch.Inv)
+		{
+			let wpn = Weapon(ch);
+			if (!wpn)
+				continue;
+			UnlockWeaponClass(wpn.GetClassName());
+		}
+	}
+
+	void UnlockWeaponClass(String cn)
+	{
+		for (int i = 0; i < pdaWeapTextArray.Size(); i++)
+		{
+			if (pdaWeapTextArray[i].PDAWeapClassName ~== cn && !pdaWeapTextArray[i].found)
+			{
+				pdaWeapTextArray[i].found = true;
+				PB_Achievements.OnPDAWeaponFound();
+				return;
+			}
+		}
+	}
+}
+
+class PBWP_PDAIconLookup
+{
+	static bool SpawnSpriteUnfitForHud(string tn)
+	{
+		if (tn.Length() < 4)
+			return true;
+		string p = tn.Mid(0, 4);
+		return p ~== "PLAY" || p ~== "MARN" || p ~== "MARJ" || p ~== "PLA1"
+			|| p ~== "STAN" || p ~== "STAL" || p ~== "PUNG" || p ~== "PUNS";
+	}
+
+	static String ResolveWeaponPreviewSprite(Name weaponClass)
+	{
+		class<Weapon> wcls = (class<Weapon>)(weaponClass);
+		if (wcls)
+		{
+			readonly<Weapon> wdef = GetDefaultByType(wcls);
+			if (wdef)
+			{
+				if (wdef.Icon.IsValid())
+				{
+					string tn = TexMan.GetName(wdef.Icon);
+					if (tn.Length() >= 4 && !(tn.Mid(0, 4) ~== "TNT1"))
+						return tn;
+				}
+				if (wdef.AltHUDIcon.IsValid())
+				{
+					string tn = TexMan.GetName(wdef.AltHUDIcon);
+					if (tn.Length() >= 4 && !(tn.Mid(0, 4) ~== "TNT1"))
+						return tn;
+				}
+			}
+		}
+
+		class<Actor> acl = (class<Actor>)(weaponClass);
+		if (!acl)
+			return "";
+		readonly<Actor> adef = GetDefaultByType(acl);
+		if (!adef)
+			return "";
+
+		State st = adef.SpawnState;
+		for (int n = 0; n < 48 && st; n++)
+		{
+			TextureID sid = st.GetSpriteTexture(0);
+			if (sid.IsValid())
+			{
+				string tn = TexMan.GetName(sid);
+				if (tn.Length() >= 4 && tn.Mid(0, 4) ~== "TNT1")
+				{
+					st = st.NextState;
+					continue;
+				}
+				if (SpawnSpriteUnfitForHud(tn))
+				{
+					st = st.NextState;
+					continue;
+				}
+				return tn;
+			}
+			st = st.NextState;
+		}
+		return "";
+	}
+}
+
+class PBWP_PDAPlayHandler : EventHandler
+{
+	transient bool PDAMode;
+	transient int LastToggleTic;
+
+	void ClosePDA(int pnum)
+	{
+		if (pnum < 0 || pnum >= MAXPLAYERS)
+			return;
+		PDAMode = false;
+		players[pnum].timefreezer &= ~(1 << pnum);
+		level.SetFrozen(false);
+	}
+
+	clearscope static PBWP_PDAPlayHandler GetPlayHandler()
+	{
+		return PBWP_PDAPlayHandler(EventHandler.Find("PBWP_PDAPlayHandler"));
+	}
+
+	clearscope static bool IsPDAModeActive()
+	{
+		let pdaPlay = GetPlayHandler();
+		return pdaPlay && pdaPlay.PDAMode;
+	}
+
+	override void NetworkProcess(ConsoleEvent e)
+	{
+		if (e.Name ~== "pb_pda_close")
+		{
+			if (e.Player < 0 || e.Player >= MAXPLAYERS || !playeringame[e.Player])
+				return;
+			if (!PDAMode)
+				return;
+			ClosePDA(e.Player);
+			return;
+		}
+
+		if (e.Name ~== "openpda")
+		{
+			if (multiplayer)
+				return;
+			if (e.Player < 0 || e.Player >= MAXPLAYERS || !playeringame[e.Player])
+				return;
+			if (level.maptime - LastToggleTic < 6)
+				return;
+			LastToggleTic = level.maptime;
+
+			let mo = players[e.Player].mo;
+			if (!mo)
+				return;
+			if (!mo.FindInventory("PB_PDAWeaponContainer"))
+				mo.A_GiveInventory("PB_PDAWeaponContainer", 1);
+			let pda = PB_PDAWeaponContainer(mo.FindInventory("PB_PDAWeaponContainer"));
+			if (pda)
+				pda.SyncWeaponCodexFromOwner(PlayerPawn(mo));
+
+			PDAMode = !PDAMode;
+			if (PDAMode)
+			{
+				players[e.Player].timefreezer |= 1 << e.Player;
+				level.SetFrozen(true);
+			}
+			else
+				ClosePDA(e.Player);
+		}
+	}
+}
+
+class PBWP_PDAHandler : StaticEventHandler
+{
+	transient ui int MouseX;
+	transient ui int MouseY;
+	transient ui bool MousePosInit;
+	transient ui int CodexScroll;
+	transient ui int HoverIndex;
+	transient ui int PDATab;
+	transient ui bool ShopMenuOpened;
+	transient ui bool AchievementsMenuOpened;
+	transient ui bool NeedsOpenReset;
+
+	const PDA_TAB_CODEX = 0;
+	const PDA_TAB_SHOP = 1;
+	const PDA_TAB_ACH = 2;
+	const CODEX_COLS = 6;
+	const CODEX_ROWS_VISIBLE = 5;
+
+	override void OnRegister()
+	{
+		RequireMouse = true;
+	}
+
+	ui void ResetMouseState()
+	{
+		MouseX = Screen.GetWidth() / 2;
+		MouseY = Screen.GetHeight() / 2;
+		MousePosInit = true;
+		CodexScroll = 0;
+		HoverIndex = -1;
+	}
+
+	ui void SetPDATab(int tab)
+	{
+		if (tab < PDA_TAB_CODEX || tab > PDA_TAB_ACH)
+			return;
+		PDATab = tab;
+		ShopMenuOpened = (tab == PDA_TAB_SHOP);
+		AchievementsMenuOpened = (tab == PDA_TAB_ACH);
+		if (tab == PDA_TAB_SHOP)
+			RequestPDAShopBrowseReset();
+		else if (tab == PDA_TAB_ACH)
+			RequestPDAAchievementScrollReset();
+		else
+		{
+			CodexScroll = 0;
+			HoverIndex = -1;
+		}
+	}
+
+	ui double GetPDAScale()
+	{
+		return clamp(Screen.GetHeight() / 240.0, 2.0, 4.0);
+	}
+
+	ui double GetCodexTileLabelScale(double uiScale)
+	{
+		return clamp(uiScale * 0.36, 0.72, 1.12);
+	}
+
+	ui void GetPDAContentPanelMetrics(out double scale, out int panelLeft, out int panelTop,
+		out int panelRight, out int panelBottom)
+	{
+		scale = GetPDAScale();
+		int sw = Screen.GetWidth();
+		int sh = Screen.GetHeight();
+		int marginX = max(18, sw / 36);
+		int tabTop = int(sh * 0.055);
+		int tabH = max(52, int(sh * 0.105));
+		panelLeft = marginX;
+		panelRight = sw - marginX;
+		panelTop = tabTop + tabH + max(10, int(8 * scale));
+		panelBottom = sh - max(20, int(sh * 0.07));
+	}
+
+	ui int GetPDATabCount()
+	{
+		return PB_AchievementsOn() ? 3 : 2;
+	}
+
+	ui void GetPDATabLayout(out int tabTop, out int tabH, out int tabW, out int tabGap, out int tabLeft)
+	{
+		double scale = GetPDAScale();
+		int sw = Screen.GetWidth();
+		int sh = Screen.GetHeight();
+		int marginX = max(18, sw / 36);
+		int tabCount = GetPDATabCount();
+		tabTop = int(sh * 0.055);
+		tabH = max(52, int(sh * 0.105));
+		tabGap = max(10, sw / 56);
+		tabLeft = marginX;
+		int avail = sw - marginX * 2 - tabGap * (tabCount - 1);
+		tabW = max(96, avail / tabCount);
+	}
+
+	ui void DrawBlockyTile(int x, int y, int w, int h, bool hovered, bool locked, double alpha)
+	{
+		if (locked)
+		{
+			Screen.Dim(color(26, 26, 26), 0.55 * alpha, x, y, w, h);
+			Screen.DrawLine(x, y, x + w - 1, y, color(90, 90, 90), int(140 * alpha));
+			Screen.DrawLine(x, y + h - 1, x + w - 1, y + h - 1, color(90, 90, 90), int(140 * alpha));
+			return;
+		}
+		Color baseCol = hovered ? color(50, 110, 150) : color(25, 50, 65);
+		Screen.Dim(baseCol, hovered ? 0.85 * alpha : 0.55 * alpha, x, y, w, h);
+		Color border = hovered ? color(120, 220, 255) : color(80, 150, 180);
+		int bAlpha = int((hovered ? 230 : 170) * alpha);
+		Screen.DrawLine(x, y, x + w - 1, y, border, bAlpha);
+		Screen.DrawLine(x, y + h - 1, x + w - 1, y + h - 1, border, bAlpha);
+		Screen.DrawLine(x, y, x, y + h - 1, border, bAlpha);
+		Screen.DrawLine(x + w - 1, y, x + w - 1, y + h - 1, border, bAlpha);
+	}
+
+	ui void DrawBlockyLabel(Font fnt, string txt, int x, int y, int w, int h,
+		bool hovered, double alpha, bool alignTop = false, double labelScale = 0)
+	{
+		if (!fnt || txt.Length() < 1)
+			return;
+		string s = txt;
+		s.Replace("\n", " ");
+		double scale = labelScale > 0 ? labelScale : GetPDAScale();
+		int maxW = w - int(8 * scale);
+		while (s.Length() > 0 && fnt.StringWidth(s) > maxW)
+			s = s.Mid(0, s.Length() - 1);
+		if (s.Length() < txt.Length() && s.Length() >= 2)
+			s = s.Mid(0, s.Length() - 1) .. "..";
+		int textColor = hovered ? Font.CR_WHITE : Font.CR_GREEN;
+		int tx = x + (w - int(fnt.StringWidth(s) * scale)) / 2;
+		int pad = max(3, h / 14);
+		int ty = alignTop ? (y + pad) : (y + (h - int(fnt.GetHeight() * scale)) / 2);
+		Screen.DrawText(fnt, textColor, tx, ty, s, DTA_ScaleX, scale, DTA_ScaleY, scale, DTA_Alpha, alpha);
+	}
+
+	ui void DrawBlockyTileIcon(TextureID iconTex, int x, int y, int w, int h,
+		int labelBottomY, double alpha, double iconScaleMul = 1.0)
+	{
+		int pad = max(2, h / 14);
+		int iconTop = labelBottomY + pad / 2;
+		int iconBottom = y + h - pad;
+		if (iconBottom <= iconTop + 2)
+			return;
+		double slotH = min(double(iconBottom - iconTop), h * 0.62);
+		double cx = double(x) + double(w) * 0.5;
+		double cy = double(iconTop) + slotH * 0.5;
+		if (!iconTex.IsValid())
+		{
+			double scale = GetPDAScale();
+			Screen.DrawText(BigFont, Font.CR_OLIVE, int(cx - BigFont.StringWidth("?") * scale / 2),
+				int(cy - BigFont.GetHeight() * scale / 2), "?",
+				DTA_ScaleX, scale, DTA_ScaleY, scale, DTA_Alpha, alpha);
+			return;
+		}
+		Vector2 texSize = TexMan.GetScaledSize(iconTex);
+		if (texSize.X < 1 || texSize.Y < 1)
+			return;
+		double maxH = slotH * 0.92;
+		double maxW = double(w - pad * 2);
+		double sc = min(maxW / texSize.X, maxH / texSize.Y) * iconScaleMul;
+		Screen.DrawTexture(iconTex, false, cx, cy,
+			DTA_DestWidthF, texSize.X * sc, DTA_DestHeightF, texSize.Y * sc,
+			DTA_KeepRatio, true, DTA_Alpha, alpha, DTA_CenterOffset, true);
+	}
+
+	ui TextureID ResolvePDATabIcon(int tab)
+	{
+		TextureID nullTex;
+		if (tab == PDA_TAB_CODEX)
+		{
+			TextureID tex = TexMan.CheckForTexture("RIFLA0", TexMan.Type_Any);
+			if (tex.IsValid()) return tex;
+			tex = TexMan.CheckForTexture("SGNGA0", TexMan.Type_Any);
+			if (tex.IsValid()) return tex;
+			tex = TexMan.CheckForTexture("PISGA0", TexMan.Type_Any);
+			if (tex.IsValid()) return tex;
+			return TexMan.CheckForTexture("CSSGA0", TexMan.Type_Any);
+		}
+		if (tab == PDA_TAB_SHOP)
+		{
+			TextureID tex = TexMan.CheckForTexture("BON2A0", TexMan.Type_Any);
+			if (tex.IsValid()) return tex;
+			tex = TexMan.CheckForTexture("SOULA0", TexMan.Type_Any);
+			if (tex.IsValid()) return tex;
+			tex = TexMan.CheckForTexture("PTSQA0", TexMan.Type_Any);
+			if (tex.IsValid()) return tex;
+			return TexMan.CheckForTexture("PINVA0", TexMan.Type_Any);
+		}
+		TextureID texA = TexMan.CheckForTexture("ACHVMT00", TexMan.Type_Any);
+		if (texA.IsValid()) return texA;
+		texA = TexMan.CheckForTexture("TROPA0", TexMan.Type_Any);
+		if (texA.IsValid()) return texA;
+		texA = TexMan.CheckForTexture("BONUA0", TexMan.Type_Any);
+		if (texA.IsValid()) return texA;
+		return TexMan.CheckForTexture("STIMB0", TexMan.Type_Any);
+	}
+
+	ui void DrawPDAContentFrame(double scale, double alpha = 1.0)
+	{
+		int panelLeft, panelTop, panelRight, panelBottom;
+		double dummyScale;
+		GetPDAContentPanelMetrics(dummyScale, panelLeft, panelTop, panelRight, panelBottom);
+		int pw = panelRight - panelLeft;
+		int ph = panelBottom - panelTop;
+		Screen.Dim(color(8, 14, 20), 0.78 * alpha, panelLeft, panelTop, pw, ph);
+		Color border = color(70, 130, 165);
+		Screen.DrawLine(panelLeft, panelTop, panelRight - 1, panelTop, border, int(180 * alpha));
+		Screen.DrawLine(panelLeft, panelBottom - 1, panelRight - 1, panelBottom - 1, border, int(180 * alpha));
+		Screen.DrawLine(panelLeft, panelTop, panelLeft, panelBottom - 1, border, int(180 * alpha));
+		Screen.DrawLine(panelRight - 1, panelTop, panelRight - 1, panelBottom - 1, border, int(180 * alpha));
+	}
+
+	ui void DrawPDAContentHeader(string title, string subtitle, double scale)
+	{
+		int panelLeft, panelTop, panelRight, panelBottom;
+		double dummyScale;
+		GetPDAContentPanelMetrics(dummyScale, panelLeft, panelTop, panelRight, panelBottom);
+		int pad = max(12, int(10 * scale));
+		int tx = panelLeft + pad;
+		int ty = panelTop + pad;
+		Screen.DrawText(BigFont, Font.CR_GREEN, tx, ty, title, DTA_ScaleX, scale, DTA_ScaleY, scale);
+		if (subtitle.Length() > 0)
+		{
+			ty += int(BigFont.GetHeight() * scale * 1.15);
+			Screen.DrawText(SmallFont, Font.CR_GRAY, tx, ty, subtitle, DTA_ScaleX, scale, DTA_ScaleY, scale);
+		}
+	}
+
+	ui void DrawPDATabBar(double scale)
+	{
+		int tabTop, tabH, tabW, tabGap, tabLeft;
+		GetPDATabLayout(tabTop, tabH, tabW, tabGap, tabLeft);
+		String tabs[] = { "Codex [1]", "XP Shop [2]", "Achievements [3]" };
+		int tabCount = GetPDATabCount();
+
+		Screen.DrawText(BigFont, Font.CR_GREEN, tabLeft, int(tabTop * 0.35),
+			"PBWP PDA", DTA_ScaleX, scale * 0.85, DTA_ScaleY, scale * 0.85);
+
+		if (PBWP_XPCompat.PB_XP_RewardsOn())
+		{
+			int xp = 0;
+			int rank = 0;
+			if (players[consoleplayer].mo)
+			{
+				xp = players[consoleplayer].mo.CountInv("PB_XPBank");
+				rank = players[consoleplayer].mo.CountInv("PB_XPRank");
+			}
+			String xpLine = String.Format("XP: %d  Rank: %d  |  [R] Spin (%d XP)", xp, rank, PB_XPRewardsHandler.SpinCost());
+			int sw = Screen.GetWidth();
+			int tw = int(SmallFont.StringWidth(xpLine) * scale);
+			Screen.DrawText(SmallFont, Font.CR_LIGHTBLUE, sw - tw - tabLeft, int(tabTop * 0.42),
+				xpLine, DTA_ScaleX, scale, DTA_ScaleY, scale);
+		}
+
+		for (int i = 0; i < tabCount; i++)
+		{
+			int tx = tabLeft + i * (tabW + tabGap);
+			bool active = (PDATab == i);
+			bool hovered = (HitTestPDATab(MouseX, MouseY, scale) == i);
+			DrawBlockyTile(tx, tabTop, tabW, tabH, active || hovered, false, 1.0);
+			DrawBlockyLabel(SmallFont, tabs[i], tx, tabTop, tabW, tabH, active || hovered, 1.0, true);
+			int labelBottom = tabTop + max(3, tabH / 14) + int(SmallFont.GetHeight() * scale);
+			DrawBlockyTileIcon(ResolvePDATabIcon(i), tx, tabTop, tabW, tabH, labelBottom, 1.0, active ? 1.05 : 0.95);
+		}
+	}
+
+	ui int HitTestPDATab(int mx, int my, double scale)
+	{
+		int tabTop, tabH, tabW, tabGap, tabLeft;
+		GetPDATabLayout(tabTop, tabH, tabW, tabGap, tabLeft);
+		int tabCount = GetPDATabCount();
+		for (int i = 0; i < tabCount; i++)
+		{
+			int tx = tabLeft + i * (tabW + tabGap);
+			if (mx >= tx && mx < tx + tabW && my >= tabTop && my < tabTop + tabH)
+				return i;
+		}
+		return -1;
+	}
+
+	ui bool PDA_TryCloseOrToggleInput(InputEvent e)
+	{
+		if (e.Type != InputEvent.Type_KeyDown)
+			return false;
+		if (e.KeyScan == InputEvent.Key_Escape)
+			return true;
+		// Default PDA bind (KEYCONF: defaultbind P openpda)
+		if (e.KeyChar == 112 || e.KeyChar == 80)
+			return true;
+		return false;
+	}
+
+	override bool InputProcess(InputEvent e)
+	{
+		if (!PBWP_PDAPlayHandler.IsPDAModeActive() || !playeringame[consoleplayer])
+			return false;
+
+		if (e.Type == InputEvent.Type_Mouse)
+		{
+			if (!MousePosInit)
+				ResetMouseState();
+			MouseX += e.MouseX;
+			MouseY -= e.MouseY;
+			MouseX = clamp(MouseX, 0, Screen.GetWidth());
+			MouseY = clamp(MouseY, 0, Screen.GetHeight());
+			return true;
+		}
+
+		if (e.Type == InputEvent.Type_KeyDown)
+		{
+			if (PDA_TryCloseOrToggleInput(e))
+			{
+				EventHandler.SendNetworkEvent("openpda");
+				return true;
+			}
+			if (e.KeyChar == 49) { SetPDATab(PDA_TAB_CODEX); return true; }
+			if (e.KeyChar == 50) { SetPDATab(PDA_TAB_SHOP); return true; }
+			if (e.KeyChar == 51 && PB_AchievementsOn()) { SetPDATab(PDA_TAB_ACH); return true; }
+			if ((e.KeyChar == 114 || e.KeyChar == 82 || e.KeyChar == 32)
+				&& PBWP_XPCompat.PB_XP_RewardsOn())
+			{
+				EventHandler.SendNetworkEvent("pb_xp_spin");
+				return true;
+			}
+			if (PDATab == PDA_TAB_SHOP)
+			{
+				if (e.KeyScan == InputEvent.Key_PgUp || e.KeyScan == InputEvent.Key_MWheelUp)
+				{
+					ScrollPDAShopBrowse(-1);
+					return true;
+				}
+				if (e.KeyScan == InputEvent.Key_PgDn || e.KeyScan == InputEvent.Key_MWheelDown)
+				{
+					ScrollPDAShopBrowse(1);
+					return true;
+				}
+			}
+			else if (PDATab == PDA_TAB_ACH)
+			{
+				if (e.KeyScan == InputEvent.Key_PgUp || e.KeyScan == InputEvent.Key_MWheelUp)
+				{
+					ScrollPDAAchievementBrowse(-1);
+					return true;
+				}
+				if (e.KeyScan == InputEvent.Key_PgDn || e.KeyScan == InputEvent.Key_MWheelDown)
+				{
+					ScrollPDAAchievementBrowse(1);
+					return true;
+				}
+			}
+			else if (PDATab == PDA_TAB_CODEX)
+			{
+				if (e.KeyScan == InputEvent.Key_PgUp || e.KeyScan == InputEvent.Key_MWheelUp)
+				{
+					CodexScroll = max(0, CodexScroll - 1);
+					return true;
+				}
+				if (e.KeyScan == InputEvent.Key_PgDn || e.KeyScan == InputEvent.Key_MWheelDown)
+				{
+					CodexScroll++;
+					return true;
+				}
+			}
+		}
+
+		if (e.Type == InputEvent.Type_KeyDown && e.KeyScan == InputEvent.Key_Mouse1)
+		{
+			double scale = GetPDAScale();
+			int tabHit = HitTestPDATab(MouseX, MouseY, scale);
+			if (tabHit >= 0)
+			{
+				if (tabHit == PDA_TAB_ACH && !PB_AchievementsOn())
+					return true;
+				SetPDATab(tabHit);
+				return true;
+			}
+			if (PDATab == PDA_TAB_SHOP && PDA_TryShopBrowseClick(MouseX, MouseY))
+				return true;
+		}
+
+		return false;
+	}
+
+	ui void GetCodexMetrics(out double scale, out int originX, out int originY,
+		out int tileW, out int tileH, out int padding)
+	{
+		scale = GetPDAScale();
+		int panelLeft, panelTop, panelRight, panelBottom;
+		GetPDAContentPanelMetrics(scale, panelLeft, panelTop, panelRight, panelBottom);
+		padding = max(6, int(8 * scale));
+		int headerH = int(BigFont.GetHeight() * scale * 2.4);
+		int panelW = panelRight - panelLeft;
+		int gridW = int(panelW * 0.58);
+		int gridLeft = panelLeft + padding;
+		originX = gridLeft;
+		originY = panelTop + headerH + padding;
+		int gridH = panelBottom - originY - padding;
+		tileW = max(56, (gridW - padding * (CODEX_COLS - 1)) / CODEX_COLS);
+		tileH = max(64, (gridH - padding * (CODEX_ROWS_VISIBLE - 1)) / CODEX_ROWS_VISIBLE);
+	}
+
+	ui int HitTestCodexTile(PB_PDAWeaponContainer pda)
+	{
+		if (!pda)
+			return -1;
+
+		double scale;
+		int ox, oy, tw, th, pad;
+		GetCodexMetrics(scale, ox, oy, tw, th, pad);
+
+		int total = pda.pdaWeapTextArray.Size();
+		int maxScroll = max(0, (total + CODEX_COLS - 1) / CODEX_COLS - CODEX_ROWS_VISIBLE);
+		if (CodexScroll > maxScroll)
+			CodexScroll = maxScroll;
+
+		int startRow = CodexScroll;
+		for (int vis = 0; vis < CODEX_ROWS_VISIBLE; vis++)
+		{
+			int row = startRow + vis;
+			for (int col = 0; col < CODEX_COLS; col++)
+			{
+				int idx = row * CODEX_COLS + col;
+				if (idx >= total)
+					continue;
+				int tx = ox + col * (tw + pad);
+				int ty = oy + vis * (th + pad);
+				if (MouseX >= tx && MouseX < tx + tw && MouseY >= ty && MouseY < ty + th)
+					return idx;
+			}
+		}
+		return -1;
+	}
+
+	ui void DrawCodexTile(int x, int y, int w, int h, bool hovered, bool unlocked, double scale)
+	{
+		Color bg = unlocked ? (hovered ? color(45, 95, 120) : color(22, 45, 58)) : color(18, 18, 22);
+		double bgAlpha = unlocked ? (hovered ? 0.88 : 0.62) : 0.45;
+		Screen.Dim(bg, bgAlpha, x, y, w, h);
+
+		Color border = hovered ? color(130, 220, 255) : color(70, 120, 150);
+		int ba = hovered ? 220 : 140;
+		Screen.DrawLine(x, y, x + w - 1, y, border, ba);
+		Screen.DrawLine(x, y + h - 1, x + w - 1, y + h - 1, border, ba);
+		Screen.DrawLine(x, y, x, y + h - 1, border, ba);
+		Screen.DrawLine(x + w - 1, y, x + w - 1, y + h - 1, border, ba);
+	}
+
+	ui int CountWrappedLines(Font fnt, int maxW, string text)
+	{
+		if (!fnt || text.Length() < 1 || maxW < 1)
+			return 0;
+
+		Array<String> paras;
+		text.Split(paras, "\n");
+		int lines = 0;
+		for (int pi = 0; pi < paras.Size(); pi++)
+		{
+			string para = paras[pi];
+			while (para.Length() > 0)
+			{
+				string chunk = para;
+				while (chunk.Length() > 0 && fnt.StringWidth(chunk) > maxW)
+					chunk = chunk.Mid(0, chunk.Length() - 1);
+				if (chunk.Length() < 1)
+					break;
+				if (chunk.Length() < para.Length() && chunk.Length() > 8)
+					chunk = chunk.Mid(0, chunk.Length() - 1);
+				lines++;
+				if (chunk.Length() >= para.Length())
+					break;
+				para = para.Mid(chunk.Length(), para.Length() - chunk.Length());
+				while (para.Length() > 0 && para.ByteAt(0) == 32)
+					para = para.Mid(1, para.Length() - 1);
+			}
+		}
+		return lines;
+	}
+
+	ui int MeasureWrappedBlockHeight(Font fnt, int maxW, int maxLines, string text, double textScale)
+	{
+		if (!fnt || text.Length() < 1 || maxLines < 1)
+			return 0;
+		int lineH = max(1, int(fnt.GetHeight() * textScale * 1.05));
+		return min(CountWrappedLines(fnt, maxW, text), maxLines) * lineH;
+	}
+
+	ui double FitHoverHeaderScale(string header, int textW, double scale)
+	{
+		double headerScale = scale * 0.72;
+		if (header.Length() < 1)
+			return headerScale;
+		int headerW = int(BigFont.StringWidth(header) * headerScale);
+		if (headerW > textW)
+			headerScale = headerScale * double(textW) / max(headerW, 1);
+		return max(headerScale, scale * 0.42);
+	}
+
+	ui double FitHoverTextScale(PB_PDAWeapTextContainer row, int textW, int maxTextH, double scale)
+	{
+		double textScale = scale * 0.52;
+		for (int pass = 0; pass < 6; pass++)
+		{
+			int wrapW = max(8, int(double(textW) / textScale));
+			int bodyH = MeasureWrappedBlockHeight(SmallFont, wrapW, 99, row.PDAWeaponText, textScale);
+			int extraH = 0;
+			if (row.PDAWeaponExtraText.Length() > 0)
+				extraH = MeasureWrappedBlockHeight(SmallFont, wrapW, 99, row.PDAWeaponExtraText, textScale);
+			int gap = row.PDAWeaponExtraText.Length() > 0 ? int(6 * scale) : 0;
+			if (bodyH + gap + extraH <= maxTextH)
+				return textScale;
+			textScale *= 0.88;
+		}
+		return max(textScale, scale * 0.32);
+	}
+
+	ui void DrawWrappedLines(Font fnt, int color, int x, int y, int maxW, int maxLines,
+		string text, double scale, out int endY)
+	{
+		endY = y;
+		if (!fnt || text.Length() < 1)
+			return;
+
+		Array<String> paras;
+		text.Split(paras, "\n");
+		int linesDrawn = 0;
+		for (int pi = 0; pi < paras.Size() && linesDrawn < maxLines; pi++)
+		{
+			string para = paras[pi];
+			while (para.Length() > 0 && linesDrawn < maxLines)
+			{
+				string chunk = para;
+				while (chunk.Length() > 0 && fnt.StringWidth(chunk) > maxW)
+					chunk = chunk.Mid(0, chunk.Length() - 1);
+				if (chunk.Length() < 1)
+					break;
+				if (chunk.Length() < para.Length() && chunk.Length() > 8)
+					chunk = chunk.Mid(0, chunk.Length() - 1);
+				Screen.DrawText(fnt, color, x, endY, chunk, DTA_ScaleX, scale, DTA_ScaleY, scale);
+				endY += int(fnt.GetHeight() * scale * 1.05);
+				linesDrawn++;
+				if (chunk.Length() >= para.Length())
+					break;
+				para = para.Mid(chunk.Length(), para.Length() - chunk.Length());
+				while (para.Length() > 0 && para.ByteAt(0) == 32)
+					para = para.Mid(1, para.Length() - 1);
+			}
+		}
+	}
+
+	ui void DrawHoverPanelFrame(int x, int y, int w, int h)
+	{
+		Screen.Dim(color(8, 14, 22), 0.96, x, y, w, h);
+		Color border = color(100, 200, 235);
+		Screen.DrawLine(x, y, x + w - 1, y, border, 210);
+		Screen.DrawLine(x, y + h - 1, x + w - 1, y + h - 1, border, 210);
+		Screen.DrawLine(x, y, x, y + h - 1, border, 210);
+		Screen.DrawLine(x + w - 1, y, x + w - 1, y + h - 1, border, 210);
+	}
+
+	ui void DrawHoverPanel(PB_PDAWeapTextContainer row, double scale)
+	{
+		if (!row)
+			return;
+
+		int sw = Screen.GetWidth();
+		int sh = Screen.GetHeight();
+		int pad = int(14 * scale);
+		int popupW = int(min(sw * 0.5, 480 * scale));
+		int textW = popupW - pad * 2;
+		int dummyY;
+		string header = row.PDAWeaponHeader != "" ? row.PDAWeaponHeader : row.PDAWeapClassName;
+
+		if (!row.found)
+		{
+			int popupH = int(110 * scale);
+			int popupX = (sw - popupW) / 2;
+			int popupY = (sh - popupH) / 2;
+			DrawHoverPanelFrame(popupX, popupY, popupW, popupH);
+			int contentY = popupY + pad;
+			int headerW = int(BigFont.StringWidth(header) * scale);
+			int headerX = popupX + max(pad, (popupW - headerW) / 2);
+			Screen.DrawText(BigFont, Font.CR_GRAY, headerX, contentY, header,
+				DTA_ScaleX, scale, DTA_ScaleY, scale);
+			contentY += int(BigFont.GetHeight() * scale * 1.35);
+			Screen.DrawText(SmallFont, Font.CR_DARKGRAY, popupX + pad, contentY,
+				"Not yet acquired.", DTA_ScaleX, scale, DTA_ScaleY, scale);
+			contentY += int(SmallFont.GetHeight() * scale * 1.2);
+			Screen.DrawText(SmallFont, Font.CR_DARKGRAY, popupX + pad, contentY,
+				"Pick up this weapon in-game to log it.", DTA_ScaleX, scale, DTA_ScaleY, scale);
+			return;
+		}
+
+		int iconBox = int(min(popupW * 0.38, 130 * scale));
+		double headerScale = FitHoverHeaderScale(header, textW, scale);
+		int maxPopupH = int(sh * 0.82);
+		int textAreaTop = pad + iconBox + int(10 * scale)
+			+ int(BigFont.GetHeight() * headerScale * 1.25);
+		int maxTextH = max(48, maxPopupH - textAreaTop - pad);
+		double textScale = FitHoverTextScale(row, textW, maxTextH, scale);
+		int wrapW = max(8, int(double(textW) / textScale));
+
+		int bodyLines = CountWrappedLines(SmallFont, wrapW, row.PDAWeaponText);
+		int extraLines = row.PDAWeaponExtraText.Length() > 0
+			? CountWrappedLines(SmallFont, wrapW, row.PDAWeaponExtraText) : 0;
+		int lineH = max(1, int(SmallFont.GetHeight() * textScale * 1.05));
+		int bodyH = bodyLines * lineH;
+		int extraH = extraLines * lineH;
+		int gap = extraLines > 0 ? int(6 * scale) : 0;
+
+		int popupH = pad * 2 + iconBox + int(10 * scale)
+			+ int(BigFont.GetHeight() * headerScale * 1.25)
+			+ bodyH + gap + extraH;
+		popupH = min(max(popupH, int(180 * scale)), maxPopupH);
+		int popupX = (sw - popupW) / 2;
+		int popupY = max(pad, (sh - popupH) / 2);
+		DrawHoverPanelFrame(popupX, popupY, popupW, popupH);
+
+		int contentY = popupY + pad;
+		int iconX = popupX + (popupW - iconBox) / 2;
+		PBWP_PDAIconResolver.DrawPreviewIcon(row.PDAWeapClassName, iconX, contentY, iconBox, 1.0);
+		contentY += iconBox + int(10 * scale);
+
+		int headerW = int(BigFont.StringWidth(header) * headerScale);
+		int headerX = popupX + max(pad, (popupW - headerW) / 2);
+		Screen.DrawText(BigFont, Font.CR_GOLD, headerX, contentY, header,
+			DTA_ScaleX, headerScale, DTA_ScaleY, headerScale);
+		contentY += int(BigFont.GetHeight() * headerScale * 1.15);
+
+		int clipTop = contentY;
+		int clipH = max(1, popupY + popupH - pad - clipTop);
+		Screen.SetClipRect(popupX + pad, clipTop, textW, clipH);
+
+		int maxBodyLines = extraLines > 0
+			? max(1, (clipH - gap - extraH) / lineH) : max(1, clipH / lineH);
+		DrawWrappedLines(SmallFont, Font.CR_UNTRANSLATED, popupX + pad, contentY, wrapW, maxBodyLines,
+			row.PDAWeaponText, textScale, dummyY);
+		contentY = dummyY + gap;
+
+		if (extraLines > 0)
+		{
+			int maxExtraLines = max(1, (popupY + popupH - pad - contentY) / lineH);
+			DrawWrappedLines(SmallFont, Font.CR_LIGHTBLUE, popupX + pad, contentY, wrapW, maxExtraLines,
+				row.PDAWeaponExtraText, textScale, dummyY);
+		}
+
+		Screen.ClearClipRect();
+	}
+
+	ui void DrawCodexOverlay(RenderEvent e)
+	{
+		let pda = PB_PDAWeaponContainer(players[consoleplayer].mo.FindInventory("PB_PDAWeaponContainer"));
+		if (!pda)
+			return;
+
+		double scale;
+		int ox, oy, tw, th, pad;
+		GetCodexMetrics(scale, ox, oy, tw, th, pad);
+
+		HoverIndex = HitTestCodexTile(pda);
+		int total = pda.pdaWeapTextArray.Size();
+		int maxScroll = max(0, (total + CODEX_COLS - 1) / CODEX_COLS - CODEX_ROWS_VISIBLE);
+		if (CodexScroll > maxScroll)
+			CodexScroll = maxScroll;
+
+		int foundCount = 0;
+		for (int fi = 0; fi < total; fi++)
+			if (pda.pdaWeapTextArray[fi].found)
+				foundCount++;
+
+		double labelScale = GetCodexTileLabelScale(scale);
+		int labelBarH = int(SmallFont.GetHeight() * labelScale) + max(2, th / 18);
+		int startRow = CodexScroll;
+		for (int vis = 0; vis < CODEX_ROWS_VISIBLE; vis++)
+		{
+			int row = startRow + vis;
+			for (int col = 0; col < CODEX_COLS; col++)
+			{
+				int idx = row * CODEX_COLS + col;
+				if (idx >= total)
+					continue;
+
+				let entry = pda.pdaWeapTextArray[idx];
+				int tx = ox + col * (tw + pad);
+				int ty = oy + vis * (th + pad);
+				bool hovered = (idx == HoverIndex);
+				DrawCodexTile(tx, ty, tw, th, hovered, entry.found, scale);
+
+				if (entry.found)
+				{
+					string label = entry.PDAWeaponHeader;
+					if (label.Length() < 1)
+						label = entry.PDAWeapClassName;
+					DrawBlockyLabel(SmallFont, label, tx, ty, tw, th, hovered, 1.0, true, labelScale);
+					int labelBottom = ty + labelBarH;
+					TextureID iconTex = TexMan.CheckForTexture(
+						PBWP_PDAIconLookup.ResolveWeaponPreviewSprite(entry.PDAWeapClassName),
+						TexMan.Type_Any);
+					DrawBlockyTileIcon(iconTex, tx, ty, tw, th, labelBottom, hovered ? 1.0 : 0.9,
+						hovered ? 1.04 : 1.0);
+				}
+				else
+				{
+					DrawBlockyLabel(SmallFont, "???", tx, ty, tw, th, hovered, 0.75, true, labelScale);
+					int labelBottom = ty + labelBarH;
+					TextureID noIcon;
+					DrawBlockyTileIcon(noIcon, tx, ty, tw, th, labelBottom, 0.75, 1.0);
+				}
+			}
+		}
+
+		if (HoverIndex >= 0 && HoverIndex < total)
+			DrawHoverPanel(pda.pdaWeapTextArray[HoverIndex], scale);
+
+		if (foundCount == 0)
+		{
+			Screen.DrawText(SmallFont, Font.CR_GRAY, ox, oy + int(12 * scale),
+				"No weapons logged yet. Pick up weapons, then reopen PDA.", DTA_ScaleX, scale, DTA_ScaleY, scale);
+		}
+		else if (maxScroll > 0)
+		{
+			int panelLeft, panelTop, panelRight, panelBottom;
+			GetPDAContentPanelMetrics(scale, panelLeft, panelTop, panelRight, panelBottom);
+			String scrollHint = String.Format("Scroll: row %d / %d  (%d / %d logged)",
+				CodexScroll + 1, maxScroll + 1, foundCount, total);
+			Screen.DrawText(SmallFont, Font.CR_DARKGRAY, panelLeft + pad, panelBottom - int(22 * scale),
+				scrollHint, DTA_ScaleX, scale, DTA_ScaleY, scale);
+		}
+	}
+
+	override void RenderOverlay(RenderEvent e)
+	{
+		if (!PBWP_PDAPlayHandler.IsPDAModeActive() || !playeringame[consoleplayer] || !players[consoleplayer].mo)
+		{
+			NeedsOpenReset = true;
+			MousePosInit = false;
+			return;
+		}
+
+		if (NeedsOpenReset)
+		{
+			NeedsOpenReset = false;
+			SetPDATab(PDA_TAB_CODEX);
+			ResetMouseState();
+		}
+
+		double scale = GetPDAScale();
+		Screen.Dim(0, 0.72, 0, 0, Screen.GetWidth(), Screen.GetHeight());
+		DrawPDATabBar(scale);
+		DrawPDAContentFrame(scale);
+
+		if (PDATab == PDA_TAB_CODEX)
+		{
+			DrawPDAContentHeader("Weapon Codex",
+				"P / Esc close  |  PgUp/PgDn scroll  |  Hover for details", scale);
+			DrawCodexOverlay(e);
+		}
+		else if (PDATab == PDA_TAB_SHOP)
+		{
+			DrawPDAContentHeader("Experience Shop",
+				"Click an item to purchase  |  Scroll with page arrows", scale);
+			DrawPDAShopBrowse(1.0);
+		}
+		else if (PDATab == PDA_TAB_ACH && PB_AchievementsOn())
+		{
+			DrawPDAContentHeader("Achievements",
+				"Use page arrows or BACK / PDA key to scroll", scale);
+			DrawPDAAchievementBrowse(1.0);
+		}
+	}
+
+	ui void DrawCodexLabel(Font fnt, string txt, int x, int y, int w, int h, bool hovered, double scale)
+	{
+		DrawBlockyLabel(fnt, txt, x, y, w, h, hovered, 1.0, false);
+	}
+}

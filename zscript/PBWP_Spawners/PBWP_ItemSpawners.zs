@@ -162,18 +162,13 @@ class KatanaSpawnerInjector : PBInjector
 	{
 	if (KatanaSpawn)
 		{
-		// Katama
-		handler.InjectSpawn('PB_SawSpawnerT1', 'KatanaPickup', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT2', 'KatanaPickup', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT1', 'KatanaPickup', 64, 1);
+		handler.InjectSpawn('PB_SawSpawnerT2', 'KatanaPickup', 64, 1);
 
-		handler.InjectSpawn('PB_PackSpawnerT1', 'KatanaPickup', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT2', 'KatanaPickup', 255, 1);
-
-		// Demonic Sword (Katana Upgrade)
-		handler.InjectSpawn('PB_SawSpawnerT3', 'DemonicSword', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT4', 'DemonicSword', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'DemonicSword', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'DemonicSword', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT3', 'DemonicSword', 64, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'DemonicSword', 80, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'DemonicSword', 64, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'DemonicSword', 80, 1);
 		}
 	}
 }
@@ -184,8 +179,7 @@ class PickaxeSpawnerInjector : PBInjector
 	{
 	if(PickaxeSpawn)
 		{
-		// Pickaxe
-		handler.InjectSpawn('PB_SawSpawnerT1', 'PickAxePickup', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT1', 'PickAxePickup', 48, 1);
 		}
 	}
 }
@@ -196,14 +190,10 @@ class ImpactorSpawnerInjector : PBInjector
 	{
 	if(ImpactorSpawn)
 		{
-		// Impactor
-		handler.InjectSpawn('PB_SawSpawnerT3', 'ImpactorChargesPickup', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT4', 'ImpactorChargesPickup', 255, 1);
-
-		handler.InjectSpawn('PB_PackSpawnerT1', 'ImpactorChargesPickup', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT2', 'ImpactorChargesPickup', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ImpactorChargesPickup', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ImpactorChargesPickup', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT3', 'ImpactorChargesPickup', 64, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'ImpactorChargesPickup', 80, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ImpactorChargesPickup', 64, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ImpactorChargesPickup', 80, 1);
 		}
 	}
 }
@@ -214,14 +204,10 @@ class ClawSpawnerInjector : PBInjector
 	{
 	if(ClawSpawn)
 		{
-		// Claw
-		handler.InjectSpawn('PB_SawSpawnerT3', 'ClawChargesPickup', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT4', 'ClawChargesPickup', 255, 1);
-
-		handler.InjectSpawn('PB_PackSpawnerT1', 'ClawChargesPickup', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT2', 'ClawChargesPickup', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ClawChargesPickup', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ClawChargesPickup', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT3', 'ClawChargesPickup', 64, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'ClawChargesPickup', 80, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ClawChargesPickup', 64, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ClawChargesPickup', 80, 1);
 		}
 	}
 }
@@ -232,9 +218,7 @@ class SentinelHammerSpawnerInjector : PBInjector
 	{
 	if(SentinelHammerSpawn)
 		{
-		// SentinelHammer
-		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'SentinelHammerChargePickup', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'SentinelHammerChargePickup', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'SentinelHammerChargePickup', 64, 1);
 		}
 	}
 }
@@ -245,9 +229,7 @@ class JohnnyHandsSpawnerInjector : PBInjector
 	{
 	if(JohnnyHandsSpawn)
 		{
-		// Johnny Hands
-		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'JohnnyHandsPickup', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'JohnnyHandsPickup', 255, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'JohnnyHandsPickup', 64, 1);
 		}
 	}
 }
@@ -258,12 +240,8 @@ class WrenchSpawnerInjector : PBInjector
 	{
 	if(WrenchSpawn)
 		{
-		// Wrench
-		handler.InjectSpawn('PB_SawSpawnerT1', 'Wrench', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT2', 'Wrench', 255, 1);
-
-		handler.InjectSpawn('PB_PackSpawnerT1', 'Wrench', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT2', 'Wrench', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT1', 'Wrench', 64, 1);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'Wrench', 64, 1);
 		}
 	}
 }
@@ -274,12 +252,8 @@ class CrowbarSpawnerInjector : PBInjector
 	{
 	if(CrowbarSpawn)
 		{
-		// Crowbar 
-		handler.InjectSpawn('PB_SawSpawnerT1', 'Crowbar', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT2', 'Crowbar', 255, 1);
-
-		handler.InjectSpawn('PB_PackSpawnerT1', 'Crowbar', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT2', 'Crowbar', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT1', 'Crowbar', 64, 1);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'Crowbar', 64, 1);
 		}
 	}
 }
@@ -290,16 +264,10 @@ class SledgeHammerSpawnerInjector : PBInjector
 	{
 	if(SledgeHammerSpawn)
 		{
-		// SLedgeHammer
-		handler.InjectSpawn('PB_SawSpawnerT1', 'SledgeHammer', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT2', 'SledgeHammer', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT3', 'SledgeHammer', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT4', 'SledgeHammer', 255, 1);
-
-		handler.InjectSpawn('PB_PackSpawnerT1', 'SledgeHammer', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT2', 'SledgeHammer', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'SledgeHammer', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'SledgeHammer', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT3', 'SledgeHammer', 64, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'SledgeHammer', 80, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'SledgeHammer', 64, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'SledgeHammer', 80, 1);
 		}
 	}
 }
@@ -310,14 +278,10 @@ class ShockBatonSpawnerInjector : PBInjector
 	{
 	if(ShockBatonSpawn)
 		{
-		// ShockBaton
-		handler.InjectSpawn('PB_SawSpawnerT3', 'ShockBaton', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT4', 'ShockBaton', 255, 1);
-
-		handler.InjectSpawn('PB_PackSpawnerT1', 'ShockBaton', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT2', 'ShockBaton', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ShockBaton', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ShockBaton', 255, 1);
+		handler.InjectSpawn('PB_SawSpawnerT3', 'ShockBaton', 64, 1);
+		handler.InjectSpawn('PB_SawSpawnerT4', 'ShockBaton', 80, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'ShockBaton', 64, 1);
+		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'ShockBaton', 80, 1);
 		}
 	}
 }
@@ -328,12 +292,8 @@ class MacheteSpawnerInjector : PBInjector
 	{
 	if(MacheteSpawn)
 		{
-		// Machete
-		handler.InjectSpawn('PB_SawSpawnerT1', 'Machete', 255, 1);
-		handler.InjectSpawn('PB_SawSpawnerT2', 'Machete', 255, 1);
-
-		handler.InjectSpawn('PB_PackSpawnerT1', 'Machete', 255, 1);
-		handler.InjectSpawn('PB_PackSpawnerT2', 'Machete', 255, 1);
+		handler.InjectSpawn('PB_PackSpawnerT1', 'Machete', 64, 1);
+		handler.InjectSpawn('PB_PackSpawnerT2', 'Machete', 64, 1);
 		}
 	}
 }
@@ -472,6 +432,18 @@ class ShrinkSphereSpawner : PBInjector
 	}
 }
 
+class GrowthSphereSpawner : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if(SpawnGrowthsphere)
+		{
+		handler.InjectSpawn('PB_SoulSphereSpawnerT3', 'GrowthSphere', 255, 1);
+		handler.InjectSpawn('PB_SoulSphereSpawnerT4', 'GrowthSphere', 255, 1);
+		}
+	}
+}
+
 class GuardSphereSpawner : PBInjector
 {
 	override void Init(PB_EventHandler handler)
@@ -577,6 +549,41 @@ class FamiliarSpawner : PBInjector
 		{
 		handler.InjectSpawn('PB_MegaSpawnerT4', 'FamiliarSummon', 255, 1);
 		
+		}
+	}
+}
+
+class GCShieldSphereSpawner : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		if (pb_gc_enhancements && pb_gc_sphere_pickups && pb_gc_spawn_shield_sphere)
+		{
+			handler.InjectSpawn('PB_UpgradeSpawnerT4', 'PBWP_GCShieldSpherePickup', 255, 1);
+			handler.InjectSpawn('PB_MegaSpawnerT4', 'PBWP_GCShieldSpherePickup', 255, 1);
+		}
+	}
+}
+
+class GCLegRandomSphereSpawner : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		if (pb_gc_enhancements && pb_gc_sphere_pickups && pb_gc_spawn_leg_sphere)
+		{
+			handler.InjectSpawn('PB_MegaSpawnerT4', 'PBWP_GCLegRandomSpherePickup', 255, 1);
+			handler.InjectSpawn('PB_BFGSpawnerT4', 'PBWP_GCLegRandomSpherePickup', 255, 1);
+		}
+	}
+}
+
+class GCChaliceSpawner : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		if (pb_gc_enhancements && pb_gc_chalice && pb_gc_spawn_chalice_pickup)
+		{
+			handler.InjectSpawn('PB_UpgradeSpawnerT4', 'PBWP_GCDemonicChalicePickup', 255, 1);
 		}
 	}
 }

@@ -76,7 +76,7 @@ TNT1 A 0 {
 PBFG A 0 A_StopSound(5)
 PBFG A 0 A_StopSound(6)
 PBFG A 0 A_StopSound(7)
-NMB8 QQQQQQQ 0 A_Lower
+TNT1 A 0 A_Lower(120)
 Wait
 
 
@@ -96,8 +96,8 @@ TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 
 Goto SelectFirstPersonLegs
 SelectContinue:
-TNT1 A 0 A_Raise
-Wait
+		TNT1 A 0 A_WeaponOffset(0, 32)
+		Goto Ready3
 
 
 Fire:
@@ -204,15 +204,13 @@ FlashKicking:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
 	TNT1 A 0
-	Goto Ready3
-	
+	Stop
 FlashAirKicking:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
 	TNT1 A 0
-	Goto Ready3
-	
+	Stop
 FlashSlideKicking:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
@@ -223,14 +221,11 @@ FlashSlideKickingStop:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
 	TNT1 A 0
-	Goto Ready3
+	Stop
 
 }
 }
 
-
-Actor NemesisBFGMode : Inventory {Inventory.maxamount 1}
-Actor GuruCharge : Inventory { Inventory.MaxAmount 25 }
 
 //
 //
@@ -1342,21 +1337,5 @@ Looplet:
 NEMF A 0 A_SetScale(ScaleX -0.006, ScaleY -0.006)
 NEMF A 2 bright A_FadeOut(0.05)
 Loop
-}
-}
-
-
-ACTOR NemesisBFGProjectileTrail1
-{ 
-RenderStyle Add
-+NOINTERACTION
-+NOGRAVITY
-Scale 1
-Alpha 0.25
-States
-{
-Spawn:
-NBOM EFGHIJKLMN 2 BRIGHT
-Stop
 }
 }

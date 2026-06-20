@@ -1,0 +1,125 @@
+// PDA-integrated experience shop — catalog mirrors MENUDEF AmmunitionShopSystem purchases.
+
+const PDA_SHOP_ROW_HEADER = 0;
+const PDA_SHOP_ROW_CATEGORY = 1;
+const PDA_SHOP_ROW_ITEM = 2;
+
+class PB_PDAShopPurchaseHandler : StaticEventHandler
+{
+	bool built;
+	Array<String> rowCategory;
+	Array<String> rowLabel;
+	Array<int> rowCost;
+	Array<String> rowScript;
+
+	clearscope static PB_PDAShopPurchaseHandler GetHandler()
+	{
+		return PB_PDAShopPurchaseHandler(StaticEventHandler.Find('PB_PDAShopPurchaseHandler'));
+	}
+
+	override void WorldLoaded(WorldEvent e)
+	{
+		EnsureBuilt();
+	}
+
+	void EnsureBuilt()
+	{
+		if (built)
+			return;
+		built = true;
+		ParseRow("Special Items", "Item Magnet Upgrade", 1500, "BuyPBWP_ItemMagnetUpgrade");
+		ParseRow("Special Items", "Random Weapon Upgrade", 1500, "BuyRanUpgrade");
+		ParseRow("Special Items", "Berserker", 800, "BuyBerserk");
+		ParseRow("Special Items", "Heavy Armor", 750, "BuyBlueArmor");
+		ParseRow("Special Items", "MegaSphere", 1000, "BuySoulArmor");
+		ParseRow("Special Items", "Quad-Damage", 1000, "BuyQuad");
+		ParseRow("Special Items", "SoulSphere", 750, "BuySoulSphere");
+		ParseRow("Special Items", "Speed Powerup", 800, "BuySpeedPower");
+		ParseRow("Ammunition Shop", "20 Shells", 100, "BuyShells");
+		ParseRow("Ammunition Shop", "100 Rifle Ammo", 100, "BuyRFLClip");
+		ParseRow("Ammunition Shop", "100 Plasma Ammo", 150, "BuyCell");
+		ParseRow("Ammunition Shop", "12 Rockets", 150, "BuyRocket");
+		ParseRow("Ammunition Shop", "100 Pistol Bullets", 100, "BuyPistolClip");
+		ParseRow("Special Weapons", "GC - Legendary Chainsaw", 1000, "BuyLegendaryChainsaw");
+		ParseRow("Special Weapons", "GC - Nemesis LMG", 1000, "BuyNemesisLMG");
+		ParseRow("Special Weapons", "GC - Legendary Assault Shotgun", 2000, "BuyLegendaryAssaultShotgun");
+		ParseRow("Special Weapons", "GC - Legendary Plasmatic Rifle", 3000, "BuyLegendaryPlasmaticRifle");
+		ParseRow("Special Weapons", "GC - Devastador BFG", 3000, "BuyDevastador");
+		ParseRow("Special Weapons", "GC - Nemesis BFG", 3000, "BuyNemesisBFG");
+		ParseRow("Special Weapons", "GC - Enraged Legendary BFG", 5000, "BuyEnragedLegendaryBFG");
+		ParseRow("Special Weapons", "GC - God Enraged BFG", 5000, "BuyGodEnragedBFG");
+		ParseRow("Melee Weapons", "Battle Axe & Shield", 850, "BuyBattleAxe");
+		ParseRow("Melee Weapons", "Energy Beam Katana", 500, "BuyPB_BeamKatana");
+		ParseRow("Melee Weapons", "Razorjack", 650, "BuyRazorjack");
+		ParseRow("Pistols & SMGs", "44PDW", 500, "Buy44PDW");
+		ParseRow("Pistols & SMGs", "Beretta92 Silenced", 300, "BuyB92S");
+		ParseRow("Pistols & SMGs", "Doom Blaster", 400, "BuyDoomBlaster");
+		ParseRow("Pistols & SMGs", "Hell Pistoler", 800, "BuyHellPistoler");
+		ParseRow("Pistols & SMGs", "Sub-fusil - Holy Bastard", 300, "BuyW_SMG");
+		ParseRow("Pistols & SMGs", "UZI", 450, "BuyPB_UZI");
+		ParseRow("Shotguns", "Cryo Shotgun", 650, "BuyCryoShotgun");
+		ParseRow("Shotguns", "Doom 2016 Shotgun", 500, "BuyDoom2016Shotgun");
+		ParseRow("Shotguns", "Demon Tech Shotgun", 800, "BuyDTShotgun");
+		ParseRow("Shotguns", "HASG", 800, "BuyHASG");
+		ParseRow("Shotguns", "HexaLion Shotgun", 750, "BuyHexaLionShotgun");
+		ParseRow("Shotguns", "M1887", 300, "BuyM1887");
+		ParseRow("Shotguns", "Rotating Double Barrel", 700, "BuyRotatingDoubleBarrel");
+		ParseRow("Shotguns", "Rotational SG", 800, "BuyRotationalSG");
+		ParseRow("Rifles", "AK-47", 300, "BuyAK47");
+		ParseRow("Rifles", "Bolt Rifle", 500, "BuyBoltRifle");
+		ParseRow("Rifles", "Dark Fate", 500, "BuyDarkFate");
+		ParseRow("Rifles", "D4 Machinegun", 400, "BuyD4Machinegun");
+		ParseRow("Rifles", "M41A", 650, "BuyM41A");
+		ParseRow("Rifles", "Heavy Assault Rifle", 600, "BuyAssaultR1");
+		ParseRow("Rifles", "Magnum Sniper Rifle", 350, "BuyMagnumSniperRifle");
+		ParseRow("Rifles", "Fusil", 500, "BuyPB_Fusil");
+		ParseRow("Heavy Weapons", "Auto Cannon", 800, "BuyAutoCannon");
+		ParseRow("Heavy Weapons", "Dead Gallary", 650, "BuyINNailGun");
+		ParseRow("Heavy Weapons", "D4 Rocket Launcher", 500, "BuyD4RocketLauncher");
+		ParseRow("Heavy Weapons", "Duke Nukem Ripper", 800, "BuyDukeNukemRipper");
+		ParseRow("Heavy Weapons", "HASG Lady Hungry", 700, "BuyINMiniGun");
+		ParseRow("Heavy Weapons", "Power Overwhelming", 500, "BuyPowerOverwhelming");
+		ParseRow("Heavy Weapons", "Super Grenade Launcher", 500, "BuySuperGrenadeLauncher");
+		ParseRow("Heavy Weapons", "Super Nailgun", 500, "BuySuperNailgun");
+		ParseRow("Energy Weapons", "D4 Plasma Gun", 600, "BuyD4PlasmaGun");
+		ParseRow("Energy Weapons", "D4 Vortex Rifle", 700, "BuyD4VortexRifle");
+		ParseRow("Energy Weapons", "Extinction Ray", 750, "BuyExtinctionRay");
+		ParseRow("Energy Weapons", "UAC Dark Matter Rifle", 850, "BuyPB_DarkMatterRifle");
+		ParseRow("Energy Weapons", "Gauss Cannon", 800, "BuyGaussCannon");
+		ParseRow("Energy Weapons", "Ion Heavy", 600, "BuyIonHeavy");
+		ParseRow("Energy Weapons", "Plasma Rifle Assault", 800, "BuyPlasmaRifleAssault");
+		ParseRow("Energy Weapons", "Tech Blaster", 800, "BuyTechBlaster");
+		ParseRow("Energy Weapons", "Thunder Carrier TI", 900, "BuyThunderCarrierTI");
+	}
+
+	void ParseRow(String cat, String label, int cost, String script)
+	{
+		rowCategory.Push(cat);
+		rowLabel.Push(label);
+		rowCost.Push(cost);
+		rowScript.Push(script);
+	}
+
+	bool TryPurchase(PlayerPawn plr, int entryIdx)
+	{
+		EnsureBuilt();
+		if (!plr || entryIdx < 0 || entryIdx >= rowLabel.Size())
+			return false;
+		plr.ACS_NamedExecuteAlways(rowScript[entryIdx]);
+		return true;
+	}
+
+	override void NetworkProcess(ConsoleEvent e)
+	{
+		if (!e || netgame)
+			return;
+		if (!(e.Name ~== "pb_pda_shop_buy"))
+			return;
+		if (e.Player < 0 || e.Player >= MAXPLAYERS || !playeringame[e.Player])
+			return;
+		let plr = PlayerPawn(players[e.Player].mo);
+		if (!plr)
+			return;
+		TryPurchase(plr, e.Args[0]);
+	}
+}

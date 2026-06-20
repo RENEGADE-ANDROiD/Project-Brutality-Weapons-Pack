@@ -1,0 +1,405 @@
+// Boots of the North (Ghastly_dragon, Raven Software sprite edit)
+// 50% Ice damage reduction. Original: level-end. Folded as a timed kill-streak buff.
+Actor PowerNorthBoots : PowerProtection
+{
+	DamageFactor "Ice", 0.5
+}
+
+Actor BootsOfTheNorth : PowerupGiver
+{
+	//$Category Powerups
+	//$Title "Boots Of The North"
+	//$Sprite BNORA0
+	Inventory.MaxAmount 0
+	Inventory.PickupSound "misc/p_pkup"
+	Inventory.PickupMessage "Boots of the North! Cold damage halved."
+	Powerup.Type NorthBoots
+	Powerup.Duration -15
+	Powerup.Color "80 C0 FF", 0.002
+	+Inventory.PickupFlash
+	+Inventory.AutoActivate
+	+Inventory.AlwaysPickup
+	+FloatBob
+	States
+	{
+	Spawn:
+		BNOR ABC 4 Bright
+		Loop
+	}
+}
+
+// Bracers of Force (Ghastly_dragon, Raven Software sprite edit)
+// 75% damage reduction (timed). Original required SkullRodAmmo (Heretic);
+// folded as a self-activating PowerupGiver since PB has no SkullRodAmmo.
+Actor PowerBracers : PowerProtection
+{
+	DamageFactor "Normal", 0.25
+}
+
+Actor BracersOfForce : PowerupGiver
+{
+	//$Category Powerups
+	//$Title "Bracers Of Force"
+	//$Sprite BOFRA0
+	Inventory.MaxAmount 0
+	Inventory.PickupSound "misc/p_pkup"
+	Inventory.PickupMessage "Bracers of Force! 75% damage reduction."
+	Powerup.Type Bracers
+	Powerup.Duration -13
+	Powerup.Color "Blue", 0.002
+	+Inventory.PickupFlash
+	+Inventory.AutoActivate
+	+Inventory.AlwaysPickup
+	+FloatBob
+	States
+	{
+	Spawn:
+		BOFR BCDEFGHI 3 Bright
+		Loop
+	}
+}
+
+// Book of the Dead (zrrion the insect, Raven/id sprites)
+// CustomInventory: on use, summons a swarm of zombie hands at point of impact.
+// Folded with +AutoActivate so the kill-streak roll fires it immediately at
+// whatever the player is aiming at when the reward lands.
+Actor BookOfTheDead : CustomInventory
+{
+	//$Category Powerups
+	//$Title "Book of the Dead"
+	//$Sprite BTDIA0
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.BIGPOWERUP
+	+INVENTORY.PICKUPFLASH
+	+FLOATBOB
+	Inventory.MaxAmount 1
+	Inventory.Icon ""
+	Inventory.PickupSound "Book/p_pkup"
+	Inventory.PickupMessage "Book of the Dead! The graves are restless..."
+	Tag "Book of the Dead"
+	States
+	{
+	Spawn:
+		BOTD ABCDE 3 Bright
+		BOTD FFEDCB 2 Bright
+		Loop
+	Use:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_CustomMissile("BookZombieSpawner", 32, 0, 0, 2, 0)
+		Stop
+	}
+}
+
+Actor BookZombieSpawner : PlasmaBall
+{
+	SeeSound "Book/Strike"
+	Speed 0
+	Damage 1
+	RenderStyle None
+	+NOINTERACTION
+	Obituary "%o was struck down by %k's Undead Book"
+	States
+	{
+	Spawn:
+		TNT1 A 1
+	Death:
+		TNT1 A 1 A_BFGSpray("BookZombieHand", 25, Random(10, 15))
+		Stop
+	}
+}
+
+Actor BookZombieHand
+{
+	+CANNOTPUSH
+	+NODAMAGETHRUST
+	+FLOORCLIP
+	+FLOORHUGGER
+	RenderStyle Translucent
+	Scale 0.75
+	Obituary "%o was torn apart by the undead"
+	States
+	{
+	Spawn:
+		TNT1 AAAA 0 A_SpawnItemEx("BookHandDirt", 0, 0, 8, random(-4, 4), random(-4, 4), random(2, 5), 0, 143, 176)
+		HAND A 2 A_SpawnItemEx("BookHandDirt", 0, 0, 8, random(-4, 4), random(-4, 4), random(2, 5), 0, 143, 176)
+		HAND B 2 A_SpawnItemEx("BookHandDirt", 0, 0, 8, random(-4, 4), random(-4, 4), random(2, 5), 0, 143, 176)
+		HAND C 2 A_SpawnItemEx("BookHandDirt", 0, 0, 8, random(-4, 4), random(-4, 4), random(2, 5), 0, 143, 176)
+		HAND D 2 A_SpawnItemEx("BookHandDirt", 0, 0, 8, random(-4, 4), random(-4, 4), random(2, 5), 0, 143, 176)
+		HAND EFGHIJKL 2
+		HAND M 1500
+		Goto Fade
+	Fade:
+		HAND M 2 A_FadeOut(0.02)
+		Loop
+	}
+}
+
+Actor BookHandDirt
+{
+	Game Doom
+	Health 1
+	Radius 8
+	Height 1
+	Mass 1
+	Gravity 0.5
+	+CORPSE
+	+NOTELEPORT
+	+NOBLOCKMAP
+	-SOLID
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(256, "A", "B", "C")
+		Loop
+	A:
+		DIRT ABC 3
+		Loop
+	B:
+		DIRT DEF 3
+		Loop
+	C:
+		DIRT GHI 3
+		Loop
+	Crash:
+		TNT1 A 0 A_Stop
+		DIRT JKL 3
+		Stop
+	}
+}
+
+// Flight Sphere (scalliano, RichardDS90 ZScript port; id sprites)
+// Folded back to DECORATE because PowerFlight is a built-in powerup type
+// and the simpler form keeps it consistent with the other folded spheres.
+Actor FlightSphere : PowerupGiver
+{
+	//$Category Powerups
+	//$Title "Flight Sphere"
+	//$Sprite FLYTA0
+	Inventory.MaxAmount 0
+	Inventory.PickupSound "misc/p_pkup"
+	Inventory.PickupMessage "Flight Sphere! You feel lighter."
+	Powerup.Type "PowerFlight"
+	Powerup.Duration -12
+	Powerup.Color "FF 00 FF", 0.002
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.PICKUPFLASH
+	States
+	{
+	Spawn:
+		FLYT ABCD 6 Bright
+		Loop
+	}
+}
+
+// Lich Skull (Ghastly_dragon, NeuralStunner; Raven sprites)
+// Original: 75 HP cost + double damage + speed for a timed window. Folded without the
+// HP cost since this is delivered as a kill-streak reward (the player has
+// already paid in blood for the streak); also auto-activates on pickup.
+Actor PowerLSkullDoubleDamage : PowerDamage
+{
+	DamageFactor "Normal", 2.0
+	DamageFactor "Melee",  2.0
+	DamageFactor "Fire",   2.0
+	DamageFactor "Ice",    2.0
+}
+
+Actor LichSkullDamageGiver : PowerupGiver
+{
+	+Inventory.AutoActivate
+	+Inventory.AlwaysPickup
+	Powerup.Type LSkullDoubleDamage
+	Powerup.Color "Red", 0.002
+	Inventory.MaxAmount 0
+	Powerup.Duration 525
+}
+
+Actor LichSkullSpeedGiver : PowerupGiver
+{
+	+Inventory.AutoActivate
+	+Inventory.AlwaysPickup
+	Powerup.Type Speed
+	Inventory.MaxAmount 0
+	Powerup.Duration 525
+}
+
+Actor ArtiLichSkull : CustomInventory
+{
+	//$Category Powerups
+	//$Title "Lich Skull"
+	//$Sprite ARTILSKL
+	+FLOATBOB
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.PICKUPFLASH
+	+INVENTORY.FANCYPICKUPSOUND
+	Inventory.MaxAmount 1
+	Inventory.Icon ""
+	Inventory.PickupSound "Misc/P_PkUp"
+	Inventory.PickupMessage "Lich Skull! Double damage and speed."
+	States
+	{
+	Spawn:
+		LCHS ABCD 3 Bright
+		Loop
+	Use:
+		TNT1 A 0 A_PlaySound("Pickups/LichSkull", 0, 1.0)
+		TNT1 A 0 A_GiveInventory("LichSkullDamageGiver", 1)
+		TNT1 A 0 A_GiveInventory("LichSkullSpeedGiver", 1)
+		Stop
+	}
+}
+
+// Pentacle of Projection (MagicWazard; Raven blast effect)
+// Wraps the GZDoom-built-in ArtiBlastRadius (Hexen Disc of Repulsion mechanic).
+// Folded with +AutoActivate so the kill-streak roll triggers an instant pulse.
+Actor PentacleOfProjection : ArtiBlastRadius
+{
+	//$Category Powerups
+	//$Title "Pentacle of Projection"
+	//$Sprite PNTCI0
+	-FLOATBOB
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.FANCYPICKUPSOUND
+	+INVENTORY.PICKUPFLASH
+	Inventory.MaxAmount 1
+	Inventory.Icon ""
+	Inventory.PickupSound "misc/p_pkup"
+	Inventory.PickupMessage "Pentacle of Projection! Pushed everything away."
+	Scale 0.65
+	States
+	{
+	Spawn:
+		PNTC AAAAAABCB 4 Bright
+		Loop
+	Use:
+		TNT1 A 0 A_Blast(0, 255, 255, 20, "PentacleBlast", "pentacle/project")
+		Stop
+	}
+}
+
+Actor PentacleBlast : BlastEffect
+{
+	+NOBLOCKMAP
+	+NOGRAVITY
+	+NOCLIP
+	+NOTELEPORT
+	RenderStyle Add
+	States
+	{
+	Spawn:
+		PBLS ABCDEFGHI 4 Bright
+		Stop
+	}
+}
+
+// Reflector Sphere (Captain Toenail, RichardDS90 ZScript port)
+// Originally "ShieldSphere" upstream; renamed because PB 2022 already ships
+// a `ShieldSphere` ArmorBonus stub used by the Regret Elemental drop list.
+// Reflective invulnerability (timed kill-streak duration).
+Actor ReflectorSphere : PowerupGiver
+{
+	//$Category Powerups
+	//$Title "Reflector Sphere"
+	//$Sprite RFCTA0
+	+COUNTITEM
+	+NOGRAVITY
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.BIGPOWERUP
+	+INVENTORY.PICKUPFLASH
+	Inventory.MaxAmount 0
+	Inventory.PickupMessage "Reflector Sphere! Invulnerability with reflected projectiles."
+	Powerup.Type "PowerInvulnerable"
+	Powerup.Mode "Reflective"
+	Powerup.Color "GoldMap", 0.002
+	Powerup.Duration -15
+	RenderStyle "Translucent"
+	Alpha 0.8
+	States
+	{
+	Spawn:
+		RFCT ABCD 5 Bright
+		Loop
+	}
+}
+
+Actor PowerWraithHand : PowerProtection
+{
+	DamageFactor "Normal", 2.0
+	DamageFactor "Melee",  2.0
+	DamageFactor "Fire",   2.0
+	DamageFactor "Ice",    2.0
+}
+
+Actor WraithHandDamage : PowerupGiver
+{
+	+Inventory.AutoActivate
+	Powerup.Type WraithHand
+	Inventory.MaxAmount 0
+	Powerup.Duration -15
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		Fail
+	}
+}
+
+Actor WraithHandShadow : PowerupGiver
+{
+	+Inventory.AutoActivate
+	Powerup.Type Ghost
+	Inventory.MaxAmount 0
+	Powerup.Duration -15
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		Fail
+	}
+}
+
+Actor WraithHandTrail
+{
+	Scale 0.65
+	RenderStyle Add
+	Alpha 0.6
+	+NoGravity
+	States
+	{
+	Spawn:
+		TNT1 A 2
+		HWTP BCDE 2 Bright
+		Stop
+	}
+}
+
+Actor HandOfTheWraith : CustomInventory
+{
+	//$Category Powerups
+	//$Title "Hand of the Wraith"
+	//$Sprite HWTHA0
+	Inventory.PickupSound "Misc/P_pkup"
+	Inventory.PickupMessage "Hand of the Wraith! Curse with one shot."
+	Inventory.MaxAmount 1
+	Inventory.Icon ""
+	+Inventory.AutoActivate
+	+Inventory.AlwaysPickup
+	+FloatBob
+	+Inventory.PickupFlash
+	States
+	{
+	Spawn:
+		HWTH BCD 4 Bright
+		Loop
+	Use:
+		TNT1 A 1 A_FireCustomMissile("WraithHandProjectile", 0, 0, 0)
+		Stop
+	}
+
+
+}

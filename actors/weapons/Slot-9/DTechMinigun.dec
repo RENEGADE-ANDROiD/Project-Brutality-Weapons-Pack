@@ -29,6 +29,7 @@ ACTOR DemonTechMinigun : PB_WeaponBase
 	  TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
 	  TNT1 A 0 A_PlayWeaponSound("HRReady")
 	  DTS0 ABCDEF 1
+	ReadySettle:
    Ready3:
       DTM1 A 0 A_JumpIfInventory("DemonTechMinigunType",1,"Ready2")
       DTM1 A 1 A_DoPBWeaponAction
@@ -40,8 +41,9 @@ ACTOR DemonTechMinigun : PB_WeaponBase
       TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
 	  TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
 	  TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
-      DTS0 FEDCBA 1
-      DTM1 A 0 A_Lower
+      Goto DeselectDown
+   DeselectDown:
+      		TNT1 A 0 A_Lower(120)
       Wait
    Select:
      TNT1 A 0 {
@@ -54,8 +56,8 @@ ACTOR DemonTechMinigun : PB_WeaponBase
 		}
 		Goto SelectFirstPersonLegs
 	SelectContinue:
-      DTM1 A 0 A_Raise
-      Wait
+      		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+      		Goto Ready3
    Fire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
@@ -78,7 +80,7 @@ ACTOR DemonTechMinigun : PB_WeaponBase
       DTM1 BCDE 3
 	  DTM1 EFGHI 3
    Hold:  
-	  TNT1 A 0 PB_FireOffset
+	  TNT1 A 0 { PB_FireOffset; }
       TNT1 A 0 A_PlaySound("weapons/expmgunspin",5)
 	  TNT1 A 0 Radius_Quake(2,2,0,1,0)
 	  TNT1 A 0 A_GunFlash
@@ -88,7 +90,8 @@ ACTOR DemonTechMinigun : PB_WeaponBase
 	  DTM0 A 2 Bright {
 			A_FireCustomMissile("DTechMGProjectile",Random(1,-1),1,0,0,0,Random(1,-1));
 			A_FireCustomMissile("DTechMGProjectile",Random(1,-1),0,0,0,0,Random(1,-1));
-			A_FireCustomMissile("DTechMGProjectile",Random(1,-1),0,0,0,0,Random(1,-1));}
+			A_FireCustomMissile("DTechMGProjectile",Random(1,-1),0,0,0,0,Random(1,-1));
+	  }
 	  TNT1 A 0 Radius_Quake(2,2,0,1,0)
 	  TNT1 A 0 A_GunFlash
 	  TNT1 A 0 A_PlaySound("Weapons/BFGG/Fire")
@@ -97,9 +100,10 @@ ACTOR DemonTechMinigun : PB_WeaponBase
 	  DTM0 B 2 Bright {
 			A_FireCustomMissile("DTechMGProjectile",Random(1,-1),1,0,0,0,Random(1,-1));
 			A_FireCustomMissile("DTechMGProjectile",Random(1,-1),0,0,0,0,Random(1,-1));
-			A_FireCustomMissile("DTechMGProjectile",Random(1,-1),0,0,0,0,Random(1,-1));}
+			A_FireCustomMissile("DTechMGProjectile",Random(1,-1),0,0,0,0,Random(1,-1));
+	  }
 	  DTM0 C 2 
-      TNT1 A 0 PB_ReFire
+      TNT1 A 0 { PB_ReFire; }
 	  TNT1 A 0 A_PlaySound("weapons/expmgunspinstop",5)
 	  DTM1 EFGHI 3
 	  DTM1 JKLA 3
@@ -123,7 +127,7 @@ ACTOR DemonTechMinigun : PB_WeaponBase
 	  TNT1 AA 0 A_FireCustomMissile("ShrinkBeam",0,1,0,0)
 	  DTM0 B 6 Bright A_FireCustomMissile("ShrinkBeam",0,1,0,0,0,0)
 	  DTM0 C 6	  
-      TNT1 A 0 PB_ReFire("Hold2")
+      TNT1 A 0 { PB_ReFire("Hold2"); }
 	  TNT1 A 0 A_PlaySound("Weapons/BFGG/Down",5)
 	  DTM2 EFGHI 3
 	  DTM2 JKLA 3
@@ -155,7 +159,7 @@ ACTOR DemonTechMinigun : PB_WeaponBase
 	  DTM2 A 4 Offset(0,36)
 	  DTM2 A 4 Offset(0,32)
       DTM2 A 4 A_DoPBWeaponAction
-	  DTM2 A 3 PB_ReFire
+	  DTM2 A 3 { PB_ReFire; }
       Goto Ready3
     AltFire2:
 	  DTM2 A 0
@@ -179,7 +183,7 @@ ACTOR DemonTechMinigun : PB_WeaponBase
 	  DTM1 A 4 Offset(0,36)
 	  DTM1 A 4 Offset(0,32)
       DTM1 A 4 A_DoPBWeaponAction
-	  DTM1 A 3 PB_ReFire
+	  DTM1 A 3 { PB_ReFire; }
       Goto Ready3
    Flash:
       TNT1 A 5 A_Light1
@@ -210,7 +214,7 @@ ACTOR DemonTechMinigun : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0 A_ClearOverlays(3,10)
 		DTS0 FEDCBAAAAAAABCDEF 1
-		Goto Ready3
+		Stop
 	FlashPunching:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
@@ -218,15 +222,13 @@ ACTOR DemonTechMinigun : PB_WeaponBase
 		TNT1 A 0 A_ClearOverlays(3,10)
 		DTS0 FEDCBAAAAABCDEF 1
 		Stop
-		
 	FlashAirKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
 		TNT1 A 0 A_ClearOverlays(3,10)
 		DTS0 FEDCBAAAAAAABCDEF 1
-		Goto Ready3
-		
+		Stop
 	FlashSlideKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
@@ -239,7 +241,7 @@ ACTOR DemonTechMinigun : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0 A_ClearOverlays(3,10)
 		DTS0 AABCDEF 1
-	Goto Ready3
+	Stop
 		}
 }
 
@@ -283,4 +285,5 @@ ACTOR DTechMGProjectile : PB_Projectile
 	TNT1 A 0 A_SpawnItem("BFGAltShockWave",0,0)
     stop
   }
+
 }

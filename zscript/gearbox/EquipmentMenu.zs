@@ -8,20 +8,14 @@ Class gb_equipmentmenu
 		return nc;
 	}
 	
-	//this shouldnt be needed, but anyways
 	bool noequipments()
 	{
-		return getEquipmentNumber() == 0;
-	}
-	
-	int getEquipmentNumber()
-	{	
-		return tags.size();
+		return tags.size() == 0;
 	}
 	
 	ui bool selectNext()
 	{
-		int nItems = getEquipmentNumber();
+		int nItems = helditems.size();
 		if (nItems == 0) return false;
 
 		mSelectedIndex = (mSelectedIndex + 1) % nItems;
@@ -31,7 +25,7 @@ Class gb_equipmentmenu
 	
 	ui bool selectPrev()
 	{
-		int nItems = getEquipmentNumber();
+		int nItems = helditems.size();
 		if (nItems == 0) return false;
 
 		mSelectedIndex = (mSelectedIndex - 1 + nItems) % nItems;
@@ -43,11 +37,10 @@ Class gb_equipmentmenu
 	{
 		if (index == -1 || mSelectedIndex == index) return false;
 		
-		int nItems = getEquipmentNumber();
+		int nItems = helditems.size();
 		if(nItems == 0)
 			return false;
-		index = clamp(index,0,nItems);
-		
+		index = clamp(index, 0, nItems - 1);
 		
 		mSelectedIndex = index;
 
@@ -55,12 +48,12 @@ Class gb_equipmentmenu
 	}
 	
 	bool setSelectedIndexFromView(gb_ViewModel viewModel, int index)
-	  {
+	{
 		if (index == -1 || mSelectedIndex == viewModel.indices[index]) return false;
 
 		mSelectedIndex = viewModel.indices[index];
 		return true;
-	  }
+	}
 	
 	ui int getSelectedIndex() const
 	{
@@ -69,8 +62,8 @@ Class gb_equipmentmenu
 	
 	string ConfirmSelection() const
 	{
-		if(token.size() > 0)
-			return token[clamp(mSelectedIndex,0,token.size() - 1)];
+		if(helditems.size() > 0)
+			return token[helditems[clamp(mSelectedIndex, 0, helditems.size() - 1)]];
 		return "";
 	}
 	
@@ -101,44 +94,54 @@ Class gb_equipmentmenu
 		//finally add them to the actual arrays
 		for(int i = 0; i < inf.getsize(); i++)
 		{
-			inf.clss[i].InfoFiller(tags,token,img,scalex,scaley,slots,relAmmo);
+			inf.clss[i].InfoFiller(tags,token,ownedtokens,img,scalex,scaley,slots,relAmmo);
 		}
 	}
 	
 	ui void fill(out gb_ViewModel viewModel)
 	{
+		let player = players[consoleplayer].mo;
+		helditems.clear();
 		for(int i = 0; i < tags.size(); i++)
 		{
-			viewModel.tags        .push(tags[i]);
-			viewModel.slots       .push(slots[i]);
-			viewModel.indices     .push(i);
-			viewModel.icons       .push(texman.checkfortexture(img[i]));
-			viewModel.iconScaleXs .push(scalex[i]);
-			viewModel.iconScaleYs .push(scaley[i]);
-			if(relAmmo[i] != "") //account for ammo
+			if(ownedtokens[i] == "" || player.FindInventory(ownedtokens[i]))
 			{
-				let item = players[consoleplayer].mo.findinventory(relAmmo[i]);
-				if(item)
+				int filteredIdx = helditems.size();
+				viewModel.tags        .push(tags[i]);
+				viewModel.slots       .push(slots[i]);
+				viewModel.indices     .push(filteredIdx);
+				viewModel.icons       .push(texman.checkfortexture(img[i]));
+				viewModel.iconScaleXs .push(scalex[i]);
+				viewModel.iconScaleYs .push(scaley[i]);
+				if(relAmmo[i] != "")
 				{
-					viewModel.quantity2   .push(item.amount);
-					viewModel.maxQuantity2.push(item.maxamount);
+					let item = player.findinventory(relAmmo[i]);
+					if(item)
+					{
+						viewModel.quantity2   .push(item.amount);
+						viewModel.maxQuantity2.push(item.maxamount);
+					}
+					else
+					{
+						viewModel.quantity2   .push(0);
+						viewModel.maxQuantity2.push(1);
+					}
 				}
 				else
 				{
-					viewModel.quantity2   .push(0);		//
-					viewModel.maxQuantity2.push(1);		//
+					viewModel.quantity2   .push(-1);
+					viewModel.maxQuantity2.push(-1);
 				}
+				viewModel.quantity1   .push(-1);
+				viewModel.maxQuantity1.push(-1);
+				helditems.push(i);
 			}
-			else
-			{
-				viewModel.quantity2   .push(-1);		//no ammount for you >:(
-				viewModel.maxQuantity2.push(-1);		//
-			}
-			viewModel.quantity1   .push(-1);		//
-			viewModel.maxQuantity1.push(-1);		//
 		}
 		
-		viewModel.selectedIndex = clamp(mSelectedIndex,0,tags.size()-1);	//without this, blocks/text wont work
+		if(helditems.size() > 0)
+			viewModel.selectedIndex = clamp(mSelectedIndex, 0, helditems.size() - 1);
+		else
+			viewModel.selectedIndex = 0;
 	}
 	
 	
@@ -192,8 +195,10 @@ Class gb_equipmentmenu
 		return result;
 	}
 	
+	array <int>    helditems;
 	array <string> tags;
 	array <string> token;
+	array <string> ownedtokens;
 	array <string> img;
 	array <double> scalex;
 	array <double> scaley;
