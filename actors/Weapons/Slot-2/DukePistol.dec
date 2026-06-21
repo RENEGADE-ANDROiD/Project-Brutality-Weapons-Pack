@@ -1,0 +1,452 @@
+﻿Actor DukePistol : PB_Weapon
+{
+    Game Doom
+	SpawnID 2200
+	Weapon.BobRangeX 0.3
+	Weapon.BobRangeY 0.5
+	Weapon.BobStyle InverseSmooth
+	Weapon.BobSpeed 2.4
+	Weapon.AmmoUse1 0
+	Weapon.AmmoGive1 0
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive2 0
+	Weapon.AmmoType1 "PB_LowCalMag"
+	Weapon.AmmoType2 "DukePistolAmmo"
+	Obituary "Shot down by Duke Nukem 3D Pistol."
+    Inventory.PickupSound "P3DOUT"
+	Inventory.Pickupmessage "You got the Duke Nukem 3D Pistol! (Slot 2)!"
+    +WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+	+WEAPON.NOALERT	
+	+WEAPON.WIMPY_WEAPON
+	+INVENTORY.ALWAYSPICKUP
+    +FORCEXYBILLBOARD
+    +FLOORCLIP
+	Weapon.SlotNumber 2
+	Weapon.SlotPriority 0
+	Weapon.SelectionOrder 1900
+	Scale 0.7
+	Tag "Duke Nukem 3D Pistol"
+	Inventory.AltHudIcon "P3DIA0"
+	Weapon.SisterWeapon DualDukePistols
+	FloatBobStrength 0.5
+	States
+	{
+	Steady:
+		TNT1 A 1
+		Goto Ready
+
+	Ready:
+		TNT1 A 0
+	SelectAnimation:
+	    TNT1 A 0 {
+		     A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 return A_DoPBWeaponAction;
+		}
+		P3DG A 0 A_GunFlash
+		P3DS AB 1
+		P3DG A 0 A_PlaySound("P3DOUT", 6)
+		P3DG A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+	Ready3:
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		}
+	    TNT1 A 0
+	DukePistolReadyToFire:
+		P3DG A 1 {
+			 return PB_DoPBWeaponActionUnloaded(WRF_ALLOWRELOAD);
+		}
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		Loop
+
+	Deselect:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+
+
+
+
+
+
+
+	    }
+		TNT1 A 0 A_ZoomFactor(1.0)
+		P3DS BA 1
+				TNT1 A 0 A_Lower(120)
+		Wait
+
+	Select:
+	    TNT1 A 0 {
+		     A_WeaponOffset(0,32);
+		     A_SetRoll(0);
+		     A_TakeInventory("PB_LockScreenTilt",1);
+
+
+
+
+
+
+
+	    }
+	    TNT1 A 0 A_TakeInventory("HasBarrel",1)
+	    TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+	    TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+	    TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+	    TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+	    TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+	    Goto SelectFirstPersonLegs
+	    SelectContinue:
+	    TNT1 A 0 { PB_WeapTokenSwitch("DukePistolSelected"); }
+	    		TNT1 A 0 A_WeaponOffset(0, 32)
+	    		Goto Ready3
+
+    Fire:
+        TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+	    TNT1 A 0 {
+		     A_WeaponOffset(0,32);
+		     A_SetRoll(0);
+		     A_TakeInventory("PB_LockScreenTilt",1);
+
+
+
+
+
+
+
+	    }
+	    TNT1 A 0
+		P3DG A 0 A_JumpIfInventory("DukePistolAmmo",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+		P3DG A 0 A_PlaySound("FARSHT", 6)
+        P3DG A 0 A_PlaySound("P3DFIRE", 1)
+		P3DF A 1 BRIGHT {
+		     A_AlertMonsters;
+			 A_SpawnItemEx("PlayerMuzzle1",32,0,28);
+			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
+			 A_FireCustomMissile("ShakeYourAssMinor", 270, 0, 0, 0);
+			 A_FireCustomMissile("PBWP_Tracer_Pistol", frandom(-1, 1), 0, 0, 0, 0, frandom(-1, 1));
+			 A_FireProjectile("Duke_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			 A_ZoomFactor(0.98);
+			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+			 A_FireCustomMissile("PistolCasingSpawner", 0,0,0,-2);
+			 PB_WeaponRecoil(-0.19,+0.17);
+
+
+
+
+		}
+		P3DG A 0 A_ZoomFactor(1.0)	
+		P3DG A 0 A_Takeinventory("DukePistolAmmo",1)
+		P3DG A 0 A_Takeinventory("DualDukePistolAmmo",1)		
+        P3DF B 1
+		P3DF C 1 
+		P3DG A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		P3DG A 3 A_DoPBWeaponAction(WRF_NOBOB | WRF_ALLOWRELOAD)	
+		P3DG A 0 A_Refire
+		Goto DukePistolReadyToFire
+
+	AltFire:
+        TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+
+
+
+
+
+
+
+	    }
+	    TNT1 A 0
+		P3DG A 0 A_JumpIfInventory("DukePistolAmmo",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+		P3DG A 0 A_PlaySound("FARSHT", 6)
+        P3DG A 0 A_PlaySound("P3DFIRE", 1)
+		P3DF A 1 BRIGHT {
+		     A_AlertMonsters;
+			 A_SpawnItemEx("PlayerMuzzle1",32,0,28);
+			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
+			 A_FireCustomMissile("ShakeYourAssMinor", 270, 0, 0, 0);
+			 A_FireCustomMissile("PBWP_Tracer_Pistol", frandom(-1, 1), 0, 0, 0, 0, frandom(-1, 1));
+			 A_FireProjectile("Duke_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			 A_ZoomFactor(0.98);
+			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+			 A_FireCustomMissile("PistolCasingSpawner", 0,0,0,-2);
+			 PB_WeaponRecoil(-0.19,+0.17);
+
+
+
+
+		}
+		P3DG A 0 A_ZoomFactor(1.0)	
+		P3DG A 0 A_Takeinventory("DukePistolAmmo",1)
+		P3DG A 0 A_Takeinventory("DualDukePistolAmmo",1)		
+        P3DF B 1
+		P3DF C 1 
+		P3DG A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		P3DG A 3 A_DoPBWeaponAction(WRF_NOBOB | WRF_ALLOWRELOAD)	
+		P3DG A 0
+	    Goto DukePistolReadyToFire
+
+	NoAmmo:
+		RIFG A 0
+		RIFG A 0 A_ZoomFactor(1.0)
+		RIFG A 0 A_Takeinventory("Zoomed",1)
+		RIFG A 0 A_Takeinventory("ADSmode",1)
+		RIFG A 0 A_JumpIfInventory("TurboReload",1,"TurboReload")
+		TNT1 A 0 A_PlaySound("weapons/empty", 4)
+		TNT1 A 0 A_JumpIfInventory("PB_LowCalMag",3,"Reload")
+		NoAmmo2:
+		P3DG A 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOFIRE)
+		Goto DukePistolReadyToFire
+
+    Reload:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	    TNT1 A 0 {
+		     A_Takeinventory("PB_LockScreenTilt",1);
+
+
+
+
+
+
+
+	    }
+	    TNT1 A 0
+		P3DG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		P3DG A 0 A_Takeinventory("Reloading",1)
+		P3DG A 0 A_Takeinventory("ADSmode",1)
+		P3DG A 0 A_JumpIfInventory("DukePistolAmmo",13,"DukePistolReadyToFire")
+
+        P3DG A 0 A_JumpIfInventory("PB_LowCalMag",1,3)
+        Goto NoAmmo
+        TNT1 AAA 0
+		P3DG A 0 A_Takeinventory("Zoomed",1)
+        P3DG A 0 A_ZoomFactor(1.0)
+		P3DG A 0 A_GiveInventory ("Pumping", 1)
+		P3DG A 0 A_Takeinventory("Reloading",1)
+		P3DG A 0 A_JumpIfInventory("TurboReload",1,"TurboReload")
+		P3DG A 0 { PB_JumpIfMagUnloaded("DukePistol_MagUnloadedSkip"); }
+		TNT1 A 0 A_FireCustomMissile("EmptyClipMP40",-80,0,3,-4,0,-45)
+		P3DG A 0 A_PlaySound("P3DOUT")
+		TNT1 AA 0
+		DukePistol_MagUnloadedSkip:
+        P3DR ABCDEFGH 1 
+		P3DR H 5		
+		P3DG A 0 A_PlaySound("P3DIN")
+        P3DR IIIJKLLLMNO 1
+		P3DG A 0 { PB_SetMagUnloaded(false); }
+
+
+		P3DG A 0 A_JumpIfInventory("DukePistolAmmo",1,"InsertBullets2")//15+1 effect
+
+	TurboReload:
+		P3DG A 0 { PB_SetMagUnloaded(false); }
+
+
+        PISS BA 0
+        Goto InsertBullets
+
+	InsertBullets:
+		TNT1 AAAA 0
+		P3DG A 0 A_JumpIfInventory("DukePistolAmmo",13,15)
+		P3DG A 0 A_JumpIfInventory("PB_LowCalMag",1,3)
+		Goto DukePistolReadyToFire
+        TNT1 AAAAAA 0
+		P3DG A 0 A_Giveinventory("DukePistolAmmo",1)
+		P3DG A 0 A_Giveinventory("DualDukePistolAmmo",1)		
+		P3DG A 0 A_Takeinventory("PB_LowCalMag",1,TIF_NOTAKEINFINITE)
+		Goto InsertBullets
+
+		TNT1 AAAAAAAAAA 0
+		P3DG A 0 A_Takeinventory("Reloading",1)
+
+		P3DG A 0 A_Refire
+        Goto DukePistolReadyToFire
+		TNT1 AAAA 0
+		P3DG A 0 A_Takeinventory("Reloading",1)
+		P3DG A 0 A_Refire
+        Goto DukePistolReadyToFire
+
+	InsertBullets2:
+		TNT1 AAAA 0
+		P3DG A 0 A_JumpIfInventory("DukePistolAmmo",13,15)
+		P3DG A 0 A_JumpIfInventory("PB_LowCalMag",1,3)
+		Goto DukePistolReadyToFire
+        TNT1 AAAAAA 0
+		P3DG A 0 A_Giveinventory("DukePistolAmmo",1)
+		P3DG A 0 A_Giveinventory("DualDukePistolAmmo",1)		
+		P3DG A 0 A_Takeinventory("PB_LowCalMag",1,TIF_NOTAKEINFINITE)
+		Goto InsertBullets2
+
+		TNT1 AAAAAAAAAA 0
+		P3DG A 0 A_Takeinventory("Reloading",1)
+		P3DG A 0 A_Refire
+        Goto DukePistolReadyToFire
+		TNT1 AAAA 0
+		P3DG A 0 A_Takeinventory("Reloading",1)
+		P3DG A 0 A_Refire
+        Goto DukePistolReadyToFire
+
+	Unload:
+		P3DG A 0 A_Takeinventory("Unloading",1)
+		P3DG A 0 A_Takeinventory("ADSmode",1)
+		P3DG A 0 A_JumpIfInventory("DukePistolAmmo",1,3)
+        Goto NoAmmo
+        TNT1 AAA 0
+		P3DG A 0 A_Takeinventory("Zoomed",1)
+        P3DG A 0 A_ZoomFactor(1.0)
+		P3DG A 0 A_GiveInventory ("Pumping", 1)
+		P3DG A 0 A_Takeinventory("Reloading",1)
+        P3DR ONMLKJIIH 1
+		P3DG A 0 A_PlaySound("P3DOUT")
+		P3DR CBA 1
+		P3DG A 0 { PB_SetMagUnloaded(true); }
+
+
+		P3DG A 0 A_JumpIfInventory("DukePistolAmmo",1,"RemoveBullets")
+
+	RemoveBullets:
+		TNT1 AAAA 0
+		P3DG A 0 A_JumpIfInventory("DukePistolAmmo",1,3)
+		Goto DukePistolReadyToFire
+        TNT1 AAAAAA 0
+		P3DG A 0 A_Takeinventory("DukePistolAmmo",1)
+		P3DG A 0 A_Takeinventory("DualDukePistolAmmo",1)		
+		P3DG A 0 A_Giveinventory("PB_LowCalMag",1)
+		Goto RemoveBullets
+
+		TNT1 AAAAAAAAAA 0
+		P3DG A 0 A_Takeinventory("Reloading",1)
+		P3DG A 0 A_Refire
+        Goto DukePistolReadyToFire
+		TNT1 AAAA 0
+		P3DG A 0 A_Takeinventory("Reloading",1)
+
+		P3DG A 0 A_Refire
+        Goto DukePistolReadyToFire
+
+	Spawn:
+		P3DI A -1
+		Stop
+
+	WeaponSpecial:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 A_Takeinventory("GoWeaponSpecialAbility",1);
+
+
+
+
+		}
+		P3DG A 1
+		P3DG A 0 A_JumpIfInventory("DualDukePistols", 1, "GetDual")
+		Goto DukePistolReadyToFire
+	 GetDual:
+		P3DG A 0
+        P3DG A 0 A_ZoomFactor(1.0)
+		P3DG A 0 A_SelectWeapon("DualDukePistols")
+		P3DG A 0 A_Print("Dual Wield Duke Pistol Selected.")
+		Goto DukePistolReadyToFire
+
+	FlashKicking:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		P3DG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		P3DH A 1 A_DoPBWeaponAction
+		P3DH B 1 A_DoPBWeaponAction
+		P3DH C 1 A_DoPBWeaponAction
+		P3DH D 1 A_DoPBWeaponAction
+		P3DH E 6 A_DoPBWeaponAction
+		P3DH D 1 A_DoPBWeaponAction
+		P3DH C 1 A_DoPBWeaponAction
+		P3DH B 1 A_DoPBWeaponAction
+		P3DH A 1 A_DoPBWeaponAction
+		P3DG A 1 A_DoPBWeaponAction
+		Goto DukePistolReadyToFire
+
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")
+		P3DG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		P3DH A 1 A_DoPBWeaponAction
+		P3DH B 1 A_DoPBWeaponAction
+		P3DH C 1 A_DoPBWeaponAction
+		P3DH D 1 A_DoPBWeaponAction
+		P3DH E 7 A_DoPBWeaponAction
+		P3DH D 1 A_DoPBWeaponAction
+		P3DH C 1 A_DoPBWeaponAction
+		P3DH B 1 A_DoPBWeaponAction
+		P3DH A 1 A_DoPBWeaponAction
+		P3DG A 1 A_DoPBWeaponAction
+		Goto DukePistolReadyToFire
+
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		P3DG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		P3DH A 1 A_DoPBWeaponAction
+		P3DH B 1 A_DoPBWeaponAction
+		P3DH C 1 A_DoPBWeaponAction
+		P3DH D 1 A_DoPBWeaponAction
+		P3DH E 13 A_DoPBWeaponAction
+		P3DH D 1 A_DoPBWeaponAction
+		P3DH C 1 A_DoPBWeaponAction
+		P3DH B 1 A_DoPBWeaponAction
+		P3DH A 1 A_DoPBWeaponAction
+		P3DG A 1 A_DoPBWeaponAction
+		Goto DukePistolReadyToFire
+
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		P3DG A 1 A_DoPBWeaponAction
+		Goto DukePistolReadyToFire
+
+	FlashPunching:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+		TNT1 AAAAAAAAAAAAAA 1
+		Stop
+
+
+	}
+}
+
+Actor DukePistolAmmo : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 13
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 13
+   Inventory.Icon "P3DIA0"
+}
+

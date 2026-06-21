@@ -1,0 +1,7 @@
+#include "lumps/includes/textures/DamNums.inc"
+
+// Invisible list-menu selector (avoids M_SKULL1 / doomcurs black-bar artifact on main menu).
+Graphic PBWPSEL, 1, 1
+{
+	Patch "GRAPHICS/MISC/PBWPSEL.png", 0, 0
+}

@@ -13,6 +13,7 @@ class PBWP_VoidGrenadeToken : Inventory { default { inventory.maxamount 1; +INVE
 class PBWP_FreezeGrenadeToken : Inventory { default { inventory.maxamount 1; +INVENTORY.UNDROPPABLE } }
 
 // Slot 2 — Utility
+class PBWP_PipeBombToken : Inventory { default { inventory.maxamount 1; +INVENTORY.UNDROPPABLE } }
 class PBWP_CaltropsToken : Inventory { default { inventory.maxamount 1; +INVENTORY.UNDROPPABLE } }
 class PBWP_ElecPodToken : Inventory { default { inventory.maxamount 1; +INVENTORY.UNDROPPABLE } }
 class PBWP_ShieldGrenadeToken : Inventory { default { inventory.maxamount 1; +INVENTORY.UNDROPPABLE } }

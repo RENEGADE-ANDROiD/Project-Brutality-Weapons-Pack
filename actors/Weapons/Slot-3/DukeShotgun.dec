@@ -1,0 +1,657 @@
+Actor DukeShotgun : PB_Weapon
+{
+	Game Doom
+	SpawnID 2400
+	Weapon.BobRangeX 0.3
+	Weapon.BobRangeY 0.5
+	Weapon.BobStyle InverseSmooth
+	Weapon.BobSpeed 2.4
+	Weapon.AmmoUse1 0
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive1 4
+	Weapon.AmmoGive2 0
+	Weapon.AmmoType1 "PB_Shell"
+	Weapon.AmmoType2 "DukeShotgunAmmo"
+	Inventory.PickupMessage "You got the Duke Nukem 3D Shotgun (Slot 3)!"
+    Inventory.PickupSound "S3DPKUP"
+	Obituary "Duke Nukem Shotgun Death"
+    AttackSound "None"
+    +WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+	+WEAPON.NOALERT
+	+FORCEXYBILLBOARD
+	+DONTGIB
+	Weapon.SlotNumber 3
+	Weapon.SlotPriority 1
+	Weapon.SelectionOrder 2424
+	Scale 0.5
+	Tag "Duke Nukem 3D Shotgun"
+	Inventory.AltHudIcon "S3DCA0"
+	FloatBobStrength 0.5
+	States
+	{
+	Steady:
+		TNT1 A 1
+		Goto Ready
+
+	Ready:
+		TNT1 A 0
+	SelectAnimation:
+        TNT1 A 0 {
+		     A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+			 return A_DoPBWeaponAction;
+		}
+        S3DS ABC 1
+		S3DG A 0 A_PlaySound("S3DPKUP", 6)
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+			TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+			Goto Ready3
+	ReadySettle:
+    Ready3:
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+		}
+	    TNT1 A 0
+	DukeShotgunReadyToFire:
+		S3DG A 1 {
+			 return PB_DoPBWeaponActionUnloaded(WRF_ALLOWRELOAD);
+		}
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		Loop
+
+    Deselect:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+
+
+
+
+
+
+
+	    }
+		S3DG A 0 A_ZoomFactor(1.0)
+		S3DG A 0 A_TakeInventory("Zoomed",1)
+		S3DG A 0 A_TakeInventory("ADSmode",1)
+		Goto DeselectDown
+	DeselectDown:
+				TNT1 A 0 A_Lower(120)
+		Wait
+
+	Select:
+	    TNT1 A 0 {
+		     A_WeaponOffset(0,32);
+		     A_SetRoll(0);
+		     A_TakeInventory("PB_LockScreenTilt",1);
+
+
+
+
+
+
+
+	    }
+	    TNT1 A 0 A_TakeInventory("HasBarrel",1)
+	    TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+	    TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+	    TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+	    TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+	    TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+	    Goto SelectFirstPersonLegs
+	    SelectContinue:
+	    		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+	    		Goto Ready3
+
+    Fire:
+        TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+	    TNT1 A 0 {
+		     A_WeaponOffset(0,32);
+		     A_SetRoll(0);
+		     A_TakeInventory("PB_LockScreenTilt",1);
+
+
+
+
+
+
+
+	    }
+		S3DG A 0 A_Takeinventory("Reloading",1)
+        S3DG A 0 A_JumpIfInventory("DukeShotgunAmmo",1,2)
+        Goto NoAmmo
+        TNT1 AAAA 0
+		S3DG A 0 A_ZoomFactor(0.96)
+		S3DG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+        S3DG A 0 A_StartSound("S3DFIRE", CHAN_WEAPON)
+        S3DF AB 1 BRIGHT {
+		     A_AlertMonsters;
+			 A_SpawnItemEx("PlayerMuzzle1",32,0,28);
+			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
+			 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
+			 A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
+			 PB_FireBullets("Duke_12GAPellet",8,1.5,0,0,1.5);
+			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 1, 0, 0);
+			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 1, 0, 0);
+			 PB_WeaponRecoil(-1.64,+0.88);
+
+
+
+
+		}
+		TNT1 A 0 BRIGHT {
+		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
+		     A_FireCustomMissile("Tracer", 0, 0, 0, -14, 0, 0);
+
+
+
+
+		}
+		S3DG A 0 A_Takeinventory("DukeShotgunAmmo",1)
+		S3DG A 0 A_SetPitch(pitch-10)
+		S3DG A 0 A_SetPitch(-6.0 + pitch)
+		S3DG A 0 A_ZoomFactor(1.00)
+		S3DG A 1 BRIGHT A_SetPitch(+3.0 + pitch)
+		S3DG AAAAAA 1 BRIGHT A_SetPitch(pitch+0.6)
+		Goto Pump1
+
+   AltFire:
+        TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+	    TNT1 A 0 {
+			 A_WeaponOffset(0,32);
+			 A_SetRoll(0);
+			 A_TakeInventory("PB_LockScreenTilt",1);
+
+
+
+
+
+
+
+	    }
+	    TNT1 A 0
+	    Goto DukeShotgunReadyToFire
+
+   Pump1:	
+	   S3DG A 0
+	   S3DG A 0 A_GiveInventory ("Pumping", 1)
+	   S3DG BCDE 1
+	   S3DG A 0 {
+	        A_FireCustomMissile("SSGCaseSpawner",-40,0,0,-8);
+
+
+
+}
+	   S3DG A 0 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)//Allows Quick Switch   
+	   S3DG FGG 1
+	   S3DG H 4 A_PlaySound("S3DPUMP", 3)
+	   S3DG A 0 A_JumpIfInventory("TurboReload", 1, "PumpNoReload")//Tactical Mode is slower to pump
+	   S3DG GGF 1
+	   S3DG A 0 A_JumpIfInventory("DukeShotgunAmmo",1,5)
+	   S3DG A 0 A_JumpIfInventory("TurboReload", 1, 4)
+	   S3DG A 0 A_GiveInventory("ShotgunWasEmpty",1)
+	   S3DG A 0
+	   Goto InsertingShells
+	   TNT1 AA 0
+	   S3DG A 0 A_TakeInventory("ShotgunWasEmpty",1)
+	   S3DG EDCB 1
+	   S3DG A 0 A_JumpIfInventory("DukeShotgunAmmo",1,2)
+	   S3DG A 0 A_JumpIfInventory("TurboReload", 1, "TurboReload")
+	   S3DG A 0
+	   Goto ReadyToFireAgain
+
+   Pump2:	
+	   S3DG A 0
+	   S3DG A 0 A_GiveInventory ("Pumping", 1)
+	   S3DG A 0 A_TakeInventory("Reloading", 1)
+	   S3DG A 0 A_TakeInventory("Zoomed",1)
+	   S3DG A 0 A_ZoomFactor(1.0)
+	   S3DG FGG 1
+	   S3DG H 4 A_PlaySound("S3DPUMP", 3)
+	   S3DG GGF 1
+	   S3DG A 0 A_TakeInventory("ShotgunWasEmpty",1)
+	   S3DG EDCB 1
+	   Goto ReadyToFireAgain
+
+   Pump3:	
+	   S3DG A 0
+	   S3SR EDCBA 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+	   S3DG A 0 A_GiveInventory ("Pumping", 1)
+	   S3DG A 0 A_GiveInventory ("GoSpecial", 1)
+	   S3DG A 0 A_TakeInventory("Reloading", 1)
+	   S3DG A 0 A_TakeInventory("Zoomed",1)
+	   S3DG A 0 A_ZoomFactor(1.0)
+	   S3DG FGG 1
+	   S3DG H 4 A_PlaySound("S3DPUMP", 3)
+	   S3DG GGF 1
+	   S3DG A 0 A_TakeInventory("ShotgunWasEmpty",1)
+	   S3DG EDCB 1
+	   Goto ReadyToFireAgain	
+
+	ReadyToFireAgain:
+        S3DG A 1 Offset(10,36) // New Frames
+        S3DG A 1 Offset(9,40) //
+        S3DG A 1 Offset(4,40) //
+        S3DG A 1 Offset(0,32) //
+        S3DG A 0 A_Refire
+		Goto DukeShotgunReadyToFire
+
+	PumpNoReload:	
+	   S3DG FGG 1
+	   S3DG GGF 1
+	   S3DG A 0 A_Takeinventory("ShotgunWasEmpty",1)
+	   S3DG EDCB 1
+	   S3DG A 0 A_JumpIfInventory("DukeShotgunAmmo",1,2)
+	   S3DG A 0 A_JumpIfInventory("TurboReload", 1, "TurboReload")
+	   S3DG A 0
+	   Goto ReadyToFireAgain
+
+    Reload:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	    TNT1 A 0 {
+		    A_TakeInventory("PB_LockScreenTilt",1);
+
+
+
+
+
+
+	    }
+	    TNT1 A 0
+		S3DG A 0 A_TakeInventory("Reloading", 1)
+		S3DG A 0 A_JumpIfInventory("PB_Shell", 1, 2)
+		Goto DukeShotgunReadyToFire
+		S3DG A 0
+	    S3DG A 0 A_TakeInventory("Zoomed",1)
+        S3DG A 0 A_ZoomFactor(1.0)
+		S3DG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		S3DG A 0 A_JumpIfInventory("DukeShotgunAmmo",8,"DukeShotgunReadyToFire")
+		S3DG A 0 A_JumpIfInventory("DukeShotgunAmmo", 1, "ReloadNormally")//Check if there is a shell in the chamber
+		S3DG A 0 A_GiveInventory("ShotgunWasEmpty", 1)//This means there is no shell in the chamber
+
+	ReloadNormally:	
+        S3DG A 0 A_JumpIfInventory("PB_Shell",1,1)//If there is no reserve ammo, don't reload, go back to Ready
+        Goto DukeShotgunReadyToFire
+		S3DG A 0 { PB_SetMagUnloaded(false); }
+
+
+		S3DG A 0 A_JumpIfInventory("TurboReload", 1, "TurboReload")//Check if reloads are disabled.
+		S3DG B 1 A_GiveInventory ("Pumping", 1)
+		S3DG BCDE 1
+        S3SR ABCDE 1
+
+	 InsertingShells:
+		S3DG A 0 
+		S3DG A 0 A_JumpIfInventory("PB_Shell",1,2)//if there are no more reserve shells, finish reload.
+        Goto Pump2
+		S3DG A 0
+		S3DG A 0 A_GiveInventory ("Pumping", 1)
+		S3DR A 0 A_TakeInventory("Reloading", 1)
+        S3DG A 0 A_JumpIfInventory("DukeShotgunAmmo",7,"CheckIfFinishReload")
+        S3DG A 0 A_GiveInventory("DukeShotgunAmmo",1)
+		S3DG A 0 A_TakeInventory("PB_Shell",1,TIF_NOTAKEINFINITE)
+
+	InsertShellAnimation:	
+		S3DG A 0
+		S3DR ABC 1
+        S3DR D 1 A_PlaySound("InsertShell")
+        S3DR EFGHI 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_ALLOWRELOAD)
+        S3DR A 0 A_JumpIfInventory("Reloading", 1, "Pump3")
+		S3DG A 0 A_JumpIfInventory("DukeShotgunAmmo",8,"FinishedInsertingShells")//If there are 8+1 shells, stop it immediately
+        Goto InsertingShells
+
+	CheckIfFinishReload:
+		S3DR A 1 
+		S3DG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "FinishedInsertingShells")//If shotgun was empty, 
+	  //Play the insert shell animation again, and insert the 9th shell
+		S3DG A 0 A_JumpIfInventory("PB_Shell",1,1)//if there are no more reserve shells, finish reload.
+        Goto Pump2
+		S3DG A 0 A_GiveInventory("DukeShotgunAmmo",1)
+		S3DG A 0 A_TakeInventory("PB_Shell",1,TIF_NOTAKEINFINITE)
+        Goto InsertShellAnimation
+
+	FinishedInsertingShells:
+		S3DG A 0 A_TakeInventory("Reloading",1)
+		S3SR EDCBA 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)	
+		S3DG A 0 A_JumpIfInventory("ShotgunWasEmpty", 1, "Pump2")
+		S3DG FEDCBA 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		S3DG A 0 A_TakeInventory("Reloading",1)
+		Goto DukeShotgunReadyToFire
+
+	 TurboReload:
+		SHSS BC 0
+	 TurboBullets:	
+		S3DG A 0
+		S3DG A 0 A_JumpIfInventory("DukeShotgunAmmo",8,"FinishTurboReload")
+        S3DG A 0 A_JumpIfInventory("PB_Shell",1,3)
+        Goto FinishTurboReload
+        TNT1 AAAA 0
+        S3DG A 0 A_GiveInventory("DukeShotgunAmmo",1)
+		S3DG A 0 A_TakeInventory("PB_Shell",1,TIF_NOTAKEINFINITE)
+		Goto TurboBullets
+	FinishTurboReload:
+		S3DG A 0 A_TakeInventory("ShotgunWasEmpty", 1)
+		S3DG A 1
+		S3DG A 1 A_Refire
+		Goto DukeShotgunReadyToFire
+
+	TurboReload2:
+		SHSS BC 0
+	TurboBullets2:	
+		S3DG A 0
+		S3DG A 0 A_JumpIfInventory("DukeShotgunAmmo",8,"FinishTurboReload")
+        S3DG A 0 A_JumpIfInventory("PB_Shell",1,3)
+        Goto FinishTurboReload2
+        TNT1 AAAA 0
+        S3DG A 0 A_Giveinventory("DukeShotgunAmmo",1)
+		S3DG A 0 A_TakeInventory("PB_Shell",1,TIF_NOTAKEINFINITE)
+		Goto TurboBullets2
+	FinishTurboReload2:
+		S3DG A 0 A_TakeInventory("ShotgunWasEmpty", 1)
+		SHT8 A 1 A_Refire
+		Goto ReadyToFireAgain
+
+	Unload:
+		S3DG A 0 A_ZoomFactor(1.0)
+		S3DG A 0 A_TakeInventory("Unloading",1)
+		S3DG A 0 A_TakeInventory("ADSmode",1)
+		S3DG A 0 A_TakeInventory("Zoomed",1)
+		S3DG A 0 A_GiveInventory("ShotgunWasEmpty", 1)
+        S3DG A 0 A_JumpIfInventory("DukeShotgunAmmo",1,3)
+        Goto NoAmmo
+        TNT1 AAA 0
+		S3DG A 0 A_TakeInventory("Zoomed",1)
+		S3DG A 0 A_GiveInventory ("Pumping", 1)
+		S3DG A 0 A_TakeInventory("Unloading",1)
+		S3DG ABCDEF 1
+
+	RemoveBullets:
+		TNT1 AAAA 0
+		S3DG A 0 A_JumpIfInventory("DukeShotgunAmmo",1,3)
+		Goto FinishUnload
+        TNT1 AAAAAA 0
+		S3DG A 0 A_TakeInventory("DukeShotgunAmmo",1)
+		S3DG A 0 A_GiveInventory("PB_Shell",1)
+
+	    S3DG FG 1
+	    S3DG H 3 A_PlaySound("S3DPUMP", 3)
+	    S3DG A 0 A_GiveInventory("ShotgunWasEmpty",1)
+	    S3DG GF 1
+		Goto RemoveBullets
+
+	FInishUnload:
+		S3DG EDCBA 1
+		S3DG A 0 A_TakeInventory("Unloading",1)
+		S3DG A 0 { PB_SetMagUnloaded(true); }
+
+
+		Goto DukeShotgunReadyToFire
+
+	NoAmmo:
+		RIFG A 0
+		RIFG A 0 A_ZoomFactor(1.0)
+		RIFG A 0 A_TakeInventory("Zoomed",1)
+		RIFG A 0 A_TakeInventory("ADSmode",1)
+		RIFG A 0 A_JumpIfInventory("TurboReload",1,"TurboReload")
+		TNT1 A 0 A_PlaySound("weapons/empty", 4)
+		NoAmmo2:
+		S3DG A 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOFIRE)
+		Goto DukeShotgunReadyToFire
+
+	NoAmmo3:
+		SHT8 A 4 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOPRIMARY)
+		Goto DukeShotgunReadyToFire
+
+	Spawn:
+		S3DC A -1
+		Stop
+
+	WeaponSpecial:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	    TNT1 A 0 {
+			A_WeaponOffset(0,32);
+			A_SetRoll(0);
+			A_TakeInventory("PB_LockScreenTilt",1);
+			A_Takeinventory("GoWeaponSpecialAbility",1);
+
+
+
+}
+	    TNT1 A 0
+	    TNT1 A 0 A_Print("No Duke Shotgun Special Available")
+        Goto DukeShotgunReadyToFire
+
+	FlashKicking:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		S3DG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		S3DG B 1 A_DoPBWeaponAction
+		S3DG C 1 A_DoPBWeaponAction
+		S3DG D 1 A_DoPBWeaponAction
+		S3DG E 6 A_DoPBWeaponAction
+		S3DG D 1 A_DoPBWeaponAction
+		S3DG C 1 A_DoPBWeaponAction
+		S3DG B 1 A_DoPBWeaponAction
+		S3DG A 1 A_DoPBWeaponAction
+		Goto DukeShotgunReadyToFire
+
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")
+		S3DG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		S3DG B 1 A_DoPBWeaponAction
+		S3DG C 1 A_DoPBWeaponAction
+		S3DG D 1 A_DoPBWeaponAction
+		S3DG E 7 A_DoPBWeaponAction
+		S3DG D 1 A_DoPBWeaponAction
+		S3DG C 1 A_DoPBWeaponAction
+		S3DG B 1 A_DoPBWeaponAction
+		S3DG A 1 A_DoPBWeaponAction
+		Goto DukeShotgunReadyToFire
+
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		S3DG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		S3DG B 1 A_DoPBWeaponAction
+		S3DG C 1 A_DoPBWeaponAction
+		S3DG D 1 A_DoPBWeaponAction
+		S3DG E 13 A_DoPBWeaponAction
+		S3DG D 1 A_DoPBWeaponAction
+		S3DG C 1 A_DoPBWeaponAction
+		S3DG B 1 A_DoPBWeaponAction
+		S3DG A 1 A_DoPBWeaponAction
+		Goto DukeShotgunReadyToFire
+
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		S3DG A 1 A_DoPBWeaponAction
+		Goto DukeShotgunReadyToFire
+
+	FlashPunching:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+		S3DG A 1 A_DoPBWeaponAction
+		S3DK A 1 A_DoPBWeaponAction
+		S3DK B 1 A_DoPBWeaponAction
+		S3DK C 1 A_DoPBWeaponAction
+		S3DK D 1 A_DoPBWeaponAction
+		S3DK E 5 A_DoPBWeaponAction
+		S3DK D 1 A_DoPBWeaponAction
+		S3DK C 1 A_DoPBWeaponAction
+		S3DK B 1 A_DoPBWeaponAction
+		S3DK A 1 A_DoPBWeaponAction
+		Stop
+
+	FlashPunchingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+		S3DG A 1 A_DoPBWeaponAction
+		Goto DukeShotgunReadyToFire
+
+
+	}
+}
+
+Actor DukeShotgunAmmo : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 8
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 8
+   Inventory.Icon "S3DCA0"
+}
+
+Actor TheDukeSGSpawners replaces Shotgun
+{
+	//$Title Random Shotgun Spawner
+	//$Sprite UDBGW0
+	Scale 0.2 //So the editor sprite isn't massive.
+	RenderStyle "Translucent"
+	+FLOORCLIP
+	+LOOKALLAROUND
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1 ACS_NamedExecuteAlways("WeaponSpawnerScript",0)
+	Deciding:
+		TNT1 A 1
+		loop
+	DiceRandom:
+		TNT1 A 0 A_Jump(256, "SpawnNormalShotgun", "SpawnPB_Revolver", "SpawnASG", "SpawnPB_SGMagazine", "SpawnDukeSG")
+		Stop	
+	DiceMain:	// Default spawn preset with a slight difficulty curve. Tier 1-4 Monster presets are contained here to provide more variety.
+		EarlyLevelMob:
+			TNT1 A 0 A_Jump(1,"SpawnPB_SGMagazine")
+			TNT1 A 0 A_Jump(4,"SpawnASG")
+			TNT1 A 0 A_Jump(12,"SpawnPB_Revolver")
+			TNT1 A 0 A_Jump(256,"SpawnNormalShotgun")
+		LowLevelMob:
+			TNT1 A 0 A_Jump(4,"SpawnPB_SGMagazine")
+			TNT1 A 0 A_Jump(8,"SpawnASG")
+			TNT1 A 0 A_Jump(24,"SpawnPB_Revolver")
+			TNT1 A 0 A_Jump(256,"SpawnNormalShotgun", "SpawnDukeSG")
+		MidLevelMob:
+			TNT1 A 0 A_Jump(16,"SpawnPB_SGMagazine")
+			TNT1 A 0 A_Jump(32,"SpawnASG")
+			TNT1 A 0 A_Jump(48,"SpawnPB_Revolver")
+			TNT1 A 0 A_Jump(256,"SpawnNormalShotgun", "SpawnDukeSG")
+		HighLevelMob:
+			TNT1 A 0 A_Jump(96,"SpawnPB_SGMagazine")
+			TNT1 A 0 A_Jump(64,"SpawnASG")
+			TNT1 A 0 A_Jump(64,"SpawnPB_Revolver")
+			TNT1 A 0 A_Jump(256,"SpawnNormalShotgun", "SpawnDukeSG")
+	DiceProg:	// Progressive spawn preset enforces strict spawning rules by excluding monsters until they are presented in later levels.
+		DiceTier1:
+			TNT1 A 0 A_Jump(256,"SpawnNormalShotgun", "SpawnDukeSG")
+		DiceTier2:
+			TNT1 A 0 A_Jump(48,"SpawnPB_Revolver")
+			TNT1 A 0 A_Jump(256,"SpawnNormalShotgun", "SpawnDukeSG")
+		DiceTier3:
+			TNT1 A 0 A_Jump(16,"SpawnPB_SGMagazine")
+			TNT1 A 0 A_Jump(64,"SpawnPB_Revolver")
+			TNT1 A 0 A_Jump(64,"SpawnASG")
+			TNT1 A 0 A_Jump(256,"SpawnNormalShotgun", "SpawnDukeSG")
+		DiceTier4:
+			TNT1 A 0 A_Jump(96,"SpawnPB_SGMagazine")
+			TNT1 A 0 A_Jump(64,"SpawnASG")
+			TNT1 A 0 A_Jump(64,"SpawnPB_Revolver")
+			TNT1 A 0 A_Jump(256,"SpawnNormalShotgun", "SpawnDukeSG")
+		DiceDeathWish:
+			TNT1 A 0 A_Jump(108,"SpawnPB_SGMagazine")
+			TNT1 A 0 A_Jump(64,"SpawnASG")
+			TNT1 A 0 A_Jump(64,"SpawnPB_Revolver")
+			TNT1 A 0 A_Jump(256,"SpawnNormalShotgun", "SpawnDukeSG")
+	SpawnPB_SGMagazine:
+		TNT1 A 0 {
+			if(GetCvar("pb_SSGRandomSpawn"))
+			{
+				return A_Jump(168,"SpawnSSGClass");
+
+
+
+			}
+				return A_Jump(256,1);
+
+
+			}
+		TNT1 A 1 ACS_NamedExecuteAlways("ToggleDragonBreathUpgrade", 0, 0, 0, 0)//Check if Upgrades are disabled
+		//TNT1 A 1 A_RadiusGive("IsNearShotgun", 480, RGF_GIVESELF | RGF_CUBE | RGF_MONSTERS | RGF_ITEMS | RGF_NOSIGHT, 1)
+		TNT1 A 0 A_SpawnItemEx("PB_SGMagazine",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288,0,tid)
+		Stop		
+	SpawnASG:
+		TNT1 A 1 ACS_NamedExecuteAlways("ToggleWeaponASG",0)
+		//TNT1 A 1 A_RadiusGive("IsNearShotgun", 480, RGF_GIVESELF | RGF_CUBE | RGF_MONSTERS | RGF_ITEMS | RGF_NOSIGHT, 1)
+		TNT1 A 0 A_SpawnItemEx("DropedASG",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288,0,tid)
+		Stop		
+	SpawnPB_Revolver:
+		TNT1 A 0 A_JumpIf(GetCvar("pb_nodeagle"), 2)
+		TNT1 A 0 A_Jump(96, "SpawnDeagle")
+		TNT1 A 1 ACS_NamedExecuteAlways("ToggleWeaponRevolver",0)
+		//TNT1 A 1 A_RadiusGive("IsNearLowCalWeapon",  480, RGF_GIVESELF | RGF_CUBE | RGF_MONSTERS | RGF_ITEMS | RGF_NOSIGHT, 1)
+		//TNT1 A 0 A_RadiusGive("IsNearRevolver",  480, RGF_GIVESELF | RGF_CUBE | RGF_MONSTERS | RGF_ITEMS | RGF_NOSIGHT, 1)
+		TNT1 A 0 A_SpawnItemEx("DropedPB_Revolver",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288,0,tid)
+		Stop
+	SpawnDeagle:
+		TNT1 A 1 ACS_NamedExecuteAlways("ToggleWeaponRevolver",0)
+		//TNT1 A 1 A_RadiusGive("IsNearLowCalWeapon",  480, RGF_GIVESELF | RGF_CUBE | RGF_MONSTERS | RGF_ITEMS | RGF_NOSIGHT, 1)
+		//TNT1 A 0 A_RadiusGive("IsNearRevolver",  480, RGF_GIVESELF | RGF_CUBE | RGF_MONSTERS | RGF_ITEMS | RGF_NOSIGHT, 1)
+		TNT1 A 0 A_SpawnItemEx("PB_Deagle",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288,0,tid)
+		Stop
+	SpawnNormalShotgun:
+		ReplaceVanilla:
+		ReplaceToggle:
+		BackpackSpawn: //For the upgrade spawner because I'm lazy
+	ReplaceVanilla:
+		TNT1 A 0 {
+			if(GetCvar("pb_SSGRandomSpawn"))
+			{
+				return A_Jump(168,"SpawnSSGClass");
+
+
+
+			}
+				return A_Jump(256,1);
+
+
+			}
+		TNT1 A 0 A_SpawnItemEx("PB_Shotgun",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288,0,tid)
+		//TNT1 A 0 A_RadiusGive("IsNearShotgun", 480, RGF_GIVESELF | RGF_CUBE | RGF_MONSTERS | RGF_ITEMS | RGF_NOSIGHT, 1)
+		Stop
+	SpawnSSGClass:
+		TNT1 A 1 A_SpawnItemEx("SSGWeaponSpawner",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288,0,tid)
+		Stop
+	SpawnDukeSG:
+		TNT1 A 0 A_SpawnItemEx("DukeShotgun",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_TRANSFERAMBUSHFLAG | SXF_TRANSFERPOINTERS | 288,0,tid)
+		//TNT1 A 0 A_RadiusGive("IsNearShotgun", 480, RGF_GIVESELF | RGF_CUBE | RGF_MONSTERS | RGF_ITEMS | RGF_NOSIGHT, 1)
+		Stop
+
+
+}
+}

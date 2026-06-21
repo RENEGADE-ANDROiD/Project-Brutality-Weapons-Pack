@@ -11,11 +11,10 @@ ACTOR KatanaPickup : CustomInventory {
 			Spawn:
 				KATA N -1 
 				Stop
-		Pickup:
-			TNT1 A 0 A_GiveInventory ("KatanaDurability",50)
-			TNT1 A 0 A_GiveInventory ("PBWP_KatanaMeleeToken",1)
-			Stop	}
-}
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("KatanaDurability",50)
+				TNT1 A 0 A_GiveInventory ("PBWP_KatanaMeleeToken", 1)
+				Stop }}
 
 ACTOR PickAxePickup : CustomInventory {
 	Game Doom
@@ -30,11 +29,10 @@ ACTOR PickAxePickup : CustomInventory {
 			Spawn:
 				PCKA N -1 
 				Stop
-		Pickup:
-			TNT1 A 0 A_GiveInventory ("PickAxeDurability",35)
-			TNT1 A 0 A_GiveInventory ("PBWP_PickAxeMeleeToken",1)
-			Stop	}
-}
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("PickAxeDurability",35)
+				TNT1 A 0 A_GiveInventory ("PBWP_PickAxeMeleeToken", 1)
+				Stop }}
 
 ACTOR ImpactorChargesPickup : CustomInventory {
 	Game Doom
@@ -49,11 +47,10 @@ ACTOR ImpactorChargesPickup : CustomInventory {
 			Spawn:
 				IMPA Z -1 
 				Stop
-		Pickup:
-			TNT1 A 0 A_GiveInventory ("ImpactorCharges",10)
-			TNT1 A 0 A_GiveInventory ("PBWP_ImpactorMeleeToken",1)
-			Stop	}
-}
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("ImpactorCharges",10)
+				TNT1 A 0 A_GiveInventory ("PBWP_ImpactorMeleeToken", 1)
+				Stop }}
 
 ACTOR ClawChargesPickup : CustomInventory {
 	Game Doom
@@ -68,11 +65,10 @@ ACTOR ClawChargesPickup : CustomInventory {
 			Spawn:
 				GAFL H -1 
 				Stop
-		Pickup:
-			TNT1 A 0 A_GiveInventory ("ImpactorCharges",20)
-			TNT1 A 0 A_GiveInventory ("PBWP_ClawMeleeToken",1)
-			Stop	}
-}
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("ClawCharges",20)
+				TNT1 A 0 A_GiveInventory ("PBWP_ClawMeleeToken", 1)
+				Stop }}
 
 ACTOR SentinelHammerChargePickup : CustomInventory {
 	Game Doom
@@ -87,11 +83,10 @@ ACTOR SentinelHammerChargePickup : CustomInventory {
 			Spawn:
 				SHPB Z -1 
 				Stop
-		Pickup:
-			TNT1 A 0 A_GiveInventory ("SentinelhammerCharges",10)
-			TNT1 A 0 A_GiveInventory ("PBWP_SentinelHammerMeleeToken",1)
-			Stop	}
-}
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("SentinelhammerCharges",10)
+				TNT1 A 0 A_GiveInventory ("PBWP_SentinelHammerMeleeToken", 1)
+				Stop }}
 
 ACTOR JohnnyHandsPickup : CustomInventory {
 	Game Doom
@@ -106,11 +101,10 @@ ACTOR JohnnyHandsPickup : CustomInventory {
 			Spawn:
 				JZDX A -1 
 				Stop
-		Pickup:
-			TNT1 A 0 A_GiveInventory ("ExplosiveHandCharges",10)
-			TNT1 A 0 A_GiveInventory ("PBWP_JohnnyHandsMeleeToken",1)
-			Stop	}
-}
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("ExplosiveHandCharges",10)
+				TNT1 A 0 A_GiveInventory ("PBWP_JohnnyHandsMeleeToken", 1)
+				Stop }}
 
 /* DOESNT WORK, PB_AXE IS TOO DIFFERENT
 ACTOR AxePickup : CustomInventory {
@@ -128,7 +122,7 @@ ACTOR AxePickup : CustomInventory {
 			Pickup:
 				TNT1 A 0 A_GiveInventory ("AxeDurability",40)
 				//TNT1 A 0 A_GiveInventory ("PB_Axe",1)
-				Stop	}}*/
+				Stop }}*/
 
 
 // ProSurv
@@ -144,10 +138,10 @@ ACTOR Wrench : CustomInventory {
 			Spawn:
 				WRNP A -1 
 				Stop
-		Pickup:
-			TNT1 A 0 A_GiveInventory ("WrenchDurability",30)
-			TNT1 A 0 A_GiveInventory ("PBWP_WrenchMeleeToken",1)
-			Stop	}}
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("WrenchDurability",30)
+				TNT1 A 0 A_GiveInventory ("PBWP_WrenchMeleeToken", 1)
+				Stop }} 
 
 ACTOR Crowbar : CustomInventory {
 	Game Doom
@@ -162,10 +156,10 @@ ACTOR Crowbar : CustomInventory {
 			Spawn:
 				CBAP A -1 
 				Stop
-		Pickup:
-			TNT1 A 0 A_GiveInventory ("CrowbarDurability",35)
-			TNT1 A 0 A_GiveInventory ("PBWP_CrowbarMeleeToken",1)
-			Stop	}}
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("CrowbarDurability",35)
+				TNT1 A 0 A_GiveInventory ("PBWP_CrowbarMeleeToken", 1)
+				Stop }}
 
 ACTOR SledgeHammer : CustomInventory {
 	Game Doom
@@ -179,10 +173,10 @@ ACTOR SledgeHammer : CustomInventory {
 			Spawn:
 				2UBR A -1 
 				Stop
-		Pickup:
-			TNT1 A 0 A_GiveInventory ("HammerDurability",40)
-			TNT1 A 0 A_GiveInventory ("PBWP_SledgeHammerMeleeToken",1)
-			Stop	}}
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("HammerDurability",40)
+				TNT1 A 0 A_GiveInventory ("PBWP_SledgeHammerMeleeToken", 1)
+				Stop }}
 
 actor HasShockBaton : Inventory {inventory.maxamount 1}
 
@@ -198,11 +192,11 @@ ACTOR ShockBaton : CustomInventory {
 			Spawn:
 				BATN W -1 
 				Stop
-		Pickup:
-			TNT1 A 0 A_GiveInventory ("PB_Cell",50)
-			TNT1 A 0 A_GiveInventory ("HasShockBaton",1)
-			TNT1 A 0 A_GiveInventory ("PBWP_BatonMeleeToken",1)
-			Stop	}}
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("PB_Cell",50)
+				TNT1 A 0 A_GiveInventory ("HasShockBaton",1)
+				TNT1 A 0 A_GiveInventory ("PBWP_BatonMeleeToken", 1)
+				Stop }}
 
 ACTOR DemonicSword : CustomInventory {
 	Game Doom
@@ -216,12 +210,12 @@ ACTOR DemonicSword : CustomInventory {
 			Spawn:
 				6KAT A -1 
 				Stop
-		Pickup:
-			TNT1 A 0 A_GiveInventory ("PB_DTech",40)
-			TNT1 A 0 A_GiveInventory ("KatanaDurability",50)
-            TNT1 A 0 A_GiveInventory ("HasDemonicKatana",1)
-			TNT1 A 0 A_GiveInventory ("PBWP_BladeMeleeToken",1)
-			Stop	}}
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("PB_DTech",40)
+				TNT1 A 0 A_GiveInventory ("KatanaDurability",50)
+                TNT1 A 0 A_GiveInventory ("HasDemonicKatana",1)
+				TNT1 A 0 A_GiveInventory ("PBWP_KatanaMeleeToken", 1)
+				Stop }}
 
 ACTOR Machete : CustomInventory {
 	Game Doom
@@ -235,7 +229,7 @@ ACTOR Machete : CustomInventory {
 			Spawn:
 				MCH2 Z -1 
 				Stop
-		Pickup:
-			TNT1 A 0 A_GiveInventory ("MacheteDurability",30)
-			TNT1 A 0 A_GiveInventory ("PBWP_MacheteMeleeToken",1)
-			Stop	}}
+			Pickup:
+				TNT1 A 0 A_GiveInventory ("MacheteDurability",30)
+				TNT1 A 0 A_GiveInventory ("PBWP_MacheteMeleeToken", 1)
+				Stop }}

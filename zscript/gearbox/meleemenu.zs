@@ -1,3 +1,41 @@
+// Legacy durability/charge checks for melee wheel (must live in gearbox TU — not PBWP ZSCRIPT.zc).
+class PBWP_MeleeWheelHelper
+{
+	static bool HasLegacyUnlock(Actor player, string ownedToken)
+	{
+		if (!player) return false;
+
+		Name n = Name(ownedToken);
+		switch (n)
+		{
+		case 'PBWP_KatanaMeleeToken':
+			return player.CountInv("KatanaDurability") > 0 || player.CountInv("HasDemonicKatana") > 0;
+		case 'PBWP_PickAxeMeleeToken':
+			return player.CountInv("PickAxeDurability") > 0;
+		case 'PBWP_ImpactorMeleeToken':
+			return player.CountInv("ImpactorCharges") > 0;
+		case 'PBWP_ClawMeleeToken':
+			return player.CountInv("ClawCharges") > 0;
+		case 'PBWP_SentinelHammerMeleeToken':
+			return player.CountInv("SentinelhammerCharges") > 0;
+		case 'PBWP_JohnnyHandsMeleeToken':
+			return player.CountInv("ExplosiveHandCharges") > 0;
+		case 'PBWP_WrenchMeleeToken':
+			return player.CountInv("WrenchDurability") > 0;
+		case 'PBWP_CrowbarMeleeToken':
+			return player.CountInv("CrowbarDurability") > 0;
+		case 'PBWP_SledgeHammerMeleeToken':
+			return player.CountInv("HammerDurability") > 0;
+		case 'PBWP_BatonMeleeToken':
+			return player.CountInv("HasShockBaton") > 0;
+		case 'PBWP_MacheteMeleeToken':
+			return player.CountInv("MacheteDurability") > 0;
+		default:
+			return false;
+		}
+	}
+}
+
 Class gb_meleemenu
 {
 	static gb_meleemenu from()
@@ -82,7 +120,8 @@ Class gb_meleemenu
 		helditems.clear();
 		for(int i = 0; i < tags.size(); i++)
 		{
-			if(ownedtokens[i] == "" || player.FindInventory(ownedtokens[i]))
+			if(ownedtokens[i] == "" || player.FindInventory(ownedtokens[i])
+				|| PBWP_MeleeWheelHelper.HasLegacyUnlock(player, ownedtokens[i]))
 			{
 				int filteredIdx = helditems.size();
 				viewModel.tags        .push(tags[i]);

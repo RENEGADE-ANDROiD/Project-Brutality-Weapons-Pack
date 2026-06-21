@@ -1,4 +1,4 @@
-ACTOR AssaultPlasResp : Inventory {Inventory.MaxAmount 1}
+ACTOR AssaultPlasResp : Inventory { Inventory.MaxAmount 1 }
 Actor HeatBlastInterpol : Inventory { Inventory.MaxAmount 100 }
 Actor HeatBlastCharging : Inventory { Inventory.MaxAmount 2 }
 ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
@@ -35,7 +35,7 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
    SelectReady:
    Ready:
 	  TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
-		TNT1 A 0 PB_RespectIfNeeded
+		TNT1 A 0 { PB_RespectIfNeeded; }
    WeaponRespect:
       TNT1 A 0 A_GiveInventory("AssaultPlasResp",1)
       NPRP MN 1
@@ -65,9 +65,8 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
       RNLG A 0 A_PlaySound("toolbox/off", 6)
-	  NPPL EDCBA 1
 	  RNLU E 0 A_PlaySound("toolbox/deequip", 5)
-	  TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+	  		TNT1 A 0 A_Lower(120)
       Wait
 	  
    Select:
@@ -81,8 +80,8 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 		SelectContinue:
 		TNT1 A 0 A_Takeinventory("HasUnloaded",1)
 		TNT1 A 0 A_Takeinventory("Unloading",1)
-      TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Raise
-	  Goto Ready
+	  		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+	  		Goto Ready3
 
 
 	FireNoreload:
@@ -127,7 +126,7 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 	  RNLF F 0
 	  NPLF C 1 Bright
 	  NPLF D 1
-	  TNT1 A 0 PB_ReFire
+	  TNT1 A 0 { PB_ReFire; }
 	  Goto RealReady
 	  
 	  Fired:
@@ -137,7 +136,7 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 	  PGOH D 2
 	  PGOH EFG 3
 	  PGOH GFEDCBA 1
-	  TNT1 A 0 PB_ReFire
+	  TNT1 A 0 { PB_ReFire; }
 	  Goto RealReady
 	
 	HeatBlastConseq:
@@ -161,13 +160,13 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 	  RNLF F 0
 	  NPLF C 1 Bright
 	  NPLF D 1
-	  TNT1 A 0 PB_ReFire
+	  TNT1 A 0 { PB_ReFire; }
 	  Goto RealReady
 	
 	TrueHighFire:
 	  TNT1 A 0 A_JumpIfInventory("HeatBlastCharging",1,"GoContinueFire")
 	  TNT1 A 0 {
-		 A_PlaySoundEX("HeatBlastLV2", "Weapon");
+		 A_PlaySoundEX("HeatBlastLV2", CHAN_WEAPON);
 		 A_GiveInventory("HeatBlastCharging", 1);
 		 }
 	GoContinueFire:
@@ -191,13 +190,13 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 	  RNLF F 0
 	  NPLF C 1 Bright
 	  NPLF D 1
-	  TNT1 A 0 PB_ReFire
+	  TNT1 A 0 { PB_ReFire; }
 	  Goto RealReady
 	
 	HeatBlastReadyToFire:
 	  TNT1 A 0 A_JumpIfInventory("HeatBlastCharging",2,"GoContinueFireII")
 	  TNT1 A 0 {
-		 A_PlaySoundEX("HeatBlastLVMax", "Weapon");
+		 A_PlaySoundEX("HeatBlastLVMax", CHAN_WEAPON);
 		 A_GiveInventory("HeatBlastCharging", 1);
 		 }
 	GoContinueFireII:
@@ -218,7 +217,7 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 	  RNLF F 0
 	  NPLF C 1 Bright
 	  NPLF D 1
-	  TNT1 A 0 PB_ReFire
+	  TNT1 A 0 { PB_ReFire; }
 	  Goto RealReady
 	
 
@@ -268,7 +267,7 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 	//I'll do this any of right.
 	  Released:
 	  NPLF A 1 {
-			A_PlaySound("ReleasedHeatBlast", "Weapon");
+			A_PlaySound("ReleasedHeatBlast", CHAN_WEAPON);
 			A_PlaySoundEX("PLSULT", CHAN_WEAPON);
 			A_SetBlend("Blue", 0.6, 12);
 			A_ZoomFactor(1.0);
@@ -361,7 +360,7 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 	    NPPL CB 1
 	    NPPL A 5
 	    NPPL AABBCCDDE 1
-		Goto Ready3
+		Stop
 		
 	FlashAirKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
@@ -372,7 +371,7 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 	    NPPL CB 1
 	    NPPL A 5
 	    NPPL AABBCCDDE 1
-		Goto Ready3
+		Stop
 		
 	FlashSlideKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
@@ -384,7 +383,7 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0
-		Goto Ready3
+		Stop
 
 	Unload:
 		TNT1 A 0 A_ZoomFactor(1.0)
@@ -417,7 +416,7 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 
 	}
 }
-ACTOR Unloaded_Plasma-Rifle : Inventory {Inventory.MaxAmount 1}
+ACTOR Unloaded_Plasma-Rifle : Inventory { Inventory.MaxAmount 1 }
 
 ACTOR Plasma-Mag : Ammo
 {
@@ -426,93 +425,14 @@ ACTOR Plasma-Mag : Ammo
 	Inventory.Icon "NPLZA0"
 }
 
-ACTOR Plasma_Ball: FastProjectile Replaces PlasmaBall
-{
-	Radius 10
-	Height 2
-	Speed 60
-	Damage 8
-    DamageType Plasma
-	Decal "SmallerScorch"
-	Projectile
-	+RANDOMIZE
-	
-	//+SHOOTABLE
-	-NOBLOCKMAP
-	+NOBLOOD
-	+NORADIUSDMG
-	+THRUSPECIES
-	+MTHRUSPECIES
-	Species "Marines"
-	damagefactor "Blood", 0.0 
-	damagefactor "BlueBlood", 0.0 
-	damagefactor "GreenBlood", 0.0 
-	damagefactor "Taunt", 0.0 
-	damagefactor "KillMe", 0.0 
-	damagefactor "Shrapnel", 0.0
-	Health 5
-	Scale 0.6
-	
-renderstyle ADD
-alpha 0.90
-	DeathSound "PLAMAD"
-	//SeeSound "PLSM9"
-    SeeSound "None"
-	Obituary "$OB_MPPLASMARIFLE"
-	States
-	{
-	DM:
-		TNT1 A 0
-		TNT1 A 0 A_ChangeFLag("THRUSPECIES", 0)
-		TNT1 A 0 A_ChangeFLag("MTHRUSPECIES", 0)
-		Goto Spawn1
-	
-	Spawn:
-		TNT1 A 0
-
-	Spawn1:
-		
-        FXTH ABCD 1 BRIGHT A_SpawnItem("PlasmaFlare",0,0)
-		TNT1 A 0 A_CheckFloor("Death")
-		Loop
-
-Xdeath:
-    //TNT1 A 0 A_SpawnItem ("PlasmaPuff", 0)
-    //TNT1 A 0 A_SpawnItem ("RailPuff", 0)
-	TNT1 A 0 A_CustomMissile ("BluePlasmaFire", 0, 0, random (0, 360), 2, random (0, 360))
-	//TNT1 A 0 A_SpawnItem("BluePlasmaRife")
-	TNT1 AAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
-    FXTH E 1 A_Explode(6,50,0)
-	FXTH F 1
-	FXTH GHIJ 1
-	TNT1 AAAAAA 9 A_CustomMissile ("PlasmaSmoke", 1, 0, random (0, 360), 2, random (0, 160))
-		
-		Stop
-
-	Death:
-    //TNT1 A 0 A_SpawnItem ("PlasmaPuff", 0)
-    //TNT1 A 0 A_SpawnItem ("RailPuff", 0)
-	TNT1 B 1 A_Explode(6,50,1)
-	TNT1 A 0 A_SpawnItemEx ("DetectFloorCraterSmall",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
-	TNT1 A 0 A_SpawnItemEx ("DetectCeilCraterSmall",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
-	TNT1 A 0 A_CustomMissile ("BluePlasmaFire", 0, 0, random (0, 360), 2, random (0, 360))
-	FXTH FGHIJ 1 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 360))
-    TNT2 AAAAAAAAA 9 A_CustomMissile ("PlasmaSmoke", 1, 0, random (0, 360), 2, random (0, 160))
-		Stop
-	}
-}
 
 
-ACTOR PlasmaBall75: Plasma_Ball
-{
-	Damage 9
-	SeeSound "PLSM9"
-}
 ACTOR PlasmaBall99: Plasma_Ball
 {
 	Damage 20
 	SeeSound "PLSM9"
 }
-ACTOR PlagueMod : Inventory {Inventory.MaxAmount 1}
+ACTOR PlagueMod : Inventory { Inventory.MaxAmount 1 }
 
 //From Cyberaugumented
+

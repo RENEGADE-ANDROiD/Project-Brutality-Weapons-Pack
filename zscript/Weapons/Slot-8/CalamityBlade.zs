@@ -3,7 +3,7 @@ class PB_CalamityBlade : PB_WeaponBase
  Int ChargeLevel;
 	default
 	{
-		// weapon.slotnumber 8;
+		Weapon.SlotNumber 9;
 		weapon.ammotype1 "PB_Cell";
 		weapon.ammogive1 100;	
 		weapon.slotpriority 0;
@@ -13,6 +13,7 @@ class PB_CalamityBlade : PB_WeaponBase
 		Obituary "Got roasted by the Calamity Blade. Ouch!";
 		Inventory.AltHUDIcon "WP0PA0";
 		PB_WeaponBase.TailPitch 0.6;
+		Weapon.UpSound "WP9/UP1";
 		+weapon.noalert;
 		+weapon.noautofire;
 		+weapon.noautoaim;
@@ -50,24 +51,21 @@ class PB_CalamityBlade : PB_WeaponBase
 			goto ready3;
 			
 		Select:
-			TNT1 A 0 A_Raise();
+			TNT1 A 0 A_weaponoffset(0,32);
 			TNT1 A 0 {PB_HandleCrosshair(69);}
 			TNT1 A 0 A_SetInventory("RandomHeadExploder",1);
-			TNT1 A 0 PB_RespectIfNeeded();
-			TNT1 A 0 A_weaponoffset(0,32);
 			goto SelectFirstPersonLegs;
 		SelectContinue:
-			TNT1 A 0 PB_RespectIfNeeded();
+			TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
+			TNT1 A 0 PB_WeaponRaise("WP9/UP1");
+			TNT1 A 0 PB_WeapTokenSwitch("AddonSelected");
+			TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE);
+			Goto Ready3;
 		SelectAnimation:
-			TNT1 A 0
-		{
-			A_ZoomFactor(1);
-			A_StartSound("WP9/UP1",7);
-		}
 		WP0G A 1 A_WeaponOffset(0, 99,WOF_INTERPOLATE);
 		WP0G A 1 A_WeaponOffset(0, 66,WOF_INTERPOLATE);
 		WP0G A 1 A_WeaponOffset(0, 33,WOF_INTERPOLATE);
-			goto ready;
+			goto Ready3;
 		
 		Deselect:
 			TNT1 A 0 {PB_HandleCrosshair(69);}
@@ -79,23 +77,21 @@ class PB_CalamityBlade : PB_WeaponBase
 			A_StopSound(7);
 			A_ZoomFactor(1);
 		}
-		WP0G A 1 A_WeaponOffset(0, 33,WOF_INTERPOLATE);
-		WP0G A 1 A_WeaponOffset(0, 66,WOF_INTERPOLATE);
-		WP0G A 1 A_WeaponOffset(0, 99,WOF_INTERPOLATE);
-			TNT1 A 0 A_lower;
+			TNT1 A 0 A_Lower(120);
 			wait;
 		
 		Ready:
 			TNT1 A 0 A_WeaponOffset(0,32);
 			TNT1 A 0 PB_HandleCrosshair(42);
 		Ready3:
-			WP0G A 1
-		{
-			//A_SetInventory("PB_LockScreenTilt",0);
-			//A_SetInventory("CantDoAction",0);
+			TNT1 A 0 { PB_RespectIfNeeded(); }
+			TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
+			TNT1 A 0 {
+				PB_HandleCrosshair(42);
+				A_TakeInventory("PB_LockScreenTilt", 1);
 				PB_CoolDownBarrel(0, 0, 3);
-				return A_DoPBWeaponAction();
-		}
+			}
+			WP0G A 1 A_DoPBWeaponAction;
 			loop;		
 		
 		////////////////////////////////////////////////////////////////////////
@@ -103,25 +99,26 @@ class PB_CalamityBlade : PB_WeaponBase
 		////////////////////////////////////////////////////////////////////////
 		Charge1:
 		WP0C ABCD 3 BRIGHT A_Light1;
-		Goto LightDone;
+		Stop;
 	Charge2:
 		WP0C EFGH 3 BRIGHT A_Light1;
-		Goto LightDone;
+		Stop;
 	Charge3:
 		WP0C IJKL 3 BRIGHT A_Light1;
-		Goto LightDone;
+		Stop;
 	Charge4:
 		WP0C MNOP 3 BRIGHT A_Light1;
-		Goto LightDone;
+		Stop;
 	Charge5:
 		WP0C QRST 3 BRIGHT A_Light1;
-		Goto LightDone;
+		Stop;
 		
 		Fire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel");
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel");
 			TNT1 A 0 {
+				invoker.ChargeLevel = 0;
 				A_WeaponOffset(0,32);
 				A_SetRoll(0);
 				PB_HandleCrosshair(42);
@@ -187,7 +184,7 @@ class PB_CalamityBlade : PB_WeaponBase
 			A_OverlayRotate(OverlayID(),0);
 		}
 		TNT1 A 0 A_Refire();
-		Goto Ready;
+		Goto Ready3;
 	Dryfire:
 		WP0G A 1
 		{
@@ -195,16 +192,14 @@ class PB_CalamityBlade : PB_WeaponBase
 			A_WeaponOffset(0,34,WOF_INTERPOLATE);
 		}
 		WP0G A 1;
-		//TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AutoReloadToggle")==1,"Reload");
 		TNT1 A 0 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_NOFIRE);
-		TNT1 A 0 A_JumpIf(ACS_NamedExecuteWithResult("AutoReloadToggle")==1,"Reload");
-		Goto Ready;
+		Goto Ready3;
 	AfterStates:
 		TNT1 A 5 A_WeaponOffset(-7, 99,WOF_INTERPOLATE);
 		WP0G A 1 A_WeaponOffset(-5, 68,WOF_INTERPOLATE);
 		WP0G A 1 A_WeaponOffset(-3, 47,WOF_INTERPOLATE);
 		WP0G A 1 A_WeaponOffset(-1, 34,WOF_INTERPOLATE);
-		Goto Ready;
+		Goto Ready3;
 		
 		
 		WeaponSpecial:
@@ -228,135 +223,146 @@ class PB_CalamityBlade : PB_WeaponBase
 		////////////////////////////////////////////////////////////////////////
 		
 		FlashPunching:
-			TNT1 A 0 A_ClearOverlays(10,11);
-TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			TNT1 ABCDEFGGFEDCBA 1;
-			stop;
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
+			TNT1 A 0 A_ClearOverlays(10, 11);
+			WP0G A 1 A_WeaponOffset(0, 33, WOF_INTERPOLATE);
+			WP0G A 1 A_WeaponOffset(0, 66, WOF_INTERPOLATE);
+			WP0G A 1 A_WeaponOffset(0, 99, WOF_INTERPOLATE);
+			TNT1 AAAAAAAAAAA 1;
+			Stop;
 		
 		FlashKicking:
-			TNT1 A 0 A_ClearOverlays(10,11);
-TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			WP0K ABCDEFGGGFEDCBA 1;
-			goto ready;
+			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking");
+			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking");
+			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking");
+			TNT1 A 0 A_ClearOverlays(10, 11);
+			WP0G A 1;
+			TNT1 A 0 A_WeaponOffset(0, 32);
+			TNT1 A 0 A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+			Goto Ready3;
 			
 		FlashAirKicking:
-			TNT1 A 0 A_ClearOverlays(10,11);
-TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			WP0K ABCDEFGGGGFEDCBA 1;
-			goto ready;
+			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking");
+			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking");
+			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking");
+			TNT1 A 0 A_ClearOverlays(10, 11);
+			WP0G A 1;
+			TNT1 A 0 A_WeaponOffset(0, 32);
+			TNT1 A 0 A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+			Goto Ready3;
 			
 		FlashSlideKicking:
-			TNT1 A 0 A_ClearOverlays(10,11);
-TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			WP0K ABCDEFGGGGGGGGGGGGGGGFEDCBA 1;
-			goto ready;
+			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking");
+			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking");
+			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking");
+			TNT1 A 0 A_ClearOverlays(10, 11);
+			WP0G A 1;
+			TNT1 A 0 A_WeaponOffset(0, 32);
+			TNT1 A 0 A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+			Goto Ready3;
 			
 		FlashSlideKickingStop:
-			TNT1 A 0 A_ClearOverlays(10,11);
-TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
-			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching");
-			WP0K GFEDCBA 1;
-			goto ready;
+			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop");
+			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop");
+			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop");
+			TNT1 A 0 A_ClearOverlays(10, 11);
+			WP0G A 1;
+			TNT1 A 0 A_WeaponOffset(0, 32);
+			TNT1 A 0 A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+			Goto Ready3;
 	}
 	
-	Action Void A_CalamityBladeCharge()
+	action void A_CalamityBladeCharge()
 	{
-		A_StartSound("WP0/FR1",0);
-		If(Invoker.ChargeLevel < 5 && CountInv("PB_Cell") >= 10)
+		A_StartSound("WP0/FR1", CHAN_AUTO);
+		if (invoker.ChargeLevel < 5 && CountInv("PB_Cell") >= 10)
 		{
-			If(!sv_infiniteammo)
-			A_TakeInventory("PB_Cell",10);
-			Invoker.ChargeLevel++;	
+			if (!sv_infiniteammo)
+				A_TakeInventory("PB_Cell", 10);
+			invoker.ChargeLevel++;
 		}
 	}
 
-	Action Void A_ChargeShow()
+	action void A_ChargeShow()
 	{
-		If(Invoker.ChargeLevel == 0)
-			A_Overlay(2,"Charge1",FALSE);
-		If(Invoker.ChargeLevel == 1)
-			A_Overlay(2,"Charge2",FALSE);
-		If(Invoker.ChargeLevel == 2)
-			A_Overlay(2,"Charge3",FALSE);
-		If(Invoker.ChargeLevel == 3)
-			A_Overlay(2,"Charge4",FALSE);
-		If(Invoker.ChargeLevel >= 4)
-			A_Overlay(2,"Charge5",FALSE);	
+		if (invoker.ChargeLevel == 0)
+			A_Overlay(-2, "Charge1", FALSE);
+		if (invoker.ChargeLevel == 1)
+			A_Overlay(-2, "Charge2", FALSE);
+		if (invoker.ChargeLevel == 2)
+			A_Overlay(-2, "Charge3", FALSE);
+		if (invoker.ChargeLevel == 3)
+			A_Overlay(-2, "Charge4", FALSE);
+		if (invoker.ChargeLevel >= 4)
+			A_Overlay(-2, "Charge5", FALSE);
 	}
 
-	Action Void A_CalamityBladeFire()
+	action void A_CalamityBladeFire()
 	{
-		A_StartSound("WP0/FR2",7);
-		If(Invoker.ChargeLevel == 1)
-		{	
-			A_FireProjectile("CalamitySlice",5, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",0, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",-5,0,Flags:FPF_NOAUTOAIM);	
+		A_StartSound("WP0/FR2", CHAN_WEAPON);
+		if (invoker.ChargeLevel == 1)
+		{
+			A_FireProjectile("CalamitySlice", 5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 0, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -5, 0, flags: FPF_NOAUTOAIM);
 		}
-		If(Invoker.ChargeLevel == 2)
-		{	
-			A_FireProjectile("CalamitySlice",12.5, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice", 7.5, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice", 2.5, 0,Flags:FPF_NOAUTOAIM);	
-			A_FireProjectile("CalamitySlice",-2.5, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",-7.5, 0,Flags:FPF_NOAUTOAIM);			
-			A_FireProjectile("CalamitySlice",-12.5,0,Flags:FPF_NOAUTOAIM);		
+		if (invoker.ChargeLevel == 2)
+		{
+			A_FireProjectile("CalamitySlice", 12.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 7.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 2.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -2.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -7.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -12.5, 0, flags: FPF_NOAUTOAIM);
 		}
-		If(Invoker.ChargeLevel == 3)
-		{	
-			A_FireProjectile("CalamitySlice",20, 0,Flags:FPF_NOAUTOAIM);	
-			A_FireProjectile("CalamitySlice",15, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",10, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice", 5, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice", 0, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",-5, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",-10,0,Flags:FPF_NOAUTOAIM);			
-			A_FireProjectile("CalamitySlice",-15,0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",-20,0,Flags:FPF_NOAUTOAIM);			
+		if (invoker.ChargeLevel == 3)
+		{
+			A_FireProjectile("CalamitySlice", 20, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 15, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 10, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 0, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -10, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -15, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -20, 0, flags: FPF_NOAUTOAIM);
 		}
-		If(Invoker.ChargeLevel == 4)
-		{	
-			A_FireProjectile("CalamitySlice",27.5, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",22.5, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",17.5, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",12.5, 0,Flags:FPF_NOAUTOAIM);	
-			A_FireProjectile("CalamitySlice", 7.5, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice", 2.5, 0,Flags:FPF_NOAUTOAIM);			
-			A_FireProjectile("CalamitySlice",-2.5, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",-7.5, 0,Flags:FPF_NOAUTOAIM);			
-			A_FireProjectile("CalamitySlice",-12.5,0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",-17.5,0,Flags:FPF_NOAUTOAIM);			
-			A_FireProjectile("CalamitySlice",-22.5,0,Flags:FPF_NOAUTOAIM);			
-			A_FireProjectile("CalamitySlice",-27.5,0,Flags:FPF_NOAUTOAIM);			
+		if (invoker.ChargeLevel == 4)
+		{
+			A_FireProjectile("CalamitySlice", 27.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 22.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 17.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 12.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 7.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 2.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -2.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -7.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -12.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -17.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -22.5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -27.5, 0, flags: FPF_NOAUTOAIM);
 		}
-		If(Invoker.ChargeLevel >= 5)
-		{	
-			A_FireProjectile("CalamitySlice",35, 0,Flags:FPF_NOAUTOAIM);	
-			A_FireProjectile("CalamitySlice",30, 0,Flags:FPF_NOAUTOAIM);	
-			A_FireProjectile("CalamitySlice",25, 0,Flags:FPF_NOAUTOAIM);	
-			A_FireProjectile("CalamitySlice",20, 0,Flags:FPF_NOAUTOAIM);	
-			A_FireProjectile("CalamitySlice",15, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",10, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice", 5, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice", 0, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",-5, 0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",-10,0,Flags:FPF_NOAUTOAIM);			
-			A_FireProjectile("CalamitySlice",-15,0,Flags:FPF_NOAUTOAIM);
-			A_FireProjectile("CalamitySlice",-20,0,Flags:FPF_NOAUTOAIM);				
-			A_FireProjectile("CalamitySlice",-25,0,Flags:FPF_NOAUTOAIM);				
-			A_FireProjectile("CalamitySlice",-30,0,Flags:FPF_NOAUTOAIM);				
-			A_FireProjectile("CalamitySlice",-35,0,Flags:FPF_NOAUTOAIM);				
+		if (invoker.ChargeLevel >= 5)
+		{
+			A_FireProjectile("CalamitySlice", 35, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 30, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 25, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 20, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 15, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 10, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", 0, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -5, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -10, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -15, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -20, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -25, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -30, 0, flags: FPF_NOAUTOAIM);
+			A_FireProjectile("CalamitySlice", -35, 0, flags: FPF_NOAUTOAIM);
 		}
-			Invoker.ChargeLevel = 0;
+		invoker.ChargeLevel = 0;
 	}
 	
 	Action void A_LoudFlash() 
@@ -382,14 +388,6 @@ TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching");
 			A_SetPitch(Pitch - FRandom(0.400, 0.800),SPF_INTERPOLATE);
 			A_SetAngle(Angle + FRandom(-0.500, 0.500),SPF_INTERPOLATE);
 		}
-	}
-}
-
-Class RespectPB_CalamityBlade : Inventory
-{
-	default
-	{
-		Inventory.maxamount 1;
 	}
 }
 
@@ -468,124 +466,3 @@ Class LBWP0FlameTrails : Actor
 	}
 }
 
-Class LBWP0FlameImpact : NLExplode
-{
-	Default { Scale  0.8; Alpha 0.7; }
-	States
-	{
-    Spawn:
-		FTX1 EFGHIJKLMNOPQ 1 BRIGHT
-		{
-			A_FadeOut(0.02,1);
-			A_SetScale(Scale.X+0.01,Scale.Y+0.01);
-			A_SetRoll(Roll+fRandom(8,15),SPF_INTERPOLATE);
-		}
-		Stop;
-    }
-}
-
-// EXPLOSION FLAMES
-Class NLExplode : Actor
-{
-	Default
-	{
-		-SPRITEFLIP
-		+NOBLOCKMAP
-		+NOCLIP
-		+BRIGHT
-		+NOGRAVITY
-		Speed 3;
-		Scale 1.2;
-		Alpha 0.5;
-		Renderstyle "Add";
-	}
-	States
-	{
-	Spawn:
-		FTX1 A 1;
-		FTX1 AABBCCDEFGHIJKLMNOOPP 1 A_SetScale(Scale.X+0.060,Scale.Y+0.060);
-		FTX1 QQQQQQQQQQQQQQQQQQQQQ 1 A_FadeOut(0.05,1);
-		Stop;
-	}
-}
-
-Class NLSmokeSpawner : Actor
-{
-	Default
-	{
-		+NOCLIP
-		Speed 20;
-	}
-	States
-    {
-	Spawn:
-		TNT1 A 0 NoDelay A_SpawnProjectile("NLWeaponSmoke",9,0,Random(0,360),2,Random(0,180));
-        Stop;
-    }
-}
-
-Class NLWeaponSmoke : Actor
-{
-	Default
-	{
-		+NOGRAVITY
-		+NOBLOCKMAP
-		+FLOORCLIP
-		+FORCEXYBILLBOARD
-		+CLIENTSIDEONLY
-		+NOINTERACTION
-		+DONTSPLASH
-		+MISSILE
-		RenderStyle "Add";
-		Scale  0.200;
-		Alpha  0.3;
-		Radius 0;
-		Height 0;
-		Speed  1;
-	}
-	States
-	{
-	Spawn:
-		TNT1 A 0 NoDelay; //A_JumpIf(CVar.FindCVar("SmokeEffects").GetBool() == 0,"Vanish");
-		SMOK ABCDEFGHIJKLMNOPQR 2
-		{
-			If (self is "NLCasingSmoke") { A_SetTics(1); A_SetScale(0.02,0.06); A_FadeOut(0.005); }
-			Else if (self is "NLCasingSmokeEnd") { A_SetTics(1); A_SetScale(0.02,0.095); A_FadeOut(0.005); ThrustThingZ(0,1,0,0); }
-			Else { A_FadeOut(0.005); ThrustThingZ(0,2,0,0);}
-			Return ResolveState(null);
-		}
-	Vanish:
-		TNT1 A 0 A_StopSound(2);
-		Stop;
-	}
-}
-
-
-Class NLCasingSmoke : NLWeaponSmoke { Default { Speed 1; } }
-Class NLCasingSmokeEnd : NLWeaponSmoke { Default { Speed 8; } }
-
-Class EXPlosmokes : Actor
-{
-	Default
-	{
-		+NOBLOCKMAP
-		+THRUACTORS
-		PROJECTILE;
-		Radius 	1;
-		Height 	1;
-		Speed 	2;
-		Damage 	0;
-		Scale 	0.7;
-	}
-	States
-	{
-	Spawn:
-		//TNT1 A 0 NoDelay A_JumpIf(ACS_NamedExecuteWithResult("SmokeToggle")==0,"Vanish");
-		TNT1 A 0 NoDelay;
-		SMOK ABCDEFGHIJKLMNOPQR 2 { A_SetTranslucent(0.250,1); A_FadeOut(0.1,1);}
-		Stop;
-	Vanish:
-		TNT1 A 0;
-		Stop;
-	}
-}

@@ -1,0 +1,19 @@
+﻿// Karnage Legacy - flattened from PB3.0_Karnage Legacy Weapon pack (HEAVYLAG)
+#INCLUDE ACTORs/Weapons/Karnage/KarnageTracer.dec
+#INCLUDE ACTORs/Weapons/Karnage/KarnageTracers.dec
+#INCLUDE ACTORs/Weapons/Karnage/PSAMMO.dec
+#INCLUDE ACTORs/Weapons/Karnage/RFAMMO.dec
+#INCLUDE ACTORs/Weapons/Karnage/EXPAMMO.dec
+#INCLUDE ACTORs/Weapons/Karnage/MAGZ.dec
+#INCLUDE ACTORs/Weapons/Karnage/HandgunG2.dec
+#INCLUDE ACTORs/Weapons/Karnage/ShotgunV1.dec
+#INCLUDE ACTORs/Weapons/Karnage/MP55.dec
+#INCLUDE ACTORs/Weapons/Karnage/SSVXAR.dec
+#INCLUDE ACTORs/Weapons/Karnage/PAGrenadeLauncher.dec
+#INCLUDE ACTORs/Weapons/Karnage/Plasmastinger.dec
+#INCLUDE ACTORs/Weapons/Karnage/Rainmaker.dec
+#INCLUDE ACTORs/Weapons/Karnage/KarnRevolver.dec
+#INCLUDE ACTORs/Weapons/Karnage/KRE_SMK.dec
+#INCLUDE ACTORs/Weapons/Karnage/KRE_PRT.dec
+#INCLUDE ACTORs/Weapons/Karnage/KRE_MZL.dec
+#INCLUDE ACTORs/Weapons/Karnage/KRE_CAS.dec

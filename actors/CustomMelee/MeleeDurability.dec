@@ -5,6 +5,7 @@ Actor ExplosiveHandCharges : ammo
 	Ammo.BackPackAmount 10
 	Ammo.BackPackMaxAmount 10
 	Inventory.PickUpMessage ""
+	+INVENTORY.QUIET
 }
 
 ACTOR KatanaDurability : Ammo {
@@ -47,7 +48,7 @@ ACTOR SentinelhammerCharges : Ammo {
     Ammo.BackPackMaxAmount 10
 }   
 
-ACTOR AxeDurability : Ammo { // SPECIAL CASE DUE TO HOW PB_AXE WORKS
+ACTOR AxeDurability : Ammo { // SPECIAL CASE DUE TO HOW PB_AXE WORKS 
 	Game Doom
     Inventory.Amount 0
     Inventory.MaxAmount 40
@@ -94,4 +95,4 @@ ACTOR MacheteDurability : Ammo {
     Inventory.MaxAmount 30
     Ammo.BackPackAmount 30
     Ammo.BackPackMaxAmount 30
-}		
+}

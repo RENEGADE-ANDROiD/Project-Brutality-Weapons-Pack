@@ -1,9 +1,8 @@
 Credits!  Thanks to our amazing mod community.  I love you all.
 
  
-- Behold! by Bob-Quick-Save-Smith! https://www.doomworld.com/forum/topic/155315-behold-resurrection-add-on-for-gzdoom/
 - DragonSlayer Swords and Bolt-Repeater by Craneo.  I found this on the Hexen moddb.
-- Shieldsaw by Craneo.  I paired this with the Heavensever.
+- Shieldsaw by Craneo (Schism / Fire & Ice equipment).
 - BattleAxe and Shield\Stormcast is made by Dreo & Lord Lothar for the amazing mod Schism!
 - ThunderCrossbow sprites from Brutal Hexen by Seidolon.
 - ThunderCrossbow AltFire is the PSI Thunder ability from the mod PSI Powers by Mini--Joe - https://forum.zdoom.org/viewtopic.php?p=1181250

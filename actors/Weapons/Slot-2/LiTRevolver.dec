@@ -1,0 +1,669 @@
+//// --------------------------------------------------------------------------
+//
+// Revolver
+//ready+12
+// --------------------------------------------------------------------------
+ACTOR LiTRevolver : PB_WeaponBase
+{
+	Weapon.AmmoUse1 0
+	Weapon.AmmoGive1 12
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive2 0
+	Weapon.AmmoType1 "PB_LowCalMag"
+	Weapon.AmmoType2 "44S&WAmmo"
+	Weapon.Kickback 70
+	Obituary "%o was shot down by %k's revolver."
+    AttackSound "None"
+    Inventory.PickupSound "REVOUP"
+	Inventory.Pickupmessage "Magnum Revolver .500 S&W (Slot-2, Overpowered, Upgrade)"
+    +WEAPON.NOAUTOAIM
+    +WEAPON.NOALERT
+    +WEAPON.NOAUTOFIRE
+    Scale 0.4
+	 tag "Magnum Revolver .500 S&W"
+	PB_WeaponBase.RespectItem "LiTRevolverRespecter"
+	Inventory.AltHUDIcon "RVICA0"
+	Weapon.SlotNumber 2
+	Weapon.SlotPriority 3
+	States
+	{    
+
+	Steady:
+	TNT1 A 1
+	Goto Ready
+	
+	Ready:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 { PB_RespectIfNeeded; }
+	WeaponRespect:
+		BADF A 0
+		BADF A 0 A_GiveInventory("LiTRevolverRespecter", 1)
+		RVIN A 0 A_PLAYSOUND("Weapons/Revolver/Click1",1)
+		TNT1 A 0 A_DoPBWeaponAction
+		RVIN ABCDE 1 A_DoPBWeaponAction
+		RVIN EFGHHIJJJJJJJJJ 1 A_DoPBWeaponAction
+		RVIN KLMNOPQ 1 A_DoPBWeaponAction
+		TNT1 A 0 A_DoPBWeaponAction
+		RVIN A 0 A_PlaySound("Weapons/Revolver/Open", 1)
+		RVIN A 0 A_overlay(3,"Tiltright4")
+		RVIN RST 1 A_DoPBWeaponAction
+		RVIN UVWXYZ 1 A_DoPBWeaponAction
+		TNT1 A 0 A_DoPBWeaponAction
+		TNT1 A 0 a_GIVEINVENTORY("44S&WAmmo",6)
+		RVIN ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ 1 A_DoPBWeaponAction
+		RV1N ABC 1 A_DoPBWeaponAction
+		RV1N D 1 A_SETPITCH(PITCH+1)
+		RV1N E 1 A_SETANGLE(ANGLE-1)
+		RV1N F 1 A_SETPITCH(PITCH+1)
+		RV1N G 1 A_SETANGLE(ANGLE-1)
+		RV1N H 1 A_SETPITCH(PITCH+1)
+		RV1N I 1 A_SETANGLE(ANGLE-1)
+		RV1N JKL 1 A_SETANGLE(ANGLE+1)
+		RV1N MNO 1 A_SETPITCH(PITCH-1)
+		TNT1 A 0 A_DoPBWeaponAction
+		RVIN A 0 A_overlay(3,"Tiltleft4")
+		RV1N PQRS 1 A_DoPBWeaponAction
+		RVIN A 0 A_PlaySoundEx("Weapons/Revolver/Close", 1)
+		RV1N T 1 A_QuakeEx(1, 1, 1, 3, 0, 64, "", 0, 0, 0, 0, 0, 0, 1)
+		RV1N UVW 1 A_DoPBWeaponAction
+		RV1N XYZ 1 A_DoPBWeaponAction
+		TNT1 A 0 
+		RV1S ABCDEFGHI 1 A_DoPBWeaponAction
+		RVIN A 0 A_PLAYSOUND("REVODRY",1)
+		RV1S JKLMNOPQ 1 A_DoPBWeaponAction
+		GOTO READY3
+		
+		Tiltleft4:
+		TNT1 AAAAAAAA 1 A_setroll(roll+0.5)
+		Stop
+		
+		Tiltright4:
+		TNT1 AAAAAAAA 1 A_setroll(roll-0.5)
+		Stop
+		
+	SelectAnimation:
+	TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+    TNT1 A 0 A_PlaySound("revolver/draw")
+	R4V1 UTSRR 1
+	Ready3:
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		REVO A 0 A_JumpIfInventory("Zoomed",1,"AltStart")
+		BADF A 0 A_TakeInventory("RevolverContinueAlt",1)
+		R1V1 E 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		Loop
+    Ready2:
+		REXZ A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
+		Loop
+	FanReady:
+		R5V1 B 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_NOBOB)
+		Loop
+	DeselectReload:
+		TNT1 A 0 A_TakeInventory("IsReloadingRevolver",1)
+	Deselect:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,2)
+		TNT1 A 0 A_Jump(256,5)
+		SMGG A 0 A_ZoomFactor(1.0)
+		RVZA GFE 1 A_TakeInventory("ZoomHold",1)
+		TNT1 A 0 A_JumpIfInventory("IsReloadingRevolver",1,"Continuereload")	
+   DESELECTCONTINUE:
+		BADF A 0 A_TakeInventory("RevolverContinueAlt",1)
+		TNT1 A 0 A_TakeInventory("revolverselected", 1)
+				TNT1 A 0 A_Lower(120)
+		Wait
+	
+
+	Select: 
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		Goto SelectFirstPersonLegs
+	SelectContinue:
+		BADF A 0 A_TakeInventory("RevolverContinueAlt",1)
+		TNT1 A 0 A_Gunflash
+				TNT1 A 0 A_WeaponOffset(0, 32)
+				Goto Ready3
+	
+	WeaponSpecial:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		BADF A 0 A_TakeInventory("RevolverContinueAlt",1)
+		TNT1 A 0 A_Takeinventory("GoWeaponSpecialAbility",1)
+		TNT1 A 0 A_JumpIFInventory("RevolverMode", 1, "GoNorm")
+		TNT1 A 0 A_GiveInventory("RevolverMode", 1)
+		TNT1 A 0 A_Print ("ADS Selected")
+		Goto WSFinish
+	GoNorm:
+		TNT1 A 0 A_Print ("Fanning Selected")
+		TNT1 A 0 A_TakeInventory("RevolverMode", 1)
+	WSFinish:
+		TNT1 A 0 A_PlaySound("revolver/draw")
+		R4V1 RRSTUV 1
+		RVIN A 0 A_PLAYSOUND("Weapons/Revolver/Click1",1)
+		R4V1 UTSRR 1
+		goto Ready3
+		
+    Fire:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 A_JumpIfInventory("IsReloadingRevolver",1,"Continuereload")	
+		SHTN A 0 A_JumpIfInventory("Zoomed",1,"FireADS")
+        TNT1 A 0 A_JumpIfInventory("44S&WAmmo",1,2)
+		TNT1 A 0 A_PlaySound("REVODRY")
+        Goto Reload
+        TNT1 AAAA 0
+		R4V1 A 1 {
+			A_AlertMonsters;
+			PB_GunSmoke(0,0,0);
+			A_PlaySound("revolver/fire",1);
+			A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
+			A_RailAttack(240,0,1,None,None,RGF_SILENT,0,"ShotgunPuff",2,2,8192,0,1.0,1.0,None,0,0,6);
+			A_FireProjectile("PB_500SW", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			A_ZoomFactor(0.9);
+			PB_WeaponRecoil(-2.30,-0.52);
+
+
+
+		}
+		R4V1 B 1 {
+			A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+			A_overlay(4,"SpendRound",false);
+			A_Quake(2, 22, 0, 400, "");
+			PB_WeaponRecoil(-2.30,-0.52);
+			PB_LowAmmoSoundWarning("revolver");
+			A_Takeinventory("44S&WAmmo",1);
+
+
+
+		}
+		R4V1 CD 1
+        R4V1 EF 1 
+		R4V1 G 1
+		R4V1 A 0 A_ZoomFactor(1.0)
+        R4V1 HH 1
+		R4V1 IJKLMNOPQ 1
+		R1V1 E 1
+		TNT1 A 0 A_Refire
+		Goto Ready3
+		
+	AltStart:
+	    TNT1 A 0
+        TNT1 A 0 A_JumpIfInventory("Zoomed",1,"NoAim")
+		SMGG A 0 A_ZoomFactor(2.0)
+		RVZA EFG 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
+		TNT1 A 0 A_GiveInventory("Zoomed",1)
+		Goto Ready2
+	NoAim:
+		TNT1 A 0 A_TakeInventory("Zoomed",1)
+		SMGG A 0 A_ZoomFactor(1.0)
+		RVZA GFE 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
+		Goto Ready3
+	FireADS:
+		TNT1 A 0 A_JumpIfInventory("RevolverMode",1,1)
+		goto FanFire
+	FireADSContinue:
+		TNT1 A 0 A_JumpIfInventory("44S&WAmmo",1,2)
+		TNT1 A 0 A_PlaySound("REVODRY")
+        Goto Reload
+	    REVZ BC 1 {
+			A_PlaySound("Weapons/Revolver/Click1",2);
+
+
+
+		}
+		REVZ D 1 BRIGHT {
+			A_AlertMonsters;
+			PB_GunSmoke(0,0,0);
+	        A_PlaySound("revolver/fire",1);
+			A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
+			A_RailAttack(240,0,1,None,None,RGF_SILENT,0,"ShotgunPuff",1,1,8192,0,1.0,1.0,None,0,0,6);
+			A_FireProjectile("PB_500SW", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			PB_LowAmmoSoundWarning("revolver");
+			A_ZoomFactor(1.8);
+			PB_WeaponRecoil(-2.30,-0.52);
+
+
+
+		}
+		REVZ E 1 BRIGHT {
+			A_Quake(2, 22, 0, 400, "");
+			A_ZoomFactor(2.0);
+			A_overlay(4,"SpendRound",false);
+			PB_WeaponRecoil(-2.30,-0.52);
+			A_Takeinventory("44S&WAmmo",1);
+
+
+		}
+		REVZ F 1  
+		REVZ G 1 Offset(0,33)
+		REVZ G 1 Offset(0,34)
+		REVZ G 1 Offset(0,35) 
+		REVZ H 1 Offset(0,35) 
+		REVZ H 1 Offset(0,34) 
+		REVZ H 1 Offset(0,33) 
+		REXZ A 1 Offset(0,32) 
+		REXZ A 0 A_Refire
+		GOTO FINISHFIREAIM
+	FinishFireAim:
+		SMGG A 0 A_JumpIfInventory("FiredSecondary",1,"Ready2")
+	   Goto Ready2
+	
+		
+  AltFire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 A_JumpIfInventory("IsReloadingRevolver",1,"Continuereload")	
+		TNT1 A 0 A_JumpIfInventory("RevolverContinueAlt",1,"FanFire")
+		TNT1 A 0 A_JumpIFInventory("RevolverMode", 1, "AltStart")
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"FanStop")
+		R5V2 ABC 1
+		goto HoldFan
+  HoldFan:	
+		BADF A 0 A_GiveInventory("Zoomed",1)
+		Goto FanReady
+  FanStop:
+		R5V2 CBA 1
+		BADF A 0 A_TakeInventory("Zoomed",1)
+		goto ready3
+  FanFire:
+	  TNT1 A 0 A_JumpIfInventory("44S&WAmmo",1,1)
+      Goto Reload
+	  BADF A 0 A_GiveInventory("RevolverContinueAlt",1)
+	  R5V1 AB 1
+      R5V1 C 1 {
+	      A_AlertMonsters;
+		  PB_GunSmoke(0,0,0);
+	      A_PlaySound("revolver/fire",1);
+		  A_RailAttack(240,0,1,None,None,RGF_SILENT,0,"ShotgunPuff",3,1,8192,0,1.0,1.0,None,0,0,6);
+		  A_FireProjectile("PB_500SW", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+		  PB_LowAmmoSoundWarning("revolver");
+		  A_SpawnItemEx("PlayerMuzzle1",30,5,30);
+		  PB_WeaponRecoil(-2.4,-0.72);
+
+
+
+
+}
+	  R5V1 D 1 {
+	      A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
+		  A_overlay(4,"SpendRound",false);
+		  A_Quake(2, 20, 0, 400, "");
+		  A_Takeinventory("44S&WAmmo",1);
+		  PB_WeaponRecoil(-2.4,-0.72);
+
+
+
+
+	}
+		R4V1 EE 1
+		R4V1 A 0 A_ZoomFactor(0.9)
+        R4V1 F 1
+		R4V1 A 0 A_ZoomFactor(1.0)
+        R5V1 G 1 
+	    TNT1 A 0 
+	    REVF M 0 Offset(0,46) A_Refire("FanFire")
+		R1V1 D 0 Offset(0,44)
+		R1V1 D 0 Offset(0,41)
+		R1V1 D 0 Offset(0,37)
+		R1V1 D 0 Offset(0,35)
+		R1V1 D 0 Offset(0,34)
+		R1V1 D 0 Offset(0,33)
+	  R5V1 G 7 A_DoPBWeaponAction(WRF_NOSECONDARY)
+	  TNT1 A 0 A_Jump(256,2)
+	  R5V1 G 7 A_DoPBWeaponAction(1)
+	  BADF A 0 A_TakeInventory("RevolverContinueAlt",1)
+		SMGG A 0 A_JumpIfInventory("FiredSecondary",1,"HoldFan")
+	   Goto FanReady
+	
+	NoammoUnzoom:
+		TNT1 A 0 A_TakeInventory("Zoomed",1)
+		SMGG A 0 A_ZoomFactor(1.0)
+		RVZA GFE 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
+	NoAmmo:
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"NoammoUnzoom")
+		RIFG A 0 A_ZoomFactor(1.0)
+		RIFG A 0 A_Takeinventory("Zoomed",1)
+		RIFG A 0 //A_Takeinventory("ADSmode",1)
+		TNT1 A 0 A_PlaySound("REVODRY")
+	Noammo2:
+		R4V1 N 15
+		PISA D 0 A_TakeInventory("Unloading",1)
+		//PISA D 0 A_JumpIfInventory("Unloading",1, "Noammo2")
+		Goto Ready3
+		
+	CheckReload:
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		R6V1 ABCDEFGHI 1 A_DoPBWeaponAction
+		R6V1 J 1 A_DoPBWeaponAction
+		TNT1 A 0 A_PlaySoundEx("Weapons/Revolver/Open", 1)
+	StillCheck:
+		R6V1 K 15 A_DoPBWeaponAction
+		TNT1 A 0 A_PlaySoundEx("Weapons/Revolver/CLOSE", 1)
+		R6V1 JIHGFEDCBA 1 A_DoPBWeaponAction
+		Goto Ready3
+		
+    Reload:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		BADF A 0 A_TakeInventory("RevolverContinueAlt",1)
+		TNT1 A 0 A_JumpIfInventory("RevolverMode",1,2)
+		TNT1 A 0 A_Jump(256,7)
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,2)
+		TNT1 A 0 A_Jump(256,5)
+		SMGG A 0 A_ZoomFactor(1.0)
+		RVZA GFE 1 {A_TakeInventory("ZoomHold",1);A_TakeInventory("Zoomed",1); }
+
+
+		SMGG A 0 A_TakeInventory("Zoomed",1)
+		R4V1 N 5 
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 //A_Takeinventory("ADSmode",1)
+		
+		TNT1 A 0 A_JumpIfInventory("44S&WAmmo",6,"CheckReload")
+        TNT1 A 0 A_JumpIfInventory("PB_LowCalMag",2,3)
+        Goto NoAmmo
+        TNT1 AAA 0
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+        TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_GiveInventory ("Pumping", 1)
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+        R6V1 ABCDEFGHI 1 a_setangle(angle-0.2)
+		TNT1 A 0 A_Overlay(4,"tiltrevoload")
+		R6V1 J 1 
+        TNT1 A 0 A_PlaySoundEx("Weapons/Revolver/Open", CHAN_AUTO)
+		R6V1 MN 1 a_setangle(angle+1)
+		R6V1 OPQRST 1 
+		TNT1 A 0 A_PlaySoundEx("Weapons/Revolver/Click2", CHAN_AUTO)
+		TNT1 A 0 A_GiveInventory("IsReloadingRevolver",1)
+		
+	Spentcasings:
+		TNT1 A 0 A_jumpifinventory("spentrounds",6,6)
+		TNT1 A 0 A_jumpifinventory("spentrounds",5,6)
+		TNT1 A 0 A_jumpifinventory("spentrounds",4,6)
+		TNT1 A 0 A_jumpifinventory("spentrounds",3,6)
+		TNT1 A 0 A_jumpifinventory("spentrounds",2,6)
+		TNT1 A 0 A_jumpifinventory("spentrounds",1,6)
+		goto SpentCasings2
+		TNT1 A 0 { PB_RevolverCasingSpawn("44S&WAmmo"); }
+		TNT1 A 0 { PB_RevolverCasingSpawn("44S&WAmmo"); }
+		TNT1 A 0 { PB_RevolverCasingSpawn("44S&WAmmo"); }
+		TNT1 A 0 { PB_RevolverCasingSpawn("44S&WAmmo"); }
+		TNT1 A 0 { PB_RevolverCasingSpawn("44S&WAmmo"); }
+		TNT1 A 0 { PB_RevolverCasingSpawn("44S&WAmmo"); }
+	SpentCasings2:
+		TNT1 A 0 A_overlay (5,"removespentrounds", false)
+		R6V1 UVWXYZ 1 a_setpitch(pitch+0.3)
+		REVR IJ 1
+		
+		InsertingBullets:
+		SHTN A 0
+		SHTN A 0 A_JumpIfInventory("PB_LowCalMag",2,2)
+        Goto Continuereload
+		SHTN A 0
+		SSHR A 0 A_TakeInventory("Reloading", 1)
+        SHTN A 0 A_JumpIfInventory("44S&WAmmo",0,"Continuereload")
+        SHTN A 0 A_Giveinventory("44S&WAmmo",1)
+		SHTN A 0 A_Takeinventory("PB_LowCalMag",2,TIF_NOTAKEINFINITE)
+        
+	InsertBulletAnimation:	
+		SHTN A 0
+		REVR ABC 1 a_SETPITCH(PITCH+0.5)
+		SHTN A 0 A_PlaySound("REVOLOAD")
+        REVR D 2 
+        REVR E 2 A_DoPBWeaponAction(WRF_NOBOB)
+        REVR F 2 A_DoPBWeaponAction(WRF_NOBOB)
+        REVR G 2 A_DoPBWeaponAction(WRF_NOBOB)
+		REVR H 1 a_SETPITCH(PITCH-1.5)
+		TNT1 A 0 a_jump(256,"insertcontinue")
+		
+	insertcontinue:
+		SHTN A 0 A_JumpIfInventory("44S&WAmmo",6,1)
+        Goto InsertingBullets
+		SHTN A 0 A_Takeinventory("Reloading",1)
+		SHTN A 0 A_Takeinventory("Reloading",1)
+		
+	  Continuereload:
+	    TNT1 A 0 A_PlaySoundEx("CYLNSPIN", CHAN_AUTO)
+		TNT1 A 0 
+		//R6V1 UVWXYZ 1 a_setpitch(pitch+0.3)
+        R7V1 ABC 1 
+		R7V1 DEF 1 A_setroll(roll+0.5)
+		R7V1 GHIJKLM 1 A_setroll(roll+0.5)
+		TNT1 A 0 a_setangle(angle-0.2)
+		TNT1 A 0 A_PlaySoundEx("Weapons/Revolver/Close", CHAN_AUTO)
+		TNT1 A 0 A_QuakeEx(1, 1, 1, 1, 0, 64, "", 0, 0, 0, 0, 0, 0, 1)
+		R7V1 NOPQR 1 A_setroll(roll-1)
+		R7V1 ST 1
+		R7V1 UVWXYZ 1 a_setpitch(pitch-0.3)
+		TNT1 A 0 A_TakeInventory("IsReloadingRevolver",1)
+		TNT1 A 0 A_TakeInventory("revolverunloaded", 1)
+		Goto ready3
+	
+	Tiltrevoload:
+		TNT1 AAAAAA 1 A_setroll(roll-1)
+		TNT1 AAAAAAA 1
+		TNT1 AAAAAA 1 A_setroll(roll+1)
+		Stop
+		
+ 	Spawn:
+		RVIC A -1
+		Stop
+		
+		////////////////////////////////////////Unloading	
+
+	AlreadyUnloaded:
+		R6V1 JIHGFEDCBA 1
+		R6V1 A 20
+		goto Ready3
+
+	SpendRound:
+		TNT1 A 0 A_GiveInventory ("spentrounds", 1)
+		stop
+
+	RemoveSpentRounds:
+		TNT1 A 0 A_takeinventory("spentrounds",6)
+		stop
+
+	DrumRounds:
+		TNT1 A 0 A_jumpifinventory("44S&WAmmo",6,4)
+		TNT1 A 0 A_jumpifinventory("44S&WAmmo",3,4)
+		TNT1 A 0 A_jumpifinventory("44S&WAmmo",2,4)
+		TNT1 A 0 A_jumpifinventory("44S&WAmmo",1,4)
+		// 
+		TNT1 A 0 //full
+		stop
+		RV1S R 2 // 5-3 rounds
+		stop
+		RV1S S 2 // 2 rounds
+		stop
+		RV1S T 2// 1 round
+		stop
+	
+	Fidget:
+		R6V1 ABCDEFGHI 1
+		R6V1 J 1
+		TNT1 A 0 A_PlaySoundEx("Weapons/Revolver/Open", 1)
+		REVO A 0 A_Takeinventory("Unloading",1)
+		TNT1 A 0 A_JumpIfInventory("revolverunloaded", 1, "AlreadyUnloaded")
+		TNT1 A 0 a_setroll(roll-1)      
+		R6V1 KL 1 a_setroll(roll-1)
+		TNT1 A 0 a_overlay(6,"SpentCasingsUnload",true)
+		R6V1 MNOPQRS 1 
+		TNT1 A 0 A_PlaySoundEx("Weapons/Revolver/Click2", CHAN_AUTO)
+		R6V1 TUVWXYZ 1 
+		REVR IJ 1
+		//REVSE0.png
+		REVU ABC 1 A_SETPITCH(PITCH+1)
+		//REVU D 16 A_PlaySoundEx("MAGGRAB3", 1)
+		TNT1 A 0 A_PlaySoundEx("MAGGRAB3", 1)
+		REVR ABCDE 1
+        TNT1 A 0 A_PlaySoundEx("CYLNSPIN", 2)
+		REVU KJKJKJKJKJK 1 //JKJKJKJKJKJKJKJK
+		REVU E 1 A_SETPITCH(PITCH-1)
+		REVU FG 1 A_SETPITCH(PITCH-1)
+		REVU H 1 
+		R7V1 ABC 1
+		REVR KLMNOPQRS 1
+		TNT1 A 0 A_QuakeEx(1, 1, 1, 3, 0, 64, "", 0, 0, 0, 0, 0, 0, 1)
+		TNT1 A 0 A_PlaySoundEx("Weapons/Revolver/Close", CHAN_AUTO)
+		R7V1 MNO 1 a_setroll(roll+1)
+		R7V1 PQRSTUVWXYZ 1
+		goto Ready3
+	Unload:
+		TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 //A_Takeinventory("ADSmode",1)
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		REVO A 0 A_Takeinventory("Unloading",1)
+        TNT1 A 0 A_JumpIfInventory("44S&WAmmo",1,1)
+        Goto noammo
+        TNT1 A 0
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		
+		R6V1 ABCDEFGHI 1
+		R6V1 J 1
+		TNT1 A 0 A_PlaySoundEx("Weapons/Revolver/Open", 1)
+		REVO A 0 A_Takeinventory("Unloading",1)
+		TNT1 A 0 A_JumpIfInventory("revolverunloaded", 1, "AlreadyUnloaded")
+		TNT1 A 0 a_setroll(roll-1)      
+		R6V1 KL 1 a_setroll(roll-1)
+		TNT1 A 0 a_overlay(6,"SpentCasingsUnload",true)
+		R6V1 MNOPQRS 1 
+		TNT1 A 0 A_PlaySoundEx("Weapons/Revolver/Click2", CHAN_AUTO)
+		R6V1 TUVWXYZ 1 
+		REVR IJ 1
+		//REVSE0.png
+		REVU ABC 1 A_SETPITCH(PITCH+1)
+		//REVU D 16 A_PlaySoundEx("MAGGRAB3", 1)
+		TNT1 A 0 A_PlaySoundEx("MAGGRAB3", 1)
+		REVR ABCDE 1
+        TNT1 A 0 A_PlaySoundEx("CYLNSPIN", 2)
+		REVU KJKJKJKJKJK 1 //JKJKJKJKJKJKJKJK
+		REVU E 1 A_SETPITCH(PITCH-1)
+		REVU FG 1 A_SETPITCH(PITCH-1)
+		REVU H 1 
+		
+	    //TNT1 A 0 A_PlaySoundEx("CYLNSPIN", 1)
+        R7V1 ABC 1
+		REVR KLMNOPQRS 1
+		TNT1 A 0 A_QuakeEx(1, 1, 1, 3, 0, 64, "", 0, 0, 0, 0, 0, 0, 1)
+		TNT1 A 0 A_PlaySoundEx("Weapons/Revolver/Close", CHAN_AUTO)
+		R7V1 MNO 1 a_setroll(roll+1)
+		R7V1 PQRSTUVWXYZ 1
+		REVO A 0 A_Takeinventory("Unloading",1)
+		goto RemoveBullets
+
+		
+	SpentCasingsUnload:
+		TNT1 A 0 A_jumpifinventory("spentrounds",6,6)
+		TNT1 A 0 A_jumpifinventory("spentrounds",5,6)
+		TNT1 A 0 A_jumpifinventory("spentrounds",4,6)
+		TNT1 A 0 A_jumpifinventory("spentrounds",3,6)
+		TNT1 A 0 A_jumpifinventory("spentrounds",2,6)
+		TNT1 A 0 A_jumpifinventory("spentrounds",1,6)
+		goto SpentCasingsUnload2
+		TNT1 A 0 { PB_RevolverCasingSpawn("44S&WAmmo"); }
+		TNT1 A 0 { PB_RevolverCasingSpawn("44S&WAmmo"); }
+		TNT1 A 0 { PB_RevolverCasingSpawn("44S&WAmmo"); }
+		TNT1 A 0 { PB_RevolverCasingSpawn("44S&WAmmo"); }
+		TNT1 A 0 { PB_RevolverCasingSpawn("44S&WAmmo"); }
+		TNT1 A 0 { PB_RevolverCasingSpawn("44S&WAmmo"); }
+	SpentcasingsUnload2:
+		TNT1 A 0 A_GiveInventory ("Pumping", 1)
+		TNT1 A 0 A_overlay (5,"removespentrounds", false)
+		stop
+		
+	RemoveBullets:
+		TNT1 AAAA 0
+		TNT1 A 0 A_JumpIfInventory("44S&WAmmo",1,3)
+		Goto FinishUnload
+        TNT1 AAAAAA 0
+		A12S A 0 A_Takeinventory("44S&WAmmo",1)
+		PIST F 0 A_JumpIfinventory("PB_LowCalMag",0,2)
+		SHTN A 0 A_Jump(256,2)
+		SHTZ A 0 A_SpawnItemEx ("FiftyBullet", 1, 0, 5, 0, RANDOM(1,8), RANDOM(2,6), RANDOM(0,9), SXF_NOCHECKPOSITION, Args[2])
+		TNT1 A 0 A_Giveinventory("PB_LowCalMag",2)
+		Goto RemoveBullets
+	
+	FInishUnload:
+		R1V1 E 1
+		//TNT1 A 0 A_PlaySound("barrel/close", 1)
+		TNT1 A 0 A_GiveInventory("revolverunloaded", 1)
+		Goto Ready3//+22		
+////////////////////////////////////////Unloading	
+
+	FlashPunching:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+		TNT1 AAAAAAAAAAAAAA 1
+		Stop
+
+		FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		R4V1 RST 1 A_DoPBWeaponAction
+		R4V1 U 12 A_DoPBWeaponAction
+		R4V1 TSR 1 A_DoPBWeaponAction
+		Stop
+
+
+}
+}
+Actor RevolverMode : Inventory { inventory.maxamount 1 }
+
+Actor IsReloadingRevolver : Inventory { inventory.maxamount 1 }
+
+Actor spentrounds : Inventory { inventory.maxamount 6 }
+
+ACTOR 44S&WAmmo : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 6
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 6
+   Inventory.Icon "RVICW0"
+}
+
+ACTOR RevolverContinueAlt : Inventory //a token to skip the "starting" animation for alt fire
+{
+   Inventory.MaxAmount 1
+}
+
+ACTOR LiTRevolverRespecter : Inventory //to respect weapons
+{
+   Inventory.MaxAmount 1
+}
+
+actor RevolverPuff : ShotgunPuff
+{
++AlwaysPuff
+states
+{
+  Spawn:
+  Crash:
+  Death:
+  Melee:
+    TNT1 A 0
+	TNT1 A 1 A_SpawnItemEx ("RicoChet",0,0,-5,0,0,0,0,SXF_NOCHECKPOSITION,0)
+  XDeath:
+	TNT1 A 1
+	stop
+	
+
+
+}
+
+
+
+}

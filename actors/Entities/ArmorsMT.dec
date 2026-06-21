@@ -79,7 +79,7 @@ Actor ArmorRed : PB_Armor //THE BERSERK ARMOR GIVE THIS ARMOR TO THE PLAYER
 	Radius 20
 	Height 16
 	Inventory.Pickupmessage "Picked up the Specs-Ops Armor"
-	Inventory.Icon "ARM3B0"
+	Inventory.Icon "ARM3A0"
 	Armor.SavePercent 90
 	Armor.SaveAmount 160
 	+ROLLSPRITE
@@ -118,7 +118,7 @@ ACTOR NarmorRed : CustomInventory
 	+ROLLSPRITE
 	+ROLLCENTER
 	+FLOATBOB
-	Inventory.Icon "ARM3B0"
+	Inventory.Icon "ARM3A0"
  Inventory.PickupSound "ARMOR"
 	States
 	{ 
@@ -167,7 +167,7 @@ Actor ArmorPurple : PB_Armor
 	Radius 20
 	Height 16
 	Inventory.Pickupmessage "Picked up the QUAD Energy Armor"
- 	Inventory.Icon "ARM6B0"
+ 	Inventory.Icon "ARM6A0"
   	Armor.Savepercent 90
   	Armor.Saveamount 140
 	+ROLLSPRITE
@@ -215,7 +215,7 @@ ACTOR NarmorPurple : CustomInventory
 	Radius 20
 	Height 16
 	Inventory.Pickupmessage "Picked up the QUAD Energy Armor"
- 	Inventory.Icon "ARM6B0"
+ 	Inventory.Icon "ARM6A0"
 	+ROLLSPRITE
 	+ROLLCENTER
 	+FLOATBOB
@@ -256,7 +256,7 @@ Actor ArmorWhite : PB_Armor
 	Radius 20
 	Height 16
 	Inventory.Pickupmessage "Picked up the UAC - Prototype Armor"
- 	Inventory.Icon "ARM4B0"
+ 	Inventory.Icon "ARM4A0"
   	Armor.Savepercent 100
   	Armor.Saveamount 200
 	+ROLLSPRITE
@@ -292,7 +292,7 @@ ACTOR NarmorWhite : CustomInventory
 	Radius 20
 	Height 16
 	Inventory.Pickupmessage "Picked up the UAC - Prototype Armor"
- 	Inventory.Icon "ARM4B0"
+ 	Inventory.Icon "ARM4A0"
 	+ROLLSPRITE
 	+ROLLCENTER
 	+FLOATBOB
@@ -328,6 +328,7 @@ ACTOR HealthE : PowerUpGiver
  {
   
   Inventory.Pickupmessage " "
+  +INVENTORY.QUIET
   Inventory.PickupSound " "
   Inventory.MaxAmount 0
   -COUNTITEM
@@ -365,7 +366,7 @@ Actor ArmorOrange : PB_Armor
 	Radius 20
 	Height 16
 	Inventory.Pickupmessage "Picked up the UAC - Ultimate Night Vision Armor"
-	Inventory.Icon "ARM7B0"
+	Inventory.Icon "ARM7A0"
 	Armor.SavePercent 70
 	Armor.SaveAmount 160
 	+ROLLSPRITE
@@ -401,7 +402,7 @@ ACTOR NarmorOrange : CustomInventory
 	Radius 20
 	Height 16
 	Inventory.Pickupmessage "Picked up the UAC - Ultimate Night Vision Armor"
- 	Inventory.Icon "ARM7B0"
+ 	Inventory.Icon "ARM7A0"
 	+ROLLSPRITE
 	+ROLLCENTER
 	+FLOATBOB
@@ -441,7 +442,7 @@ Actor ArmorYellow : PB_Armor
 	Radius 20
 	Height 16
 	Inventory.Pickupmessage "Picked up the Assault Armor"
-	Inventory.Icon "ARM5B0"
+	Inventory.Icon "ARM5A0"
 	Armor.SavePercent 50
 	Armor.SaveAmount 130
 	+ROLLSPRITE
@@ -477,7 +478,7 @@ ACTOR NarmorYellow : CustomInventory
 	Radius 20
 	Height 16
 	Inventory.Pickupmessage "Picked up the UAC - Prototype Armor"
- 	Inventory.Icon "ARM5B0"
+ 	Inventory.Icon "ARM5A0"
 	+ROLLSPRITE
 	+ROLLCENTER
 	+FLOATBOB
@@ -519,7 +520,7 @@ Actor ArmorBlack : PB_Armor
 	Radius 20
 	Height 16
 	Inventory.Pickupmessage "Picked up the UAC - Commander Armor"
-	Inventory.Icon "ARM8B0"
+	Inventory.Icon "ARM8A0"
 	Armor.SavePercent 70
 	Armor.SaveAmount 160
 	+ROLLSPRITE
@@ -555,7 +556,7 @@ ACTOR NarmorBlack : CustomInventory
 	Radius 20
 	Height 16
 	Inventory.Pickupmessage "Picked up the UAC - Commander Armor"
- 	Inventory.Icon "ARM8B0"
+ 	Inventory.Icon "ARM8A0"
 	+ROLLSPRITE
 	+ROLLCENTER
 	+FLOATBOB
@@ -595,6 +596,7 @@ ACTOR BAPowerUp: CustomInventory
  Radius 20
  Height 16
  Inventory.PickupMessage ""
+ +INVENTORY.QUIET
  Inventory.PickupSound ""
  States
  {
@@ -680,6 +682,7 @@ Actor MOT : PowerupGiver
   Powerup.Color Black 0.2
   Powerup.Duration -60
   Inventory.PickupMessage " "
+  +INVENTORY.QUIET
   States
   {
   Spawn:

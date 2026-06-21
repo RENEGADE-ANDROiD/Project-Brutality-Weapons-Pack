@@ -6,46 +6,44 @@ class PB_MeleeDropSpawnerT1 : PB_WeaponSpawner
 {
     Default
     {
-        Dropitem "ShockBaton", 255, 1;
-        Dropitem "Crowbar", 255, 1;
-        Dropitem "Machete", 255, 1;
-        Dropitem "Wrench", 255, 1;
-        Dropitem "KatanaPickup", 255, 1;
+        Dropitem "Crowbar", 128, 1;
+        Dropitem "Machete", 128, 1;
+        Dropitem "Wrench", 128, 1;
+        Dropitem "KatanaPickup", 64, 1;
     }
 }
 class PB_MeleeDropSpawnerT2 : PB_WeaponSpawner 
 {
     Default
     {
-        Dropitem "ShockBaton", 255, 1;
-        Dropitem "PickAxePickup", 255, 1;
-        Dropitem "Crowbar", 255, 1;
-        Dropitem "Machete", 255, 1;
-        Dropitem "Wrench", 255, 1;
-        Dropitem "KatanaPickup", 255, 1;
+        Dropitem "PickAxePickup", 96, 1;
+        Dropitem "Crowbar", 128, 1;
+        Dropitem "Machete", 128, 1;
+        Dropitem "Wrench", 128, 1;
+        Dropitem "KatanaPickup", 64, 1;
     }
 }
 class PB_MeleeDropSpawnerT3 : PB_WeaponSpawner 
 {
     Default
     {
-        Dropitem "ShockBaton", 255, 1;
-        Dropitem "Machete", 255, 1;
-        Dropitem "SentinelHammerChargePickup", 255, 1;
-        Dropitem "ClawChargesPickup", 255, 1;
-        Dropitem "DemonicSword", 255, 1;
+        Dropitem "ShockBaton", 96, 1;
+        Dropitem "Machete", 96, 1;
+        Dropitem "SentinelHammerChargePickup", 64, 1;
+        Dropitem "ClawChargesPickup", 64, 1;
+        Dropitem "DemonicSword", 48, 1;
     }
 }
 class PB_MeleeDropSpawnerT4 : PB_WeaponSpawner 
 {
     Default
     {
-        Dropitem "ShockBaton", 255, 1;
-        Dropitem "ImpactorChargesPickup", 255, 1;
-        Dropitem "JohnnyHandsPickup", 255, 1;
-        Dropitem "SentinelHammerChargePickup", 255, 1;
-        Dropitem "ClawChargesPickup", 255, 1;
-        Dropitem "DemonicSword", 255, 1;
+        Dropitem "ShockBaton", 96, 1;
+        Dropitem "ImpactorChargesPickup", 64, 1;
+        Dropitem "JohnnyHandsPickup", 48, 1;
+        Dropitem "SentinelHammerChargePickup", 64, 1;
+        Dropitem "ClawChargesPickup", 64, 1;
+        Dropitem "DemonicSword", 48, 1;
     }
 }
 
@@ -69,7 +67,7 @@ class PB_MSSGSpawnerT1 : PB_WeaponSpawner
 {
     Default
     {
-        Dropitem "MSSGUpgrade", 255, 1;
+        Dropitem "PBWP_MSSGUpgrade", 255, 1;
         Dropitem "PB_Shell", 255, 9;
     }
 }
@@ -77,7 +75,7 @@ class PB_MSSGSpawnerT2 : PB_WeaponSpawner
 {
     Default
     {
-        Dropitem "MSSGUpgrade", 255, 2;
+        Dropitem "PBWP_MSSGUpgrade", 255, 2;
         Dropitem "PB_Shell", 255, 8;
     }
 }
@@ -86,7 +84,7 @@ class PB_MSSGSpawnerT3 : PB_WeaponSpawner
 {
     Default
     {
-        Dropitem "MSSGUpgrade", 255, 1;
+        Dropitem "PBWP_MSSGUpgrade", 255, 1;
         Dropitem "ColdKeeperUpgrade", 255, 1;
         Dropitem "PB_Shell", 255, 1;
     }
@@ -96,7 +94,7 @@ class PB_MSSGSpawnerT4 : PB_WeaponSpawner
 {
     Default
     {
-        Dropitem "MSSGUpgrade", 255, 1;
+        Dropitem "PBWP_MSSGUpgrade", 255, 1;
         Dropitem "ColdKeeperUpgrade", 255, 1;
     }
 }

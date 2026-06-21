@@ -1,0 +1,39 @@
+﻿Actor EMPTYMPMAG
+{
+	+RANDOMIZE
+	+Floorclip
+	+MISSILE
+	+FORCEXYBILLBOARD
+	+SHOOTABLE
+	+NOBLOOD
+	+BOUNCEONACTORS
+	Scale 0.7
+	Radius 4
+	Bouncetype "doom"
+	Bouncesound "BOUNCEMAG"
+	Bouncecount 4
+	Bouncefactor 0.5
+	Gravity 0.6
+	Mass 5
+	Speed 5
+	states
+{
+	Spawn:
+		MPMG ABCLABCL 3
+		Loop
+	Pain:
+		MPMG ABCLABCL 1
+		Loop
+	Death:
+		MPMG C 100
+		Stop
+	}
+}
+
+Actor Angrymag : EMPTYMPMAG
+{
+	Scale 0.7
+	Radius 5
+	Damage 1
+	Speed 45
+}

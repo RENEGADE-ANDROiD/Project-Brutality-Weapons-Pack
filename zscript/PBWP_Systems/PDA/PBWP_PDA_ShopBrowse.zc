@@ -1,0 +1,233 @@
+extend class PBWP_PDAHandler
+{
+	transient ui int pdaShopBrowseScrollResetGen;
+	transient ui int pdaShopBrowseInvalidateGen;
+	transient ui int pdaShopBrowseScrollResetAppliedGen;
+	transient ui int pdaShopBrowseInvalidateAppliedGen;
+	transient ui int pdaShopBrowseScroll;
+	transient ui bool pdaShopBrowseCacheValid;
+	transient ui Array<int> pdaShopBrowseRowKind;
+	transient ui Array<int> pdaShopBrowseRowEntry;
+	transient ui Array<String> pdaShopBrowseRowLabel;
+
+	ui void RequestPDAShopBrowseReset()
+	{
+		pdaShopBrowseScrollResetGen++;
+		pdaShopBrowseInvalidateGen++;
+	}
+
+	ui void PDA_SyncShopBrowseState()
+	{
+		if (pdaShopBrowseScrollResetAppliedGen != pdaShopBrowseScrollResetGen)
+		{
+			pdaShopBrowseScrollResetAppliedGen = pdaShopBrowseScrollResetGen;
+			pdaShopBrowseScroll = 0;
+		}
+		if (pdaShopBrowseInvalidateAppliedGen != pdaShopBrowseInvalidateGen)
+		{
+			pdaShopBrowseInvalidateAppliedGen = pdaShopBrowseInvalidateGen;
+			pdaShopBrowseCacheValid = false;
+		}
+	}
+
+	ui void RebuildPDAShopBrowseCache()
+	{
+		PDA_SyncShopBrowseState();
+		pdaShopBrowseRowKind.Clear();
+		pdaShopBrowseRowEntry.Clear();
+		pdaShopBrowseRowLabel.Clear();
+		let shop = PB_PDAShopPurchaseHandler.GetHandler();
+		if (!shop)
+		{
+			pdaShopBrowseCacheValid = true;
+			return;
+		}
+		int n = shop.rowLabel.Size();
+		if (n < 1)
+		{
+			pdaShopBrowseCacheValid = true;
+			return;
+		}
+		int xp = 0;
+		if (playeringame[consoleplayer] && players[consoleplayer].mo)
+			xp = players[consoleplayer].mo.CountInv("PB_XPBank");
+		pdaShopBrowseRowKind.Push(PDA_SHOP_ROW_HEADER);
+		pdaShopBrowseRowEntry.Push(-1);
+		pdaShopBrowseRowLabel.Push(String.Format("Experience Shop — balance: %d XP (click item to buy)", xp));
+
+		String lastCat = "";
+		for (int i = 0; i < n; i++)
+		{
+			String cat = shop.rowCategory[i];
+			if (cat != lastCat)
+			{
+				lastCat = cat;
+				pdaShopBrowseRowKind.Push(PDA_SHOP_ROW_CATEGORY);
+				pdaShopBrowseRowEntry.Push(-1);
+				pdaShopBrowseRowLabel.Push(String.Format("--- %s ---", cat));
+			}
+			pdaShopBrowseRowKind.Push(PDA_SHOP_ROW_ITEM);
+			pdaShopBrowseRowEntry.Push(i);
+			pdaShopBrowseRowLabel.Push(String.Format("%s  (%d XP)", shop.rowLabel[i], shop.rowCost[i]));
+		}
+		pdaShopBrowseCacheValid = true;
+	}
+
+	ui double PDA_ShopBrowseTextScale()
+	{
+		return clamp(Screen.GetHeight() / 240.0, 2.0, 6.0) * 0.66;
+	}
+
+	ui void PDA_ShopBrowseListMetrics(out int listLeft, out int listTop, out int listRight, out int listBottom)
+	{
+		PDA_AchievementBrowseListMetrics(listLeft, listTop, listRight, listBottom);
+	}
+
+	ui int PDA_ShopRowPixelHeight(int rowKind, double textScale)
+	{
+		int lineH = max(1, int(SmallFont.GetHeight() * textScale));
+		if (rowKind == PDA_SHOP_ROW_HEADER)
+			return lineH * 2;
+		if (rowKind == PDA_SHOP_ROW_CATEGORY)
+			return int(lineH * 1.35);
+		return int(lineH * 1.55);
+	}
+
+	ui int PDA_ShopBrowseContentHeight(double textScale)
+	{
+		int h = 0;
+		for (int i = 0; i < pdaShopBrowseRowKind.Size(); i++)
+			h += PDA_ShopRowPixelHeight(pdaShopBrowseRowKind[i], textScale);
+		return h;
+	}
+
+	ui void PDA_ShopBrowseDrawCenteredLine(int color, int y, String text,
+		double textScale, int listLeft, int listRight, double alpha)
+	{
+		int drawX = PDA_AchievementBrowseCenteredX(text, textScale, listLeft, listRight);
+		Screen.DrawText(SmallFont, color, drawX, y, text,
+			DTA_ScaleX, textScale, DTA_ScaleY, textScale,
+			DTA_ClipLeft, listLeft, DTA_ClipRight, listRight,
+			DTA_Alpha, alpha);
+	}
+
+	ui void ScrollPDAShopBrowse(int direction)
+	{
+		double textScale = PDA_ShopBrowseTextScale();
+		int listLeft, listTop, listRight, listBottom;
+		PDA_ShopBrowseListMetrics(listLeft, listTop, listRight, listBottom);
+		int viewH = listBottom - listTop;
+		int contentH = PDA_ShopBrowseContentHeight(textScale);
+		int maxScroll = max(0, contentH - viewH);
+		int lineH = max(1, int(SmallFont.GetHeight() * textScale));
+		int step = lineH * 4;
+		if (direction > 0)
+			pdaShopBrowseScroll = min(maxScroll, pdaShopBrowseScroll + step);
+		else
+			pdaShopBrowseScroll = max(0, pdaShopBrowseScroll - step);
+	}
+
+	ui void DrawPDAShopBrowse(double alpha)
+	{
+		if (alpha <= 0)
+			return;
+		PDA_SyncShopBrowseState();
+		if (!pdaShopBrowseCacheValid)
+			RebuildPDAShopBrowseCache();
+
+		int listLeft, listTop, listRight, listBottom;
+		PDA_ShopBrowseListMetrics(listLeft, listTop, listRight, listBottom);
+		double textScale = PDA_ShopBrowseTextScale();
+		int totalRows = pdaShopBrowseRowKind.Size();
+		if (totalRows < 1)
+		{
+			PDA_ShopBrowseDrawCenteredLine(Font.CR_GREEN, listTop,
+				"Shop catalog empty.", textScale, listLeft, listRight, alpha);
+			return;
+		}
+
+		int viewH = listBottom - listTop;
+		int contentH = PDA_ShopBrowseContentHeight(textScale);
+		int maxScroll = max(0, contentH - viewH);
+		pdaShopBrowseScroll = clamp(pdaShopBrowseScroll, 0, maxScroll);
+		int scrollY = pdaShopBrowseScroll;
+		int y = listTop - scrollY;
+		int xp = 0;
+		if (playeringame[consoleplayer] && players[consoleplayer].mo)
+			xp = players[consoleplayer].mo.CountInv("PB_XPBank");
+
+		let shop = PB_PDAShopPurchaseHandler.GetHandler();
+		Screen.SetClipRect(listLeft, listTop, listRight - listLeft, viewH);
+		for (int rowIdx = 0; rowIdx < totalRows; rowIdx++)
+		{
+			int kind = pdaShopBrowseRowKind[rowIdx];
+			int rowH = PDA_ShopRowPixelHeight(kind, textScale);
+			if (y + rowH > listTop && y < listBottom)
+			{
+				if (kind == PDA_SHOP_ROW_ITEM)
+				{
+					Color rowBg = color(18, 36, 48);
+					Screen.Dim(rowBg, 0.42 * alpha, listLeft + 4, y + 1, listRight - listLeft - 8, rowH - 2);
+				}
+				else if (kind == PDA_SHOP_ROW_CATEGORY)
+				{
+					Screen.Dim(color(28, 52, 68), 0.35 * alpha, listLeft + 4, y + 1, listRight - listLeft - 8, rowH - 2);
+				}
+				String line = (rowIdx < pdaShopBrowseRowLabel.Size()) ? pdaShopBrowseRowLabel[rowIdx] : "";
+				int col = Font.CR_GREEN;
+				if (kind == PDA_SHOP_ROW_HEADER)
+					col = Font.CR_YELLOW;
+				else if (kind == PDA_SHOP_ROW_CATEGORY)
+					col = Font.CR_GOLD;
+				else if (kind == PDA_SHOP_ROW_ITEM && shop)
+				{
+					int entry = pdaShopBrowseRowEntry[rowIdx];
+					if (entry >= 0 && entry < shop.rowCost.Size())
+						col = xp >= shop.rowCost[entry] ? Font.CR_LIGHTBLUE : Font.CR_GRAY;
+				}
+				PDA_ShopBrowseDrawCenteredLine(col, y, line, textScale, listLeft, listRight, alpha);
+			}
+			y += rowH;
+		}
+		Screen.ClearClipRect();
+
+		int hintY = listBottom + int(SmallFont.GetHeight() * textScale * 0.35);
+		PDA_ShopBrowseDrawCenteredLine(Font.CR_GRAY, hintY,
+			"Click an item to purchase. Scroll with arrows.", textScale, listLeft, listRight, alpha * 0.9);
+	}
+
+	ui bool PDA_TryShopBrowseClick(int mx, int my)
+	{
+		if (!ShopMenuOpened)
+			return false;
+		PDA_SyncShopBrowseState();
+		if (!pdaShopBrowseCacheValid)
+			RebuildPDAShopBrowseCache();
+
+		double textScale = PDA_ShopBrowseTextScale();
+		int listLeft, listTop, listRight, listBottom;
+		PDA_ShopBrowseListMetrics(listLeft, listTop, listRight, listBottom);
+		if (mx < listLeft || mx > listRight || my < listTop || my > listBottom)
+			return false;
+
+		int y = listTop - pdaShopBrowseScroll;
+		for (int rowIdx = 0; rowIdx < pdaShopBrowseRowKind.Size(); rowIdx++)
+		{
+			int rowH = PDA_ShopRowPixelHeight(pdaShopBrowseRowKind[rowIdx], textScale);
+			if (my >= y && my < y + rowH)
+			{
+				if (pdaShopBrowseRowKind[rowIdx] != PDA_SHOP_ROW_ITEM)
+					return true;
+				int entry = pdaShopBrowseRowEntry[rowIdx];
+				if (entry >= 0)
+				{
+					EventHandler.SendNetworkEvent("pb_pda_shop_buy", entry);
+					pdaShopBrowseCacheValid = false;
+				}
+				return true;
+			}
+			y += rowH;
+		}
+		return false;
+	}
+}

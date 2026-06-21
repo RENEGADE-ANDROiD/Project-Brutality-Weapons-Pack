@@ -17,6 +17,9 @@ CLASS OuchieFlashHandler : EventHandler
 		return;
 		if(e.damage < OuchFlashMinDamage) 
 		return;
+		if (!PBWP_FXThrottleHandler.ShouldSpawnCosmeticFX(e.Thing))
+			return;
+		PBWP_FXThrottleHandler.RegisterCombatEvent(e.Thing);
 		
 		If(OuchFlashDuration > 0 && !(e.thing.FindInventory("OuchieFlash")))
 		{
@@ -38,6 +41,9 @@ CLASS OuchieFlashHandler : EventHandler
 	{
 		if(OuchFlashOnlyMonsters && e.thing.bISMONSTER == false) 
 		return;
+		if (!PBWP_FXThrottleHandler.ShouldSpawnCosmeticFX(e.Thing))
+			return;
+		PBWP_FXThrottleHandler.RegisterCombatEvent(e.Thing);
 
 		If(OuchFlashDuration > 0 && !(e.thing.FindInventory("OuchieFlash")))
 		{

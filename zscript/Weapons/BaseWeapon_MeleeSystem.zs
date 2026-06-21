@@ -10,10 +10,13 @@ extend class PB_WeaponBase
 			return ResolveState(null);
 			}
 			Loop;
-    // The Use Melee
+
+    // Staging-default punch: flash on PSP_WEAPON, knife on -998 (StagingQuickMeleeTail).
+    // Wheel melee: MeleeDispatch only when PB_HasCustomWheelMelee() is true.
+    // Handler (BaseWeapon.zc) starts QuickMelee on -998 — flash lives on PSP_WEAPON from GoMeleeInstead.
     QuickMelee:
-        TNT1 A 0 A_JumpIf(isGKLoaded, "QuickMeleeGK");
         "####" A 0 {
+            PB_SetReloading(false);
             A_StopSound(CHAN_WEAPON);
             A_StopSound(CHAN_VOICE);
             A_StopSound(CHAN_6);
@@ -21,12 +24,10 @@ extend class PB_WeaponBase
         }
         TNT1 A 0 A_JumpIfInventory("CantDoAction",1,"FailOverlay");
         TNT1 A 0 A_JumpIfHealthLower(0, "FailOverlay");
-        //TNT1 A 0 A_JumpIf(!CustomMelee, "Super::GoMeleeInstead")
         TNT1 A 0 {
-            A_ClearOverlays(-10,65);
+            A_ClearOverlays(-10, -1, false);
             A_Gunflash("Null");
         }
-		"####" AAA 0 PB_Execute();
 	GoMeleeInstead:
 		TNT1 A 0 {
 			A_TakeInventory("Zoomed",1);
@@ -35,22 +36,151 @@ extend class PB_WeaponBase
 			A_SetRoll(0);
 			A_LegOverlay(-1000, "FirstPersonLegsStand");
 			A_OverlayFlags(-1000, PSPF_ADDWEAPON|PSPF_ADDBOB, False);
-			// Redirect melee to PSP_WEAPON so layer -998 can be destroyed
-			A_Overlay(PSP_WEAPON, "MeleeDispatch");
-			A_OverlayOffset(PSP_WEAPON, 0, 32);
+			PB_SetUsingMelee(true);
+			A_GiveInventory("HasCutingWeapon", 1);
+			// Chainsaw wheel melee: tall 0SAW/1SAW sprites — skip punch flash, anchor overlay to screen bottom.
+			if (PB_HasCustomWheelMelee() && CountInv("SawMeleeSelected") >= 1)
+				PB_AnchorSawWheelOverlay();
+			else
+			{
+				A_OverlayPivotAlign(PSP_QUICKMELEE, PSPA_CENTER, PSPA_CENTER);
+				A_OverlayOffset(PSP_QUICKMELEE, 0, 32);
+				if (CountInv("GrabbedBarrel") == 1 || CountInv("GrabbedIceBarrel") == 1 || CountInv("GrabbedFlameBarrel") == 1)
+					A_Overlay(PSP_WEAPON, "FlashBarrelPunching");
+				else
+					A_Overlay(PSP_WEAPON, "FlashPunching");
+				A_OverlayOffset(PSP_WEAPON, 0, 32);
+			}
 		}
-		Stop; // Kill layer -998 — prevents ghost idle frame during reload
+		"####" AAA 0 PB_Execute();
+		TNT1 A 0 {
+			if (invoker.PB_pendingExecutionState != null)
+			{
+				PB_SetUsingMelee(false);
+				A_TakeInventory("HasCutingWeapon", 1);
+				return ResolveState(null);
+			}
+			if (!PB_HasCustomWheelMelee())
+				return ResolveState("StagingQuickMeleeTail");
+			return ResolveState("MeleeDispatch");
+		}
+		Stop;
+
+	// PB Staging quick-melee tail (knife on -998). Flash already on PSP_WEAPON from GoMeleeInstead.
+	StagingQuickMeleeTail:
+		TNT1 A 0 A_StartSound("KNIFSWNG", 0);
+		TNT1 A 0 {
+			double knifeRoll = frandom(-1.0, 1.0);
+			A_Overlayrotate(PSP_QUICKMELEE, knifeRoll);
+			if (PB_IsVisorBlood())
+			{
+				switch (PB_GetVisorBlood())
+				{
+					case REDBLOODVISOR:  A_overlay(PSP_QUICKMELEEBLOOD, "BloodyKnife_Red");   break;
+					case GREENBLOODVISOR: A_overlay(PSP_QUICKMELEEBLOOD, "BloodyKnife_Green"); break;
+					case BLUEBLOODVISOR:  A_overlay(PSP_QUICKMELEEBLOOD, "BloodyKnife_Blue");  break;
+				}
+				A_Overlayrotate(PSP_QUICKMELEEBLOOD, knifeRoll);
+			}
+			if (invoker.leftHandMelee || findinventory("GrabbedBarrel") || findinventory("GrabbedFlameBarrel") || findinventory("GrabbedIceBarrel"))
+			{
+				A_OverlayFlags(PSP_QUICKMELEE, PSPF_FLIP | PSPF_MIRROR, true);
+				A_OverlayFlags(PSP_QUICKMELEEBLOOD, PSPF_FLIP | PSPF_MIRROR, true);
+			}
+		}
+		MC3S AB 1 {
+			if (JustPressed(BT_USER2))
+				PB_Execute();
+		}
+		MC3S C 1 {
+			A_Setangle(angle - 1, SPF_INTERPOLATE);
+			A_SetPitch(pitch + 1, SPF_INTERPOLATE);
+			if (JustPressed(BT_USER2))
+				PB_Execute();
+		}
+		MC3S D 1 {
+			A_QuakeEx(0, 0.5, 0, 7, 0, 10, "", QF_SCALEDOWN | QF_RELATIVE, 0, 0, 0, 0, 0, 2, 2);
+			if (JustPressed(BT_USER2))
+				PB_Execute();
+		}
+		TNT1 A 0 {
+			if (CountInv("PB_PowerStrength") == 1)
+				A_FireProjectile("SuperKnifeSwing", 0, 0, 0, 0, 0, 0);
+			else
+				A_FireProjectile("KnifeSwing", 0, 0, 0, 0, 0, 0);
+			PB_UseLine(64);
+			FLineTraceData t;
+			LineTrace(angle, 64, pitch, 0, player.mo.height * 0.5 - player.mo.floorclip + player.mo.AttackZOffset * player.crouchFactor, data: t);
+			if (t.hitactor != null && !t.hitactor.bnoblood && !t.hitactor.bdormant)
+			{
+				if (t.hitactor.bloodcolor == 0)
+				{
+					invoker.curBlood.x = gameinfo.defaultbloodcolor.r / 255.0;
+					invoker.curBlood.y = gameinfo.defaultbloodcolor.g / 255.0;
+					invoker.curBlood.z = gameinfo.defaultbloodcolor.b / 255.0;
+				}
+				else
+				{
+					invoker.curBlood.x = t.hitactor.bloodcolor.r / 255.0;
+					invoker.curBlood.y = t.hitactor.bloodcolor.g / 255.0;
+					invoker.curBlood.z = t.hitactor.bloodcolor.b / 255.0;
+				}
+			}
+		}
+		MC3S EF 1 {
+			if (JustPressed(BT_USER2))
+				PB_Execute();
+		}
+		MC3S GHIJK 1 {
+			A_SetPitch(pitch - 0.2, SPF_INTERPOLATE);
+			if (JustPressed(BT_USER2))
+				PB_Execute();
+		}
+		TNT1 AAA 1 {
+			A_Setangle(angle + 0.3, SPF_INTERPOLATE);
+			if (JustPressed(BT_USER2))
+				PB_Execute();
+		}
+		TNT1 A 0 {
+			if (invoker.leftHandMelee)
+			{
+				A_OverlayFlags(PSP_QUICKMELEE, PSPF_FLIP | PSPF_MIRROR, false);
+				A_OverlayFlags(PSP_QUICKMELEEBLOOD, PSPF_FLIP | PSPF_MIRROR, false);
+			}
+		}
+		TNT1 A 0 A_Overlayrotate(PSP_QUICKMELEE, 0);
+		TNT1 A 0 PB_FinishPunchRestore();
+		Stop;
+
+	// Brief flash hold before execution replaces PSP_WEAPON (flash already applied in GoMeleeInstead).
+	ExecutionFlashWindup:
+		"####" A 1;
+		"####" B 1;
+		TNT1 A 0 A_Jump(256, "ExecutionFlashWindupFinish");
+	ExecutionFlashWindupFinish:
+		TNT1 A 0 {
+			if(invoker.PB_pendingExecutionState != null)
+			{
+				A_Overlay(PSP_WEAPON, invoker.PB_pendingExecutionState);
+				A_OverlayOffset(PSP_WEAPON, 0, 32);
+			}
+			else
+				PB_RestoreWeaponReadyOverlay();
+			invoker.PB_pendingExecutionState = null;
+			PB_SetUsingMelee(false);
+			A_TakeInventory("HasCutingWeapon", 1);
+		}
+		Stop;
 
 	MeleeDispatch:
-        // Two Handed Melee
+        // Two Handed Melee — runs on overlay -998; do not replace PSP_WEAPON (punch flash lives there).
         TNT1 A 0 A_JumpIfInventory("MeleeAxeSelected", 1, "PrepDualHandsAxe");
         TNT1 A 0 A_JumpIfInventory("KatanaMeleeSelected", 1, "PrepDualHands");
         TNT1 A 0 A_JumpIfInventory("JohnnyHandsMeleeSelected", 1, "ExplosiveHands");
         TNT1 A 0 A_JumpIfInventory("SawMeleeSelected", 1, "SawComboStart");
         TNT1 A 0 A_JumpIfInventory("HammerMeleeSelected", 1, "PrepDualHands");
-        // One Handed Melee
-        TNT1 A 0 A_Overlay(PSP_FLASH, "FlashPunching");
-        TNT1 A 0 A_JumpIfInventory("StandardMeleeSelected", 1, "StandardMelee");
+        // PBWP fist combo wheel option (not default Staging quick punch)
+        TNT1 A 0 A_JumpIfInventory("FistComboMeleeSelected", 1, "StandardMelee");
         TNT1 A 0 A_JumpIfInventory("BladeMeleeSelected", 1, "MeleeBlade");
         TNT1 A 0 A_JumpIfInventory("ImpactorMeleeSelected", 1, "MeleeImpactor");
         TNT1 A 0 A_JumpIfInventory("PickAxeMeleeSelected", 1, "MeleePickAxe");
@@ -61,10 +191,12 @@ extend class PB_WeaponBase
         TNT1 A 0 A_JumpIfInventory("BatonMeleeSelected", 1, "BatonComboStart");
         TNT1 A 0 A_JumpIfInventory("MacheteMeleeSelected", 1, "MacheteSwingLeft");
 
-		// Add more Here
-			Goto GoingToReady;
+		// Wheel token set but no handler matched — fall back to default knife punch.
+		Goto StagingQuickMeleeTail;
     PrepDualHands:
-    // Two Handed Only
+    // Two Handed Only — wait for punch flash (~14 tics) before clearing PSP_WEAPON
+        TNT1 AAAAAAAAAAAAAA 1;
+        TNT1 A 0 A_ClearOverlays(PSP_WEAPON, PSP_WEAPON, false);
         EQPR ABCD 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
 		EQPR EJK 1;
 		TNT1 AAAA 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
@@ -75,18 +207,48 @@ extend class PB_WeaponBase
         TNT1 A 0 A_JumpIfInventory("PB_Axe", 1, 2);
 		TNT1 A 0 A_Print("You Don't Have any Axe");
 		Goto GoingToReady;
+        TNT1 AAAAAAAAAAAAAA 1;
+        TNT1 A 0 A_ClearOverlays(PSP_WEAPON, PSP_WEAPON, false);
         EQPR ABCD 1 A_SetRoll(roll-.8, SPF_INTERPOLATE);
 		EQPR EJK 1;
 		TNT1 AAAA 1 A_SetRoll(roll+.8, SPF_INTERPOLATE);
         Goto AxeSwingRight;
 
+	// Base flash states — weapons without overrides inherit Staging-correct endings.
+	FlashPunching:
+		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "FlashBarrelPunching");
+		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "FlashBarrelPunching");
+		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "FlashBarrelPunching");
+		Goto HideWeaponDuringAction;
+
+	FlashKicking:
+		TNT1 AAAAAAAAAAAAAAA 1;
+		Stop;
+
+	FlashAirKicking:
+		TNT1 AAAAAAAAAAAAAAAA 1;
+		Stop;
+
+	FlashSlideKicking:
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAA 1;
+		Stop;
+
+	FlashSlideKickingStop:
+		TNT1 AAAAAAA 1;
+		Stop;
 
 	HideWeaponDuringAction:
 		TNT1 A 1 {
-			if(!PB_usingMelee() && !PB_usingKick()) return ResolveState("GoingToReady");
-			return ResolveState(null);
+			if (PB_usingMelee() || PB_usingKick() || CountInv("Kicking") >= 1 || CountInv("HasCutingWeapon") >= 1)
+				return ResolveState(null);
+			return ResolveState("GoingToReady");
 		}
 		Loop;
+
+	// Dummy hide for equipment throws on PSP_FLASH only (never Goto Ready3 / HideWeaponDuringAction here).
+	EquipmentFlashHide:
+		TNT1 AAAAAAAAAAAAAA 1;
+		Stop;
 
 	// Override PB Staging's GoingToReady to clear stale melee overlay (-998)
 	GoingToReady:
@@ -108,8 +270,10 @@ extend class PB_WeaponBase
 			PB_SetUsingEquipment(false);
 			PB_SetExecutingEnemy(false);
 			A_ClearReFire();
-			A_ClearOverlays(-999, -998);
-			A_ClearOverlays(PSP_FLASH, PSP_FLASH);
+			A_ClearOverlays(-999, -998, false);
+			A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+			PB_EnsureOverlayHandlers();
+			PB_RestoreWeaponReadyOverlay();
 		}
 		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Ready2");
 		TNT1 A 0 A_Jump(256,"Ready3");
@@ -125,8 +289,10 @@ extend class PB_WeaponBase
 			PB_SetUsingEquipment(false);
 			A_LegOverlay(-1000, "FirstPersonLegsStand");
 			A_ClearReFire();
-			A_ClearOverlays(PSP_FLASH, PSP_FLASH);
-			A_ClearOverlays(-999, -998);
+			A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+			A_ClearOverlays(-999, -998, false);
+			PB_EnsureOverlayHandlers();
+			PB_RestoreWeaponReadyOverlay();
 		}
 		TNT1 A 0 A_JumpIfInventory("SawSelected", 1, "Reselect");
 		TNT1 AAAA 0 A_Jump(256, "SelectAnimation");
@@ -138,6 +304,7 @@ extend class PB_WeaponBase
         TNT1 A 0
             {
             A_SetInventory("WW_StandardMeleeSelected",0);
+            A_SetInventory("WW_FistComboMeleeSelected",0);
             A_SetInventory("WW_BladeMeleeSelected",0);
             A_SetInventory("WW_MeleeAxeSelected",0);
             A_SetInventory("WW_ImpactorMeleeSelected",0);
@@ -163,6 +330,8 @@ extend class PB_WeaponBase
         TNT1 A 0 {
             if(CountInv("WW_StandardMeleeSelected") && CountInv("StandardMeleeSelected") >=1)
                 {A_Print("Melee already selected: Default"); return ResolveState("WheelCancelMelee");}
+            if(CountInv("WW_FistComboMeleeSelected") && CountInv("FistComboMeleeSelected") >=1)
+                {A_Print("Melee already selected: Fist Combos"); return ResolveState("WheelCancelMelee");}
             if(CountInv("WW_BladeMeleeSelected") && CountInv("BladeMeleeSelected") >=1)
                 {A_Print("Melee already selected: Blade"); return ResolveState("WheelCancelMelee");}
             if(CountInv("WW_MeleeAxeSelected") && CountInv("MeleeAxeSelected") >=1)
@@ -281,6 +450,29 @@ extend class PB_WeaponBase
                         A_SetInventory("BatonMeleeSelected",0);
                         A_SetInventory("HammerMeleeSelected",0);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
+                        A_StartSound("GRNPIN", 3);
+                        return ResolveState("WheelCancelMelee");
+                    }
+                if(CountInv("WW_FistComboMeleeSelected") >=1)
+                    {
+                        A_Print("Melee Selected: Fist Combos");
+                        A_SetInventory("StandardMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",1);
+                        A_SetInventory("BladeMeleeSelected",0);
+                        A_SetInventory("MeleeAxeSelected",0);
+                        A_SetInventory("ImpactorMeleeSelected",0);
+                        A_SetInventory("KatanaMeleeSelected",0);
+                        A_SetInventory("PickAxeMeleeSelected",0);
+                        A_SetInventory("SentinelHammerMeleeSelected",0);
+                        A_SetInventory("ClawGauntletMeleeSelected",0);
+                        A_SetInventory("JohnnyHandsMeleeSelected",0);
+                        A_SetInventory("MeleeCrowbarSelected",0);
+                        A_SetInventory("WrenchMeleeSelected",0);
+                        A_SetInventory("SawMeleeSelected",0);
+                        A_SetInventory("BatonMeleeSelected",0);
+                        A_SetInventory("HammerMeleeSelected",0);
+                        A_SetInventory("MacheteMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -302,6 +494,7 @@ extend class PB_WeaponBase
                         A_SetInventory("BatonMeleeSelected",0);
                         A_SetInventory("HammerMeleeSelected",0);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }		
@@ -324,6 +517,7 @@ extend class PB_WeaponBase
                         //A_Overlay(PSP_FLASH,"SwapToMeleeAxe");
                         A_SetInventory("HammerMeleeSelected",0);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                         //return ResolveState("SwapToMeleeAxe");
@@ -346,6 +540,7 @@ extend class PB_WeaponBase
                         A_SetInventory("BatonMeleeSelected",0);
                         A_SetInventory("HammerMeleeSelected",0);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -367,6 +562,7 @@ extend class PB_WeaponBase
                         A_SetInventory("BatonMeleeSelected",0);
                         A_SetInventory("HammerMeleeSelected",0);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }	
@@ -388,6 +584,7 @@ extend class PB_WeaponBase
                         A_SetInventory("BatonMeleeSelected",0);
                         A_SetInventory("HammerMeleeSelected",0);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }	
@@ -409,6 +606,7 @@ extend class PB_WeaponBase
                         A_SetInventory("BatonMeleeSelected",0);
                         A_SetInventory("HammerMeleeSelected",0);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }	
@@ -430,6 +628,7 @@ extend class PB_WeaponBase
                         A_SetInventory("BatonMeleeSelected",0);
                         A_SetInventory("HammerMeleeSelected",0);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }	
@@ -451,6 +650,7 @@ extend class PB_WeaponBase
                         A_SetInventory("BatonMeleeSelected",0);
                         A_SetInventory("HammerMeleeSelected",0);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -472,6 +672,7 @@ extend class PB_WeaponBase
                         A_SetInventory("BatonMeleeSelected",0);
                         A_SetInventory("HammerMeleeSelected",0);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -493,6 +694,7 @@ extend class PB_WeaponBase
                         A_SetInventory("BatonMeleeSelected",0);
                         A_SetInventory("HammerMeleeSelected",0);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -514,6 +716,7 @@ extend class PB_WeaponBase
                         A_SetInventory("BatonMeleeSelected",0);
                         A_SetInventory("HammerMeleeSelected",0);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -535,6 +738,7 @@ extend class PB_WeaponBase
                         A_SetInventory("BatonMeleeSelected",1);
                         A_SetInventory("HammerMeleeSelected",0);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -556,6 +760,7 @@ extend class PB_WeaponBase
                         A_SetInventory("BatonMeleeSelected",0);
                         A_SetInventory("HammerMeleeSelected",1);
                         A_SetInventory("MacheteMeleeSelected",0);
+                        A_SetInventory("FistComboMeleeSelected",0);
                         A_StartSound("GRNPIN", 3);
                         return ResolveState("WheelCancelMelee");
                     }
@@ -585,5 +790,95 @@ extend class PB_WeaponBase
             return ResolveState(null);
             }
         goto Melee_Toggle_Handler_Overlay;
+
+	// Shadow Staging handler: slot-1 melee weapons may quick-punch while holding fire.
+	Melee_Equipment_Handler_Overlay:
+		TNT1 A 1 {
+			if (PB_QuickMeleeInputAllowed(false) && !FindInventory("RevGunSelected"))
+			{
+				if (JustPressed(BT_USER1) && !PB_usingMelee() && !PB_executingEnemy() && !PB_usingEquipment() && !CheckInventory("CantDoAction", 1))
+				{
+					if (CheckInventory("DoingHelmetAnim", 1))
+					{
+						A_TakeInventory("PB_NoEffectInvul", 1);
+						A_TakeInventory("sae_extcam", 1);
+						A_TakeInventory("sae_deathcam", 1);
+						A_TakeInventory("CantDoAction", 1);
+						A_TakeInventory("DoingHelmetAnim", 1);
+					}
+					if (!PB_usingKick())
+					{
+						A_OverlayOffset(PSP_WEAPON, 0, 32);
+						PB_SetUsingEquipment(true);
+						A_Overlay(PSP_WEAPON, "UseEquipment");
+						A_OverlayOffset(PSP_WEAPON, 0, 32);
+					}
+				}
+				if (JustPressed(BT_USER2) && !PB_usingMelee() && !PB_executingEnemy() && !PB_usingEquipment() && !CheckInventory("CantDoAction", 1))
+				{
+					if (CheckInventory("DoingHelmetAnim", 1))
+					{
+						A_TakeInventory("PB_NoEffectInvul", 1);
+						A_TakeInventory("sae_extcam", 1);
+						A_TakeInventory("sae_deathcam", 1);
+						A_TakeInventory("CantDoAction", 1);
+						A_TakeInventory("DoingHelmetAnim", 1);
+					}
+					PB_SetUsingMelee(true);
+					A_Overlay(PSP_QUICKMELEE, "QuickMelee");
+					if (CountInv("SawMeleeSelected") >= 1)
+						PB_AnchorSawWheelOverlay();
+					else
+						A_OverlayOffset(PSP_QUICKMELEE, 0, 32);
+				}
+			}
+			else
+			{
+				if (JustPressed(BT_USER1) && !PB_executingEnemy() && !PB_usingMelee())
+				{
+					if (CheckInventory("DoingHelmetAnim", 1))
+					{
+						A_TakeInventory("PB_NoEffectInvul", 1);
+						A_TakeInventory("sae_extcam", 1);
+						A_TakeInventory("sae_deathcam", 1);
+						A_TakeInventory("CantDoAction", 1);
+						A_TakeInventory("DoingHelmetAnim", 1);
+					}
+					if (FindInventory("RevGunSelected") && !player.FindPSprite(PSP_RevenantLauncherLayer))
+					{
+						A_OverlayOffset(PSP_RevenantLauncherLayer, 0, 32);
+						A_Overlay(PSP_RevenantLauncherLayer, "FireRevGun");
+						A_OverlayPivotAlign(PSP_RevenantLauncherLayer, PSPA_CENTER, PSPA_CENTER);
+						A_OverlayFlags(PSP_RevenantLauncherLayer, PSPF_RENDERSTYLE, true);
+						A_OverlayOffset(PSP_RevenantLauncherLayer, 0, 32);
+					}
+				}
+				if (JustPressed(BT_USER2) && !PB_usingMelee() && !PB_executingEnemy() && !PB_usingEquipment() && !CheckInventory("CantDoAction", 1) && PB_QuickMeleeInputAllowed(true))
+				{
+					if (CheckInventory("DoingHelmetAnim", 1))
+					{
+						A_TakeInventory("PB_NoEffectInvul", 1);
+						A_TakeInventory("sae_extcam", 1);
+						A_TakeInventory("sae_deathcam", 1);
+						A_TakeInventory("CantDoAction", 1);
+						A_TakeInventory("DoingHelmetAnim", 1);
+					}
+					PB_SetUsingMelee(true);
+					A_Overlay(PSP_QUICKMELEE, "QuickMelee");
+					if (CountInv("SawMeleeSelected") >= 1)
+						PB_AnchorSawWheelOverlay();
+					else
+						A_OverlayOffset(PSP_QUICKMELEE, 0, 32);
+				}
+			}
+			if (CountInv("Zoomed") > 0 && FindInventory("RevGunSelected") && (PressingUser1() || player.FindPSprite(PSP_RevenantLauncherLayer)))
+				A_OverlayScale(PSP_RevenantLauncherLayer, 1.3398);
+			else
+			{
+				A_OverlayScale(PSP_RevenantLauncherLayer, 1.0);
+				A_OverlayRenderstyle(PSP_RevenantLauncherLayer, STYLE_Normal);
+			}
+		}
+		Loop;
     }
 }

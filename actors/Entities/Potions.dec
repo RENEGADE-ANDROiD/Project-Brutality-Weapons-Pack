@@ -6,17 +6,26 @@ ACTOR XD_HealthBonusSpawner : RandomSpawner Replaces PB_HealthBonus
 	DropItem "PB_HealthBonusGreen", 256
 	DropItem "PB_HealthBonusGold", 256
 }
-ACTOR PB_HealthBonus1 : PB_HealthBonus {Inventory.PickupSound HBONUS1
-Inventory.Amount 1}
+ACTOR PB_HealthBonus1 : PB_HealthBonus
+{
+	Inventory.PickupSound HBONUS1
+	Inventory.Amount 1
+}
 ACTOR PB_HealthBonusRed : PB_HealthBonus
-{Translation "192:207=[255,0,0]:[50,0,0]", "240:247=[50,0,0]:[0,0,0]"
-Inventory.PickupSound HBONUS3
-Inventory.Amount 3}
+{
+	Translation "192:207=[255,0,0]:[50,0,0]", "240:247=[50,0,0]:[0,0,0]"
+	Inventory.PickupSound HBONUS3
+	Inventory.Amount 3
+}
 ACTOR PB_HealthBonusGreen : PB_HealthBonus
-{Translation "192:207=[0,255,0]:[0,50,0]", "240:247=[0,50,0]:[0,0,0]"
-Inventory.PickupSound HBONUS2
-Inventory.Amount 2}
+{
+	Translation "192:207=[0,255,0]:[0,50,0]", "240:247=[0,50,0]:[0,0,0]"
+	Inventory.PickupSound HBONUS2
+	Inventory.Amount 2
+}
 ACTOR PB_HealthBonusGold : PB_HealthBonus
-{Translation "192:207=[255,211,0]:[50,50,0]", "240:247=[50,50,0]:[0,0,0]"
-Inventory.PickupSound HBONUS4
-Inventory.Amount 4}
+{
+	Translation "192:207=[255,211,0]:[50,50,0]", "240:247=[50,50,0]:[0,0,0]"
+	Inventory.PickupSound HBONUS4
+	Inventory.Amount 4
+}

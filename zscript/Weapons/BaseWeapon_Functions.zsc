@@ -1,5 +1,133 @@
+enum PB_VisorBlood{
+		REDBLOODVISOR,
+		GREENBLOODVISOR,
+		BLUEBLOODVISOR,
+		ERRORBLOODVISOR
+	}
+
+enum PB_OverlayLayers{
+		PSP_LEDGEGRAB					= 1000,
+		PSP_LEFTGUN		  				= 10,
+		PSP_RIGHTGUN	 				= 11,
+		FLASH_LAYER						= -3,
+		LEFT_FLASH_LAYER				= -4,
+		RIGHT_FLASH_LAYER				= -5,
+		PSP_REVENANTLAUNCHERLAYER		= -85,
+		PSP_MELEEEQHANDLER			 	= -777,
+		PSP_KICKHANDLER				 	= -778,
+		PSP_EQTOGGLEHANDLER			 	= -779,
+		PSP_MELEETOGGLEHANDLER		 	= -780,
+		PSP_PUNCHFLASHHOLD				= -996,
+		PSP_QUICKMELEEBLOOD				= -997,
+		PSP_QUICKMELEE					= -998,
+		PSP_FIRSPERSONLEGS				= -1000
+	}
+
 extend class PB_WeaponBase
 {
+	// Deferred execution state — set by PB_Execute, consumed by ExecutionFlashWindup.
+	StateLabel PB_pendingExecutionState;
+
+	// PBWP FX gating: this file compiles in PDA's ZScript TU, so PBWP_FXThrottleHandler is not visible here.
+	bool PBWP_CanSpawnCasingSmoke()
+	{
+		let perf = CVar.GetCVar("pb_performance_fire");
+		if (perf && perf.GetBool())
+			return false;
+		let cheap = CVar.GetCVar("pb_cheapcasings");
+		if (cheap && cheap.GetBool())
+			return false;
+		let throttle = CVar.GetCVar("pbwp_fx_throttle");
+		if (throttle && !throttle.GetBool())
+			return true;
+		return true;
+	}
+
+	bool PBWP_CanSpawnCosmeticFX()
+	{
+		let perf = CVar.GetCVar("pb_performance_fire");
+		if (perf && perf.GetBool())
+			return false;
+		let throttle = CVar.GetCVar("pbwp_fx_throttle");
+		if (throttle && !throttle.GetBool())
+			return true;
+		return true;
+	}
+
+	// Shared fire-triggered execution gate for PDA + PBWP weapons (ttwcfbex menu option).
+	action state PB_FireExecuteCheck()
+	{
+		if (CountInv("NoFatality") != 0)
+			return resolveState(null);
+		let c = CVar.GetCVar("ttwcfbex");
+		if (!c || !c.GetBool())
+			return resolveState(null);
+		return PB_Execute();
+	}
+
+	// Function for weapons that have both dual wield and ads, just enable the ads if its called in ready2
+	action state PB_ReadyFire(
+		statelabel fire     = "Fire",
+		statelabel firezoom = "Fire2",
+		statelabel zoomout  = "Zoomout",
+		bool ads            = false,
+		bool useMag         = true)
+	{
+		int ammoToCheck = useMag ? invoker.ammo2.amount : invoker.ammo1.amount;
+
+		if(ads && PB_GetAimMode())
+		{
+			if(!PressingAltfire() || JustReleased(BT_ALTATTACK))
+				return ResolveState(zoomout);
+			if(PressingFire() && PressingAltfire() && ammoToCheck > 0)
+				return ResolveState(firezoom);
+			return A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOSECONDARY);
+		}
+
+		if(PressingFire() && PressingAltfire() && ammoToCheck > 0)
+			return ResolveState(ads ? firezoom : fire);
+		if(PressingFire() && ammoToCheck > 0)
+			return ResolveState(ads ? firezoom : fire);
+
+		return A_DoPBWeaponAction(WRF_ALLOWRELOAD);
+	}
+
+	// It would be nice if the zoomed token can be turned into variable inside baseweapon
+	action void PB_SetZoom(bool set)
+	{
+		A_SetInventory("Zoomed", set);
+		if(set == false) A_ZoomFactor(1.0);
+	}
+
+	action bool PB_GetZoom()
+	{
+        return countinv("Zoomed") > 0;
+	}
+
+	// Beef: I want to put this inside PB_GetVisorBlood() but I see that in BaseWeapon_Melee this is used independently
+	action bool PB_IsVisorBlood() {
+		return invoker.curBlood.x != 0 || invoker.curBlood.y != 0 || invoker.curBlood.z != 0;
+	}
+
+	// Beef: I think you should always check if there is actually blood on the visor before calling this
+	action int PB_GetVisorBlood()
+	{
+		double BR = invoker.curBlood.x;
+		double BG = invoker.curBlood.y;
+		double BB = invoker.curBlood.z;
+		double mostlyred = (BR - (BG + BB));
+		double mostlygreen = (BG - (BB + BR));
+		double mostlyblue = (BB - (BR + BG));
+		if(mostlyred > 0)
+			return REDBLOODVISOR;
+		else if(mostlygreen > 0)
+			return GREENBLOODVISOR;
+		else if(mostlyblue > 0)
+			return BLUEBLOODVISOR;
+		else
+			return ERRORBLOODVISOR; // If this is returned then something is wrong lol
+	}
+
 	action bool PB_GetAimMode() {
         return CVar.GetCVar("pb_toggle_aim_hold", Player).GetBool();
     }
@@ -132,12 +260,9 @@ extend class PB_WeaponBase
 		A_SetInventory("Zoomed",0);
 		
 		A_ClearOverlays(-999, -997);
-		A_Overlay(-777, "Melee_Equipment_Handler_Overlay");
-		A_Overlay(-778, "KickHandler_Overlay");
-		A_Overlay(-779, "Equipment_Toggle_Handler_Overlay");
+		A_ClearOverlays(PSP_MELEETOGGLEHANDLER, PSP_MELEEEQHANDLER, false);
+		PB_EnsureOverlayHandlers();
 		invoker.WeaponScaleX = 1.0;
-		A_Overlay(-1000, "FirstPersonLegsStand");
-		A_OverlayFlags(-1000, PSPF_ADDWEAPON|PSPF_ADDBOB, False);
 		invoker.WeaponScaleX = PB_PixelRenderingFix ? 1.2 : 1.0;
 		
 		PB_SetUsingKick(false);
@@ -145,6 +270,9 @@ extend class PB_WeaponBase
 		PB_SetUsingEquipment(false);
 		PB_SetExecutingEnemy(false);
 		PB_SetReloading(false);
+
+		if (player)
+			player.WeaponState &= ~WF_WEAPONBOBBING;
 	}
 	
 	//put this in the beggining of the reload state
@@ -169,7 +297,7 @@ extend class PB_WeaponBase
 			A_SetInventory("Zoomed",0);
 			A_ZoomFactor(1.0);
 			A_SetCrosshair(-1);
-			A_ClearOverlays(10,11);
+			PB_ClearDualWield();
 			PB_SetReloading(true);
 			
 			if(fullAlready && full > 0 && amount2 >= full && !PB_GetChamberEmpty(dual) && !PB_GetMagUnloaded(dual)) //if the weapon is already full
@@ -430,9 +558,16 @@ extend class PB_WeaponBase
 	}
 	
 	action void PB_SetChainsawHealthRestore(bool type){
-		invoker.executingEnemy = type;
+		invoker.chainsawMode = type;
 	}
 	
+	// Chainsaw wheel melee (0SAW/1SAW on PSP_QUICKMELEE): tall sprites — tuck below the HUD.
+	action void PB_AnchorSawWheelOverlay()
+	{
+		A_OverlayPivotAlign(PSP_QUICKMELEE, PSPA_CENTER, PSPA_BOTTOM);
+		A_OverlayOffset(PSP_QUICKMELEE, 0, 64);
+	}
+
 	action void PB_SawAttack(bool verticalCut = 0, bool stealArmor = 0)
 	{
 		double playerHealth = self.health;
@@ -1297,9 +1432,43 @@ extend class PB_WeaponBase
 	action bool PB_usingMelee(){
 		return invoker.usingMelee;
 	}
+
+	// Melee-slot weapons use fire for attacks; allow quick punch while holding attack.
+	action bool PB_QuickMeleeInputAllowed(bool blockWhenZoomed = false)
+	{
+		if (invoker.bMELEEWEAPON)
+			return true;
+		if (blockWhenZoomed && CountInv("Zoomed") >= 1)
+			return false;
+		if (PressingFire() || JustPressed(BT_ATTACK))
+			return false;
+		if (invoker.FindState("AltFire") && (PressingAltFire() || JustPressed(BT_ALTATTACK)))
+			return false;
+		return true;
+	}
 	
 	action void PB_SetUsingMelee(bool type){
 		invoker.usingMelee = type;
+	}
+
+	// True when the gearbox wheel has a non-default melee selected (not Standard quick punch / knife).
+	action bool PB_HasCustomWheelMelee()
+	{
+		return CountInv("FistComboMeleeSelected") >= 1
+			|| CountInv("BladeMeleeSelected") >= 1
+			|| CountInv("MeleeAxeSelected") >= 1
+			|| CountInv("KatanaMeleeSelected") >= 1
+			|| CountInv("JohnnyHandsMeleeSelected") >= 1
+			|| CountInv("SawMeleeSelected") >= 1
+			|| CountInv("HammerMeleeSelected") >= 1
+			|| CountInv("ImpactorMeleeSelected") >= 1
+			|| CountInv("PickAxeMeleeSelected") >= 1
+			|| CountInv("SentinelHammerMeleeSelected") >= 1
+			|| CountInv("ClawGauntletMeleeSelected") >= 1
+			|| CountInv("MeleeCrowbarSelected") >= 1
+			|| CountInv("WrenchMeleeSelected") >= 1
+			|| CountInv("BatonMeleeSelected") >= 1
+			|| CountInv("MacheteMeleeSelected") >= 1;
 	}
 	
 	
@@ -1309,6 +1478,118 @@ extend class PB_WeaponBase
 	
 	action void PB_SetUsingKick(bool type){
 		invoker.usingKick = type;
+	}
+
+	// Kick/melee/equipment overlays — re-seat on raise (Staging SelectFirstPersonLegs parity).
+	action void PB_EnsureOverlayHandlers()
+	{
+		if (!invoker.FindState("KickHandler_Overlay"))
+			return;
+
+		A_Overlay(PSP_MELEEEQHANDLER, "Melee_Equipment_Handler_Overlay");
+		A_Overlay(PSP_KICKHANDLER, "KickHandler_Overlay");
+		A_Overlay(PSP_EQTOGGLEHANDLER, "Equipment_Toggle_Handler_Overlay");
+		if (invoker.FindState("Melee_Toggle_Handler_Overlay"))
+			A_Overlay(PSP_MELEETOGGLEHANDLER, "Melee_Toggle_Handler_Overlay");
+		if (invoker.FindState("FirstPersonLegsStand"))
+		{
+			A_Overlay(-1000, "FirstPersonLegsStand");
+			A_OverlayFlags(-1000, PSPF_ADDWEAPON | PSPF_ADDBOB, false);
+		}
+	}
+
+	// True when this weapon defines a flash state (DECORATE or ZScript), excluding PB_WeaponBase stubs.
+	action bool PB_HasOwnFlashState(StateLabel label)
+	{
+		State st = invoker.FindState(label, true);
+		if (st != null)
+			return true;
+		st = invoker.FindState(label);
+		if (st == null)
+			return false;
+		let baseWpn = GetDefaultByType('PB_WeaponBase');
+		return baseWpn.FindState(label) == null;
+	}
+
+	action void PB_RestoreWeaponReadyOverlay()
+	{
+		static const statelabel readyLabels[] =
+		{
+			"Ready3", "Ready", "RealReady", "ReallyReady", "ActuallyReady3", "Ready2"
+		};
+		A_WeaponOffset(0, 32);
+		for (int i = 0; i < readyLabels.Size(); ++i)
+		{
+			if (invoker.FindState(readyLabels[i]))
+			{
+				A_Overlay(PSP_WEAPON, readyLabels[i]);
+				A_OverlayOffset(PSP_WEAPON, 0, 32);
+				return;
+			}
+		}
+	}
+
+	// Restores PSP_WEAPON after default quick punch (StagingQuickMeleeTail) or wheel melee.
+	action void PB_FinishPunchRestore()
+	{
+		PB_SetUsingMelee(false);
+		A_TakeInventory("HasCutingWeapon", 1);
+		A_TakeInventory("KnifeHasHit", 1);
+		A_ClearOverlays(PSP_QUICKMELEEBLOOD, PSP_QUICKMELEE, false);
+		A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+
+		// HideWeaponDuringAction loops until melee ends, then GoingToReady restores.
+		let weaponPsp = player.FindPSprite(PSP_WEAPON);
+		if (weaponPsp)
+		{
+			State hide = invoker.FindState("HideWeaponDuringAction");
+			if (hide && InStateSequence(weaponPsp.Curstate, hide))
+				return;
+		}
+		A_WeaponOffset(0, 32);
+		PB_RestoreWeaponReadyOverlay();
+	}
+
+	// Kick end only — do not clear PSP_WEAPON; re-seat overlay on Ready* (VietDoom flash ends Stop).
+	action void PB_FinishKickRestore()
+	{
+		PB_SetUsingKick(false);
+		A_TakeInventory("Kicking", 1);
+		A_LegOverlay(-1000, "FirstPersonLegsStand");
+		A_OverlayFlags(-999, PSPF_PLAYERTRANSLATED, false);
+		PB_RestoreWeaponReadyOverlay();
+	}
+
+	action void PB_FinishWeaponOverlayRestore()
+	{
+		PB_SetUsingKick(false);
+		PB_SetUsingMelee(false);
+		PB_SetUsingEquipment(false);
+		A_TakeInventory("HasCutingWeapon", 1);
+		A_TakeInventory("ToggleMelee", 1);
+		A_TakeInventory("Kicking", 1);
+		A_LegOverlay(-1000, "FirstPersonLegsStand");
+		A_OverlayFlags(-1000, PSPF_ADDWEAPON|PSPF_ADDBOB, False);
+		A_ClearReFire();
+		A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+		A_ClearOverlays(PSP_WEAPON, PSP_WEAPON, false);
+		A_ClearOverlays(-999, -998, false);
+		A_OverlayOffset(PSP_WEAPON, 0, 32);
+	}
+
+	action State PB_JumpToFirstReadyState()
+	{
+		static const statelabel readyLabels[] =
+		{
+			"Ready3", "Ready", "RealReady", "ReallyReady", "ActuallyReady3", "Ready2"
+		};
+		for (int i = 0; i < readyLabels.Size(); ++i)
+		{
+			State st = invoker.ResolveState(readyLabels[i]);
+			if (st)
+				return st;
+		}
+		return null;
 	}
 	
 	
@@ -1539,7 +1820,7 @@ extend class PB_WeaponBase
 	action void PB_SetPlayerExecutionProperties() {
 		A_GiveInventory("ExecutionToken", 1); // When dashing, make sure to STOP player momentum, or else it fucks with the execution. Using a token for now.
 		A_GiveInventory("PB_NoEffectInvul", 1); // So we don't break invulnerability
-		A_ClearOverlays(10,11);
+		PB_ClearDualWield();
 		A_StopSound(CHAN_7);
 		A_StopSound(CHAN_WEAPON);
 		A_SetCrosshair(5);
@@ -1601,68 +1882,69 @@ extend class PB_WeaponBase
 	
 	action state PB_Execute() {
 		if(CountInv("GrabbedBarrel") >= 1 || CountInv("GrabbedFlameBarrel") >= 1 || CountInv("GrabbedIceBarrel") >= 1) { return resolveState(null); }
-	
-//		 CVar experimental_settings = CVar.FindCVar('pb_experimental');
-		
-// 		if(experimental_settings.GetBool()){
-			//
-			if(GetPointer(AAPTR_PLAYER_GETTARGET) != NULL)
-			{
-				
-				if(GetPointer(AAPTR_PLAYER_GETTARGET).bCountKill)
-				{
-					LookExParams look;
-					look.FOV = 360;
-					
-					Actor monster = GetPointer(AAPTR_PLAYER_GETTARGET);
+		if(PB_executingEnemy()) { return resolveState(null); }
+		{
+			let weaponPsp = player.FindPSprite(PSP_WEAPON);
+			State windup = invoker.FindState("ExecutionFlashWindup");
+			if(weaponPsp && windup && InStateSequence(weaponPsp.Curstate, windup))
+				return resolveState(null);
+		}
 
-					if (monster.IsVisible(self, true, look) && Distance3D(monster) < 200 ){
-						
-						int targetMaxHealth = monster.spawnHealth();
-						int targetCurrentHealth = monster.health;
-						
-						if (actorCanBeExecuted(monster)) {
-							
-							// Move Monster and Player toward each other
-							monster.A_Stop();
-							double spd = 27.;
-							vector3 delta = ( monster.pos.x - pos.x, monster.pos.y - pos.y, monster.pos.z - pos.z );
-							double angleToMonster = AngleTo(monster);
-							double pitchToMonster = VectorAngle( sqrt(delta.y * delta.y + delta.x * delta.x), delta.z );
-							monster.A_SetPitch(pitchToMonster, SPF_INTERPOLATE);
-							monster.A_SetAngle(angleToMonster+180,SPF_INTERPOLATE);
-							
-							vector3 neworigin = Vec3Offset(cos(angleToMonster) * spd,  sin(angleToMonster) * spd, sin(pitchToMonster) * spd);
-							monster.SetOrigin(neworigin,true);
-							
-							// Set Player View and Properties
-							int colorGreen = -16711936;
-							int colorBlue = -16776961;
-// 							A_LogInt(monster.BloodColor);
-							if(monster.BloodColor == colorGreen)
-							{
-								PB_SetExecutionGreenBlood(true);
-							}
-							
-							if(monster.BloodColor == colorBlue)
-							{
-								PB_SetExecutionBlueBlood(true);
-							}
-							
-							A_SetAngle(AngleTo(monster));
-							pitchToMonster = VectorAngle( sqrt(delta.y * delta.y + delta.x * delta.x), delta.z );
-							A_SetPitch(-pitchToMonster);
-							PB_SetPlayerExecutionProperties();
-							
-							StateLabel st = PB_ExecutionHandlerString(monster);
-							monster.A_Die("Execution");
-							A_Overlay(PSP_WEAPON,st);
-							A_OverlayOffset(PSP_WEAPON,0,32);
-							A_ClearOverlays(-998,-997);
-						}
-					}
+		Actor monster = GetPointer(AAPTR_PLAYER_GETTARGET);
+		if (!monster)
+		{
+			FLineTraceData tr;
+			double vz = player.mo.height * 0.5 - player.mo.floorclip + player.mo.AttackZOffset * player.crouchFactor;
+			if (LineTrace(angle, 200, pitch, TRF_THRUACTORS, vz, data: tr))
+				monster = tr.hitactor;
+		}
+
+		if (monster != null && monster.bShootable && !monster.bFriendly
+			&& (monster.bCountKill || monster.bIsMonster))
+		{
+			LookExParams look;
+			look.FOV = 360;
+
+			if (monster.IsVisible(self, true, look) && Distance3D(monster) < 200)
+			{
+				if (actorCanBeExecuted(monster))
+				{
+					monster.A_Stop();
+					double spd = 27.;
+					vector3 delta = ( monster.pos.x - pos.x, monster.pos.y - pos.y, monster.pos.z - pos.z );
+					double angleToMonster = AngleTo(monster);
+					double pitchToMonster = VectorAngle( sqrt(delta.y * delta.y + delta.x * delta.x), delta.z );
+					monster.A_SetPitch(pitchToMonster, SPF_INTERPOLATE);
+					monster.A_SetAngle(angleToMonster+180,SPF_INTERPOLATE);
+
+					vector3 neworigin = Vec3Offset(cos(angleToMonster) * spd,  sin(angleToMonster) * spd, sin(pitchToMonster) * spd);
+					monster.SetOrigin(neworigin,true);
+
+					int colorGreen = -16711936;
+					int colorBlue = -16776961;
+					if(monster.BloodColor == colorGreen)
+						PB_SetExecutionGreenBlood(true);
+					if(monster.BloodColor == colorBlue)
+						PB_SetExecutionBlueBlood(true);
+
+					A_SetAngle(AngleTo(monster));
+					pitchToMonster = VectorAngle( sqrt(delta.y * delta.y + delta.x * delta.x), delta.z );
+					A_SetPitch(-pitchToMonster);
+					PB_SetPlayerExecutionProperties();
+
+					StateLabel st = PB_ExecutionHandlerString(monster);
+					monster.A_Die("Execution");
+					invoker.PB_pendingExecutionState = st;
+					A_Overlay(PSP_WEAPON, "ExecutionFlashWindup");
+					A_OverlayOffset(PSP_WEAPON, 0, 32);
+					A_ClearOverlays(-998,-997);
+
+					State ready = PB_JumpToFirstReadyState();
+					if (ready)
+						return ready;
+					return resolveState("Ready");
 				}
-// 			}
+			}
 		}
 		return resolveState(null);
 	}
@@ -1748,7 +2030,7 @@ extend class PB_WeaponBase
             if(!pPBCase)
                 return;
 
-            if(!pPBCase.bNEVERSMOKE && ejectionSmoke) 
+            if(!pPBCase.bNEVERSMOKE && ejectionSmoke && invoker.PBWP_CanSpawnCasingSmoke()) 
             {
                 let pSmoke = PB_GunFireSmoke(Spawn('PB_CasingEjectionSmoke', spos));
 
@@ -1765,7 +2047,7 @@ extend class PB_WeaponBase
                 }
             }
 
-            if(sparks)
+            if(sparks && invoker.PBWP_CanSpawnCosmeticFX())
             {
                 vector3 randvel;
                 int sparkcount = randompick(0, random(2, 4));
@@ -1798,7 +2080,7 @@ extend class PB_WeaponBase
 	
 	//A way to perform pretty much take all of the "Insertbullets" states and turn it into a function
 	//An example of this action: PB_AmmoIntoMag("DMRAmmo","PB_HighCalMag",30,1) 
-	action void PB_AmmoIntoMag(String AmmoMag_Action,String AmmoPool_Action,int MagazineMaxFill_Action, int takeReserve, int giveMag = 1)
+	action void PB_AmmoIntoMag(String AmmoMag_Action,String AmmoPool_Action,int MagazineMaxFill_Action, int takeReserve = 1, int giveMag = 1)
 		{
 			for(int i = 0; i < MagazineMaxFill_Action; i++)
 			{
@@ -1813,7 +2095,7 @@ extend class PB_WeaponBase
 	//Copy of Cemtex's PB_AmmoIntoMag but for unloading
 	//A way to perform pretty much take all of the "RemoveBullets" states and turn it into a function	
 	//An example of this action: PB_UnloadMag("DMRAmmo","PB_HighCalMag",1) 
-	action void PB_UnloadMag(class<Inventory> AmmoMag_Action, class<Inventory> AmmoPool_Action, int giveReserve, int takeMag = 1, int maxSize = 0, int goal = 0, class<Inventory> spawnActor = null)
+	action void PB_UnloadMag(class<Inventory> AmmoMag_Action, class<Inventory> AmmoPool_Action, int giveReserve = 1, int takeMag = 1, int maxSize = 0, int goal = 0, class<Inventory> spawnActor = null)
 		{
 			let pool = FindInventory(AmmoPool_Action);
 			int extra = 0;
@@ -1843,7 +2125,7 @@ extend class PB_WeaponBase
 			}
 		}
 	
-	action void PB_TakeAmmo(class<Inventory> ammoType, int takeNum, int emptyMag = 1, int emptyChamber = 0, bool dual = false)
+	action void PB_TakeAmmo(class<Inventory> ammoType, int takeNum = 1, int emptyMag = 1, int emptyChamber = 0, bool dual = false)
 	{
 		A_TakeInventory(ammoType, takeNum, TIF_NOTAKEINFINITE);
 		if(CountInv(ammoType) <= emptyMag)
@@ -1930,7 +2212,11 @@ extend class PB_WeaponBase
 		else
 			return invoker.overheat;
 	}
-	
+
+	action void PB_SetOverheatCoolingRate(int rate) {
+		invoker.overheatCoolingRate = rate;
+	}
+
 	//[Pop] This is a hack, ideally we shouldnt have to do this and once weapons are fully ZScript each one
 	//will have its own function for firing that gets called. Even after it may be good to keep this for 
 	//weapon addons that stay in DECORATE. Thanks to ADMERAL for throwing this together.
@@ -2004,6 +2290,7 @@ extend class PB_WeaponBase
 
 	override void AttachToOwner(Actor Other)
 	{
+		PB_RefillMonsterSourcedWeaponWear(PlayerPawn(Other));
 		Super.AttachToOwner(other);
 		if(AmmoTypeLeft) {AmmoLeft = AddAmmo (Owner, AmmoTypeLeft, AmmoGive2);}
 		bool IsAlreadyPicked = false;
@@ -2371,7 +2658,9 @@ extend class PB_WeaponBase
 			InStateSequence(PSPState,invoker.ResolveState("FlashSlideKickingStopDual"))||
 			InStateSequence(PSPState,invoker.ResolveState("FlashBarrelKicking"))||
 			InStateSequence(PSPState,invoker.ResolveState("FlashBarrelAirKicking"))||
-			InStateSequence(PSPState,invoker.ResolveState("FlashBarrelSlideKickingStop")))
+			InStateSequence(PSPState,invoker.ResolveState("FlashBarrelSlideKickingStop"))||
+			InStateSequence(PSPState,invoker.ResolveState("FlashPunching"))||
+			InStateSequence(PSPState,invoker.ResolveState("FlashBarrelPunching")))
 		 ||
 		(InStateSequence(invoker.owner.player.GetPSprite(10).Curstate,invoker.ResolveState("IdleLeft_Overlay")) && 
 		 InStateSequence(invoker.owner.player.GetPSprite(11).Curstate,invoker.ResolveState("IdleRight_Overlay")) && 
@@ -2426,14 +2715,26 @@ action int getReadyFlags(int weapflags, bool noReload)
 		return newflags;
 	}
 
+	action bool checkMG42()
+	{
+		let mg42 = pb_mg42(invoker);
+		if(!mg42) return false;
+
+		if(mg42 && mg42 is "PB_MG42" && mg42.barrelOverheating || mg42.hasOverheated && !IsHoldingBarrel())
+			return true;
+		return false;
+	}
+
 	action state A_DoPBWeaponAction(int weapflags = WRF_ALLOWRELOAD, int pbFlags = 0, bool noReload = false)
 	{
+		if (player && invoker.PB_IsInWeaponSwitchState(player))
+			weapflags |= WRF_NOBOB;
 		bool grabbedbarrel = IsHoldingBarrel();
 		bool initialWRF_ALLOWRELOAD = false;
 		if (weapflags & WRF_ALLOWRELOAD) initialWRF_ALLOWRELOAD = true;
 		weapFlags &= ~(WRF_ALLOWRELOAD);
 		if(invoker is "PB_Fists" && !grabbedbarrel){weapFlags |= WRF_ALLOWRELOAD;}
-		if(invoker is "PB_MG42" && (CountInv("MG42HasOverheated") || CountInv("MG42BarrelOverheat") >= 1) && !grabbedbarrel){weapFlags |= WRF_ALLOWRELOAD;}
+		if(checkMG42()){weapFlags |= WRF_ALLOWRELOAD;}
 		bool dualWieldCheck = A_CheckAkimbo();
 		bool canLoadAmmoLeft = invoker.AmmoTypeLeft && countinv(invoker.ammotype1) > 0 && (countInv(invoker.AmmoTypeLeft) < GetAmmoCapacity(invoker.AmmoTypeLeft) || PB_GetMagUnloaded(true));
 		bool canLoadAmmo = invoker.ammotype2 && countinv(invoker.ammotype1) > 0 && (countinv(invoker.ammotype2) < GetAmmoCapacity(invoker.ammotype2) || PB_GetMagUnloaded());
@@ -2465,6 +2766,12 @@ action int getReadyFlags(int weapflags, bool noReload)
 		if (PB_executingEnemy())
 		{
 			return ResolveState("Steady");
+		}
+
+		if (CountInv("ShieldSawThrowAnim") >= 1 || CountInv("CantFire") >= 1)
+		{
+			A_WeaponReady(WRF_NOFIRE | WRF_NOSECONDARY | WRF_NOSWITCH);
+			return null;
 		}
 		
 		if(((PressingFire() || JustPressed(BT_ATTACK)) && !A_IsFiringLeftWeapon()) || ((PressingAltfire() || JustPressed(BT_ALTATTACK)) && !A_IsFiringRightWeapon())){
@@ -2498,7 +2805,7 @@ action int getReadyFlags(int weapflags, bool noReload)
 			A_zoomfactor(1.0);
 			A_setinventory("Zoomed",0);
 			A_SetCrosshair(-1);
-			A_ClearOverlays(10,11);
+			PB_ClearDualWield();
 			A_SetInventory("DualFireReload",0);
 			PB_SetReloading(true);
 			return ResolveState("Unload");
@@ -2551,7 +2858,31 @@ action int getReadyFlags(int weapflags, bool noReload)
 		}
 		return null;
 	}
-	
+
+	// Yes I am that lazy
+	action void PB_ClearDualWield()
+	{
+		A_ClearOverlays(PSP_LEFTGUN, PSP_RIGHTGUN);
+	}
+
+	action void PB_SetupDualWield(
+		int crosshair, 
+		statelabel left  = "IdleLeft_Overlay", 
+		statelabel right = "IdleRight_Overlay",
+		int leftoverlay  = PSP_LEFTGUN,
+		int rightoverlay = PSP_RIGHTGUN)
+	{
+		PB_SetRoll(0);
+        PB_HandleCrosshair(crosshair);
+        A_SetInventory("PB_LockScreenTilt",0);
+        A_SetFiringRightWeapon(False);
+        A_SetFiringLeftWeapon(False);
+        A_TakeInventory("DualFiring",1);
+		if(invoker.ammoleft.amount < invoker.ammo2.amount) // I have no idea if this can cause issues later or not lol
+			A_GiveInventory("DualFiring",1);
+        A_Overlay(leftoverlay, left, false);
+        A_Overlay(rightoverlay, right, false);
+	}
 	
 		action state A_DoPBDualAction(int reservenum = 1)
 		{
@@ -2671,10 +3002,43 @@ action int getReadyFlags(int weapflags, bool noReload)
 		}
 	}
 	
-	//[Pop]weapons should ALWAYS bob, fucking fight me
+	bool PB_IsInWeaponSwitchState(PlayerInfo player)
+	{
+		if (!player || player.ReadyWeapon != self) { return false; }
+		let psp = player.GetPSprite(PSP_WEAPON);
+		if (!psp || !psp.CurState) { return false; }
+
+		static const statelabel switchLabels[] =
+		{
+			"Select", "SelectContinue", "SelectAnimation", "FirstSelectAnimation",
+			"ReadySettle", "ReadySettle4", "Deselect", "DeselectDown",
+			"DualSelectAnimation", "Select2", "Select3", "Select4", "SelectPurist",
+			"SelectDual", "SelectRechamber", "ResumeNormalRaise", "SelectFirstTime"
+		};
+
+		for (int i = 0; i < switchLabels.Size(); ++i)
+		{
+			State st = FindState(switchLabels[i]);
+			if (st && InStateSequence(psp.CurState, st)) { return true; }
+		}
+		return false;
+	}
+
 	override void DoEffect()
 	{
 		super.DoEffect();
+		let player = owner.player;
+		if (player && player.readyweapon == self)
+		{
+			if (PB_IsInWeaponSwitchState(player))
+				player.WeaponState &= ~WF_WEAPONBOBBING;
+			else
+				player.WeaponState |= WF_WEAPONBOBBING;
+			if (!owner.FindInventory("PB_WeaponTilterInventory"))
+			{
+				owner.GiveInventory("PB_WeaponTilterInventory", 1);
+			}
+		}
 		if(PB_PixelRenderingFix)
 			WeaponScaleX = 1.2; //counter act 20% stretch (THE INTENDED PB VISUALS)
 		else
@@ -3423,3 +3787,4 @@ action int getReadyFlags(int weapflags, bool noReload)
 }
 
 class LaserSightActivated : Inventory { Default { +INVENTORY.UNDROPPABLE; Inventory.MaxAmount 1; } }
+class ShieldSawThrowAnim : Inventory { Default { Inventory.MaxAmount 1; } }

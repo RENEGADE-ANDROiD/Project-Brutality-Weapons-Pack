@@ -1,0 +1,216 @@
+/*
+ * DamNums: by Xaser Acheron
+ */
+
+class DamNum : Actor
+{
+	string fontPrefix;
+	int digitCount;
+	int digitPlace;
+	uint8 digitValue;
+	name damageType;
+	
+	const FADE_AMT = 0.05;
+	const DAMAGE_CAP = 99999;
+	
+	Default
+	{
+		RenderStyle 'Add';
+		Alpha 1.0;
+		Gravity 0.4;
+		Scale 0.75;
+
+		-SOLID;
+		+NOBLOCKMAP;
+		+NOBLOCKMONST;
+		+THRUACTORS;
+		+BRIGHT;
+		+NOINTERACTION;
+		+NOTONAUTOMAP;
+		+CLIENTSIDEONLY;
+	}
+	States
+	{
+	Spawn:
+		#### ########## 1 Bright A_DamNumMovement();
+		#### # 1 Bright A_DamNumMovement(FADE_AMT);
+		Wait;
+	}
+
+	/*
+	 * DamNum movement function. Handles gravity and/or floatiness.
+	 * [Coulda done this in a tick function, but nah.]
+	 */
+	action void A_DamNumMovement(double fade = 0)
+	{
+		// gravity is a fundamental force, yo
+		if(!self.bNoGravity) {
+			self.vel.z -= self.Gravity;
+		}
+
+		// fade to nothing
+		if(fade) {
+			A_FadeOut(fade, 1);
+		}
+	}
+
+	/*
+	 * DamNum setup function. Sets the correct sprite based
+	 * on the digit and the place/number-length. This is necessary
+	 * to offset it correctly relative to the viewer.
+	 */
+	override void PostBeginPlay()
+	{
+		// Figure out what digit we are.
+		DamNum this = DamNum(self);
+		int digitCount = (this.digitCount == 0) ? 1 : this.digitCount;
+		int digitPlace = (this.digitPlace == 0) ? 1 : this.digitPlace;
+		string fontPrefix = (this.fontPrefix == "") ? "ND" : this.fontPrefix;
+
+		// set the sprite based on the above info.
+		int spriteindex = GetSpriteIndex(fontPrefix .. digitCount .. digitPlace);
+		if(spriteindex != -1) {
+			// set the frame to the desired digit; since frames A-J (which is 0-9
+			// in integer-speak) correspond exactly to the digits 0-9, we're good. Whoop!
+			self.sprite = spriteindex;
+			self.frame = DamNum(self).digitValue;
+		} else {
+			// if sprite is unknown, display UNKNA0 rather than crash. ;)
+			self.sprite = GetSpriteIndex('UNKN');
+			self.frame = 0;
+		}
+	}
+
+	/*
+	 * Spawn damage numbers. Does what it says on the tin.
+	 */
+	static int spawnDamageNumbers(Vector3 position = (0,0,0), int damage = 0, Name damagetype = DamNum_DefaultDamagetype,
+		bool pbXPStyle = false, double pbXPDigitScaleMul = 1.15)
+	{
+		// angle toward the console player just a bit. This is safe now
+		// that the nums have +NOINTERACTION.
+		PlayerInfo curPlayer = players[consoleplayer];
+		Vector3 posDiff = (curPlayer.mo.pos - position);
+		double ang = ((atan2(posDiff.y, posDiff.x) + 360.0) % 360.0) + frandom(-20, 20);
+
+		// determine the physics style pre-spawn, so the cvar doesn't
+		// have to be checked every single tic (and the physics style
+		// doesn't abruptly shift if the user changes it later).
+		Cvar cv = CVar.GetCvar("dam_physics", curPlayer);
+		int physics = (cv) ? cv.GetInt() : 0;
+		vector3 nvel;
+		bool noGravity;
+		switch(physics)
+		{
+			case DAM_PHYSICS_TOSS:
+				nvel = (1.0 * cos(ang), 1.0 * sin(ang), frandom(3.0, 4.0));
+				noGravity = false;
+				break;
+
+			case DAM_PHYSICS_FLOAT:
+				nvel = (0, 0, 1.0);
+				noGravity = true;
+		}
+
+		// figure out which font to use. This is done here so it doesn't have to
+		// be determined for every single digit.
+
+		cv = CVar.GetCvar("dam_fontclass", curPlayer);
+		string fontname = (cv) ? cv.getString() : DamNum_DefaultFontName;
+
+		// spawn the font class by name. 'fontclass' below yields null if
+		// 'fontname' is not the name of a DamNumFont subclass -- handy!
+		class<DamNumFont> fontclass = fontname;
+		DamNumFont font;
+		if(fontclass) {
+			font = DamNumFont(Spawn(fontclass));
+		} else {
+			font = DamNumFont(Spawn(DamNum_DefaultFontName)); // good ol' default.
+		}
+
+		// check to see if the user is opting for a particular
+		// color choice. If so, use it. While we're at it,
+		// treat the string "DamDefault" as 'use what the mod suggests'.
+		cv = CVar.GetCvar("dam_translation", curPlayer);
+		string userTranslation = cv ? cv.getString() : DamNum_PlaceholderTranslation;
+		string fontTrans = font ? font.fontTrans : DamNum_DefaultTranslation;
+		if(userTranslation != DamNum_PlaceholderTranslation) {
+			fontTrans = userTranslation;
+		}
+
+		// if we've got damagetype support on, override the above with the
+		// damagetype color (if it's not 'Default', of course).
+		cv = CVar.GetCvar("dam_usetypes", curPlayer);
+		bool usedamagetype = cv ? cv.GetInt() : 0;
+		if(usedamagetype && damagetype != DamNum_DefaultDamagetype) {
+			// snag the damagetype definition from LANGUAGE.
+			string typecolorname = (DamNum_LanguageTypecolorPrefix .. damagetype);
+			string typecolor = Stringtable.Localize("$" .. typecolorname);
+			if(typecolor != typecolorname) {
+				// hey! we got a color from language; let's use it.
+				fontTrans = typecolor;
+			}
+		}
+
+		// spawn in the damage number digits.
+		int dam = min(damage, DAMAGE_CAP);
+		int place = 1;
+		int length = log10(dam) + 1;
+		while(dam > 0) {
+			Actor spawned = pbXPStyle
+				? Spawn("DamNumPBXP", position, ALLOW_REPLACE)
+				: Spawn("DamNum", position, ALLOW_REPLACE);
+			let damnum = DamNum(spawned);
+
+			// init the digits... diginit?
+			if(damnum && font) {
+				damnum.vel = nvel;
+				damnum.angle = ang;
+				damnum.bNoGravity = noGravity;
+				double sx = font.scale.x * (pbXPStyle ? pbXPDigitScaleMul : 1.0);
+				double sy = font.scale.y * (pbXPStyle ? pbXPDigitScaleMul : 1.0);
+				damnum.A_SetScale(sx, sy);
+				damnum.A_SetRenderStyle(font.alpha, font.GetRenderStyle());
+				damnum.A_SetTranslation(fontTrans);
+				damnum.fontPrefix = font.fontPrefix;
+				damnum.digitCount = length;
+				damnum.digitPlace = place;
+				damnum.digitValue = dam % 10;
+				damnum.damageType = damagetype;
+			}
+
+			// well dam.
+			dam /= 10;
+			place++;
+		}
+
+		// discard the font actor, since we're done with it.
+		if(font) {
+			font.Destroy();
+		}
+
+		// return the damage, for easy chaining.
+		return damage;
+	}
+}
+
+/*
+ * PB XP / rank floater digits: slightly larger than standard DamNums, slower fade (floats longer).
+ */
+class DamNumPBXP : DamNum
+{
+	const PBXP_FADE_AMT = 0.027;
+
+	Default
+	{
+		Scale 0.75;
+	}
+
+	States
+	{
+	Spawn:
+		#### ########## 1 Bright A_DamNumMovement();
+		#### # 1 Bright A_DamNumMovement(PBXP_FADE_AMT);
+		Loop;
+	}
+}

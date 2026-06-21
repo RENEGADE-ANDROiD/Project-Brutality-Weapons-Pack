@@ -5,6 +5,7 @@ Actor CaltropsAmmo : ammo
 	Ammo.BackPackAmount 1
 	Ammo.BackPackMaxAmount 10
 	Inventory.PickUpMessage ""
+	+INVENTORY.QUIET
 	+INVENTORY.IGNORESKILL
 }
 
@@ -83,4 +84,6 @@ Actor CaltropsOnMap
     TNT1 A 1 A_Explode(15, 6)
     stop
   }
+
+
 }

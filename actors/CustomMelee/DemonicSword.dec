@@ -39,7 +39,9 @@ ACTOR SwordSwing : PB_ProjectileAlt {
 			TNT1 AAAA 0 A_CustomMissile ("HitSpark23", 2, 0, frandom(0,1)*frandom (0, 360), 2, frandom(0,1)*frandom (30, 360))
 			TNT1 A 0 Radius_Quake (2, 6, 0, 5, 0)
 			TNT1 A 1
-			Stop	}}
+			Stop	
+}
+}
 ACTOR SwordSwing2 : SwordSwing {
 	Damage 0
 	States {
@@ -51,7 +53,9 @@ ACTOR SwordSwing2 : SwordSwing {
 		Crash:
 		XDeath:
 			TNT1 A 0 A_TakeFromTarget("PB_DTech",1)
-			Stop	}}
+			Stop	
+}
+}
 ACTOR SuperSwordSwing : SwordSwing {
 	PB_Projectile.BaseDamage 120
 }

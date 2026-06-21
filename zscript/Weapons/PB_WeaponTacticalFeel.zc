@@ -1,0 +1,29 @@
+class PB_TacticalFeelHandler : EventHandler
+{
+	override void PlayerEntered(PlayerEvent e)
+	{
+		if (!e) return;
+		if (e.PlayerNumber < 0 || e.PlayerNumber >= MAXPLAYERS) return;
+		if (!playeringame[e.PlayerNumber]) return;
+		if (players[e.PlayerNumber].mo)
+		{
+			players[e.PlayerNumber].mo.GiveInventory("PB_WeaponTilterInventory", 1);
+		}
+	}
+
+	override void NetworkProcess(ConsoleEvent e)
+	{
+		if (!e) return;
+		if (e.Player < 0 || e.Player >= MAXPLAYERS || !playeringame[e.Player] || !players[e.Player].mo) { return; }
+		let mo = players[e.Player].mo;
+		if (e.Name ~== "pb_lean_toggle")
+		{
+			if (mo.CountInv("PB_LeanToggle") > 0) { mo.TakeInventory("PB_LeanToggle", 1); }
+			else { mo.GiveInventory("PB_LeanToggle", 1); }
+		}
+		else if (e.Name ~== "pb_lean_left") { mo.GiveInventory("PB_LeanLeft", 1); }
+		else if (e.Name ~== "pb_unlean_left") { mo.TakeInventory("PB_LeanLeft", 1); }
+		else if (e.Name ~== "pb_lean_right") { mo.GiveInventory("PB_LeanRight", 1); }
+		else if (e.Name ~== "pb_unlean_right") { mo.TakeInventory("PB_LeanRight", 1); }
+	}
+}

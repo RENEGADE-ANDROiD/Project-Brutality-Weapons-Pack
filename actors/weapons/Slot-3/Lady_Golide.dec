@@ -4,7 +4,7 @@
 //
 // --------------------------------------------------------------------------
 
-Actor HASGMod : Inventory {Inventory.MaxAmount 6} //looks like gonna be left behind soon...
+Actor HASGMod : Inventory { Inventory.MaxAmount 6} //looks like gonna be left behind soon... 
 //Tokens For Switching Only
 Actor HASG_SelectDRBT : Inventory { Inventory.MaxAmount 1 }
 Actor HASG_SelectNO : Inventory { Inventory.MaxAmount 1 }
@@ -23,7 +23,7 @@ Actor HASG_Explosive : Inventory { Inventory.MaxAmount 1 }
 Actor HASG_Danmaku : Inventory { Inventory.MaxAmount 1 }
 Actor HASG_WPhos : Inventory { Inventory.MaxAmount 1 }
 
-Actor ASGDrum : Inventory {Inventory.MaxAmount 1}
+Actor ASGDrum : Inventory { Inventory.MaxAmount 1 }
 
 Actor HASGRespecter : Inventory { Inventory.MaxAmount 1 }
 
@@ -56,8 +56,8 @@ Actor HASGDrum : PB_UpgradeItem
 		}
 		Stop
 	}
-}
 
+}
 ACTOR HASG : PB_WeaponBase
 {
 	Weapon.SelectionOrder 1300
@@ -95,9 +95,9 @@ ACTOR HASG : PB_WeaponBase
 
 	Ready:
 		TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
-		TNT1 A 0 PB_RespectIfNeeded
+		TNT1 A 0 { PB_RespectIfNeeded; }
 	WeaponRespect:
-		TNT1 A 0 A_PlaySoundEx("weapons/autoshotgun/respect1", "Auto")
+		TNT1 A 0 A_PlaySoundEx("weapons/autoshotgun/respect1", CHAN_AUTO)
 		TNT1 A 0 A_GiveInventory("HASGRespecter", 1)
 		GLUP ABC 1
 		GL1R AAAAAAAA 1
@@ -124,7 +124,8 @@ ACTOR HASG : PB_WeaponBase
 					A_GiveInventory("FoundDrum", 1);
 					Return State("HASGDrumRespect");
 					}
-					Return State("");}
+					Return State("");
+		}
 		GL1R JIHGFEDCBA 1 A_DoPBWeaponAction
 		Goto Ready3
 
@@ -158,6 +159,7 @@ ACTOR HASG : PB_WeaponBase
 		
 	ContinueReady:
 	RealReady:
+	ReadySettle:
 	Ready3:
         	TNT1 AAAA 0 A_JumpIfInventory("GoFatality", 1, "Steady")
 		TNT1 A 0 A_JumpIfInventory("ASGDrum",1,"Drum_Ready")
@@ -207,9 +209,9 @@ ACTOR HASG : PB_WeaponBase
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
-		GL1R ABC 1
-	    GLUP CBA 1
-		AHGG AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Lower
+		Goto DeselectDown
+	DeselectDown:
+				TNT1 A 0 A_Lower(120)
 		Wait
 		
 	Select:
@@ -223,8 +225,8 @@ ACTOR HASG : PB_WeaponBase
 		SelectContinue:
 		TNT1 A 0 A_Takeinventory("HasUnloaded",1)
 		TNT1 A 0 A_Takeinventory("Unloading",1)
-		AHGG AAAAAAAAAAAAAA 0 A_Raise
-		Wait
+				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+				Goto Ready3
 		
 	FireNoreload:
 		J2FG A 0 A_JumpIfInventory("PB_Shell",1,"FireNow")
@@ -254,12 +256,12 @@ ACTOR HASG : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Fire2")
 		TNT1 A 0 A_JumpifInventory("ASGDrum",1,"Drum_Fire")
 	NormalFire:
-		TNT1 A 0 PB_FireOffset
+		TNT1 A 0 { PB_FireOffset; }
 		GLXF A 1 BRIGHT {
 	    A_AlertMonsters;
 			if (Countinv("HASG_DRBT") >= 1 ) {
 				A_PlaySound("DRBTFIRE",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				PB_FireBullets("PB_DragonsBreathTracer",6,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -267,11 +269,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawn3",5,0,0,-9);
-				return state("ContFire"); }
-			
+				return state("ContFire"); 
+			}
 			if (Countinv("HASG_Flech") >= 1 ) {
 				A_PlaySound("CSSGFLKS",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				PB_FireBullets("IN_MGNail",5,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -279,11 +281,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawnHASG5",5,0,0,-9);
-				return state("ContFire"); }
-				
+				return state("ContFire"); 
+			}
 			if (Countinv("HASG_Slug") >= 1 ) {
 				A_PlaySound("SlugShot",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				A_FireProjectile("PB_12GASlug", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -291,10 +293,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawn2",5,0,0,-9);
-				return state("ContFire"); }
-				
+				return state("ContFire"); 
+			}
 				A_PlaySound("SHOTGUN",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("ASG/Add","Weapon",0.88,0,2);
+			    A_PlaySound("ASG/Add", CHAN_WEAPON,0.88,0,2);
+				A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
 				PB_FireBullets("PB_12GAPellet_ASG",9,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 		        A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 		        A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -315,7 +318,7 @@ ACTOR HASG : PB_WeaponBase
 		GLXF DD 1
 		TNT1 A 0 A_ZoomFactor(1.0)
 		GLXF E 2
-		TNT1 A 0 PB_ReFire
+		TNT1 A 0 { PB_ReFire; }
 		Goto ContinueReady
 		
 	Fire2:
@@ -337,7 +340,7 @@ ACTOR HASG : PB_WeaponBase
 	    A_AlertMonsters;
 			if (Countinv("HASG_DRBT") >= 1 ) {
 				A_PlaySound("DRBTFIRE",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				PB_FireBullets("PB_DragonsBreathTracer",6,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -345,11 +348,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawn3",5,0,8,-9);
-				return state("ContFire2"); }
-			
+				return state("ContFire2"); 
+			}
 			if (Countinv("HASG_Flech") >= 1 ) {
 				A_PlaySound("CSSGFLKS",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				PB_FireBullets("IN_MGNail",5,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -357,11 +360,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawnHASG5",5,0,8,-9);
-				return state("ContFire2"); }
-				
+				return state("ContFire2"); 
+			}
 			if (Countinv("HASG_Slug") >= 1 ) {
 				A_PlaySound("SlugShot",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				A_FireProjectile("PB_12GASlug", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -369,10 +372,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawn2",5,0,8,-9);
-				return state("ContFire2"); }
-			
+				return state("ContFire2"); 
+			}
 			A_PlaySound("SHOTGUN",CHAN_Weapon,0.99,0,2);
-		    A_PlaySound("ASG/Add","Weapon",0.88,0,2);
+		    A_PlaySound("ASG/Add", CHAN_WEAPON,0.88,0,2);
+			A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
 			PB_FireBullets("PB_12GAPellet_ASG",9,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 			A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -389,7 +393,7 @@ ACTOR HASG : PB_WeaponBase
 			PB_GunSmoke(0,0,0);
 		}
 		LGZF CC 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_NOBOB)
-		TNT1 A 0 PB_WeaponRecoil(-0.30, -0.35) //(-1.0 + Pitch)
+		TNT1 A 0 { PB_WeaponRecoil(-0.30, -0.35); } //(-1.0 + Pitch); }
         TNT1 A 0 A_SpawnItem("DistantRifleFireSound",10,40)
 		
 		TNT1 A 0 A_ZoomFactor(1.97)
@@ -397,18 +401,18 @@ ACTOR HASG : PB_WeaponBase
 		TNT1 A 0 A_ZoomFactor(1.99)
 		LGZF E 2
 		TNT1 A 0 A_ZoomFactor(2.0)
-		TNT1 A 0 PB_ReFire
+		TNT1 A 0 { PB_ReFire; }
 		Goto Ready2
 				
 	Drum_Fire:
 		//TNT1 A 0 A_JumpIfInventory("HASGMod",1,"SlugDrum_Fire") //Merged!
-		TNT1 A 0 PB_FireOffset
+		TNT1 A 0 { PB_FireOffset; }
 		GL2F A 1 BRIGHT {
 	    A_AlertMonsters;
 	
 		    if (Countinv("HASG_WPhos") >= 1 ) {
 				A_PlaySound("CSSGPHOS",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				A_FireProjectile("WPhosphorusProjectile_Golide", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -416,11 +420,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawnHASGWP",5,0,8,-9);
-				return state("ContDrumFire"); }
-		
+				return state("ContDrumFire"); 
+			}
 			if (Countinv("HASG_Danmaku") >= 1 ) {
 				A_PlaySound("CSSGDANS",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				A_FireCustomMissile("DarkDanmakuProjectile", Random(-5, 5), 0, -1, 0, Random(-5, 5), Random(-5, 5));
 				A_FireCustomMissile("DarkDanmakuProjectile", Random(-5, 5), 0, -1, 0, Random(-5, 5), Random(-5, 5));
 				A_FireCustomMissile("DarkDanmakuProjectile", Random(-5, 5), 0, -1, 0, Random(-5, 5), Random(-5, 5));
@@ -433,11 +437,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawnHASGDAN",5,0,8,-9);
-				return state("ContDrumFire"); }
-				
+				return state("ContDrumFire"); 
+			}
 			if (Countinv("HASG_Explosive") >= 1 ) {
 				A_PlaySound("CSSGEXPS",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				PB_FireBullets("GolideExplosiveProjectile",3,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -445,11 +449,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawnHASGEXP",5,0,8,-9);
-				return state("ContDrumFire"); }
-			
+				return state("ContDrumFire"); 
+			}
 			if (Countinv("HASG_DRBT") >= 1 ) {
 				A_PlaySound("DRBTFIRE",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				PB_FireBullets("PB_DragonsBreathTracer",6,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -457,11 +461,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawn3",5,0,8,-9);
-				return state("ContDrumFire"); }
-			
+				return state("ContDrumFire"); 
+			}
 			if (Countinv("HASG_Flech") >= 1 ) {
 				A_PlaySound("CSSGFLKS",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				PB_FireBullets("IN_MGNail",5,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -469,11 +473,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawnHASG5",5,0,8,-9);
-				return state("ContDrumFire"); }
-				
+				return state("ContDrumFire"); 
+			}
 			if (Countinv("HASG_Slug") >= 1 ) {
 				A_PlaySound("SlugShot",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				A_FireProjectile("PB_12GASlug", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -481,10 +485,10 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawn2",5,0,8,-9);
-				return state("ContDrumFire"); }
-			
+				return state("ContDrumFire"); 
+			}
 			A_PlaySound("SHOTGUN",CHAN_Weapon,0.99,0,2);
-		    A_PlaySound("ASG/Add","Weapon",0.88,0,2);
+		    A_PlaySound("ASG/Add", CHAN_WEAPON,0.88,0,2);
 			PB_FireBullets("PB_12GAPellet_ASG",9,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 		     A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 		     A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -506,7 +510,7 @@ ACTOR HASG : PB_WeaponBase
         GL2F C 1
 		GL2F D 1
 		GL2F E 2
-		TNT1 A 0 PB_ReFire
+		TNT1 A 0 { PB_ReFire; }
 		Goto ContinueReady
 		
 	Fire2Drumed:
@@ -531,7 +535,7 @@ ACTOR HASG : PB_WeaponBase
 	    
 			if (Countinv("HASG_WPhos") >= 1 ) {
 				A_PlaySound("CSSGPHOS",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				A_FireProjectile("WPhosphorusProjectile_Golide", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -539,11 +543,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawnHASGWP",5,0,8,-9);
-				return state("ContDrumFire"); }
-		
+				return state("ContDrumFire"); 
+			}
 			if (Countinv("HASG_Danmaku") >= 1 ) {
 				A_PlaySound("CSSGDANS",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				A_FireCustomMissile("DarkDanmakuProjectile", Random(-5, 5), 0, -1, 0, Random(-5, 5), Random(-5, 5));
 				A_FireCustomMissile("DarkDanmakuProjectile", Random(-5, 5), 0, -1, 0, Random(-5, 5), Random(-5, 5));
 				A_FireCustomMissile("DarkDanmakuProjectile", Random(-5, 5), 0, -1, 0, Random(-5, 5), Random(-5, 5));
@@ -556,11 +560,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawnHASGDAN",5,0,8,-9);
-				return state("ContDrumFire"); }
-				
+				return state("ContDrumFire"); 
+			}
 			if (Countinv("HASG_Explosive") >= 1 ) {
 				A_PlaySound("CSSGEXPS",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				PB_FireBullets("GolideExplosiveProjectile",3,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -568,11 +572,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawnHASGEXP",5,0,8,-9);
-				return state("ContDrumFire"); }
-
+				return state("ContDrumFire"); 
+			}
 			if (Countinv("HASG_DRBT") >= 1 ) {
 				A_PlaySound("DRBTFIRE",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				PB_FireBullets("PB_DragonsBreathTracer",5,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -580,11 +584,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawn3",5,0,8,-9);
-				return state("ContDrumFire"); }
-			
+				return state("ContDrumFire"); 
+			}
 			if (Countinv("HASG_Flech") >= 1 ) {
 				A_PlaySound("CSSGFLKS",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				PB_FireBullets("IN_MGNail",5,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -592,11 +596,11 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawnHASG5",5,0,8,-9);
-				return state("ContDrumFire"); }
-				
+				return state("ContDrumFire"); 
+			}
 			if (Countinv("HASG_Slug") >= 1 ) {
 				A_PlaySound("SlugShot",CHAN_Weapon,0.99,0,2);
-			    A_PlaySound("SHOTGUN","Weapon",0.88,0,2);
+			    A_PlaySound("SHOTGUN", CHAN_WEAPON,0.88,0,2);
 				A_FireProjectile("PB_12GASlug", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
 				A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -604,10 +608,10 @@ ACTOR HASG : PB_WeaponBase
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			    A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 				A_FireCustomMissile("ShotCaseSpawn2",5,0,8,-9);
-				return state("ContDrumFire"); }
-			
+				return state("ContDrumFire"); 
+			}
 			A_PlaySound("SHOTGUN",CHAN_Weapon,0.99,0,2);
-		    A_PlaySound("ASG/Add","Weapon",0.88,0,2);
+		    A_PlaySound("ASG/Add", CHAN_WEAPON,0.88,0,2);
 			PB_FireBullets("PB_12GAPellet_ASG",9,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 		     A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 		     A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
@@ -615,7 +619,7 @@ ACTOR HASG : PB_WeaponBase
 		     A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 		     A_FireCustomMissile("ShotgunParticles", random(-15,15), 0, -1, 0, 0, random(-10,10));
 			A_FireCustomMissile("ShotCaseSpawn",5,0,8,-9);
-			return state("");
+			return state("ContDrumFire");
 		}
 	ContDrumFire2:
 		LGZF B 1 {
@@ -630,7 +634,7 @@ ACTOR HASG : PB_WeaponBase
 		TNT1 A 0 A_ZoomFactor(1.99)
 		LGZF E 2
 		TNT1 A 0 A_ZoomFactor(2.0)
-		TNT1 A 0 PB_ReFire
+		TNT1 A 0 { PB_ReFire; }
 		Goto Ready2
 
 //
@@ -681,19 +685,19 @@ ContinueReloadStart:
 	goto reloadloop
 
 ReloadLoop:
-	TNT1 A 0 PB_ReFire("ReloadEnd")
-	TNT1 A 0 PB_ReFire("ReloadEnd")
-    G11R ABC 1 PB_ReFire("ReloadEnd")
+	TNT1 A 0 { PB_ReFire("ReloadEnd"); }
+	TNT1 A 0 { PB_ReFire("ReloadEnd"); }
+    G11R ABC 1 { PB_ReFire("ReloadEnd"); }
 	TNT1 A 0 A_TakeInventory("PB_Shell",1)
 	TNT1 A 0 A_JumpIfInventory("ASGChamber",1,2)
 	TNT1 A 0 A_Jump(256,"ReloadPump")
 	G11R D 1
 	TNT1 A 0 A_GiveInventory("ASGChamber",1)
 	TNT1 A 0 A_Playsound("ASG/RL",16)
-	G11R EF 1 PB_ReFire("ReloadEnd")
+	G11R EF 1 { PB_ReFire("ReloadEnd"); }
     G11R G 1
-	TNT1 A 0 PB_ReFire("ReloadEnd")
-	TNT1 A 0 PB_ReFire("ReloadEnd")
+	TNT1 A 0 { PB_ReFire("ReloadEnd"); }
+	TNT1 A 0 { PB_ReFire("ReloadEnd"); }
 	G11R H 1
 	TNT1 A 0 A_JumpIfInventory("ASGChamber",16,"ReloadEnd")
 	TNT1 A 0 A_JumpIfInventory("PB_Shell",1,"ReloadLoop")
@@ -771,7 +775,7 @@ ReloadPump:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0
 		GL1P ABCDEEEEEEEEEEEE 1
-		Goto Ready3
+		Stop
 		
 	FlashAirKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
@@ -779,7 +783,7 @@ ReloadPump:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
 		TNT1 A 0
       GL1P ABCDEEEEEEEEEEEEEE 1
-		Goto Ready3
+		Stop
 		
 	FlashSlideKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
@@ -793,7 +797,7 @@ ReloadPump:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0
 		GL1P EEEEEEEEDCBA 1
-		Goto Ready3
+		Stop
 
 WheelCancel:
 		TNT1 A 0 A_SetInventory("HASG_SelectNO",0)
@@ -1010,7 +1014,7 @@ ContChangeLoad:
 			TNT1 A 0 {
 				A_Takeinventory("ASGChamber",1);
 				A_Giveinventory("PB_Shell",1);
-				A_PlaysoundEx("H4SGCOCK", "Weapon");
+				A_PlaysoundEx("H4SGCOCK", CHAN_WEAPON);
 			}
 			GL1P FG 1
 			GL1P HJ 1
@@ -1042,7 +1046,7 @@ ContChangeLoad:
 		GL1R FEDCBA 1
 		Goto ContinueReady
 	}
-}	
+}
 
 ACTOR ASGChamber : Ammo
 {
@@ -1051,5 +1055,5 @@ ACTOR ASGChamber : Ammo
 	Inventory.Icon "0ESGA0"
 }
 
-Actor FoundDrum : Inventory {Inventory.MaxAmount 1}
-ACTOR Unloaded_Golide : Inventory {Inventory.MaxAmount 1}
+Actor FoundDrum : Inventory { Inventory.MaxAmount 1 }
+ACTOR Unloaded_Golide : Inventory { Inventory.MaxAmount 1 }

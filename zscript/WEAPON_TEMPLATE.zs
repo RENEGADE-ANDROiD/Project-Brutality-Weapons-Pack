@@ -16,7 +16,7 @@ Class PB_AddonWeapon : PB_WeaponBase
 		
 		//weapon.ammotype2 ""; this is the main ammo that is loaded in the weapon
 		
-		//PB_WeaponBase.unloadertoken "MyWeaponUnloaded"; token that indicates if this specific weapon is unloaded, example of the token defined below this class
+		//PB_WeaponBase.unloadertoken — deprecated; use PB_SetMagUnloaded / PB_GetMagUnloaded (see BaseWeapon_Functions.zsc)
 		
 		//PB_WeaponBase.respectItem "MyWeaponRespect"; token needed for the respect to work, in case your weapon has a respect animation, example of the token defined below this class
 		
@@ -48,7 +48,7 @@ Class PB_AddonWeapon : PB_WeaponBase
 			TNT1 A 0 A_zoomfactor(1.0);
 			TNT1 A 0 A_setroll(0);
 			//TNT1 A 0 A_startsound("SomeSound",20); the select sound if any
-			TNT1 ABCD 1; //the real select animation
+			TNT1 ABCD 1; //the real select animation — bob suppressed in select/deselect via PB_WeaponBase.DoEffect
 			goto Ready3;
 			
 		Deselect:
@@ -68,7 +68,7 @@ Class PB_AddonWeapon : PB_WeaponBase
 		//another states like ReadyToFire state are usually used as a main ready state
 		Ready:
 		Ready3:
-			TNT1 A 1 A_DoPBWeaponAction(); //this is the A_Weaponready() equivalent for pb weapons
+			TNT1 A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD);
 			loop;
 			
 		///////////////////////////////////////////////////////////////
@@ -135,7 +135,7 @@ Class PB_AddonWeapon : PB_WeaponBase
 		//this also has its own function PB_UnloadMag()
 		Unload:
 			TNT1 A 0 A_Takeinventory("Unloading",1);
-			//TNT1 A 0 A_takeinventory(invoker.UnloaderToken,1);
+			TNT1 A 0 { PB_SetMagUnloaded(true); }
 			goto ready3;
 			
 			
@@ -159,22 +159,22 @@ Class PB_AddonWeapon : PB_WeaponBase
 			TNT1 AAAAAAAAAAAAAA 1; //14 frames
 			stop;
 		
-		//for kicking
+		//for kicking — end Stop on PSP_WEAPON (Staging parity; never Goto Ready3)
 		FlashKicking:
-			TNT1 AAAAAAAAAAAAAAA 0; //15 frames
-			goto ready3;
+			TNT1 AAAAAAAAAAAAAAA 1;
+			Stop;
 			
 		FlashAirKicking:
-			TNT1 AAAAAAAAAAAAAAAA 1; //16 frames
-			goto ready3;
+			TNT1 AAAAAAAAAAAAAAAA 1;
+			Stop;
 			
 		FlashSlideKicking:
-			TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAA 1; //27 frames
-			goto ready3;
+			TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAA 1;
+			Stop;
 			
 		FlashSlideKickingStop:
-			TNT1 AAAAAAA 1; //7 frames 
-			goto ready3;
+			TNT1 AAAAAAA 1;
+			Stop;
 		
 		
 		//only needed if you are going to change sprites thru the sprite field
@@ -246,11 +246,6 @@ Class MyWeaponRespect : inventory
 */
 
 /*
-Class MyWeaponUnloaded:inventory
-{
-	default
-	{
-		inventory.maxamount 1;
-	}
-}
+Class MyWeaponUnloaded:inventory — deprecated; mag-unload state lives on PB_WeaponBase fields.
+Use PB_SetMagUnloaded / PB_GetMagUnloaded in DECORATE, or PBWEAP_UNLOADED in A_DoPBWeaponAction.
 */

@@ -1,10 +1,10 @@
-Actor SwordSequence2 : Inventory {Inventory.MaxAmount 1}
+Actor SwordSequence2 : Inventory { Inventory.MaxAmount 1 }
 
-Actor SwordSequence3 : Inventory {Inventory.MaxAmount 1}
+Actor SwordSequence3 : Inventory { Inventory.MaxAmount 1 }
 
-Actor damageMultiplier : Inventory {Inventory.MaxAmount 20}
+Actor damageMultiplier : Inventory { Inventory.MaxAmount 20 }
 
-Actor Energy : Inventory {Inventory.MaxAmount 20}
+Actor Energy : Inventory { Inventory.MaxAmount 20 }
 
 Actor DragonSlayerLungeImpact
 {
@@ -86,9 +86,9 @@ ACTOR Fire_and_Ice-DragonSlayer : PB_WeaponBase
 		TNT1 A 0 A_TakeInventory("Punching", 1)
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
 		PUNS E 2
-		PUNS F 2 A_PlaySoundEx("KNUCKLED", "Auto")
+		PUNS F 2 A_PlaySoundEx("KNUCKLED", CHAN_AUTO)
 		PUNS GFEK 2
-		PUNS L 2 A_PlaySoundEx("KNUCKLED", "Auto")
+		PUNS L 2 A_PlaySoundEx("KNUCKLED", CHAN_AUTO)
 		PUNS MLK 2 
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
 		Goto Ready
@@ -103,6 +103,9 @@ ACTOR Fire_and_Ice-DragonSlayer : PB_WeaponBase
 			 }
 		TNT1 A 0 A_StopSound(CHAN_WEAPON)
 		SLAY A 1 A_WeaponReady
+				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+				Goto Ready3
+	ReadySettle:
 Ready3:
     TNT1 A 0 {
          A_WeaponOffset(0,32);
@@ -129,8 +132,9 @@ Ready3:
 			 PB_HandleCrosshair(90);
 			 A_TakeInventory("PB_LockScreenTilt",1);
 		     }
-		TNT1 AAAAAAAAAAAAAAAAA 0 A_Lower
-		SLAY A 1 A_Lower
+		Goto DeselectDown
+	DeselectDown:
+				TNT1 A 0 A_Lower(120)
 		Wait
 
   Select:
@@ -142,9 +146,8 @@ Ready3:
 		  }
 		Goto SelectFirstPersonLegs
 	SelectContinue:
-		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Raise
-		TNT1 AAAAAAAA 1 A_Raise
-		Wait
+				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+				Goto Ready3
 Fire:
     TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
     TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
@@ -188,7 +191,7 @@ Fire:
 		SLAY L 1 A_RailAttack(50, 2, 0, none, none, RGF_SILENT, 0, "SlayerPuff2",0,0,256)
 		TNT1 A 3 
 		SLAY MN 2 
-		SLAY A 1 PB_ReFire("Fire2")
+		SLAY A 1 { PB_ReFire("Fire2"); }
 		Goto Ready
   	Fire2:
 		TNT1 A 0 A_GiveInventory("DragonSlayerEnergy", 3)
@@ -219,7 +222,7 @@ Fire:
 	SLBY K 1 A_RailAttack(50, -32, 0, none, none, RGF_SILENT, 0, "SlayerPuff2",0,0,256)
 	SLBY L 1 A_RailAttack(50, -64, 0, none, none, RGF_SILENT, 0, "SlayerPuff2",0,0,256)
 	SLBY MN 2
-	SLBY A 1 PB_ReFire
+	SLBY A 1 { PB_ReFire; }
 	Goto Ready
 
 AltFire:
@@ -238,7 +241,7 @@ HasNailgunAmmo:
     SLY2 C 2 A_FireCustomMissile("Sparks",random(-4,4),0,0,random(0,-1))
     SLY2 B 2 A_PlaySound("Weapons/NailFlight")
     SLY2 DA 3 
-    SLY2 A 3 PB_ReFire("AltRefire")
+    SLY2 A 3 { PB_ReFire("AltRefire"); }
     SLY3 DCBA 1 
     Goto Ready
 
@@ -260,16 +263,15 @@ HasNailgunAmmoRefire:
         A_FireCustomMissile("GunFireSmoke", 0, 0, 0, -3, 0, 0);
         A_FireCustomMissile("GunFireSmoke", 0, 0, 0, -3, 0, 0);
     }
-    SLY2 A 2 PB_ReFire("AltRefire")
+    SLY2 A 2 { PB_ReFire("AltRefire"); }
     SLY3 DCBA 1 
     Goto Ready
-	
 	  Hold:
 		SLAY B 1 offset(-33, 33) 
 		"####" B 1 A_BDPmeleestart
 		SLAY B 1 offset(-32, 32) 
 		"####" B 1 A_BDPmeleestart
-		TNT1 A 0 PB_ReFire
+		TNT1 A 0 { PB_ReFire; }
     		"####" A 0 A_JumpIfInventory("DragonSlayerEnergy", 3, "HasEnergyForHold")
 		SLAY D 1 A_JumpIfTargetInLOS("HasEnergyForHold", 30.0, JLOSF_NOAUTOAIM | JLOSF_DEADNOJUMP, 100.0)   
 		"####" D 1 A_BDPmeleestart
@@ -324,7 +326,7 @@ HasNailgunAmmoRefire:
 	SLAY L 1 A_RailAttack(50, 2, 0, none, none, RGF_SILENT, 0, "SlayerPuff2",0,0,256)
 	TNT1 A 3 
 	SLAY MN 2 
-	SLAY A 1 PB_ReFire("Fire2")
+	SLAY A 1 { PB_ReFire("Fire2"); }
 	Goto Ready
 
 	SwordSequence3:
@@ -345,9 +347,8 @@ HasNailgunAmmoRefire:
 	SLBY L 1 A_RailAttack(50, -64, 0, none, none, RGF_SILENT, 0, "SlayerPuff2",0,0,256)
 	TNT1 A 3 
 	SLBY MN 2
-	SLBY A 1 PB_ReFire
+	SLBY A 1 { PB_ReFire; }
 	Goto Ready
-	
 FlashKicking:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
@@ -412,19 +413,16 @@ FlashAirKicking:
 	FlashPunchingDualWield:
 		TNT1 A 15
 		Stop
-		
 	FlashKickingDualWield:
 		P3R0 ABCDEF 1
 		P3R0 F 2 A_WeaponOffset(0, 36)
 		P3R0 FEDCBA 1 A_WeaponOffset(0,32)
-		Goto Ready3
-		
+		Stop
 	FlashAirKickingDualWield:
 		P3R0 ABCDEF 1
 		P3R0 F 4 A_WeaponOffset(0, 36)
 		P3R0 FEDCBA 1 A_WeaponOffset(0,32)
-		Goto Ready3
-		
+		Stop
 	FlashSlideKickingDualWield:
 		P3R0 ABCDEF 1
 		P3R0 F 1 A_WeaponOffset(0,34)
@@ -432,12 +430,11 @@ FlashAirKicking:
 		P3R0 KKLLM 1
 		P3R0 FF 1 A_WeaponOffset(0,32)
 		P3R0 EDCBA 1 A_WeaponOffset(0,32)
-		Goto Ready3
-		
+		Stop
 	FlashSlideKickingStopDualWield:
 		P3R0 FF 1 A_WeaponOffset(0,32)
 		P3R0 EDCBA 1 A_WeaponOffset(0,32)
-		Goto Ready3
+		Stop
   }
 }
 
@@ -570,6 +567,11 @@ Actor DSAttack: FastProjectile
 	States
 	{
 	Spawn:
+		FRPR BCDEFGH 1 Bright A_SpawnItemEx("SmallFire3", random(-4, 4), random(-4, 4), random(-2, 2), 0, 0, 0, 0, 128, 64)
+		TNT1 A 0 A_Jump(224, "SpawnLoop")
+		TNT1 A 0 A_SpawnItem("RedFlareSmall", 0)
+	SpawnLoop:
+		Goto Spawn
 
 	Death:
 	TNT1 A 0
@@ -607,7 +609,6 @@ Actor DSAttack: FastProjectile
 		TNT1 A 0 A_JumpIfInTargetInventory("PB_PowerStrength", 1, "Berserk")
 		TNT1 A 10
 		Stop
-			
 	Berserk:
 		TNT1 A 1
 		TNT1 A 0 {
@@ -665,6 +666,11 @@ Actor DSAttack3: FastProjectile
 	States
 	{
 	Spawn:
+		FRPJ ABC 1 Bright A_SpawnItemEx("FreezerTrailSparksSmall", random(5, -5), random(5, -5), random(5, -5), 0, 0, 0, 0, 128, 0)
+		TNT1 A 0 A_Jump(192, "SpawnLoop")
+		TNT1 A 0 A_CustomMissile("CryoTrail", 0, 0, 0, 0)
+	SpawnLoop:
+		Goto Spawn
 
 	Death:
 	TNT1 A 0
@@ -699,7 +705,6 @@ Actor DSAttack3: FastProjectile
 		TNT1 A 0 A_JumpIfInTargetInventory("PB_PowerStrength", 1, "Berserk")
 		TNT1 A 10
 		Stop
-			
 	Berserk:
 		TNT1 A 1
 		TNT1 A 0 {
@@ -707,7 +712,6 @@ Actor DSAttack3: FastProjectile
 			 }
 		TNT1 A 10
 		Stop
-	
 	}
 }
 
@@ -928,8 +932,9 @@ ACTOR SmallFire : Fire1
 
 ACTOR SmallFire2 : SmallFire { Alpha 0.65 }
 ACTOR SmallFire3 : SmallFire { Alpha 0.65 Scale 0.5 }
-ACTOR SmallFire4 : SmallFire {}
+ACTOR SmallFire4 : SmallFire {
 
+}
 ACTOR DragonFire : SmallFire	
 {
 	Speed 10 
@@ -951,7 +956,7 @@ ACTOR DragonFire : SmallFire
 		//TNT1 A 0 A_Jump(128,"Spawn2")
         FRPB ABCDEFG 2 BRIGHT A_Explode(50,50,XF_NOSPLASH|XF_NOALLIES|XF_CIRCULAR,true,50)
 		TNT1 A 0 A_SpawnItemEX("SmallFire3",random(-6,6),random(-6,6),random(-6,6),random(30,45),0,random(-3,3),random(-30,30),0,64) 
-        FRPR BCDEFGH 2 BRIGHT {A_Explode(100,100,XF_NOSPLASH|XF_NOALLIES|XF_CIRCULAR,true,50);A_SetScale(scalex+0.2);}
+        FRPR BCDEFGH 2 BRIGHT {A_Explode(100,100,XF_NOSPLASH|XF_NOALLIES|XF_CIRCULAR,true,50);A_SetScale(scalex+0.2); }
         Stop
 	}
 }
@@ -979,189 +984,7 @@ actor MancFireSpawner : MyFireSpawner
 }
 
 // Code borrowed from Freezerbot
-ACTOR FreezerBall : FastProjectile
-{
-	Radius 4
-	Height 8
-	Speed 52
-	Damage 0
-	Projectile
-	DamageType "Freeze"
-	RenderStyle Add
-	//Translation "0:255=%[0,0,0]:[0,1,1]"
-	Alpha 0.95
-	+SEEKERMISSILE
-	+NODAMAGETHRUST
-	+FORCEXYBILLBOARD
-	+FORCERADIUSDMG
-	+BOUNCEONFLOORS
-	+BOUNCEONWALLS
-	+BOUNCEONCEILINGS
-	BounceType Grenade
-	BounceFactor 1
-	WallBounceFactor 1
-	BounceCount 2
-	DeathSound "weapons/cryobowhit"
-	//MissileHeight 8
-	Decal "IceScorch"
-	States
-	{
-	Spawn:
-		FRPJ ABC 1 Bright A_SpawnItemEx("FreezerTrailSparksSmall", random(5,-5), random(5,-5), random(5,-5), 0, 0, 0, 0, 128, 0) 
-		TNT1 A 0 A_CustomMissile("CryoTrail",0,0,0,0)
-		TNT1 A 0 A_CustomMissile ("Icetracer", 0, 0, random (0, 360), 2, random (0, 360))
-		Loop
-	Death:
-		BXPL A 0 Bright A_StopSound(CHAN_BODY)
-		BXPL A 0 Bright A_ChangeFlag("ICEDAMAGE", 1)
-		BXPL A 0 Bright A_ChangeFlag("NODAMAGETHRUST", 0)
-		BXPL A 0 Bright A_Explode(25*random(3,4),180, 0)  
-		BXPL A 0 Bright A_Explode(random(20,25), 315, 0) 
-		BXPL AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION)
-		BXPL AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
-		BXPL AAAAAAA 0 Bright A_SpawnItemEx("GaussParticlesMany", random(5,-5), random(5,-5), random(5,-5), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
-		BXPL AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
-		BXPL ABCDEFGH 1 Bright
-		BXPL IJKLLM 1 Bright A_FadeOut(0.1)
-		Stop
-	}
-}
 
-ACTOR SmallFreezerBall : FreezerBall
-{
-	Scale 0.5
-	States
-	{
-	Spawn:
-		FRPJ ABC 1 Bright A_SpawnItemEx("FreezerTrailSparksSmall", random(5,-5), random(5,-5), random(5,-5), 0, 0, 0, 0, 128, 0) 
-		TNT1 A 0 A_CustomMissile("BlueFlareSpawn",0,0,0,0)
-		TNT1 A 0 A_CustomMissile ("Icetracer", 0, 0, random (0, 360), 2, random (0, 360))
-		FRPJ ABC 1 Bright A_SpawnItemEx("FreezerTrailSparksSmall", random(5,-5), random(5,-5), random(5,-5), 0, 0, 0, 0, 128, 0) 
-		TNT1 A 0 A_CustomMissile("BlueFlareSpawn",0,0,0,0)
-		TNT1 A 0 A_CustomMissile ("Icetracer", 0, 0, random (0, 360), 2, random (0, 360))
-		FRPJ ABC 1 Bright A_SpawnItemEx("FreezerTrailSparksSmall", random(5,-5), random(5,-5), random(5,-5), 0, 0, 0, 0, 128, 0) 
-		TNT1 A 0 A_CustomMissile("BlueFlareSpawn",0,0,0,0)
-		TNT1 A 0 A_CustomMissile ("Icetracer", 0, 0, random (0, 360), 2, random (0, 360))
-		FRPJ ABC 1 Bright A_SpawnItemEx("FreezerTrailSparksSmall", random(5,-5), random(5,-5), random(5,-5), 0, 0, 0, 0, 128, 0) 
-		TNT1 A 0 A_CustomMissile("CryoTrail",0,0,0,0)
-		TNT1 A 0 A_CustomMissile ("Icetracer", 0, 0, random (0, 360), 2, random (0, 360))
-	Goto Death
-	
-	Death:		
-		BXPL A 0 Bright A_StopSound(CHAN_BODY)
-		BXPL A 0 Bright A_ChangeFlag("ICEDAMAGE", 1)
-		BXPL A 0 Bright A_ChangeFlag("NODAMAGETHRUST", 0)
-		//BXPL A 0 Bright A_Explode(5*random(2,3),10, 0)   
-		BXPL AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION)
-		BXPL AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
-		BXPL AAAAAAA 0 Bright A_SpawnItemEx("FreezerTrailSparksSmall", random(5,-5), random(5,-5), random(5,-5), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
-		BXPL AAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
-		BXPL ABCDEFGH 1 Bright
-		BXPL IJKLLM 1 Bright A_FadeOut(0.1)
-	Stop
-	
-	}
-}
 
 // Borrowed from Cat's Frozen Addon for Brutal Doom
-ACTOR FreezeDotDamage1
-{
-  Radius 6
-  Height 6
-  Speed 10
-  Damage (5)
-  DamageType "Freeze"
-  Projectile
-  +NODAMAGETHRUST
-  +BLOODLESSIMPACT
-  +PAINLESS
-  States
-  {
-  Spawn:
-    BUBL B 2
-  Death:
-    BUBL B 4
-    Stop
-  }
-}
 
-actor FreezenadeExplosion
-{
-+NOBLOCKMAP
-+MISSILE
-+DONTSPLASH
-+NOGRAVITY
-+NoClip
-Damagetype "Ice"
-DeathSound "FRZFIRE2"
-Height 32
-RenderStyle Add
-Alpha 0.95
-Scale 2.5
-Species "Marines"
-+DONTHURTSPECIES
-+DontHarmSpecies
-+Friendly
-+NODAMAGETHRUST
-+FORCEXYBILLBOARD
--FORCERADIUSDMG
-//MissileHeight 8
-Decal "IceScorch"
-
-States    {
-    Spawn:
-		TNT1 A 0
-		TNT1 A 0 A_SpawnItemEx ("BluePlasmaParticleSpawner", 0, 0, -20)
-		TNT1 A 0 A_SpawnItemEx ("BlueFlareSpawn",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
-	    TNT1 A 0 A_SpawnItemEx ("BlueFlare3",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
-        TNT1 AAAAAAAAAA 0 A_CustomMissile ("BluePlasmaFire", 0, 0, random (0, 360), 2, random (0, 360))
-		TNT1 AAAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 90))
-		TNT1 AAAAA 0 A_CustomMissile ("BluePlasmaParticle", 0, 0, random (0, 360), 2, random (0, 90))
-		TNT1 AAAA 0 A_CustomMissile ("RealisticFireSparks1Blue", 0, 0, random (0, 360), 2, random (0, 360))
-	    TNT1 AAAA 0 A_CustomMissile ("RealisticFireSparks1Blue", 0, 0, random (0, 360), 2, random (0, 360))
-		TNT1 AAA 0 A_CustomMissile ("BigPlasmaParticleX", 0, 0, random (0, 360), 2, random (0, 360))
-		TNT1 AAA 0 A_CustomMissile ("BigPlasmaParticleX", 0, 0, random (0, 360), 2, random (0, 360))
-		TNT1 A 0 A_SpawnItemEx ("DetectCeilCraterIce",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
-		BXPL A 0 Radius_Quake (2, 24, 0, 15, 0)
-        TNT1 A 0 A_ALertMonsters
-		TNT1 A 0 A_PlaySound("FRZFIRE2", 3, 3)
-		TNT1 A 0 A_SpawnItem("CryoSmoke")
-
-		BXPL A 0 Bright A_ChangeFlag("ICEDAMAGE", 1)
-		BXPL A 0 Bright A_ChangeFlag("NODAMAGETHRUST", 0)
-		BXPL A 0 Bright A_Explode(30*random(5,6),500)
-		
-		TNT1 A 0 A_SpawnItemEx ("DetectFloorIce",0,0,1,0,0,0,0,SXF_NOCHECKPOSITION,0)
-		TNT1 A 0 A_SpawnItemEx ("DetectCeilIce",0,0,1,0,0,0,0,SXF_NOCHECKPOSITION,0)
-		
-		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", -10, 0, -1, random(-20,20), random(-20,20), random(-20,40))
-		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", -8, 0, -1, random(-20,20), random(-20,20), random(-20,40))
-		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", -6, 0, -1, random(10,90), random(-20,20), random(-20,40))
-		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", -4, 0, -1, random(-50,10), random(-20,10), random(-20,40))
-		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", -2, 0, -1, random(-20,30), random(-20,40), random(-20,40))
-		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 0, 0, -1, random(-20,20), random(-20,30), random(-20,40))
-		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 1, 0, -1, random(-10,20), random(-20,40), random(-20,40))
-		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 2, 0, -1, random(-20,10), random(-20,20), random(-20,40))
-		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 4, 0, -1, random(-20,30), random(-20,20), random(-20,40))
-		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 6, 0, -1, random(-10,40), random(-20,40), random(-20,40))
-		BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 8, 0, -1, random(-30,20), random(-20,40), random(-20,40))
-	    BXPL A 0 A_SpawnItemEx("SmallFreezerBall", 10, 0, -1, random(-25,25), random(-20,40), random(-20,40))
-		BXPL AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION)
-		BXPL AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION)
-		BXPL AAAAA 0 Bright A_SpawnItemEx("CryoSmoke3", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
-		BXPL AAAAAAA 0 Bright A_SpawnItemEx("FreezerTrailSparksSmall", random(5,-5), random(5,-5), random(5,-5), random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
-		BXPL AAAAAAAAAAA 0 Bright A_SpawnItemEx("CryoSmoke", 0, 0, 0, random(10, 30)*0.1, 0, random(0, 10)*0.1, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION)
-		BXPL AAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
-		BXPL AAAAAA 0 Bright A_SpawnItemEx("CryoSmoke2", 0, 0, 0, random(10, 30)*0.04, 0, random(0, 10)*0.04, random(1,360), SXF_CLIENTSIDE|SXF_NOCHECKPOSITION,64)
-		BXPL A 0 A_ChangeFlag("ICEDAMAGE", 0)
-		BXPL AAAAAAAAAAAAAAAAAAAAAAA 0 BRIGHT 
-		BXPL ABCDEFGH 1 Bright
-		BXPL A 0 A_ChangeFlag("ICEDAMAGE", 0)
-		BXPL AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 BRIGHT 
-		TNT1 A 0 
-		BXPL IJKLLM 1 Bright A_FadeOut(0.1)
-	   TNT1 A 1
-	   Stop
-	   }
-		
-}

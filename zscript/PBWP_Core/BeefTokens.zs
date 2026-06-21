@@ -21,6 +21,9 @@ class JohnnyHandsMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class WW_StandardMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class StandardMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
+class WW_FistComboMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class FistComboMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
 class WW_BladeMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class BladeMeleeSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
@@ -96,3 +99,12 @@ class ShieldSawSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 
 class WW_ShurikenSelected : Inventory{Default{Inventory.MaxAmount 1;}}
 class ShurikenSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
+class WW_PipeBombSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class PipeBombSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
+class WW_GCShieldSphereSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class GCShieldSphereSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+
+class WW_GCChaliceSelected : Inventory{Default{Inventory.MaxAmount 1;}}
+class GCChaliceSelected : Inventory{Default{Inventory.MaxAmount 1;}}

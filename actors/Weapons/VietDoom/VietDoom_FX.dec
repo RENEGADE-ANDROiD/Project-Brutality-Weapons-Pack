@@ -1,0 +1,64 @@
+﻿// VietDoom v22 â€” tracers, footstep FX, plastic particles (from BD addon pk3).
+
+
+
+Actor GreenPlasticParticle : BarrelParticle
+{
+	Scale 1.5
+	+THRUACTORS
+	bouncefactor 0.5
+	speed 8
+	seesound ""
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		GPLS ABCD 2
+		Loop
+
+	Death:
+		TNT1 A 0
+		GPLS B 300
+		GPLS BBBBB 1 A_FadeOut(0.2)
+		Stop
+	}
+}
+
+Actor BlackPlasticParticle : BarrelParticle
+{
+	Scale 1.5
+	+THRUACTORS
+	bouncefactor 0.5
+	speed 8
+	seesound ""
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		bPLS ABCD 2
+		Loop
+
+	Death:
+		TNT1 A 0
+		bPLS B 300
+		bPLS BBBBB 1 A_FadeOut(0.2)
+		Stop
+	}
+}
+
+// VietDoom tracer aliases â€” use PB Staging TRAC sprite via PBWP_ProjectileFamilies.dec
+// (TRA2 lumps from VietDoom pk3 are optional; TRAC is always available from PB Staging.)
+Actor VietPistolTracer : PBWP_Tracer_Pistol {}
+Actor AK47Tracer : PBWP_Tracer_Intermediate {}
+Actor VietHeavyTracer : PBWP_Tracer_Heavy {}
+Actor VietSniperTracer : PBWP_Tracer_Sniper {}
+
+// M79 grenade round + glass-break tracer (VietDoom).
+// ShortGrenade2 extends PB_FragGrenade; M79 Fire must call PB_DetonateFragGrenades after spawn.
+ACTOR ShortGrenade2 : PB_FragGrenade
+{
+}
+
+ACTOR GrenadeMissileBreaksGlass : RocketGlassBreaker
+{
+}

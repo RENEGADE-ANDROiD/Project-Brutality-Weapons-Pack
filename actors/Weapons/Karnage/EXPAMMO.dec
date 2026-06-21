@@ -1,0 +1,17 @@
+﻿ACTOR Krg_Glammo : Ammo
+{
+	Inventory.PickupMessage "Picked up 40mm grenade ammo"
+	Inventory.Amount 0
+	Inventory.MaxAmount 4
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 4
+	Inventory.Icon "40MMA0"
+	Scale 1.3
+	States
+	{
+	Spawn:
+		40MM A -1
+		Stop
+	}
+}
+

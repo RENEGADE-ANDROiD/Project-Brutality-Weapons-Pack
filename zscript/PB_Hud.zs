@@ -94,7 +94,7 @@ class PB_Hud_ZS : BaseStatusBar
     float wipePrgOldFrame, wiperWarningIndScale;
     int16 dirtyScreenTimer; 
     int16 screenFXCount;
-	DEDashJump Dasher;
+	PlayerPawnBase Dasher;
     PB_FPP_Holder flPointer;
 	
 	Weapon oldWeapon;
@@ -212,16 +212,68 @@ class PB_Hud_ZS : BaseStatusBar
         showtutorials = CVar.GetCVar("pb_showtutorials", CPlayer).GetBool();
 	}
 
+	bool IsTitleMap() const
+	{
+		if (gamestate == GS_TITLELEVEL)
+			return true;
+
+		string mn = Level.MapName;
+		if (mn == "")
+			mn = level.MapName;
+		if (mn == "" || mn == "TITLEMAP" || mn == "TitleMap")
+			return true;
+		if (mn.MakeLower() == "titlemap")
+			return true;
+
+		string ln = Level.LevelName;
+		if (ln == "")
+			ln = level.LevelName;
+		if (ln == "PB_Introduction")
+			return true;
+		return ln.MakeLower() == "pb_introduction";
+	}
+
+	bool IsGameplayHudActive()
+	{
+		if (gamestate == GS_TITLELEVEL)
+			return false;
+		if (gamestate != GS_LEVEL)
+			return false;
+		if (IsTitleMap())
+			return false;
+		// TITLEMAP load race: MapName / LevelName not resolved yet on first tics.
+		if (Level.MapName == "" && level.MapName == "")
+			return false;
+		if (!CPlayer || !CPlayer.mo)
+			return false;
+		if (menuactive)
+		{
+			if (IsTitleMap())
+				return false;
+			string ln = Level.LevelName != "" ? Level.LevelName : level.LevelName;
+			if (ln == "PB_Introduction" || ln.MakeLower() == "pb_introduction")
+				return false;
+		}
+		return true;
+	}
+
 	override void Draw(int state, double TicFrac)
 	{
+		// Skip BaseStatusBar / visor HUD on TITLEMAP (main menu backdrop). Super.Draw must
+		// not run there — it paints HUDBOTOM / HUDMIDD2 and shows as black bars on the menu.
+		if (!IsGameplayHudActive())
+			return;
+
 		Super.Draw(state, TicFrac);
 
-		if(menuactive || consolestate == c_up) 
+		if (menuactive || consolestate == c_up)
 			GatherCvars();
-		
+
 		hudState = state;
 		
 		fractic = TicFrac;
+
+		bool runScreenWiper = (dirtyScreenTimer == -1 && !menuactive && consolestate != c_up);
 
         float interpolatedWipe = wipePrgOldFrame * (1. - ticfrac) + screenWiperPrg * ticfrac;
         float wiperScale = (1 - interpolatedWipe * 0.25) ** 5;
@@ -230,17 +282,19 @@ class PB_Hud_ZS : BaseStatusBar
         vector2 wiperTextureSize = TexMan.GetScaledSize(wiperTexture);
         wiperTextureSize.x *= wiperScale;
 
-        if(dirtyScreenTimer == -1) // engage the screen wiper
+        if(runScreenWiper) // engage the screen wiper
             Screen.SetClipRect(0, 0, Screen.GetWidth() - (Screen.GetWidth() * interpolatedWipe) + (wiperTextureSize.x * (0.5 - interpolatedWipe)) + (wiperTextureSize.x * 0.5), Screen.GetHeight());
 
         DrawBloodDrops();
         DrawGlassCracks();
         
-        if(dirtyScreenTimer == -1)
+        if(runScreenWiper)
         {
             Screen.ClearClipRect();
             Screen.DrawTexture(wiperTexture, false, (Screen.GetWidth() - (Screen.GetWidth() * interpolatedWipe)), 0, DTA_DestHeight, Screen.GetHeight(), DTA_LegacyRenderStyle, STYLE_Add, DTA_LeftOffsetF, (-300 * (0.5 - interpolatedWipe)), DTA_ScaleX, wiperScale);
         }
+
+        Screen.ClearClipRect();
 
         interpolatedOfs = ofsOldFrame * (1. - ticfrac) + ofsCurrentFrame * ticfrac;
         interpolatedSway = swayOldFrame * (1. - ticfrac) + swayCurrentFrame * ticfrac;
@@ -281,6 +335,9 @@ class PB_Hud_ZS : BaseStatusBar
 
 	override void Tick()
 	{
+		if (!IsGameplayHudActive())
+			return;
+
         if(!plr) plr = PlayerPawn(CPlayer.mo);
 		Super.Tick();
 
@@ -391,7 +448,7 @@ class PB_Hud_ZS : BaseStatusBar
 			oldDashCharge = Dasher.DashCharge;
 		}
         else if(plr)
-            Dasher = DEDashJump(plr.FindInventory("DEDashJump"));
+            Dasher = PlayerPawnBase(plr);
 
 		if(Health <= 25)
 		{
@@ -854,6 +911,8 @@ class PB_Hud_ZS : BaseStatusBar
 		"ALISTGRN, PB_GrenadeAmmo, Green, Equipment",
 		"ALISTREV, PB_QuickLauncherAmmo, LightBlue, Equipment",
 		"ALISTMIN, PB_ProxMineAmmo, Purple, Equipment",
+		"PIPBA0, PipebombAmmo, Orange, Equipment",
+		"STCPB0, SatchelChargeAmmo, Green, Equipment",
 		"ALISTSTN, PB_StunGrenadeAmmo, Cyan, Equipment",
 		"AMMOIC9, PBWP_ComplexAmmo, White, Ammo",
 		"ALISTEPD, ElecPodAmmo, Yellow, Equipment",
@@ -868,7 +927,9 @@ class PB_Hud_ZS : BaseStatusBar
 		"ALISTSHR, ShurikenAmmo, Purple, Equipment",
 		"ALISTCTR, CaltropsAmmo, Purple, Equipment",
 		"ALISTHOK, HookAmmo, DarkRed, Equipment",
-		"ALISTSSW, ShieldSawAmmo, DarkRed, Equipment"
+		"ALISTSSW, ShieldSawAmmo, DarkRed, Equipment",
+		"ALISTSHG, GCShieldSphereAmmo, Orange, Equipment",
+		"ALISTACD, GCChaliceAmmo, Gold, Equipment"
 	};
 	
 	void PB_AmmoListDrawer(vector2 initialpos, int step = 12) 
@@ -1036,8 +1097,9 @@ class PB_Hud_ZS : BaseStatusBar
 		string image;
 		string powerTime;
 		name powerName;
-		bool invalidPower;
 		int fontCol;
+		bool showTimer;
+		bool hasFontCol;
 		
 		for(let i = plr.inv; i != null; i = i.inv)
 		{
@@ -1046,7 +1108,8 @@ class PB_Hud_ZS : BaseStatusBar
 			if(power)
 			{
 				powername = i.GetClassName();
-				powertime = FormatPowerupTime(power);
+				showTimer = true;
+				hasFontCol = false;
 				
 				switch(powername)
 				{
@@ -1068,6 +1131,42 @@ class PB_Hud_ZS : BaseStatusBar
 					case 'PB_PowerSpeed':
 						image = "PWRHASTE";
 						break;
+					case 'GC_RuneLitePower':
+						image = "AMMOIC9";
+						fontCol = Font.CR_PURPLE;
+						powertime = "RUNE";
+						showTimer = false;
+						hasFontCol = true;
+						break;
+					case 'GC_ChainsawBerserkPower':
+						image = "HCHNSY";
+						fontCol = Font.CR_RED;
+						powertime = "RIP";
+						showTimer = false;
+						hasFontCol = true;
+						break;
+					case 'GC_UVShieldPower':
+						image = "LFSHSPHR";
+						fontCol = Font.CR_BLUE;
+						hasFontCol = true;
+						break;
+					case 'GC_ChalicePower':
+						image = "PWRINVUL";
+						fontCol = Font.CR_GOLD;
+						hasFontCol = true;
+						break;
+					case 'GC_ShieldSphereCooldown':
+						image = "LFSHSPHR";
+						fontCol = Font.CR_LIGHTBLUE;
+						hasFontCol = true;
+						break;
+					case 'GC_ChaliceCooldown':
+						image = "PWRINVUL";
+						fontCol = Font.CR_GOLD;
+						hasFontCol = true;
+						break;
+					case 'GC_ChaliceDrain':
+						continue;
 					Default:
 						image = "TNT1A0";
 						break;
@@ -1078,12 +1177,86 @@ class PB_Hud_ZS : BaseStatusBar
 					continue;
 				}
 				
-				fontCol = Font.FindFontColor(powername);
-				PBHud_DrawImage(image, initialpos, DI_SCREEN_LEFT_BOTTOM | DI_ITEM_LEFT_BOTTOM, playerBoxAlpha);
-				PBHud_DrawString(mBoldFont, powertime, (initialpos.x + 28, initialpos.y - 20), DI_SCREEN_LEFT_BOTTOM | DI_TEXT_ALIGN_LEFT, fontcol);
+				if(showTimer)
+					powertime = FormatPowerupTime(power);
+				if(!hasFontCol)
+					fontCol = Font.FindFontColor(powername);
+
+				double drawAlpha = playerBoxAlpha;
+				if(powername == 'GC_ShieldSphereCooldown' || powername == 'GC_ChaliceCooldown')
+					drawAlpha = clamp(playerBoxAlpha * 0.35, 0.15, 0.45);
+
+				if(drawAlpha < playerBoxAlpha * 0.9)
+					PBHud_DrawImageManualAlpha(image, initialpos, DI_SCREEN_LEFT_BOTTOM | DI_ITEM_LEFT_BOTTOM, drawAlpha);
+				else
+					PBHud_DrawImage(image, initialpos, DI_SCREEN_LEFT_BOTTOM | DI_ITEM_LEFT_BOTTOM, drawAlpha);
+				PBHud_DrawString(mBoldFont, powertime, (initialpos.x + 28, initialpos.y - 20), DI_SCREEN_LEFT_BOTTOM | DI_TEXT_ALIGN_LEFT, fontCol);
 				initialpos.y -= step;
 			}
 		}
+	}
+
+	void PB_DrawGCWeaponMode(vector2 pos)
+	{
+		if(!weap || !plr)
+			return;
+
+		string label;
+		int fontCol = Font.CR_WHITE;
+
+		switch(weap.GetClassName())
+		{
+			case 'LegendaryAssaultShotgun':
+				if(CheckInventory("GCASGSlugMode"))
+				{
+					label = "GC SLUG";
+					fontCol = Font.CR_ORANGE;
+				}
+				break;
+			case 'Devastador':
+				if(CheckInventory("GCDevastadorBoost"))
+				{
+					label = "GC CLUSTER+";
+					fontCol = Font.CR_RED;
+				}
+				break;
+			case 'LegendaryChainsaw':
+				if(CheckInventory("GCChainsawBerserk"))
+				{
+					label = "GC BERSERK";
+					fontCol = Font.CR_RED;
+				}
+				break;
+			case 'LegendaryPlasmaticRifle':
+				if(CheckInventory("GCPlasmaChargeMode"))
+				{
+					label = "GC CHARGE";
+					fontCol = Font.CR_PURPLE;
+				}
+				break;
+			case 'NemesisLMG':
+				if(CheckInventory("GCNemLMGSuppress"))
+				{
+					label = "GC SUPPRESS";
+					fontCol = Font.CR_CYAN;
+				}
+				break;
+			case 'GodEnragedBFG':
+			case 'EnragedLegendaryBFG':
+			case 'LegendaryBFG10K':
+			case 'NemesisBFG':
+				if(CheckInventory("NemesisBFGMode"))
+				{
+					label = "GC BEAM";
+					fontCol = Font.CR_GREEN;
+				}
+				break;
+		}
+
+		if(label == "")
+			return;
+
+		PBHud_DrawString(mBoldFont, label, pos, DI_SCREEN_RIGHT_BOTTOM | DI_TEXT_ALIGN_RIGHT, fontCol, scale: (0.55, 0.55));
 	}
 	
 	////////////////////////////////////
@@ -1445,12 +1618,20 @@ class PB_Hud_ZS : BaseStatusBar
 				else if(CheckInventory("BladeMeleeSelected")) {
 					PBHud_DrawImage("HDBLDY", (-93, -84), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 				}
+				else if(CheckInventory("FistComboMeleeSelected")) {
+					PBHud_DrawImage("HFISTY", (-93, -84), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
+				}
 				else if(CheckInventory("StandardMeleeSelected")) {
 					PBHud_DrawImage("HFISTY", (-93, -84), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, scale: (1.25, 1.25));
 				}
 
-                if(Primary && !CheckWeaponSelected("PB_Unmaker") && !CheckWeaponSelected("PB_Flamethrower") && !CheckWeaponSelected("PB_TauntWeapon")
-				&& !CheckWeaponSelected("NemesisLMG") && !CheckWeaponSelected("PowerOverwhelming") && !CheckWeaponSelected("ProSurv_Ballista") && !CheckWeaponSelected("PB_MG42")) 
+				String rw = "";
+				let pmo = players[consoleplayer].mo;
+				if (pmo && pmo.player && pmo.player.ReadyWeapon)
+					rw = pmo.player.ReadyWeapon.GetClassName();
+
+                if(Primary && rw != "PB_Unmaker" && rw != "PB_Flamethrower" && rw != "PB_TauntWeapon"
+				&& rw != "NemesisLMG" && rw != "PowerOverwhelming" && rw != "PBX_Prosurv_Ballista" && rw != "PB_MG42") 
                 {
                     switch(Primary.GetClassName())
                     {
@@ -1489,6 +1670,10 @@ class PB_Hud_ZS : BaseStatusBar
                         case 'PowerChargeStorm':
                             weaponBarAccent = Font.CR_CYAN;
                             DrawAmmoBar("BARBACC1", "BARBACC2", "BARBACC3", "BAMBAR8", "ABAR8", "ABAR8", "AMMOIC8", Font.CR_CYAN);
+                            break;
+                        case 'SatchelChargeAmmo':
+                            weaponBarAccent = Font.CR_GREEN;
+                            DrawAmmoBar("BARBACO1", "BARBACO2", "BARBACO3", "BAMBAR3", "ABAR3", "ABAR3", "STCPB0", Font.CR_GREEN, true, false);
                             break;
                         default:
                             weaponBarAccent = cachedFontColors[HUDBLUEBAR];
@@ -1549,7 +1734,7 @@ class PB_Hud_ZS : BaseStatusBar
 							PBHud_DrawImage("AXECOUNT", (-80 + (-8* AxeCount), -28), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM | DI_MIRROR, scale: (0.5, 0.5));
 						}
 						break;
-					case 'M41A':
+					case 'PB_M41A':
 						if(pbWeap && !pbWeap.akimboMode)
 						{
 							PBHud_DrawImage("BARBACR3", (-92, -69), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
@@ -1589,9 +1774,10 @@ class PB_Hud_ZS : BaseStatusBar
 						weaponBarAccent = Font.CR_YELLOW;
 						break;
 					}
-					case 'ProSurv_Ballista':
+					case 'PBX_Prosurv_Ballista':
 					{
-						if(!CheckInventory("BallistaDemonicMode"))
+						// PBX inventory token not visible cross-TU in 4.14; render non-upgraded view as fallback.
+						if(true)
 						{
 							DrawAmmoBar("BARBACY1", "BARBACY2", "BARBACY3", "BAMBAR1", "ABAR1", "ABAR1", "AMMOIC1", Font.CR_YELLOW, true, true, true, false);
 							PBHud_DrawImage("BARBACR3", (-92, -69), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
@@ -1635,9 +1821,23 @@ class PB_Hud_ZS : BaseStatusBar
 						weaponBarAccent = Font.CR_YELLOW;
 						break;
 					}
+					case 'LoRCalamityBlade':
+					case 'PB_CalamityBlade':
+						DrawAmmoBar("BARBACZ1", "BARBACZ2", "BARBACZ3", "BAMBAR7", "ABAR7", "ABAR7", "AMMOIC7", cachedFontColors[DTECHAMMO]);
+						weaponBarAccent = cachedFontColors[DTECHAMMO];
+						break;
+					case 'IN_Beretta':
+					case 'W_SMG':
+					case 'TechBlaster':
+					case 'UZISMG':
+						DrawAmmoBar("BARBACT1", "BARBACT2", "BARBACT3", "BAMBAR2", "ABAR2", "ABAR2", "AMMOIC2", Font.CR_TAN);
+						weaponBarAccent = Font.CR_TAN;
+						break;
 				}
 				
 				PBHud_DrawString(mDefaultFont, weap.GetTag(), (-110, -24), DI_SCREEN_RIGHT_BOTTOM | DI_TEXT_ALIGN_RIGHT, weaponBarAccent, scale: (0.5, 0.5));
+				PB_DrawGCWeaponMode((-110, -16));
+				PBWP_DrawAddonWeaponIcon();
 				
 				//Equipment
 				PBHud_DrawImage("EQUPBO", (-15, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
@@ -1649,6 +1849,10 @@ class PB_Hud_ZS : BaseStatusBar
 				else if(CheckInventory("ProximityMineSelected")) {
 					PBHud_DrawImage("ALISTMIN", (-46, -45), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_CENTER, scale: (0.8, 0.8));
 					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("PB_ProxMineAmmo")), (-47, -33), DI_TEXT_ALIGN_CENTER, Font.CR_PURPLE, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("PipeBombSelected")) {
+					PBHud_DrawImage("PIPBA0", (-46, -45), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_CENTER, scale: (0.8, 0.8));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("PipebombAmmo")), (-47, -33), DI_TEXT_ALIGN_CENTER, Font.CR_ORANGE, scale: (0.8, 0.8));
 				}
 				else if(CheckInventory("StunGrenadeSelected")) {
 					PBHud_DrawImage("ALISTSTN", (-46, -45), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_CENTER, scale: (0.8, 0.8));
@@ -1715,6 +1919,14 @@ class PB_Hud_ZS : BaseStatusBar
 				}
 				else if(CheckInventory("ShieldSawSelected")) {
 					PBHud_DrawImage("ALISTSSW", (-46, -45), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_CENTER, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("GCShieldSphereSelected")) {
+					PBHud_DrawImage("ALISTSHG", (-46, -45), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_CENTER, scale: (0.8, 0.8));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("GCShieldSphereAmmo")), (-47, -33), DI_TEXT_ALIGN_CENTER, Font.CR_ORANGE, scale: (0.8, 0.8));
+				}
+				else if(CheckInventory("GCChaliceSelected")) {
+					PBHud_DrawImage("ALISTACD", (-46, -45), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_CENTER, scale: (0.8, 0.8));
+					PBHud_DrawString(mBoldFont, Formatnumber(GetAmount("GCChaliceAmmo")), (-47, -33), DI_TEXT_ALIGN_CENTER, Font.CR_GOLD, scale: (0.8, 0.8));
 				}
 			}
 
@@ -1796,3 +2008,22 @@ class PB_DynamicDoubleInterpolator : Object
 }
 
 #include "zscript/PB_HelpNotifications.zs"
+#include "zscript/PBWP_Systems/PBWP_AddonWeaponHud.zs"
+
+// PBWP: title-backdrop-safe status bar (PBWP Gameinfo StatusBarClass override).
+class PBWP_MenuSafeHud : PB_Hud_ZS
+{
+	override void Draw(int state, double TicFrac)
+	{
+		if (!IsGameplayHudActive())
+			return;
+		Super.Draw(state, TicFrac);
+	}
+
+	override void Tick()
+	{
+		if (!IsGameplayHudActive())
+			return;
+		Super.Tick();
+	}
+}

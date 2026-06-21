@@ -1,0 +1,112 @@
+// --------------------------------------------------------------------------
+// PBWP projectile / tracer FX families (Phase 0)
+//
+// Use these for PBWP addon weapons that need visible flight FX without
+// depending on optional pack folds (VietDoom / Karnage tracers).
+//
+// PB_FireBullets("PB_12GAPellet", ...) and other PB_Projectile types are
+// defined in Project Brutality Staging (always loaded before PBWP) — do
+// not duplicate pellet classes here.
+//
+// Energy bolts: extend StingerHellBullet (DemonTech_Hellbullet.dec).
+// Performance: cosmetic trails use random A_Jump gates; respect
+// pb_performance_fire and pbwp_fx_throttle via weapon-side patterns.
+// --------------------------------------------------------------------------
+
+ACTOR PBWP_TracerBase : FastProjectile
+{
+	Projectile
+	+RANDOMIZE
+	+FORCEXYBILLBOARD
+	+DONTSPLASH
+	+NOEXTREMEDEATH
+	Damage 0
+	Radius 2
+	Height 2
+	DamageType "None"
+	RenderStyle Add
+	Alpha 0.9
+	States
+	{
+	Spawn:
+		TRAC A 1 BRIGHT
+		Loop
+	Death:
+		TNT1 A 1
+		Stop
+	XDeath:
+		TNT1 A 1
+		Stop
+	}
+}
+
+// 9mm / .45 ACP pistols and SMGs
+ACTOR PBWP_Tracer_Pistol : PBWP_TracerBase
+{
+	Speed 120
+	Scale 0.10
+}
+
+// 5.56 rifles, general-purpose rifle tracer
+ACTOR PBWP_Tracer_Rifle : PBWP_TracerBase
+{
+	Speed 140
+	Scale 0.13
+}
+
+// 7.62x39 / intermediate
+ACTOR PBWP_Tracer_Intermediate : PBWP_TracerBase
+{
+	Speed 145
+	Scale 0.15
+}
+
+// 7.62x51 battle rifles (M14, BAR, G3 class)
+ACTOR PBWP_Tracer_Heavy : PBWP_TracerBase
+{
+	Speed 150
+	Scale 0.17
+}
+
+// Scoped / DMR shots
+ACTOR PBWP_Tracer_Sniper : PBWP_TracerBase
+{
+	Speed 165
+	Scale 0.19
+}
+
+// Optional alias — same throttled bolt as Plasmastinger / HellPistoler
+ACTOR PBWP_EnergyBolt : StingerHellBullet
+{
+}
+
+// Throttled DemonTech bolt (blue tint) for DT Pistol alt / future DTech weapons
+ACTOR PBWP_EnergyBolt_Blue : StingerHellBullet
+{
+	Translation "168:191=192:207","16:47=240:247"
+	States
+	{
+	Spawn:
+		PBAL H 1 Bright Light("BlueGlowTorch")
+		TNT1 A 0 A_Jump(192, "SpawnB")
+		TNT1 A 0 A_CustomMissile("BlueTracerSmall", 0, 0, random(0, 360), 2, random(0, 360))
+	SpawnB:
+		PBAL I 1 Bright Light("BlueGlowTorch")
+		TNT1 A 0 A_Jump(160, "SpawnLoop")
+		TNT1 A 0 A_SpawnItem("BlueFlareSmall", 0)
+	SpawnLoop:
+		Goto Spawn
+	Death:
+		TNT1 A 0 A_SpawnItem("HellRifle_Puff2", 0)
+		TNT1 A 0 Bright A_SpawnItem("BlueFlare", 0)
+		TNT1 A 0 A_Jump(128, "Stop")
+		TNT1 A 0 A_SpawnItemEx("RailGunTrailSpark", random(-8, 8), random(-8, 8), random(-2, 2), 0, 0, 0, 0, 128, 0)
+		Stop
+	XDeath:
+		TNT1 A 0 A_SpawnItem("HellRifle_Puff", 0)
+		TNT1 A 0 Bright A_SpawnItem("BlueFlare", 0)
+		TNT1 A 0 A_Jump(160, "Stop")
+		TNT1 A 0 A_CustomMissile("PlasmaSmoke", 1, 0, random(0, 360), 2, random(0, 160))
+		Stop
+	}
+}

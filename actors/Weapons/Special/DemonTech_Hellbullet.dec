@@ -1,0 +1,74 @@
+// PB 2022 DemonTech bolt FX — StingerHellBullet / PBWP_AcidHellBullet variants for PBWP weapons.
+// Base Hellbullet is defined in PB Staging; do not redefine here (UZDoom 4.14 duplicate-class parse fatal).
+// Sprites: SPRITES/Effects/SFX/PBALH0, PBALI0; SPRITES/Effects/Particles/SHOQ*
+
+// Visible DemonTech bolt used by Plasmastinger and HellPistoler.
+// Flight: PBAL sprite every tic; trail actors throttled (not every tic like base Hellbullet).
+// Impact: puff + flare always; heavier particles only on a random subset of hits.
+ACTOR StingerHellBullet : Hellbullet
+{
+	States
+	{
+	Spawn:
+		PBAL H 1 Bright
+		TNT1 A 0 A_Jump(192, "SpawnB")
+		TNT1 A 0 A_CustomMissile("RedTracerSmall", 0, 0, random(0, 360), 2, random(0, 360))
+	SpawnB:
+		PBAL I 1 Bright
+		TNT1 A 0 A_Jump(160, "SpawnLoop")
+		TNT1 A 0 A_SpawnItem("RedFlare", 0)
+	SpawnLoop:
+		Goto Spawn
+	XDeath:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("HellRifle_Puff", 0)
+		TNT1 A 0 Bright A_SpawnItem("RedFlare", 0)
+		TNT1 A 0 A_Jump(160, "Stop")
+		TNT1 A 0 A_SpawnItemEx("ObeliskTrailSpark", random(-8, 8), random(-8, 8), random(-2, 2), 0, 0, 0, 0, 128, 0)
+		TNT1 A 0 A_CustomMissile("PlasmaSmoke", 1, 0, random(0, 360), 2, random(0, 160))
+		Stop
+	Death:
+		TNT1 A 0 A_SpawnItem("HellRifle_Puff2", 0)
+		TNT1 A 0 Bright A_SpawnItem("RedFlare", 0)
+		TNT1 A 0 A_Jump(128, "Stop")
+		TNT1 A 0 A_SpawnItemEx("ObeliskTrailSpark", random(-8, 8), random(-8, 8), random(-2, 2), 0, 0, 0, 0, 128, 0)
+		TNT1 A 0 A_Jump(192, "Stop")
+		TNT1 A 0 A_SpawnItemEx("BurningEmberParticlesFloating_Bigger", random(12, -12), random(12, -12), random(4, -4), 0, 0, 0, 0, 128, 0)
+		Stop
+	}
+}
+
+// Bio-Acid Launcher primary bolt (caustic green DemonTech).
+ACTOR PBWP_AcidHellBullet : StingerHellBullet
+{
+	Damage 18
+	DamageType Acid
+	Translation "168:191=112:127","16:47=240:247"
+	States
+	{
+	Spawn:
+		PBAL H 1 Bright Light("BlueGlowTorch")
+		TNT1 A 0 A_Jump(192, "SpawnB")
+		TNT1 A 0 A_CustomMissile("GreenTracerSmall", 0, 0, random(0, 360), 2, random(0, 360))
+	SpawnB:
+		PBAL I 1 Bright Light("BlueGlowTorch")
+		TNT1 A 0 A_Jump(160, "SpawnLoop")
+		TNT1 A 0 A_SpawnItem("GreenFlareSmall", 0)
+	SpawnLoop:
+		Goto Spawn
+	Death:
+		TNT1 A 0 A_SpawnItem("HellRifle_Puff2", 0)
+		TNT1 A 0 Bright A_SpawnItem("GreenFlare", 0)
+		TNT1 A 0 A_Jump(128, "Stop")
+		TNT1 A 0 A_SpawnItemEx("ObeliskTrailSpark", random(-8, 8), random(-8, 8), random(-2, 2), 0, 0, 0, 0, 128, 0)
+		TNT1 A 0 A_Jump(192, "Stop")
+		TNT1 A 0 A_CustomMissile("PlasmaSmoke", 1, 0, random(0, 360), 2, random(0, 160))
+		Stop
+	XDeath:
+		TNT1 A 0 A_SpawnItem("HellRifle_Puff", 0)
+		TNT1 A 0 Bright A_SpawnItem("GreenFlare", 0)
+		TNT1 A 0 A_Jump(160, "Stop")
+		TNT1 A 0 A_CustomMissile("PlasmaSmoke", 1, 0, random(0, 360), 2, random(0, 160))
+		Stop
+	}
+}

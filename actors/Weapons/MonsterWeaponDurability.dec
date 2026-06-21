@@ -1,0 +1,19 @@
+// Pseudo-ammo wear pools for monster-sourced weapons (PB 2022 fold).
+
+ACTOR MancubusFlameCannonDurability : Ammo
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 60
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 60
+	+INVENTORY.UNDROPPABLE
+}
+
+ACTOR MarauderSSGDurability : Ammo
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 80
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 80
+	+INVENTORY.UNDROPPABLE
+}

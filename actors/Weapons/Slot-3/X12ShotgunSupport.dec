@@ -1,0 +1,2 @@
+// X12 Shotgun inventory tokens referenced by X12Shotgun.dec
+ACTOR ShotgunWasEmpty : Inventory { Inventory.MaxAmount 1 }

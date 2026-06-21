@@ -1,0 +1,176 @@
+// PB_DarkMatterRifle weapon states: C:\Users\shawn\OneDrive\Desktop\temp\ProjectBrutality2022\zscript/Weapons/Slot8/PB_DarkMatterRifle/PB_DarkMatterRifle.zs
+// PB 3.x UAC Prototype Dark Matter Rifle (Pulse Cannon) — folded for PB2022 as PB_DarkMatterRifle.
+// Slot 8 energy rifle; Cell reserve + PB_DarkMatterMag internal magazine; Weapon Special wheel selects Alt-Fire payload.
+
+ACTOR PB_DarkMatterMag : Ammo
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 60
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 60
+	+INVENTORY.IGNORESKILL
+	Inventory.Icon "PLCUA0"
+}
+
+ACTOR PB_DMR_HasUnloaded : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+ACTOR PB_DMR_PulseBall : FastProjectile
+{
+	Radius 10
+	Height 2
+	Speed 60
+	Damage 9
+	DamageType Plasma
+	Decal "SmallerScorch"
+	Projectile
+	Gravity 0
+	+RANDOMIZE
+	-NOBLOCKMAP
+	+NOBLOOD
+	+NORADIUSDMG
+	+THRUSPECIES
+	+MTHRUSPECIES
+	Species "Marines"
+	damagefactor "Blood", 0.0 damagefactor "BlueBlood", 0.0 damagefactor "GreenBlood", 0.0 damagefactor "Taunt", 0.0 damagefactor "KillMe", 0.0 damagefactor "Shrapnel", 0.0
+	Health 5
+	renderstyle ADD
+	Scale 0.35
+	DeathSound "weapons/plasmax"
+	SeeSound "None"
+	Obituary "$OB_MPPLASMARIFLE"
+	States
+	{
+	DM:
+		TNT1 A 0
+		TNT1 A 0 A_ChangeFlag("THRUSPECIES", 0)
+		TNT1 A 0 A_ChangeFlag("MTHRUSPECIES", 0)
+		Goto Spawn1
+	Spawn:
+		TNT1 A 0
+	Spawn1:
+		PPAL A 1 BRIGHT Light("PB_DMR_OrbGlow")
+		TNT1 A 0 A_SpawnItemEx("PurpleTrailSparksSmall", 0, 0, 0, 0, 0, 0, 0, 128)
+		PPAL B 1 BRIGHT Light("PB_DMR_OrbGlow")
+		TNT1 A 0 A_SpawnItem("PinkIonFlare", 0, 0)
+		PPAL C 1 BRIGHT Light("PB_DMR_OrbGlow")
+		PPAL D 1 BRIGHT Light("PB_DMR_OrbGlow")
+		Loop
+	Xdeath:
+		TNT1 A 0 A_SpawnItem("Plasma_Puff", 0)
+		TNT1 A 0 A_CustomMissile("PurplePlasmaFire", 0, 0, random(0, 360), 2, random(0, 360))
+		TNT1 AAAA 0 A_CustomMissile("RailGunTrailSpark", 0, 0, random(0, 360), 2, random(0, 360))
+		TNT1 A 0 A_JumpIf(GetCvar("pb_plasma_wallclimb"), "PB_DMRPulseClimbX")
+		TNT1 A 1 A_Explode(6, 50, XF_NOSPLASH | XF_HURTSOURCE)
+		Goto PB_DMRPulseClimbXDone
+	PB_DMRPulseClimbX:
+		TNT1 A 1 A_Explode(6, 50, XF_NOSPLASH)
+		TNT1 A 0 A_RadiusThrust(800, 50, RTF_AFFECTSOURCE | RTF_THRUSTZ | RTF_NOIMPACTDAMAGE)
+		TNT1 A 0 A_RadiusGive("PBBlastMomentum", 160, RGF_PLAYERS | RGF_CUBE, 28)
+	PB_DMRPulseClimbXDone:
+		TNT1 A 4
+		TNT2 AAA 9 A_CustomMissile("PlasmaSmoke", 1, 0, random(0, 360), 2, random(0, 160))
+		Stop
+	Death:
+		TNT1 A 0 A_SpawnItem("Plasma_Puff", 0)
+		TNT1 A 0 A_JumpIf(GetCvar("pb_plasma_wallclimb"), "PB_DMRPulseClimbD")
+		TNT1 B 1 A_Explode(6, 50, XF_NOSPLASH | XF_HURTSOURCE)
+		Goto PB_DMRPulseClimbDDone
+	PB_DMRPulseClimbD:
+		TNT1 B 1 A_Explode(6, 50, XF_NOSPLASH)
+		TNT1 A 0 A_RadiusThrust(800, 50, RTF_AFFECTSOURCE | RTF_THRUSTZ | RTF_NOIMPACTDAMAGE)
+		TNT1 A 0 A_RadiusGive("PBBlastMomentum", 160, RGF_PLAYERS | RGF_CUBE, 28)
+	PB_DMRPulseClimbDDone:
+		TNT1 A 0 A_SpawnItemEx("DetectFloorCraterSmall", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0)
+		TNT1 A 0 A_SpawnItemEx("DetectCeilCraterSmall", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0)
+		TNT1 A 0 A_CustomMissile("PurplePlasmaFire", 0, 0, random(0, 360), 2, random(0, 360))
+		TNT1 AAA 0 A_CustomMissile("PurplePlasmaParticle", 0, 0, random(0, 360), 2, random(0, 360))
+		TNT1 B 4
+		TNT2 AAAAAA 9 A_CustomMissile("PlasmaSmoke", 1, 0, random(0, 360), 2, random(0, 160))
+		Stop
+	}
+}
+
+ACTOR PB_DMR_SuperBall : FastProjectile
+{
+	Radius 14
+	Height 4
+	Speed 48
+	Damage 32
+	DamageType Plasma
+	Decal "SmallerScorch"
+	Projectile
+	Gravity 0
+	+RANDOMIZE
+	-NOBLOCKMAP
+	+NOBLOOD
+	+NORADIUSDMG
+	+THRUSPECIES
+	+MTHRUSPECIES
+	Species "Marines"
+	renderstyle ADD
+	Scale 0.42
+	DeathSound "weapons/plasmax"
+	SeeSound "None"
+	Obituary "$OB_MPPLASMARIFLE"
+	States
+	{
+	DM:
+		TNT1 A 0
+		TNT1 A 0 A_ChangeFlag("THRUSPECIES", 0)
+		TNT1 A 0 A_ChangeFlag("MTHRUSPECIES", 0)
+		Goto Spawn1
+	Spawn:
+		TNT1 A 0
+	Spawn1:
+		ORBP A 1 BRIGHT Light("PB_DMR_OrbGlow")
+		TNT1 A 0 A_SpawnItemEx("PurpleTrailSparksSmall", 0, 0, 0, 0, 0, 0, 0, 128)
+		ORBP B 1 BRIGHT Light("PB_DMR_OrbGlow")
+		TNT1 A 0 A_SpawnItem("PurplePlasmaFlare", 0, 0)
+		ORBP C 1 BRIGHT Light("PB_DMR_OrbGlow")
+		ORBP D 1 BRIGHT Light("PB_DMR_OrbGlow")
+		Loop
+	Death:
+		TNT1 A 0 A_JumpIf(GetCvar("pb_plasma_wallclimb"), "PB_DMRSuperClimb")
+		TNT1 A 0 A_Explode(72, 224, XF_NOSPLASH | XF_HURTSOURCE)
+		Goto PB_DMRSuperDone
+	PB_DMRSuperClimb:
+		TNT1 A 0 A_Explode(72, 224, XF_NOSPLASH)
+		TNT1 A 0 A_RadiusThrust(1100, 224, RTF_AFFECTSOURCE | RTF_THRUSTZ | RTF_NOIMPACTDAMAGE)
+		TNT1 A 0 A_RadiusGive("PBBlastMomentum", 220, RGF_PLAYERS | RGF_CUBE, 40)
+	PB_DMRSuperDone:
+		TNT1 A 0 A_CustomMissile("PurplePlasmaFire", 0, 0, random(0, 360), 2, random(0, 360))
+		TNT1 AAAA 0 A_CustomMissile("PurplePlasmaParticle", 0, 0, random(0, 360), 2, random(0, 360))
+		TNT1 A 6
+		TNT2 AAAAAAA 12 A_CustomMissile("PlasmaSmoke", 1, 0, random(0, 360), 2, random(0, 160))
+		Stop
+	}
+}
+
+ACTOR PB_DMR_GravityBomb : FastProjectile
+{
+	Radius 12
+	Height 12
+	Speed 30
+	Damage 16
+	Projectile
+	+NOGRAVITY
+	+RIPPER
+	+BLOODLESSIMPACT
+	-BLOODSPLATTER
+	RenderStyle Add
+	Scale 0.18
+	Alpha 0.9
+	States
+	{
+	Spawn:
+		ORBP ABCD 1 BRIGHT
+		Loop
+	Death:
+		TNT1 A 0 A_SpawnItem("BlackHole")
+		Stop
+	}
+}
+

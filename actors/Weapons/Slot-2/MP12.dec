@@ -1,0 +1,887 @@
+﻿Actor MP12SilencerIsOn : Inventory {inventory.maxamount 1}
+
+Actor SoundDummyForPistol : Inventory {inventory.maxamount 1}
+
+ACTOR MP12Ammo2 : Ammo
+{
+   Inventory.Amount 0
+   Inventory.MaxAmount 42
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 42
+   Inventory.Icon PISPA0
+}
+
+// --------------------------------------------------------------------------
+//
+// MP12 Hybrid SMG/9mm Pistol
+//
+// --------------------------------------------------------------------------
+
+ACTOR MP12 : PB_Weapon
+{
+	Weapon.AmmoUse1 0
+	Weapon.AmmoGive1 6
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive2 0
+	Weapon.AmmoType1 "PB_LowCalMag"
+	Weapon.AmmoType2 "MP12Ammo2"
+	Obituary "%o was shot down by %k's Pistol."
+    AttackSound "None"
+    Inventory.PickupSound "MP1/select"
+	tag "Standardized UAC-12a Automat"
+	Inventory.Pickupmessage "You got the UAC-12a Automat!"
+	+WEAPON.WIMPY_WEAPON
+    +WEAPON.NOAUTOAIM
+    +WEAPON.NOAUTOFIRE
+    +FORCEXYBILLBOARD
+	+WEAPON.NOALERT
+	Weapon.BobRangeX 0.3
+	Weapon.BobRangeY 0.5
+	Weapon.BobStyle InverseSmooth
+	Weapon.BobSpeed 2.0
+	Weapon.SlotNumber 2
+	Weapon.SlotPriority 0.3
+	Scale 0.9
+	States
+	{
+	
+	Steady:
+	TNT1 A 1
+	Goto Ready
+	
+	PickUp:
+	TNT1 A 0
+	TNT1 A 0 A_Playsound("PICKUPONELINER")
+	TNT1 A 0
+	Stop
+	
+	/*TimeToChangedTheWeapon:
+		TNT1 A 0 A_JumpIfInventory("PistolSMGUpgrade",1,"Out")
+		PISR GFE 1
+		PISR D 1 A_playsound("MP1/cout", 4)
+		PISR CB 1
+		PISR A 6
+	UnloadingTheAmmo:
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2", 1, 1)
+		Goto NextOneSMG
+		TNT1 A 0 A_GiveInventory("PB_LowCalMag", 1)
+		TNT1 A 0 A_TakeInventory("MP12Ammo2", 1)
+		Loop
+		
+	TimeToChangedTheWeaponSil:
+		TNT1 A 0 A_JumpIfInventory("PistolSMGUpgrade",1,"Out")
+		12SR GFE 1
+		12SR D 1 A_playsound("MP1/cout", 4)
+		12SR CB 1
+		12SR A 6
+	UnloadingTheAmmoWithSil:
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2", 1, 1)
+		Goto NextOneSMGWithSil
+		TNT1 A 0 A_GiveInventory("PB_LowCalMag", 1)
+		TNT1 A 0 A_TakeInventory("MP12Ammo2", 1)
+		Loop*/ 
+		//Missed an Chanced
+		
+	NextOneSMG:
+	PISG BCDE 1
+	MGAS ABC 1
+	MGAR J 5
+	MGAR KLMNOP 1
+	TNT1 A 0 A_PlaySound("sg/cin", 1)
+	MGAR QRSTUVWX 1
+	TNT1 A 0 A_PlaySound("sg/bolt", 1)
+	Goto InsertBulletsSMG
+	
+	NextOneSMGWithSil:
+	12SG BCDE 1
+	2MGS ABC 1
+	2MGR J 5
+	2MGR KLMNOP 1
+	TNT1 A 0 A_PlaySound("sg/cin", 1)
+	2MGR QRSTUVWX 1 
+	TNT1 A 0 A_PlaySound("sg/bolt", 1)
+	Goto InsertBulletsSMG
+	
+	Ready:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 A_PlaySound("MP1/select")
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "Ready2")
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "ReadySMG")
+        PISG EDCB 1
+        Goto RealReady
+	Ready2: //Silenced
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "ReadySMG2")
+        12SG EDCB 1
+        Goto RealReady
+	ReadySMG: //SMG Upgrade
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "ReadySMG2")
+        MGAS ABCD 1
+        Goto RealReady
+	ReadySMG2: //Silenced + SMG Upgrade
+        2MGS ABCD 1
+		Goto RealReady
+	ReadySMG3:
+	Ready3:
+	RealReady:
+		TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1, "WeaponSpecial")
+		TNT1 A 0 A_JumpIfInventory("GoSilencerAbility", 1, "SilencerToggle")
+		TNT1 A 0 A_ZoomFactor(1)
+		
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "RealReady2")
+        TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "RealReadySMG")
+        PISG A 0
+		"####" "#" 1 A_DoPBWeaponAction
+		Goto RealReady
+	RealReady2:
+		TNT1 A 0
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "RealReadySMG2")
+		12SG A 1 A_DoPBWeaponAction
+		Goto RealReady
+	RealReadySMG:
+		TNT1 A 0
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "RealReadySMG2")
+		MGAR J 0 A_JumpIfInventory("MP12Unloaded",1,2)
+		MGAG A 0
+		"####" "#" 1 A_DoPBWeaponAction
+		Goto RealReady
+	RealReadySMG2:
+		TNT1 A 0
+		2MGR J 0 A_JumpIfInventory("MP12Unloaded",1,2)
+		2MGG A 0
+		"####" "#" 1 A_DoPBWeaponAction
+		Goto RealReady
+		
+		
+	Deselect:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 A_playsound("weapon/swap", 4)
+		TNT1 A 0 A_TakeInventory("Zoomed",1)
+		TNT1 A 0 A_ZoomFactor(1.0)
+		
+		TNT1 A 0 A_TakeInventory("TossGrenade", 1)
+		TNT1 A 0 A_TakeInventory("ThrowPipeBomb", 1)
+		TNT1 A 0 A_TakeInventory("DetonatePipeBomb", 1)
+		TNT1 A 0 A_TakeInventory("Kicking", 1)
+		TNT1 A 0 A_TakeInventory("GoSilencerAbility", 1)
+		TNT1 A 0 A_TakeInventory("Reloading", 1)
+		TNT1 A 0 A_TakeInventory("Salute1", 1)
+		TNT1 A 0 A_TakeInventory("Salute2", 1)
+		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "SilencerDeselect")
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "DeselectSMG")
+		PISG BCDE 1
+		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+		TNT1 A 1 A_Lower
+		Wait
+	
+	SilencerDeselect:
+        TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "DeselectSMG2")
+		12SG BCDE 1
+		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+		TNT1 A 1 A_Lower
+		Wait
+		
+	DeselectSMG:
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "DeselectSMG2")
+        MGAS DCBA 1
+		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+		TNT1 A 1 A_Lower
+		Wait
+		
+	DeselectSMG2:
+        2MGS DCBA 1
+		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower
+		TNT1 A 1 A_Lower
+		Wait
+		
+	Select:
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+		Goto SelectFirstPersonLegs
+	SelectContinue:
+		TNT1 A 0 A_Raise
+		Wait
+		
+    Fire:
+	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+        TNT1 A 0 A_JumpIfInventory("MP12Ammo2",1,2)
+        Goto Reload
+        TNT1 AAAA 0
+		
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "Fire2")
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "FireSMG")
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_JumpIfInventory("SoundDummyForPistol", 1, "PlaySoundFire2")
+		TNT1 A 0 A_GiveInventory("SoundDummyForPistol", 1)
+		TNT1 A 0 A_PlaySound("weapons/pistol", 7)
+		Goto FinishFireState
+	PlaySoundFire2:
+		TNT1 A 0
+		TNT1 A 0 A_TakeInventory("SoundDummyForPistol", 1)
+		TNT1 A 0 A_PlaySound("weapons/pistol", 6)
+		Goto FinishFireState
+	FinishFireState:
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+		PISF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
+        TNT1 A 0 A_setpitch(pitch-0.6)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		RIFF A 0 A_FireCustomMissile("Tracer", 0, 1, 0, -8)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+        PISF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(0.99)
+		TNT1 A 0 A_FireCustomMissile("Mp40CaseSpawnLeft",5,0,-2,0)
+		PISF C 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(1.0)
+		PISG A 10 A_DoPBWeaponAction(1)
+		TNT1 A 0 A_Refire("Fire")
+		Goto RealReady
+		
+	FireSMG:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+        TNT1 A 0 A_JumpIfInventory("MP12Ammo2",1,2)
+        Goto Reload
+        TNT1 AAAA 0
+		
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_JumpIfInventory("SoundDummyForPistol", 1, "PlaySoundFireSMG2")
+		TNT1 A 0 A_GiveInventory("SoundDummyForPistol", 1)
+		TNT1 A 0 A_PlaySound("smg/fire", 7)
+		//TNT1 A 0 A_playsound("mg/fire", 6)
+		Goto FinishFireStateSMG
+	PlaySoundFireSMG2:
+		TNT1 A 0
+		TNT1 A 0 A_TakeInventory("SoundDummyForPistol", 1)
+		TNT1 A 0 A_PlaySound("smg/fire", 5)
+		//TNT1 A 0 A_playsound("mg/fire", 4)
+		Goto FinishFireStateSMG
+	FinishFireStateSMG:
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+		MGAF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (3, 3, 1, 7, "HitPuff")
+        TNT1 A 0 A_ZoomFactor(0.98)
+		RIFF A 0 A_FireCustomMissile("Tracer", random(-1,1), 0, -1, -12, 0, random(-1,1))
+        TNT1 A 0 A_setpitch(pitch-0.6)
+		//RIFF A 0 A_FireCustomMissile("Tracer", random(-2,2), 0, -1, 0)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+        MGAF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(0.99)
+		TNT1 A 0 A_FireCustomMissile("MP40CaseSpawn",5,0,8,-9)
+		MGAF C 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_Refire("FireSMG")
+		MGAF D 1
+		Goto RealReady
+		
+	Fire2:
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "FireSMG2")
+		TNT1 A 0 A_playsound("weapons/suppressedpistol", 6)
+		12SF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (2.5, 2.5, -1, 6, "HitPuff")
+		TNT1 A 0 A_ZoomFactor(0.98)
+        TNT1 A 0 A_setpitch(pitch-0.6)
+		RIFF A 0 A_FireCustomMissile("Tracer", 0, 1, 0, -8)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+        12SF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(0.99)
+		TNT1 A 0 A_FireCustomMissile("Mp40CaseSpawnLeft",5,0,-2,0)
+		12SF C 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(1.0)
+		12SG A 10 A_DoPBWeaponAction(1)
+		TNT1 A 0 A_Refire("Fire")
+		Goto RealReady
+		
+	FireSMG2:
+        TNT1 A 0 A_JumpIfInventory("MP12Ammo2",1,2)
+        Goto Reload
+        TNT1 AAAA 0
+		
+		
+		TNT1 A 0 A_JumpIfInventory("SoundDummyForPistol", 1, "PlaySoundFireSMG2Sil")
+		TNT1 A 0 A_GiveInventory("SoundDummyForPistol", 1)
+		TNT1 A 0 A_PlaySound("smg/sil/fire", 7)
+		Goto FinishFireStateSMGSil
+	PlaySoundFireSMG2Sil:
+		TNT1 A 0
+		TNT1 A 0 A_TakeInventory("SoundDummyForPistol", 1)
+		TNT1 A 0 A_PlaySound("smg/sil/fire", 6)
+		Goto FinishFireStateSMGSil
+	FinishFireStateSMGSil:
+		2MGF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (2.5, 2.5, 1, 6, "HitPuff")
+		TNT1 A 0 A_ZoomFactor(0.98)
+        RIFF A 0 A_FireCustomMissile("Tracer", random(-1,1), 0, -1, -12, 0, random(-1,1))
+        TNT1 A 0 A_setpitch(pitch-0.6)
+		//RIFF A 0 A_FireCustomMissile("Tracer", random(-2,2), 0, -1, 0)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+        2MGF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(0.99)
+		TNT1 A 0 A_FireCustomMissile("MP40CaseSpawn",5,0,8,-9)
+		2MGF C 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_Refire("FireSMG2")
+		2MGF D 1
+		Goto RealReady
+		
+	Altfire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "FireSMGBurst")
+		//TNT1 A 0 A_Print("You need the SMG Upgrade to access Iron Sights")
+		Goto BurstFire
+		
+	BurstFire:
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "BurstFire2")
+        TNT1 A 0 A_JumpIfInventory("MP12Ammo2",3,2)
+        Goto Reload
+        TNT1 AAAA 0
+		
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/pistol", 7)//("weapons/pistol",7)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+		PISF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (4, 4, -1, 7, "HitPuff")
+		TNT1 A 0 A_ZoomFactor(0.97)
+        TNT1 A 0 A_setpitch(pitch-0.6)
+		RIFF A 0 A_FireCustomMissile("Tracer", 0, 1, 0, -8)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+        PISF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_FireCustomMissile("Mp40CaseSpawnLeft",5,0,-2,0)
+		
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/pistol", 6)//("weapons/pistol",6)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+		PISF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (4, 4, -1, 7, "HitPuff")
+        TNT1 A 0 A_setpitch(pitch-0.6)
+		TNT1 A 0 A_ZoomFactor(0.97)
+		RIFF A 0 A_FireCustomMissile("Tracer", 0, 1, 0, -8)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+        PISF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_FireCustomMissile("Mp40CaseSpawnLeft",5,0,-2,0)
+		
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/pistol", 5)//("weapons/pistol",5)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+		PISF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (4, 4, -1, 7, "HitPuff")
+        TNT1 A 0 A_setpitch(pitch-0.6)
+		TNT1 A 0 A_ZoomFactor(0.97)
+		RIFF A 0 A_FireCustomMissile("Tracer", 0, 1, 0, -8)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+        PISF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		TNT1 A 0 A_FireCustomMissile("Mp40CaseSpawnLeft",5,0,-2,0)
+		PISF C 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(0.99)
+		PISG A 1 A_ZoomFactor(1.0)
+		PISG A 7 A_DoPBWeaponAction(1)
+		TNT1 A 0 A_Refire
+		Goto RealReady
+		
+	BurstFire2:
+        TNT1 A 0 A_JumpIfInventory("MP12Ammo2",3,2)
+        Goto Reload
+        TNT1 AAAA 0
+		
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 A_playsound("weapons/suppressedpistol", 6)
+		12SF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (3.5, 3.5, -1, 6, "HitPuff")
+        TNT1 A 0 A_setpitch(pitch-0.4)
+		RIFF A 0 A_FireCustomMissile("Tracer", 0, 1, 0, -8)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+		TNT1 A 0 A_ZoomFactor(0.97)
+        12SF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_FireCustomMissile("Mp40CaseSpawnLeft",5,0,-2,0)
+		
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 A_playsound("weapons/suppressedpistol", 5)
+		12SF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (3.5, 3.5, -1, 6, "HitPuff")
+        TNT1 A 0 A_setpitch(pitch-0.4)
+		RIFF A 0 A_FireCustomMissile("Tracer", 0, 1, 0, -8)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+		TNT1 A 0 A_ZoomFactor(0.97)
+        12SF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_FireCustomMissile("Mp40CaseSpawnLeft",5,0,-2,0)
+		
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 A_playsound("weapons/suppressedpistol", 7)
+		12SF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (3.5, 3.5, -1, 6, "HitPuff")
+        TNT1 A 0 A_setpitch(pitch-0.4)
+		RIFF A 0 A_FireCustomMissile("Tracer", 0, 1, 0, -8)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+		TNT1 A 0 A_ZoomFactor(0.97)
+        12SF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		TNT1 A 0 A_FireCustomMissile("Mp40CaseSpawnLeft",5,0,-2,0)
+		12SF C 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(0.99)
+		12SG A 1 A_ZoomFactor(1.0)
+		12SG A 7 A_DoPBWeaponAction(1)
+		TNT1 A 0 A_Refire
+		Goto RealReady
+		
+		
+	NoAmmo:
+	PISG A 0 A_PlaySound("weapons/empty")
+	TNT1 A 0 A_Takeinventory("Zoomed",1)
+    TNT1 A 0 A_ZoomFactor(1.0)
+	TNT1 A 0 A_Takeinventory("ADSmode",1)
+	Goto RealReady
+	
+    Reload:
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_JumpIfInventory("MP12Unloaded", 1, "LoadClip")
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "ReloadSMG")
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 A_Takeinventory("ADSmode",1)
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2",15,"RealReady")
+
+        TNT1 A 0 A_JumpIfInventory("PB_LowCalMag",1,3)
+        Goto NoAmmo
+        TNT1 AAA 0
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+        TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_GiveInventory ("Pumping", 1)
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		RIFR C 0 A_FireCustomMissile("EmptyPistolClipSpawn",-5,0,8,-4)
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "Reload2")
+        PISR GFE 1
+		PISR D 1 A_playsound("MP1/cout", 4)
+		PISR CB 1
+	LoadClip:
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "LoadClip4")
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "LoadClip2")
+		PISR A 6
+        PISR BC 1
+		PISR D 3 A_playsound("MP1/cin",4)
+		PISR EFG 1
+		Goto InsertBullets
+		
+	Reload2:
+		12SR GFE 1
+		12SR D 1 A_playsound("MP1/cout", 4)
+		12SR CB 1
+	LoadClip4:
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "LoadClip3")
+		12SR A 6
+        12SR BC 1
+		12SR D 3 A_playsound("MP1/cin",4)
+		12SR EFG 1
+		
+	InsertBullets:
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2",15,"RealReady")
+		TNT1 A 0 A_JumpIfInventory("PB_LowCalMag",1,3)
+		Goto RealReady
+        TNT1 AAAAAA 0
+		TNT1 A 0 A_Giveinventory("MP12Ammo2",1)
+		TNT1 A 0 A_Takeinventory("PB_LowCalMag",1,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_TakeInventory("MP12Unloaded",1)
+		Goto InsertBullets
+		
+		
+	ReloadSMG:
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 A_Takeinventory("ADSmode",1)
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2",42,"RealReady")
+        TNT1 A 0 A_JumpIfInventory("PB_LowCalMag",1,3)
+        Goto NoAmmo
+        TNT1 AAA 0
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+        TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_GiveInventory ("Pumping", 1)
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "ReloadSMG2")
+        MGAR ABCDEF 1
+		TNT1 A 0 A_PlaySound("sg/cout", 1)
+        MGAR G 1 A_FireCustomMissile("EmptyPistolClipSpawn",-5,0,8,-4)
+        MGAR HI 1
+		MGAR J 10
+	LoadClip2:
+		MGAR KLMNOP 1
+		TNT1 A 0 A_PlaySound("sg/cin", 1)
+		MGAR QRSTUVWX 1
+		TNT1 A 0 A_PlaySound("sg/bolt", 1)
+		Goto InsertBulletsSMG
+		
+	ReloadSMG2:
+		TNT1 A 0 A_JumpIfInventory("MP12Unloaded", 1, "LoadClip3")
+		2MGR ABCDEF 1
+		TNT1 A 0 A_PlaySound("sg/cout", 1)
+        2MGR G 1 A_FireCustomMissile("EmptyPistolClipSpawn",-5,0,8,-4)
+        2MGR HI 1
+		2MGR J 10
+	LoadClip3:
+		2MGR KLMNOP 1
+		TNT1 A 0 A_PlaySound("sg/cin", 1)
+		2MGR QRSTUVWX 1 
+		TNT1 A 0 A_PlaySound("sg/bolt", 1)
+		
+	InsertBulletsSMG:
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2",42,"RealReady")
+		TNT1 A 0 A_JumpIfInventory("PB_LowCalMag",1,3)
+		Goto RealReady
+        TNT1 AAAAAA 0
+		TNT1 A 0 A_Giveinventory("MP12Ammo2",1)
+		TNT1 A 0 A_Takeinventory("PB_LowCalMag",1,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_Takeinventory("MP12Unloaded",1)
+		Goto InsertBulletsSMG
+		
+	WeaponSpecial:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+        TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
+	SilencerToggle:
+		TNT1 A 0 A_TakeInventory("GoSilencerAbility",1)
+		TNT1 A 0
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+        TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
+		Goto SilencerOn
+	SilencerOn:
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "SilencerOff")
+		TNT1 A 0 A_GiveInventory("MP12SilencerIsOn", 1)
+		TNT1 A 0 A_TakeInventory("MP5SilencerIsOn", 1)
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "SilencerOnSMG")
+		PISG BCDE 1
+		Goto Ready2
+		
+	SilencerOff:
+		TNT1 A 0 A_TakeInventory("MP12SilencerIsOn", 1)
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "SilencerOffSMG")
+		12SG BCDE 1
+		Goto Ready
+		
+	SilencerOnSMG:
+		MGAS DCBA 1
+		Goto ReadySMG2
+		
+	SilencerOffSMG:
+		2MGS DCBA 1
+		Goto ReadySMG
+		
+ 	Spawn:
+		PISP A -1
+		Stop
+		
+	FlashKicking:
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "SilencerFlashKicking")
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "SMGFlashKicking")
+		PISK ABCDEFG 1
+        PISK H 3
+		PISK IGFEDCBA 1
+		Goto Ready3
+		
+	FlashAirKicking:
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "SilencerFlashAirKicking")
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "SMGFlashAirKicking")
+		PISK ABCDEFG 1
+        PISK H 3
+		PISK IGFEDCBA 1
+		Goto Ready3
+		
+	FlashSlideKicking:
+	FlashSlideKickingStop:
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "SilencerFlashSlideKicking")
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "SMGFlashSlideKicking")
+		PISK ABCDEFG 2
+        PISK H 5
+		PISK IGFEDCBA 1
+		Goto Ready3
+		
+	SilencerFlashKicking:
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "SMGSilencerFlashKicking")
+		12SK ABCDEFG 1
+        12SK H 3
+		12SK IGFEDCBA 1
+		Goto Ready3
+		
+	SilencerFlashAirKicking:
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "SMGSilencerFlashAirKicking")
+		12SK ABCDEFG 1
+        12SK H 3
+		12SK IGFEDCBA 1
+		Goto Ready3
+		
+	SilencerFlashSlideKicking:
+	SilencerFlashSlideKickingStop:
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "SMGSilencerFlashSlideKicking")
+		12SK ABCDEFG 2
+        12SK H 5
+		12SK IGFEDCBA 1
+		Goto Ready3
+		
+	SMGFlashKicking:
+		SMGK ABCDEFG 1
+        SMGK H 3
+		SMGK IGFEDCBA 1
+		Goto Ready3
+		
+	SMGFlashAirKicking:
+		SMGK ABCDEFG 1
+        SMGK H 3
+		SMGK IGFEDCBA 1
+		Goto Ready3
+		
+	SMGFlashSlideKicking:
+	SMGFlashSlideKickingStop:
+		SMGK ABCDEFG 2
+        SMGK H 5
+		SMGK IGFEDCBA 1
+		Goto Ready3
+		
+	SMGSilencerFlashKicking:
+		2MGK ABCDEFG 1
+        2MGK H 3
+		2MGK IGFEDCBA 1
+		Goto Ready3
+		
+	SMGSilencerFlashAirKicking:
+		2MGK ABCDEFG 1
+        2MGK H 3
+		2MGK IGFEDCBA 1
+		Goto Ready3
+		
+	SMGSilencerFlashSlideKicking:
+	SMGSilencerFlashSlideKickingStop:
+		2MGK ABCDEFG 2
+        2MGK H 5
+		2MGK IGFEDCBA 1
+		Goto Ready3
+
+//The glory
+FireSMGBurst:
+        TNT1 A 0 A_JumpIfInventory("MP12Ammo2",1,2)
+        Goto Reload
+        TNT1 AAAA 0
+		
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "FireSMG2Burst")
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("smg/fire", 7)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+		MGAF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (4, 4, 1, 7, "HitPuff")
+        RIFF A 0 A_FireCustomMissile("Tracer", random(-1,1), 0, -1, -12, 0, random(-1,1))
+        TNT1 A 0 A_setpitch(pitch-0.4)
+		TNT1 A 0 A_ZoomFactor(0.97)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+        MGAF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_FireCustomMissile("MP40CaseSpawn",5,0,8,-9)
+		
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2",1,2)
+        Goto Reload
+        TNT1 AAAA 0
+		
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("smg/fire", 5)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+		MGAF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (4, 4, 1, 7, "HitPuff")
+		TNT1 A 0 A_ZoomFactor(0.97)
+        RIFF A 0 A_FireCustomMissile("Tracer", random(-1,1), 0, -1, -12, 0, random(-1,1))
+        TNT1 A 0 A_setpitch(pitch-0.4)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+        MGAF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_FireCustomMissile("MP40CaseSpawn",5,0,8,-9)
+		
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2",1,2)
+        Goto Reload
+        TNT1 AAAA 0
+		
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("smg/fire", 7)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+		TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+		MGAF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (4, 4, 1, 7, "HitPuff")
+		TNT1 A 0 A_ZoomFactor(0.97)
+        RIFF A 0 A_FireCustomMissile("Tracer", random(-1,1), 0, -1, -12, 0, random(-1,1))
+        TNT1 A 0 A_setpitch(pitch-0.4)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+        MGAF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		TNT1 A 0 A_FireCustomMissile("MP40CaseSpawn",5,0,8,-9)
+		MGAF C 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(0.99)
+		MGAF D 1
+		TNT1 A 0 A_ZoomFactor(1.0)
+		MGAG A 7
+		TNT1 A 0 A_Refire("FireSMGBurst")
+		Goto RealReady
+		
+	FireSMG2Burst:
+        TNT1 A 0 A_JumpIfInventory("MP12Ammo2",1,2)
+        Goto Reload
+        TNT1 AAAA 0
+		
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 A_playsound("smg/sil/fire", 6)
+		2MGF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (3.5, 3.5, -1, 6, "HitPuff")
+        RIFF A 0 A_FireCustomMissile("Tracer", random(-1,1), 0, -1, -12, 0, random(-1,1))
+        TNT1 A 0 A_setpitch(pitch-0.4)
+		TNT1 A 0 A_ZoomFactor(0.97)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+        2MGF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_FireCustomMissile("MP40CaseSpawn",5,0,8,-9)
+		
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2",1,2)
+        Goto Reload
+        TNT1 AAAA 0
+		
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 A_playsound("smg/sil/fire", 5)
+		2MGF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (3.5, 3.5, -1, 6, "HitPuff")
+        RIFF A 0 A_FireCustomMissile("Tracer", random(-1,1), 0, -1, -12, 0, random(-1,1))
+        TNT1 A 0 A_setpitch(pitch-0.4)
+		TNT1 A 0 A_ZoomFactor(0.97)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+        2MGF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_FireCustomMissile("MP40CaseSpawn",5,0,8,-9)
+		
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2",1,2)
+        Goto Reload
+        TNT1 AAAA 0
+		
+		TNT1 A 0 A_ZoomFactor(0.96)
+		TNT1 A 0 A_playsound("smg/sil/fire", 7)
+		2MGF A 1 BRIGHT A_FireProjectile("PB_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1)) // (3.5, 3.5, -1, 6, "HitPuff")
+        RIFF A 0 A_FireCustomMissile("Tracer", random(-1,1), 0, -1, -12, 0, random(-1,1))
+        TNT1 A 0 A_setpitch(pitch-0.4)
+		TNT1 A 0 A_ZoomFactor(0.97)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_Takeinventory("MP12Ammo2",1)
+        2MGF B 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(0.98)
+		TNT1 A 0 A_FireCustomMissile("MP40CaseSpawn",5,0,8,-9)
+		2MGF C 1 A_setpitch(pitch+0.2)
+		TNT1 A 0 A_ZoomFactor(0.99)
+		2MGF D 1
+		TNT1 A 0 A_ZoomFactor(1.0)
+		2MGG A 7
+		TNT1 A 0 A_Refire("FireSMGBurst")
+		Goto RealReady
+		
+		
+	Unload:
+		TNT1 A 0 A_TakeInventory("Unloading")
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "UnloadWithSil")
+		TNT1 A 0 A_JumpIfInventory("PistolSMGUpgrade",1,"UnloadSMG")
+		TNT1 A 0 A_JumpIfInventory("MP12Unloaded", 1, "Ready3")
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2", 1, 1)
+		Goto Ready3
+		TNT1 A 0 A_JumpIfInventory("MP12Unloaded", 1, "Ready3")
+		PISR GFE 1
+		PISR D 1 A_playsound("MP1/cout", 4)
+		PISR CB 1
+		PISR A 6
+		TNT1 A 0 A_GiveInventory("MP12Unloaded")		
+	UnloadSequence:
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2", 1, 1)
+		Goto Ready3
+		TNT1 A 0 A_GiveInventory("PB_LowCalMag", 1)
+		TNT1 A 0 A_TakeInventory("MP12Ammo2", 1)
+		Loop
+		
+	UnloadWithSil:
+		TNT1 A 0 A_TakeInventory("Unloading")
+		TNT1 A 0 A_JumpIfInventory("PistolSMGUpgrade",1,"UnloadSMGWithSil")
+		TNT1 A 0 A_JumpIfInventory("MP12Unloaded", 1, "Ready3")
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2", 1, 1)
+		Goto Ready3
+		TNT1 A 0 A_JumpIfInventory("MP12Unloaded", 1, "Ready3")
+		12SR GFE 1
+		12SR D 1 A_playsound("MP1/cout", 4)
+		12SR CB 1
+		12SR A 6
+		TNT1 A 0 A_GiveInventory("MP12Unloaded")		
+	UnloadSequenceSil:
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2", 1, 1)
+		Goto Ready3
+		TNT1 A 0 A_GiveInventory("PB_LowCalMag", 1)
+		TNT1 A 0 A_TakeInventory("MP12Ammo2", 1)
+		Loop
+		
+	UnloadSMG:
+		TNT1 A 0 A_TakeInventory("Unloading")
+		TNT1 A 0 A_JumpIfInventory("MP12Unloaded", 1, "Ready3")
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2", 1, 1)
+		Goto Ready3
+		TNT1 A 0 A_JumpIfInventory("MP12Unloaded", 1, "Ready3")
+		MGAR ABCDEF 1
+		TNT1 A 0 A_PlaySound("sg/cout", 1)
+        MGAR G 1
+        MGAR HI 1
+		TNT1 A 0 A_GiveInventory("MP12Unloaded")		
+	UnloadSequence2:
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2", 1, 1)
+		Goto Ready3
+		TNT1 A 0 A_GiveInventory("PB_LowCalMag", 1)
+		TNT1 A 0 A_TakeInventory("MP12Ammo2", 1)
+		Loop
+		
+	UnloadSMGWithSil:
+		TNT1 A 0 A_TakeInventory("Unloading")
+		TNT1 A 0 A_JumpIfInventory("MP12Unloaded", 1, "Ready3")
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2", 1, 1)
+		Goto Ready3
+		TNT1 A 0 A_JumpIfInventory("MP12Unloaded", 1, "Ready3")
+		2MGR ABCDEF 1
+		TNT1 A 0 A_PlaySound("sg/cout", 1)
+        2MGR G 1
+        2MGR HI 1
+		TNT1 A 0 A_GiveInventory("MP12Unloaded")		
+	UnloadSequenceSil2:
+		TNT1 A 0 A_JumpIfInventory("MP12Ammo2", 1, 1)
+		Goto Ready3
+		TNT1 A 0 A_GiveInventory("PB_LowCalMag", 1)
+		TNT1 A 0 A_TakeInventory("MP12Ammo2", 1)
+		Loop
+
+	FlashPunching:
+		TNT1 A 0 A_jumpifinventory("MP12SilencerIsOn", 1, "SilencerFlashKicking")
+		TNT1 A 0 A_jumpifinventory("PistolSMGUpgrade", 1, "SMGFlashKicking")
+		PISK ABCDEFG 1
+        PISK H 3
+		PISK IGFEDCBA 1
+		Stop
+		
+
+	}
+}
+
+ACTOR MP12Unloaded : Inventory {Inventory.MaxAmount 1}

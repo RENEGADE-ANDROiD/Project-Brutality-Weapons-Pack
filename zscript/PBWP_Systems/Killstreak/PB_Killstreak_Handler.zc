@@ -1,0 +1,241 @@
+class PB_KillstreakHandler : EventHandler
+{
+	int currentStreak[MAXPLAYERS];
+	int pendingRewardStreak[MAXPLAYERS];
+
+	override void WorldLoaded(WorldEvent e)
+	{
+		KSHUDMessageHandler.KS_ClearPendingAll();
+		for (int i = 0; i < MAXPLAYERS; i++)
+		{
+			currentStreak[i] = 0;
+			pendingRewardStreak[i] = 0;
+			if (players[i].mo) ClearKSTokens(players[i].mo);
+		}
+	}
+
+	override void WorldTick()
+	{
+		for (int i = 0; i < MAXPLAYERS; i++)
+		{
+			if (pendingRewardStreak[i] <= 0) continue;
+			PlayerPawn plr = PlayerPawn(players[i].mo);
+			if (plr && plr.player && PB_CvarEnabled(plr) && plr.FindInventory("PB_KillstreakMode"))
+			{
+				int st = pendingRewardStreak[i];
+				GiveKSReward(plr, st);
+				PB_Achievements.OnKillstreakReward(st);
+				PB_KillstreakThrottleHandler.OnRewardGranted(i);
+			}
+			pendingRewardStreak[i] = 0;
+		}
+	}
+
+	static bool PB_CvarEnabled(PlayerPawn p)
+	{
+		if (!p || !p.player) return true;
+		let c = CVar.GetCVar("pb_ks_enable", p.player);
+		return c == null || c.GetBool();
+	}
+
+	static bool PB_AnnouncerEnabled(PlayerPawn p)
+	{
+		if (!p || !p.player) return true;
+		let c = CVar.GetCVar("pb_ks_announcer", p.player);
+		return c == null || c.GetBool();
+	}
+
+	static double PB_AnnouncerVolumeMul(PlayerPawn p)
+	{
+		if (!p || !p.player) return 1.;
+		let c = CVar.GetCVar("pb_ks_announcer_volume", p.player);
+		int v = c ? c.GetInt() : 100;
+		return clamp(v, 0, 100) / 100.;
+	}
+
+	override void WorldThingDied(WorldEvent e)
+	{
+		if (!e) return;
+		Actor t = e.Thing;
+		if (t && t is "PlayerPawn")
+		{
+			let dead = PlayerPawn(t);
+			if (!dead) return;
+			int pnum = dead.PlayerNumber();
+			if (pnum >= 0 && pnum < MAXPLAYERS)
+			{
+				currentStreak[pnum] = 0;
+				pendingRewardStreak[pnum] = 0;
+				dead.A_StartSound("dspldeth", CHAN_AUTO);
+				ClearKSTokens(dead);
+			}
+			return;
+		}
+		if (!t || !t.bIsMonster) return;
+		if (t is "SwitchableDecoration") return;
+		if (t.player) return;
+
+		PlayerPawn killer = GetKillerPlayer(e);
+		if (!killer || !killer.player) return;
+		if (!PB_CvarEnabled(killer)) return;
+		if (!killer.FindInventory("PB_KillstreakMode")) return;
+		int pnum = killer.PlayerNumber();
+		if (pnum < 0 || pnum >= MAXPLAYERS) return;
+		PB_KillstreakThrottleHandler.RegisterKillForPlayer(pnum);
+		currentStreak[pnum]++;
+		int st = currentStreak[pnum];
+		if (PB_KillstreakThrottleHandler.ShouldPlayAnnouncer(pnum))
+		{
+			String snd = PBStreakLine(killer, st);
+			if (snd != "")
+			{
+				double avol = PB_AnnouncerVolumeMul(killer);
+				if (!killer.IsActorPlayingSound(CHAN_7))
+					killer.A_StartSound(snd, CHAN_7, 0, avol);
+				else
+					PB_ShowAnnouncerTextFallback(killer, st);
+			}
+		}
+		if (PB_KillstreakThrottleHandler.ShouldQueueReward(pnum, st))
+			pendingRewardStreak[pnum] = st;
+	}
+
+	void ClearKSTokens(Actor who)
+	{
+		if (!who) return;
+		if (who is "PlayerPawn")
+			KSHUDMessageHandler.KS_ClearPendingForPlayer(PlayerPawn(who));
+		Inventory t;
+		while ((t = who.FindInventory("PB_KillstreakMode"))) t.Destroy();
+		while ((t = who.FindInventory("PB_KillstreakFlare"))) t.Destroy();
+	}
+
+	PlayerPawn GetKillerPlayer(WorldEvent e)
+	{
+		if (e.Inflictor && e.Inflictor is "PlayerPawn") return PlayerPawn(e.Inflictor);
+		if (e.Inflictor && e.Inflictor.target && e.Inflictor.target is "PlayerPawn")
+			return PlayerPawn(e.Inflictor.target);
+		if (e.DamageSource && e.DamageSource is "PlayerPawn") return PlayerPawn(e.DamageSource);
+		if (e.Thing && e.Thing.target && e.Thing.target is "PlayerPawn")
+			return PlayerPawn(e.Thing.target);
+		return null;
+	}
+
+	String PBStreakLine(PlayerPawn p, int count)
+	{
+		if (!PB_AnnouncerEnabled(p)) return "";
+		if (!p || !p.player) return "";
+		let c = CVar.GetCVar("pb_ks_announcer_volume", p.player);
+		int v = c ? c.GetInt() : 100;
+		if (v <= 0) return "";
+		if (count < 1) return "";
+		return String.Format("pb_ks/ann%d_v2", (count - 1) % 8);
+	}
+
+	static String PBAnnouncerHookCaption(int killCount)
+	{
+		if (killCount < 1) return "";
+		switch ((killCount - 1) % 8)
+		{
+		case 0: return "First blood!";
+		case 1: return "Double kill!";
+		case 2: return "Triple kill!";
+		case 3: return "Multikill!";
+		case 4: return "Unstoppable!";
+		case 5: return "Rampage!";
+		case 6: return "Wicked sick!";
+		case 7: return "Godlike!";
+		}
+		return "";
+	}
+
+	void PB_ShowAnnouncerTextFallback(PlayerPawn plr, int st)
+	{
+		String cap = PBAnnouncerHookCaption(st);
+		if (cap == "") return;
+		if (!KSHUDMessageHandler.BigmsgOn())
+		{
+			plr.A_Print(cap, 2.0);
+			return;
+		}
+		int pn = plr.PlayerNumber();
+		KSHUDMessageHandler.PlainMsg(
+			pn, "BIGFONT2", cap, (240, 120), (480, 360), -1, (0, 0), Font.CR_WHITE,
+			(0.2, 2.5, 0.4), 0, 14, BaseStatusBar.HUDMSGLayer_OverHUD);
+	}
+
+	void GiveKSReward(PlayerPawn plr, int count)
+	{
+		String rewardClass, rewardMsg;
+		PB_KillStreakPowerUp.PBRollReward(plr, rewardClass, rewardMsg);
+		if (rewardClass == "")
+		{
+			if (!KSHUDMessageHandler.BigmsgOn())
+			{
+				plr.A_Print(PBStreakTitle(count), 2.0);
+				return;
+			}
+			KSHUDMessageHandler.WaggleMsg(
+				plr.PlayerNumber(), "BIGFONT2", PBStreakTitle(count), (240, 120), (480, 360), -1, (0, 0), Font.CR_UNTRANSLATED,
+				(0.2, 3, 0.5), 0.5, 2.0, 1.0, 0, 11, BaseStatusBar.HUDMSGLayer_OverHUD);
+			return;
+		}
+		plr.GiveInventory("PB_KSFreeze", 1);
+		KSHUDMessageHandler.KS_SetPendingReward(plr, rewardClass, rewardMsg);
+		plr.GiveInventory("PB_KillStreakPowerUp", 1);
+		if (!KSHUDMessageHandler.BigmsgOn())
+		{
+			plr.A_Print(PBStreakTitle(count), 2.0);
+			return;
+		}
+		KSHUDMessageHandler.WaggleMsg(
+			plr.PlayerNumber(), "BIGFONT2", PBStreakTitle(count), (240, 120), (480, 360), -1, (0, 0), Font.CR_UNTRANSLATED,
+			(0.2, 3, 0.5), 0.5, 2.0, 1.0, 0, 11, BaseStatusBar.HUDMSGLayer_OverHUD);
+		KSHUDMessageHandler.PlainMsg(
+			plr.PlayerNumber(), "BIGFONT2", rewardMsg, (240, 154), (480, 360), -1, (0, 0), Font.CR_WHITE,
+			(0.2, 3, 0.5), 0, 12, BaseStatusBar.HUDMSGLayer_OverHUD);
+	}
+
+	String PBStreakTitle(int c)
+	{
+		switch (c)
+		{
+		case 5:  return "Multikill!";
+		case 10: return "Unstoppable!!";
+		case 15: return "Rampage!!!";
+		case 20: return "Dominating!!";
+		case 25: return "WICKED SICK";
+		case 30: return "GODLIKE";
+		}
+		return "Reward!";
+	}
+}
+
+class PB_KillstreakRareFlare : EventHandler
+{
+	bool usedThisMap;
+
+	override void WorldLoaded(WorldEvent e) { usedThisMap = false; }
+
+	override void WorldThingDied(WorldEvent e)
+	{
+		if (!e) return;
+		if (usedThisMap) return;
+		Actor t = e.Thing;
+		if (!t || !t.bIsMonster) return;
+		if (t is "SwitchableDecoration") return;
+		let cEn = CVar.FindCVar("pb_ks_enable");
+		if (cEn != null && !cEn.GetBool()) return;
+		let cR = CVar.FindCVar("pb_ks_rare");
+		if (cR != null && !cR.GetBool()) return;
+		let cChance = CVar.FindCVar("pb_ks_rare_chance");
+		int chance = cChance ? cChance.GetInt() : 15;
+		chance = clamp(chance, 0, 100);
+		if (random(1, 100) > chance) return;
+		if (!PB_KillstreakThrottleHandler.ShouldRollRareFlare()) return;
+		Class<Actor> flareCls = "PB_KillstreakFlare";
+		if (!flareCls) return;
+		if (Actor.Spawn(flareCls, t.Vec3Offset(0, 0, 8), NO_REPLACE) != null)
+			usedThisMap = true;
+	}
+}

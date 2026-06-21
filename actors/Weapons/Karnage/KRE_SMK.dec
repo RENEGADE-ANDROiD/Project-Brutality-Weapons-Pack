@@ -1,0 +1,181 @@
+﻿ACTOR minismoke
+{
+	+NOGRAVITY
+	+NOBLOCKMAP
+	+THRUACTORS
+	+NOINTERACTION
+	+FORCEXYBILLBOARD
+	Speed 0.5
+	Renderstyle add
+	Alpha 0.7
+	Scale 0.25
+	States
+	{
+	Spawn:
+		NULL A 1 Nodelay A_Jump(255,"smoke1","smoke2")
+	smoke1:
+		FXS1 ABBBCCCDDDEEEFFFGGG 1 A_Fadeout(0.05)
+		wait
+	smoke2:
+		FXS1 LMMMNNNOOOPPPQQQRRR 1 A_Fadeout(0.05)
+		wait
+    }
+}
+
+ACTOR microsmoke
+{
+	+NOGRAVITY
+	+NOCLIP
+	+NOINTERACTION
+	+FORCEXYBILLBOARD
+	Speed 1.5
+	Renderstyle add
+	Alpha		1
+	Scale		0.06
+	States
+	{
+	Spawn:
+		SMK1 A 5
+		SMK1 B 1 A_Fadeout(0.07)
+		wait
+    }
+}
+
+ACTOR minismokeblack
+{
+	+NOGRAVITY
+	+NOCLIP
+	+NOINTERACTION
+	+FORCEXYBILLBOARD
+	Speed 1.5
+	Renderstyle translucent
+	Alpha 0.8
+	Scale 0.25
+	States
+	{
+	Spawn:
+		FXSM A 2 A_Fadein(0.5)
+		FXSM A 3
+		FXSM A 1 A_Fadeout(0.07)
+		wait
+    }
+}
+
+Actor Bigwhitesmoke : minismoke
+{
+scale 2
+Speed 0.5
+Alpha 1
+}
+
+ACTOR muzzlesmokeblast
+{
+	+NOGRAVITY
+	+NOBLOCKMAP
+	+THRUACTORS
+	+NOINTERACTION
+	+FORCEXYBILLBOARD
+	Speed 0.2
+	Renderstyle add
+	Alpha 0.35
+	Scale 0.6
+	States
+	{
+	Spawn:
+		NULL A 1 Nodelay A_Jump(255,"s1","s2","s3","s4","s5","s6")
+	s1:
+		TNT1 A 0 A_Setscale(0.5)
+		TNT1 A 0 A_Settranslucent(0.6)
+		FXS2 A 1
+		TNT1 A 0 A_Setscale(0.6)
+		TNT1 A 0 A_Settranslucent(0.5)
+		FXS2 A 1
+		TNT1 A 0 A_Setscale(0.7)
+		TNT1 A 0 A_Settranslucent(0.4)
+		FXS2 A 1
+		TNT1 A 0 A_Setscale(0.8)
+		TNT1 A 0 A_Settranslucent(0.2)
+		FXS2 A 1
+		Stop
+s2:
+		TNT1 A 0 A_Setscale(0.5)
+		TNT1 A 0 A_Settranslucent(0.6)
+		FXS2 B 1
+		TNT1 A 0 A_Setscale(0.6)
+		TNT1 A 0 A_Settranslucent(0.5)
+		FXS2 B 1
+		TNT1 A 0 A_Setscale(0.7)
+		TNT1 A 0 A_Settranslucent(0.4)
+		FXS2 B 1
+		TNT1 A 0 A_Setscale(0.8)
+		TNT1 A 0 A_Settranslucent(0.2)
+		FXS2 B 1
+		Stop
+s3:
+		TNT1 A 0 A_Setscale(0.4)
+		TNT1 A 0 A_Settranslucent(0.3)
+		FXS2 C 1
+		TNT1 A 0 A_Setscale(0.5)
+		TNT1 A 0 A_Settranslucent(0.6)
+		FXS2 C 1
+		TNT1 A 0 A_Setscale(0.6)
+		TNT1 A 0 A_Settranslucent(0.5)
+		FXS2 C 1
+		TNT1 A 0 A_Setscale(0.7)
+		TNT1 A 0 A_Settranslucent(0.4)
+		FXS2 C 1
+		TNT1 A 0 A_Setscale(0.8)
+		TNT1 A 0 A_Settranslucent(0.2)
+		FXS2 C 1
+		Stop
+	s4:
+		TNT1 A 0 A_Setscale(0.5)
+		TNT1 A 0 A_Settranslucent(0.6)
+		FXS2 L 1
+		TNT1 A 0 A_Setscale(0.6)
+		TNT1 A 0 A_Settranslucent(0.5)
+		FXS2 L 1
+		TNT1 A 0 A_Setscale(0.7)
+		TNT1 A 0 A_Settranslucent(0.4)
+		FXS2 L 1
+		TNT1 A 0 A_Setscale(0.8)
+		TNT1 A 0 A_Settranslucent(0.2)
+		FXS2 L 1
+		Stop
+s5:
+		TNT1 A 0 A_Setscale(0.5)
+		TNT1 A 0 A_Settranslucent(0.6)
+		FXS2 M 1
+		TNT1 A 0 A_Setscale(0.6)
+		TNT1 A 0 A_Settranslucent(0.5)
+		FXS2 M 1
+		TNT1 A 0 A_Setscale(0.7)
+		TNT1 A 0 A_Settranslucent(0.4)
+		FXS2 M 1
+		TNT1 A 0 A_Setscale(0.8)
+		TNT1 A 0 A_Settranslucent(0.2)
+		FXS2 M 1
+		Stop
+s6:
+		TNT1 A 0 A_Setscale(0.5)
+		TNT1 A 0 A_Settranslucent(0.6)
+		FXS2 N 1
+		TNT1 A 0 A_Setscale(0.6)
+		TNT1 A 0 A_Settranslucent(0.5)
+		FXS2 N 1
+		TNT1 A 0 A_Setscale(0.7)
+		TNT1 A 0 A_Settranslucent(0.4)
+		FXS2 N 1
+		TNT1 A 0 A_Setscale(0.8)
+		TNT1 A 0 A_Settranslucent(0.2)
+		FXS2 N 1
+		Stop
+}
+}
+
+Actor minismoke1 : minismoke
+{
+Scale 0.3
+alpha 1
+Speed 0.7
+}

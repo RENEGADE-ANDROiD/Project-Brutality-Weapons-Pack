@@ -12,6 +12,7 @@ Actor AcidChargeAmmo : ammo
 	Ammo.BackPackAmount 1
 	Ammo.BackPackMaxAmount 10
 	Inventory.PickUpMessage ""
+	+INVENTORY.QUIET
 	Inventory.Icon REMTS0
 	+INVENTORY.IGNORESKILL
 	Scale 0.45
@@ -28,22 +29,22 @@ ACTOR AcidCharge: CustomInventory {
 		Spawn:
 			REMT S 1 A_SpawnItem("GreenFlareSmall",-1,1)
 			Loop
-	Pickup:
-		TNT1 A 0 A_GiveInventory("AcidChargeAmmo",1) 
-		TNT1 A 0 A_GiveInventory("DetonatorAmmo",1)
-		TNT1 A 0 A_GiveInventory("PBWP_AcidChargeToken",1)
-		//TNT1 A 0 A_GiveInventory("MineAmmo",1) 
-		//TNT1 A 0 A_TakeInventory("LaserChargeAmmo",1) 
-		//TNT1 A 0 A_TakeInventory("SwarmChargeAmmo",1) 
-		//TNT1 A 0 A_GiveInventory("PickedUpRemoteCharge",1) 
-		//TNT1 A 0 A_TakeInventory("PickedUpLaserCharge",1) 
-		//TNT1 A 0 A_TakeInventory("PickedUpSwarmCharge",1)
-		//TNT1 A 0 A_GiveInventory("PrepRemoteCharge",1) 
-		//TNT1 A 0 A_GiveInventory("CycleEquipment",1)
-		TNT1 A 20
-		Stop	}}
-			
-ACTOR ThrownAcidCharge : SwitchableDecoration{	
+		Pickup:
+			TNT1 A 0 A_GiveInventory("AcidChargeAmmo",1) 
+			TNT1 A 0 A_GiveInventory("DetonatorAmmo",1)
+			//TNT1 A 0 A_GiveInventory("MineAmmo",1) 
+			//TNT1 A 0 A_TakeInventory("LaserChargeAmmo",1) 
+			//TNT1 A 0 A_TakeInventory("SwarmChargeAmmo",1) 
+			//TNT1 A 0 A_GiveInventory("PickedUpRemoteCharge",1) 
+			//TNT1 A 0 A_TakeInventory("PickedUpLaserCharge",1) 
+			//TNT1 A 0 A_TakeInventory("PickedUpSwarmCharge",1)
+			//TNT1 A 0 A_GiveInventory("PrepRemoteCharge",1) 
+			//TNT1 A 0 A_GiveInventory("CycleEquipment",1)
+			TNT1 A 20
+			Stop
+		}
+}
+ACTOR ThrownAcidCharge : SwitchableDecoration{
 	Radius 5
 	Height 5
 	speed 24
@@ -89,8 +90,10 @@ ACTOR ThrownAcidCharge : SwitchableDecoration{
 		States {
 			Spawn:
 				TNT1 A 0 {
-					if(waterlevel > 1) {A_SpawnItem ("RocketSmokeTrail52"); }
-					A_SpawnItemEx ("GreenFlareSmall",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+					if(waterlevel > 1) {
+						A_SpawnItem ("RocketSmokeTrail52");
+						A_SpawnItemEx ("GreenFlareSmall",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+					}
 				}
 				REMT R 1 Bright A_JumpIfInventory("RemoteChargeDetonator",1,"Death",AAPTR_TARGET) 
 				Loop
@@ -207,4 +210,7 @@ ACTOR ThrownAcidCharge : SwitchableDecoration{
 				TNT1 AAAAA 1 A_CustomMissile ("ExplosionSmoke", 1, 0, random (0, 360), 2, random (50, 130))
 				TNT1 A 0
 				TNT1 A 1 A_Stop
-				Stop	}}
+				Stop
+		}
+
+}

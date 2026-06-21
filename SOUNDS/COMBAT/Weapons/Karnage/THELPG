@@ -1,0 +1,97 @@
+Actor Gasexplosion 
+{
+	Renderstyle add
+	Alpha 0.6
+	Scale 1.7
+	+NOCLIP
+	+NOGRAVITY
+	+THRUACTORS
+	Speed 3
+	states
+	{
+	Spawn:
+		X003 ABCDEFGHIJKLMNOPQRSTUVWXYZ 3 Bright
+		Stop
+	}
+}
+
+ACTOR Lpgshootable : Lpg1
+{
+	+FORCEXYBILLBOARD
+	+SHOOTABLE 
+	+NOBLOOD
+	+DEHEXPLOSION
+	Damage 15
+	Health 10
+	Radius 6
+	Mass 99
+	scale 0.34
+	States
+	{
+	Spawn:
+		LPGS A 1 Bright
+		loop
+	Death:
+		TNT1 A 0 A_Spawnitemex("orangesuperbigflare")
+		TNT1 AAAAAA 0 A_CustomMissile ("Gasexplosion", 0, 0, random (0, 360), 2, random (0, 90))
+		//TNT1 A 0 A_CustomMissile ("Blacklpg", 0, 0, random (0, 360), 2, random (0, 90))
+		TNT1 A 0 A_Playsound("weapons/rocklx")
+		TNT1 A 0 nodelay A_Custommissile("explosivefx")
+		PUFF A 1 Bright A_Explode
+		stop
+	}
+}
+
+ACTOR throwlpg : grenade
+{
+	+FORCEXYBILLBOARD
+	+BOUNCEONACTORS
+	Bouncetype "doom"
+	Bouncesound "BOUNCE"
+	Projectile
+	-NOGRAVITY
+	Damage 1
+	bouncefactor 0.3
+	Gravity 0.8
+	Bouncecount 3
+	Speed 20
+	Radius 8
+	Height 8
+	Mass 5
+	scale 0.34
+	States
+	{
+	Spawn:
+		LPGR BCDEFGHI 4
+		loop
+	Death:
+		TNT1 A 0 A_Playsound("bounce")
+		TNT1 A 0 nodelay A_Spawnitemex("Lpgshootable")
+		stop 
+	}
+}
+
+
+ACTOR Blacklpg : throwlpg
+{
+	Translation "0:255=%[0.1.0.1.0.1],[0.9,0.9,0.9]"
+	Damage 1
+	bouncefactor 0.7
+	-GRENADETRAIL
+	Gravity 0.4
+	Bouncecount 10
+	Speed 20
+	Radius 4
+	Mass 5
+	scale 0.34
+	States
+	{
+	Spawn:
+		LPGR BCDEFGHI 4 A_Spawnitemex("mediumexplosive")
+		loop
+	DEATH:
+		LPGR D 1 offset(27,45)
+		loop
+	}
+}
+

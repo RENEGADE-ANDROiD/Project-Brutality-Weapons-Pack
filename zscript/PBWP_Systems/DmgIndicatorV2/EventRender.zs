@@ -13,6 +13,8 @@ Class D4DHandler : EventHandler
 	
 	override void RenderOverlay(RenderEvent e)
 	{
+		if (gamestate != GS_LEVEL || menuactive || Level.MapName == "TITLEMAP")
+			return;
 		RenderDamageIndicators(e);
 	}
 	
@@ -53,8 +55,15 @@ Class D4DHandler : EventHandler
 	
 	private void AddEventDamageIndicator(WorldEvent e)
 	{
-		if (ArrowManager)
-			ArrowManager.AddIndicator(e.DamageSource, e.Inflictor, e.Thing, e.Damage,e.DamageType);
+		if (!ArrowManager)
+			return;
+		let show = CVar.GetCVar("D4D_DamageIndicators");
+		if (show && !show.GetBool())
+			return;
+		if (!PBWP_FXThrottleHandler.ShouldSpawnCosmeticFX(e.Thing))
+			return;
+		PBWP_FXThrottleHandler.RegisterCombatEvent(e.Thing);
+		ArrowManager.AddIndicator(e.DamageSource, e.Inflictor, e.Thing, e.Damage,e.DamageType);
 	}
 	
 }

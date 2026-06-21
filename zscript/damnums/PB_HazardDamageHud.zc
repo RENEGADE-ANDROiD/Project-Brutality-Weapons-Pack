@@ -1,0 +1,307 @@
+class PB_HazardDamageHudHandler : EventHandler
+{
+	transient Array<int> hazAmt;
+	transient Array<int> hazBorn;
+	transient Array<double> hazBX;
+	transient Array<double> hazBY;
+	transient Array<double> hazRise;
+	transient Array<double> hazPh;
+	transient Array<double> hazWx;
+	transient Array<double> hazAmp;
+	transient Array<double> hazBaseMul;
+	transient Array<int> hazCR;
+
+	const HAZ_TTL = 58;
+	const HAZ_CAP = 16;
+
+	static bool PbSectorTerrainHurtCore(WorldEvent e)
+	{
+		if (!e || !e.Thing)
+			return false;
+		if (e.Damage < 1)
+			return false;
+		if (e.Inflictor)
+			return false;
+		if (e.DamageSource)
+			return false;
+		if (e.DamageFlags & DMG_PLAYERATTACK)
+			return false;
+		Name dt = e.DamageType;
+		if (dt == 'Massacre' || dt == 'InstantDeath' || dt == 'Exit' || dt == 'Falling'
+			|| dt == 'Drowning' || dt == 'Suicide' || dt == 'Telefrag' || dt == 'Melee'
+			|| dt == 'None')
+			return false;
+		return true;
+	}
+
+	static bool PbLooksLikeSectorOrTerrainHurt(WorldEvent e)
+	{
+		if (!PbSectorTerrainHurtCore(e))
+			return false;
+		if (!(e.Thing is "PlayerPawn"))
+			return false;
+		let pl = PlayerPawn(e.Thing);
+		return pl.player != null;
+	}
+
+	static bool PbLooksLikeSectorOrTerrainMonsterHurt(WorldEvent e)
+	{
+		if (!PbSectorTerrainHurtCore(e))
+			return false;
+		let mo = e.Thing;
+		if (!mo.bISMONSTER || mo is "PlayerPawn")
+			return false;
+		return true;
+	}
+
+	static int FontCRFromDamTranslation(String loc)
+	{
+		if (loc ~== "DamBrick") return Font.CR_BRICK;
+		if (loc ~== "DamTan") return Font.CR_BROWN;
+		if (loc ~== "DamGray" || loc ~== "DamDarkGray") return Font.CR_GREY;
+		if (loc ~== "DamGreen" || loc ~== "DamDarkGreen") return Font.CR_GREEN;
+		if (loc ~== "DamBrown" || loc ~== "DamDarkBrown") return Font.CR_BROWN;
+		if (loc ~== "DamGold") return Font.CR_GOLD;
+		if (loc ~== "DamRed" || loc ~== "DamDarkRed") return Font.CR_RED;
+		if (loc ~== "DamBlue") return Font.CR_BLUE;
+		if (loc ~== "DamOrange") return Font.CR_ORANGE;
+		if (loc ~== "DamWhite") return Font.CR_WHITE;
+		if (loc ~== "DamYellow") return Font.CR_YELLOW;
+		if (loc ~== "DamBlack") return Font.CR_BLACK;
+		if (loc ~== "DamLightBlue") return Font.CR_LIGHTBLUE;
+		if (loc ~== "DamCream" || loc ~== "DamOlive") return Font.CR_GOLD;
+		if (loc ~== "DamPurple") return Font.CR_PURPLE;
+		if (loc ~== "DamCyan") return Font.CR_CYAN;
+		return Font.CR_ORANGE;
+	}
+
+	clearscope static bool HazFloatersVisibleForConsole()
+	{
+		if (!playeringame[consoleplayer])
+			return false;
+		let pinf = players[consoleplayer];
+		if (!pinf)
+			return false;
+		let cvD = CVar.GetCVar("dam_enabled", pinf);
+		if (cvD && cvD.GetBool())
+			return true;
+		let cvX = CVar.FindCVar("pb_xp_rewards");
+		return cvX && cvX.GetBool();
+	}
+
+	static int FontCRForHazard(PlayerPawn pl, Name dt)
+	{
+		let cv = CVar.GetCVar("dam_usetypes", pl.player);
+		if (!cv || !cv.GetBool())
+			return Font.CR_ORANGE;
+		string key = DamNum_LanguageTypecolorPrefix .. dt;
+		string loc = Stringtable.Localize("$" .. key);
+		if (loc == key)
+			return Font.CR_ORANGE;
+		return FontCRFromDamTranslation(loc);
+	}
+
+	void HazTrimOldest()
+	{
+		while (hazAmt.Size() >= HAZ_CAP)
+		{
+			hazAmt.Delete(0);
+			hazBorn.Delete(0);
+			hazBX.Delete(0);
+			hazBY.Delete(0);
+			hazRise.Delete(0);
+			hazPh.Delete(0);
+			hazWx.Delete(0);
+			hazAmp.Delete(0);
+			hazBaseMul.Delete(0);
+			hazCR.Delete(0);
+		}
+	}
+
+	void HazDeleteIndex(int i)
+	{
+		hazAmt.Delete(i);
+		hazBorn.Delete(i);
+		hazBX.Delete(i);
+		hazBY.Delete(i);
+		hazRise.Delete(i);
+		hazPh.Delete(i);
+		hazWx.Delete(i);
+		hazAmp.Delete(i);
+		hazBaseMul.Delete(i);
+		hazCR.Delete(i);
+	}
+
+	void PushHazardPop(PlayerPawn pl, int dmg, Name dt)
+	{
+		if (!PB_XPRewardsHandler.PB_FloatingHudExtrasEnabled(pl))
+			return;
+		if (pl.PlayerNumber() != consoleplayer)
+			return;
+		HazTrimOldest();
+		hazAmt.Push(dmg);
+		hazBorn.Push(level.maptime);
+		hazBX.Push(frandom(0., 6.2831853));
+		hazBY.Push(frandom(0.055, 0.12));
+		hazRise.Push(-frandom(0.0020, 0.0036));
+		hazPh.Push(frandom(0., 6.2831853));
+		hazWx.Push(frandom(0.10, 0.22));
+		hazAmp.Push(frandom(0.034, 0.092));
+		hazBaseMul.Push(frandom(0.62, 1.58));
+		hazCR.Push(FontCRForHazard(pl, dt));
+	}
+
+	void TrySpawnMonsterEnvDamNum(WorldEvent e)
+	{
+		if (!PbLooksLikeSectorOrTerrainMonsterHurt(e))
+			return;
+		if (!playeringame[consoleplayer] || !players[consoleplayer].mo)
+			return;
+		let plp = PlayerPawn(players[consoleplayer].mo);
+		if (!plp || !plp.player)
+			return;
+		if (!PB_XPRewardsHandler.PB_FloatingHudExtrasEnabled(plp))
+			return;
+		let cvD = CVar.GetCVar("dam_enabled", plp.player);
+		if (cvD && cvD.GetBool())
+			return;
+
+		Actor mo = e.Thing;
+		if (!mo)
+			return;
+		int dmg = e.Damage;
+		if (dmg < 1)
+			return;
+		double targetHeight = (mo.health > 0) ? mo.height : (mo.height * 4);
+		Vector3 spawnPos = mo.pos + (0, 0, targetHeight - 16);
+		DamNum.spawnDamageNumbers(spawnPos, dmg, e.DamageType, false, 1.0);
+	}
+
+	override void WorldLoaded(WorldEvent e)
+	{
+		hazAmt.Clear();
+		hazBorn.Clear();
+		hazBX.Clear();
+		hazBY.Clear();
+		hazRise.Clear();
+		hazPh.Clear();
+		hazWx.Clear();
+		hazAmp.Clear();
+		hazBaseMul.Clear();
+		hazCR.Clear();
+	}
+
+	override void WorldThingDamaged(WorldEvent e)
+	{
+		if (!e)
+			return;
+		if (PbLooksLikeSectorOrTerrainHurt(e))
+		{
+			let pl = PlayerPawn(e.Thing);
+			PushHazardPop(pl, e.Damage, e.DamageType);
+			return;
+		}
+		TrySpawnMonsterEnvDamNum(e);
+	}
+
+	override void WorldTick()
+	{
+		super.WorldTick();
+		int gt = level.maptime;
+		for (int i = hazAmt.Size() - 1; i >= 0; i--)
+		{
+			int age = gt - hazBorn[i];
+			if (age > HAZ_TTL || age < 0)
+				HazDeleteIndex(i);
+		}
+	}
+
+	override void RenderOverlay(RenderEvent e)
+	{
+		if (!e || gamestate != GS_LEVEL || menuactive || Level.MapName == "TITLEMAP")
+			return;
+		if (gametic < 35)
+			return;
+		if (consoleplayer < 0 || consoleplayer >= MAXPLAYERS || !playeringame[consoleplayer])
+			return;
+		if (!playeringame[consoleplayer])
+			return;
+		let plr = players[consoleplayer];
+		if (!plr || !plr.mo)
+			return;
+		if (plr.mo.CountInv("CameraRunner") > 0)
+			return;
+		if (!HazFloatersVisibleForConsole())
+			return;
+
+		int sw = Screen.GetWidth();
+		int sh = Screen.GetHeight();
+		double sc = clamp(sh / 480.0, 1.0, 3.0);
+		int gt = level.maptime;
+
+		double anchorX = sw * 0.5;
+		double anchorY = sh * 0.58;
+		let mo = plr.mo;
+		if (mo)
+		{
+			pb_ProjScreen proj = new("pb_ProjScreen");
+			if (proj)
+			{
+				proj.CacheResolution();
+				let cvF = CVar.GetCVar("fov", plr);
+				double fovv = cvF ? cvF.GetFloat() : 90.;
+				proj.CacheFov(fovv);
+				proj.OrientForRenderOverlay(e);
+				proj.BeginProjection();
+				proj.ProjectActorPos(mo, (0, 0, mo.height * 0.36), 1.0);
+				if (proj.IsInFront())
+				{
+					Vector2 scr = proj.ProjectToScreen();
+					anchorX = scr.x;
+					anchorY = scr.y;
+				}
+			}
+		}
+		double rm = min(sw, sh);
+
+		for (int i = hazAmt.Size() - 1; i >= 0; i--)
+		{
+			int age = gt - hazBorn[i];
+			if (age > HAZ_TTL || age < 0)
+				continue;
+			double t = double(age);
+			double u = t / double(HAZ_TTL);
+			double ph = hazPh[i];
+			double wx = hazWx[i];
+			double wander = sin(ph + t * wx) * (0.28 + 0.72 * u);
+			wander += cos(ph * 1.31 + t * wx * 2.17) * 0.38;
+			wander += sin(ph * 0.73 + t * wx * 0.47) * 0.22;
+			double dx = sw * hazAmp[i] * wander;
+			double rise = t;
+			double dy = sh * hazRise[i] * rise;
+			double bob = sin(ph * 1.9 + t * 0.29) * 7.0 * sc * sin(u * 3.14159265);
+			double disc = rm * hazBY[i];
+			double px = anchorX + disc * cos(hazBX[i]) + dx;
+			double py = anchorY + disc * sin(hazBX[i]) + dy + bob;
+			px = clamp(px, 20.0, sw - 20.0);
+			py = clamp(py, 20.0, sh - 20.0);
+			double fade = 1.0 - (u * (0.85 + 0.15 * u));
+			if (fade < 0.07)
+				fade = 0.07;
+			double breathe = 1.0;
+			breathe += 0.14 * sin(t * 0.48 + ph);
+			breathe += 0.11 * sin(ph * 1.31 + t * 0.37);
+			breathe += 0.08 * cos(ph * 0.73 + t * 0.61);
+			breathe += 0.05 * sin(t * 0.21 + ph * 2.4) * (1.0 - u);
+			double scPop = clamp(sc * breathe * hazBaseMul[i], sc * 0.40, sc * 2.85);
+			String s = String.Format("%d", hazAmt[i]);
+			int cr = hazCR[i];
+			int tw = int(BigFont.StringWidth(s) * scPop * 0.5);
+			int tx = int(px) - tw;
+			int ty = int(py);
+			Screen.DrawText(BigFont, cr, tx, ty, s,
+				DTA_ScaleX, scPop, DTA_ScaleY, scPop,
+				DTA_Alpha, fade);
+		}
+	}
+}

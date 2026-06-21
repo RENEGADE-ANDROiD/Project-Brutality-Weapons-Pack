@@ -10,9 +10,11 @@ ACTOR XD_ShellSpawner : RandomSpawner Replaces PB_Shell
 	DropItem "PB_ShellYellow", 256
 	DropItem "PB_ShellBlack", 256
 }
-ACTOR PB_Shell1 : PB_Shell {}
+ACTOR PB_Shell1 : PB_Shell {
+}
 ACTOR PB_ShellGreen : PB_Shell 
-{Translation "176:191=[0,255,0]:[0,0,0]", 
+{
+	Translation "176:191=[0,255,0]:[0,0,0]", 
 			"168:175=[100,255,100]:[75,200,75]",
 			"16:47=[50,180,50]:[0,0,0]"
 }
@@ -65,9 +67,11 @@ ACTOR ShellBoxSpawner : RandomSpawner Replaces PB_ShellBox
 	DropItem "PB_ShellBoxYellow", 256
 	DropItem "PB_ShellBoxBlack", 256
 }
-ACTOR PB_ShellBox1 : PB_ShellBox {}
+ACTOR PB_ShellBox1 : PB_ShellBox {
+}
 ACTOR PB_ShellBoxGreen : PB_ShellBox 
-{Translation "176:191=[0,255,0]:[0,0,0]", 
+{
+	Translation "176:191=[0,255,0]:[0,0,0]", 
 			"168:175=[100,255,100]:[75,200,75]",
 			"16:47=[50,180,50]:[0,0,0]"
 }

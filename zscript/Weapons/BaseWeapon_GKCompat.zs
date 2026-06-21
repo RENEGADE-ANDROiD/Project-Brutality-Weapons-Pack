@@ -4,6 +4,9 @@ extend class PB_WeaponBase
     {	
 		QuickMeleeGK:
 			TNT1 A 0 {
+				let cv = CVar.GetCVar("isGKLoaded");
+				if (!cv || !cv.GetBool())
+					return ResolveState(null);
 				A_ClearOverlays(-10,65);
 				A_Gunflash("Null");
 			}

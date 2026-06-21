@@ -1,0 +1,73 @@
+// PB Staging / PBWP compatibility aliases for folded Karnage Legacy actors
+// Include after KRE_SMK / KRE_PRT (parent classes) and before FIREBALL.dec.
+
+ACTOR meleehit : KickPuff
+{
+}
+
+ACTOR knivehit : MeleePuff
+{
+}
+
+ACTOR mediumorangeflare : orangesmallflare
+{
+}
+
+ACTOR tracersmoke : microsmoke
+{
+}
+
+ACTOR Krg_heavyammo : Ammo
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 50
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 50
+}
+
+// BD debris parent — not in PB Staging; required by FIREBALL.dec / Plasmastinger FX.
+ACTOR Metalchunk : Actor
+{
+	+NOBLOCKMAP
+	+NOGRAVITY
+	+FORCEXYBILLBOARD
+	Radius 1
+	Height 1
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		Stop
+	}
+}
+
+// Plasmastinger death FX (not shipped as separate Karnage lumps in PBWP fold).
+ACTOR banfire : Actor
+{
+	+NOBLOCKMAP
+	+NOGRAVITY
+	+FORCEXYBILLBOARD
+	RenderStyle Add
+	Alpha 0.8
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		Stop
+	}
+}
+
+ACTOR XWAVE : Actor
+{
+	+NOBLOCKMAP
+	+NOGRAVITY
+	+FORCEXYBILLBOARD
+	RenderStyle Add
+	Alpha 0.6
+	States
+	{
+	Spawn:
+		XWAV A 1 Bright
+		Stop
+	}
+}

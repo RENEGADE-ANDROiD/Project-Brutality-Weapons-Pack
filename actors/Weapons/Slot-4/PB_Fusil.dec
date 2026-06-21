@@ -1,0 +1,24 @@
+// PB_SideFusil weapon states: C:\Users\shawn\OneDrive\Desktop\temp\ProjectBrutality2022\zscript\Weapons\Slot4\Fusil\PB_SideFusil.zs
+// PB_Fusil weapon states: C:\Users\shawn\OneDrive\Desktop\temp\ProjectBrutality2022\zscript\Weapons\Slot4\Fusil\PB_Fusil.zs
+// Folded Fusil addon weapon.
+
+Actor PB_FusilMag : Ammo
+{
+    Inventory.Amount 0
+    Inventory.MaxAmount 24
+    Ammo.BackpackAmount 0
+    Ammo.BackpackMaxAmount 24
+    Inventory.Icon "FUSIF0"
+}
+
+Actor PB_FusilSeen : Inventory
+{
+    Inventory.MaxAmount 1
+}
+
+Actor PB_SideFusilSeen : Inventory
+{
+    Inventory.MaxAmount 1
+}
+
+

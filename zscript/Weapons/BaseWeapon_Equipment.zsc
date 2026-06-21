@@ -1,4 +1,5 @@
 #include "zscript/Weapons/BaseWeapon_EquipmentAnims.zs"
+#include "zscript/Weapons/PB_WeaponTacticalFeel_Inventory.zc"
 
 // DETONATOR
 class RemoteChargeDetonator : Inventory {Default{Inventory.MaxAmount 1;}}
@@ -64,6 +65,9 @@ extend class PB_WeaponBase
 			TNT1 A 0 A_JumpIfInventory("BeaconSelected", 1, "ThrowBeacon");
 			TNT1 A 0 A_JumpIfInventory("FreezebotSelected", 1, "ThrowFreezebot");
 			TNT1 A 0 A_JumpIfInventory("FreezeGrenadeSelected", 1, "ThrowFreezenade");
+			TNT1 A 0 A_JumpIfInventory("PipeBombSelected", 1, "ThrowDukePipeBomb");
+			TNT1 A 0 A_JumpIfInventory("GCShieldSphereSelected", 1, "UseGCShieldSphere");
+			TNT1 A 0 A_JumpIfInventory("GCChaliceSelected", 1, "UseGCChalice");
 			Goto GoingToReady;
 		WheelCancelEquipment:
 			TNT1 A 0
@@ -87,6 +91,9 @@ extend class PB_WeaponBase
 				A_SetInventory("WW_BeaconSelected",0);
 				A_SetInventory("WW_FreezebotSelected",0);
 				A_SetInventory("WW_FreezeGrenadeSelected",0);
+				A_SetInventory("WW_PipeBombSelected",0);
+				A_SetInventory("WW_GCShieldSphereSelected",0);
+				A_SetInventory("WW_GCChaliceSelected",0);
 				A_SetInventory("CantWeaponSpecial",0);
 				}
 			goto Equipment_Toggle_Handler_Overlay;
@@ -112,7 +119,10 @@ extend class PB_WeaponBase
 					CountInv("WW_CaltropsSelected") && CountInv("CaltropsSelected") >=1 ||
 					CountInv("WW_BeaconSelected") && CountInv("BeaconSelected") >=1 ||
 					CountInv("WW_FreezebotSelected") && CountInv("FreezebotSelected") >=1 ||
-					CountInv("WW_FreezeGrenadeSelected") && CountInv("FreezeGrenadeSelected") >=1)
+					CountInv("WW_FreezeGrenadeSelected") && CountInv("FreezeGrenadeSelected") >=1 ||
+					CountInv("WW_PipeBombSelected") && CountInv("PipeBombSelected") >=1 ||
+					CountInv("WW_GCShieldSphereSelected") && CountInv("GCShieldSphereSelected") >=1 ||
+					CountInv("WW_GCChaliceSelected") && CountInv("GCChaliceSelected") >=1)
 					{A_Print("$PB_ALREADYSELECTED"); return ResolveState("WheelCancelEquipment");}
 				return ResolveState(null);
 				}
@@ -138,6 +148,9 @@ extend class PB_WeaponBase
 				A_SetInventory("BeaconSelected",0);
 				A_SetInventory("FreezebotSelected",0);
 				A_SetInventory("FreezeGrenadeSelected",0);
+				A_SetInventory("PipeBombSelected",0);
+				A_SetInventory("GCShieldSphereSelected",0);
+				A_SetInventory("GCChaliceSelected",0);
 				}
 			TNT1 A 0 
 				{
@@ -271,6 +284,27 @@ extend class PB_WeaponBase
 						{ 
 							A_Print("Equipment Selected: Freeze Grenade"); 
 							A_SetInventory("FreezeGrenadeSelected",1);
+							A_StartSound("GRNPIN", 3);
+							return ResolveState("WheelCancelEquipment");
+						}
+					if(CountInv("WW_PipeBombSelected") >=1)
+						{
+							A_Print("Equipment Selected: \crDuke Pipebomb");
+							A_SetInventory("PipeBombSelected",1);
+							A_StartSound("GRNPIN", 3);
+							return ResolveState("WheelCancelEquipment");
+						}
+					if(CountInv("WW_GCShieldSphereSelected") >=1)
+						{
+							A_Print("Equipment Selected: GC Shield Sphere");
+							A_SetInventory("GCShieldSphereSelected",1);
+							A_StartSound("GRNPIN", 3);
+							return ResolveState("WheelCancelEquipment");
+						}
+					if(CountInv("WW_GCChaliceSelected") >=1)
+						{
+							A_Print("Equipment Selected: Demonic Chalice");
+							A_SetInventory("GCChaliceSelected",1);
 							A_StartSound("GRNPIN", 3);
 							return ResolveState("WheelCancelEquipment");
 						}

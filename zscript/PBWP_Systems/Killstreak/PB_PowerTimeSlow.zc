@@ -1,0 +1,72 @@
+class PB_PowerTimeSlow : Powerup
+{
+	const SLOWMO_SLOT_MASK = 255;
+
+	Default
+	{
+		Powerup.Duration -8;
+	}
+
+	override void InitEffect()
+	{
+		Super.InitEffect();
+
+		if (Owner == null || Owner.player == null)
+			return;
+
+		int freezemask = 1 << Owner.PlayerNumber();
+		Owner.player.timefreezer |= freezemask;
+		for (int i = 0; i < MAXPLAYERS; i++)
+		{
+			if (playeringame[i] &&
+				players[i].mo != null &&
+				players[i].mo.IsTeammate(Owner))
+			{
+				players[i].timefreezer |= freezemask;
+			}
+		}
+
+		EffectTics += !(EffectTics & 1);
+		if ((EffectTics & 1) == 0)
+			EffectTics++;
+		if ((Level.maptime & 1) == 0)
+			Level.SetFrozen(true);
+		else
+		{
+			if (EffectTics < 0x7fffffff)
+				EffectTics++;
+		}
+	}
+
+	override void DoEffect()
+	{
+		Super.DoEffect();
+
+		if (Level.maptime & 1)
+			return;
+		if (Owner != null && Owner.player != null && Owner.player.cheats & CF_PREDICTING)
+			return;
+
+		int slot = (Level.maptime >> 1) & SLOWMO_SLOT_MASK;
+		Level.SetFrozen(slot != 0);
+	}
+
+	override void EndEffect()
+	{
+		Super.EndEffect();
+
+		if (Owner != null && Owner.player != null)
+		{
+			int freezemask = ~(1 << Owner.PlayerNumber());
+			for (int i = 0; i < MAXPLAYERS; ++i)
+				players[i].timefreezer &= freezemask;
+		}
+
+		for (int i = 0; i < MAXPLAYERS; ++i)
+		{
+			if (playeringame[i] && players[i].timefreezer != 0)
+				return;
+		}
+		Level.SetFrozen(false);
+	}
+}
