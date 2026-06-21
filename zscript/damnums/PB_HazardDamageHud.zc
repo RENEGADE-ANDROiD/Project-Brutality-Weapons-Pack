@@ -10,6 +10,7 @@ class PB_HazardDamageHudHandler : EventHandler
 	transient Array<double> hazAmp;
 	transient Array<double> hazBaseMul;
 	transient Array<int> hazCR;
+	transient pb_ProjScreen hazProj;
 
 	const HAZ_TTL = 58;
 	const HAZ_CAP = 16;
@@ -189,6 +190,7 @@ class PB_HazardDamageHudHandler : EventHandler
 		hazAmp.Clear();
 		hazBaseMul.Clear();
 		hazCR.Clear();
+		hazProj = new("pb_ProjScreen");
 	}
 
 	override void WorldThingDamaged(WorldEvent e)
@@ -244,19 +246,18 @@ class PB_HazardDamageHudHandler : EventHandler
 		let mo = plr.mo;
 		if (mo)
 		{
-			pb_ProjScreen proj = new("pb_ProjScreen");
-			if (proj)
+			if (hazProj)
 			{
-				proj.CacheResolution();
+				hazProj.CacheResolution();
 				let cvF = CVar.GetCVar("fov", plr);
 				double fovv = cvF ? cvF.GetFloat() : 90.;
-				proj.CacheFov(fovv);
-				proj.OrientForRenderOverlay(e);
-				proj.BeginProjection();
-				proj.ProjectActorPos(mo, (0, 0, mo.height * 0.36), 1.0);
-				if (proj.IsInFront())
+				hazProj.CacheFov(fovv);
+				hazProj.OrientForRenderOverlay(e);
+				hazProj.BeginProjection();
+				hazProj.ProjectActorPos(mo, (0, 0, mo.height * 0.36), 1.0);
+				if (hazProj.IsInFront())
 				{
-					Vector2 scr = proj.ProjectToScreen();
+					Vector2 scr = hazProj.ProjectToScreen();
 					anchorX = scr.x;
 					anchorY = scr.y;
 				}

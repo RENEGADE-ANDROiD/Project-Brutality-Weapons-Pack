@@ -1,30 +1,107 @@
 
-// Note to self: CVars are kind of a mess here. Should definitely figure out how to cache them.
-
 class RandomWeaponSwitcher : StaticEventHandler
 {
     Array<int>  SwitchTics;          // time until switch is triggered
     Array<int>  lockActive;          // 0 = free, 1 = forced weapon lock
     Array<Name> forcedWeapon;        // forced weapon class
-    Array<Name> lastWeapon;          // player’s previously held weapon
+    Array<Name> lastWeapon;          // player's previously held weapon
     Array<Name> currentWeapon;       // currently tracked weapon
-	int rw_DelayMin, rw_DelayMax;
+    Array<int>  cachedDelayMin;
+    Array<int>  cachedDelayMax;
+    Array<bool> cachedSwitchEnabled;
+    Array<bool> cachedLockWeap;
+    Array<bool> cachedInstSwitch;
+
+    const RW_CVAR_REFRESH_TICS = 35;
+
+    void EnsureCacheArrays()
+    {
+        int max = MAXPLAYERS;
+        cachedDelayMin.Resize(max);
+        cachedDelayMax.Resize(max);
+        cachedSwitchEnabled.Resize(max);
+        cachedLockWeap.Resize(max);
+        cachedInstSwitch.Resize(max);
+    }
+
+    void RefreshPlayerCVars(int pn)
+    {
+        if (pn < 0 || pn >= MAXPLAYERS)
+            return;
+        EnsureCacheArrays();
+
+        PlayerInfo p = players[pn];
+        if (!p)
+            return;
+
+        let cvMin = CVar.GetCVar("rw_DelayMin", p);
+        cachedDelayMin[pn] = cvMin ? cvMin.GetInt() : 0;
+
+        let cvMax = CVar.GetCVar("rw_DelayMax", p);
+        cachedDelayMax[pn] = cvMax ? cvMax.GetInt() : 60;
+
+        let cvEnabled = CVar.GetCVar("rw_switchEnabled", p);
+        cachedSwitchEnabled[pn] = cvEnabled && cvEnabled.GetBool();
+
+        let cvLock = CVar.GetCVar("rw_lockWeap", p);
+        cachedLockWeap[pn] = cvLock && cvLock.GetBool();
+
+        let cvInst = CVar.GetCVar("rw_instSwitch", p);
+        cachedInstSwitch[pn] = cvInst && cvInst.GetBool();
+    }
+
+    void RefreshAllPlayerCVars()
+    {
+        for (int i = 0; i < MAXPLAYERS; i++)
+        {
+            if (!playeringame[i])
+                continue;
+            RefreshPlayerCVars(i);
+        }
+    }
+
+    int RandomSwitchDelayTics(int pn)
+    {
+        int dmin = cachedDelayMin[pn];
+        int dmax = cachedDelayMax[pn];
+        if (dmax < dmin)
+        {
+            int tmp = dmin;
+            dmin = dmax;
+            dmax = tmp;
+        }
+        return Random(ticrate * dmin, ticrate * dmax);
+    }
+
+    bool TrySelectWeapon(PlayerInfo p, int pn, Name wepClass)
+    {
+        if (wepClass == '' || !p || !p.mo)
+            return false;
+
+        if (cachedInstSwitch[pn])
+        {
+            int oldCheats = p.cheats;
+            p.cheats |= CF_INSTANTWEAPSWITCH;
+
+            if (p.mo.A_SelectWeapon(wepClass))
+            {
+                let restorer = new("CheatRestorer");
+                CheatRestorer(restorer).Init(p, oldCheats, 2);
+                return true;
+            }
+
+            p.cheats = oldCheats;
+            return false;
+        }
+
+        return p.mo.A_SelectWeapon(wepClass);
+    }
 
     override void WorldLoaded(WorldEvent e)
-	{
-		InitArrays();
-			
-		for (int i = 0; i < MAXPLAYERS; ++i)
-		{
-			if (!playerInGame[i] || !players[i].mo)
-				continue;
-			
-			PlayerInfo p = players[i];
-
-			rw_DelayMin = CVar.GetCVar("rw_DelayMin", p).GetInt();
-			rw_DelayMax = CVar.GetCVar("rw_DelayMax", p).GetInt();
-		}
-	}
+    {
+        InitArrays();
+        RefreshAllPlayerCVars();
+    }
 
     override void PlayerSpawned(PlayerEvent e)
     {
@@ -32,13 +109,9 @@ class RandomWeaponSwitcher : StaticEventHandler
         if (pn < 0 || pn >= MAXPLAYERS) return;
 
         EnsureArrays();
-		
-		PlayerInfo p = players[pn];
-		
-		rw_DelayMin = CVar.GetCVar("rw_DelayMin", p).GetInt();
-		rw_DelayMax = CVar.GetCVar("rw_DelayMax", p).GetInt();
+        RefreshPlayerCVars(pn);
 
-        SwitchTics[pn] 		 = Random(ticrate*rw_DelayMin, ticrate*rw_DelayMax);
+        SwitchTics[pn]       = RandomSwitchDelayTics(pn);
         lockActive[pn]       = 0;
         forcedWeapon[pn]     = '';
         lastWeapon[pn]       = '';
@@ -49,13 +122,14 @@ class RandomWeaponSwitcher : StaticEventHandler
     {
         if (level.isFrozen()) return;
 
+        if ((level.maptime % RW_CVAR_REFRESH_TICS) == 0)
+            RefreshAllPlayerCVars();
+
         for (int i = 0; i < MAXPLAYERS; i++)
         {
             if (!playeringame[i]) continue;
             PlayerInfo p = players[i];
             if (!p || !p.mo) continue;
-
-            CVar cv;
 
             Weapon rw = p.ReadyWeapon;
             if (rw)
@@ -79,42 +153,24 @@ class RandomWeaponSwitcher : StaticEventHandler
                 else
                 {
                     if (!rw || rw.GetClassName() != forcedWeapon[i])
-					{
-						cv = CVar.GetCVar("rw_lockWeap", p);	
-						
-						if (!cv || !cv.GetBool()) continue;
-						
-						cv = CVar.GetCVar("rw_instSwitch", p);
-						
-                        if (cv && cv.GetBool() == true)
-						{
-							int oldCheats = p.cheats;
-							p.cheats |= CF_INSTANTWEAPSWITCH;
+                    {
+                        if (!cachedLockWeap[i])
+                            continue;
 
-							if (p.mo.A_SelectWeapon(forcedWeapon[i]))
-							{
-								let restorer = new("CheatRestorer");
-								CheatRestorer(restorer).Init(p, oldCheats, 2);
-							}
-							else
-								p.cheats = oldCheats;
-						}
-						else
-							p.mo.A_SelectWeapon(forcedWeapon[i]);
-					}
+                        TrySelectWeapon(p, i, forcedWeapon[i]);
+                    }
                 }
             }
-			
-			cv = CVar.GetCVar("rw_switchEnabled", p);
-			
-            if (!cv || !cv.GetBool()) continue;
+
+            if (!cachedSwitchEnabled[i])
+                continue;
 
             // --- random switch timer
             SwitchTics[i]--;
             if (SwitchTics[i] <= 0)
             {
                 ForceRandomSwitch(p);
-                SwitchTics[i] = Random(ticrate*rw_DelayMin, ticrate*rw_DelayMax);
+                SwitchTics[i] = RandomSwitchDelayTics(i);
             }
         }
         super.WorldTick();
@@ -126,8 +182,8 @@ class RandomWeaponSwitcher : StaticEventHandler
 
         PlayerInfo p = players[e.Player];
         if (!p || !p.mo) return;
-		
-		CVar cv;
+
+        RefreshPlayerCVars(e.Player);
 
         // Manual trigger
         if (e.Name == "SwitchItUp")
@@ -136,24 +192,8 @@ class RandomWeaponSwitcher : StaticEventHandler
         // Unlock & restore last weapon
         if (e.Name == "SwitchBack" && lastWeapon[e.Player] != '')
         {
-			cv = CVar.GetCVar("rw_instSwitch", p);
-			
-            if (cv && cv.GetBool() == true)
-			{
-				int oldCheats = p.cheats;
-				p.cheats |= CF_INSTANTWEAPSWITCH;
+            TrySelectWeapon(p, e.Player, lastWeapon[e.Player]);
 
-				if (p.mo.A_SelectWeapon(lastWeapon[e.Player]))
-				{
-					let restorer = new("CheatRestorer");
-					CheatRestorer(restorer).Init(p, oldCheats, 2);
-				}
-				else
-					p.cheats = oldCheats;
-			}
-			else
-				p.mo.A_SelectWeapon(lastWeapon[e.Player]);
-				
             lockActive[e.Player]   = 0;
             forcedWeapon[e.Player] = '';
         }
@@ -173,34 +213,16 @@ class RandomWeaponSwitcher : StaticEventHandler
 
         int pick = Random(0, Arsenal.Size() - 1);
         Weapon newW = Arsenal[pick];
-		Name chosenWeapon = Arsenal[pick].GetClassName();
-		
-		CVar cv;
-		
-		cv = CVar.GetCVar("rw_instSwitch", p);
-		
-		if (cv && cv.GetBool() == true)
-		{
-			int oldCheats = p.cheats;
-			p.cheats |= CF_INSTANTWEAPSWITCH;
-
-			if (p.mo.A_SelectWeapon(chosenWeapon))
-			{
-				let restorer = new("CheatRestorer");
-				CheatRestorer(restorer).Init(p, oldCheats, 2);
-			}
-			else
-				p.cheats = oldCheats;
-		}
-		else
-			p.mo.A_SelectWeapon(newW.GetClassName());
+        Name chosenWeapon = newW.GetClassName();
 
         int pn = FindPlayerNum(p);
-        if (pn >= 0)
-        {
-            forcedWeapon[pn] = newW.GetClassName();
-            lockActive[pn]   = 1;
-        }
+        if (pn < 0)
+            return;
+
+        TrySelectWeapon(p, pn, chosenWeapon);
+
+        forcedWeapon[pn] = chosenWeapon;
+        lockActive[pn]   = 1;
     }
 
     void InitArrays()
@@ -211,10 +233,16 @@ class RandomWeaponSwitcher : StaticEventHandler
         forcedWeapon.Resize(max);
         lastWeapon.Resize(max);
         currentWeapon.Resize(max);
+        EnsureCacheArrays();
 
         for (int i = 0; i < max; i++)
         {
-            SwitchTics[i] 		= Random(ticrate*rw_DelayMin, ticrate*rw_DelayMax);
+            cachedDelayMin[i] = 0;
+            cachedDelayMax[i] = 60;
+            cachedSwitchEnabled[i] = false;
+            cachedLockWeap[i] = false;
+            cachedInstSwitch[i] = false;
+            SwitchTics[i]       = Random(ticrate * cachedDelayMin[i], ticrate * cachedDelayMax[i]);
             lockActive[i]       = 0;
             forcedWeapon[i]     = '';
             lastWeapon[i]       = '';
@@ -230,6 +258,7 @@ class RandomWeaponSwitcher : StaticEventHandler
         forcedWeapon.Resize(max);
         lastWeapon.Resize(max);
         currentWeapon.Resize(max);
+        EnsureCacheArrays();
     }
 
     bool HasWeapon(PlayerInfo p, Name wepClass)

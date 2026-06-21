@@ -2,10 +2,18 @@ class PB_WeaponBase : DoomWeapon
 {
 	// PBWP: duplicate-pickup wear refill calls PB_RefillMonsterSourcedWeaponWear (BaseWeapon_PBWP.zs).
 	Mixin PB_CheckFunctions;
+	mixin PB_LocationalDamage;
 	double exaggerationMultiplier;
 	Actor laseractor;
 	Actor InvActor;
 	Vector3 invactorpos;
+	
+	string primaryFormat, secondaryFormat, leftFormat;
+	int primaryDivisor, secondaryDivisor, leftDivisor;
+	bool showPrimary, showSecondary, showLeft;
+	property HUDFormatPrimary : showPrimary, primaryFormat, primaryDivisor;
+	property HUDFormatSecondary : showSecondary, secondaryFormat, secondaryDivisor;
+	property HUDFormatLeft : showLeft, leftFormat, leftDivisor;
 	
 	bool chamberEmpty;
 	bool leftChamberEmpty;
@@ -191,9 +199,35 @@ class PB_WeaponBase : DoomWeapon
 	Ammo AmmoLeft;
 	Property AmmoTypeLeft: AmmoTypeLeft;
 	
-	Const PSP_RevenantLauncherLayer = -85;
-
-
+	enum PB_VisorBlood {
+		REDBLOODVISOR,
+		GREENBLOODVISOR,
+		BLUEBLOODVISOR,
+		ERRORBLOODVISOR
+	}
+	
+	enum PB_OverlayLayers {
+		PSP_LEDGEGRAB					= 1000,
+		PSP_LEFTGUN						= 10,
+		PSP_RIGHTGUN					= 11,
+		FLASH_LAYER						= -3,
+		LEFT_FLASH_LAYER				= -4,
+		RIGHT_FLASH_LAYER				= -5,
+		PSP_REVENANTLAUNCHERLAYER		= -85,
+		PSP_MELEEEQHANDLER				= -777,
+		PSP_KICKHANDLER					= -778,
+		PSP_EQTOGGLEHANDLER				= -779,
+		PSP_QUICKMELEEBLOOD				= -997,
+		PSP_QUICKMELEE					= -998,
+		PSP_FIRSPERSONLEGS				= -1000
+	}
+	
+	enum PB_WeaponReadyFlags {
+		PB_NOWEAPONSPECIAL				= 1 << 0,
+		PB_NOUNLOAD						= 1 << 1,
+		PB_FORCERELOAD					= 1 << 2
+	}
+	
 	Default
 	{
 		Weapon.BobRangeX 0.3;
@@ -205,6 +239,9 @@ class PB_WeaponBase : DoomWeapon
 		PB_WeaponBase.TailSoundVolume 0.8;
 		PB_WeaponBase.MuzzleSmokeColor "FFFFFF";
 		PB_WeaponBase.ReserveToMagAmmoFactor 1;
+		PB_WeaponBase.HUDFormatPrimary true, "%u", 1;
+		PB_WeaponBase.HUDFormatSecondary true, "%u", 1;
+		PB_WeaponBase.HUDFormatLeft true, "%u", 1;
 		//Weapon.WeaponScaleX 1.2;
 		+DONTGIB
 		+WEAPON.NOALERT

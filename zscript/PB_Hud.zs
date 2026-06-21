@@ -1837,6 +1837,7 @@ class PB_Hud_ZS : BaseStatusBar
 				
 				PBHud_DrawString(mDefaultFont, weap.GetTag(), (-110, -24), DI_SCREEN_RIGHT_BOTTOM | DI_TEXT_ALIGN_RIGHT, weaponBarAccent, scale: (0.5, 0.5));
 				PB_DrawGCWeaponMode((-110, -16));
+				PBX_DrawWeaponHudFromServices();
 				PBWP_DrawAddonWeaponIcon();
 				
 				//Equipment
@@ -2008,6 +2009,7 @@ class PB_DynamicDoubleInterpolator : Object
 }
 
 #include "zscript/PB_HelpNotifications.zs"
+#include "zscript/PBWP_Systems/PBX/PBWP_PBXHUDData.zs"
 #include "zscript/PBWP_Systems/PBWP_AddonWeaponHud.zs"
 
 // PBWP: title-backdrop-safe status bar (PBWP Gameinfo StatusBarClass override).

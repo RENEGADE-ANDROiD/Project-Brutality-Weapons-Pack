@@ -92,6 +92,8 @@ Actor RazorjackEmpower : Inventory { Inventory.MaxAmount 1 }
 // PDA Throwables.dec has LeechGrenade commented out; PBWP monsters still drop it.
 Actor HasLeech : Inventory { inventory.maxamount 1 }
 
+// PB Staging renamed autoshotgun grunt to PB_ASGGuy; Glory Kills ships ASGGuy alias in GLORYKILL.txt.
+
 ACTOR LeechGrenade : CustomInventory
 {
 	Game Doom

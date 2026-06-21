@@ -3,6 +3,7 @@
 class PowerDeflect : Powerup 
 {
 	bool zeroTurn;	// "random" deflection direction when projectile aims directly at player
+	const MAX_DEFLECT_RADIUS = 1536;
 	
 	Default
 	{
@@ -20,11 +21,13 @@ class PowerDeflect : Powerup
 	override void DoEffect ()
 	{
 		Super.DoEffect();
-		Actor ob;
-		ThinkerIterator iter = ThinkerIterator.Create();
+		if (!Owner)
+			return;
 
-		while (ob = Actor(iter.Next()))
+		let it = BlockThingsIterator.Create(Owner, MAX_DEFLECT_RADIUS);
+		while (it.Next())
 		{
+			Actor ob = it.Thing;
 			if (!ob || !ob.bMissile || ob.bSeekermissile || ob.target == Owner) continue;
 			
 			double v = ob.vel.Length();	// speed of projectile
@@ -166,6 +169,7 @@ class ElectricAuraPower : Powerup
 {
     actor AL;
     double arad;
+    Actor lastShockTarget;
 
     override void InitEffect()
     {
@@ -219,18 +223,21 @@ class ElectricAuraPower : Powerup
             // Shock monsters every 5 tics (radius = arad)
             if (GetAge() % 5 == 0)
             {
+                if (lastShockTarget)
+                    lastShockTarget.A_RemoveLight("ELATL");
+
                 array<actor> monsters;
                 let it = BlockThingsIterator.Create(owner, arad);
                 while (it.Next())
                 {
                     actor mon = it.thing;
-                    if (mon) mon.A_RemoveLight("ELATL");
                     if (mon && mon.bISMONSTER && !mon.bKILLED && monsters.Find(mon) == monsters.Size()
                         && owner.Distance3D(mon) <= arad && owner.CheckSight(mon))
                     {
                         monsters.push(mon);
                     }
                 }
+                lastShockTarget = null;
                 if (monsters.Size() > 0)
                 {
                     int index = random(0, monsters.Size() - 1);
@@ -256,6 +263,7 @@ class ElectricAuraPower : Powerup
                             mon.A_AttachLight("ELATL", DynamicLight.PointLight, "E0E0FF", mon.radius, mon.radius,
                                 flags: DYNAMICLIGHT.LF_NOSHADOWMAP | DYNAMICLIGHT.LF_ATTENUATE,
                                 ofs: (0, 0, mon.height / 2));
+                            lastShockTarget = mon;
                             mon.A_StartSound("ElectricAura/electric");
                         }
                     }
@@ -268,6 +276,11 @@ class ElectricAuraPower : Powerup
 
     override void EndEffect()
     {
+        if (lastShockTarget)
+        {
+            lastShockTarget.A_RemoveLight("ELATL");
+            lastShockTarget = null;
+        }
         if (owner)
         {
             owner.A_RemoveLight("ELAL1");

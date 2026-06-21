@@ -17,6 +17,7 @@ class cl_BaseController : Thinker
 	bool setup;
 	bool rampaging;
 	bool deathHandled;
+	int particleTic;
 	double baseDamageMultiply;
 
 	virtual void cl_GiveToken() {}
@@ -277,7 +278,10 @@ class cl_BaseController : Thinker
 		cl_UpdateRampage();
 
 		if (particles)
-			cl_SpawnParticles();
+			{
+			if ((++particleTic % 3) == 0)
+				cl_SpawnParticles();
+			}
 
 		if (champion.Health > oldhealth)
 			oldhealth = champion.Health;

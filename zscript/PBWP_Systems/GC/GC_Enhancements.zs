@@ -200,13 +200,25 @@ class GC_Enhancements
 
 class GC_EnhancementsHandler : EventHandler
 {
+	Name lastReadyWeapon[MAXPLAYERS];
+
 	override void PlayerEntered(PlayerEvent e)
 	{
 		if (!e || e.PlayerNumber < 0)
 			return;
 		let plr = PlayerPawn(players[e.PlayerNumber].mo);
 		if (plr)
+		{
 			plr.SetInventory("GC_ReplacerManager", 1);
+			if (e.PlayerNumber >= 0 && e.PlayerNumber < MAXPLAYERS)
+				lastReadyWeapon[e.PlayerNumber] = 'None';
+		}
+	}
+
+	override void WorldLoaded(WorldEvent e)
+	{
+		for (int pn = 0; pn < MAXPLAYERS; pn++)
+			lastReadyWeapon[pn] = 'None';
 	}
 
 	override void WorldTick()
@@ -221,6 +233,15 @@ class GC_EnhancementsHandler : EventHandler
 			let pm = PlayerPawn(players[pn].mo);
 			if (!pm || !pm.player || pm.health <= 0)
 				continue;
+
+			let wpn = pm.player.ReadyWeapon;
+			Name cur = wpn ? wpn.GetClassName() : 'None';
+			bool weaponChanged = (cur != lastReadyWeapon[pn]);
+			if (weaponChanged)
+				lastReadyWeapon[pn] = cur;
+			if (!weaponChanged && (level.maptime % 35) != 0)
+				continue;
+
 			UpdateRuneLite(pm);
 			UpdateGCWeaponPowers(pm);
 		}

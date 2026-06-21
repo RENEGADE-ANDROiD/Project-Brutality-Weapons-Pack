@@ -1,6 +1,12 @@
 // Minimal actor/inventory stubs for PBWP content that references legacy PB actors
 // not shipped in PB_Staging_PDA. Prevents "Unknown class" script warnings.
 
+// Magazine / pump tokens removed from PB Staging PDA but still used by PBWP weapons.
+ACTOR Pumping : Inventory { Inventory.MaxAmount 1 }
+ACTOR DeagleAmmo : Ammo { Inventory.MaxAmount 12 }
+ACTOR LeftDeagleAmmo : Ammo { Inventory.MaxAmount 12 }
+ACTOR PrimaryPistolAmmo : Ammo { Inventory.MaxAmount 16 }
+
 // Base for actors/Effects/ICE.dec freeze clouds (full defs load later in ICE.dec).
 ACTOR SlowingCloud
 {

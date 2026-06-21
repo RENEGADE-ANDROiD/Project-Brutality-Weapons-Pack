@@ -1,3 +1,5 @@
+#include "zscript/PBWP_Systems/PBWP_FXThrottleCore.zs"
+
 enum PB_VisorBlood{
 		REDBLOODVISOR,
 		GREENBLOODVISOR,
@@ -28,30 +30,20 @@ extend class PB_WeaponBase
 	// Deferred execution state — set by PB_Execute, consumed by ExecutionFlashWindup.
 	StateLabel PB_pendingExecutionState;
 
-	// PBWP FX gating: this file compiles in PDA's ZScript TU, so PBWP_FXThrottleHandler is not visible here.
+	// PBWP FX gating via PBWP_FXThrottleCore (shared play-scope state, both ZScript TUs).
 	bool PBWP_CanSpawnCasingSmoke()
 	{
-		let perf = CVar.GetCVar("pb_performance_fire");
-		if (perf && perf.GetBool())
-			return false;
-		let cheap = CVar.GetCVar("pb_cheapcasings");
-		if (cheap && cheap.GetBool())
-			return false;
-		let throttle = CVar.GetCVar("pbwp_fx_throttle");
-		if (throttle && !throttle.GetBool())
-			return true;
-		return true;
+		return PBWP_FXThrottleCore.ShouldSpawnCasingSmoke(owner);
 	}
 
 	bool PBWP_CanSpawnCosmeticFX()
 	{
-		let perf = CVar.GetCVar("pb_performance_fire");
-		if (perf && perf.GetBool())
-			return false;
-		let throttle = CVar.GetCVar("pbwp_fx_throttle");
-		if (throttle && !throttle.GetBool())
-			return true;
-		return true;
+		return PBWP_FXThrottleCore.ShouldSpawnCosmeticFX(owner);
+	}
+
+	void PBWP_RegisterCosmeticFX()
+	{
+		PBWP_FXThrottleCore.RegisterCombatEvent(owner);
 	}
 
 	// Shared fire-triggered execution gate for PDA + PBWP weapons (ttwcfbex menu option).
@@ -747,7 +739,11 @@ extend class PB_WeaponBase
         d3 -= 10.5;
 		d2 += 15;
 
-        _SpawnMuzzleSparks(d1, d2, d3, 0, 1.0, col);
+        if(invoker.PBWP_CanSpawnCosmeticFX())
+        {
+            _SpawnMuzzleSparks(d1, d2, d3, 0, 1.0, col);
+            invoker.PBWP_RegisterCosmeticFX();
+        }
 
         if(!light) return;
         plr.A_AttachLight('MuzzleFlashLight', DynamicLight.PointLight, col, rad, 0, DynamicLight.LF_DONTLIGHTSELF | DynamicLight.LF_ATTENUATE, (0, 0, self.player.viewz - floorz), 0);
@@ -758,6 +754,9 @@ extend class PB_WeaponBase
 	// [gng] credits to Agent_Ash for the position calculation, modified by me to fix the pitch bug
 	Action PB_GunFireSmoke PB_GunSmokeSpawn(vector3 ofs, vector3 vofs, string SActor = "PB_GunFireSmoke", double scalemul = 1.0, double alphamul = 1.0, double blowspeed = 1.02, double fadeSpeed = 1.0, bool rollSprite = true, double slowBlowSpeed = 1.0)
 	{
+		if(!invoker.PBWP_CanSpawnCosmeticFX())
+			return null;
+
 		ofs.z -= 10.5;
 		ofs.y += 15;
 		double fovOfs = (120 - self.player.desiredfov) / 3.f; // good enough
@@ -798,6 +797,7 @@ extend class PB_WeaponBase
 				Smoke.A_SetRenderStyle(Smoke.alpha, STYLE_STENCIL);
 				Smoke.SetShade(invoker.smokeColor);
 			}
+			invoker.PBWP_RegisterCosmeticFX();
 		}
 
 		return Smoke;
@@ -821,6 +821,9 @@ extend class PB_WeaponBase
 
 	Action bool PB_GunSmoke_Prologue(in out double d1, in out double d2, in out double d3, string SActor)
     {
+        if(!invoker.PBWP_CanSpawnCosmeticFX())
+			return false;
+
         d1 *= invoker.WeaponScaleX;
 
         if(!invoker.smoketype)
@@ -2044,6 +2047,7 @@ extend class PB_WeaponBase
                     //pSmoke.alpha = 0.25;
                     pSmoke.blowSpeed = 1.1;
                     pSmoke.fadeSpeed = 1.1;
+                    invoker.PBWP_RegisterCosmeticFX();
                 }
             }
 
@@ -2062,6 +2066,7 @@ extend class PB_WeaponBase
                     act.scale *= 0.35;
                     act.SetShade("FF9D2E");
                 }
+                invoker.PBWP_RegisterCosmeticFX();
             }
 		}
 	}
@@ -2733,6 +2738,7 @@ action int getReadyFlags(int weapflags, bool noReload)
 		bool initialWRF_ALLOWRELOAD = false;
 		if (weapflags & WRF_ALLOWRELOAD) initialWRF_ALLOWRELOAD = true;
 		weapFlags &= ~(WRF_ALLOWRELOAD);
+		if (pbFlags & PB_FORCERELOAD) { weapFlags |= WRF_ALLOWRELOAD; }
 		if(invoker is "PB_Fists" && !grabbedbarrel){weapFlags |= WRF_ALLOWRELOAD;}
 		if(checkMG42()){weapFlags |= WRF_ALLOWRELOAD;}
 		bool dualWieldCheck = A_CheckAkimbo();
@@ -3556,8 +3562,10 @@ action int getReadyFlags(int weapflags, bool noReload)
 			}
 			for(int i = 0; i < rail.hitActors.Size(); i++)
 			{
-				let d = Spawn("PB_RailDamage",(rail.hitX[i],rail.hitY[i],rail.hitZ[i]) + rail.results.hitVector);
-				d.target = self; //no self damage
+				int raildmg = 757;
+				string raildmgtype = "Railgun";
+				[raildmg, raildmgtype] = GetLimbDamage(raildmg, raildmgtype, (rail.hitX[i], rail.hitY[i], rail.hitZ[i]), rail.hitActors[i], invoker.owner);
+				rail.hitActors[i].DamageMobj(invoker, invoker.owner, raildmg, raildmgtype, DMG_THRUSTLESS);
 			}
 			
 			for(int i = 0; i < q; i++)
@@ -3788,3 +3796,6 @@ action int getReadyFlags(int weapflags, bool noReload)
 
 class LaserSightActivated : Inventory { Default { +INVENTORY.UNDROPPABLE; Inventory.MaxAmount 1; } }
 class ShieldSawThrowAnim : Inventory { Default { Inventory.MaxAmount 1; } }
+
+// Monster Pack GK still filters on legacy DisableASGGuy (same bit as DisablePB_ASGGuy).
+const DisableASGGuy = 1 << 2;

@@ -28,6 +28,7 @@ class FireAuraSphere : PowerupGiver
 class FireAuraPower : Powerup
 {
 	int arad;
+	Actor lastLitTarget;
 
 	override void InitEffect()
 	{
@@ -54,12 +55,14 @@ class FireAuraPower : Powerup
 		{
 			if (GetAge() % 5 == 0)
 			{
+				if (lastLitTarget)
+					lastLitTarget.A_RemoveLight("FIATL");
+
 				array<actor> monsters;
 				let it = BlockThingsIterator.Create(owner, arad);
 				while (it.Next())
 				{
 					actor mon = it.thing;
-					if (mon) mon.A_RemoveLight("FIATL");
 					if (mon && mon.bIsMonster && !mon.bKilled && monsters.Find(mon) == monsters.Size()
 						&& owner.Distance3D(mon) <= arad && owner.CheckSight(mon))
 					{
@@ -67,6 +70,7 @@ class FireAuraPower : Powerup
 					}
 				}
 
+				lastLitTarget = null;
 				if (monsters.Size() > 0)
 				{
 					int index = random(0, monsters.Size() - 1);
@@ -81,6 +85,7 @@ class FireAuraPower : Powerup
 						mon.A_AttachLight("FIATL", DynamicLight.PointLight, "FFB060", mon.radius, mon.radius,
 							flags: DYNAMICLIGHT.LF_NOSHADOWMAP | DYNAMICLIGHT.LF_ATTENUATE,
 							ofs: (0, 0, mon.height / 2));
+						lastLitTarget = mon;
 
 						mon.A_StartSound("FireAura/fire");
 
@@ -138,6 +143,11 @@ class FireAuraPower : Powerup
 
 	override void EndEffect()
 	{
+		if (lastLitTarget)
+		{
+			lastLitTarget.A_RemoveLight("FIATL");
+			lastLitTarget = null;
+		}
 		if (owner)
 		{
 			owner.A_RemoveLight("FIAL1");
