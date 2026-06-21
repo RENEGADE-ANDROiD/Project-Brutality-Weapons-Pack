@@ -5,7 +5,6 @@ enum slot1Masks
     mask_BattleAxe       = 1 << 2,
     mask_Razorjack       = 1 << 3,
     mask_LegChainsaw     = 1 << 4,
-    mask_SBSword         = 1 << 5
 }
 
 class BeefEnums : Eventhandler
@@ -32,7 +31,6 @@ class BeefEnums : Eventhandler
         ApplyBoolCVar("PBSpawnBattleAxe",   Slot1Mask & mask_BattleAxe);
         ApplyBoolCVar("PBSpawnRazorjack",   Slot1Mask & mask_Razorjack);
         ApplyBoolCVar("PBSpawnLegendaryChainsaw",   Slot1Mask & mask_LegChainsaw);
-        ApplyBoolCVar("PBSpawnPB_SBSword",   Slot1Mask & mask_SBSword);
     }
 
     void ApplyBoolCVar(string name, bool enabled)

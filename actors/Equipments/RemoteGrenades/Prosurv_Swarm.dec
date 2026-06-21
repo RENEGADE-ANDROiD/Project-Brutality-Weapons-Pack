@@ -2,8 +2,7 @@
 //Actor SwarmChargeEquipped : Inventory {inventory.maxamount 1}
 //Actor PickedUpSwarmCharge : Inventory {inventory.maxamount 1}
 //Actor PrepSwarmCharge : Inventory {inventory.maxamount 1}
-Actor RemoteChargeDetonator : Inventory { inventory.maxamount 1 }
-Actor SwarmDroneLifetime : Inventory {inventory.maxamount 30}
+Actor SwarmDroneLifetime : Inventory { inventory.maxamount 30 }
 
 
 
@@ -15,6 +14,7 @@ Actor SwarmerAmmo : ammo
 	Ammo.BackPackAmount 1
 	Ammo.BackPackMaxAmount 3
 	Inventory.PickUpMessage ""
+	+INVENTORY.QUIET
 	Inventory.Icon SWRMR0
 	+INVENTORY.IGNORESKILL
 	Scale 0.45
@@ -42,9 +42,10 @@ ACTOR SwarmCharge: CustomInventory {
 			//TNT1 A 0 A_GiveInventory("PrepSwarmCharge",1) 
 			//TNT1 A 0 A_GiveInventory("CycleEquipment",1)
 			TNT1 A 20
-			Stop	}}
-			
-ACTOR ThrownSwarmCharge : SwitchableDecoration{	
+			Stop
+		}
+}
+ACTOR ThrownSwarmCharge : SwitchableDecoration{
 	Radius 5
 	Height 5
 	speed 24
@@ -93,8 +94,10 @@ ACTOR ThrownSwarmCharge : SwitchableDecoration{
 	{
 		Spawn:
 			TNT1 A 0 {
-				if(waterlevel > 1) {A_SpawnItem ("RocketSmokeTrail52"); }
-				A_SpawnItemEx ("OrangeFlareSmall",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+				if(waterlevel > 1) {
+					A_SpawnItem ("RocketSmokeTrail52");
+					A_SpawnItemEx ("OrangeFlareSmall",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0);
+				}
 			}
 			SWRM S 1 Bright A_JumpIfInventory("RemoteChargeDetonator",1,"Death",AAPTR_TARGET) 
 			Loop
@@ -207,8 +210,8 @@ ACTOR ThrownSwarmCharge : SwitchableDecoration{
 			SWRM S 10 BRIGHT
 			TNT1 A 0 A_Stop
 			TNT1 A 0 A_StopSound(6)
-			TNT1 A 0 A_PlaysoundEx("SwarmDrone/WindUp","Auto")
-			TNT1 A 0 A_PlaysoundEx("Charge/Detonate/Swarm","Auto")
+			TNT1 A 0 A_PlaysoundEx("SwarmDrone/WindUp", CHAN_AUTO)
+			TNT1 A 0 A_PlaysoundEx("Charge/Detonate/Swarm", CHAN_AUTO)
 			TNT1 A 0 A_SpawnItem("WhiteShockwave")
 			TNT1 A 0 A_SpawnItemEx ("DetectFloorCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
 			TNT1 A 0 A_SpawnItemEx ("DetectCeilCrater",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
@@ -231,7 +234,9 @@ ACTOR ThrownSwarmCharge : SwitchableDecoration{
 				A_SpawnItemEx ("SwarmDrone",0,0,3,random(-5,5),random(-5,5),random(1,5),0,SXF_NOCHECKPOSITION,0);
 			}
 			TNT1 A 1 A_Stop
-			Stop	}}
+			Stop
+		}
+}
 ACTOR SwarmDrone {
 	Radius 3
 	Height 3
@@ -296,7 +301,7 @@ ACTOR SwarmDrone {
 			Melee:
 				SPMT A 1 {
 					A_CustomMissile("SwarmDroneAttack",0,0,0,0);
-					A_Playsoundex("Sawblade/Ricochet","Auto");
+					A_Playsoundex("Sawblade/Ricochet", CHAN_AUTO);
 				}
 				Stop
 			Death:
@@ -310,7 +315,9 @@ ACTOR SwarmDrone {
 				}
 				SPMT A 100
 				SPMT AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1 A_FadeOut(0.02)
-				Stop	}}		
+				Stop
+		}
+}
 ACTOR SwarmDroneAttack: FastProjectile {
 	Radius 8
 	Height 8
@@ -330,4 +337,7 @@ ACTOR SwarmDroneAttack: FastProjectile {
 		States {
 			Spawn:
 				TNT1 A 4 BRIGHT
-				Stop	}}
+				Stop
+		}
+
+}

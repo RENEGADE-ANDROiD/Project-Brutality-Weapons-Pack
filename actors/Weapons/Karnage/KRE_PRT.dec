@@ -1,0 +1,182 @@
+﻿ACTOR Explosiveparticle
+{
+	+FORCEXYBILLBOARD
+	+NOTELEPORT
+	+Missile
+	bouncetype "doom"
+	bouncefactor 0.3
+	Gravity 0.5
+	Bouncecount 4
+	Speed 10
+	Radius 4
+	scale 0.4
+	States
+	{
+	Spawn:
+PUFF A 1 Bright A_CustomMissile ("tracersmoke", 0, 0, random (0, 360), 2, random (0, 90))
+		loop
+	Death:
+		PUFF A 1 Bright A_Fadeout(0.1)
+		wait
+	}
+}
+
+ACTOR miniparticle : Explosiveparticle
+{
+	bouncefactor 0.3
+	Gravity 0.2
+	Bouncecount 2
+	Alpha 1
+	Speed 7
+	Radius 1
+	Mass 5
+	scale 0.3
+	States
+	{
+	Spawn:
+		PUFF A 6 Bright
+	Death:
+		PUFF A 1 Bright A_Fadeout(0.1)
+		wait
+	}
+}
+
+ACTOR particlesplash
+{
+	+NOGRAVITY
+	+NOTELEPORT
+	+THRUACTORS
+	+NOINTERACTION
+	+FORCEXYBILLBOARD
+	Renderstyle add
+	Alpha 1
+	Scale 0.6
+	States
+	{
+	Spawn:
+		NULL A 1 Nodelay A_Jump(255,"1s","2s")
+	1s:
+		FXSX ABCDEF 1
+		Stop
+	2s:
+		FXSX LMNOPQ 1
+		Stop
+    }
+}
+
+ACTOR Sparkparticle
+{
+	+FORCEXYBILLBOARD
+	+THRUACTORS
+	+Doombounce
+	+NOTELEPORT
+	+RANDOMIZE
+	+Missile
+	Gravity 0.5
+	Bouncecount 2
+	Speed 7
+	Radius 2
+	Mass 5
+	scale 0.7
+	States
+	{
+	Spawn:
+		PUFF BBBBBBBBBBB 1 Bright A_Spawnitemex("particletracer")
+		stop
+	Death:
+		PUFF A 1 Bright
+		Stop
+	}
+}
+
+ACTOR particletracer
+{
+	+NOGRAVITY
+	+NOBLOCKMAP
+	+FORCEXYBILLBOARD
+	+NOINTERACTION
+	+FORCEXYBILLBOARD
+	Speed 0
+	Renderstyle add
+	Alpha 1
+	Radius 0
+	Height 0
+	Scale 0.25
+	States
+	{
+	Spawn:
+		PAR1 A 0 Nodelay A_jump(256,"Type1","Type2")
+	Type1:
+		PAR1 ABCDEFG 1 Bright
+		goto death
+	Type2:
+		PAR1 LMNOPQR 1 Bright
+		goto death
+	Death:
+		TNT1 A 1
+		Stop
+	}
+}
+
+ACTOR orangesuperbigflare
+{
++NOGRAVITY
++NOBLOCKMAP
++FORCEXYBILLBOARD
++NOINTERACTION
++FORCEXYBILLBOARD
+Speed 0
+Renderstyle add
+Alpha 1
+Radius 0
+Height 0
+Scale 9
+States
+ {
+    Spawn:
+        ORAN B 1 Bright A_Fadeout(0.1)
+        wait
+    }
+}
+
+ACTOR orangesmallflare
+{
+	+NOGRAVITY
+	+NOBLOCKMAP
+	+NOINTERACTION
+	+FORCEXYBILLBOARD
+	Speed 0
+	Renderstyle add
+	Alpha 1
+	Radius 0
+	Height 0
+	Scale 0.7
+	States
+	{
+	Spawn:
+		ORAN A 1 A_Fadeout(0.1)
+		wait
+	}
+}
+
+
+ACTOR orangesmallflare1
+{
+	+NOGRAVITY
+	+NOBLOCKMAP
+	+NOINTERACTION
+	+FORCEXYBILLBOARD
+	Speed 0
+	Renderstyle add
+	Alpha 1
+	Radius 0
+	Height 0
+	Scale 0.7
+	States
+	{
+	Spawn:
+		ORAN B 1 A_Fadeout(0.1)
+		wait
+	}
+}
+

@@ -43,40 +43,29 @@ Actor D4SyphonGrenade
 		SYPH A 0
 		SYPH A 0 ThrustThingZ(0,abs(velz),0,1)
 		Goto Idle
-		
 	Idle:
 		SYPH A 1 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
 		Loop
-	
 	Death:
 		"####" "#" 0 A_ChangeFlag(THRUACTORS,1)
 		"####" "#" 0 A_PlaySound("GRNBNCE",7)
 		"####" "#" 35 A_Jump(256,"SyphonSound")
 		Goto SyphonSound
-		
 	SyphonSound:
 		"####" "#" 0 A_PlaySound("Special/Syphon/Explosion",2)
 		"####" "#" 35 A_Jump(256,"ExploSP")
 		Goto ExploSP
-		
 	ExploSP:
 		SYPH A 0 A_Explode(4,160,0)
 		SYPH A 0 A_SpawnItemEx("SyphonShockwave",  0,0,0, 0,0,0, 0, SXF_NOCHECKPOSITION)
 		SYPH A 0 A_SpawnItemEx("SyphonShockwave2", 0,0,0, 0,0,0, 0, SXF_NOCHECKPOSITION)
-		
 		TNT1 A 0 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
-		
 		SYPH A 4 Bright A_RadiusGive("SyphonProc",192,RGF_CUBE|RGF_MONSTERS|RGF_PLAYERS)
-		
 		TNT1 A 0 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
-		
 		SYPH A 4 Bright A_SetUserVar(user_timer, user_timer + 1)
-		
 		TNT1 A 0 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
-		
 		TNT1 A 1 A_JumpIf(user_timer <= 10, "ExploSP")
 		Goto End
-		
 	ExploDM:
 		SYPH A 0 A_GiveToTarget("SyphonOwner",1)
 		SYPH A 0 A_SetDamageType("SyphonDM")
@@ -84,22 +73,14 @@ Actor D4SyphonGrenade
 	ExploDMLooper:
 		SYPH A 0 A_Explode(4,256,0)
 		SYPH A 0 A_SpawnItemEx("SyphonShockwaveBigger",  0,0,0, 0,0,0, 0, SXF_NOCHECKPOSITION)
-		
 		SYPH A 0 Bright A_RadiusGive("SyphonSlower",320,RGF_CUBE|RGF_PLAYERS)
-		
 		TNT1 A 0 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
-		
 		SYPH A 4 Bright A_RadiusGive("SyphonProcDM",320,RGF_CUBE|RGF_PLAYERS)
-		
 		TNT1 A 0 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
-		
 		SYPH A 4 Bright A_SetUserVar(user_timer, user_timer + 1)
-		
 		TNT1 A 0 A_CustomMissile ("Grenadetrail", 5, 0, random (0, 40), 2, random (0, 160))
-		
 		TNT1 A 1 A_JumpIf(user_timer <= 10, "ExploDMLooper")
 		Goto End
-		
 	End:
 		TNT1 A 0 A_GiveToTarget("SyphonOwnerEnd",1)
 		TNT1 A 1
@@ -107,9 +88,10 @@ Actor D4SyphonGrenade
 	}
 }
 
-Actor EquipmentToken : Inventory {inventory.maxamount 1}
-Actor SyphonOwner : EquipmentToken {}
-ACTOR SyphonSlowerner : PowerSpeed	{ Speed 0.7 Inventory.Icon "" +POWERSPEED.NOTRAIL }
+Actor EquipmentToken : Inventory { inventory.maxamount 1 }
+Actor SyphonOwner : EquipmentToken {
+}
+ACTOR SyphonSlowerner : PowerSpeed { Speed 0.7 Inventory.Icon "" +POWERSPEED.NOTRAIL }
 ACTOR SyphonSlower : PowerupGiver
 {
 	powerup.duration 11
@@ -122,6 +104,7 @@ ACTOR SyphonSlower : PowerupGiver
 Actor SyphonHealth : Health
 {
 	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
 	Inventory.PickUpSound ""
 	Inventory.Amount 2
 }
@@ -129,6 +112,7 @@ Actor SyphonHealth : Health
 Actor SyphonArmor : BasicArmorBonus
 {
 	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
 	Inventory.PickUpSound ""
 	Inventory.Amount 2
 }

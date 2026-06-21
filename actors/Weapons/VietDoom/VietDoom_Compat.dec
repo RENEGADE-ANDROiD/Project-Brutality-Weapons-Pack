@@ -1,0 +1,104 @@
+// VietDoom (Brutal Doom v22) ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â PB Staging compatibility shims.
+
+ACTOR bd_Token : Inventory
+{
+	Inventory.MaxAmount 1
+	+inventory.Undroppable
+	-inventory.Invbar
+	+NONETID
+	+INVISIBLE
+	+NOCLIP
+	+NOTARGET
+	+NOBLOCKMAP
+	+NOINTERACTION
+	Radius 0
+	Height 0
+	Alpha 0.0
+	Mass 0
+	RenderStyle "None"
+
+}
+ACTOR FlamethrowerMissileProper : FastProjectile
+{
+	+NOBLOCKMAP +NOGRAVITY
+	Damage (0)
+	Speed 25
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		Stop
+	Death:
+		TNT1 A 0
+		Stop
+
+}
+
+}
+ACTOR BDWeaponSpawner : PB_UpgradeItem
+{
+	scale 0.8
+	radius 16
+	+THRUACTORS +FORCEXYBILLBOARD +DONTGIB
+	+COUNTITEM
+	States
+	{
+	Spawn:
+		TNT1 A -1
+		Stop
+	Pickup:
+		TNT1 A 0
+		Stop
+
+}
+
+// BD reserve-ammo pools (Weapon.AmmoType / A_JumpIfInventory); required at postprocess.
+}
+ACTOR Clip1 : Ammo
+{
+	Inventory.MaxAmount 999
+	Inventory.Amount 0
+	Inventory.PickupMessage "Pistol clips"
+}
+
+ACTOR Clip2 : Ammo
+{
+	Inventory.MaxAmount 999
+	Inventory.Amount 0
+	Inventory.PickupMessage "Rifle ammo"
+}
+
+ACTOR AmmoShell : Ammo
+{
+	Inventory.MaxAmount 99
+	Inventory.Amount 0
+	Inventory.PickupMessage "Shotgun shells"
+}
+
+ACTOR AmmoRocket : Ammo
+{
+	Inventory.MaxAmount 99
+	Inventory.Amount 0
+	Inventory.PickupMessage "Explosive round"
+}
+
+ACTOR Gas : Ammo
+{
+	Inventory.MaxAmount 200
+	Inventory.Amount 0
+	Inventory.PickupMessage "Flamethrower fuel"
+}
+
+ACTOR EmptyClip2Spawn
+{
+	+NOBLOCKMAP +NOGRAVITY
+	States
+	{
+	Spawn:
+	Death:
+		TNT1 A 0
+		Stop
+	}
+}
+
+#INCLUDE ACTORs/Weapons/VietDoom/VietDoom_Stubs.dec

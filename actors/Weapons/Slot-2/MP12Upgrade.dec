@@ -1,0 +1,35 @@
+﻿Actor PistolSMGUpgrade : Inventory {inventory.maxamount 1}
+
+Actor MP12A : CustomInventory
+{
+Scale 1.0
+  SpawnID 152
+  Radius 20
+  Height 16
+  Inventory.PickupMessage "You got the UAC-12a Automat SMG!"
+  ActiveSound "SPIRACT"
+  Renderstyle "Add"
+  Alpha 0.75
+  Inventory.PickupSound "upgrade/pickup"
+  +CountItem
+  +FLOATBOB
+  +FLOAT
+  +INVENTORY.ALWAYSPICKUP
+  states
+  {
+  Spawn:
+	TNT1 A 0 A_LoopActiveSound
+    MGAG BBBBBBBBBBBB 1 BRIGHT A_SpawnItem("GreenFlareMedium",0,20)
+    Loop
+DoNothing:
+	TNT1 A 0
+	Stop
+	Pickup:
+		TNT1 A 0
+		TNT1 A 0 A_playsound("hf/pulse", 1)
+		TNT1 A 0 A_giveinventory("PistolBullets", 50)
+		TNT1 A 0 A_giveinventory("PistolSMGUpgrade", 1)
+		TNT1 A 0 A_giveinventory("MP12", 1)
+		Stop
+  }
+}

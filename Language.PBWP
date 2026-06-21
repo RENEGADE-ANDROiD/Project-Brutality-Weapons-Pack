@@ -3,20 +3,38 @@
 // MENU STUFFS
 PBWP_General_OPTIONS = "\ch⍟\c- General Settings";
 PBWP_WeaponSpawns_OPTIONS = "\cg☠\c- Weapon Spawn Settings";
-PBWP_MonsterSpawn_OPTIONS = "\cv⛧\c- Monster Spawn Settings";
 PBWP_MonsterDrop_OPTIONS = "\cu∇\c- Monster Drop Settings";
 PBWP_ItemSpawns_OPTIONS = "\cj⟁\c- Item Spawn Settings";
-PBWP_Scientist_OPTIONS = "\cn⁂\c- Scientist NPC Settings";
 PBWP_KILLSTREAK_OPTIONS = "\ch⎈\c- Killstreak Settings";
-PBWP_CHAMPION_ENEMIES = "\cr♛\c- Champion Enemies Settings";
-PBWP_COMBAT_RATING_SHOP = "\cf★\c- Combat Rating Weapons Shop";
+PBWP_CHAMPION_ENEMIES = "\cr♛\c- Champions Lite";
+PBWP_COMBAT_RATING_SHOP = "\cf★\c- Experience Weapons Shop";
 PBWP_QUICKSWITCHER = "\ct₪\c- Random Weapon Quick-Switcher";
-PBWP_BEHOLD = "\cw⟰\c- BEHOLD! Settings";
 PBWP_ARCADE = "\cd⚙\c- Arcade Item Tweak Settings";
 PBWP_OUCHIE = "\ca♡\c- Ouchie! Damage Flash Settings";
 PBWP_DMGINDICATOR = "\cp✜\c- Damage Indicator Settings";
 PBWP_DOORBUSTER = "\cy⑄\c- DOORBUSTER Settings";
+PBWP_SCREEN_TILT = "\ck↻\c- Screen Tilt Settings";
+PBWP_WEAPON_VISUALS = "\cl⌖\c- Weapon Visual Settings";
+PBWP_GC_ENHANCEMENTS = "\co✦\c- God Complex Extras";
+PBWP_ADDON_SETTINGS = "PBWP Options";
+PBWP_ADDON_FULL_SPAWNS = "PBWP Options (full weapon list)";
+PBWP_ALL_SETTINGS = "PBWP Options (main menu)";
 PBWP_TOGGLE_MELEE_MENU = "Open Melee Wheel";
+
+PB_PICKUP_PB_Fusil = "Picked up the Fusil rifle (slot 4).";
+PB_PICKUP_PB_DARKMATTERRIFLE = "Picked up the UAC Prototype Dark Matter Rifle (slot 8).";
+
+TILTPLUSPLUSMNU_TITLE = "Tilt++ Options";
+TILTPLUSPLUSMNU_STRAFETILT_TITLE = "Strafe Tilting";
+TILTPLUSPLUSMNU_MOVETILT_TITLE = "Movement Tilting";
+TILTPLUSPLUSMNU_TURNTILT_TITLE = "Turn Tilting";
+TILTPLUSPLUSMNU_UNDERWATERTILT_TITLE = "Underwater Tilting";
+TILTPLUSPLUSMNU_DEATHTILT_TITLE = "Death Tilting";
+TILTPLUSPLUSMNU_ENABLED = "Enabled";
+TILTPLUSPLUSMNU_SPEED = "Speed";
+TILTPLUSPLUSMNU_ANGLE = "Angle";
+TILTPLUSPLUSMNU_SCALAR = "Intensity";
+TILTPLUSPLUSMNU_INVERT = "Invert";
 
 RW_TITLE = "Random Weapon Switching";
 
@@ -41,3 +59,6 @@ CM_EXPLLD = "\cuExplosive \c-Shells Loaded";
 CM_WPLOAD = "\c[WPBronze]White Phosphorus\c- Shells Loaded";
 CM_DOOMLD = "\ctTriple Doom\c- Shells Loaded";
 CM_DNMKULD = "\c[DanmakuYellow]Danmaku \c-Shells Loaded";
+
+DAMNUM_TYPECOLOR_PBXP = "DamGreen";
+DAMNUM_TYPECOLOR_PBAMMO = "DamBlue";

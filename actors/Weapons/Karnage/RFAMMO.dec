@@ -1,0 +1,48 @@
+﻿Actor Krg_Rifleammo : Ammo 
+{
+	Inventory.amount 20
+	Inventory.maxamount 150
+	Ammo.Backpackamount 30
+	Ammo.backpackmaxamount 300
+	Inventory.icon "ARZNA0"
+	Inventory.pickupmessage "Picked up some rifle ammo"
+	scale 0.7
+	States
+	{
+	Spawn:
+		ARZN A -1
+		stop
+	}
+}
+
+Actor Krg_RifleammoBox : Krg_Rifleammo
+{
+	Inventory.amount 60
+	Inventory.pickupmessage "Picked up rifle ammo box"
+	scale 1
+	States
+	{
+	Spawn:
+		ARBX A -1
+		stop
+	}
+}
+
+
+ACTOR Krg_Ammopack : custominventory
+{
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.PickupMessage "Picked up ammo box for all caliber"
+	Inventory.PickupSound "misc/p_pkup"
+	States
+	{
+	Spawn:
+		ARBX A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("Krg_rifleammo",10)
+		TNT1 A 0 A_GiveInventory("Krg_heavyammo",10)
+		TNT1 A 0 A_GiveInventory("clip",10)
+		Stop
+	}
+}

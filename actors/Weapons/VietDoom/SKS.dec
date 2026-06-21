@@ -1,0 +1,1454 @@
+ACTOR SKS : PB_WeaponBase
+{
+	Weapon.SlotNumber 4
+	Weapon.AmmoType1 "PB_HighCalMag"
+	Weapon.AmmoType2 "SKSAmmo"
+	weapon.selectionorder 900
+	Weapon.AmmoGive1 0
+	+INVENTORY.UNDROPPABLE
+	Inventory.Pickupmessage "You got the \ceSKS! \c-(slot 4)"
+	Obituary "$OBBD_SNIPER"
+	Tag "SKS"
+	States
+	{
+	NoAmmo:
+		"####" A 0 A_PlaySound("weapons/dryfire", CHAN_WEAPON)
+		"####" "#" 1 A_DoPBWeaponAction(WRF_NOFIRE)
+		Goto Ready3
+
+	Spawn:
+		WSKS A 1
+		WSKS A 1 A_SpawnItemEx ("SKSSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION | SXF_TRANSFERAMBUSHFLAG ,0)
+		Stop
+	FlashKicking:
+		SKSG A 0 A_Takeinventory("ADSmode",1)
+		SKSG A 0 A_Takeinventory("Zoomed",1)
+		SKSG A 0 A_Takeinventory("ZoomHold",1)
+		M72G A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_JumpIfInventory("SKSEmpty",1,"FlashKickEmpty")
+		SKSM AB 1 A_DoPBWeaponAction
+		TNT1 A 2
+		SKSB ABC 1 A_DoPBWeaponAction
+		TNT1 A 0 A_PlaySound("Melee/Swing", 5)
+		KNIF A 0 A_FireCustomMissile("BayoAttack", 0, 0, 0, 1)
+		SKSB D 1 A_DoPBWeaponAction
+		SKSB D 5 A_DoPBWeaponAction
+		SKSB CBA 1 A_DoPBWeaponAction
+		TNT1 A 2
+		SKSM BA 1 A_DoPBWeaponAction
+		Stop
+	FlashKickEmpty:
+		SKSM DE 1
+		TNT1 A 2
+		SKSB EFG 1
+		TNT1 A 0 A_PlaySound("Melee/Swing", 5)
+		KNIF A 0 A_FireCustomMissile("BayoAttack", 0, 0, 0, 1)
+		SKSB H 1
+		SKSB H 5
+		SKSB GFE 1
+		TNT1 A 2
+		SKSM ED 1
+		Stop
+	FlashPunching:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+		SKSG A 0 A_Takeinventory("ADSmode",1)
+		SKSG A 0 A_Takeinventory("Zoomed",1)
+		SKSG A 0 A_Takeinventory("ZoomHold",1)
+		M72G A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_JumpIfInventory("SKSEmpty",1,"FlashKickEmpty")
+		SKSM AB 1 A_DoPBWeaponAction
+		TNT1 AAAAAAAAAAAAAA 1
+		Stop
+		SKSB ABC 1 A_DoPBWeaponAction
+		TNT1 A 0 A_PlaySound("Melee/Swing", 5)
+		KNIF A 0 A_FireCustomMissile("BayoAttack", 0, 0, 0, 1)
+		SKSB D 1 A_DoPBWeaponAction
+		SKSB D 5 A_DoPBWeaponAction
+		SKSB CBA 1 A_DoPBWeaponAction
+		TNT1 AAAAAAAAAAAAAA 1
+		Stop
+		SKSM BA 1 A_DoPBWeaponAction
+		Stop
+	FlashAirKicking:
+		Goto FlashKicking
+
+	Select:
+		TNT1 A 0 A_WeaponOffset(0,32)
+		TNT1 A 0 A_TakeInventory("HasBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+Goto SelectFirstPersonLegs
+	SelectContinue:
+		TNT1 A 0 A_Giveinventory("GoSpecial",1)
+		TNT1 A 0 A_Giveinventory("GoSpecial",1)
+		TNT1 A 0 A_GiveInventory("TokenCleaner")
+		TNT1 A 0 A_SetCrosshair(19)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PLAYSOUND("SSG/Draw", 5)
+				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+				Goto Ready3
+	SelectAnimation:	
+		SKSM C 0 A_JumpIfInventory("SKSAmmo", 1, 2)
+		Goto SelectAnimationEmpty
+		SKSM AA 0
+		SKSM CBA 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		Goto Ready
+
+	SelectAnimationEmpty:
+		SKSM FED 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+	Ready:
+	Ready3:
+		TNT1 A 0 A_SetCrosshair(19)
+		TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Ready2")
+		TNT1 A 0 A_JumpIfInventory("StartDualWield",1,"DualWield")
+		TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		TNT1 A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		TNT1 A 0 A_JumpIfInventory("TossGrenade",1,"TossGrenade")
+		TNT1 A 0 A_JumpIfInventory("IsRunning",1,"StartSprint")
+		//TNT1 A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		TNT1 A 0 A_JumpIfInventory("AimMode_Toggle",1,2)
+		TNT1 A 0 A_JumpIfInventory("FiredSecondary",1,"AltFire")
+		SKSG A 0 A_JumpIfInventory("SKSAmmo",1,2)
+		SKSG B 0
+		SKSG "#" 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		"####" "#" 0 A_JumpIfInventory("DropIt",1,"Dropper")
+		Loop
+
+	Ready2:
+		TNT1 A 0 A_SetCrosshair(0)
+		TNT1 A 0 A_WeaponOffset(0, 32, WOF_INTERPOLATE)
+		TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		TNT1 A 0 A_JumpIfInventory("StartDualWield",1,"DualWield")
+		TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		TNT1 A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		TNT1 A 0 A_JumpIfInventory("TossGrenade",1,"TossGrenade")
+		TNT1 A 0 A_JumpIfInventory("IsRunning",1,"StartSprint")
+		RIFG A 0 A_JumpIfInventory("AimMode_Toggle",1,4)
+		RIFG A 0 A_JumpIfInventory("AimMode_Hold",1,"HoldAim")
+		RIFG A 0 A_JumpIfInventory("ZoomHold", 1, "HoldAim")
+		TNT1 A 0 A_JumpIfInventory("FiredSecondary",1,"HoldAim")
+		TNT1 AAA 0
+		SKSI C 0 A_JumpIfInventory("SKSAmmo",1,2)
+		SKSI G 0
+		SKSI "#" 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		"####" "#" 0 A_JumpIfInventory("DropIt",1,"Dropper")
+		Loop
+
+	StartSprint:
+		SKSG A 0 A_TakeInventory("NeverSelectedSKS",1)
+		RIFG A 0 A_Takeinventory("Zoomed",1)
+		RIFG A 0 A_Takeinventory("ADSmode",1)
+		RIFG A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_SetCrosshair(7)
+		SKSS A 0 A_JumpIfInventory("SKSAmmo", 1,2)
+		SKSS B 0
+		"####" "#" 0
+		"####" "#" 0 A_JumpIfInventory("UsedStamina", 40, "StopSprintTired")
+		"####" "#" 0 A_JumpIfInventory("SKSAmmo", 1,"StartSprintLoaded")
+		"####" "#" 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		Goto Sprinting
+	StartSprintLoaded:
+		"####" "#" 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+	Sprinting:
+		"####" "#" 0 offset(-9,32)
+		"####" "#" 0 offset(-9,32) A_JumpIfInventory("UsedStamina", 0, "StopSprint")
+		"####" "#" 0 offset(-9,32) A_JumpIfInventory("PowerStrength", 1, 2)
+		"####" "#" 0 offset(-9,32) A_GiveInventory("UsedStamina", 5)
+		"####" "#" 0 offset(-9,32)
+		SKSS a 0 A_JumpIfInventory("SKSAmmo", 1,2)
+		SKSS B 0
+		"####" "#" 1 offset(-9,34) A_SetPitch(pitch -0.5)
+		"####" "#" 1 offset(-6,36) A_SetPitch(pitch -0.5)
+		"####" "#" 1 offset(-3,38) A_SetPitch(pitch -0.5)
+		"####" "#" 1 offset(0,38) A_SetPitch(pitch -0.5)
+		"####" "#" 1 offset(3,36) A_SetPitch(pitch -0.5)
+		"####" "#" 1 offset(6,34) A_SetPitch(pitch -0.5)
+		"####" "#" 1 offset(9,32) A_SetPitch(pitch -0.5)
+		"####" "#" 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		"####" "#" 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		"####" "#" 0 A_JumpIfInventory("Reloading",1,"Reload")
+		"####" "#" 0 offset(-9,32) A_GiveInventory("UsedStamina", 5)
+		"####" "#" 0 offset(9,33) A_SpawnItemEx("FootStep", 0, 0, 2, 0, 0, -4)
+		"####" "#" 1 offset(9,34) A_SetPitch(pitch +0.5)
+		"####" "#" 1 offset(6,36) A_SetPitch(pitch +0.5)
+		"####" "#" 1 offset(3,38) A_SetPitch(pitch +0.5)
+		"####" "#" 1 offset(0,38) A_SetPitch(pitch +0.5)
+		"####" "#" 1 offset(-3,36) A_SetPitch(pitch +0.5)
+		"####" "#" 1 offset(-6,34) A_SetPitch(pitch +0.5)
+		"####" "#" 1 offset(-9,32) A_SetPitch(pitch +0.5)
+		"####" "#" 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		"####" "#" 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
+		Goto StopSprint
+	StopSprint:
+		"####" "#" 0 A_JumpIfInventory("SKSAmmo", 1,"StopSprintLoaded")
+		SKSG B 1
+		1911 b 0 A_JumpIfInventory("UsedStamina", 60, "StopSprintTired")
+		Goto Ready
+
+	StopSprintLoaded:
+		SKSG A 1
+		SKSG A 0 A_JumpIfInventory("UsedStamina", 60, "StopSprintTired")
+		Goto Ready
+
+	Deselect:
+		SKSG A 0 A_Takeinventory("Zoomed",1)
+		SKSG A 0 A_Takeinventory("ADSmode",1)
+		SKSG A 0 A_ZoomFactor(1.0)
+		SKSG A 0 A_TakeInventory("DropIt", 1)
+		SKSG A 0 A_TakeInventory("TossGrenade", 1)
+		TNT1 A 0 A_TakeInventory("HoldInspect",1)
+		TNT1 A 0 A_TakeInventory("IsInspecting",1)
+		SKSG A 0 A_JumpIfInventory("SKSAmmo", 1, 1)
+		Goto DeselectEmpty
+		SKSG A 0
+	DeselectContinue:
+		SKSM ABC 1
+		TNT1 A 0 A_Lower(120)
+		Wait
+
+	DeselectEmpty:
+		SKSM DEF 1
+		TNT1 A 0 A_Lower(120)
+		Wait
+
+
+	Salute:
+		TNT1 A 0 A_AlertMonsters
+		SALU ABCDEDCDEDCDEDCBA 4
+		TNT1 A 0 A_TakeInventory("Salute1", 1)
+		TNT1 A 0 A_TakeInventory("Salute2", 1)
+		Goto Ready3
+	Fire:
+		sksI g 0 A_JumpIfInventory("Zoomed",1,13)
+		sksG b 0
+		"####" "#" 0 A_JumpIfInventory("NoReloading",1,"NoReload")
+		//"####" A 0 A_TakeInventory("IsInspecting",1)
+		"####" "#" 0 A_JumpIfInventory("SKSAmmo",1,1)
+		Goto NoAmmo
+		"####" "#" 0 A_JumpIfInventory("VietDoomDurabilityDisabled", 1, 3)
+		"####" "#" 0 A_JumpIfInventory("SKSDurability",1,1)
+		Goto GunBroken
+		"####" "#" 0
+		"####" "#" 0 A_JumpIfInventory("SKSDurability",35,2)
+		"####" "#" 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
+		"####" "#" 0
+		"####" "###" 0
+		"####" "#" 0 A_Takeinventory("SKSAmmo",1)
+		"####" "#" 0 A_JumpIfInventory("SKSAmmo",3,2)
+		"####" "#" 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
+		"####" "###" 0
+		Goto ResumeFireFrame
+		"####" "#" 0 A_JumpIfInventory("SKSAmmo",1,1)
+		Goto NoAmmo
+		"####" "###" 0
+		Goto Fire+4
+
+	NoReload:
+		"####" "#" 0 A_Takeinventory("Reloading",1)
+		"####" "#" 0 A_JumpIfInventory("PB_HighCalMag",1,1)
+		Goto NoAmmo
+		"####" "###" 0
+		"####" "#" 0 A_Takeinventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+	ResumeFireFrame:
+		TNT1 AA 0
+		SKSG A 0 A_AlertMonsters
+		SKSG A 0 A_PlaySound("AKMFIRE", 1)
+		SMGG A 0 A_PlaySound("FARm14", 6)
+		M16G A 0 A_FireCustomMissile("DistantFireSoundRifle", random(-1,1), 0, 0, -12, 0, random(-1,1))
+		TNT1 A 0 A_JumpIFInventory("Zoomed", 1, "Fire2")
+		SKSI D 0 A_FireCustomMissile("AK47Tracer", random(-1,1), 0, 0, -12, 0, random(-1,1))
+		SKSF A 1 BRIGHT A_FireBullets (3, 3, -1, 40, "HitPuff", FBF_NORANDOM)
+		//TNT1 A 0 A_JumpIFInventory("ADSMode", 1, "Fire2")
+		SKSG A 0 A_SpawnItemEx("PlayerMuzzle1",30,5,30)
+		SKSG A 0 { PB_GunSmoke(0,0,0); }
+		SKSG A 0 A_ZoomFactor(0.96)
+		//TNT1 A 0 A_JumpIfInventory("IsTacticalClass",1,"Tacticoool")
+		SKSG A 0 A_SetPitch(pitch-1.25)
+		SKSG A 0 A_SetANgle(angle-1.25)
+		SKSF B 1 A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14)
+		SKSG A 0 A_ZoomFactor(1.0)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSF C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		TNT1 A 0 A_JumpIfInventory("SKSAmmo",1,3)
+		SKSG B 0 A_GiveInventory("SKSEmpty", 1)
+		Goto NoAmmo
+		SKSG A 0
+		SKSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		SKSG A 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		//SKSG A 0 A_Refire
+		Goto Ready3
+
+	Tacticoool:
+		SKSG A 0 A_SetPitch(pitch-2.6)
+		SKSG A 0 A_SetANgle(angle-1.4)
+		SKSF C 1 A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14)
+		SKSG A 0 A_ZoomFactor(1.0)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSG A 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSG A 10 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		//SKSG A 0 A_Refire
+		Goto Ready3
+
+	Fire2:
+		SKSI C 0
+		SKSG A 0 A_SpawnItemEx("PlayerMuzzle1",30,5,30)
+		SKSG A 0 { PB_GunSmoke(0,0,0); }
+		SKSI D 0 A_FireCustomMissile("AK47Tracer", random(-1,1), 0, 0, -12, 0, random(-1,1))
+		SKSI D 1 BRIGHT A_FireBullets (1, 1, -1, 40, "HitPuff", FBF_NORANDOM)
+		SKSG A 0 A_ZoomFactor(1.95)
+		//TNT1 A 0 A_JumpIfInventory("IsTacticalClass",1,"Tacticoool2")
+		SKSI C 0 A_SetPitch(pitch-1.25)
+		SKSI C 0 A_SetANgle(angle-1.25)
+		SKSI E 1 A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14)
+		SKSI C 0 A_ZoomFactor(2.0)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI F 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		TNT1 A 0 A_JumpIfInventory("SKSAmmo",1,3)
+		SKSI G 0 A_GiveInventory("SKSEmpty", 1)
+		Goto NoAmmo
+		SKSI C 0
+		SKSI c 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 10 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		//SKSI C 0 A_Refire
+		Goto Ready2
+
+	Tacticoool2:
+		SKSI C 0 A_SetPitch(pitch-2.6)
+		SKSI C 0 A_SetANgle(angle-1.4)
+		SKSI C 1 A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14)
+		SKSI C 0 A_ZoomFactor(2.0)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		SKSI C 0 //Nope
+		SKSI C 0 A_SetANgle(angle+0.1)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		SKSI C 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSI C 0 A_Refire
+		Goto Ready2
+	AltFire:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("IsPlayingAsPurist", 1,"PuristWarning")
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"NoAim")
+		TNT1 A 0 A_Giveinventory("GoSpecial",1)
+		TNT1 A 0 A_Giveinventory("Zoomed",1)
+		//TNT1 A 0 A_Takeinventory("IsInspecting",1)
+		TNT1 A 0 A_SetCrosshair(0)
+		TNT1 A 0 A_WeaponOffset(0, 32, WOF_INTERPOLATE)
+		TNT1 A 0 A_ZoomFactor(2.0)
+		TNT1 A 0 A_Giveinventory("ADSmode",1)
+		TNT1 A 0 A_PlaySound("ads/in", 5)
+		TNT1 A 0 A_JumpIfInventory("AimMode_Toggle",1,"ToggleAim")
+		SKSI ABC 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM|WRF_NOSECONDARY|WRF_NOBOB)
+		TNT1 A 0 A_JumpIfInventory("AimMode_Toggle",1,3)
+		TNT1 A 0 A_JumpIfInventory("AimMode_Hold",1,"HoldAim")
+		TNT1 A 0 A_JumpIfInventory("FiredSecondary",1,3)
+		SKSI C 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM|WRF_NOSECONDARY|WRF_NOBOB)
+		Goto Ready2
+		TNT1 AAA 0
+		SKSI C 0 A_JumpIfInventory("FiredPrimary",1,"HoldAim")
+		SKSI C 0 A_JumpIfInventory("SKSAmmo", 1,2)
+		SKSI G 0
+		SKSI "#" 4
+		TNT1 A 0 A_JumpIfInventory("FiredSecondary",1,"HoldAim")
+		Goto Ready2
+
+	ToggleAim:
+		SKSi AB 1
+		SKSI C 0 A_JumpIfInventory("SKSAmmo", 1,2)
+		SKSI G 0
+		SKSI "#" 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		Goto Ready2
+
+	HoldAim:
+		TNT1 A 0
+		TNT1 A 0 A_GiveInventory("ZoomHold",1)
+		TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		TNT1 A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		//TNT1 A 0 A_JumpIfInventory("Unloading",1,"Unload")
+		TNT1 A 0 A_JumpIfInventory("IsRunning",1,"StartSprint")
+		TNT1 A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		SKSI C 0 A_JumpIfInventory("SKSAmmo", 1,2)
+		SKSI G 0
+		SKSI "#" 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM|WRF_NOSECONDARY)
+		TNT1 A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		SKSI C 0 A_JumpIfInventory("SKSAmmo", 1,2)
+		SKSI G 0
+		SKSI "#" 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM|WRF_NOSECONDARY)
+		TNT1 A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		SKSI C 0 A_JumpIfInventory("SKSAmmo", 1,2)
+		SKSI G 0
+		SKSI "#" 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM|WRF_NOSECONDARY)
+		TNT1 A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		TNT1 AA 0 A_JumpIfInventory("FiredSecondary",1,"HoldAim")
+	NoAim:
+		TNT1 A 0 A_SetCrosshair(7)
+		TNT1 A 0
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_Takeinventory("ZoomHold",1)
+		TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_Takeinventory("ADSmode",1)
+		TNT1 A 0 A_PlaySound("ads/out", 5)
+		TNT1 A 0 A_JumpIfInventory("AimMode_Toggle",1,"ToggleNoAim")
+		SKSi BA 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM|WRF_NOSECONDARY|WRF_NOBOB)
+		SKSG A 0 A_JumpIfInventory("SKSAmmo", 1,2)
+		SKSG B 0
+		SKSG "#" 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM|WRF_NOSECONDARY)
+		Goto Ready3
+
+	ToggleNoAim:
+		SKSi BA 1
+		SKSG A 0 A_JumpIfInventory("SKSAmmo", 1,2)
+		SKSG B 0
+		SKSG "#" 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		Goto Ready3
+
+	TurboReload:
+		RIFG A 0 { PB_SetMagUnloaded(false); }
+
+		RIFG A 0 A_JumpIfInventory("PB_HighCalMag",1,3)
+		Goto Ready3
+		RIFS ABC 0
+		SKSG A 0 A_JumpIfInventory("SKSAmmo",1,"InsertBullets2")
+		Goto InsertBullets
+Inspect:
+		SKSG A 0 A_JumpIfInventory("DoInspect",1,"ContinueInspect")
+		SKSG A 0 A_JumpIfInventory("FiredSecondary",1,"ContinueInspect")
+		SKSG A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		SKSG A 0 A_JumpIfInventory("Zoomed",1,"Ready2")
+		//TNT1 A 0 A_JumpIfInventory("RFGrenade",1,"FireGrenade")
+		SKSG A 0 A_JumpIfInventory("TossGrenade",1,"TossGrenade")
+		SKSG A 0 A_JumpIfInventory("Taunting",1,"Taunt")
+		SKSG A 0 A_JumpIfInventory("Reloading",1,"Reload")
+		//SKSG A 0 A_JumpIfInventory("Unloading",1,"Unload")
+		SKSG A 0 A_JumpIfInventory("Salute1", 1, "Salute")
+		SKSG A 0 A_JumpIfInventory("Salute2", 1, "Salute")
+		//SKSG A 0 A_JumpIfInventory("Unloading",1,"Unload")
+		SKSG A 0 A_JumpIfInventory("IsRunning",1,"StartSprint")
+		SKSG A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		//SKSG A 0 A_JumpIfInventory("StartDualWield",1,"DualWield")
+		SKSG A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		SKSG A 0 A_JumpIfInventory("AimMode_Toggle",1,2)
+		SKSG A 0 A_JumpIfInventory("FiredSecondary",1,"AltFire")
+		TNT1 AAA 0
+		SKSG A 5 A_DoPBWeaponAction(WRF_ALLOWZOOM|WRF_ALLOWRELOAD)
+		SKSG A 0 A_GiveInventory("DoInspect",1)
+		SKSG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSG A 0 A_TakeInventory("DoInspect",1)
+		Goto Ready3
+
+	ContinueInspect:
+		TNT1 AA 0
+		SKSG A 0 A_TakeInventory("DoInspect",1)
+		SKSG A 1 A_DoPBWeaponAction(WRF_ALLOWZOOM|WRF_ALLOWRELOAD)
+	Inspect2:
+		TNT1 A 0 A_Takeinventory("ZoomHold",1)
+		TNT1 A 0 A_Takeinventory("Zoomed",1)
+		TNT1 A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_SetCrosshair(7)
+		TNT1 A 0 A_Takeinventory("ADSmode",1)
+		SKSG a 1 A_DoPBWeaponAction(WRF_ALLOWZOOM|WRF_ALLOWRELOAD)
+		SKSG "#" 0 A_Giveinventory("IsInspecting",1)
+		SKSR ABC 1 A_DoPBWeaponAction(WRF_ALLOWZOOM|WRF_ALLOWRELOAD)
+		SKSR "#" 0 A_TakeInventory("SKSReloadToken",1)
+		SKSR D 6 A_DoPBWeaponAction(WRF_ALLOWZOOM|WRF_ALLOWRELOAD)
+		2IFR A 0 A_PlaySound("mp40/Bolt1", 5)
+		SKSR EF 1 A_DoPBWeaponAction(WRF_ALLOWZOOM|WRF_ALLOWRELOAD)
+		TNT1 A 0 A_GiveInventory("HoldInspect",1)
+	InspectHold:
+		SKSR G 4 A_WeaponReady(WRF_ALLOWRELOAD|WRF_NOFIRE)
+		TNT1 A 0 A_TakeInventory("HoldInspect",1)
+		2IFR A 0 A_PlaySound("rifle/Bolt2", 5)
+		SKSR FED 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		SKSR D 4 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOBOB | WRF_ALLOWZOOM| WRF_NOFIRE)
+		SKSR "#" 0 A_Takeinventory("IsInspecting",1)
+		SKSR "#" 0 A_TakeInventory("SKSReloadToken",1)
+		SKSR CBA 1 A_DoPBWeaponAction(WRF_ALLOWZOOM|WRF_ALLOWRELOAD)
+		SKSR "#" 0 A_Takeinventory("IsInspecting",1)
+		SKSR "#" 0 A_TakeInventory("SKSReloadToken",1)
+		SKSR "#" 0 A_Takeinventory("Reloading",1)
+		Goto Ready
+	Reload:
+		//SKSG A 1 // A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		SKSG "#" 0 A_TakeInventory("RifleSpread", 10)
+		SKSG "#" 0 A_JumpIfInventory("Zoomed", 1,"NoAim")
+		SKSG "#" 0 A_Takeinventory("Reloading",1)
+		SKSG "#" 0 A_JumpIfInventory("IsPlayingAsPurist", 1,"PuristWarning")
+		SKSG "#" 0 A_JumpIfInventory("NoReloading", 1, "Ready")
+		SKSG "#" 0 A_JumpIfInventory("PB_HighCalMag",1,3)
+		Goto Ready
+		TNT1 AAA 0
+		SKSG "#" 0 A_JumpIfInventory("HoldInspect", 1, "InspectHold")
+		SKSG "#" 0 A_JumpIfInventory("IsInspecting", 1, "Inspect2")
+		SKSG A 0 A_JumpIfInventory("SKSAmmo",0,"Inspect")
+		SKSG A 0 A_JumpIfInventory("SKSReloadToken",1,"Inspect")
+		SKSG A 0 A_Takeinventory("Reloading",1)
+		SKSG A 0 A_Takeinventory("ADSmode",1)
+		SKSG A 0 A_Takeinventory("Zoomed",1)
+		SKSG A 0 A_Takeinventory("ZoomHold",1)
+		SKSG A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_SetCrosshair(7)
+		//SKSG A 3 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		SKSG A 0 A_Takeinventory("ADSmode",1)
+		SKSG A 0 A_Takeinventory("Zoomed",1)
+		SKSG A 0 A_Takeinventory("ZoomHold",1)
+		//SKSG A 0 { PB_JumpIfMagUnloaded("PB_MagUnloadedSkip35"); }
+		SKSG A 0 A_GiveInventory ("Pumping", 1)
+		SKSG A 0 A_Takeinventory("Reloading",1)
+		PB_MagUnloadedSkip35:
+		SKSG "#" 0 A_JumpIfInventory("SKSEmpty", 1, "ReloadFromEmpty")
+		TNT1 A 0 A_PlaySound("mp40/Bolt1", 5)
+		SKSR EFGGGGHI 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+	ReloadFromEmpty:
+		SKSR J 12 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+        SKSR KLMNNN 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		SKSR OPQ 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		TNT1 A 0 A_PlaySound("SSG/Draw", 5)
+		SKSR Q 5 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		TNT1 A 0 A_PLaySound("SSG/Lever1", 4)
+		SKSR RSTUVWX 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		TNT1 A 0 A_PLaySound("SSG/Lever2", 4)
+		SKSR X 5 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		SKSR YG 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		TNT1 A 0 A_PlaySound("mp40/Bolt2", 5)
+		SKSR GGGFEDDDDDCBA 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		SKSG A 0 A_JumpIfInventory("SKSAmmo",1,"InsertBullets2")
+		TNT1 A 0 A_GiveInventory("SKSReloadToken",1)
+		Goto InsertBullets
+
+	InsertBullets:
+		TNT1 AAAA 0
+		SKSG A 0 A_JumpIfInventory("SKSAmmo",10,"FinishReloading")
+		SKSG A 0 A_JumpIfInventory("PB_HighCalMag",1,3)
+		Goto FinishReloading
+		TNT1 AAAAAA 0
+		SKSG A 0 A_Giveinventory("SKSAmmo",1)
+		SKSG A 0 A_Takeinventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
+		Goto InsertBullets
+		TNT1 AAAAAAAAAA 0
+		SKSG A 0 A_Takeinventory("Reloading",1)
+		Goto FinishReloading
+		TNT1 AAAA 0
+		SKSG A 0 A_Takeinventory("Reloading",1)
+		Goto FinishReloading
+
+	FinishReloading:
+		SKSG A 0
+		TNT1 A 0 A_TakeInventory("SKSEmpty",1)
+		TNT1 A 0 A_TakeInventory("SKSReloadToken",1)
+		SKSG A 0 A_Refire
+		Goto Ready3
+	GunBroken:
+		"####" "#" 0
+		"####" "#" 0 A_TakeInventory("BurstCounter", 0x7FFFFFFF)
+		"####" "#" 0 A_Takeinventory("Zoomed",1)
+		"####" "#" 0 A_Takeinventory("ADSmode",1)
+		"####" "#" 0 A_ZoomFactor(1.0)
+		"####" "#" 1 offset(0,34)
+		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
+		"####" "#" 1 offset(0,33)
+		"####" "#" 1 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 0 A_Print("Your rifle has been destroyed!\n\n\n\n\n\n\n")
+		"####" "#" 0 A_GiveInventory("SKSDestroyed", 1)
+		"####" "#" 0 A_PlaySound("DSBRK2")
+		"####" "#" 0 A_Quake(4,5,0,12,"")
+		"####" "##" 0 A_CustomMissile("MetalShard1", 20, 0, random(-30, 30), 2, random(-10, 25))
+		"####" "#" 0 A_SpawnItemEx("PlayerMuzzle1",30,0,45)
+		"####" "#" 0 A_FireCustomMissile("DistantFireSoundShotgun", random(-1,1), 0, 0, -12, 0, random(-1,1))
+		"####" "#######" 0 A_CustomMissile("Shotgunparticles2", 20, 0, random(-30, 30), 2, random(-10, 25))
+		"####" "#######" 0 A_CustomMissile("Shotgunparticles", 20, 0, random(-35, 35), 2, random(-10, 25))
+		"####" "#" 0 A_CustomMissile ("MetalShard2", 20, 0, random(-30, 30), 2, random(-10, 25))
+		"####" "#####" 0 A_CustomMissile ("WoodParticle", 20, 0, random(-30, 30), 2, random(-10, 25))
+		"####" "#" 0 A_CustomMissile("ExplosionParticle", 20, 0, random(-10, 10), 2, random(-10, 25))
+		"####" "##" 0 A_CustomMissile ("MetalShard3", 20, 0, random(-30, 30), 2, random(-10, 25))
+		"####" "#" 0 A_FireCustomMissile("SmokeSpawner",0,0,0,5)
+		TNT1 A 0 A_GiveInventory("DropSKS", 1)
+		TNT1 A 0 A_SelectWeapon("Dropper")
+		Goto Ready
+
+	RollForJam:
+		"####" "#" 0 A_JumpIfInventory("SKSDurability", 80, "JamChanceLow")
+		"####" "#" 0 A_JumpIfInventory("SKSDurability", 40, "JamChanceMid")
+
+	JamChanceHigh:
+		"####" "#" 0 A_Jump(8, "ClearJam")
+		Goto ResumeFireFrame
+
+	JamChanceMid:
+		"####" "#" 0 A_Jump(6, "ClearJam")
+		Goto ResumeFireFrame
+
+	JamChanceLow:
+		"####" "#" 0 A_Jump(4, "ClearJam")
+		Goto ResumeFireFrame
+
+	ClearJam:
+		SKSG a 0
+		"####" "#" 0
+		"####" "#" 0 A_TakeInventory("BurstCounter", 0x7FFFFFFF)
+		"####" "#" 0 A_Takeinventory("Zoomed",1)
+		"####" "#" 0 A_Takeinventory("ADSmode",1)
+		"####" "#" 0 A_ZoomFactor(1.0)
+		"####" "#" 0 A_ClearReFire
+		"####" "#" 1 offset(0,34)
+		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
+		"####" "#" 1 offset(0,33)
+		"####" "#" 2 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 1 A_ClearReFire
+		SKSG a 1
+		SKSR ABCDDDDDD 1
+		2IFR A 0 A_PlaySound("mp40/Bolt1", 5)
+		SKSR EF 1
+		SKSR G 0 A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14)
+		SKSR G 6
+		2IFR A 0 A_PlaySound("rifle/Bolt2", 5)
+		SKSR FEDDDDDCBA 1
+		SKSG A 2
+		Goto Ready
+
+	PrintConditionTrash:
+		"####" "#" 0 A_Print("Condition: \crTrash\n\n\n\n\n\n\n")
+		Goto Inspect2CarryOn
+
+	PrintConditionBroken:
+		"####" "#" 0 A_Print("Condition: \cgBroken\n\n\n\n\n\n\n")
+		Goto Inspect2CarryOn
+
+	PrintConditionAlmostBroken:
+		"####" "#" 0 A_Print("Condition: \cgAlmost Broken\n\n\n\n\n\n\n")
+		Goto Inspect2CarryOn
+
+	PrintConditionCritical:
+		"####" "#" 0 A_Print("Condition: \caCritical\n\n\n\n\n\n\n")
+		Goto Inspect2CarryOn
+
+	PrintConditionBad:
+		"####" "#" 0 A_Print("Condition: \caBad\n\n\n\n\n\n\n")
+		Goto Inspect2CarryOn
+
+	PrintConditionHeavilyWorn:
+		"####" "#" 0 A_Print("Condition: \ciHeavily Worn\n\n\n\n\n\n\n")
+		Goto Inspect2CarryOn
+
+	PrintConditionWorn:
+		"####" "#" 0 A_Print("Condition: \ciWorn\n\n\n\n\n\n\n")
+		Goto Inspect2CarryOn
+
+	PrintConditionFair:
+		"####" "#" 0 A_Print("Condition: \ckFair\n\n\n\n\n\n\n")
+		Goto Inspect2CarryOn
+
+	PrintConditionGood:
+		"####" "#" 0 A_Print("Condition: \cdGood\n\n\n\n\n\n\n")
+		Goto Inspect2CarryOn
+
+	PrintConditionVeryGood:
+		"####" "#" 0 A_Print("Condition: \cdVery Good\n\n\n\n\n\n\n")
+		Goto Inspect2CarryOn
+
+	PrintConditionExcellent:
+		"####" "#" 0 A_Print("Condition: \cdExcellent\n\n\n\n\n\n\n")
+		Goto Inspect2CarryOn
+
+	PrintConditionPristine:
+		"####" "#" 0 A_Print("Condition: \cCPristine\n\n\n\n\n\n\n")
+
+	Inspect2CarryOn:
+		"####" "#" 0 A_GiveInventory("HoldInspect",1)
+
+	Dropper:
+		GLOA A 0 A_JumpIfInventory("VietDoomDurabilityDisabled", 1,"Ready")
+		919A A 0 A_Takeinventory("Zoomed",1)
+		919A A 0 A_Takeinventory("ADSmode",1)
+		919A A 0 A_ZoomFactor(1.0)
+		TNT1 A 0 A_GiveInventory("DropSKS", 1)
+		TNT1 A 0 A_SelectWeapon("Dropper")
+		Goto Ready
+	}
+}
+ACTOR SKSAmmo : Ammo
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 10
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 10
+	Inventory.Icon "WSKSA0"
+}
+
+ACTOR BayoAttack: FastProjectile
+{
+	Radius 12
+	Height 2
+	DamageType Minor
+	Projectile 
+	+FORCEXYBILLBOARD
+	+NOEXTREMEDEATH
+	+BLOODSPLATTER
+	RenderStyle Add
+	Alpha 0.6
+    Damage (random(64,64))
+    Speed 30
+	//HitObituary "$OB_IMPHIT"
+	Obituary "%o was stabbed by %k."
+	SeeSound "none"
+	DeathSound "none"
+	Decal "Crack"
+	States
+	{
+
+	Spawn:
+		TNT1 A 1 BRIGHT
+        TNT1 A 1 //A_PlaySound("weapons/gswing")
+		Stop
+	Death:
+	XDEath:
+			TNT1 A 0 A_AlertMonsters(200)
+		    PUFF A 0 A_PlaySound("BAYO", 3)
+			TNT1 A 0 A_SpawnItemEx ("PLOFT2",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
+			EXPL AAAAAA 0 A_CustomMissile ("MeleeSmoke", 0, 0, random (0, 360), 2, random (0, 360))
+			//TNT1 A 0 A_GiveToTarget("KickHasHit", 1)
+			TNT1 A 0 Radius_Quake (2, 6, 0, 5, 0)//(intensity, duration, damrad, tremrad, tid)
+			TNT1 A 10
+		Stop
+
+}
+
+}
+ACTOR SKSPickUp: BDWeaponSpawner
+{
+	Inventory.PickupMessage "You got the \ceSKS! \c-(slot 4)"
+	Inventory.PickupSound "SSG/Draw"
+	//scale 0.74
+	States
+	{
+
+	Spawn:
+		P3ST A 0
+		WSKS A 1
+		P3ST A 0 A_ChangeFlag("THRUACTORS", 0)
+	Stay:
+		WSKS A -1
+		Stop
+
+	Pickup:
+		P3ST A 0
+		P3ST A 0 A_JumpIfInventory("SKS", 1, "AmmoOnly")
+	PickupNormal:
+		P3ST A 0 A_GiveInventory("SKS", 1)
+		P3ST A 0 A_JumpIfInventory("VietDoomDurabilityDisabled", 1, 1)
+		P3ST A 0 A_GiveInventory("SKSDurability", 600)
+		P3ST A 0 A_Giveinventory("PB_HighCalMag", 10)
+		Stop
+
+	AmmoOnly:
+		P3ST A 0
+		P3ST A 0 A_Giveinventory("PB_HighCalMag", 10)
+		Stop
+
+}
+
+
+}
+Actor SKSReloadToken : bd_Token {
+}
+ACTOR NeverSelectedSKS : bd_Token {
+}
+ACTOR SKSEmpty : bd_Token {
+}
+Actor SKSSelected : bd_Token {
+
+
+}
+
+ACTOR SKSPickUpHC: CustomInventory
+{
+	+INVENTORY.NOSCREENFLASH
+	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
+	Inventory.Icon ""
+	Inventory.Pickupsound ""
+	Radius 16
+	Height 8
+	//scale 0.74
+	+THRUACTORS
+	States
+	{
+	Spawn:
+		WSKS A 30
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		WSKS A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_jumpIfInventory("SKS", 1, "Respawn2")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
+		Goto Picks
+	Picks:
+		TNT1 A 0
+		TNT1 A 0 A_Print("You got the \ceSKS! \c-(Bulk: 4)\n Condition: \cCPristine")
+		TNT1 A 0 A_GiveInventory("SKS", 1)
+		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
+		TNT1 A 0 A_GiveInventory("SKSDurability", 600)
+		TNT1 A 0 A_SelectWeapon("SKS")
+		Stop
+	Respawn:
+		TNT1 A 35
+		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC")
+		Stop
+	Respawn2:
+		TNT1 A 35
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC")
+		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
+	}
+}
+
+ACTOR SKSPickUpHC_90: CustomInventory
+{
+	+INVENTORY.NOSCREENFLASH
+	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
+	Inventory.Icon ""
+	Inventory.Pickupsound ""
+	Radius 16
+	Height 8
+	//scale 0.74
+	+THRUACTORS
+	States
+	{
+	Spawn:
+		WSKS A 30
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		WSKS A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_jumpIfInventory("SKS", 1, "Respawn2")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
+		Goto Picks
+	Picks:
+		TNT1 A 0
+		TNT1 A 0 A_Print("You got the \ceSKS! \c-(Bulk: 4)\n Condition: \cDExcellent")
+		TNT1 A 0 A_GiveInventory("SKS", 1)
+		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
+		TNT1 A 0 A_GiveInventory("SKSDurability", random(540,599))
+		TNT1 A 0 A_SelectWeapon("SKS")
+		Stop
+	Respawn:
+		TNT1 A 35
+		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_90")
+		Stop
+	Respawn2:
+		TNT1 A 35
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_90")
+		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
+	}
+}
+
+ACTOR SKSPickUpHC_80: CustomInventory
+{
+	+INVENTORY.NOSCREENFLASH
+	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
+	Inventory.Icon ""
+	Inventory.Pickupsound ""
+	Radius 16
+	Height 8
+	//scale 0.74
+	+THRUACTORS
+	States
+	{
+	Spawn:
+		WSKS A 30
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		WSKS A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_jumpIfInventory("SKS", 1, "Respawn2")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
+		Goto Picks
+	Picks:
+		TNT1 A 0
+		TNT1 A 0 A_Print("You got the \ceSKS! \c-(Bulk: 4)\n Condition: \cDVery Good")
+		TNT1 A 0 A_GiveInventory("SKS", 1)
+		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
+		TNT1 A 0 A_GiveInventory("SKSDurability", random(480, 559))
+		TNT1 A 0 A_SelectWeapon("SKS")
+		Stop
+	Respawn:
+		TNT1 A 35
+		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_80")
+		Stop
+	Respawn2:
+		TNT1 A 35
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_80")
+		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
+	}
+}
+
+ACTOR SKSPickUpHC_70: CustomInventory
+{
+	+INVENTORY.NOSCREENFLASH
+	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
+	Inventory.Icon ""
+	Inventory.Pickupsound ""
+	Radius 16
+	Height 8
+	//scale 0.74
+	+THRUACTORS
+	States
+	{
+	Spawn:
+		WSKS A 30
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		WSKS A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_jumpIfInventory("SKS", 1, "Respawn2")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
+		Goto Picks
+	Picks:
+		TNT1 A 0
+		TNT1 A 0 A_Print("You got the \ceSKS! \c-(Bulk: 4)\n Condition: \cDGood")
+		TNT1 A 0 A_GiveInventory("SKS", 1)
+		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
+		TNT1 A 0 A_GiveInventory("SKSDurability", random(420,479))
+		TNT1 A 0 A_SelectWeapon("SKS")
+		Stop
+	Respawn:
+		TNT1 A 35
+		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_70")
+		Stop
+	Respawn2:
+		TNT1 A 35
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_70")
+		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
+	}
+}
+
+ACTOR SKSPickUpHC_60: CustomInventory
+{
+	+INVENTORY.NOSCREENFLASH
+	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
+	Inventory.Icon ""
+	Inventory.Pickupsound ""
+	Radius 16
+	Height 8
+	//scale 0.74
+	+THRUACTORS
+	States
+	{
+	Spawn:
+		WSKS A 30
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		WSKS A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_jumpIfInventory("SKS", 1, "Respawn2")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
+		Goto Picks
+	Picks:
+		TNT1 A 0
+		TNT1 A 0 A_Print("You got the \ceSKS! \c-(Bulk: 4)\n Condition: \cKFair")
+		TNT1 A 0 A_GiveInventory("SKS", 1)
+		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
+		TNT1 A 0 A_GiveInventory("SKSDurability", random(360,419))
+		TNT1 A 0 A_SelectWeapon("SKS")
+		Stop
+	Respawn:
+		TNT1 A 35
+		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_60")
+		Stop
+	Respawn2:
+		TNT1 A 35
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_60")
+		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
+	}
+}
+
+ACTOR SKSPickUpHC_50: CustomInventory
+{
+	+INVENTORY.NOSCREENFLASH
+	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
+	Inventory.Icon ""
+	Inventory.Pickupsound ""
+	Radius 16
+	Height 8
+	//scale 0.74
+	+THRUACTORS
+	States
+	{
+	Spawn:
+		WSKS A 30
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		WSKS A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_jumpIfInventory("SKS", 1, "Respawn2")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
+		Goto Picks
+	Picks:
+		TNT1 A 0
+		TNT1 A 0 A_Print("You got the \ceSKS! \c-(Bulk: 4)\n Condition: \ciWorn")
+		TNT1 A 0 A_GiveInventory("SKS", 1)
+		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
+		TNT1 A 0 A_GiveInventory("SKSDurability", random(300,359))
+		TNT1 A 0 A_SelectWeapon("SKS")
+		Stop
+	Respawn:
+		TNT1 A 35
+		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_50")
+		Stop
+	Respawn2:
+		TNT1 A 35
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_50")
+		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
+	}
+}
+
+ACTOR SKSPickUpHC_40: CustomInventory
+{
+	+INVENTORY.NOSCREENFLASH
+	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
+	Inventory.Icon ""
+	Inventory.Pickupsound ""
+	Radius 16
+	Height 8
+	//scale 0.74
+	+THRUACTORS
+	States
+	{
+	Spawn:
+		WSKS A 30
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		WSKS A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_jumpIfInventory("SKS", 1, "Respawn2")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
+		Goto Picks
+	Picks:
+		TNT1 A 0
+		TNT1 A 0 A_Print("You got the \ceSKS! \c-(Bulk: 4)\n Condition: \ciHeavily Worn")
+		TNT1 A 0 A_GiveInventory("SKS", 1)
+		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
+		TNT1 A 0 A_GiveInventory("SKSDurability", random(240,299))
+		TNT1 A 0 A_SelectWeapon("SKS")
+		Stop
+	Respawn:
+		TNT1 A 35
+		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_40")
+		Stop
+	Respawn2:
+		TNT1 A 35
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_40")
+		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
+	}
+}
+
+ACTOR SKSPickUpHC_30: CustomInventory
+{
+	+INVENTORY.NOSCREENFLASH
+	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
+	Inventory.Icon ""
+	Inventory.Pickupsound ""
+	Radius 16
+	Height 8
+	//scale 0.74
+	+THRUACTORS
+	States
+	{
+	Spawn:
+		WSKS A 30
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		WSKS A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_jumpIfInventory("SKS", 1, "Respawn2")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
+		Goto Picks
+	Picks:
+		TNT1 A 0
+		TNT1 A 0 A_Print("You got the \ceSKS! \c-(Bulk: 4)\n Condition: \caBad")
+		TNT1 A 0 A_GiveInventory("SKS", 1)
+		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
+		TNT1 A 0 A_GiveInventory("SKSDurability", random(180, 239))
+		TNT1 A 0 A_SelectWeapon("SKS")
+		Stop
+	Respawn:
+		TNT1 A 35
+		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_30")
+		Stop
+	Respawn2:
+		TNT1 A 35
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_30")
+		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
+	}
+}
+
+ACTOR SKSPickUpHC_20: CustomInventory
+{
+	+INVENTORY.NOSCREENFLASH
+	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
+	Inventory.Icon ""
+	Inventory.Pickupsound ""
+	Radius 16
+	Height 8
+	//scale 0.74
+	+THRUACTORS
+	States
+	{
+	Spawn:
+		WSKS A 30
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		WSKS A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_jumpIfInventory("SKS", 1, "Respawn2")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
+		Goto Picks
+	Picks:
+		TNT1 A 0
+		TNT1 A 0 A_Print("You got the \ceSKS! \c-(Bulk: 4)\n Condition: \caCritical")
+		TNT1 A 0 A_GiveInventory("SKS", 1)
+		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
+		TNT1 A 0 A_GiveInventory("SKSDurability", random(120,179))
+		TNT1 A 0 A_SelectWeapon("SKS")
+		Stop
+	Respawn:
+		TNT1 A 35
+		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_20")
+		Stop
+	Respawn2:
+		TNT1 A 35
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_20")
+		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
+	}
+}
+
+ACTOR SKSPickUpHC_10: CustomInventory
+{
+	+INVENTORY.NOSCREENFLASH
+	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
+	Inventory.Icon ""
+	Inventory.Pickupsound ""
+	Radius 16
+	Height 8
+	//scale 0.74
+	+THRUACTORS
+	States
+	{
+	Spawn:
+		WSKS A 30
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		WSKS A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_jumpIfInventory("SKS", 1, "Respawn2")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
+		Goto Picks
+	Picks:
+		TNT1 A 0
+		TNT1 A 0 A_Print("You got the \ceSKS! \c-(Bulk: 4)\n Condition: \cgAlmost Broken")
+		TNT1 A 0 A_GiveInventory("SKS", 1)
+		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
+		TNT1 A 0 A_GiveInventory("SKSDurability", random(60,119))
+		TNT1 A 0 A_SelectWeapon("SKS")
+		Stop
+	Respawn:
+		TNT1 A 35
+		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_10")
+		Stop
+	Respawn2:
+		TNT1 A 35
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_10")
+		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
+	}
+}
+
+ACTOR SKSPickUpHC_5: CustomInventory
+{
+	+INVENTORY.NOSCREENFLASH
+	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
+	Inventory.Icon ""
+	Inventory.Pickupsound ""
+	Radius 16
+	Height 8
+	//scale 0.74
+	+THRUACTORS
+	States
+	{
+	Spawn:
+		WSKS A 30
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		WSKS A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_jumpIfInventory("SKS", 1, "Respawn2")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
+		Goto Picks
+	Picks:
+		TNT1 A 0
+		TNT1 A 0 A_Print("You got the \ceSKS! \c-(Bulk: 4)\n Condition: \cgBroken")
+		TNT1 A 0 A_GiveInventory("SKS", 1)
+		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
+		TNT1 A 0 A_GiveInventory("SKSDurability", random(30,59))
+		TNT1 A 0 A_SelectWeapon("SKS")
+		Stop
+	Respawn:
+		TNT1 A 35
+		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_5")
+		Stop
+	Respawn2:
+		TNT1 A 35
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_5")
+		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
+	}
+}
+
+ACTOR SKSPickUpHC_trash: CustomInventory
+{
+	+INVENTORY.NOSCREENFLASH
+	Inventory.PickupMessage ""
+	+INVENTORY.QUIET
+	Inventory.Icon ""
+	Inventory.Pickupsound ""
+	Radius 16
+	Height 8
+	//scale 0.74
+	+THRUACTORS
+	States
+	{
+	Spawn:
+		WSKS A 30
+		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
+		WSKS A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_jumpIfInventory("SKS", 1, "Respawn2")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
+		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
+		Goto Picks
+	Picks:
+		TNT1 A 0
+		TNT1 A 0 A_Print("You got the \ceSKS! \c-(Bulk: 4)\n Condition: \crTrash")
+		TNT1 A 0 A_GiveInventory("SKS", 1)
+		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
+		TNT1 A 0 A_GiveInventory("SKSDurability", random(1,29))
+		TNT1 A 0 A_SelectWeapon("SKS")
+		Stop
+	Respawn:
+		TNT1 A 35
+		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_trash")
+		Stop
+	Respawn2:
+		TNT1 A 35
+		TNT1 A 0 A_SpawnItem("SKSPickUpHC_trash")
+		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
+	}
+}
+
+Actor SKSDestroyed : bd_Token {}
+
+

@@ -1,0 +1,278 @@
+class PB_KillstreakMode : Inventory
+{
+	Default
+	{
+		Inventory.MaxAmount 1;
+		+INVENTORY.AUTOACTIVATE;
+		+INVENTORY.HUBPOWER;
+	}
+}
+
+class PB_KillstreakFlare : Inventory
+{
+	Default
+	{
+		Inventory.MaxAmount 1;
+		Inventory.PickupSound "misc/p_pkup";
+		+FLOATBOB;
+		+INVENTORY.AUTOACTIVATE;
+		floatbobstrength 1.2;
+		Scale 0.2;
+		StencilColor "Yellow";
+	}
+
+	override bool Use(bool pickup)
+	{
+		if (pickup && Owner && Owner is "PlayerPawn")
+		{
+			let plr = PlayerPawn(Owner);
+			if (plr && !plr.FindInventory("PB_KillstreakMode"))
+			{
+				plr.GiveInventory("PB_KillstreakMode", 1);
+				if (KSHUDMessageHandler.BigmsgOn())
+					KSHUDMessageHandler.PlainMsg(
+						plr.PlayerNumber(), "BIGFONT", "Streak active!", (240, 120), (480, 360), -1, (0, 0), Font.CR_UNTRANSLATED,
+						(0.2, 3, 0.5), 0, 11, BaseStatusBar.HUDMSGLayer_OverHUD);
+				else plr.A_Print("Streak active!", 2.0);
+			}
+		}
+		return true;
+	}
+
+	States
+	{
+	Spawn:
+		KIST ABCDEFGHIJKLMNOPQRST 2 bright;
+		Loop;
+	}
+}
+
+class PB_KillStreakPowerUp : Inventory
+{
+	Default
+	{
+		+INVENTORY.ALWAYSPICKUP;
+		+INVENTORY.AUTOACTIVATE;
+		Inventory.PickupSound "misc/p_pkup";
+		Inventory.PickupMessage "Reward!";
+		Inventory.MaxAmount 100;
+	}
+
+	override bool Use(bool pickup)
+	{
+		if (!Owner || !(Owner is "PlayerPawn")) return true;
+		let plr = PlayerPawn(Owner);
+		String className, msg;
+		bool hadPending;
+		KSHUDMessageHandler.KS_TakePending(plr, className, msg, hadPending);
+		if (!hadPending)
+			PBRollReward(plr, className, msg);
+		if (className == "")
+			return true;
+		Class<Inventory> rewardClass = className;
+		if (!rewardClass)
+		{
+			className = "PB_Stimpack";
+			msg = "Stimpack (pool empty).";
+		}
+		if (className == "PB_Backpack")
+			GrantKillstreakBackpack(plr);
+		else
+			plr.GiveInventory(className, 1);
+		if (!KSHUDMessageHandler.BigmsgOn())
+			plr.A_Print(msg, 2.0);
+		return true;
+	}
+
+	States
+	{
+	Spawn:
+		MEGA A 6 bright;
+		MEGA B 6 bright;
+		Loop;
+	}
+
+	static bool PBCvarItem(PlayerPawn p, String n)
+	{
+		if (!p || !p.player) return true;
+		let c = CVar.GetCVar(n, p.player);
+		return c == null || c.GetBool();
+	}
+
+	static int PBCvarInt(PlayerPawn p, String n, int def, int lo, int hi)
+	{
+		if (!p || !p.player) return def;
+		let c = CVar.GetCVar(n, p.player);
+		int v = c ? c.GetInt() : def;
+		return clamp(v, lo, hi);
+	}
+
+	static bool PlayerHasAnyBackpackToken(PlayerPawn plr)
+	{
+		if (!plr) return false;
+		// PDA staging: backpack raises ammo caps; no GotAPack token.
+		return plr.GetAmmoCapacity("PistolBullets") > 200
+			|| plr.GetAmmoCapacity("PB_LowCalMag") > 400;
+	}
+
+	static void PushSupplyClass(Array<String> a, String className)
+	{
+		Class<Inventory> cls = className;
+		if (cls) a.Push(className);
+	}
+
+	static void GrantKillstreakBackpack(PlayerPawn plr)
+	{
+		if (!plr) return;
+		plr.A_StartSound("BACKPCK", CHAN_ITEM);
+		Class<Inventory> backpack = "PB_Backpack";
+		if (backpack)
+		{
+			plr.GiveInventory("PB_Backpack", 1);
+			return;
+		}
+		plr.GiveInventory("PistolBullets", 40);
+		plr.GiveInventory("PB_LowCalMag", 10);
+		plr.GiveInventory("PB_Shell", 8);
+		plr.GiveInventory("PB_Cell", 20);
+		plr.GiveInventory("PB_RocketAmmo", 4);
+		plr.GiveInventory("PB_GrenadeAmmo", 2);
+		plr.GiveInventory("PB_StunGrenadeAmmo", 1);
+	}
+
+	static String SuppliesRewardMsg(String pick)
+	{
+		if (pick == "HealthPinataPermL2" || pick == "HealthPinataPermL3") return "Health bonus!";
+		if (pick == "ArmorPinataL1" || pick == "ArmorPinataL2") return "Armor bonus!";
+		if (pick == "ClipPinata") return "Clip pinata!";
+		if (pick == "ShellPinata") return "Shell pinata!";
+		if (pick == "CellPinata") return "Cell pinata!";
+		if (pick == "RocketPinata") return "Rocket pinata!";
+		if (pick == "CartridgePinata") return "Cartridge pinata!";
+		if (pick == "GasPinata") return "Gas pinata!";
+		if (pick == "GrenadePinata") return "Grenade pinata!";
+		return "Bonus supplies!";
+	}
+
+	static void PushIf(Array<String> a, String itemCvar, String className, PlayerPawn p)
+	{
+		Class<Inventory> cls = className;
+		if (PBCvarItem(p, itemCvar) && cls) a.Push(className);
+	}
+
+	static void PBRollReward(PlayerPawn plr, out String outClass, out String outMsg)
+	{
+		if (PBCvarItem(plr, "pb_ks_r_backpack"))
+		{
+			int bc = PBCvarInt(plr, "pb_ks_r_backpack_chance", 4, 0, 100);
+			if (bc > 0 && random(0, 99) < bc && !PlayerHasAnyBackpackToken(plr))
+			{
+				Class<Inventory> bpc = "PB_Backpack";
+				if (bpc)
+				{
+					outClass = "PB_Backpack";
+					outMsg = "Backpack!";
+					return;
+				}
+			}
+		}
+
+		if (PBCvarItem(plr, "pb_ks_r_supplies"))
+		{
+			int sc = PBCvarInt(plr, "pb_ks_r_supplies_chance", 20, 0, 100);
+			if (sc > 0 && random(0, 99) < sc)
+			{
+				Array<String> sup;
+				PushSupplyClass(sup, "HealthPinataPermL2");
+				PushSupplyClass(sup, "HealthPinataPermL3");
+				PushSupplyClass(sup, "ArmorPinataL1");
+				PushSupplyClass(sup, "ArmorPinataL2");
+				PushSupplyClass(sup, "ClipPinata");
+				PushSupplyClass(sup, "ShellPinata");
+				PushSupplyClass(sup, "CellPinata");
+				PushSupplyClass(sup, "RocketPinata");
+				PushSupplyClass(sup, "CartridgePinata");
+				PushSupplyClass(sup, "GasPinata");
+				PushSupplyClass(sup, "GrenadePinata");
+				if (sup.Size() > 0)
+				{
+					String sp = sup[random(0, sup.Size() - 1)];
+					outClass = sp;
+					outMsg = SuppliesRewardMsg(sp);
+					return;
+				}
+			}
+		}
+
+		Array<String> pool;
+		PushIf(pool, "pb_ks_r_haste",     "PB_KSHasteSphere",         plr);
+		PushIf(pool, "pb_ks_r_double",    "PB_KSDoubleSphere",         plr);
+		PushIf(pool, "pb_ks_r_invuln",   "PB_KSInvulnerabilitySphere", plr);
+		PushIf(pool, "pb_ks_r_mega",     "EnergySphere",         plr);
+		PushIf(pool, "pb_ks_r_megaberserk", "MegaBerserk",        plr);
+		PushIf(pool, "pb_ks_r_life",     "LifeSphere",           plr);
+		PushIf(pool, "pb_ks_r_medi",     "PB_Medikit",             plr);
+		PushIf(pool, "pb_ks_r_melee",    "DemonStrengthRune",    plr);
+		PushIf(pool, "pb_ks_r_coffee",   "CoffeeTime",           plr);
+		PushIf(pool, "pb_ks_r_timesphere","TFST",                plr);
+		PushIf(pool, "pb_ks_r_familiar", "FamiliarSummon",       plr);
+		PushIf(pool, "pb_ks_r_guardsphere","PB_GuardsphereST",   plr);
+		PushIf(pool, "pb_ks_r_crucifix", "Crucifix",             plr);
+		PushIf(pool, "pb_ks_r_regensphere","RegenSphere",        plr);
+		PushIf(pool, "pb_ks_r_deflectionsphere","DeflectionSphere", plr);
+		PushIf(pool, "pb_ks_r_lifeshield","LifeshieldSphere",    plr);
+		PushIf(pool, "pb_ks_r_electricsphere","ElectricAuraSphere", plr);
+		PushIf(pool, "pb_ks_r_legendsphere","LegendSphere",      plr);
+		PushIf(pool, "pb_ks_r_bootsnorth", "BootsOfTheNorth",        plr);
+		PushIf(pool, "pb_ks_r_bracers",    "BracersOfForce",         plr);
+		PushIf(pool, "pb_ks_r_deadbook",   "BookOfTheDead",          plr);
+		PushIf(pool, "pb_ks_r_fireaura",   "FireAuraSphere",         plr);
+		PushIf(pool, "pb_ks_r_flight",    "FlightSphere",            plr);
+		PushIf(pool, "pb_ks_r_frostaura", "FrostAuraSphere",         plr);
+		PushIf(pool, "pb_ks_r_wraithhand","HandOfTheWraith",         plr);
+		PushIf(pool, "pb_ks_r_lichskull", "ArtiLichSkull",           plr);
+		PushIf(pool, "pb_ks_r_pentacle",  "PentacleOfProjection",    plr);
+		PushIf(pool, "pb_ks_r_reflector", "ReflectorSphere",         plr);
+		PushIf(pool, "pb_ks_r_megarig",  "PB_MegaRigSphere",        plr);
+
+		if (pool.size() < 1)
+		{
+			outClass = "";
+			outMsg   = "";
+			return;
+		}
+		int i  = random(0, pool.size() - 1);
+		String pick = pool[i];
+		outClass = pick;
+		if (pick == "PB_KSHasteSphere") outMsg   = "Haste!";
+		else if (pick == "PB_KSDoubleSphere") outMsg = "Doom sphere!";
+		else if (pick == "PB_KSInvulnerabilitySphere") outMsg = "Invulnerability!";
+		else if (pick == "EnergySphere") outMsg = "Energy sphere!";
+		else if (pick == "MegaBerserk") outMsg  = "Mega berserk!";
+		else if (pick == "LifeSphere") outMsg  = "Life sphere!";
+		else if (pick == "PB_Medikit") outMsg    = "Medikit!";
+		else if (pick == "DemonStrengthRune") outMsg = "Demon strength!";
+		else if (pick == "CoffeeTime") outMsg = "Coffee time!";
+		else if (pick == "TFST") outMsg = "Time sphere!";
+		else if (pick == "FamiliarSummon") outMsg = "RoboDog companion!";
+		else if (pick == "PB_GuardsphereST") outMsg = "Guard sphere!";
+		else if (pick == "Crucifix") outMsg = "Crucifix!";
+		else if (pick == "RegenSphere") outMsg = "Regen sphere!";
+		else if (pick == "DeflectionSphere") outMsg = "Deflection sphere!";
+		else if (pick == "LifeshieldSphere") outMsg = "Lifeshield!";
+		else if (pick == "ElectricAuraSphere") outMsg = "Electric aura!";
+		else if (pick == "LegendSphere") outMsg = "Legend sphere!";
+		else if (pick == "BootsOfTheNorth") outMsg = "Boots of the North!";
+		else if (pick == "BracersOfForce") outMsg = "Bracers of force!";
+		else if (pick == "BookOfTheDead") outMsg = "Book of the Dead!";
+		else if (pick == "FireAuraSphere") outMsg = "Fire aura!";
+		else if (pick == "FlightSphere") outMsg = "Flight!";
+		else if (pick == "FrostAuraSphere") outMsg = "Frost aura!";
+		else if (pick == "HandOfTheWraith") outMsg = "Hand of the Wraith!";
+		else if (pick == "ArtiLichSkull") outMsg = "Lich skull!";
+		else if (pick == "PentacleOfProjection") outMsg = "Pentacle!";
+		else if (pick == "ReflectorSphere") outMsg = "Reflector sphere!";
+		else if (pick == "PB_MegaRigSphere") outMsg = "HYPERWEAPON RIG — 30 seconds!";
+		else outMsg = "Power-up!";
+	}
+}

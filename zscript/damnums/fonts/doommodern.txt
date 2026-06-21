@@ -1,0 +1,37 @@
+/*
+ * DamNums: by Xaser Acheron
+ *
+ * Doom Modern font.
+ */
+
+class DamNumFontModern : DamNumFont
+{
+	Default
+	{
+		DamNumFont.Prefix "_M";
+		DamNumFont.DefaultTranslation "DamWhite";
+		Scale 1.0;
+		Alpha 1.0;
+		RenderStyle 'Add';
+	}
+	States
+	{
+	Spawn:
+		_M11 A 0;
+		_M21 A 0;
+		_M22 A 0;
+		_M31 A 0;
+		_M32 A 0;
+		_M33 A 0;
+		_M41 A 0;
+		_M42 A 0;
+		_M43 A 0;
+		_M44 A 0;
+		_M51 A 0;
+		_M52 A 0;
+		_M53 A 0;
+		_M54 A 0;
+		_M55 A 0;
+		Stop;
+	}
+}

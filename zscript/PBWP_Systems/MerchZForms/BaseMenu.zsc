@@ -53,9 +53,6 @@ class MerchMenuGenericMenu : GenericMenu {
 class MerchMenuEventHandlerMenu ui {
 	MerchMenuFrame mainFrame;
 
-	protected bool useCustomCursor;
-	protected string customCursor;
-
 	virtual void init() {
 		mainFrame = new("MerchMenuFrame");
 		mainFrame.init((0, 0), (320, 200));
@@ -84,10 +81,6 @@ class MerchMenuEventHandlerMenu ui {
 
 	void doDraw() {
 		drawer();
-
-		if (useCustomCursor) {
-			Screen.DrawTexture(TexMan.checkForTexture(customCursor, TexMan.Type_Any), true, inputProc_MouseX, inputProc_MouseY);
-		}
 	}
 
 	protected virtual void drawer() {

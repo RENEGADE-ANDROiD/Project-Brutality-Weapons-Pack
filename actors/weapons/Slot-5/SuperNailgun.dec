@@ -1,18 +1,10 @@
-Actor SNGUnloaded : Inventory {
-Inventory.MaxAmount 1
-}
+Actor SNGUnloaded : Inventory { Inventory.MaxAmount 1 }
 
-Actor NailFireMode : Inventory {
-Inventory.MaxAmount 1
-}
+Actor NailFireMode : Inventory { Inventory.MaxAmount 1 }
 
-Actor RespectSNG : Inventory {
-Inventory.MaxAmount 1
-}
+Actor RespectSNG : Inventory { Inventory.MaxAmount 1 }
 
-Actor RespectSNGDone : Inventory {
-Inventory.MaxAmount 1
-}
+Actor RespectSNGDone : Inventory { Inventory.MaxAmount 1 }
 
 ACTOR SNGAmmo : Ammo
 {
@@ -63,7 +55,7 @@ Actor SuperNailgun : PB_WeaponBase {
 
 	Ready:
 		TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
-		TNT1 A 0 PB_RespectIfNeeded
+		TNT1 A 0 { PB_RespectIfNeeded; }
 	WeaponRespect:
 		TNT1 A 0 {
 			A_SetRoll(0);
@@ -76,7 +68,7 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_GiveInventory("RespectSNGDone",1)
 		TNT1 A 0 A_GiveInventory("SNGAmmo", 100)
 		SNRE ABCDEFGHIIIIIIIJK 1 A_DoPBWeaponAction
-		TNT1 A 0 A_PlaysoundEx("weapons/riflemagslap", "Auto")
+		TNT1 A 0 A_PlaysoundEx("weapons/riflemagslap", CHAN_AUTO)
 		SNRE LMNOPPPQRSTUVWXYZ  1 A_DoPBWeaponAction
 		SNR1 AB 1 A_DoPBWeaponAction
 		TNT1 A 0 A_Playsound("weapons/shotgun/detach", 50)
@@ -109,6 +101,9 @@ Actor SuperNailgun : PB_WeaponBase {
 		SNSU A 0 A_JumpIfInventory("SNGUnloaded",1,2)
 		SNSE A 0
 	   "####" ABCDEFG 1
+			TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+			Goto Ready3
+	ReadySettle:
 	Ready3:
 		TNT1 A 0 {
 			A_WeaponOffset(0,32);
@@ -138,8 +133,9 @@ Actor SuperNailgun : PB_WeaponBase {
 		    }
 	   SNSU A 0 A_JumpIfInventory("SNGUnloaded",1,2)
 	   SNSE A 0
-	  "####" GFEDCBA 1
-	   TNT1 A 0 A_Lower
+	   Goto DeselectDown
+	DeselectDown:
+				TNT1 A 0 A_Lower(120)
 	   Wait
 
     Select:
@@ -157,8 +153,8 @@ Actor SuperNailgun : PB_WeaponBase {
 	   TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 	   Goto SelectFirstPersonLegs
 	   SelectContinue:
-	   TNT1 A 0 A_Raise
-	   Wait
+	   		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+	   		Goto Ready3
 
 	WeaponSpecial:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
@@ -205,7 +201,7 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_FireProjectile("PB_SMGNail")
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
-		TNT1 A 0 PB_WeaponRecoil(-0.6, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-0.6, 0); }
 		SNLR GHI 1
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1,1)
 		Goto Reload
@@ -215,7 +211,7 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_FireProjectile("PB_SMGNail1")
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
-		TNT1 A 0 PB_WeaponRecoil(-0.6, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-0.6, 0); }
 		SNLR GHI 1
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1, 1)
 		Goto Reload
@@ -225,7 +221,7 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_FireProjectile("PB_SMGNail2")
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
-		TNT1 A 0 PB_WeaponRecoil(-0.6, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-0.6, 0); }
 		SNLR GHI 1
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1, 1)
 		Goto Reload
@@ -235,9 +231,9 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_FireProjectile("PB_SMGNail")
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
-		TNT1 A 0 PB_WeaponRecoil(-0.6, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-0.6, 0); }
 		SNLR GHI 1
-		TNT1 A 0 PB_ReFire
+		TNT1 A 0 { PB_ReFire; }
 		Goto SpinAfterFire
 	SpinAfterFire:
 		SNLR CDECD 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
@@ -253,7 +249,7 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
-		TNT1 A 0 PB_WeaponRecoil(-1, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
 		SNLR GHI 4
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1,1)
 		Goto Reload
@@ -263,7 +259,7 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
-		TNT1 A 0 PB_WeaponRecoil(-1, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
 		SNLR GHI 3
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1,1)
 		Goto Reload
@@ -273,7 +269,7 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
-		TNT1 A 0 PB_WeaponRecoil(-1, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
 		SNLR GHI 3
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1,1)
 		Goto Reload
@@ -283,9 +279,9 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
-		TNT1 A 0 PB_WeaponRecoil(-1, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
 		SNLR GHI 2
-		TNT1 A 0 PB_ReFire("FireHoldFlame")
+		TNT1 A 0 { PB_ReFire("FireHoldFlame"); }
 		Goto SpinAfterFire
 	FireHoldFlame:
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1,1)
@@ -296,7 +292,7 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
-		TNT1 A 0 PB_WeaponRecoil(-1, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
 		SNLR GHI 1
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1, 1)
 		Goto Reload
@@ -306,7 +302,7 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
-		TNT1 A 0 PB_WeaponRecoil(-1, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
 		SNLR GHI 1
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1, 1)
 		Goto Reload
@@ -316,9 +312,9 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
-		TNT1 A 0 PB_WeaponRecoil(-1, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
 		SNLR GHI 1
-		TNT1 A 0 PB_ReFire("FireHoldFlame")
+		TNT1 A 0 { PB_ReFire("FireHoldFlame"); }
 		Goto SpinAfterFire
 
 
@@ -354,10 +350,10 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_FireProjectile("PB_SMGNail",  0, 0, 0, -8)
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 4)
 		SNLR F 1 BRIGHT
-		TNT1 A 0 PB_WeaponRecoil(-2.5, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-2.5, 0); }
 		TNT1 A 0 A_ZoomFactor (1)
 		SNLR GHI 2
-		TNT1 A 0 PB_ReFire
+		TNT1 A 0 { PB_ReFire; }
 		Goto SuperNailgunReadyToFire
 	AltFireFlame:
 		TNT1 A 0 A_PlaySound("SNFIRE", 50)
@@ -381,9 +377,9 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 4)
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
-		TNT1 A 0 PB_WeaponRecoil(-2.5, 0)
+		TNT1 A 0 { PB_WeaponRecoil(-2.5, 0); }
 		SNLR GHI 2
-		TNT1 A 0 PB_ReFire
+		TNT1 A 0 { PB_ReFire; }
 		Goto SuperNailgunReadyToFire
 
 	Reload:
@@ -405,12 +401,12 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_JumpIfInventory("SNGUnloaded", 1, "ReloadUnloaded")
 		SNRL ABCD 1 A_SetRoll(roll-2)
 		TNT1 A 0 A_FireCustomMissile("EmptyASGDrum",-5,0,8,-4)
-		TNT1 A 0 A_PlaysoundEx("weapons/shotgun/detach", "Auto")
+		TNT1 A 0 A_PlaysoundEx("weapons/shotgun/detach", CHAN_AUTO)
 		SNRL EFGH 1 A_SetRoll(roll+2)
 	ReloadUnloaded:
 		TNT1 A 0 A_TakeInventory("SNGUnloaded")
 		SNRL IJKLM 1
-		TNT1 A 0 A_PlaysoundEx("weapons/riflemagslap", "Auto")
+		TNT1 A 0 A_PlaysoundEx("weapons/riflemagslap", CHAN_AUTO)
 		SNRL NOPQR 1 A_SetRoll(roll+2)
 		SNRL STUVWX 1 A_SetRoll(roll-2)
 		TNT1 A 0 A_SetRoll(0)
@@ -422,7 +418,7 @@ Actor SuperNailgun : PB_WeaponBase {
 		Goto SuperNailgunReadyToFire
 		TNT1 A 0 A_JumpIfInventory("SNGUnloaded", 1, "SuperNailgunReadyToFire")
 		SNRL ABCD 1 A_SetRoll(roll-2)
-		TNT1 A 0 A_PlaysoundEx("weapons/shotgun/detach", "Auto")
+		TNT1 A 0 A_PlaysoundEx("weapons/shotgun/detach", CHAN_AUTO)
 		SNRL EFGH 1 A_SetRoll(roll+2)
 		TNT1 A 0 A_GiveInventory("SNGUnloaded")		
 	UnloadSequence:
@@ -531,4 +527,5 @@ Actor SuperNailgun : PB_WeaponBase {
 	   "####" G 1
 		Stop
     }
+
 }

@@ -1,0 +1,37 @@
+/*
+ * DamNums: by Xaser Acheron
+ *
+ * Raven Inventory font.
+ */
+
+class DamNumFontRaventory : DamNumFont
+{
+	Default
+	{
+		DamNumFont.Prefix "_I";
+		DamNumFont.DefaultTranslation "DamGold";
+		Scale 1.0;
+		Alpha 0.85;
+		RenderStyle 'Translucent';
+	}
+	States
+	{
+	Spawn:
+		_I11 A 0;
+		_I21 A 0;
+		_I22 A 0;
+		_I31 A 0;
+		_I32 A 0;
+		_I33 A 0;
+		_I41 A 0;
+		_I42 A 0;
+		_I43 A 0;
+		_I44 A 0;
+		_I51 A 0;
+		_I52 A 0;
+		_I53 A 0;
+		_I54 A 0;
+		_I55 A 0;
+		Stop;
+	}
+}

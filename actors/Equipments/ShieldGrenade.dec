@@ -1,6 +1,6 @@
 /////SHIELD GRENADE/////////////////////////////////////////////////////////////////////////
 
-ACTOR ShieldDeathTimer1 : Inventory {Inventory.MaxAmount 200}
+ACTOR ShieldDeathTimer1 : Inventory { Inventory.MaxAmount 200 }
 
 ACTOR ShieldGrenade: CustomInventory {
 	Game Doom
@@ -16,8 +16,9 @@ ACTOR ShieldGrenade: CustomInventory {
 		Pickup:
 			TNT1 A 0 A_GiveInventory("ShieldGrenadeAmmo",1) 
 			TNT1 A 20
-			Stop	}
+			Stop	
 		}
+}
 			
 ACTOR ShieldGrenadeAmmo : Ammo
 {
@@ -26,6 +27,7 @@ ACTOR ShieldGrenadeAmmo : Ammo
 	Ammo.BackPackAmount 1
 	Ammo.BackPackMaxAmount 6
 	Inventory.PickUpMessage ""
+	+INVENTORY.QUIET
 	Inventory.Icon SHIGA0
 	+INVENTORY.IGNORESKILL
 	Scale 0.45
@@ -64,7 +66,9 @@ ACTOR ThrownShieldGrenade {
 			Death:	
 				TNT1 A 0 A_Facetarget
 				TNT1 A 0 A_SpawnItemEx ("ShieldSpawnerPlacedCover", 0, 68, 0, 0, 0, 0, -270, SXF_NOCHECKPOSITION)
-				Stop	}}	
+				Stop
+		}
+}
 ACTOR ShieldHit {
 	Scale 0.15
 	Alpha 1
@@ -80,8 +84,8 @@ ACTOR ShieldHit {
 				VINR A 0 A_FadeOut(0.1)
 				VINR A 1 A_SetScale(ScaleX+0.15, ScaleY+0.15)
 				Loop
-			}}
-			
+		}
+}
 actor ShieldPart {
 	Radius 8
 	Height 9
@@ -118,8 +122,8 @@ actor ShieldPart {
 			Death:
 				TNT1 A 2
 				stop
-			}}
-			
+		}
+}
 actor ShieldPartVisual {
 	Radius 8
 	Height 8
@@ -140,8 +144,8 @@ actor ShieldPartVisual {
 				TNT1 A 0 A_SpawnItemEx ("ShieldHit", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
 				TNT1 A 2
 				stop
-			}}
-			
+		}
+}
 actor ShieldSpawnerPlacedCover {
 	Radius 60
 	Height 50
@@ -181,8 +185,8 @@ actor ShieldSpawnerPlacedCover {
 			Death:
 				TNT1 A 0 A_PlaySound("grenade/spawn/shield")
 				Stop
-			}}
-			
+		}
+}
 actor ShieldSpawner5up {
 	Radius 2
 	Height 2
@@ -200,8 +204,8 @@ actor ShieldSpawner5up {
 				TNT1 A 0 A_SpawnItemEx ("ShieldPart", 0, 0, 48, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
 				TNT1 A 0 A_SpawnItemEx ("ShieldPart", 0, 0, 64, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
 				stop
-			}}
-			
+		}
+}
 actor ShieldSpawner4up {
 	Radius 2
 	Height 2
@@ -218,4 +222,6 @@ actor ShieldSpawner4up {
 				TNT1 A 0 A_SpawnItemEx ("ShieldPart", 0, 0, 40, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
 				TNT1 A 0 A_SpawnItemEx ("ShieldPart", 0, 0, 56, 0, 0, 0, 0, SXF_NOCHECKPOSITION)
 				stop
-			}}
+		}
+
+}

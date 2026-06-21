@@ -15,5 +15,7 @@ ACTOR PBAIE_BonusPill : PB_CrueltyHPBonus Replaces PB_CrueltyHPBonus
 		BON3 AAAAABCDAAAEA 3 BRIGHT A_SetRoll(roll + 10)
 		Loop
 	}
-}
 
+
+
+}

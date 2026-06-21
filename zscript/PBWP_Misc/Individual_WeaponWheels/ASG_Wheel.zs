@@ -13,7 +13,8 @@ Class PB_ASGWheel : wheelinfocontainer
 		vector2 iconScale = (0.55, 0.55);
 		
 		
-		if(requester.FindInventory("DualWieldingAutoshotguns"))
+		let asgWeap = PB_WeaponBase(requester.player.readyweapon);
+		if(asgWeap && asgWeap.akimboMode || requester.FindInventory("DualWieldingAutoshotguns"))
 		{
 			PB_SpecialWheel_Mode asg_single = new ("PB_SpecialWheel_Mode");
 			asg_single.img = "graphics/ZoomAutoShotgun/ASS2.png";
@@ -36,7 +37,7 @@ Class PB_ASGWheel : wheelinfocontainer
 			spw.Push(asg_dual);
 		}
 		
-		if(requester.FindInventory("ZOOMMode"))
+		if(requester.FindInventory("ZOOMMode") || requester.FindInventory("ZOOMToggle"))
 		{
 			PB_SpecialWheel_Mode asg_flak = new ("PB_SpecialWheel_Mode");
 			asg_flak.img = "graphics/ZoomAutoShotgun/ASS4.png";

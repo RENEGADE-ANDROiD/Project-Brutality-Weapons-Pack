@@ -157,22 +157,18 @@ ACTOR MGLinks: EMptyBrass
 	Splash:
 	TNT1 A 0
 	Stop
-	
 	Bullet_Janitor1:
 	  MGLK F 1 A_FadeOut(0.005)
 	  Loop
-	
 	Bullet_Janitor2:
 	  MGLK B 1 A_FadeOut(0.005)
 	  Loop
-	
 	Bullet_Janitor3:
 	  MGLK F 1 A_FadeOut(0.005)
 	  Loop
 	Bullet_Janitor4:
 	  MGLK B 1 A_FadeOut(0.005)
 	  Loop
-	
 	Bullet_Janitor5:
 	  MGLK F 1 A_FadeOut(0.005)
 	  Loop
@@ -1015,7 +1011,9 @@ ACTOR BlackShellCaseSpawn
 		TNT1 A 1 A_CustomMissile("DeathBlackShell",-5,0,random(-80,-100),2,random(45,80))
 		Stop
 	}
+
+
+
+
+
 }
-
-
-

@@ -183,8 +183,7 @@ class champion_BaseController : thinker
 					champion.PainChance = int(champion.PainChance * 0.25);
 					champion.bBOSS = true;
 					champion.bNOTARGET = true;
-					champion.bMISSILEMORE = true;
-					champion.bMISSILEEVENMORE = true;
+					champion.MissileChanceMult = 6.0;
 					champion.bALWAYSFAST = true;
 					champion.bQUICKTORETALIATE = true;
 					champion.bFORCEINFIGHTING = true;

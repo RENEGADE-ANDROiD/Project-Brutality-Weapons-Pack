@@ -1,0 +1,489 @@
+//FractalDoom Monsters (custom 10% chance)
+//server int ufd_max_iterations = 1;
+
+//PB Arcade 500HP//
+server int PBAT_PickupMode = 0;
+
+//DamageIndicatorsV2//
+user 	bool 	D4D_DamageIndicators 	= true;
+user 	int 	D4D_IndicatorType 		= 0;
+user 	float 	D4D_DIScale 			= 0.5;
+user 	float 	D4D_DIAlpha 			= 1.0;
+user 	int 	D4D_DITimer 			= 35;
+user	int		D4D_DIAnim				= 0;
+
+//HealthSystem//
+user bool cl_Health_FX = true;
+
+//Ouchie! by Dox//
+server bool OuchFlashEnabled = true;
+server bool OuchFlashOnlyMonsters = true;
+server bool OuchFlashSolidColor = true;
+server int OuchFlashMinDamage = 5;
+
+server int OuchFlashDuration = 3;
+server int OuchFlashBrightness = 64;
+server HandlerClass(OuchFlashAdjuster) int OuchFlashCooldown = 6;
+
+server color OuchFlash_ 			= "ff0000";
+//zdoom damagetypes
+server color OuchFlash_Hitscan 		= "ff0000";
+server color OuchFlash_BFGSplash 	= "a2ff00";
+server color OuchFlash_Drowning 	= "0030cc";
+server color OuchFlash_Slime 		= "8f0000";
+server color OuchFlash_Fire 		= "ff9900";
+server color OuchFlash_Crush 		= "a32727";
+server color OuchFlash_Telefrag 	= "73ff00";
+server color OuchFlash_Melee 		= "ffb8b8"; //"ff 00 00";
+server color OuchFlash_Railgun 		= "a6acff";
+server color OuchFlash_Ice 			= "6bf0ff";
+server color OuchFlash_Electric 	= "fff457";
+server color OuchFlash_Poison 		= "00FF00";
+//Generic modded names just in case
+server color OuchFlash_Plasma 		= "3856ff";
+server color OuchFlash_Freeze 		= "6bf0ff";
+server color OuchFlash_Bleed 		= "ff0000";
+
+//Hook//
+Server NoArchive Bool sv_allowhookshot = True;
+
+//Random Weapon Switcher//
+user bool rw_switchEnabled = false;
+user bool rw_lockWeap = false;
+user bool rw_instSwitch = false;
+
+user int rw_DelayMin = 0;
+user int rw_DelayMax = 60;
+
+//Doorbuster//
+Server bool ignoreLocks = false;
+server bool nologs = false;
+server bool infinitecharges = false;
+server int busterAmmoChance = 1;
+
+//
+server int bossbarpos = 1;
+//
+User Noarchive Int d16_crosshair = 0;
+
+//===============================================
+// Weapon spawners
+//Slot 1
+server bool PBSpawnPB_BeamKatana = True;
+server bool PBSpawnPB_ArgentSith = True;
+server bool PBSpawnBattleAxe = True;
+server bool PBSpawnRazorjack = True;
+server bool PBSpawnVorpalBlade = True;
+server bool PBSpawnPB_CryoRifle = True;
+//Slot 2
+server bool PBSpawn44PDW = True;
+server bool PBSpawnIN_Beretta = True;
+server bool PBSpawnBlack_DMR = True;
+server bool PBSpawnAdv_MaskMan_Rifle = True;
+server bool PBSpawnMaskMan_Rifle = True;
+server bool PBSpawnM1X = True;
+server bool PBSpawnFallen_Hawk = True;
+server bool PBSpawnApocalypseKiller = True;
+server bool PBSpawnSatan_Scream = True;
+server bool PBSpawnB92S = True;
+server bool PBSpawnDoomBlaster = True;
+server bool PBSpawnSilverhandsDeagle = True;
+server bool PBSpawnUZI = True;
+server bool PBSpawnTHMagnum = True;
+server bool PBSpawnHellPistol = True;
+server bool PBSpawnHellPistoler = True;
+server bool PBSpawnW_SMG = True;
+//Slot 3
+//server bool PBSpawnProsurv_LeverAction = true; // PBX: PBX_Prosurv_LeverAction
+server bool PBSpawnPB_Doom2016Shotgun = True;	//BORING GUN // Skill Issue :Cacotroll:
+server bool PBSpawnPB_CryoShotgun = True;
+//server bool PBSpawnPB_CSSG = True; // PBX: PBX_CSSG
+server bool PBSpawnRotationalSG = True;
+server bool PBSpawnHASG = True;
+server bool PBSpawnHexaLionShotgun = True;
+server bool PBSpawnDTShotgun = True;
+server bool PBSpawnM1887 = True;
+server bool PBSpawnMarauderSSG = True;
+server bool PBSpawnRotatingDoubleBarrel = True;
+server bool PBSpawnSSG = True;
+//Slot 4
+//server bool PBSpawnProsurv_Ballista = true; // PBX: PBX_Prosurv_Ballista
+server bool PBSpawnAssaultR1 = true;
+server bool PBSpawnAK47 = True;
+server bool PBSpawnPB_BoltRifle = True;
+server bool PBSpawnDark_Fate = True;
+//server bool PBSpawnHeavySniperRifle = True; // PBX: PBX_MetalSniper
+server bool PBSpawnMagnumSniperRifle = True;
+server bool PBSpawnM41A = True;
+server bool PBSpawnPB_Fusil = True;
+server bool PBSpawnPowerOverwhelming = True;
+//Slot 5
+server bool PBSpawnAutoCannon = True;
+server bool PBSpawnFire_and_IceDragonSlayer = True;
+server bool PBSpawnINNailGun = True;
+//server bool PBSpawnNeoHMG = True; // PBX: PBX_NeoHMG
+server bool PBSpawnD4Machinegun = True;
+server bool PBSpawnINMiniGun = True;
+server bool PBSpawnDukeNukemRipper = True;
+server bool PBSpawnDukePistol = True;
+server bool PBSpawnDukeShotgun = True;
+server bool PBSpawnDukeRPG = True;
+server bool PBSpawnDukePipebomb = True;
+server bool PBSpawnKar98k = True;
+server bool PBSpawnSuperNailgun = True;
+//Slot 6
+server bool PBSpawnChthonicRifle = True;
+//server bool PBSpawnCyberdemonsMissileLauncher = True; // PBX: PBX_CyberdemonRL
+server bool PBSpawnDevastator = True;
+//server bool PBSpawnPB_Excavator = True; // PBX: PBX_Excavator
+//server bool PBSpawnMastermindChaingun = True; // PBX: PBX_MastermindChaingun
+server bool PBSpawnPaingiver = True;
+server bool PBSpawnD4RocketLauncher = True;
+server bool PBSpawnSuperGrenadeLauncher = True;
+//Slot 7
+server bool PBSpawnPlasmaRifleAssault = True;
+server bool PBSpawnD4PlasmaGun = True;
+server bool PBSpawnThunderCarrierTI = True;
+server bool PBSpawnD4VortexRifle = True;
+//Slot 8
+server bool PBSpawnExtinction_Ray = True;
+server bool PBSpawnPB_DarkMatterRifle = True;
+server bool PBSpawnCalamityBlade = True;
+server bool PBSpawnPB_CalamityBlade = True;
+server bool PBSpawnPB_GaussCannon = True;
+server bool PBSpawnIon_Heavy = True;
+server bool PBSpawnPB_MancubusFlameCannon = True;
+//Slot 9
+server bool PBSpawnBioAcidLauncher = True;
+//server bool PBSpawnBallistagun = True; // PBX: PBX_Prosurv_Ballista
+server bool PBSpawnLegacyUnmaker = True;
+server bool PBSpawnStormcast = True;
+server bool PBSpawnThunderCrossbow = True;
+//Slot 0
+server bool PBSpawnAncientCrossbow = True;
+server bool PBSpawnTechBlaster = True;
+//server bool PBSpawnPB_DemonExt = True; // PBX: PBX_DemonExt
+server bool PBSpawnDemonTechMinigun = True;
+server bool PBSpawnPhaseEradicatorBFG = True;
+// Folded PB3.0 weapon packs
+server bool PBSpawnX12Shotgun = True;
+server bool PBSpawnM45Shotgun = True;
+server bool PBSpawnBFG9500 = True;
+server bool PBSpawnMP12 = True;
+server bool PBSpawnRiotShield = True;
+server bool PBSpawnTacticalNailgun = True;
+server bool PBSpawnKarnageHandgunG2 = True;
+server bool PBSpawnKarnageMP55 = True;
+server bool PBSpawnKarnageShotgunV1 = True;
+server bool PBSpawnKarnageRainmaker = True;
+server bool PBSpawnKarnageSSVXAR = True;
+server bool PBSpawnKarnageGrenadeLauncher = True;
+server bool PBSpawnKarnagePlasmastinger = True;
+// UAC / LiT master weapon folds
+server bool PBSpawnLiTRevolver = True;
+server bool PBSpawnPB_Totenheim = True;
+server bool PBSpawnPB_HYDRA = True;
+
+server bool PBSpawnVietDoom = True;
+server bool PBSpawnVietM1911 = True;
+server bool PBSpawnVietM3A1 = True;
+server bool PBSpawnVietThompson = True;
+server bool PBSpawnVietMAT49 = True;
+server bool PBSpawnVietPPSh = True;
+server bool PBSpawnVietIthaca = True;
+server bool PBSpawnVietM16 = True;
+server bool PBSpawnVietM14 = True;
+server bool PBSpawnVietXM21 = True;
+server bool PBSpawnVietAK47 = True;
+server bool PBSpawnVietSKS = True;
+server bool PBSpawnVietMosin = True;
+server bool PBSpawnVietM60 = True;
+server bool PBSpawnVietBAR = True;
+server bool PBSpawnVietRPD = True;
+server bool PBSpawnVietStoner = True;
+
+// Cyberaugumented weapon fold
+server bool PBSpawnPBWP_Warbringer = True;
+server bool PBSpawnPBWP_Nightfall = True;
+server bool PBSpawnPBWP_Intervention = True;
+server bool PBSpawnPBWP_Caduceus = True;
+server bool PBSpawnPBWP_AmnesiaProtonPhaser = True;
+server bool PBSpawnPBWP_Liquidation = True;
+server bool PBSpawnPBWP_Deracinator = True;
+server bool PBSpawnPBWP_Dismantler = True;
+server bool PBSpawnPBWP_CinerealOrdnance = True;
+server bool PBWP_Pack_Cyberaugumented = True;
+server bool PBSpawnVietRPG = True;
+server bool PBSpawnVietM79 = True;
+server bool PBSpawnVietMachete = True;
+
+// Weapon pack spawn settings — master set toggles (Option menu On/Off)
+server bool PBWP_Pack_All = True;
+server bool PBWP_Pack_GodComplex = True;
+server bool PBWP_Pack_Karnage = True;
+server bool PBWP_Pack_IN = True;
+server bool PBWP_Pack_DTECH = True;
+server bool PBWP_Pack_SCHISM = True;
+server bool PBWP_Pack_RO = True;
+server bool PBWP_Pack_D2016 = True;
+server bool PBWP_Pack_Duke = True;
+server bool PBWP_Pack_PB30 = True;
+server bool PBWP_Pack_VietDoom = True;
+server bool PB_VietDoomDurability = True;
+server bool PBWP_Pack_Freezer = True;
+//God Complex
+server bool PBSpawnDevastador = True;
+server bool PBSpawnEnragedLegendaryBFG = True;
+server bool PBSpawnGodEnragedBFG = True;
+server bool PBSpawnLegendaryAssaultShotgun = True;
+server bool PBSpawnLegendaryChainsaw = True;
+server bool PBSpawnLegendaryPlasmaticRifle = True;
+server bool PBSpawnNemesisBFG = True;
+server bool PBSpawnNemesisLMG = True;
+server bool PBSpawnLegendaryBFG10K = True;
+
+// God Complex enhancements (gameplay layer; no new keys/HUD)
+server bool pb_gc_enhancements = True;
+server bool pb_gc_rune_lite = True;
+server bool pb_gc_complex_ammo = True;
+server bool pb_gc_weapon_replacer = True;
+server bool pb_gc_sphere_pickups = True;
+server bool pb_gc_chalice = True;
+server bool pb_gc_spawn_shield_sphere = True;
+server bool pb_gc_spawn_leg_sphere = True;
+server bool pb_gc_spawn_chalice_pickup = True;
+
+//===============================================
+// Specials
+// 0 = ammo only, 1 = default weapon drops (see MENUDEF MonsterDrops)
+server int PB_WeaponDrops = 0;
+server bool FirstTimeLoadingPBWP = true;
+server bool ttwcfbex = true;
+
+// PBWP addon weapon pickup icon HUD (user cvars; defaults match legacy PBX panel position).
+user int pbwp_weaponhud_x = 0;
+user int pbwp_weaponhud_y = 0;
+user float pbwp_weaponhud_scale = 1.0;
+user float pbwp_weaponhud_alpha = 1.0;
+
+// PBWP performance (also respects PDA pb_performance_fire + pb_cheapcasings)
+user bool pbwp_fx_throttle = true;
+user bool pb_megarig_lite = true;
+
+// PDA — achievements + experience economy (PB 2022)
+server bool pb_achievements = true;
+server bool pb_xp_rewards = true;
+user bool ach_toast_enabled = true;
+user int ach_toast_position = 2;
+user int ach_toast_style = 0;
+user float ach_toast_scale = 1.0;
+user float ach_toast_opacity = 0.9;
+user int ach_toast_duration = 140;
+user int ach_toast_animation = 1;
+user int ach_toast_slide_edge = 0;
+user int ach_toast_offset_x = 0;
+user int ach_toast_offset_y = 0;
+user bool ach_sound_enabled = true;
+user int ach_sound_choice = 0;
+user int ach_color_unlocked = 3;
+user int ach_color_locked = 20;
+user int ach_color_title = 10;
+user int ach_color_description = 2;
+user int ach_color_border = 5;
+user int ach_color_border_inner = 20;
+user int ach_color_progress = 10;
+user bool ach_show_hidden = false;
+user int ach_menu_filter = 0;
+nosave string vuas_record0 = "";
+nosave string vuas_record1 = "";
+nosave string vuas_record2 = "";
+nosave string vuas_record3 = "";
+nosave string vuas_maps0 = "";
+nosave string vuas_maps1 = "";
+nosave string vuas_maps2 = "";
+nosave string vuas_maps3 = "";
+server bool vuas_encode_data = true;
+server bool vuas_cheat_detection = true;
+server bool vuas_debug = false;
+server bool dam_enabled = true;
+server bool dam_shootable = false;
+server int dam_spray = 0;
+user string dam_fontclass = "DamNumFontSquare";
+user string dam_translation = "DamRed";
+user int dam_physics = 0;
+user bool dam_usetypes = true;
+server bool isCMLoaded = false;
+// isGKLoaded — owned by glorykills-master.zip when present; do not redeclare here
+server bool isPBXLoaded = false;
+server bool pbwp_compat_dragonsector = false;
+server bool HelmetDropCVAR = true;
+server bool AllMeleeDrop = true;
+server bool FloatingVials = true;
+
+// Spawners
+server int Slot1Mask = 0;
+
+// Armors
+server bool SpawnYellowArmor = true;
+server bool SpawnPurpleArmor = true;
+server bool SpawnBlackArmor = true;
+server bool SpawnOrangeArmor = true;
+server bool SpawnWhiteArmor = true;
+server bool SpawnRedArmor = true;
+server bool SpawnCyanArmor = true;
+server bool SpawnDemonArmor = true;
+
+// Melee Items
+server bool KatanaSpawn = true;
+server bool PickaxeSpawn = true;
+server bool ImpactorSpawn = true;
+server bool ClawSpawn = true;
+server bool SentinelHammerSpawn = true;
+server bool JohnnyHandsSpawn = true;
+server bool WrenchSpawn = true;
+server bool CrowbarSpawn = true;
+server bool SledgeHammerSpawn = true;
+server bool ShockBatonSpawn = true;
+server bool MacheteSpawn = true;
+
+// Equipments
+server bool ShieldGrenadeSpawn = true;
+server bool VoidGrenadeSpawn = true;
+server bool RemoteChargesSpawn = true;
+server bool ElecPodSpawn = true;
+server bool CaltropsSpawn = true;
+server bool ShurikenSpawn = true;
+server bool BeaconSpawn = true;
+server bool FreezebotSpawn = true;
+server bool SpawnShieldSaw = true;
+server bool SpawnHookGiver = true;
+server bool SpawnFreezeNade = true;
+
+// Powerups
+server bool SpawnTimesphere = true;
+server bool SpawnGrowthsphere = true;
+server bool SpawnShrinksphere = true;
+server bool SpawnGuardsphere = true;
+server bool SpawnRegensphere = true;
+server bool SpawnDeflectionsphere = true;
+server bool SpawnElectricsphere = true;
+server bool SpawnLegendsphere = true;
+server bool SpawnCrucifix = true;
+server bool SpawnLifeShieldSphere = true;
+server bool SpawnFamiliar = true;
+
+// Weapon recoil (Gauss and other PBWP extras)
+server bool pb_weapon_recoil_extra_weapons = true;
+
+// Kill Streaks (PB 2022)
+user bool pb_ks_enable = true;
+user bool pb_ks_bigmsg = true;
+user bool pb_ks_rare = true;
+user int pb_ks_rare_chance = 15;
+user bool pb_ks_announcer = true;
+user int pb_ks_announcer_volume = 100;
+user bool pb_ks_r_haste = true;
+user bool pb_ks_r_double = true;
+user bool pb_ks_r_invuln = true;
+user bool pb_ks_r_mega = true;
+user bool pb_ks_r_megaberserk = true;
+user bool pb_ks_r_life = true;
+user bool pb_ks_r_medi = true;
+user bool pb_ks_r_melee = true;
+user bool pb_ks_r_coffee = true;
+user bool pb_ks_r_timesphere = true;
+user bool pb_ks_r_familiar = true;
+user bool pb_ks_r_guardsphere = true;
+user bool pb_ks_r_crucifix = true;
+user bool pb_ks_r_regensphere = true;
+user bool pb_ks_r_deflectionsphere = true;
+user bool pb_ks_r_lifeshield = true;
+user bool pb_ks_r_electricsphere = true;
+user bool pb_ks_r_legendsphere = true;
+user bool pb_ks_r_backpack = true;
+user int pb_ks_r_backpack_chance = 4;
+user bool pb_ks_r_supplies = true;
+user int pb_ks_r_supplies_chance = 20;
+user bool pb_ks_r_bootsnorth = true;
+user bool pb_ks_r_bracers = true;
+user bool pb_ks_r_deadbook = true;
+user bool pb_ks_r_fireaura = true;
+user bool pb_ks_r_flight = true;
+user bool pb_ks_r_frostaura = true;
+user bool pb_ks_r_wraithhand = true;
+user bool pb_ks_r_lichskull = true;
+user bool pb_ks_r_pentacle = true;
+user bool pb_ks_r_reflector = true;
+user bool pb_ks_r_megarig = true;
+user bool cl_drone_flashlight = true;
+
+// Monster Drops
+server bool IsUsingStormcastCV = false;
+
+server bool PBSpawnMSSGDrop = true;
+server bool PBSpawnALLDTechDrop = true;
+server bool PBSpawnMastermindCGDrop = true;
+server bool PBSpawnCyberdemonRLDrop = true;
+server bool PBSpawnPaingiverDrop = true;
+server bool PBSpawnMancFlameCannonDrop = true;
+server bool PBSpawnCryoRifleDrop = true;
+server bool PBSpawnThunderCrossbowDrop = true;
+server bool PBSpawnStormcastDrop = true;
+server bool PBSpawnBioAcidLauncherDrop = true;
+
+//Equipments from Monsters
+server bool EQSpawnShieldGR = true;
+
+// Champions Lite
+server int		cl_Debug				= 0;
+server int		cl_Markers				= 1;
+server float	cl_MarkerScale			= 1.08;
+server int		cl_Particles			= 1;
+server int		cl_VisualFX				= 1;
+server int		cl_Mutations			= 12;
+
+server int		cl_OverrideChance		= -1;
+
+server int		cl_weight_Bulwark		= 10;
+server int		cl_weight_Brute			= 8;
+server int		cl_weight_Swift			= 10;
+server int		cl_weight_Volatile		= 8;
+server int		cl_weight_Toxic			= 8;
+server int		cl_weight_Blink			= 7;
+server int		cl_weight_Stalker		= 8;
+server int		cl_weight_Splitter		= 7;
+server int		cl_weight_Veteran		= 6;
+
+server int		cl_weight_Giant			= 3;
+server int		cl_weight_Spectral		= 5;
+server int		cl_weight_Rampage		= 4;
+
+server noarchive int cl_debug_forced	= -1;
+
+// Weapon tilt / sway / Tilt++ cvars: defined by PB_Staging CVARINFO (do not re-register here).
+
+// PBWP tier spawn filters (PB Options → Addon Options → Weapons)
+server int pbwp_saw_filter = 0;
+server int pbwp_pistol_filter = 0;
+server int pbwp_ssg_filter = 0;
+server int pbwp_chaingun_filter = 0;
+server int pbwp_rocketlauncher_filter = 0;
+server int pbwp_plasmarifle_filter = 0;
+server int pbwp_bfg_filter = 0;
+
+// Riot Shield (PB3.0 addon folded into PBWP)
+server bool RS_AxeCheck = true;
+
+// PB 2022 tactical weapon motion (strafe tilt, movement lowering, lean)
+user bool pb_tac_enable = true;
+user bool pb_tac_ready_only = false;
+user bool pb_tac_move_only = false;
+user float pb_tac_roll_velocity = 2.0;
+user float pb_tac_roll_resistance = 0.149687;
+user bool pb_tac_roll_cap = true;
+user float pb_tac_roll_cap_value = 1.01563;
+user float pb_tac_lowering_scale = 0.5;
+user bool pb_tac_lean_enable = true;
+user float pb_tac_lean_angle = 12.0;
+user float pb_tac_lean_smoothing = 0.20;
+user float pb_tac_tilt_smoothing = 0.70;

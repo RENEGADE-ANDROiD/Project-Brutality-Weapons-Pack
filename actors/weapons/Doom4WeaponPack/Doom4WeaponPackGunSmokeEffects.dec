@@ -71,7 +71,6 @@ Actor Doom4WeaponPackGunFireSmoke : Doom4WeaponPackExplosionSmoke
 		TNT1 A 0
 		TNT1 A 0 A_CustomMissile("Doom4WeaponPackGunFireSmoke4", 7, 0, 180, 0, 0)
 		Stop	
-		
     }
 }
 

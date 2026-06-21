@@ -1,16 +1,73 @@
 version "4.14.2"
 
+#include "zscript/PB_MapStartGuard.zc"
+// Tilt++ classes/menu: provided by PB_Staging (do not duplicate here).
+#include "zscript/PBWP_Systems/PDA/PBWP_XPCompat.zs"
+
+// DamNums floating damage / XP numbers (PB 2022)
+#include "zscript/damnums/constants.txt"
+#include "zscript/damnums/damnum.txt"
+#include "zscript/damnums/events.txt"
+#include "zscript/damnums/PB_HazardDamageHud.zc"
+#include "zscript/damnums/fonts/base.txt"
+#include "zscript/damnums/fonts/doomclassic.txt"
+#include "zscript/damnums/fonts/doomsmall.txt"
+#include "zscript/damnums/fonts/doommodern.txt"
+#include "zscript/damnums/fonts/borderlands.txt"
+#include "zscript/damnums/fonts/gamedefaults.txt"
+
+// Achievements (VUAS)
+#include "zscript/Achievements/VUAS/AchievementData.zs"
+#include "zscript/Achievements/VUAS/AchievementHandler.zs"
+#include "zscript/Achievements/VUAS/AchievementPersistentTracker.zs"
+#include "zscript/Achievements/VUAS/AchievementSetup.zs"
+#include "zscript/Achievements/VUAS/AchievementCommands.zs"
+#include "zscript/Achievements/VUAS/AchievementNotification.zs"
+#include "zscript/Achievements/VUAS/AchievementRenderer.zs"
+#include "zscript/Achievements/VUAS/AchievementMenu.zs"
+#include "zscript/Achievements/VUAS/AchievementPDAView.zs"
+#include "zscript/Achievements/PB_Achievements.zc"
+#include "zscript/Achievements/PB_AchievementSetup.zs"
+#include "zscript/Achievements/PB_AchievementCombatHandler.zc"
+
+// Experience, ranks, reward spin
+#include "zscript/Items/PB_XP/PB_XPRewards.zc"
+
+// --- PDA (standalone in PBWP) ---
+#include "zscript/PB2022/PDA_InventoryTokens.zs"
+#include "zscript/PBWP_Systems/PDA/PBWP_PDA_Icons.zs"
+#include "zscript/PBWP_Systems/PDA/PBWP_PDA_Core.zc"
+#include "zscript/Items/PB_XP/PB_PDAShop.zc"
+#include "zscript/PBWP_Systems/PDA/PBWP_PDA_ShopBrowse.zc"
+#include "zscript/PBWP_Systems/PDA/PBWP_PDA_AchievementsBrowse.zc"
+
+// PBX HUD compat: cannot extend PBX_Hud from PBWP (separate ZScript translation units in 4.14).
+// PBWP_PBXHudCompat.zs kept for reference; merge weapon exceptions into PBX if needed.
+//#include "zscript/PBWP_Systems/PBX/PBWP_PBXHudCompat.zs" // superseded by PBWP_AddonWeaponHud.zs on shadowed PB_Hud.zs
+
+// PDA compat: cannot extend PB_WeaponBase from PBWP ZScript (separate TUs in 4.14).
+// Pickup unlocks use PB Staging PBPDA on PB_WeaponBase. Menu: PBWP_PDA_Core + PDAWEAP lumps.
+#include "zscript/PBWP_Systems/PBWP_PerformanceThrottle.zs"
+#include "zscript/PBWP_Core/PBWP_ModCompat.zs"
+
 // PBWP_Core
 #include "zscript/PBWP_Core/BeefHandler.zs"
+#include "zscript/PBWP_Core/PBWP_WeaponPackPresets.zs"
 #include "zscript/PBWP_Core/BeefCore.zs"
 #include "zscript/PBWP_Core/BeefJMod.zs"
 #include "zscript/PBWP_Core/BeefTokens.zs"
+#include "zscript/PBWP_Core/PBWP_OwnedTokens.zs"
 #include "zscript/PBWP_Core/PBWP_Projectiles.zs"
-
 // PBWP_Spawners
+#include "zscript/PBWP_Spawners/PBWP_SpawnFilters.zs"
 #include "zscript/PBWP_Spawners/PBWP_WeaponSpawners.zs"
+#include "zscript/PBWP_Spawners/PBWP_FoldedWeaponSpawners.zs"
+#include "zscript/PBWP_Spawners/PBWP_VietDoomSpawners.zs"
+#include "zscript/PBWP_Systems/VietDoom/PBWP_VietDoomDurability.zs"
+#include "zscript/PBWP_Spawners/PBWP_DukeMauserSpawners.zs"
+#include "zscript/PBWP_Spawners/PBWP_FireAndIceSpawners.zs"
+#include "zscript/PBWP_Weapons/DukeNukemBulletsSystem.zc"
 #include "zscript/PBWP_Spawners/PBWP_ItemSpawners.zs"
-#include "zscript/PBWP_Spawners/PBWP_MonsterSpawners.zs"
 #include "zscript/PBWP_Spawners/BeefSpawnerA.zs"
 #include "zscript/PBWP_Spawners/BeefSpawnerB.zs"
 // #include "zscript/PBWP_Core/Experiment.zs"
@@ -18,10 +75,13 @@ version "4.14.2"
 // PBWP_Systems
 // FractalDoom_Monsters (custom 10% chance)
 //#include "zscript/PBWP_Systems/FractalDoom_Monsters/FractalMonsters.zs"
-// KillStreak// 
-#include "zscript/PBWP_Systems/Killstreak/KSHandler.zc"
-#include "zscript/PBWP_Systems/Killstreak/KillStreak.zc"
-#include "zscript/PBWP_Systems/Killstreak/PBWPHUDMessage.zs"
+// Kill Streak (PB 2022)
+#include "zscript/PBWP_Systems/Killstreak/PB_Killstreak_Messages.zc"
+#include "zscript/PBWP_Systems/Killstreak/PB_Killstreak_Items.zc"
+#include "zscript/PBWP_Systems/Killstreak/PB_PowerTimeSlow.zc"
+#include "zscript/PBWP_Systems/Killstreak/PB_KillstreakThrottle.zc"
+#include "zscript/PBWP_Systems/Killstreak/PB_Killstreak_Handler.zc"
+#include "zscript/PBWP_Systems/Killstreak/FamiliarBase.zc"
 // Random Weapon Switch
 #include "zscript/PBWP_Systems/Random Weapon Switcher/ZRWSwitchMenu.zc"
 #include "zscript/PBWP_Systems/Random Weapon Switcher/ZRWSwitcher.zc"
@@ -36,43 +96,41 @@ version "4.14.2"
 #include "zscript/PBWP_Systems/DmgIndicatorV2/EventRender.zs"
 // Ouchie!
 #include "zscript/Ouchie.zs"
-// ChampionsEnemies
-#include "zscript/PBWP_Systems/champions/includes.zs"
-#include "zscript/PBWP_Systems/champions/handler.zs"
-#include "zscript/PBWP_Systems/champions/baseclass.zs"
-#include "zscript/PBWP_Systems/champions/extrafx.zs"
-#include "zscript/PBWP_Systems/champions/tokens.zs"
-#include "zscript/PBWP_Systems/champions/delayer.zs"
-#include "zscript/PBWP_Systems/champions/hybrid.zs"
+// Champions Lite (trimmed trait system from PBWPE)
+#include "zscript/champions_lite/handler.zs"
+#include "zscript/champions_lite/baseclass.zs"
+#include "zscript/champions_lite/tokens.zs"
+#include "zscript/champions_lite/fx.zs"
+#include "zscript/champions_lite/traits/trait_bulwark.zs"
+#include "zscript/champions_lite/traits/trait_brute.zs"
+#include "zscript/champions_lite/traits/trait_swift.zs"
+#include "zscript/champions_lite/traits/trait_volatile.zs"
+#include "zscript/champions_lite/traits/trait_toxic.zs"
+#include "zscript/champions_lite/traits/trait_blink.zs"
+#include "zscript/champions_lite/traits/trait_stalker.zs"
+#include "zscript/champions_lite/traits/trait_splitter.zs"
+#include "zscript/champions_lite/traits/trait_veteran.zs"
+#include "zscript/champions_lite/static.zs"
 
-#include "zscript/PBWP_Systems/champions/champs/champ_darkred.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_red.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_orange.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_yellow.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_darkgreen.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_green.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_cyan.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_blue.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_indigo.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_violet.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_pink.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_black.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_grey.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_white.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_Bronze.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_Silver.zs"
-#include "zscript/PBWP_Systems/champions/champs/champ_Gold.zs"
-#include "zscript/PBWP_Systems/champions/bundles/bundles.zs"
-#include "zscript/PBWP_Systems/champions/bundles/pickups.zs"
-//#include "zscript/PBWP_Systems/champions/bundles/games/generic.zs"
-#include "zscript/PBWP_Systems/champions/bundles/games/doom.zs"
-#include "zscript/PBWP_Systems/champions/bundles/games/heretic.zs"
-#include "zscript/PBWP_Systems/champions/bundles/games/hexen.zs"
-#include "zscript/PBWP_Systems/champions/bundles/games/strife.zs"
-#include "zscript/PBWP_Systems/champions/bundles/games/modcompat.zs"
-//#include "zscript/PBWP_Systems/champions/bundles/games/chex.zs"
+// God Complex enhancements (Phase 1 + 2)
+#include "zscript/PBWP_Systems/GC/GC_Enhancements.zs"
 
-// Custom Player Class
+// Mega Rig — multi-overlay hyperweapon prototype
+#include "zscript/PBWP_Systems/MegaRig/PB_MegaRig_Data.zs"
+#include "zscript/PBWP_Systems/MegaRig/PB_MegaRig_Weapon.zs"
+#include "zscript/PBWP_Systems/MegaRig/PB_MegaRig_Power.zs"
+
+// Quick-melee: PBWP gearbox wheel extends Staging via lump-shadowed BaseWeapon_Melee*.zs (see BaseWeapon_MeleeSystem.zs).
+
+// PBWP menu subclasses (logo, pack presets, player-class preview)
+#include "zscript/PBWP_Systems/UI/PBWP_ListMenu.zs"
+#include "zscript/PBWP_Systems/UI/PBWP_PlayerclassDisplay.zs"
+#include "zscript/PBWP_Systems/UI/PBWP_OptionMenu.zs"
+#include "zscript/PBWP_Systems/UI/PBWP_LoadSaveMenus.zs"
+#include "zscript/PBWP_Systems/UI/PBWP_PackPresetPoll.zs"
+
+// Custom Player Class — PB_PlayerPrawn (default) is provided by PB_Staging_PDA; cannot redefine in 4.14.
+// zscript/Player/ZSPlayer.zsc is kept as the PBWP-slot + PDA-start merge reference for PDA parity.
 // #include "zscript/Player/INP]layer.zc"
 #include "ZScript/Player/PBMeleePlayer.zc"
 #include "ZScript/Player/PBBIGPlayer.zc"
@@ -80,25 +138,23 @@ version "4.14.2"
 
 // PBWP_Misc
 // PowerUps
-#include "zscript/PBWP_Misc/PowerUps/PBWP_KillstreakPowerUpSpawner.zs"
 #include "zscript/PBWP_Misc/PowerUps/PBWP_Powerups.zs"
+#include "zscript/PBWP_Misc/PowerUps/Realm667Powerups.zs"
 // MONSTERS
 #include "zscript/PBWP_Misc/GORENEST.zs"
-// ElementalismBoss
-#include "zscript/PBWP_Misc/BEHOLD_BOSSES/E1_Export_1.zs"
 // Spawners ZScript
 #include "zscript/Insanity's Nightmare/ChainsawSpawn.zc"
-#include "zscript/Weapons/Slot-3/CSSG/CSSGEvent.zs"
+//#include "zscript/Weapons/Slot-3/CSSG/CSSGEvent.zs" // PBX: PBX_CSSG
 // Weapon Wheel Stuff
 #include "zscript/PBWP_Misc/Individual_WeaponWheels/PBWP_SpecialWheeltest.zs"
-#include "zscript/Weapons/Slot-3/CSSG/CSSG_Wheel.zs"
-#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExt_Wheel.zs"
+//#include "zscript/Weapons/Slot-3/CSSG/CSSG_Wheel.zs"
+//#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExt_Wheel.zs"
 #include "zscript/Insanity's Nightmare/IN_SpecialWheeltest.zs"
 #include "Zscript/PBWP_Misc/Individual_WeaponWheels/D2016Shotgun_Wheel.zs" 
 #include "Zscript/PBWP_Misc/Individual_WeaponWheels/ASG_Wheel.zs"
 // Casings
 #include "zscript/Weapons/PBWP_BulletSystem.zc"
-#include "zscript/Weapons/Slot-3/CSSG/Casings.zs"
+//#include "zscript/Weapons/Slot-3/CSSG/Casings.zs"
 #include "zscript/Insanity's Nightmare/HASGCasings.zc"
 #include "zscript/Insanity's Nightmare/IN_BulletSystem.zc"
 #include "zscript/Insanity's Nightmare/IN_SpecialProjectile.zc"
@@ -109,32 +165,42 @@ version "4.14.2"
 //#include "zscript/Items/PowerUps/PowerupsAT.zsc"
 //#include "zscript/Items/PowerUps/PowerupsAT2.zsc"
 
-// ScientistSpawner
-#include "zscript/Scientist/BloodSampleDropper.zc"
-#include "zscript/Scientist/ScientistEvent.zc"
-
-
-
 // Weapons & Etc (Testing)
 
-	// CSSG Stuff Begin
-#include "zscript/Weapons/Slot-3/CSSG/CSSG.zs"
-#include "zscript/Weapons/Slot-3/CSSG/CSSG_Upgrades.zs"
-	// CSSG Stuff End
-#include "ZScript/Weapons/Slot-4/HeavySniperRifle.zs"
-#include "ZScript/Weapons/Slot-4/M41A.zs"
-#include "ZScript/Weapons/Slot-5/NeoHMG.zs"
-#include "ZScript/Weapons/Slot-6/Excavator.zs"
+	// PBX duplicates removed — see PBWP_PBX_DEDUP.md
+#include "zscript/PBWP_Weapons/BeamKatana_Weapon.zs"
+#include "zscript/PBWP_Weapons/VorpalBlade.zs"
+#include "zscript/PBWP_Weapons/Karnage/KRG_SYS.zc"
+#include "zscript/PBWP_Weapons/Karnage/PBWP_KarnRPG7Removed.zs"
+#include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_CA_Common.zs"
+#include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_CA_Projectiles.zs"
+#include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_Warbringer.zs"
+#include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_Nightfall.zs"
+#include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_Intervention.zs"
+#include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_Caduceus.zs"
+#include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_AmnesiaProtonPhaser.zs"
+#include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_Liquidation.zs"
+#include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_Deracinator.zs"
+#include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_Dismantler.zs"
+#include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_CinerealOrdnance.zs"
+#include "zscript/Weapons/Slot-8/CalamityBlade_FX.zs"
 #include "zscript/Weapons/Slot-8/LoRCalamityBlade.zs"
-	// Demonic Exterminator Stuff Begin
-#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExt.zs"
-#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtFunctions.zs"
-#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtAttacks.zs"
-#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtProj.zs"
-#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtProj2.zs"
-#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtProj3.zs"
-#include "zscript/Weapons/Slot-0/DemonicExterminator/DemonicExtStuff.zs"
-	// Demonic Exterminator Stuff End
+#include "zscript/Weapons/Slot-8/CalamityBlade.zs"
+#include "zscript/Weapons/Slot-4/Fusil/PB_Fusil.zs"
+#include "zscript/Weapons/Slot-4/Fusil/PB_SideFusil.zs"
+#include "zscript/Weapons/Slot-8/PB_DarkMatterRifle/PB_DarkMatterRifle.zs"
+#include "zscript/PBWP_Misc/Individual_WeaponWheels/PB_DarkMatterRifle_Wheel.zs"
 
+// PB 2022 folds: tactical feel, katana shield filter, cryo shotgun modes
+#include "zscript/Weapons/PB_WeaponTacticalFeel.zc"
+#include "zscript/PBWP_Weapons/PB_KatanaShieldPlayerFilter.zc"
+#include "zscript/Effects/PBCF_CryoSlowProjectiles.zc"
+#include "zscript/Weapons/CatsFrozen/PB_CatsFrozenWeapons.zc"
+#include "zscript/Weapons/Slot-3/CryoShotgun/PB_CryoShotgun.zs"
+#include "zscript/PBWP_Misc/Individual_WeaponWheels/PB_CryoShotgun_Wheel.zs"
+#include "zscript/PBWP_Misc/Individual_WeaponWheels/HellPistoler_Wheel.zs"
+
+// Late include — extends engine Inventory (must follow other inventory/powerup modules).
+#include "zscript/PBWP_Core/PBWP_PickupMessageFix.zs"
 
 

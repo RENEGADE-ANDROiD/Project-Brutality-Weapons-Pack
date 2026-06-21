@@ -7,7 +7,8 @@ Actor HookAmmo : ammo
 	Ammo.BackPackAmount 1
 	Ammo.BackPackMaxAmount 1
 	Inventory.PickUpMessage ""
-	Inventory.Icon H00K0
+	+INVENTORY.QUIET
+	Inventory.Icon "H00KA0"
 	+INVENTORY.IGNORESKILL
 	Scale 0.45
 }
@@ -27,11 +28,12 @@ ACTOR HookGiver : CustomInventory
 		Spawn:
 			H00K A 1 A_SpawnItem("YellowFlareSmall",-1,1)
 			Loop
-		Pickup:
-			TNT1 A 0 A_GiveInventory("HookAmmo",1) 
-			TNT1 A 0 A_GiveInventory("AlreadyHaveMeatHook",1) // USED IN BeefSpawnerA
-			TNT1 A 20
-			Stop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("HookAmmo",1) 
+		TNT1 A 0 A_GiveInventory("AlreadyHaveMeatHook",1) // USED IN BeefSpawnerA
+		TNT1 A 0 A_GiveInventory("PBWP_HookToken",1)
+		TNT1 A 20
+		Stop
 		Death:
 			TNT1 A 0
 			Stop
@@ -79,7 +81,7 @@ Actor HookShot : FastProjectile
 
 Actor HookShooter : CustomInventory
 {
-	Inventory.AltHudIcon "doomcur"
+	Inventory.AltHudIcon "H00KA0"
 	States
 	{
 		Pickup:

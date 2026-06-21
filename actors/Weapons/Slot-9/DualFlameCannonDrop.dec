@@ -1,0 +1,32 @@
+// Mancubus arm pickup: first drop gives single cannon; second upgrades to dual arms.
+ACTOR PB_MancubusFlameDrop : CustomInventory
+{
+    +INVENTORY.ALWAYSPICKUP
+    Inventory.PickupSound "FLMDRAW"
+    States
+    {
+    Spawn:
+        MANA H -1
+        Stop
+    Pickup:
+        TNT1 A 0 A_JumpIfInventory("DualFlameCannon", 1, "FuelOnly")
+        TNT1 A 0 A_JumpIfInventory("MancubusFlameCannon", 1, "UpgradeDual")
+        TNT1 A 0 A_GiveInventory("MancubusFlameCannon", 1)
+        Stop
+    UpgradeDual:
+        TNT1 A 0 A_TakeInventory("MancubusFlameCannon", 1)
+        TNT1 A 0 A_GiveInventory("DualFlameCannon", 1)
+        Stop
+    FuelOnly:
+        TNT1 A 0 A_GiveInventory("PB_Fuel", 50)
+        TNT1 A 0 A_GiveInventory("MancubusFlameDurability", 15)
+        TNT1 A 0 A_GiveInventory("DualFlameCannonDurability", 15)
+        Stop
+
+
+
+
+}
+
+
+}

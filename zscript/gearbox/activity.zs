@@ -67,7 +67,7 @@ class gb_Activity
     Inventory,
 	Specials,
 	Equipments,
-  Melee,
+	Melee,
   }
 
   private int mActivity;

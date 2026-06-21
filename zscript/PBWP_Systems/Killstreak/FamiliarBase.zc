@@ -1,0 +1,211 @@
+// PB2022-style kill-streak drone familiar (Universal Kill Streaks fold-in).
+// Summon spawns PBWP_RoboDogFamiliar (RoboDog companion fold-in).
+
+class PBWP_RoboDogFamiliarHandler : StaticEventHandler
+{
+	override void WorldThingSpawned(WorldEvent e)
+	{
+		if (!e.Thing || e.Thing.GetClassName() != 'PBWP_RoboDogFamiliar')
+			return;
+		let dog = e.Thing;
+		if (dog.master && dog.master.player)
+			dog.target = dog.master;
+	}
+}
+
+// DECORATE: DroneFamiliar : DroneFamiliarBase; death spawns DroneFamiliarBurst (legacy, not summoned).
+
+class DroneFamiliarBase : Actor
+{
+	int familiarLiveTics;
+	bool droneFlashAttached;
+	int droneTrailFxCooldown;
+
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+		familiarLiveTics = 0;
+		droneFlashAttached = false;
+		droneTrailFxCooldown = 0;
+	}
+
+	void PB_DroneFlashlightRemove()
+	{
+		if (!droneFlashAttached)
+			return;
+		A_RemoveLight("DroneFL");
+		A_RemoveLight("DroneFL2");
+		droneFlashAttached = false;
+	}
+
+	void PB_DroneFlashlightUpdate()
+	{
+		let cv = CVar.FindCVar("cl_drone_flashlight");
+		bool want = cv && cv.GetBool();
+		if (!want)
+		{
+			PB_DroneFlashlightRemove();
+			return;
+		}
+		if (!droneFlashAttached)
+		{
+			A_AttachLight("DroneFL", DynamicLight.PointLight, "D9EBFF", 96, 96, 0, (0, 0, 8));
+			A_AttachLight("DroneFL2", DynamicLight.PointLight, "B3D9FF", 14, 14, 0, (14, 0, 8));
+			droneFlashAttached = true;
+		}
+	}
+
+	void PB_DroneTrailFxTick()
+	{
+		if (droneTrailFxCooldown > 0)
+		{
+			droneTrailFxCooldown--;
+			return;
+		}
+		droneTrailFxCooldown = 14;
+		A_SpawnItemEx("GreenFlareSmall", -8, 0, -6,
+			frandom(-0.3, 0.3), frandom(-0.3, 0.3), -1, 0,
+			SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
+		if (random(0, 255) < 96)
+		{
+			A_SpawnItemEx("GreenTrailSparks", -10, frandom(-2, 2), -2,
+				frandom(-0.4, 0.4), frandom(-0.4, 0.4), -0.5, 0,
+				SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
+		}
+	}
+
+	override void Tick()
+	{
+		Super.Tick();
+		if (health <= 0)
+		{
+			PB_DroneFlashlightRemove();
+			return;
+		}
+		familiarLiveTics++;
+		if (familiarLiveTics >= 35 * 20)
+			DamageMobj(null, null, health * 10, 'Massacre');
+		PB_DroneFlashlightUpdate();
+		if (InStateSequence(CurState, FindState("Chase"))
+			|| InStateSequence(CurState, FindState("Missile"))
+			|| InStateSequence(CurState, FindState("MissileLoop")))
+		{
+			PB_DroneTrailFxTick();
+		}
+	}
+
+	override void Die(Actor source, Actor inflictor, int dmgflags)
+	{
+		PB_DroneFlashlightRemove();
+		Super.Die(source, inflictor, dmgflags);
+	}
+
+	override int DamageMobj(Actor inflictor, Actor source, int damage, Name mod, int flags, double angle)
+	{
+		if (source && source.player)
+			return 0;
+		if (inflictor && inflictor.player)
+			return 0;
+		if (inflictor && inflictor.target && inflictor.target.player)
+			return 0;
+		if (source && source.target && source.target.player)
+			return 0;
+		return Super.DamageMobj(inflictor, source, damage, mod, flags, angle);
+	}
+}
+
+class DroneFamiliarBurst : Actor
+{
+	Default
+	{
+		+NOINTERACTION
+		+NOBLOCKMAP
+		+NOGRAVITY
+		Radius 1;
+		Height 1;
+	}
+
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+		double rad = 192;
+		int fullDmg = 88;
+		BlockThingsIterator it = BlockThingsIterator.Create(self, rad);
+		while (it.Next())
+		{
+			Actor mo = it.thing;
+			if (!mo || mo == self)
+				continue;
+			if (!mo.bShootable || mo.health <= 0)
+				continue;
+			if (mo.player)
+				continue;
+			if (!mo.bIsMonster)
+				continue;
+			if (mo.bFriendly)
+				continue;
+			if (mo is "DroneFamiliar")
+				continue;
+			double d3 = Distance3D(mo);
+			if (d3 > rad)
+				continue;
+			int dmg = int(fullDmg * (1.0 - d3 / rad) + 8);
+			if (dmg < 8)
+				dmg = 8;
+			mo.DamageMobj(self, master, dmg, 'ExplosiveImpact');
+		}
+		A_PlaySound("ksDroneExpl", CHAN_AUTO);
+		Destroy();
+	}
+}
+
+// Kill-streak drone summon sphere — ZScript class so cheat give can be filtered.
+class FamiliarSummon : CustomInventory
+{
+	Default
+	{
+		Radius 12;
+		Height 20;
+		+INVENTORY.INVBAR;
+		+INVENTORY.FANCYPICKUPSOUND;
+		+COUNTITEM;
+		+INVENTORY.AUTOACTIVATE;
+		+INVENTORY.ALWAYSPICKUP;
+		Inventory.MaxAmount 5;
+		Inventory.InterHubAmount 5;
+		Inventory.Icon "FAMSZ0";
+		Inventory.PickupMessage "RoboDog companion summon sphere";
+		Inventory.PickupSound "misc/p_pkup";
+	}
+
+	States
+	{
+	Spawn:
+		FAMS ABCDCB 4 Bright;
+		Loop;
+	Use:
+		TNT1 A 0 A_SpawnItemEx("FamiliarSummonThrown", 0, 0, 32, 20, 0, 0, 0, SXF_NOCHECKPOSITION|SXF_SETMASTER);
+		TNT1 A 0 A_PlaySound("familiar/throw");
+		Stop;
+	}
+
+	transient bool pbBlockCheatGive;
+
+	override void SetGiveAmount(Actor receiver, int amount, bool givecheat)
+	{
+		if (givecheat)
+		{
+			pbBlockCheatGive = true;
+			Amount = 0;
+			return;
+		}
+		Super.SetGiveAmount(receiver, amount, givecheat);
+	}
+
+	override bool TryPickup(in out Actor toucher)
+	{
+		if (pbBlockCheatGive)
+			return false;
+		return Super.TryPickup(toucher);
+	}
+}

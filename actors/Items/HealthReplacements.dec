@@ -1,0 +1,79 @@
+ACTOR HealthPlus2 : Health Replaces HealthBonus
+{
+	//$Category Health and Armor
+	//$Sprite BON1A0
+	//$Title "Health bonus"
+	Game Doom
+	SpawnID 152
+	+COUNTITEM
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.NEVERRESPAWN
+	+FORCEXYBILLBOARD
+	-CANNOTPUSH
+	Inventory.Amount 2
+	Inventory.MaxAmount 300
+	Tag "Health Bonus"
+	Inventory.PickupMessage "$GOTHTHBONUS"
+	States
+	{
+	Spawn:
+		BON1 A 2
+		//BON1 A 1 ACS_NamedExecuteAlways("BDCheckDecorations", 0, 0, 0, 0) // PB Staging: BD decoration ACS removed
+	Spawn2:
+		TNT1 A 0 A_CheckSight ("Spawn3")
+		BON1 ABCDCB 2 A_SpawnItem("BlueFlareSmallItem",0,7)
+		Loop
+	Spawn3:
+		BON1 A 9
+		Goto Spawn2
+	Vanilla:
+		BON1 ABCDCB 2
+		Loop
+	}
+}
+
+ACTOR Stimpack3 : Health Replaces HealthPlus
+{
+	//$Category Health and Armor
+	//$Sprite MEDKB0
+	//$Title "Stimpack"
+	Game Doom
+	SpawnID 23
+	Inventory.Amount 10
+	Inventory.PickupMessage "$GOTSTIM"
+	Health.LowMessage 25, "$GOTSTIMNEED"
+	Inventory.PickupSound "GOTHPS"
+	+FORCEXYBILLBOARD
+	-CANNOTPUSH
+	States
+	{
+	Spawn:
+		MEDK A 2
+		MEDK B 2
+		MEDK B -1
+		Stop
+	}
+}
+
+ACTOR Medikit3 : Health Replaces GiveHealth
+{
+	//$Category Health and Armor
+	//$Sprite MEDKA0
+	//$Title "Medikit"
+	Game Doom
+	SpawnID 24
+	Inventory.Amount 25
+	Inventory.PickupMessage "$GOTMEDIKIT"
+	Health.LowMessage 25, "$GOTMEDINEED"
+	Inventory.PickupSound"GOTHPB"
+	+FORCEXYBILLBOARD
+	-CANNOTPUSH
+	States
+	{
+	Spawn:
+		MEDK A 2
+		MEDK A 1
+		MEDK A -1
+		Stop
+	}
+}

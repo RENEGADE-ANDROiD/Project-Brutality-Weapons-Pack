@@ -1,0 +1,461 @@
+// Achievement browse UI for PBWP PDA (ported from PB 2022 PBPDA.zc).
+extend class PBWP_PDAHandler
+{
+	transient ui int pdaAchBrowseInvalidateGen;
+	transient ui int pdaAchBrowseScrollResetGen;
+	transient ui int pdaAchBrowseScrollResetAppliedGen;
+	transient ui int pdaAchBrowseInvalidateAppliedGen;
+	transient ui int pdaAchBrowseScroll;
+	transient ui bool pdaAchBrowseCacheValid;
+	transient ui Array<int> pdaAchBrowseRowKind;
+	transient ui Array<int> pdaAchBrowseRowAch;
+	transient ui Array<String> pdaAchBrowseRowLabel;
+	ui void InvalidatePDAAchievementCache()
+	{
+		pdaAchBrowseInvalidateGen++;
+	}
+
+	ui void RequestPDAAchievementScrollReset()
+	{
+		pdaAchBrowseScrollResetGen++;
+	}
+
+	ui void PDA_SyncAchievementBrowseState()
+	{
+		if (pdaAchBrowseScrollResetAppliedGen != pdaAchBrowseScrollResetGen)
+		{
+			pdaAchBrowseScrollResetAppliedGen = pdaAchBrowseScrollResetGen;
+			pdaAchBrowseScroll = 0;
+		}
+		if (pdaAchBrowseInvalidateAppliedGen == pdaAchBrowseInvalidateGen)
+			return;
+		pdaAchBrowseInvalidateAppliedGen = pdaAchBrowseInvalidateGen;
+		pdaAchBrowseCacheValid = false;
+		pdaAchBrowseRowKind.Clear();
+		pdaAchBrowseRowAch.Clear();
+		pdaAchBrowseRowLabel.Clear();
+	}
+
+	const PDA_ACH_ROW_HEADER = 1;
+	const PDA_ACH_ROW_CATEGORY = 2;
+	const PDA_ACH_ROW_ACHIEVEMENT = 3;
+	const PB_PDA_ACH_BROWSE_SCROLL_LINES = 4;
+	const PB_PDA_ACH_BROWSE_TEXT_SCALE_MUL = 0.66;
+	const PB_PDA_ACH_BROWSE_ICON_TEXT_GAP = 14;
+	// Defer heavy PDA UI object build off the first RenderOverlay frames (Windows busy-cursor / mouse jitter).
+	const PB_PDA_UI_INIT_MIN_GAMETIC = 35;
+
+	ui double PDA_AchievementBrowseTextScale()
+	{
+		return clamp(Screen.GetHeight() / 240.0, 2.0, 6.0) * PB_PDA_ACH_BROWSE_TEXT_SCALE_MUL;
+	}
+
+	ui int PDA_AchievementBrowseCenteredX(String text, double textScale, int listLeft, int listRight)
+	{
+		double w = SmallFont.StringWidth(text) * textScale;
+		return int((listLeft + listRight) * 0.5 - w * 0.5);
+	}
+
+	ui void PDA_AchievementBrowseDrawCenteredLine(int color, int y, String text,
+		double textScale, int listLeft, int listRight, double alpha, bool untranslated = false)
+	{
+		int drawColor = untranslated ? Font.CR_UNTRANSLATED : color;
+		int drawX = PDA_AchievementBrowseCenteredX(text, textScale, listLeft, listRight);
+		Screen.DrawText(SmallFont, drawColor, drawX, y, text,
+			DTA_ScaleX, textScale, DTA_ScaleY, textScale,
+			DTA_ClipLeft, listLeft, DTA_ClipRight, listRight,
+			DTA_Alpha, alpha);
+	}
+
+	ui void PDA_AchievementBrowseListMetrics(out int listLeft, out int listTop,
+		out int listRight, out int listBottom)
+	{
+		double scale;
+		int panelLeft, panelTop, panelRight, panelBottom;
+		GetPDAContentPanelMetrics(scale, panelLeft, panelTop, panelRight, panelBottom);
+		int pad = max(14, int(10 * scale));
+		listLeft = panelLeft + pad;
+		listRight = panelRight - pad;
+		listTop = panelTop + pad + int(BigFont.GetHeight() * scale * 2.1);
+		listBottom = panelBottom - pad - int(SmallFont.GetHeight() * scale * 1.2);
+	}
+
+	ui int PDA_AchievementBrowseScrollStepPx(int direction, double textScale)
+	{
+		int lineH = max(1, int(SmallFont.GetHeight() * textScale));
+		int targetPx = lineH * PB_PDA_ACH_BROWSE_SCROLL_LINES;
+		int n = pdaAchBrowseRowKind.Size();
+		if (n < 1)
+			return targetPx;
+
+		int scroll = pdaAchBrowseScroll;
+		int y = 0;
+		int anchor = 0;
+
+		if (direction > 0)
+		{
+			for (int i = 0; i < n; i++)
+			{
+				int rh = PDA_AchievementRowPixelHeight(pdaAchBrowseRowKind[i], textScale);
+				if (y + rh > scroll + 1)
+				{
+					anchor = i;
+					break;
+				}
+				y += rh;
+				anchor = i + 1;
+			}
+			int step = 0;
+			for (int i = anchor; i < n && step < targetPx; i++)
+				step += PDA_AchievementRowPixelHeight(pdaAchBrowseRowKind[i], textScale);
+			return max(lineH, step);
+		}
+
+		for (int i = 0; i < n; i++)
+		{
+			int rh = PDA_AchievementRowPixelHeight(pdaAchBrowseRowKind[i], textScale);
+			if (y + rh > scroll + 1)
+			{
+				anchor = i;
+				break;
+			}
+			y += rh;
+		}
+		int stepUp = 0;
+		for (int i = anchor - 1; i >= 0 && stepUp < targetPx; i--)
+			stepUp += PDA_AchievementRowPixelHeight(pdaAchBrowseRowKind[i], textScale);
+		return max(lineH, stepUp);
+	}
+
+	ui void PDA_AchievementBrowseColorCodes(PlayerInfo p, out String ccUnlocked,
+		out String ccLocked, out String ccTitle, out String ccDesc, out String ccProgress)
+	{
+		ccUnlocked = VUAS_RenderSettings.GetColorCode(
+			VUAS_AchievementHandler.GetCVarInt('ach_color_unlocked', p, 3));
+		ccLocked = VUAS_RenderSettings.GetColorCode(
+			VUAS_AchievementHandler.GetCVarInt('ach_color_locked', p, 20));
+		ccTitle = VUAS_RenderSettings.GetColorCode(
+			VUAS_AchievementHandler.GetCVarInt('ach_color_title', p, 10));
+		ccDesc = VUAS_RenderSettings.GetColorCode(
+			VUAS_AchievementHandler.GetCVarInt('ach_color_description', p, 2));
+		ccProgress = VUAS_RenderSettings.GetColorCode(
+			VUAS_AchievementHandler.GetCVarInt('ach_color_progress', p, 10));
+	}
+
+	ui String PDA_AchievementBrowseTitleLine(VUAS_AchievementData ach)
+	{
+		let p = players[consoleplayer];
+		String ccUnlocked, ccLocked, ccTitle, ccDesc, ccProgress;
+		PDA_AchievementBrowseColorCodes(p, ccUnlocked, ccLocked, ccTitle, ccDesc, ccProgress);
+
+		String achTitle = StringTable.Localize(ach.title, false);
+
+		if (ach.isHidden && !ach.isUnlocked)
+			return String.Format("%s[LOCKED]\c- %s??? - Hidden Achievement\c-", ccLocked, ccTitle);
+
+		if (ach.isUnlocked)
+		{
+			String timeStr = "";
+			if (ach.unlockTime > 0)
+				timeStr = String.Format(" %s(%s)\c-", ccDesc, SystemTime.Format("%d %b %Y", ach.unlockTime));
+			return String.Format("%s[UNLOCKED]\c- %s%s\c-%s", ccUnlocked, ccTitle, achTitle, timeStr);
+		}
+
+		String progressStr = "";
+		if (ach.targetCount > 1)
+			progressStr = String.Format(" %s[%d/%d]\c-", ccProgress, ach.currentCount, ach.targetCount);
+		return String.Format("%s[LOCKED]\c- %s%s\c-%s", ccLocked, ccTitle, achTitle, progressStr);
+	}
+
+	ui String PDA_AchievementBrowseDescLine(VUAS_AchievementData ach)
+	{
+		if (ach.isHidden && !ach.isUnlocked)
+			return "";
+
+		let p = players[consoleplayer];
+		String ccUnlocked, ccLocked, ccTitle, ccDesc, ccProgress;
+		PDA_AchievementBrowseColorCodes(p, ccUnlocked, ccLocked, ccTitle, ccDesc, ccProgress);
+
+		String achDesc = StringTable.Localize(ach.description, false);
+		if (achDesc.Length() < 1)
+			return "";
+		return String.Format("%s%s\c-", ccDesc, achDesc);
+	}
+
+	ui int PDA_AchievementRowPixelHeight(int rowKind, double textScale)
+	{
+		int lineH = max(1, int(SmallFont.GetHeight() * textScale));
+		if (rowKind == PDA_ACH_ROW_HEADER) return lineH * 2;
+		if (rowKind == PDA_ACH_ROW_CATEGORY) return int(lineH * 1.35);
+		return int(lineH * 3.85);
+	}
+
+	ui int PDA_AchievementBrowseContentHeight(double textScale)
+	{
+		int h = 0;
+		for (int i = 0; i < pdaAchBrowseRowKind.Size(); i++)
+			h += PDA_AchievementRowPixelHeight(pdaAchBrowseRowKind[i], textScale);
+		return h;
+	}
+
+	ui bool PDA_AchievementPassesBrowseFilter(VUAS_AchievementData ach, bool showHidden, int menuFilter)
+	{
+		if (ach.isHidden && !ach.isUnlocked && !showHidden)
+			return false;
+		if (menuFilter == 1 && !ach.isUnlocked)
+			return false;
+		if (menuFilter == 2 && ach.isUnlocked)
+			return false;
+		return true;
+	}
+
+	ui void RebuildPDAAchievementBrowseCache()
+	{
+		pdaAchBrowseRowKind.Clear();
+		pdaAchBrowseRowAch.Clear();
+		pdaAchBrowseRowLabel.Clear();
+
+		let handler = VUAS_AchievementHandler.GetHandler();
+		if (!handler || handler.achievements.Size() == 0)
+		{
+			pdaAchBrowseCacheValid = true;
+			return;
+		}
+
+		bool showHidden = VUAS_AchievementHandler.GetCVarBool('ach_show_hidden', players[consoleplayer], false);
+		int menuFilter = VUAS_AchievementHandler.GetCVarInt('ach_menu_filter', players[consoleplayer], 0);
+		int totalCount = handler.achievements.Size();
+
+		pdaAchBrowseRowKind.Push(PDA_ACH_ROW_HEADER);
+		pdaAchBrowseRowAch.Push(-1);
+		pdaAchBrowseRowLabel.Push("");
+
+		Array<String> categories;
+		for (int i = 0; i < totalCount; i++)
+		{
+			let ach = handler.achievements[i];
+			bool found = false;
+			for (int c = 0; c < categories.Size(); c++)
+			{
+				if (categories[c] ~== ach.category)
+				{
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+				categories.Push(ach.category);
+		}
+
+		for (int pass = 0; pass < 2; pass++)
+		{
+			bool wantUnlocked = (pass == 0);
+			for (int c = 0; c < categories.Size(); c++)
+			{
+				String cat = categories[c];
+				bool pushedCat = false;
+				for (int i = 0; i < totalCount; i++)
+				{
+					let ach = handler.achievements[i];
+					if (!(ach.category ~== cat))
+						continue;
+					if (ach.isUnlocked != wantUnlocked)
+						continue;
+					if (!PDA_AchievementPassesBrowseFilter(ach, showHidden, menuFilter))
+						continue;
+
+					if (!pushedCat)
+					{
+						String catHeader = "";
+						for (uint ch = 0; ch < cat.Length(); ch++)
+						{
+							int byte = cat.ByteAt(ch);
+							if (ch == 0 && byte >= 97 && byte <= 122)
+								catHeader.AppendFormat("%c", byte - 32);
+							else
+								catHeader.AppendFormat("%c", byte);
+						}
+						pdaAchBrowseRowKind.Push(PDA_ACH_ROW_CATEGORY);
+						pdaAchBrowseRowAch.Push(-1);
+						pdaAchBrowseRowLabel.Push(String.Format("--- %s ---", catHeader));
+						pushedCat = true;
+					}
+
+					pdaAchBrowseRowKind.Push(PDA_ACH_ROW_ACHIEVEMENT);
+					pdaAchBrowseRowAch.Push(i);
+					pdaAchBrowseRowLabel.Push("");
+				}
+			}
+		}
+
+		pdaAchBrowseCacheValid = true;
+	}
+
+	ui void DrawPDAAchievementBrowse(double alpha)
+	{
+		if (alpha <= 0) return;
+		PDA_SyncAchievementBrowseState();
+		if (!pdaAchBrowseCacheValid)
+			RebuildPDAAchievementBrowseCache();
+
+		let handler = VUAS_AchievementHandler.GetHandler();
+		int listLeft, listTop, listRight, listBottom;
+		PDA_AchievementBrowseListMetrics(listLeft, listTop, listRight, listBottom);
+		double textScale = PDA_AchievementBrowseTextScale();
+
+		if (!handler)
+		{
+			PDA_AchievementBrowseDrawCenteredLine(Font.CR_GREEN, listTop,
+				"No achievements defined.", textScale, listLeft, listRight, alpha);
+			return;
+		}
+
+		int totalRows = pdaAchBrowseRowKind.Size();
+		if (totalRows < 1)
+		{
+			PDA_AchievementBrowseDrawCenteredLine(Font.CR_GREEN, listTop,
+				"No achievements match the current filter.", textScale, listLeft, listRight, alpha);
+			return;
+		}
+
+		int viewH = listBottom - listTop;
+		int contentH = PDA_AchievementBrowseContentHeight(textScale);
+		int maxScroll = max(0, contentH - viewH);
+		if (pdaAchBrowseScroll < 0)
+			pdaAchBrowseScroll = 0;
+		else if (pdaAchBrowseScroll > maxScroll)
+			pdaAchBrowseScroll = maxScroll;
+		int scrollY = pdaAchBrowseScroll;
+
+		int y = listTop - scrollY;
+		Screen.SetClipRect(listLeft, listTop, listRight - listLeft, viewH);
+
+		for (int rowIdx = 0; rowIdx < totalRows; rowIdx++)
+		{
+			int kind = pdaAchBrowseRowKind[rowIdx];
+			int rowH = PDA_AchievementRowPixelHeight(kind, textScale);
+			int achIdx = pdaAchBrowseRowAch[rowIdx];
+
+			if (y + rowH > listTop && y < listBottom)
+			{
+				if (kind == PDA_ACH_ROW_HEADER)
+				{
+					int unlocked = 0;
+					for (int u = 0; u < handler.achievements.Size(); u++)
+					{
+						if (handler.achievements[u].isUnlocked)
+							unlocked++;
+					}
+					int menuFilter = VUAS_AchievementHandler.GetCVarInt('ach_menu_filter', players[consoleplayer], 0);
+					String filterLabel = "";
+					if (menuFilter == 1) filterLabel = " (Unlocked Only)";
+					else if (menuFilter == 2) filterLabel = " (Locked Only)";
+					String header = String.Format("Achievements: %d / %d%s",
+						unlocked, handler.achievements.Size(), filterLabel);
+					PDA_AchievementBrowseDrawCenteredLine(Font.CR_YELLOW, y, header,
+						textScale, listLeft, listRight, alpha);
+				}
+				else if (kind == PDA_ACH_ROW_CATEGORY)
+				{
+					String catLine = (rowIdx < pdaAchBrowseRowLabel.Size())
+						? pdaAchBrowseRowLabel[rowIdx] : "--- ---";
+					PDA_AchievementBrowseDrawCenteredLine(Font.CR_GOLD, y, catLine,
+						textScale, listLeft, listRight, alpha);
+				}
+				else if (kind == PDA_ACH_ROW_ACHIEVEMENT && achIdx >= 0 && achIdx < handler.achievements.Size())
+				{
+					let ach = handler.achievements[achIdx];
+					String titleLine = PDA_AchievementBrowseTitleLine(ach);
+					String descLine = PDA_AchievementBrowseDescLine(ach);
+					int lineH = int(SmallFont.GetHeight() * textScale);
+					int iconSize = lineH * 2;
+					int titleY = y + int(lineH * 0.08);
+					int descY = y + lineH + int(lineH * 0.22);
+					double titleW = SmallFont.StringWidth(titleLine) * textScale;
+					double descW = descLine.Length() > 0
+						? SmallFont.StringWidth(descLine) * textScale : 0.0;
+					double textW = max(titleW, descW);
+					int blockW = iconSize + PB_PDA_ACH_BROWSE_ICON_TEXT_GAP + int(textW + 0.5);
+					int blockLeft = int((listLeft + listRight) * 0.5 - blockW * 0.5);
+					if (blockLeft < listLeft)
+						blockLeft = listLeft;
+					int textX = blockLeft + iconSize + PB_PDA_ACH_BROWSE_ICON_TEXT_GAP;
+					int iconX = blockLeft;
+
+					TextureID iconTex = TexMan.CheckForTexture(ach.icon, TexMan.Type_Any);
+					if (!(ach.isHidden && !ach.isUnlocked) && iconTex.IsValid())
+					{
+						if (ach.isUnlocked)
+						{
+							Screen.DrawTexture(iconTex, true, iconX, y,
+								DTA_DestWidth, iconSize, DTA_DestHeight, iconSize,
+								DTA_Alpha, alpha);
+						}
+						else
+						{
+							Screen.DrawTexture(iconTex, true, iconX, y,
+								DTA_DestWidth, iconSize, DTA_DestHeight, iconSize,
+								DTA_AlphaChannel, true, DTA_FillColor, 0xBBBBCC,
+								DTA_Alpha, alpha);
+						}
+					}
+
+					Screen.DrawText(SmallFont, Font.CR_UNTRANSLATED, textX, titleY, titleLine,
+						DTA_ScaleX, textScale, DTA_ScaleY, textScale,
+						DTA_ClipLeft, listLeft, DTA_ClipRight, listRight,
+						DTA_Alpha, alpha);
+					if (descLine.Length() > 0)
+					{
+						Screen.DrawText(SmallFont, Font.CR_UNTRANSLATED, textX, descY, descLine,
+							DTA_ScaleX, textScale, DTA_ScaleY, textScale,
+							DTA_ClipLeft, listLeft, DTA_ClipRight, listRight,
+							DTA_Alpha, alpha);
+					}
+				}
+			}
+
+			y += rowH;
+		}
+
+		Screen.ClearClipRect();
+
+		if (scrollY > 0 || contentH > viewH)
+		{
+			double hintSc = textScale * 0.85;
+			int hintY = listBottom - int(SmallFont.GetHeight() * hintSc);
+			PDA_AchievementBrowseDrawCenteredLine(Font.CR_GRAY, hintY,
+				"Use page arrows or BACK / PDA key.", hintSc, listLeft, listRight, alpha * 0.9);
+		}
+	}
+
+	ui void ScrollPDAAchievementBrowse(int direction)
+	{
+		PDA_SyncAchievementBrowseState();
+		if (!pdaAchBrowseCacheValid)
+			RebuildPDAAchievementBrowseCache();
+
+		double textScale = PDA_AchievementBrowseTextScale();
+		int listLeft, listTop, listRight, listBottom;
+		PDA_AchievementBrowseListMetrics(listLeft, listTop, listRight, listBottom);
+		int viewH = listBottom - listTop;
+		int contentH = PDA_AchievementBrowseContentHeight(textScale);
+		int maxScroll = max(0, contentH - viewH);
+		if (maxScroll < 1)
+			return;
+
+		int step = PDA_AchievementBrowseScrollStepPx(direction, textScale);
+		if (direction < 0)
+			pdaAchBrowseScroll -= step;
+		else if (direction > 0)
+			pdaAchBrowseScroll += step;
+		pdaAchBrowseScroll = clamp(pdaAchBrowseScroll, 0, maxScroll);
+	}
+
+	clearscope static bool PB_AchievementsOn()
+	{
+		if (netgame)
+			return false;
+		let cv = CVar.FindCVar("pb_achievements");
+		return !cv || cv.GetBool();
+	}
+}

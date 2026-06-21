@@ -10,7 +10,7 @@ States
 Spawn:
 TNT1 A 0 
 TNT1 A 0 A_SpawnItemEx("PhaseEradicationBFGProjectilFlare",0,0,0,frandom(-2,2),frandom(-2,2),frandom(-2,2),0,0,88)
-NTU9 A 1 Bright A_SetScale(random(2.5,3.5),random(2.5,3.5))
+NTU9 A 1 Bright A_SetScale(frandom(2.5, 3.5), frandom(2.5, 3.5))
 Fly:
 NTU9 A 1 Bright A_FadeOut(0.04)
 Loop

@@ -1,1 +1,2 @@
-Magnets from Dragon Sector Team.  Thx DarynS
+PBWP item magnet system (original implementation: Dragon Sector Team / DarynS).
+Renamed sprites and script symbols to PBWP_/PBWMG_ to avoid clashing with PB3-EXTRAS itemmagnet or Dragon Sector addons.

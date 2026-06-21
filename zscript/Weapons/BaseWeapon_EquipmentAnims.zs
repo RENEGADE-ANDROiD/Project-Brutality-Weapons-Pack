@@ -102,7 +102,10 @@ extend class PB_WeaponBase
 			TNT1 A 0 A_JumpIfInventory("ShurikenAmmo", 1, 2);
 			TNT1 A 0 A_Print("You Don't Have any Caltrops");
 			Goto GoingToReady;
-			TNT1 A 0 A_Overlay(799,"FlashPunching");
+			TNT1 A 0 {
+				A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+				A_Overlay(PSP_FLASH, "EquipmentFlashHide");
+			}
 
 			SH1R A 2;
 			SH1R ATT 1 A_GunFlash("CaltropsFlash");
@@ -130,7 +133,10 @@ extend class PB_WeaponBase
 			TNT1 A 0 A_JumpIfInventory("ShurikenAmmo", 1, 2);
 			TNT1 A 0 A_Print("You Don't Have any Shurikens");
 			Goto GoingToReady;
-			TNT1 A 0 A_Overlay(799,"FlashPunching");
+			TNT1 A 0 {
+				A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+				A_Overlay(PSP_FLASH, "EquipmentFlashHide");
+			}
 
 			SH1R A 1;
 			SH1R B 1;
@@ -173,7 +179,10 @@ extend class PB_WeaponBase
 			TNT1 A 0 A_JumpIfInventory("ShieldSawAmmo", 1, 2);
 			TNT1 A 0 A_Print("You Don't Have the Shield Saw");
 			Goto GoingToReady;
-			TNT1 A 0 A_Overlay(799,"FlashPunching");
+			TNT1 A 0 {
+				A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+				A_Overlay(PSP_FLASH, "EquipmentFlashHide");
+			}
 			TNT1 AAA 0;
        		SHIE I 1 A_StopSoundEx("Soundslot5");
 			SHIE J 1 A_WeaponOffset(-20,50, WOF_ADD);
@@ -184,7 +193,7 @@ extend class PB_WeaponBase
 			SHIE K 2 A_WeaponOffset(-160,90, WOF_ADD); 
 			TNT1 A 0 A_PlaySoundEx("ShieldSawSwing","Soundslot6");
 			SHIE K 1 A_AlertMonsters;
-			SHIE K 1 A_StartSound("ShieldSawThrow",1,0.8);
+			SHIE K 1 A_StartSound("ShieldSawThrow", 1, CHANF_DEFAULT, 0.8);
 			SHIE L 1 A_WeaponOffset(-160,200, WOF_ADD); 
 			SHIE L 1 A_FireProjectile("ShieldSawProjectile",frandom(1.5,-1.5),0,7,-2,0,frandom(1.5,-1.5));
 	   		TNT1 A 0 A_TakeInventory("ShieldsawAmmo",1);
@@ -212,7 +221,10 @@ extend class PB_WeaponBase
 			TNT1 A 0 A_JumpIfInventory("HookAmmo", 1, 2);
 			TNT1 A 0 A_Print("You Don't Have the Meat Hook");
 			Goto GoingToReady;
-			TNT1 A 0 A_Overlay(799,"FlashPunching");
+			TNT1 A 0 {
+				A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+				A_Overlay(PSP_FLASH, "EquipmentFlashHide");
+			}
 			GRTH OOPPQQ 1 A_StartSound("THRGRN", 1);
 			GRTH Q 1 A_FireProjectile("HookShot",0,0,0,0,0,0);
 			GRTH RRSSTTUU 1;
@@ -229,7 +241,8 @@ extend class PB_WeaponBase
 				A_WeaponOffset(0,32);
 				A_SetRoll(0);
 				PB_HandleCrosshair(90);
-				A_Overlay(PSP_FLASH,"FlashPunching");
+				A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+				A_Overlay(PSP_FLASH, "EquipmentFlashHide");
 			}
 			TNT1 A 0 A_SetInventory("PB_LockScreenTilt",1);
 			TNT1 A 0 A_JumpIfInventory("PB_Axe", 1, 2);
@@ -446,6 +459,56 @@ extend class PB_WeaponBase
 			TNT1 A 0 A_JumpIf(PressingUser1(), "UseEquipment");
 			Goto GoingToReady2;
 		
+		// Duke pipebomb (equipment — throw then detonate with second UseEquipment)
+		ThrowDukePipeBomb:
+			TNT1 A 0 {
+				A_ZoomFactor(1.0);
+				A_TakeInventory("ADSMode", 1);
+				A_TakeInventory("UseEquipment", 1);
+			}
+			TNT1 A 0 A_JumpIfInventory("ThrownPipebomb", 1, "DetonateDukePipeBomb");
+			TNT1 A 0 A_JumpIfInventory("PipebombAmmo", 1, 2);
+			TNT1 A 0 A_Print("No pipebombs left");
+			Goto GoingToReady;
+			PIPE ACE 1;
+			PIPE I 1;
+			TNT1 A 0 {
+				A_StartSound("weapons/pbthrow", CHAN_WEAPON);
+				A_FireProjectile("PipeBomb5", 0, 1, 0, -10, 0, -15);
+				A_TakeInventory("PipebombAmmo", 1);
+				A_GiveInventory("ThrownPipebomb", 1);
+			}
+			PIPE RSTU 1;
+			PIPE Z 8;
+			TNT1 A 0 {
+				A_TakeInventory("UseEquipment", 1);
+				A_TakeInventory("ToggleEquipment", 1);
+			}
+			TNT1 A 0 A_JumpIf(PressingUser1(), "UseEquipment");
+			Goto GoingToReady2;
+
+		DetonateDukePipeBomb:
+			TNT1 A 0 {
+				A_ZoomFactor(1.0);
+				A_TakeInventory("ADSMode", 1);
+				A_TakeInventory("UseEquipment", 1);
+			}
+			TNT1 A 0 A_JumpIfInventory("ThrownPipebomb", 1, 2);
+			TNT1 A 0 A_Print("No armed pipebomb to detonate");
+			Goto GoingToReady;
+			DETO B 2 A_StartSound("weapons/pbarm", CHAN_WEAPON);
+			TNT1 A 0 A_GiveInventory("DetonatePB", 1);
+			TNT1 A 0 A_TakeInventory("ThrownPipebomb");
+			TNT1 A 0 A_TakeInventory("DetonatePB");
+			DETO B 2;
+			DETO A 3;
+			TNT1 A 0 {
+				A_TakeInventory("UseEquipment", 1);
+				A_TakeInventory("ToggleEquipment", 1);
+			}
+			TNT1 A 0 A_JumpIf(PressingUser1(), "UseEquipment");
+			Goto GoingToReady2;
+
 		//Detonator
 		Detonator:
 			TNT1 A 0 {
@@ -458,7 +521,8 @@ extend class PB_WeaponBase
 			Goto GoingToReady;
 
 			TNT1 A 0 {
-				A_Overlay(799,"FlashPunching");
+				A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
+				A_Overlay(PSP_FLASH, "EquipmentFlashHide");
 				A_PlaySound("charge/detonator", 3);
 			}
 			DETO ABCD 1;
@@ -688,6 +752,38 @@ extend class PB_WeaponBase
 				A_TakeInventory("ToggleEquipment", 1);
 			}
 			TNT1 A 0 A_JumpIf(PressingUser1(), "UseEquipment");
+			Goto GoingToReady2;
+
+		UseGCShieldSphere:
+			TNT1 A 0 {
+				A_TakeInventory("UseEquipment", 1);
+				A_ZoomFactor(1.0);
+			}
+			TNT1 A 0 A_JumpIfInventory("GCShieldSphereAmmo", 1, 2);
+			TNT1 A 0 A_Print("No GC Shield Spheres left");
+			Goto GoingToReady;
+			TNT1 A 0 A_TakeInventory("GCShieldSphereAmmo", 1);
+			TNT1 A 0 A_GiveInventory("GC_ShieldSpherePulse", 1);
+			TNT1 A 0 {
+				A_TakeInventory("UseEquipment", 1);
+				A_TakeInventory("ToggleEquipment", 1);
+			}
+			Goto GoingToReady2;
+
+		UseGCChalice:
+			TNT1 A 0 {
+				A_TakeInventory("UseEquipment", 1);
+				A_ZoomFactor(1.0);
+			}
+			TNT1 A 0 A_JumpIfInventory("GCChaliceAmmo", 1, 2);
+			TNT1 A 0 A_Print("No Demonic Chalices left");
+			Goto GoingToReady;
+			TNT1 A 0 A_TakeInventory("GCChaliceAmmo", 1);
+			TNT1 A 0 A_GiveInventory("GC_ChalicePulse", 1);
+			TNT1 A 0 {
+				A_TakeInventory("UseEquipment", 1);
+				A_TakeInventory("ToggleEquipment", 1);
+			}
 			Goto GoingToReady2;
 	}
 }

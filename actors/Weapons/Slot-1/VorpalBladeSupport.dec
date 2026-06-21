@@ -1,0 +1,72 @@
+// Vorpal Blade support actors — folded from PB_VorpalBlade_from_Insanitys_Requiem-MK2.wad
+
+DamageType SpecialDamage
+{
+   Factor 1
+   NoArmor
+}
+
+ACTOR DamageNoArmor10
+{
+   DamageType "SpecialDamage"
+   +NOBLOCKMAP
+   +NODAMAGETHRUST
+   States
+   {
+      Spawn:
+         TNT1 AA 0 A_Explode(10, 1)
+         Stop
+   }
+}
+
+ACTOR KyreiPuffRight
+{
+   +NOINTERACTION
+   +CLIENTSIDEONLY
+   RenderStyle Add
+   States
+   {
+      Spawn:
+         PYFX A 1 Bright A_FadeOut(0.15)
+         Stop
+   }
+}
+
+ACTOR KyreiPuffLeft : KyreiPuffRight
+{
+   States
+   {
+      Spawn:
+         PYFX C 1 Bright A_FadeOut(0.15)
+         Stop
+   }
+}
+
+ACTOR BzrkSphereSpark2
+{
+   +FORCEXYBILLBOARD
+   +NOINTERACTION
+   +NOTIMEFREEZE
+   +CLIENTSIDEONLY
+   Scale 0.1
+   RenderStyle Add
+   States
+   {
+      Spawn:
+         KEFX A 1 Bright A_FadeOut(0.05)
+         Stop
+   }
+}
+
+ACTOR BzrkSphereSpark3 : BzrkSphereSpark2
+{
+   Scale 0.3
+   States
+   {
+      Spawn:
+         KEFX A 6 Bright A_FadeOut(0.08)
+         Stop
+   }
+
+
+}

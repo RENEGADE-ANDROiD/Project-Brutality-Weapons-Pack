@@ -1,0 +1,30 @@
+// Reference only — requires Glory Kills mod (GK_HUD class). Do not #include in ZSCRIPT.zc unless GK is always loaded.
+// When Glory Kills is loaded, its own handler draws the GK ability HUD; isGKLoaded gates would go here if merged upstream.
+class GK_HUDHandler : StaticEventHandler
+{
+	clearscope static bool ShouldDrawGloryHud()
+	{
+		let cv = CVar.FindCVar("isGKLoaded");
+		if (!cv || !cv.GetBool())
+			return false;
+		if (gamestate != GS_LEVEL)
+			return false;
+		if (menuactive)
+			return false;
+		if (consoleplayer < 0 || !playeringame[consoleplayer])
+			return false;
+		if (!players[consoleplayer].mo)
+			return false;
+		if (Level.MapName == "TITLEMAP")
+			return false;
+		return true;
+	}
+
+	override void RenderOverlay(RenderEvent e)
+	{
+		if (!ShouldDrawGloryHud())
+			return;
+
+		GK_HUD.RenderGloryHUD(PlayerPawn(players[consoleplayer].mo));
+	}
+}

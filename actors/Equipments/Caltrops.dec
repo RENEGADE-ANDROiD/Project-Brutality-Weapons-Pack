@@ -5,6 +5,7 @@ Actor CaltropsAmmo : ammo
 	Ammo.BackPackAmount 1
 	Ammo.BackPackMaxAmount 10
 	Inventory.PickUpMessage ""
+	+INVENTORY.QUIET
 	+INVENTORY.IGNORESKILL
 }
 
@@ -21,9 +22,10 @@ ACTOR CaltropsAmmoPack : CustomInventory
 		SWIN G -1
 		Stop
   Pickup:
-		TNT1 A 0 A_GiveInventory("CaltropsAmmo",5) 
-		TNT1 A 20
-		Stop
+	TNT1 A 0 A_GiveInventory("CaltropsAmmo",5) 
+	TNT1 A 0 A_GiveInventory("PBWP_CaltropsToken",1)
+	TNT1 A 20
+	Stop
 	}
 }
 
@@ -82,4 +84,6 @@ Actor CaltropsOnMap
     TNT1 A 1 A_Explode(15, 6)
     stop
   }
+
+
 }

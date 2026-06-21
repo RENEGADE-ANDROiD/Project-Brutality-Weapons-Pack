@@ -1,0 +1,133 @@
+// PB 2022 — hooks into folded Vortex Universal Achievement System (VUAS).
+
+enum PB_MultikillCategory
+{
+	PB_MK_NONE = 0,
+	PB_MK_EXPLOSIVE,
+	PB_MK_RAIL,
+	PB_MK_BFG,
+	PB_MK_SNIPER,
+	PB_MK_PLASMA,
+	PB_MK_EQUIPMENT
+}
+
+class PB_Achievements
+{
+	static bool Enabled()
+	{
+		let cv = CVar.FindCVar("pb_achievements");
+		return !cv || cv.GetBool();
+	}
+
+	static void Event(String id, int amt = 1)
+	{
+		if (!Enabled() || netgame || id == "")
+			return;
+		if (amt < 1)
+			amt = 1;
+		EventHandler.SendNetworkEvent("vuas_event:" .. id, amt);
+	}
+
+	static void OnGloryKill()
+	{
+		Event("pb_first_glory_kill", 1);
+		Event("pb_glory_10", 1);
+		Event("pb_glory_25", 1);
+		Event("pb_glory_100", 1);
+	}
+
+	static void OnBloodPunch()
+	{
+		Event("pb_blood_punch", 1);
+	}
+
+	static void OnPDAWeaponFound()
+	{
+		Event("pb_pda_weapon_found", 1);
+		Event("pb_pda_weapons_10", 1);
+		Event("pb_pda_weapons_25", 1);
+	}
+
+	static void OnPDAWeaponCodexComplete()
+	{
+		Event("pb_pda_weapons_all", 1);
+	}
+
+	static void OnPDAMonsterFound()
+	{
+		Event("pb_pda_monster_found", 1);
+		Event("pb_pda_monsters_10", 1);
+		Event("pb_pda_monsters_25", 1);
+	}
+
+	static void OnPDAEquipFound()
+	{
+		Event("pb_pda_equipment_found", 1);
+	}
+
+	static void OnExecution()
+	{
+		Event("pb_execution", 1);
+	}
+
+	static void OnShoulderFlame()
+	{
+		Event("pb_shoulder_flame", 1);
+	}
+
+	static void OnShoulderIce()
+	{
+		Event("pb_shoulder_ice", 1);
+	}
+
+	static void OnShieldSawThrow()
+	{
+		Event("pb_shield_saw_throw", 1);
+	}
+
+	static void OnFrozenSolidKill()
+	{
+		Event("pb_frozen_statue", 1);
+	}
+
+	static void OnKillstreakReward(int streak)
+	{
+		if (streak >= 5)
+			Event("pb_killstreak_5", 1);
+		if (streak >= 10)
+			Event("pb_killstreak_10", 1);
+	}
+
+	static void OnRankReached(int rank)
+	{
+		if (rank >= 5)
+			Event("pb_rank_5", 1);
+		if (rank >= 10)
+			Event("pb_rank_10", 1);
+		if (rank >= 15)
+			Event("pb_rank_15", 1);
+	}
+
+	static void OnMultikill(int category)
+	{
+		switch (category)
+		{
+		case PB_MK_EXPLOSIVE: Event("pb_multikill_explosive", 1); break;
+		case PB_MK_RAIL: Event("pb_multikill_rail", 1); break;
+		case PB_MK_BFG: Event("pb_multikill_bfg", 1); break;
+		case PB_MK_SNIPER: Event("pb_multikill_sniper", 1); break;
+		case PB_MK_PLASMA: Event("pb_multikill_plasma", 1); break;
+		case PB_MK_EQUIPMENT: Event("pb_multikill_equipment", 1); break;
+		}
+	}
+
+	static void OnRocketJump()
+	{
+		Event("pb_rocket_jump", 1);
+	}
+
+	static void OnPlasmaClimb()
+	{
+		Event("pb_plasma_climb", 1);
+	}
+}

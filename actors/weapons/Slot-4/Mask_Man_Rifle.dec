@@ -1,4 +1,4 @@
-ACTOR TLMGRespect : Inventory {Inventory.MaxAmount 1}
+﻿ACTOR TLMGRespect : Inventory { Inventory.MaxAmount 1 }
 // --------------------------------------------------------------------------
 //
 // MaskMan Rifle Assault
@@ -20,7 +20,6 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
     +WEAPON.NOAUTOFIRE
 	+FORCEXYBILLBOARD
 	+WEAPON.NO_AUTO_SWITCH
-	
 	Scale 0.7
 	PB_WeaponBase.RespectItem "TLMGRespect"
 	// Weapon.SlotNumber 4
@@ -31,18 +30,15 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 	Tag "UAC MR-64 - Legion"
 	States
 	{
-	
 	Steady:
 		TNT1 A 1
 		Goto Ready
-	
 	SelectReady:
 	Ready:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
-		TNT1 A 0 PB_RespectIfNeeded
+		TNT1 A 0 { PB_RespectIfNeeded; }
 	WeaponRespect:
 		TNT1 A 0 A_GiveInventory("TLMGRespect",1)
-	
 		FirstMag1:
 		LMGI ABC 2 
 		4XFG A 0 A_PlaySound("RELO1")
@@ -58,28 +54,21 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 
 		4XFG A 0 A_PlaySound("weapons/smg_magfly2")
 		5XFR D 6
-		
 		TNT1 AAAA 0
-		
 		5XFR EFGHI 1
 		TNT1 A 0 A_GiveInventory("Mask_Clip",64)
 		TNT1 A 0 A_PlaySound ("MS_IN")
 		5XFR J 1
 		5XFR K 1
 		5XFR LM 1
-		
 		5XFR MN 1
-		
 		5XFR O 3
-		
 		5XFR N 2
 		TNT1 A 0 A_PlaySound ("MS_PHS",73)
 		5XFR MLK 1
-		
 		5XFR OP 1
         5XFR QRS 1 A_DoPBWeaponAction(WRF_NOFIRE)
 		Goto Ready3
-		
 	SelectAnimation:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
 	    4XGU A 1 FAST PB_WeaponRecoil(-0.20,-0.15) //(Pitch+0.8)
@@ -88,27 +77,28 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 		4XGU C 1 FAST PB_WeaponRecoil(-0.20,-0.15) //(Pitch-0.4)
 		TNT1 A 0 A_SetCrosshair(25)
 		TNT1 AAA 0
-		
+			TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+			Goto Ready3
+	ReadySettle:
 	Ready3:
 	RealReady:
         TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
         TNT1 A 0 A_JumpIfInventory("Zoomed", 1, "Ready2")
 		4XFG A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		Loop
-		
     Ready2:
 		AUSZ G 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		Loop
-		
   Deselect:
     TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
     TNT1 A 0 A_PlaySound("MINY",18)
-    4XGU CBA 1
 	TNT1 A 0 A_Takeinventory("Zoomed",1)
 	TNT1 A 0 A_ZoomFactor(1.0)
-    Null AAAAAAAAAAAAAAAAA 0 A_Lower
+	Goto DeselectDown
+	DeselectDown:
+				TNT1 A 0 A_Lower(120)
     Wait
 
 	Select:
@@ -120,17 +110,14 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 		SelectContinue:
-		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_Raise
-		Wait
-		
+				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+				Goto Ready3
 	FireNoreload:
 		J2FG A 0 A_JumpIfInventory("PB_HighCalMag",1,"FireNow")
 		Goto NoAmmo
-		
 	FireNow:
 		TNT1 A 0 A_Takeinventory("PB_HighCalMag",1)
 		Goto NormalFire
-	
 	Fire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
@@ -147,12 +134,11 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 		TNT1 A 0 A_JumpIfInventory ("Mask_Clip", 1, 2)
 		Goto Reload
 		TNT1 AAA 0
-		
 	NormalFire:
 		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Fire2")
 		TNT1 A 0 A_ZoomFactor(0.99)
 		TNT1 A 0 A_AlertMonsters
-		TNT1 A 0 PB_FireOffset
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_PlaySound("Fire/MSKAR2",CHAN_Weapon,0.99,0,2)
 		TNT1 A 0 A_PlaySound("Fire/FaDD",CHAN_Body,0.77,0,2)
 
@@ -160,7 +146,6 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
 		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,5)
 		TNT1 A 0 A_FireCustomMissile("GunFireSmoke",0,0,0)
-		
 		4XFF A 1 Bright {
 				if(GetCvar("PB_alttracer") >=1) {
 				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
@@ -168,37 +153,37 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 				PB_LowAmmoSoundWarning;
 			}
 			else { 
+				A_FireCustomMissile("PBWP_Tracer_Rifle", frandom(-2, 2), 0, 0, 0, 0, frandom(-2, 2));
 				A_FireProjectile("PB_556x45mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
 				PB_LowAmmoSoundWarning;
 			}
 		}
         TNT1 A 0 A_SpawnItem("DistantRifleFireSound",10,40)
 		TNT1 A 0 A_ZoomFactor(0.98)
-		TNT1 A 0 PB_WeaponRecoil(-0.20,-0.15) //(-1.0 + pitch)
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(-1.0 + pitch); }
 		TNT1 A 0 A_Jump (256, "FireSequence1", "FireSequence2")
 
 	FireSequence1:
 		4XFF B 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_ZoomFactor(0.96)
-		TNT1 A 0 PB_WeaponRecoil(-0.20,-0.15) //(+0.4 + pitch)
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+0.4 + pitch); }
 		Goto EndSequence
 
 	FireSequence2:
 		4XFF C 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_ZoomFactor(0.96)
-		TNT1 A 0 PB_WeaponRecoil(-0.20,-0.15) //(+0.4 + pitch)
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+0.4 + pitch); }
 		Goto EndSequence
 
 
 	EndSequence:
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_ZoomFactor(0.99)
-		TNT1 A 0 PB_WeaponRecoil(-0.20,-0.15) //(+0.2 + pitch)
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+0.2 + pitch); }
 		TNT1 A 0 A_TakeInventory ("Mask_Clip", 1)
 		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
-		
 		TNT1 A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire")
 		TNT1 AAA 0
@@ -209,7 +194,7 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 		TNT1 AAA 0
 		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire")
 	Refire:
-		MRKR B 0 PB_ReFire
+		MRKR B 0 { PB_ReFire; }
 		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
 	FinalFire:
 		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
@@ -228,19 +213,18 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
         TNT1 A 0 A_ZoomFactor(1.8)
 		TNT1 A 0 A_PlaySound("Weapon/IronSit")
         4XFF E 1
-		TNT1 A 0 PB_WeaponRecoil(-0.20,-0.15) //(+1.0 + pitch)
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+1.0 + pitch); }
 		4XFF D 1
-		TNT1 A 0 PB_WeaponRecoil(-0.20,-0.15) //(+1.0 + pitch)
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+1.0 + pitch); }
 		TNT1 A 0 A_SetCrosshair(0)
         Goto Ready2
-		
        NoAim:
         TNT1 A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_PlaySound("Weapon/IronSit")
         4XFF D 1
-		TNT1 A 0 PB_WeaponRecoil(-0.20,-0.15) //(-1.0 + pitch)
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(-1.0 + pitch); }
 		4XFF E 1
-		TNT1 A 0 PB_WeaponRecoil(-0.20,-0.15) //(-1.0 + pitch)
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(-1.0 + pitch); }
 		TNT1 A 0 A_Takeinventory("Zoomed",1)
 		TNT1 A 0 A_SetCrosshair(25)
         Goto RealReady
@@ -251,7 +235,6 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 
 		TNT1 A 0 A_PlaySound("Fire/MSKAR2",CHAN_Weapon,0.99,0,2)
 		TNT1 A 0 A_PlaySound("Fire/FaDD",CHAN_Body,0.77,0,2)
-		
 		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,5)
 		AUSZ H 1 Bright {
 				if(GetCvar("PB_alttracer") >=1) {
@@ -260,32 +243,33 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 				PB_LowAmmoSoundWarning;
 			}
 			else { 
+				A_FireCustomMissile("PBWP_Tracer_Rifle", frandom(-2, 2), 0, 0, 0, 0, frandom(-2, 2));
 				A_FireProjectile("PB_556x45mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
 				PB_LowAmmoSoundWarning;
 			}
 		}
-		TNT1 A 0 PB_WeaponRecoil(-0.20,-0.15) //(-0.6 + Pitch)
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(-0.6 + Pitch); }
         TNT1 A 0 A_SpawnItem("DistantRifleFireSound",10,40)
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_TakeInventory ("Mask_Clip", 1)
 		TNT1 AAA 0
-		TNT1 A 0 PB_WeaponRecoil(-0.20,-0.15) //(+0.3 + Pitch)
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+0.3 + Pitch); }
 		TNT1 A 0 A_ZoomFactor(1.98)
 		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,5)
 		TNT1 A 0 A_ZoomFactor(1.97)
 		TNT1 A 0 A_Jump(255,"Recoil_1","Recoil_2")
 
 	Recoil_1:
-		TNT1 A 0 PB_WeaponRecoil(-0.20,-0.15) //(+0.2 + Pitch)
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+0.2 + Pitch); }
 		AUSZ I 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
-		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(-0.2 + Angle)
+		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(-0.2 + Angle); }
 		TNT1 A 0 A_ZoomFactor(1.98)
 		Goto EndOfRecoil
 
 	Recoil_2:
-		TNT1 A 0 PB_WeaponRecoil(-0.20,-0.15) //(-0.2 + Pitch)
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(-0.2 + Pitch); }
 		AUSZ I 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
-		TNT1 A 0 PB_WeaponRecoil(-0.10,-0.15) //(+0.2 + Angle)
+		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(+0.2 + Angle); }
 		Goto EndOfRecoil
 
 	EndOfRecoil:
@@ -302,13 +286,12 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 		TNT1 AAA 0
 		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire1")
 	Refire1:
-		MRKR B 0 PB_ReFire
+		MRKR B 0 { PB_ReFire; }
 		TNT1 AAA 0
 	FinalFire1:
 		TNT1 AAA 0
 		TNT1 AAA 0
 		Goto Ready2
-		
 	WeaponSpecial:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
@@ -322,22 +305,16 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 		Goto SwitchToSemiFire
 
 	SwitchToSemiFire:
-		
 		TNT1 A 0 A_Print ("Semi Fire Mode Selected")
 		TNT1 A 0 A_GiveInventory("SemiFire",1)
 		Goto AnimationChange
-		
 	SwitchToFullAuto:
 		TNT1 A 0 A_TakeInventory("SemiFire")
-		
 		TNT1 A 0 A_Print ("Full Auto Fire Mode Selected")
-		
 		Goto AnimationChange
-	
 	AnimationChange:
 		TNT1 A 0 A_PlaySound("MS_PHS",19)
 		Goto RealReady
-		
 	NoAmmo:
 		TNT1 A 0 A_PlaySound("DryFire/Rifle")
 	NoReload:
@@ -375,9 +352,7 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 		LoadedMag:
 		TNT1 AAAA 0
 		TNT1 A 0 A_Takeinventory("Unloaded_TLMG",1)
-		
 		5XFR EFGHI 1
-		
 	ReloadLoop:
 		TNT1 A 0 A_TakeInventory("PB_HighCalMag",1,TIF_NOTAKEINFINITE)
 		TNT1 A 0 A_GiveInventory("Mask_Clip")
@@ -389,19 +364,14 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 		5XFR J 1
 		5XFR K 1
 		5XFR LM 1
-		
 		5XFR MN 1
-		
 		5XFR O 3
-		
 		5XFR N 2
 		TNT1 A 0 A_PlaySound ("MS_PHS",73)
 		5XFR MLK 1
-		
 		5XFR OP 1
         5XFR QRS 1 A_DoPBWeaponAction(WRF_NOFIRE)
 		Goto RealReady
-		
 	FlashKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
@@ -416,8 +386,7 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 		4XGK C 1
 		4XGK B 1
 		5XFR SS 1
-		Goto Ready3
-		
+		Stop
 	FlashAirKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
@@ -432,8 +401,7 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 		4XGK C 1
 		4XGK B 1
 		5XFR S 1
-		Goto Ready3
-		
+		Stop
 	FlashSlideKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
@@ -446,7 +414,7 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
 		4XGK DDCBA 1
 		5XFR S 1
-		Goto Ready3
+		Stop
 
 	Unload:
 		TNT1 A 0 A_ZoomFactor(1.0)
@@ -468,7 +436,6 @@ ACTOR MaskMan_Rifle : PB_WeaponBase 26051
 		5XFR CD 1
 		TNT1 A 0 A_GiveInventory("Unloaded_TLMG", 1)
 		TNT1 A 0 A_Takeinventory("Unloading",1)
-		
 	RemoveBullets:
 		TNT1 AAAA 0
 		TNT1 A 0 A_JumpIfInventory("Mask_Clip",1,3)
@@ -493,4 +460,4 @@ Inventory.Icon "4XRPA0"
 +IgnoreSkill
 }
 
-ACTOR Unloaded_TLMG : Inventory {Inventory.MaxAmount 1}
+ACTOR Unloaded_TLMG : Inventory { Inventory.MaxAmount 1 }

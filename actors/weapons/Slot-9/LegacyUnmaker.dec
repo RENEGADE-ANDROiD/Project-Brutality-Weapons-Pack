@@ -1,6 +1,6 @@
-Actor LegacyUnmakerSelected : Inventory {Inventory.MaxAmount 1}
+Actor LegacyUnmakerSelected : Inventory { Inventory.MaxAmount 1 }
 
-Actor LegacyUnmakerFireSelected: Inventory {Inventory.MaxAmount 1}
+Actor LegacyUnmakerFireSelected : Inventory { Inventory.MaxAmount 1 }
 
 Actor PB_LegacyUnmaker : PB_WeaponBase
 {
@@ -57,6 +57,8 @@ Actor PB_LegacyUnmaker : PB_WeaponBase
 		TNT1 A 0 A_Playsound("ZTMUP")
 		TNT1 A 0 A_GiveInventory("HasIncendiaryWeapon", 1)
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+		Goto Ready3
 	Ready2:
 		 TNT1 A 0 {
 			  A_WeaponOffset(0,32);
@@ -67,6 +69,7 @@ Actor PB_LegacyUnmaker : PB_WeaponBase
 		 TNT1 A 0 A_JumpIfInventory("LegacyUnmakerFireSelected",1, 2)
 		 TNT1 A 0 A_GiveInventory("HasIncendiaryWeapon", 1)
 		 TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+	ReadySettle:
 	Ready3:
 	LegacyUnmakerReadyToFire:
 		 TNT1 A 0
@@ -98,8 +101,9 @@ Actor PB_LegacyUnmaker : PB_WeaponBase
 		TNT1 A 0 A_StopSound(1)
 		TNT1 A 0 A_StopSound(6)
 		TNT1 A 0 A_Takeinventory("HasIncendiaryWeapon",1)
-		UZTS ABCD 1
-		TNT1 A 0 A_Lower
+		Goto DeselectDown
+	DeselectDown:
+				TNT1 A 0 A_Lower(120)
 		Wait
 
 	Select:
@@ -116,8 +120,8 @@ Actor PB_LegacyUnmaker : PB_WeaponBase
 	    TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 	    Goto SelectFirstPersonLegs
 	    SelectContinue:
-		TNT1 A 0 A_Raise
-		Wait
+				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+				Goto Ready3
 
 	NoAmmo:
 		UZTG ABCDE 4 {
@@ -438,7 +442,7 @@ Actor PB_LegacyUnmaker : PB_WeaponBase
 		UZTS C 1
 		UZTS B 1
 		UZTG AAA 1
-		Goto Ready3
+		Stop
 
 	FlashAirKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
@@ -455,7 +459,7 @@ Actor PB_LegacyUnmaker : PB_WeaponBase
 		UZTS C 1
 		UZTS B 1
 		UZTG AAA 1
-		Goto Ready3
+		Stop
 
 	FlashSlideKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
@@ -464,7 +468,7 @@ Actor PB_LegacyUnmaker : PB_WeaponBase
 		TNT1 A 0 A_ClearOverlays(10,11)
 		UZTS ABCD 2 A_DoPBWeaponAction
 		UZTS EFFFFFFEE 2
-		Goto Ready3
+		Stop
 
 	FlashSlideKickingStop:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
@@ -473,7 +477,7 @@ Actor PB_LegacyUnmaker : PB_WeaponBase
 		TNT1 A 0 A_ClearOverlays(10,11)
 		UZTS EDCBA 1 A_DoPBWeaponAction
 		UZTG A 1
-		Goto Ready3
+		Stop
 
 	FlashPunching:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
@@ -587,7 +591,6 @@ XDeath:
 	Stop
 	}
 }
-	
 Actor LegacyUnmakerLaserTrail
 {
    +FORCEXYBILLBOARD
@@ -741,7 +744,7 @@ Actor LegacyRedLightningTrial
 	}
 }
 
-Actor LegacyRedLightning_Small : LegacyRedLightningTrial {Scale 0.2}
+Actor LegacyRedLightning_Small : LegacyRedLightningTrial { Scale 0.2 }
 
 Actor LegacyUnmakerSwitchModeEffect
 {
@@ -759,4 +762,7 @@ Actor LegacyUnmakerSwitchModeEffect
 }
 
 Actor LegacyRedLightningTrial_Small : LegacyRedLightningTrial
-{ Scale 0.12 }
+{
+	Scale 0.12
+}
+

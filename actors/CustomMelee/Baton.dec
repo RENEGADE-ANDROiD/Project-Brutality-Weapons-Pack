@@ -28,7 +28,9 @@ ACTOR BatonSwing : PB_ProjectileAlt {
 			TNT1 A 0 A_SpawnItemEx("SSawPuff3",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
 			TNT1 A 0 Radius_Quake (2, 6, 0, 5, 0)
 			TNT1 A 1
-			Stop	}}
+			Stop	
+}
+}
 ACTOR SuperBatonSwing : BatonSwing {
 	PB_Projectile.BaseDamage 75
 }

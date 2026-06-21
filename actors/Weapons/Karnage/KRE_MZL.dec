@@ -1,0 +1,158 @@
+﻿Actor muzzlesmoker
+{
+    Speed 25
+    +NOCLIP
+    States
+    {
+    Spawn:
+		TNT1 A 0
+		NULL A 0 A_CustomMissile ("GunSmoke", -10, 0, 0, 2, frandom(80,100))
+        Stop
+    }
+}
+
+Actor muzzlesmokeblst
+{
+    Speed 25
+    +NOCLIP
+    States
+    {
+    Spawn:
+		TNT1 A 0
+		NULL A 0 A_CustomMissile ("Muzzlesmokeblast", -10, 0, 0, 1, frandom(80,100))
+        Stop
+    }
+}
+
+
+Actor muzzlelight
+{
+    Speed 25
+    +NOCLIP
+    States
+    {
+    Spawn:
+		TNT1 A 0
+		NULL A 0 A_CustomMissile ("Orangeflaresmall", -10, 0, 0, 2, frandom(80,100))
+        Stop
+    }
+}
+
+ACTOR GunSmoke
+{
+	+NOGRAVITY
+	+NOBLOCKMAP
+	+NOINTERACTION
+	+FORCEXYBILLBOARD
+	Speed 0.7
+	Renderstyle add
+	Alpha 0.6
+	+CLIENTSIDEONLY
+	Radius 0
+	Height 0
+	Scale 0.3
+	States
+	{
+	Spawn:
+ 		TNT1 A 0 Nodelay A_Jump(256,"Spawn1","spawn2")
+ 		goto spawn1
+    	Spawn1:
+    		TNT1 A 0 A_Settranslucent(0.3)
+       		  SMK1 A 3 A_Setscale(0.12)
+    		TNT1 A 0 A_Settranslucent(0.5)
+        		 SMK1 A 1 A_Setscale(0.14)
+    		TNT1 A 0 A_Settranslucent(0.8)
+        		 SMK1 A 1 A_Setscale(0.16)
+		TNT1 A 0 A_Settranslucent(0.7)
+		         SMK1 A 1 A_Setscale(0.18)
+	    	TNT1 A 0 A_Settranslucent(0.6)
+       		  SMK1 A 1 A_Setscale(0.2)
+	    	TNT1 A 0 A_Settranslucent(0.5)
+		         SMK1 A 1 A_Setscale(0.22)
+    		TNT1 A 0 A_Settranslucent(0.4)
+		         SMK1 A 1 A_Setscale(0.24)
+	    	TNT1 A 0 A_Settranslucent(0.35)
+		SMK1 A 1 A_Setscale(0.26)
+		TNT1 A 0 A_Settranslucent(0.3)
+		SMK1 A 1 A_Setscale(0.28)
+		TNT1 A 0 A_Settranslucent(0.35)
+ 		SMK1 A 1 A_Setscale(0.3)
+		TNT1 A 0 A_Settranslucent(0.2)
+		SMK1 A 1 A_Setscale(0.31)
+		TNT1 A 0 A_Settranslucent(0.15)
+		SMK1 A 1 A_Setscale(0.32)
+		TNT1 A 0 A_Settranslucent(0.1)
+		SMK1 A 1 A_Setscale(0.33)
+		TNT1 A 0 A_Settranslucent(0.05)
+		SMK1 A 1 A_Setscale(0.34)
+		stop
+    Spawn2:
+    	TNT1 A 0 A_Settranslucent(0.3)
+         SMK1 B 1 A_Setscale(0.12)
+    	TNT1 A 0 A_Settranslucent(0.5)
+         SMK1 B 1 A_Setscale(0.14)
+    	TNT1 A 0 A_Settranslucent(0.6)
+         SMK1 B 1 A_Setscale(0.16)
+    	TNT1 A 0 A_Settranslucent(0.55)
+         SMK1 B 1 A_Setscale(0.18)
+    	TNT1 A 0 A_Settranslucent(0.5)
+         SMK1 B 1 A_Setscale(0.2)
+    	TNT1 A 0 A_Settranslucent(0.45)
+         SMK1 B 1 A_Setscale(0.22)
+    	TNT1 A 0 A_Settranslucent(0.4)
+         SMK1 B 1 A_Setscale(0.24)
+    	TNT1 A 0 A_Settranslucent(0.35)
+         SMK1 B 1 A_Setscale(0.26)
+    	TNT1 A 0 A_Settranslucent(0.3)
+         SMK1 B 1 A_Setscale(0.28)
+    	TNT1 A 0 A_Settranslucent(0.35)
+         SMK1 B 1 A_Setscale(0.3)
+    	TNT1 A 0 A_Settranslucent(0.2)
+         SMK1 B 1 A_Setscale(0.31)
+    	TNT1 A 0 A_Settranslucent(0.15)
+         SMK1 B 1 A_Setscale(0.32)
+    	TNT1 A 0 A_Settranslucent(0.1)
+         SMK1 B 1 A_Setscale(0.33)
+    	TNT1 A 0 A_Settranslucent(0.05)
+         SMK1 B 4 A_Setscale(0.34)
+        stop
+    }
+}
+
+ACTOR Muzzlefire
+{
+	Speed 15
+	+NOINTERACTION
+	+CLIENTSIDEONLY
+	+FORCEXYBILLBOARD
+	projectile
+	Renderstyle add
+	Alpha 1
+	Radius 0
+	Height 0
+	Scale	0.3
+	States
+	{
+	Spawn:
+		TNT1 A 0 Nodelay A_Jump(256,"Type1","Type2")
+	Type1:
+		MUZL xxxACEFGH 1 Bright
+		stop
+        Type2:
+		MUZL xxxABCDEF 1 Bright
+		Stop
+    }
+}
+
+ACTOR smoke1 : GunSmoke
+{
+	Speed 1
+	Alpha 0.5
+	Scale 0.3
+	States
+	{
+	Spawn:
+		SMK2 AAAAAAAAA 1 A_FadeOut(0.03)
+        		wait
+    }
+}

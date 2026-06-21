@@ -1,0 +1,28 @@
+﻿actor BulletSmallTracer : FastProjectile
+{
+	Projectile
+	+RANDOMIZE
+	+FORCEXYBILLBOARD
+	+DONTSPLASH
+	+NOEXTREMEDEATH
+	damage 0
+	radius 2
+	height 2
+	speed 200
+	renderstyle ADD
+	alpha 1
+	scale 0.13
+	states
+	{
+	Spawn:
+		TRAC A 1
+		TRAC A 20 BRIGHT
+		Stop
+	Death:
+		TNT1 A 1
+		Stop
+	XDeath:
+		TNT1 A 1
+		Stop
+	}
+}

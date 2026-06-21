@@ -40,11 +40,9 @@ Deselect:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
-	B27U FEDCBA 1
-	BF27 AAAAAAAAAAAAAAAAAA 0 A_Lower
-	BF27 A 0 A_Lower
+			TNT1 A 0 A_Lower(120)
+			TNT1 A 0 A_Lower(120)
 	Wait
-	
 Select:
 	TNT1 A 0 A_TakeInventory("HasBarrel",1)
 	TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
@@ -54,14 +52,14 @@ Select:
 	TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 	Goto SelectFirstPersonLegs
 SelectContinue:
-	BF27 AAAAAAAAAAAAAA 0 A_Raise
 	BF27 A 0
 	BF27 A 0 A_GunFlash
     BF27 A 0 A_PlaySound("BFG2704/Select")
+			TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+			Goto Ready3
 	SelectAnimation:
 	B27U ABCDEF 1 
 	Goto Ready	
-	
 Fire:
 			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
@@ -88,7 +86,6 @@ Fire:
 	BF27 B 20
 	BF27 B 0 A_ReFire("Fire")
 	Goto Ready
-		
 	AltFire:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
@@ -104,7 +101,6 @@ Fire:
 	BF27 C 2 Bright 
 	BF27 B 20
 	Goto Ready3
-	
 	Reload:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
@@ -113,28 +109,24 @@ Fire:
 		TNT1 A 0 A_JumpIfInventory ("HasFlameBarrel", 1, "IdleFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("HasIceBarrel", 1, "IdleIceBarrel")
 		Goto Ready3
-		
 	WeaponSpecial:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
 	TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
 	Goto Ready3
-	
 	FlashKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0
-		Goto Ready3
-		
+		Stop
 	FlashAirKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
 		TNT1 A 0
-		Goto Ready3
-		
+		Stop
 	FlashSlideKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
@@ -145,8 +137,7 @@ Fire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0
-		Goto Ready3
-	
+		Stop
 	Spawn:
 		BF27 P -1
 		Stop	
@@ -280,4 +271,6 @@ ACTOR 2704ClusterWave
 	 SHOG OP 1 BRIGHT A_FadeOut(0.0625)
      Stop
    }
+
+
 }

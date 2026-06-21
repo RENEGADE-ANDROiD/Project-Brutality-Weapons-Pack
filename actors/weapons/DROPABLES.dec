@@ -35,7 +35,6 @@ ACTOR DropedMinigun
 		TNT1 A 1 
 		TNT1 A 0 A_SpawnItemEx("PB_HighCalMag",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
 		Stop
-	
 	}
 }
 
@@ -61,7 +60,6 @@ ACTOR DropedPB_SSG
 	Death:
 		TNT1 A 0 A_SpawnItemEx("PB_Shell",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
 		Stop
-	
 	}
 }
 
@@ -88,7 +86,6 @@ ACTOR DroppedPB_Axe
 		AXE0 AA 1
 		//TNT1 A 0 A_SpawnItemEx("PB_Axe",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
 		Stop
-	
 	}
 }
 
@@ -113,7 +110,6 @@ ACTOR DropedASG
 	Spawn:
 		TNT1 AA 1
 		Goto Death
-		
 	Death:
 		TNT1 AA 1
 		TNT1 A 0 A_SpawnItemEx("PB_Shell",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
@@ -140,7 +136,6 @@ ACTOR DroppedPB_Nailgun
 	Spawn:
 		TNT1 AA 1
 		Goto Death
-		
 	Death:
 		TNT1 AA 1
 		TNT1 A 0 A_SpawnItemEx("PB_HighCalMag",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
@@ -167,13 +162,10 @@ ACTOR DropedSMG
 	Spawn:
 		TNT1 AA 1
 		Goto Death
-		
 	Death:
 		TNT1 AA 1
 		TNT1 A 0 A_SpawnItemEx("PB_HighCalMag",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
 		Stop
-		
-	
 	}
 }
 
@@ -196,12 +188,10 @@ ACTOR DropedPB_Revolver
 	Spawn:
 		TNT1 AA 1
 		Goto Death
-		
 	Death:
 		TNT1 AA 1
 		TNT1 A 0 A_SpawnItemEx("BulletCartridge",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
 		Stop
-	
 	}
 }
 
@@ -224,7 +214,6 @@ ACTOR DropedCarbine
 	Spawn:
 		TNT1 AA 1
 		Goto Death
-		
 	Death:
 		TNT1 AA 1
 		TNT1 A 0 A_SpawnItemEx("PB_HighCalMag",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
@@ -252,7 +241,6 @@ ACTOR DropedM2Plasma
 	Spawn:
 		TNT1 AA 1
 		Goto Death
-		
 	Death:
 		TNT1 AA 1
 		TNT1 A 0 A_SpawnItemEx("PB_Cell",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
@@ -280,12 +268,10 @@ ACTOR DropedPlasma
 	Spawn:
 		TNT1 AA 1
 		Goto Death
-		
 	Death:
 		TNT1 AA 1
 		TNT1 A 0 A_SpawnItemEx("PB_Cell",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
 		Stop
-	
 	}
 }
 
@@ -310,12 +296,10 @@ ACTOR DropedPistol
 	Spawn:
 		TNT1 AA 1
 		Goto Death
-		
 	Death:
 		TNT1 AA 1
 		TNT1 A 0 A_SpawnItemEx("BulletCartridge",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
 		Stop
-	
 	}
 }
 
@@ -338,7 +322,6 @@ ACTOR DropedRifle
 	Spawn:
 		TNT1 AA 1
 		Goto Death
-		
 	Death:
 		TNT1 AA 1
 		TNT1 A 0 A_SpawnItemEx("PB_HighCalMag",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
@@ -365,10 +348,11 @@ ACTOR DropedShotgun
 	Spawn:
 		TNT1 AA 1
 		Goto Death
-		
 	Death:
 		TNT1 AA 1
 		TNT1 A 0 A_SpawnItemEx("PB_Shell",0,0,0,0,0,0,0,SXF_TRANSFERSPECIAL | SXF_NOCHECKPOSITION | 288)
 		Stop
 	}
+
+
 }

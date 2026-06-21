@@ -1,0 +1,344 @@
+﻿Actor Spin_JRMYXD5: Inventory
+{
+inventory.maxamount 1
+}
+
+
+ACTOR PB_HYDRA : PB_WeaponBase
+{
+	Game Doom
+	SpawnID 28
+	Weapon.SelectionOrder 700
+	Weapon.AmmoType1 "PB_HighCalMag"
+	Weapon.AmmoGive 100
+	Weapon.AmmoUse1 0
+    +WEAPON.NOAUTOAIM
+	+WEAPON.NOAUTOFIRE
+	+FORCEXYBILLBOARD
+	Weapon.SlotNumber 5
+	Weapon.SlotPriority 5
+	tag "UAC MACH-3 Type B HYDRA"
+Inventory.PickupSound "Hailstorm/Pickup"
+Inventory.PickupMessage "You got the UAC MACH-3 Type B HYDRA!"
+Obituary "%o was turned into swiss cheese by %k's HYDRA."
+AttackSound "none"
+Scale 0.9
+States
+{
+
+
+	Spawn:
+	J5SP A -1
+	Stop
+	ReadySettle:
+	Ready:
+	Ready3:
+		J5GG A 1 A_DoPBWeaponAction
+		TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		J5GG A 0 A_JumpIfInventory("Spin_JRMYXD5",1,"Ready2")
+		J5GG A 0 A_JumpIfInventory("PB_HighCalMag",1,"Ready")
+		Goto IdleNoAmmo
+
+	IdleNoAmmo:
+	TNT1 A 0 A_StopSound(5)
+	  TNT1 A 0 A_StopSound(6)
+	  TNT1 A 0 A_StopSound(7)
+		J5GE A 1 A_DoPBWeaponAction
+		J5GG A 0 A_TakeInventory ("Spin_JRMYXD5",1)
+		J5GG A 0 A_JumpIfInventory("PB_HighCalMag",1,"Ready")
+		Loop
+
+	Ready2:
+		J5GG A 0
+		TNT1 A 0 A_StopSound(5)
+	  TNT1 A 0 A_StopSound(6)
+	  TNT1 A 0 A_StopSound(7)
+		TNT1 A 0 A_PlaySound("Hailstorm/Spin")
+		TNT1 A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
+		J5GG ABCD 1 A_DoPBWeaponAction
+		J5GG A 0 A_AlertMonsters
+		Loop
+		Deselect:
+			TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+			TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+			TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+			J5GG A 0
+			J5GG A 0 A_TakeInventory ("Spin_JRMYXD5",1)
+			//J5GG A 0 A_TakeInventory("TossGrenade", 1)
+			J5GG A 0 A_TakeInventory("RandomHeadExploder", 1)
+			J5GG A 0 SetPlayerProperty(0,0,0)
+			J5GG A 0 A_StopSound(5)
+			Goto DeselectDown
+		DeselectDown:
+					TNT1 A 0 A_Lower(120)
+			Wait
+			Select:
+			TNT1 A 0 A_TakeInventory("HasBarrel",1)
+			TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
+			TNT1 A 0 A_TakeInventory("HasFlameBarrel",1)
+			TNT1 A 0 A_TakeInventory("GrabbedBarrel",1)
+			TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
+			TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
+			Goto SelectFirstPersonLegs
+			SelectContinue:
+					TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+					Goto Ready3
+
+		SelectAnimation:
+			CHAG A 0
+			CHAG A 0 A_GunFlash
+			J5GS ABCD 1 A_JumpIfInventory("GoFatality", 1, "Steady")
+					TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+					Goto Ready3
+
+		NoAmmo:
+        J5GE A 10 A_PlaySound("weapons/empty")
+        Goto IdleNoAmmo
+			Fire:
+	    TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 A_JumpIfInventory("Spin_JRMYXD5",1,"Fire2")
+		TNT1 A 0 A_PlaySound("Hailstorm/Start", 4)
+		TNT1 A 0 BRIGHT A_FireCustomMissile("Alerter", 0, 0, 0, 0)
+		J5GG BC 2
+		J5GG D 2
+		J5GG ABC 1
+		J5GG D 1
+		J5GG ABC 1
+		J5GG D 1
+        TNT1 A 0
+		Hold:
+		TNT1 A 0 A_JumpIfInventory("Spin_JRMYXD5",1,"Fire2")
+		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+		Goto NoAmmo
+		TNT1 AAAAAA 0
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag", 1,TIF_NOTAKEINFINITE)
+	    TNT1 A 0 A_PlaySound("Hailstorm/Spin", 4)
+		TNT1 A 0 A_PlaySound("Hailstorm/Fire/Loop2", 6, 1, TRUE)
+		TNT1 A 0 A_PlaySound("Hailstorm/Fire/Loop1", 7, 1, TRUE)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+        J5GF A 1 BRIGHT A_GunFlash("BulletFlash")
+		TNT1 A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,27)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		//TNT1 A 0 A_JumpIfInventory("NoPenetration", 1, 2)
+		RIFF A 0 A_FireCustomMissile("WallPenetrationHitscan", random(-3,3), 0, -1, 0, 0, random(-3,3))
+		RIFF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+        TNT1 A 0 A_Firecustommissile("50CalCaseSpawn",0,0,-12,-18)
+        J5GF BC 1 
+		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+		Goto NoAmmo
+		TNT1 AAAAAA 0	
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag", 1,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+        J5GF D 1 BRIGHT A_GunFlash("BulletFlash")
+		TNT1 A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,27)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		//TNT1 A 0 A_JumpIfInventory("NoPenetration", 1, 2)
+		RIFF A 0 A_FireCustomMissile("WallPenetrationHitscan", random(-3,3), 0, -1, 0, 0, random(-3,3))
+		TNT1 A 0
+        TNT1 A 0 A_Firecustommissile("50CalCaseSpawn",0,0,-12,-18)
+	    J5GF E 1
+		J5GF F 1
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag", 1,TIF_NOTAKEINFINITE)
+	    TNT1 A 0 A_PlaySound("Hailstorm/Spin", 4)
+		TNT1 A 0 A_PlaySound("Hailstorm/Fire/Loop2", 6, 1, TRUE)
+		TNT1 A 0 A_PlaySound("Hailstorm/Fire/Loop1", 7, 1, TRUE)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+        J5GF G 1 BRIGHT A_GunFlash("BulletFlash")
+		TNT1 A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,27)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		//TNT1 A 0 A_JumpIfInventory("NoPenetration", 1, 2)
+		RIFF A 0 A_FireCustomMissile("WallPenetrationHitscan", random(-3,3), 0, -1, 0, 0, random(-3,3))
+		RIFF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+        TNT1 A 0 A_Firecustommissile("50CalCaseSpawn",0,0,-12,-18)
+        J5GF HI 1
+		MNGG B 0 A_ReFire("Hold")
+		Goto CoolDown
+CoolDown:
+	 TNT1 A 0 A_StopSound(6)
+	 TNT1 A 0 A_StopSound(7)
+	 TNT1 A 0 A_Playsound("Hailstorm/Fire/End",7)
+	 J5GG A 1 A_DoPBWeaponAction
+	 TNT1 A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+	 J5GG B 1 A_DoPBWeaponAction
+	 TNT1 A 0 A_Refire
+	 TNT1 A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+	 J5GG C 1 A_DoPBWeaponAction
+	 TNT1 A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+	 J5GG D 1 A_DoPBWeaponAction
+	 TNT1 A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)		
+	 TNT1 A 0 A_PlaySound("Hailstorm/Stop", 4)
+	 J5GG A 1 A_DoPBWeaponAction
+	 TNT1 A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+	 J5GG B 1 A_DoPBWeaponAction
+	 TNT1 A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+	 J5GG C 2 A_DoPBWeaponAction
+	 TNT1 A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+	 J5GG D 2 A_DoPBWeaponAction
+	 TNT1 A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+	 TNT1 A 0 A_TakeInventory("Spin_JRMYXD5", 1)
+	 J5GG A 2
+	 TNT1 A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+	 J5GG B 2
+	 TNT1 A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+	 J5GG C 2 A_DoPBWeaponAction
+	 TNT1 A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+	 J5GG D 2 A_DoPBWeaponAction
+	 TNT1 A 0 A_FireCustomMissile("SmokeSpawner11",0,0,0,0)
+	 J5GG ABCD 2 A_DoPBWeaponAction
+	 J5GG ABCD 3 A_DoPBWeaponAction
+     goto Ready
+	 
+	 BulletFlash:
+	TNT1 A 0
+		TNT1 A 0 A_FireCustomMissile("PBWP_Tracer_Heavy", frandom(-3,3), 0, -1, -12, 0, frandom(-3,3))
+	TNT1 A 0 A_FireBullets(6, 4, 1, 10, "MachineGunBulletPuff", 1)
+		TNT1 A 0 A_FireCustomMissile("PBWP_Tracer_Heavy", frandom(-3,3), 0, -1, -12, 0, frandom(-3,3))
+	TNT1 A 0 A_FireBullets(6, 4, 1, 10, "MachineGunBulletPuff", 1)
+		TNT1 A 0 A_FireCustomMissile("PBWP_Tracer_Heavy", frandom(-3,3), 0, -1, -12, 0, frandom(-3,3))
+	TNT1 A 0 A_FireBullets(6, 4, 1, 10, "MachineGunBulletPuff", 1)
+	Stop
+	Fire2:
+		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+		Goto NoAmmo
+		TNT1 AAAAAA 0
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag", 1,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_PlaySound("Hailstorm/Spin")
+		TNT1 A 0 A_PlaySound("Hailstorm/Fire/Loop2", 6, 1, TRUE)
+		TNT1 A 0 A_PlaySound("Hailstorm/Fire/Loop1", 7, 1, TRUE)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0)
+		////TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+        J5GF A 1 BRIGHT A_GunFlash("BulletFlash")
+		TNT1 A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,27)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		//TNT1 A 0 A_JumpIfInventory("NoPenetration", 1, 2)
+		RIFF A 0 A_FireCustomMissile("WallPenetrationHitscan", random(-3,3), 0, -1, 0, 0, random(-3,3))
+		RIFF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+        TNT1 A 0 A_Firecustommissile("50CalCaseSpawn",0,0,-12,-18)
+        J5GF B 1 
+		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
+		Goto NoAmmo
+		TNT1 AAAAAA 0
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag", 1,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+        J5GF D 1 BRIGHT A_GunFlash("BulletFlash")
+		TNT1 A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,27)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		//TNT1 A 0 A_JumpIfInventory("NoPenetration", 1, 2)
+		RIFF A 0 A_FireCustomMissile("WallPenetrationHitscan", random(-3,3), 0, -1, 0, 0, random(-3,3))
+		TNT1 A 0
+        TNT1 A 0 A_Firecustommissile("50CalCaseSpawn",0,0,-12,-18)
+		J5GF E 1 
+		TNT1 A 0 A_TakeInventory("PB_HighCalMag", 1,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
+        J5GF G 1 BRIGHT A_GunFlash("BulletFlash")
+		TNT1 A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,27)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		//TNT1 A 0 A_JumpIfInventory("NoPenetration", 1, 2)
+		RIFF A 0 A_FireCustomMissile("WallPenetrationHitscan", random(-3,3), 0, -1, 0, 0, random(-3,3))
+		TNT1 A 0
+        TNT1 A 0 A_Firecustommissile("50CalCaseSpawn",0,0,-12,-18)
+		J5GF H 1 
+        MNGG B 0 A_ReFire("Fire2")
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_StopSound(7)
+		TNT1 A 0 A_Playsound("Hailstorm/Fire/End",7)
+     J5GG A 1 A_DoPBWeaponAction
+     TNT1 A 0 A_FireCustomMissile("SmokeSpawner",0,0,0,0)
+     J5GG B 1 A_DoPBWeaponAction
+     TNT1 A 0 A_FireCustomMissile("SmokeSpawner",0,0,0,0)
+     J5GG C 1 A_DoPBWeaponAction
+     TNT1 A 0 A_FireCustomMissile("SmokeSpawner",0,0,0,0)
+     J5GG D 1 A_DoPBWeaponAction
+     TNT1 A 0 A_FireCustomMissile("SmokeSpawner",0,0,0,0)
+        goto Ready2
+	 
+	 AltFire:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		CHAG A 0 A_JumpIfInventory("Spin_JRMYXD5",1,"StopAlt")
+		CHAG A 0 A_JumpIfInventory("PB_HighCalMag",1,1)
+		Goto IdleNoAmmo
+		CHAG A 0 A_GiveInventory ("Spin_JRMYXD5",1)
+		//CHAG A 0 SetPlayerProperty(0,1,0)
+ TNT1 A 0 A_PlaySound("Hailstorm/Start")
+		J5GG ABCD 2
+		CHAG A 0 A_DoPBWeaponAction(WRF_NOSECONDARY)
+		CHAG A 0 A_StopSound(5)
+		Goto Ready2
+
+	  StopAlt:
+		CHAG A 0
+		 CHAG A 0 A_TakeInventory ("Spin_JRMYXD5",1)
+		 TNT1 A 0 A_PlaySound("Hailstorm/Stop")
+		 CHAG A 0 A_StopSound(5)
+		 CHAG A 0 A_StopSound(1)
+J5GG ABCD 1
+     J5GG ABCD 2 A_DoPBWeaponAction(WRF_NOSECONDARY)
+	 J5GG ABCD 3 A_DoPBWeaponAction(WRF_NOSECONDARY)
+		 Goto Ready
+		WeaponSpecial:
+	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
+	TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+	Goto Ready3
+	FlashPunching:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
+		TNT1 AAAAAAAAAAAAAA 1
+		Stop
+		FlashKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
+		J5GS DCBAAAAAAABCD 1 A_DoPBWeaponAction
+		Stop
+	FlashAirKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")
+		J5GS DCBAAAAAAABCD 1 A_DoPBWeaponAction
+		Stop
+	FlashSlideKicking:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
+		J5GS DC 2 A_DoPBWeaponAction
+		J5GS BAAAAAAA 2 A_DoPBWeaponAction
+	FlashSlideKickingStop:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
+		J5GS A 2 A_DoPBWeaponAction
+		J5GS BCD 1 A_DoPBWeaponAction
+		J5GS D 2 A_DoPBWeaponAction
+		Stop
+
+
+}
+}
+ACTOR 50CalCaseSpawn
+{
+	Speed 20
+	PROJECTILE
+	+NOCLIP
+	+CLIENTSIDEONLY
+	States
+	{
+	Spawn:
+        TNT1 A 0
+		TNT1 A 1 A_CustomMissile("PB_EmptyBrass",-2,0,random(80,100),2,random(40,80))
+		Stop
+
+}
+
+
+}

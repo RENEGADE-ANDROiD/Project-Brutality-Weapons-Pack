@@ -27,7 +27,7 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
         GibHealth 20;
         Species "Marines";
         BloodType "NashGoreBlood";
-		Player.MorphWeapon "BattleAxe";
+		Player.MorphWeapon "PB_Fists";
 
         DamageFactor "Head",1.0;
 		DamageFactor "Leg",1.0;
@@ -73,16 +73,15 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		Player.ViewBob 0.0;
 
 		Player.WeaponSlot 1,
+		"PB_Fists",
 		"PB_Axe",
 		"PB_Chainsaw",
-		"PB_Fists",
 		// PBWP SLOT 1
 		"PB_BeamKatana",
 		"PB_ArgentSith",
 		"BattleAxe",
 		"Razorjack",
-		"LegendaryChainsaw",
-		"PB_SBSword";
+		"LegendaryChainsaw";
 
 		Player.WeaponSlot 2,
 		"PB_Pistol",
@@ -91,9 +90,9 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		"PB_SMG",
 		"PB_MP40",
 		// PBWP SLOT 2
-		"ProSurv_BlasterPistol",
 		"44PDW",
 		"B92S",
+		"IN_Beretta",
 		"DoomBlaster",
 		"W_SMG",
 		"P_SMG",
@@ -118,7 +117,6 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		"DTShotgun",
 		"M1887",
 		"RotatingDoubleBarrel",
-		"PB_CSSG",
 		"LegendaryAssaultShotgun";
 
 		Player.WeaponSlot 4,
@@ -127,13 +125,15 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		"PB_ChexRifle",
 		"PB_LMG",
 		// PBWP SLOT 4
-		"Prosurv_LeverAction",
-		"Prosurv_Ballista",
 		"AK-47",
-		"HeavySniperRifle",
+		"AssaultR1",
+		"Black_DMR-RKX",
+		"Adv_MaskMan_Rifle",
+		"MaskMan_Rifle",
+		"M1X",
 		"MagnumSniperRifle",
 		"PB_BoltRifle",
-		"M41A",
+		"PB_Fusil",
 		"NemesisLMG";
 
 		Player.WeaponSlot 5,
@@ -145,10 +145,10 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		"Dark_Fate",
 		"Heavy_Assault_Rifle",
 		"INMiniGun",
+		"ApocalypseKiller",
 		"INNailGun",
 		"Fire_and_Ice-DragonSlayer",
 		"DukeNukemRipper",
-		"PB_NeoHMG",
 		"SuperNailgun",
 		"PowerOverwhelming",
 		"AutoCannon";
@@ -159,9 +159,8 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		// PBWP SLOT 6
 		"Devastator",
 		"SuperGrenadeLauncher",
-		"PB_Excavator",
-		"CyberdemonsMissileLauncher",
-		"MastermindChaingun",
+		"ChthonicRifle",
+		"Fallen_Hawk",
 		"Paingiver",
 		"D4RocketLauncher";
 
@@ -181,25 +180,27 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		"PB_Flamethrower",
 		// PBWP SLOT 8
 		"MancubusFlameCannon",
+		"DualFlameCannon",
 		"BioAcidLauncher",
 		"ThunderCarrierTI",
 		"Extinction_Ray",
 		"ThunderCrossbow",
-		"Devastador";
+		"PB_DarkMatterRifle",
+		"Devastador",
+		"LoRCalamityBlade";
 
 		Player.WeaponSlot 9,
 		"PB_Railgun",
 		"PB_BFG9000",
 		// PBWP SLOT 9
-		"Ballistagun",
-		"LoRCalamityBlade",
 		"PhaseEradicatorBFG",
 		"Stormcast",
 		"EnragedLegendaryBFG",
 		"GodEnragedBFG",
 		"NemesisBFG",
 		"LegendaryBFG10K",
-		"LegendaryPlasmaticRifle";
+		"LegendaryPlasmaticRifle",
+		"PB_CalamityBlade";
 
 		Player.WeaponSlot 0,
 		"PB_DemonTech",
@@ -208,11 +209,11 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		"AncientCrossbow",
 		"TechBlaster",
 		"PB_LegacyUnmaker",
+		"Satan_Scream",
 		"Unmaker64",
-		"DemonTechMinigun",
-		"PB_DemonExt";
+		"DemonTechMinigun";
 
-		// Player.StartItem "PB_PDAWeaponContainer",1;
+		Player.StartItem "PB_PDAWeaponContainer",1;
 		Player.StartItem "PB_AutoShotgun";
 		Player.StartItem "BattleAxe";
 		Player.StartItem "PB_Fists";
@@ -235,14 +236,14 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		Player.StartItem "PB_NailgunAmmo",120;
 		Player.StartItem "PlasmaAmmo",60;
 		Player.StartItem "LeftPlasmaAmmo",60;
-		Player.StartItem "RocketRounds",6;
+		Player.StartItem "RocketRounds",10;
 		Player.StartItem "RailgunAmmo",60;
 		Player.StartItem "IsPlayer",1;
 		Player.StartItem "SMGAmmo",51;
 		Player.StartItem "LeftSMGAmmo",51;
 		Player.StartItem "XRifleAmmo",41;
 		Player.StartItem "LeftXRifleAmmo",41;
-		Player.StartItem "LMGAmmo",75;
+		Player.StartItem "LMGAmmo",100;
 		Player.StartItem "M2PlasmaAmmo",50;
 		Player.StartItem "LeftM2PlasmaAmmo",50;
 		Player.StartItem "MP40Ammo",32;
@@ -309,27 +310,6 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
         }
         return Super.DamageMobj(inflictor,source,damage,mod,flags,angle);
     }
-	
-	override void CheatGive (String name, int amount)
-	{
-		if(name ~== "PB_ALL" || name ~== "PB_Upgrades")
-		{
-			for(int i = 0; i < self.PB_ActUpgrades.size() -1; i++)
-				giveinventory(self.PB_ActUpgrades[i],2);
-			return;
-		}
-		super.cheatgive(name,amount);
-	}
-	
-	//array to save all the upgrades
-	static const string PB_ActUpgrades[] = {
-		"PB_Deagle", //slot 2
-		"PB_AutoshotgunUpgrade","PB_QuadSGUpgrade","PB_SGMagazine", //slot3
-		"PB_LMG","RifleUpgrade", //slot 4
-		"PB_Minigun","MinigunUpgraded"," PB_MinigunUpgrade", //slot 5 
-		"PB_M2Upgrade", //slot 7
-		"PB_Flamethrower", "FlamerUpgraded" //slot 9?
-	};
 }
 
 /*class PB_PistolPlayerPrawn : PB_PlayerPrawn
@@ -390,7 +370,7 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		Player.CrouchSprite "PLYC";
 		Player.ViewBob 0.0;
 
-		Player.WeaponSlot 1,"PB_Axe","PB_Chainsaw","PB_Fists";
+		Player.WeaponSlot 1,"PB_Fists";
 		Player.WeaponSlot 2,"PB_Pistol","PB_Revolver","PB_Deagle","PB_SMG","PB_MP40";
 		Player.WeaponSlot 3,"PB_Shotgun","PB_AutoShotgun","PB_SSG","PB_QuadSG";
 		Player.WeaponSlot 4,"PB_DMR","PB_Carbine","PB_ChexRifle","PB_LMG";
@@ -401,7 +381,7 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		Player.WeaponSlot 9,"PB_Railgun","PB_BFG9000";
 		Player.WeaponSlot 0,"PB_DemonTech","PB_Unmaker";
 
-        //Player.StartItem "PB_PDAWeaponContainer",1;
+        Player.StartItem "PB_PDAWeaponContainer",1;
 		Player.StartItem "PB_Fists";
 		Player.StartItem "PB_Pistol";
 		Player.StartItem "CarbineFullAuto";
@@ -423,14 +403,14 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		Player.StartItem "PB_NailgunAmmo",120;
 		Player.StartItem "PlasmaAmmo",60;
 		Player.StartItem "LeftPlasmaAmmo",60;
-		Player.StartItem "RocketRounds",6;
+		Player.StartItem "RocketRounds",10;
 		Player.StartItem "RailgunAmmo",60;
 		Player.StartItem "IsPlayer",1;
 		Player.StartItem "SMGAmmo",51;
 		Player.StartItem "LeftSMGAmmo",51;
 		Player.StartItem "XRifleAmmo",41;
 		Player.StartItem "LeftXRifleAmmo",41;
-		Player.StartItem "LMGAmmo",75;
+		Player.StartItem "LMGAmmo",100;
 		Player.StartItem "M2PlasmaAmmo",50;
 		Player.StartItem "LeftM2PlasmaAmmo",50;
 		Player.StartItem "MP40Ammo",32;
@@ -441,7 +421,6 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 		Player.StartItem "DeagleAmmo",12;
 		Player.StartItem "LeftDeagleAmmo",12;
 		Player.StartItem "CheXRifleAmmo",42;
-		Player.StartItem "CryoDMRAmmo",60;
 		Player.StartItem "HasBuckShot",1; //Added for proper SG ammo type sorting
 		Player.StartItem "FragGrenadeSelected",1;
 		Player.StartItem "PB_GrenadeAmmo",3;
@@ -487,6 +466,7 @@ class PB_BIGPlayerPrawn : PB_PlayerPrawn
 			return;
 		}
 		super.cheatgive(name,amount);
+		PBWP_VietDoomDurability.SeedAllForPlayer(self, name ~== "all" || name ~== "everything");
 	}
 	
 	//array to save all the upgrades

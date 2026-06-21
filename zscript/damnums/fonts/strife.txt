@@ -1,0 +1,37 @@
+/*
+ * DamNums: by Xaser Acheron
+ *
+ * Strife font.
+ */
+
+class DamNumFontStrife : DamNumFont
+{
+	Default
+	{
+		DamNumFont.Prefix "_S";
+		DamNumFont.DefaultTranslation "DamGold";
+		Scale 1.0;
+		Alpha 0.85;
+		RenderStyle 'Translucent';
+	}
+	States
+	{
+	Spawn:
+		_S11 A 0;
+		_S21 A 0;
+		_S22 A 0;
+		_S31 A 0;
+		_S32 A 0;
+		_S33 A 0;
+		_S41 A 0;
+		_S42 A 0;
+		_S43 A 0;
+		_S44 A 0;
+		_S51 A 0;
+		_S52 A 0;
+		_S53 A 0;
+		_S54 A 0;
+		_S55 A 0;
+		Stop;
+	}
+}

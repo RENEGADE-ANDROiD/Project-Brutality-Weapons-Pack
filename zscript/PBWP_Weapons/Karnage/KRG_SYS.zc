@@ -1,0 +1,39 @@
+class KRG_9x19mm : PB_9x19mm
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 20;
+		PB_Projectile.RipperCount 2;
+		Obituary "Someone gets Silent off by %k's Suppressed Handgun";
+	}
+}
+
+class KRG_9x19mmHP : PB_9x19mm
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 22;
+		PB_Projectile.RipperCount 3;
+		Obituary "Looks like gets drt drt drt drt drt by %k's MP-55";
+	}
+}
+
+class KRG_500SW : PB_500SW
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 110;
+		PB_Projectile.RipperCount 4;
+		Obituary "Looks like organ down by somewhere...?";
+	}
+}
+
+class KRG_556x45mm : PB_556x45mm
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 40;
+		PB_Projectile.RipperCount 3;
+		Obituary "Gets Decarp by %k's SSVX-AR";
+	}
+}

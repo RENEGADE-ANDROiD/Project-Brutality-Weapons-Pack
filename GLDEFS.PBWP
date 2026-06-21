@@ -1,49 +1,5 @@
 #INCLUDE Brightmaps.bm
 
-//Sublimination Sword
-//SubliminationSword
-FlickerLight SBS
-{
-Color 0.7 0.4 0.0
-Size 30
-SecondarySize 40
-Chance 0.2
-Offset 0 24 0
-}
-
-FLICKERLIGHT BigWhiteLight
-{
-Color 1.0 1.0 1.0
-size 180
-SecondarySize 200
-Chance 0.2
-}
-
-pulselight RedDarkMatterLight 
-{
-color 0.8 0.0 0.0
-size 70
-secondarySize 90
-interval 0.7
-Subtractive 90
-}
-
-Object PB_SBSword
-{
-Frame WVBL { Light SBS }
-}
-
-Object MainyuSwordProjectile
-{
-Frame TNT1 { Light BigWhiteLight }
-}
-
-Object MainyuRedDarkMatter
-{
-Frame DMGB { Light RedDarkMatterLight }
-Frame TNT1 { Light RedDarkMatterLight }
-}
-
 //Earth boss
 pointlight EBOSSNECKDEATH
 {
@@ -54,17 +10,6 @@ pointlight EBOSSNECKDEATH
 //    [attenuate <ATT>]
 //    [dontlightself <DLS>]
 } 
-
-pointlight ECELLLIGHT
-{
-    color 0.6 1.0 0.6
-    size 128
-}
-
-Object EBossCell
-{
-Frame EBCL { Light ECELLLIGHT }
-}
 
 //Hect fireball
 pointlight HECTFIREBALL
@@ -207,113 +152,6 @@ pulselight ORANGEITEM
 
 
 
-object PB_ArmorBonus1
-{
-    frame B0N2 
-    { light GREENITEM }
-}
-
-object PB_ArmorBonusBlue
-{
-    frame B0N2
-    { light BLUEITEM }
-}
-
-object PB_ArmorBonusRed
-{
-    frame B0N2 
-    { light REDITEM }
-}
-
-object PB_ArmorBonusGold
-{
-    frame B0N2 
-    { light GOLDITEM }
-}
-
-object PB_ArmorBonusWhite
-{
-    frame B0N2 
-    { light WHITEITEM }
-}
-
-object PB_ArmorBonusPurple
-{
-    frame B0N2 
-    { light PURPLEITEM }
-}
-
-object PB_ArmorBonusCyan
-{
-    frame B0N2 
-    { light CYANITEM }
-}
-
-object PB_ArmorBonusOrange
-{
-    frame B0N2 
-    { light ORANGEITEM }
-}
-
-object PB_ArmorBonusPink
-{
-    frame B0N2 
-    { light PINKITEM }
-}
-
-object PB_HealthBonus1
-{
-    frame B0N1
-    { light BLUEITEM }
-}
-
-object PB_HealthBonusGreen
-{
-    frame B0N1 
-    { light GREENITEM }
-}
-
-object PB_HealthBonusRed
-{
-    frame B0N1 
-    { light REDITEM }
-}
-
-object PB_HealthBonusGold
-{
-    frame B0N1 
-    { light GOLDITEM }
-}
-
-object PB_HealthBonusPurple
-{
-    frame B0N1 
-    { light PURPLEITEM }
-}
-
-object PB_HealthBonusCyan
-{
-    frame B0N1 
-    { light CYANITEM }
-}
-
-object PB_HealthBonusOrange
-{
-    frame B0N1 
-    { light ORANGEITEM }
-}
-
-object PB_HealthBonusWhite
-{
-    frame B0N1 
-    { light WHITEITEM }
-}
-
-object PB_HealthBonusPink
-{
-    frame B0N1 
-    { light PINKITEM }
-}
 //HelmetDrops//
 pointlight DroppedHelm1
 {
@@ -351,23 +189,6 @@ brightmap sprite 3BONB0 { map "BRIGHTMAPS/3BONB0.png" }
 brightmap sprite 3BONC0 { map "BRIGHTMAPS/3BONC0.png" }
 brightmap sprite 3BOND0 { map "BRIGHTMAPS/3BOND0.png" }
 brightmap sprite 3BONE0 { map "BRIGHTMAPS/3BONE0.png" }
-
-//KILLSTREAK//
-object KillStreak
-{
-	frame KIST
-	{
-		light GOLDPULSE
-	}
-}
-PulseLight GOLDPULSE
-{
-	color 1.0 0.843 0.0
-	Size 35
-	SecondarySize 45
-	Interval 1.5
-	Offset 0 0 0
-}
 
 // FreezeBot
 BrightMap Sprite FZB1A1
@@ -543,17 +364,14 @@ interval 0.7
 Subtractive 90
 }
 
-
-Object PlayerMainyuSwordProjectile
+pulselight PB_DMR_OrbGlow
 {
-Frame TNT1 { Light BigWhiteLight }
+	color 0.82 0.28 0.98
+	size 44
+	secondarySize 62
+	interval 0.82
 }
 
-Object PlayerMainyuRedDarkMatter
-{
-Frame DMGB { Light RedDarkMatterLight }
-Frame TNT1 { Light RedDarkMatterLight }
-}
 
 FLICKERLIGHT FuckingAtrociouslyLargeWhiteLight
 {
@@ -692,58 +510,8 @@ object TankShellBall
     frame TNT1D { light TANKSHELL_X3 }
 }
 
-//LoRCalamityBlade//
-brightmap sprite BLEMA0 { map "Brightmaps/BLEMA0.png" }
-brightmap sprite BLRUA0 { map "Brightmaps/BLRUA0.png" }
 
-brightmap sprite BLREA0 { map "Brightmaps/BLREA0.png" }
-brightmap sprite BLREB0 { map "Brightmaps/BLREB0.png" }
-brightmap sprite BLREC0 { map "Brightmaps/BLREC0.png" }
-brightmap sprite BLRED0 { map "Brightmaps/BLRED0.png" }
-brightmap sprite BLREE0 { map "Brightmaps/BLREE0.png" }
-brightmap sprite BLREF0 { map "Brightmaps/BLREF0.png" }
-brightmap sprite BLREG0 { map "Brightmaps/BLREG0.png" }
-brightmap sprite BLREH0 { map "Brightmaps/BLREH0.png" }
-brightmap sprite BLREI0 { map "Brightmaps/BLREI0.png" }
-brightmap sprite BLREJ0 { map "Brightmaps/BLREJ0.png" }
-brightmap sprite BLREK0 { map "Brightmaps/BLREK0.png" }
-brightmap sprite BLREL0 { map "Brightmaps/BLREL0.png" }
-brightmap sprite BLREM0 { map "Brightmaps/BLREM0.png" }
-brightmap sprite BLREN0 { map "Brightmaps/BLREN0.png" }
-brightmap sprite BLREO0 { map "Brightmaps/BLREO0.png" }
 
-//Idle
-brightmap	Sprite	UNMIA0	{	Map "brightmaps/Weapons/UNMK64/BMUNMIA0.png"	disablefullbright	}
-brightmap	Sprite	UNMIB0	{	Map "brightmaps/Weapons/UNMK64/BMUNMIA0.png"	disablefullbright	}
-brightmap	Sprite	UNMIC0	{	Map "brightmaps/Weapons/UNMK64/BMUNMIA0.png"	disablefullbright	}
-brightmap	Sprite	UNMID0	{	Map "brightmaps/Weapons/UNMK64/BMUNMIA0.png"	disablefullbright	}
-brightmap	Sprite	UNMIE0	{	Map "brightmaps/Weapons/UNMK64/BMUNMIA0.png"	disablefullbright	}
-brightmap	Sprite	UNMIF0	{	Map "brightmaps/Weapons/UNMK64/BMUNMIA0.png"	disablefullbright	}
-brightmap	Sprite	UNMII0	{	Map "brightmaps/Weapons/UNMK64/BMUNMIA0.png"	disablefullbright	}
-brightmap	Sprite	UNMIJ0	{	Map "brightmaps/Weapons/UNMK64/BMUNMIA0.png"	disablefullbright	}
-brightmap	Sprite	UNMIK0	{	Map "brightmaps/Weapons/UNMK64/BMUNMIA0.png"	disablefullbright	}
-brightmap	Sprite	UNMIL0	{	Map "brightmaps/Weapons/UNMK64/BMUNMIA0.png"	disablefullbright	}
-//Fire
-brightmap	Sprite	UNMFA0	{	Map "brightmaps/Weapons/UNMK64/BMUNMFA0.png"	}
-brightmap	Sprite	UNMFB0	{	Map "brightmaps/Weapons/UNMK64/BMUNMFB0.png"	}
-brightmap	Sprite	UNMFC0	{	Map "brightmaps/Weapons/UNMK64/BMUNMFC0.png"	}
-
-//select
-brightmap	Sprite	UNMSA0	{	Map "brightmaps/Weapons/UNMK64/BMUNMSA0.png"	disablefullbright	}
-brightmap	Sprite	UNMSB0	{	Map "brightmaps/Weapons/UNMK64/BMUNMSB0.png"	disablefullbright	}
-brightmap	Sprite	UNMSC0	{	Map "brightmaps/Weapons/UNMK64/BMUNMSC0.png"	disablefullbright	}
-brightmap	Sprite	UNMSD0	{	Map "brightmaps/Weapons/UNMK64/BMUNMSD0.png"	disablefullbright	}
-brightmap	Sprite	UNMSE0	{	Map "brightmaps/Weapons/UNMK64/BMUNMSE0.png"	disablefullbright	}
-
-//deselect
-brightmap	Sprite	UNMDA0	{	Map "brightmaps/Weapons/UNMK64/BMUNMDA0.png"	disablefullbright	}
-brightmap	Sprite	UNMDB0	{	Map "brightmaps/Weapons/UNMK64/BMUNMDB0.png"	disablefullbright	}
-brightmap	Sprite	UNMDC0	{	Map "brightmaps/Weapons/UNMK64/BMUNMDC0.png"	disablefullbright	}
-brightmap	Sprite	UNMDD0	{	Map "brightmaps/Weapons/UNMK64/BMUNMDD0.png"	disablefullbright	}
-brightmap	Sprite	UNMDE0	{	Map "brightmaps/Weapons/UNMK64/BMUNMDE0.png"	disablefullbright	}
-
-//pickup 
-brightmap	Sprite	UNMXA0	{	Map "brightmaps/Weapons/UNMK64/BMUNMXA0.png"	disablefullbright	}
 
 //Fire Plasma
 Brightmap Sprite GLSFA0 { Map "Brightmaps/Gauss/GCSFA0.png" }
@@ -813,28 +581,6 @@ OBJECT PhaseEradicationBFGUltimateBall
 Frame VOCR { Light HugePurpleLight }
 Frame TNT1 { Light UltimatePurpleLight }
 }
-
-Brightmap Sprite DSGFA0 {Map "Brightmaps/BM4SGFR1.png" DisableFullBright}
-
-Brightmap Sprite DSBFA0 {Map "Brightmaps/BM4SBFR1.png" DisableFullBright}
-
-Brightmap Sprite DSXFA0 {Map "Brightmaps/BMD4SEFR.png" DisableFullBright}
-
-Brightmap Sprite DSBAA0 {Map "Brightmaps/DSGBFRB.png" DisableFullBright}
-
-Brightmap Sprite DSXAA0 {Map "Brightmaps/BMD4SXGR.png" DisableFullBright}
-
-Brightmap Sprite DSBHB0 {Map "Brightmaps/B4SBCHG1.png" DisableFullBright}
-
-Brightmap Sprite DSBHC0 {Map "Brightmaps/B4SBCHG2.png" DisableFullBright}
-
-Brightmap Sprite D4SCB0 {Map "Brightmaps/BMD4SCB0.png" DisableFullBright}
-
-Brightmap Texture "Models/PBVP/Palettes/D2016SG_Burst.png" {Map "Brightmaps/D2016SG_BurstBM.png" DisableFullBright}
-
-//=================================================================//
-//======= Doom2016 Shotgun ExplosiveGrenade Dynamic Lights ========//
-//=================================================================//
 
 PulseLight PB_Doom2016ShotgunExplosiveGrenadeDynamicYellowLight
 {
@@ -913,196 +659,289 @@ Frame EBLTJ { Light ElectroBlast1 }
 Frame EBLTK { Light ElectroBlast1 }
 }
 
-//Heavy Sniper Rifle
-//Fire
-Brightmap Sprite MSNFA0 { map "Brightmaps/Weapons/MS/BMMSNFA0.png" DisableFullbright }
-Brightmap Sprite MSNFB0 { map "Brightmaps/Weapons/MS/BMMSNFB0.png" DisableFullbright }
-Brightmap Sprite MSNFC0 { map "Brightmaps/Weapons/MS/BMMSNFC0.png" DisableFullbright }
-Brightmap Sprite MSNFD0 { map "Brightmaps/Weapons/MS/BMMSNFD0.png" DisableFullbright }
-Brightmap Sprite MSNFE0 { map "Brightmaps/Weapons/MS/BMMSNFE0.png" DisableFullbright }
-Brightmap Sprite MSNFF0 { map "Brightmaps/Weapons/MS/BMMSNFF0.png" DisableFullbright }
-Brightmap Sprite MSNFG0 { map "Brightmaps/Weapons/MS/BMMSNFG0.png" DisableFullbright }
-Brightmap Sprite MSNFH0 { map "Brightmaps/Weapons/MS/BMMSNFH0.png" DisableFullbright }
+// Kill streak gold globe + Realm667 powerup lights (Universal Kill Streaks fold-in)
+object PB_KillstreakFlare
+{
+	frame KIST
+	{
+		light GOLDPULSE
+	}
+}
+PulseLight GOLDPULSE
+{
+	color 1.0 0.843 0.0
+	Size 35
+	SecondarySize 45
+	Interval 1.5
+	Offset 0 0 0
+}
 
-//(de)select
-Brightmap Sprite MSNUA0 { map "Brightmaps/Weapons/MS/BMMSNUA0.png" DisableFullbright }
-Brightmap Sprite MSNUB0 { map "Brightmaps/Weapons/MS/BMMSNUB0.png" DisableFullbright }
-Brightmap Sprite MSNUC0 { map "Brightmaps/Weapons/MS/BMMSNUC0.png" DisableFullbright }
-Brightmap Sprite MSNUD0 { map "Brightmaps/Weapons/MS/BMMSNUD0.png" DisableFullbright }
+flickerlight2 R667_FireAuraSphereLight
+{
+	color 1.0 0.6 0.3
+	size 75
+	secondarySize 100
+	interval 0.05
+	offset 0 16 0
+	attenuate 1
+}
+object FireAuraSphere
+{
+	frame VFIA { light R667_FireAuraSphereLight }
+}
 
-Brightmap Sprite MSNDA0 { map "Brightmaps/Weapons/MS/BMMSNDA0.png" DisableFullbright }
-Brightmap Sprite MSNDB0 { map "Brightmaps/Weapons/MS/BMMSNDB0.png" DisableFullbright }
-Brightmap Sprite MSNDC0 { map "Brightmaps/Weapons/MS/BMMSNDC0.png" DisableFullbright }
-Brightmap Sprite MSNDD0 { map "Brightmaps/Weapons/MS/BMMSNDD0.png" DisableFullbright }
+flickerlight R667_FireAuraFireLight1 { color 1.0 0.6 0.3  size 36 secondarySize 48  chance 0.3 offset 0 8 0  attenuate 1 }
+flickerlight R667_FireAuraFireLight2 { color 1.0 0.6 0.3  size 60 secondarySize 72  chance 0.3 offset 0 24 0 attenuate 1 }
+flickerlight R667_FireAuraFireLight3 { color 1.0 0.5 0.3  size 96 secondarySize 108 chance 0.3 offset 0 32 0 attenuate 1 }
+flickerlight R667_FireAuraFireLight4 { color 0.8 0.5 0.2  size 96 secondarySize 108 chance 0.3 offset 0 40 0 attenuate 1 }
+flickerlight R667_FireAuraFireLight5 { color 0.8 0.4 0.2  size 96 secondarySize 108 chance 0.3 offset 0 48 0 attenuate 1 }
+flickerlight R667_FireAuraFireLight6 { color 0.6 0.3 0.1  size 72 secondarySize 84  chance 0.3 offset 0 64 0 attenuate 1 }
+flickerlight R667_FireAuraFireLight7 { color 0.4 0.2 0.1  size 48 secondarySize 60  chance 0.3 offset 0 72 0 attenuate 1 }
+flickerlight R667_FireAuraFireLight8 { color 0.2 0.1 0.0  size 24 secondarySize 36  chance 0.3 offset 0 80 0 attenuate 1 }
+object FireAuraFire
+{
+	frame VFIRA { light R667_FireAuraFireLight1 }
+	frame VFIRB { light R667_FireAuraFireLight2 }
+	frame VFIRC { light R667_FireAuraFireLight3 }
+	frame VFIRD { light R667_FireAuraFireLight4 }
+	frame VFIRE { light R667_FireAuraFireLight5 }
+	frame VFIRF { light R667_FireAuraFireLight6 }
+	frame VFIRG { light R667_FireAuraFireLight7 }
+	frame VFIRH { light R667_FireAuraFireLight8 }
+}
 
-//Kick - knife
-Brightmap Sprite MSNKA0 { map "Brightmaps/Weapons/MS/BMMSNKA0.png" DisableFullbright }
-Brightmap Sprite MSNKB0 { map "Brightmaps/Weapons/MS/BMMSNKB0.png" DisableFullbright }
+pointlight R667_FrostAuraSphereLight0 { color 0.4 0.4 1.0 size 60 offset 0 16 0 attenuate 1 }
+pointlight R667_FrostAuraSphereLight1 { color 0.3 0.6 1.0 size  8 offset 0 16 0 attenuate 1 }
+pointlight R667_FrostAuraSphereLight2 { color 0.3 0.6 1.0 size 16 offset 0 16 0 attenuate 1 }
+pointlight R667_FrostAuraSphereLight3 { color 0.3 0.6 1.0 size 24 offset 0 16 0 attenuate 1 }
+pointlight R667_FrostAuraSphereLight4 { color 0.3 0.6 1.0 size 32 offset 0 16 0 attenuate 1 }
+pointlight R667_FrostAuraSphereLight5 { color 0.3 0.6 1.0 size 40 offset 0 16 0 attenuate 1 }
+object FrostAuraSphere
+{
+	frame VFRA  { light R667_FrostAuraSphereLight0 }
+	frame VFRAA { light R667_FrostAuraSphereLight1 }
+	frame VFRAB { light R667_FrostAuraSphereLight1 }
+	frame VFRAC { light R667_FrostAuraSphereLight1 }
+	frame VFRAD { light R667_FrostAuraSphereLight1 }
+	frame VFRAE { light R667_FrostAuraSphereLight2 }
+	frame VFRAF { light R667_FrostAuraSphereLight3 }
+	frame VFRAG { light R667_FrostAuraSphereLight4 }
+	frame VFRAH { light R667_FrostAuraSphereLight5 }
+}
 
-Brightmap Sprite MSNQA0 { map "Brightmaps/Weapons/MS/BMMSNQA0.png" DisableFullbright }
-Brightmap Sprite MSNQB0 { map "Brightmaps/Weapons/MS/BMMSNQB0.png" DisableFullbright }
+pointlight R667_FrostAuraFreezeLight { color 0.2 0.2 0.4 size 64 offset 0 32 0 attenuate 1 }
+object FrostAuraFreeze
+{
+	frame TNT1 { light R667_FrostAuraFreezeLight }
+}
 
-//grenade fire
-Brightmap Sprite MSNGA0 { map "Brightmaps/Weapons/MS/BMMSNGA0.png" DisableFullbright }
-Brightmap Sprite MSNGB0 { map "Brightmaps/Weapons/MS/BMMSNGB0.png" DisableFullbright }
-Brightmap Sprite MSNGC0 { map "Brightmaps/Weapons/MS/BMMSNGC0.png" DisableFullbright }
-Brightmap Sprite MSNGD0 { map "Brightmaps/Weapons/MS/BMMSNGD0.png" DisableFullbright }
-Brightmap Sprite MSNGE0 { map "Brightmaps/Weapons/MS/BMMSNGE0.png" DisableFullbright }
-Brightmap Sprite MSNGF0 { map "Brightmaps/Weapons/MS/BMMSNGF0.png" DisableFullbright }
-Brightmap Sprite MSNGG0 { map "Brightmaps/Weapons/MS/BMMSNGG0.png" DisableFullbright }
+pointlight R667_FrostAuraFrozenLight { color 0.15 0.15 0.3 size 96 offset 0 32 0 attenuate 1 }
+object FrostAuraFrozen
+{
+	frame TNT1 { light R667_FrostAuraFrozenLight }
+}
 
-//Grenade reload
-Brightmap Sprite MSNLA0 { map "Brightmaps/Weapons/MS/BMMSNLA0.png" DisableFullbright }
-Brightmap Sprite MSNLB0 { map "Brightmaps/Weapons/MS/BMMSNLB0.png" DisableFullbright }
-Brightmap Sprite MSNLC0 { map "Brightmaps/Weapons/MS/BMMSNLC0.png" DisableFullbright }
+pulselight R667_FlightSphere
+{
+	color 1.0 0.0 1.0
+	size 40
+	secondarySize 56
+	interval 5.0
+}
+object FlightSphere
+{
+	frame FLYT { light R667_FlightSphere }
+}
 
-//Reload sequence
-//raise
-Brightmap Sprite MSU1A0 { map "Brightmaps/Weapons/MS/BMMSU1A0.png" DisableFullbright }
-Brightmap Sprite MSU1B0 { map "Brightmaps/Weapons/MS/BMMSU1B0.png" DisableFullbright }
-Brightmap Sprite MSU1C0 { map "Brightmaps/Weapons/MS/BMMSU1C0.png" DisableFullbright }
-Brightmap Sprite MSU1D0 { map "Brightmaps/Weapons/MS/BMMSU1D0.png" DisableFullbright }
-Brightmap Sprite MSU1E0 { map "Brightmaps/Weapons/MS/BMMSU1E0.png" DisableFullbright }
-Brightmap Sprite MSU1F0 { map "Brightmaps/Weapons/MS/BMMSU1F0.png" DisableFullbright }
-Brightmap Sprite MSU1G0 { map "Brightmaps/Weapons/MS/BMMSU1G0.png" DisableFullbright }
-Brightmap Sprite MSU1H0 { map "Brightmaps/Weapons/MS/BMMSU1H0.png" DisableFullbright }
-Brightmap Sprite MSU1I0 { map "Brightmaps/Weapons/MS/BMMSU1I0.png" DisableFullbright }
-Brightmap Sprite MSU1J0 { map "Brightmaps/Weapons/MS/BMMSU1J0.png" DisableFullbright }
-Brightmap Sprite MSU1K0 { map "Brightmaps/Weapons/MS/BMMSU1K0.png" DisableFullbright }
-Brightmap Sprite MSU1L0 { map "Brightmaps/Weapons/MS/BMMSU1L0.png" DisableFullbright }
-Brightmap Sprite MSU1M0 { map "Brightmaps/Weapons/MS/BMMSU1M0.png" DisableFullbright }
-Brightmap Sprite MSU1N0 { map "Brightmaps/Weapons/MS/BMMSU1N0.png" DisableFullbright }
+pulselight R667_ReflectorSphere
+{
+	color 1.0 0.5 0.0
+	size 40
+	secondarySize 42
+	interval 2.0
+	offset 0 16 0
+}
+object ReflectorSphere
+{
+	frame RFCT { light R667_ReflectorSphere }
+}
 
-//Raise empty
-Brightmap Sprite MSU0A0 { map "Brightmaps/Weapons/MS/BMMSU1A0.png" DisableFullbright }
-Brightmap Sprite MSU0B0 { map "Brightmaps/Weapons/MS/BMMSU1B0.png" DisableFullbright }
-Brightmap Sprite MSU0C0 { map "Brightmaps/Weapons/MS/BMMSU1C0.png" DisableFullbright }
-Brightmap Sprite MSU0D0 { map "Brightmaps/Weapons/MS/BMMSU1D0.png" DisableFullbright }
-Brightmap Sprite MSU0E0 { map "Brightmaps/Weapons/MS/BMMSU1E0.png" DisableFullbright }
-Brightmap Sprite MSU0F0 { map "Brightmaps/Weapons/MS/BMMSU1F0.png" DisableFullbright }
-Brightmap Sprite MSU0G0 { map "Brightmaps/Weapons/MS/BMMSU1G0.png" DisableFullbright }
-Brightmap Sprite MSU0H0 { map "Brightmaps/Weapons/MS/BMMSU1H0.png" DisableFullbright }
-Brightmap Sprite MSU0I0 { map "Brightmaps/Weapons/MS/BMMSU1I0.png" DisableFullbright }
-Brightmap Sprite MSU0J0 { map "Brightmaps/Weapons/MS/BMMSU1J0.png" DisableFullbright }
-Brightmap Sprite MSU0K0 { map "Brightmaps/Weapons/MS/BMMSU1K0.png" DisableFullbright }
-Brightmap Sprite MSU0L0 { map "Brightmaps/Weapons/MS/BMMSU1L0.png" DisableFullbright }
+flickerlight R667_WraithHand
+{
+	color 1.0 1.0 1.0
+	subtractive 1
+	size 28
+	secondarySize 32
+	chance 0.1
+	offset 0 32 0
+}
+object HandOfTheWraith
+{
+	frame HWTH { light R667_WraithHand }
+}
 
-//take mag
-Brightmap Sprite MST1A0 { map "Brightmaps/Weapons/MS/BMMST1A0.png" DisableFullbright }
-Brightmap Sprite MST1B0 { map "Brightmaps/Weapons/MS/BMMST1B0.png" DisableFullbright }
-Brightmap Sprite MST1C0 { map "Brightmaps/Weapons/MS/BMMST1C0.png" DisableFullbright }
-Brightmap Sprite MST1D0 { map "Brightmaps/Weapons/MS/BMMST1D0.png" DisableFullbright }
-Brightmap Sprite MST1E0 { map "Brightmaps/Weapons/MS/BMMST1E0.png" DisableFullbright }
-Brightmap Sprite MST1F0 { map "Brightmaps/Weapons/MS/BMMST1F0.png" DisableFullbright }
-Brightmap Sprite MST1G0 { map "Brightmaps/Weapons/MS/BMMST1G0.png" DisableFullbright }
-Brightmap Sprite MST1H0 { map "Brightmaps/Weapons/MS/BMMST1H0.png" DisableFullbright }
-Brightmap Sprite MST1I0 { map "Brightmaps/Weapons/MS/BMMST1I0.png" DisableFullbright }
-Brightmap Sprite MST1J0 { map "Brightmaps/Weapons/MS/BMMST1J0.png" DisableFullbright }
-Brightmap Sprite MST1K0 { map "Brightmaps/Weapons/MS/BMMST1K0.png" DisableFullbright }
-Brightmap Sprite MST1L0 { map "Brightmaps/Weapons/MS/BMMST1L0.png" DisableFullbright }
-
-//take mag empty
-Brightmap Sprite MST0A0 { map "Brightmaps/Weapons/MS/BMMST1A0.png" DisableFullbright }
-Brightmap Sprite MST0B0 { map "Brightmaps/Weapons/MS/BMMST1B0.png" DisableFullbright }
-Brightmap Sprite MST0C0 { map "Brightmaps/Weapons/MS/BMMST1C0.png" DisableFullbright }
-Brightmap Sprite MST0D0 { map "Brightmaps/Weapons/MS/BMMST1D0.png" DisableFullbright }
-Brightmap Sprite MST0E0 { map "Brightmaps/Weapons/MS/BMMST1E0.png" DisableFullbright }
-Brightmap Sprite MST0F0 { map "Brightmaps/Weapons/MS/BMMST1F0.png" DisableFullbright }
-Brightmap Sprite MST0G0 { map "Brightmaps/Weapons/MS/BMMST1G0.png" DisableFullbright }
-Brightmap Sprite MST0H0 { map "Brightmaps/Weapons/MS/BMMST1H0.png" DisableFullbright }
-Brightmap Sprite MST0I0 { map "Brightmaps/Weapons/MS/BMMST1I0.png" DisableFullbright }
-Brightmap Sprite MST0J0 { map "Brightmaps/Weapons/MS/BMMST1J0.png" DisableFullbright }
-Brightmap Sprite MST0K0 { map "Brightmaps/Weapons/MS/BMMST1K0.png" DisableFullbright }
-Brightmap Sprite MST0L0 { map "Brightmaps/Weapons/MS/BMMST1L0.png" DisableFullbright }
-
-//insert mag
-Brightmap Sprite MSNRA0 { map "Brightmaps/Weapons/MS/BMMSNRA0.png" DisableFullbright }
-Brightmap Sprite MSNRB0 { map "Brightmaps/Weapons/MS/BMMSNRB0.png" DisableFullbright }
-Brightmap Sprite MSNRC0 { map "Brightmaps/Weapons/MS/BMMSNRC0.png" DisableFullbright }
-Brightmap Sprite MSNRD0 { map "Brightmaps/Weapons/MS/BMMSNRD0.png" DisableFullbright }
-Brightmap Sprite MSNRE0 { map "Brightmaps/Weapons/MS/BMMSNRE0.png" DisableFullbright }
-Brightmap Sprite MSNRF0 { map "Brightmaps/Weapons/MS/BMMSNRF0.png" DisableFullbright }
-Brightmap Sprite MSNRG0 { map "Brightmaps/Weapons/MS/BMMSNRG0.png" DisableFullbright }
-Brightmap Sprite MSNRH0 { map "Brightmaps/Weapons/MS/BMMSNRH0.png" DisableFullbright }
-Brightmap Sprite MSNRI0 { map "Brightmaps/Weapons/MS/BMMSNRI0.png" DisableFullbright }
-Brightmap Sprite MSNRJ0 { map "Brightmaps/Weapons/MS/BMMSNRJ0.png" DisableFullbright }
-Brightmap Sprite MSNRK0 { map "Brightmaps/Weapons/MS/BMMSNRK0.png" DisableFullbright }
-Brightmap Sprite MSNRL0 { map "Brightmaps/Weapons/MS/BMMSNRL0.png" DisableFullbright }
-Brightmap Sprite MSNRM0 { map "Brightmaps/Weapons/MS/BMMSNRM0.png" DisableFullbright }
-Brightmap Sprite MSNRN0 { map "Brightmaps/Weapons/MS/BMMSNRN0.png" DisableFullbright }
-Brightmap Sprite MSNRO0 { map "Brightmaps/Weapons/MS/BMMSNRO0.png" DisableFullbright }
-Brightmap Sprite MSNRP0 { map "Brightmaps/Weapons/MS/BMMSNRP0.png" DisableFullbright }
-Brightmap Sprite MSNRQ0 { map "Brightmaps/Weapons/MS/BMMSNRQ0.png" DisableFullbright }
-Brightmap Sprite MSNRR0 { map "Brightmaps/Weapons/MS/BMMSNRR0.png" DisableFullbright }
-
-//Rechamber
-Brightmap Sprite MSNCA0 { map "Brightmaps/Weapons/MS/BMMSNCA0.png" DisableFullbright }
-Brightmap Sprite MSNCB0 { map "Brightmaps/Weapons/MS/BMMSNCB0.png" DisableFullbright }
-Brightmap Sprite MSNCC0 { map "Brightmaps/Weapons/MS/BMMSNCC0.png" DisableFullbright }
-Brightmap Sprite MSNCD0 { map "Brightmaps/Weapons/MS/BMMSNCD0.png" DisableFullbright }
-Brightmap Sprite MSNCE0 { map "Brightmaps/Weapons/MS/BMMSNCE0.png" DisableFullbright }
-Brightmap Sprite MSNCF0 { map "Brightmaps/Weapons/MS/BMMSNCF0.png" DisableFullbright }
-Brightmap Sprite MSNCG0 { map "Brightmaps/Weapons/MS/BMMSNCG0.png" DisableFullbright }
-Brightmap Sprite MSNCH0 { map "Brightmaps/Weapons/MS/BMMSNCH0.png" DisableFullbright }
-Brightmap Sprite MSNCI0 { map "Brightmaps/Weapons/MS/BMMSNCI0.png" DisableFullbright }
-Brightmap Sprite MSNCJ0 { map "Brightmaps/Weapons/MS/BMMSNCJ0.png" DisableFullbright }
-Brightmap Sprite MSNCK0 { map "Brightmaps/Weapons/MS/BMMSNCK0.png" DisableFullbright }
-Brightmap Sprite MSNCL0 { map "Brightmaps/Weapons/MS/BMMSNCL0.png" DisableFullbright }
-Brightmap Sprite MSNCM0 { map "Brightmaps/Weapons/MS/BMMSNCM0.png" DisableFullbright }
-
-//ADS
-//transition
-Brightmap Sprite MSNAA0 { map "Brightmaps/Weapons/MS/BMMSNAA0.png" DisableFullbright }
-Brightmap Sprite MSNAB0 { map "Brightmaps/Weapons/MS/BMMSNAB0.png" DisableFullbright }
-Brightmap Sprite MSNAC0 { map "Brightmaps/Weapons/MS/BMMSNAC0.png" DisableFullbright }
-Brightmap Sprite MSNAD0 { map "Brightmaps/Weapons/MS/BMMSNAD0.png" DisableFullbright }
-Brightmap Sprite MSNAE0 { map "Brightmaps/Weapons/MS/BMMSNAE0.png" DisableFullbright }
-Brightmap Sprite MSNAF0 { map "Brightmaps/Weapons/MS/BMMSNAF0.png" DisableFullbright }
-
-//fire
-Brightmap Sprite MSNSA0 { map "Brightmaps/Weapons/MS/BMMSNSA0.png" DisableFullbright }
-Brightmap Sprite MSNSB0 { map "Brightmaps/Weapons/MS/BMMSNSB0.png" DisableFullbright }
-Brightmap Sprite MSNSC0 { map "Brightmaps/Weapons/MS/BMMSNSC0.png" DisableFullbright }
-Brightmap Sprite MSNSD0 { map "Brightmaps/Weapons/MS/BMMSNSD0.png" DisableFullbright }
-Brightmap Sprite MSNSE0 { map "Brightmaps/Weapons/MS/BMMSNSE0.png" DisableFullbright }
-Brightmap Sprite MSNSF0 { map "Brightmaps/Weapons/MS/BMMSNSF0.png" DisableFullbright }
-Brightmap Sprite MSNSG0 { map "Brightmaps/Weapons/MS/BMMSNSG0.png" DisableFullbright }
-Brightmap Sprite MSNSH0 { map "Brightmaps/Weapons/MS/BMMSNSH0.png" DisableFullbright }
-Brightmap Sprite MSNSI0 { map "Brightmaps/Weapons/MS/BMMSNSI0.png" DisableFullbright }
-
-//Glorykill Stuff
-    //Deep One
-hardwareshader sprite CXTHL1 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL2 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL3 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL4 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL5 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL6 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL7 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite CXTHL8 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-    //Worm
-hardwareshader sprite PGSSG1 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG2 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG3 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG4 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG5 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG6 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG7 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite PGSSG8 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-    //StoneGargoyle
-hardwareshader sprite STRXH1 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite STRXH2H8	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite STRXH3H7	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite STRXH4H6 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite STRXH5 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-    //EBCL
-hardwareshader sprite EBCZA0 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-    //CyberdemonBoss
-hardwareshader sprite HXBDV1 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite HXBDV2 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite HXBDV3 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite HXBDV4 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite HXBDV5 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite HXBDV6 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
-hardwareshader sprite HXBDV7 	{ Shader "shaders/glorykill.shader" Speed 1.0 }
+pointlight R667_LichSkull
+{
+	color 0.7 0.0 0.0
+	size 32
+	offset 0 30 0
+}
+object ArtiLichSkull
+{
+	frame LCHS { light R667_LichSkull }
+}
 hardwareshader sprite HXBDV8 	{ Shader "shaders/glorykill.shader" Speed 1.0 }    
+
+
+// Karnage Legacy
+// red/orange
+
+pointlight Orangesmallsize
+{
+    color 1.0 0.7 0.0
+    size 56
+}
+
+pointlight Orangemedsize
+{
+    color 1.0 0.7 0.0
+    size 80
+}
+
+pointlight Orangebigsize
+{
+    color 1.0 0.7 0.0
+    size 120
+}
+
+pointlight Redmedium
+{
+    color 1.0 0.0 0.0
+    size 80
+}
+
+// blue
+
+pointlight bluemedium
+{
+    color 0.0 0.1 1.0
+    size 56
+}
+
+
+// yellow
+
+pointlight yellowmedium
+{
+    color 1.0 0.5 0.0
+    size 80
+}
+
+pointlight yellowbig
+{
+    color 1.0 0.5 0.0
+    size 130
+}
+
+// green
+
+flickerlight greensmall
+{
+    color 0.0 0.5 0.5
+    size 40
+    secondarySize 50
+    chance 0.3
+}
+
+pointlight greenbig
+{
+    color 0.0 0.5 0.5
+    size 130
+}
+
+// flicker lights
+
+flickerlight Whitewhite
+{
+    color 1.0 1.0 1.0
+    size 80
+    secondarySize 88
+    chance 0.3
+}
+
+// Totenheim Integridar Nuke
+flickerlight FDHellboundTotenheimExplosion1
+{
+    color 1.0 0.6 0.0
+    size 384
+    secondarySize 512
+    chance 0.3
+}
+
+flickerlight FDHellboundTotenheimExplosion2
+{
+    color 0.9 0.6 0.0
+    size 512
+    secondarySize 576
+    chance 0.3
+}
+
+flickerlight FDHellboundTotenheimExplosion3
+{
+    color 0.7 0.3 0.0
+    size 640
+    secondarySize 704
+    chance 0.3
+}
+
+flickerlight FDHellboundTotenheimExplosion4
+{
+    color 0.5 0.1 0.0
+    size 704
+    secondarySize 768
+    chance 0.3
+}
+
+flickerlight FDHellboundTotenheimExplosion5
+{
+    color 0.3 0.0 0.0
+    size 768
+    secondarySize 832
+    chance 0.3
+}
+
+flickerlight FDHellboundTotenheimExplosion6
+{
+    color 0.2 0.0 0.0
+    size 832
+    secondarySize 896
+    chance 0.3
+}
+
+flickerlight FDHellboundTotenheimRadiation
+{
+    color 0.0 0.2 0.0
+    size 800
+    secondarySize 900
+    chance 0.5
+}
+
+pulselight FDRocketPulse
+{
+    color 1.0 0.7 0.0
+    size 20
+    secondarySize 40
+    interval 0.3
+}
+
+brightmap sprite HBFGB0 { map "SPRITES/WEAPONS/Slot 6/Totenheim/brightmaps/Hellbound/HBFGB0" }
+brightmap sprite HBFGC0 { map "SPRITES/WEAPONS/Slot 6/Totenheim/brightmaps/Hellbound/HBFGC0" }
+brightmap sprite HBFGD0 { map "SPRITES/WEAPONS/Slot 6/Totenheim/brightmaps/Hellbound/HBFGD0" }
+brightmap sprite HBFGE0 { map "SPRITES/WEAPONS/Slot 6/Totenheim/brightmaps/Hellbound/HBFGE0" }
+brightmap sprite HBFGF0 { map "SPRITES/WEAPONS/Slot 6/Totenheim/brightmaps/Hellbound/HBFGF0" }
+brightmap sprite HBFGG0 { map "SPRITES/WEAPONS/Slot 6/Totenheim/brightmaps/Hellbound/HBFGG0" }
+brightmap sprite HBFGH0 { map "SPRITES/WEAPONS/Slot 6/Totenheim/brightmaps/Hellbound/HBFGH0" }
+brightmap sprite HBFGI0 { map "SPRITES/WEAPONS/Slot 6/Totenheim/brightmaps/Hellbound/HBFGI0" }
+brightmap sprite HBFGV0 { map "SPRITES/WEAPONS/Slot 6/Totenheim/brightmaps/Hellbound/HBFGV0" disablefullbright }
+brightmap sprite HBFGW0 { map "SPRITES/WEAPONS/Slot 6/Totenheim/brightmaps/Hellbound/HBFGW0" disablefullbright }
+

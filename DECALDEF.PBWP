@@ -187,7 +187,7 @@ decal Slayerslash
 	//y-scale 0.5
 }
 
-//BattleAxe
+// Battle Axe (Walpurgis Fire & Ice)
 decal AxeSlashDecal1
 {
 	pic SLSHDEC1
@@ -689,3 +689,20 @@ Decal UnmakerBeamScorch
 	X-Scale 0.1
 	Y-Scale 0.1
 }
+
+
+// Karnage Legacy
+
+decal OrigBulletChip
+{
+	pic HOLE1
+	x-scale 0.5
+	y-scale 0.5
+	randomflipX
+}
+
+decalgroup BulletChip
+{
+	OrigBulletChip	1
+}
+
