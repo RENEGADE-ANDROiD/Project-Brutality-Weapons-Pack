@@ -15,4 +15,21 @@ class PBWP_PickupMessageUtil
 			return true;
 		return false;
 	}
+
+	// Magnet / forced pickup: suppress engine default "You got a pickup" spam.
+	static void PushQuietForPickup(Inventory item, out bool wasQuiet)
+	{
+		wasQuiet = false;
+		if (!item)
+			return;
+		wasQuiet = item.bQuiet;
+		if (IsSilentMsg(item))
+			item.bQuiet = true;
+	}
+
+	static void PopQuietForPickup(Inventory item, bool wasQuiet)
+	{
+		if (item)
+			item.bQuiet = wasQuiet;
+	}
 }

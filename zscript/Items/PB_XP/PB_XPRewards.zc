@@ -146,6 +146,14 @@ class PB_XPRewardsHandler : EventHandler
 		{
 			int delta = newRank - oldRank;
 			plr.GiveInventory("PB_XPBank", delta * 100);
+			// Bonus XP may push one more rank — re-check once (not per-rank loop).
+			int xpAfter = plr.CountInv("PB_XPBank");
+			int rankAfter = RankFromXP(xpAfter);
+			if (rankAfter > newRank)
+			{
+				SetRankFromXP(plr, rankAfter);
+				return rankAfter;
+			}
 		}
 		return newRank;
 	}
@@ -222,6 +230,14 @@ class PB_XPRewardsHandler : EventHandler
 		{
 			pbXpHudRankBorn[i] = -1;
 			pbXpHudRankVal[i] = 0;
+		}
+		if (!PBWP_XPCompat.PB_XP_RewardsOn() || netgame)
+			return;
+		for (int i = 0; i < MAXPLAYERS; i++)
+		{
+			if (!playeringame[i] || !players[i].mo)
+				continue;
+			SyncRankFromXPQuiet(PlayerPawn(players[i].mo));
 		}
 	}
 
@@ -300,21 +316,24 @@ class PB_XPRewardsHandler : EventHandler
 		Actor t = e.Thing;
 		if (!t || !t.bISMONSTER || !t.bCOUNTKILL || t is "PlayerPawn")
 			return;
+		// Death-spawned gib actors can also die with COUNTKILL in large rosters.
+		if (t.GetAge() < 1)
+			return;
 		PlayerPawn killer = PBWP_XPCompat.PB_PDA_ResolveKiller(e);
 		if (!killer || !killer.player)
 			return;
 		int add = XPAwardForMonster(t);
 		if (add < 1)
 			return;
+		int oldRank = killer.CountInv("PB_XPRank");
 		killer.GiveInventory("PB_XPBank", add);
 		SpawnXPFloaters(killer, t, add);
-		for (int guard = 0; guard < 8; guard++)
+		int newRank = ApplyRankFromXP(killer, true);
+		if (newRank > oldRank)
 		{
-			int newRank = ApplyRankFromXP(killer, true);
-			if (newRank < 1)
-				break;
 			SpawnRankFloaters(killer, newRank);
-			PB_Achievements.OnRankReached(newRank);
+			for (int r = oldRank + 1; r <= newRank; r++)
+				PB_Achievements.OnRankReached(r);
 		}
 	}
 

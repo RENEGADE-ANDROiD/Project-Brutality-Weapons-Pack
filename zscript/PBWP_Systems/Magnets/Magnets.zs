@@ -155,7 +155,11 @@ Class PBWP_ItemMagnet : Inventory
 			// If it's too close, force the owner to pick it up and remove from the array:
 			if (owner.Distance3D(item) <= item.radius + owner.radius)
 			{
-				if (item.CallTryPickup(owner))
+				bool wasQuiet;
+				PBWP_PickupMessageUtil.PushQuietForPickup(item, wasQuiet);
+				bool picked = item.CallTryPickup(owner);
+				PBWP_PickupMessageUtil.PopQuietForPickup(item, wasQuiet);
+				if (picked)
 				{
 					if (!PBWP_PickupMessageUtil.IsSilentMsg(item))
 					{
@@ -169,9 +173,9 @@ Class PBWP_ItemMagnet : Inventory
 							owner.player.itemcount++;
 						level.found_items++;
 					}
-					// ALWAYSPICKUP / failed GoAwayAndDie can leave pullable pickups overlapping the player.
-					if (!item.owner)
-						item.Destroy();
+					// ALWAYSPICKUP can leave world pickups overlapping the player — always remove.
+					item.A_Stop();
+					item.Destroy();
 				}
 				else  // Stop the item and then add it it's the current game tic to the CantPickupForNow array.
 				{

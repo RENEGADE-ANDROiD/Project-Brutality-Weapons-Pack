@@ -220,7 +220,7 @@ class PB_Hud_ZS : BaseStatusBar
 		string mn = Level.MapName;
 		if (mn == "")
 			mn = level.MapName;
-		if (mn == "TITLEMAP" || mn == "TitleMap")
+		if (mn == "" || mn == "TITLEMAP" || mn == "TitleMap")
 			return true;
 		if (mn.MakeLower() == "titlemap")
 			return true;
@@ -228,7 +228,9 @@ class PB_Hud_ZS : BaseStatusBar
 		string ln = Level.LevelName;
 		if (ln == "")
 			ln = level.LevelName;
-		return ln == "PB_Introduction";
+		if (ln == "PB_Introduction")
+			return true;
+		return ln.MakeLower() == "pb_introduction";
 	}
 
 	bool IsGameplayHudActive()
@@ -237,15 +239,21 @@ class PB_Hud_ZS : BaseStatusBar
 			return false;
 		if (gamestate != GS_LEVEL)
 			return false;
-		if (!CPlayer || !CPlayer.mo)
-			return false;
 		if (IsTitleMap())
 			return false;
-		// TITLEMAP load race: menu is up before MapName is resolved.
-		if (menuactive && (Level.MapName == "" || level.MapName == ""))
+		// TITLEMAP load race: MapName / LevelName not resolved yet on first tics.
+		if (Level.MapName == "" && level.MapName == "")
 			return false;
-		if (menuactive && IsTitleMap())
+		if (!CPlayer || !CPlayer.mo)
 			return false;
+		if (menuactive)
+		{
+			if (IsTitleMap())
+				return false;
+			string ln = Level.LevelName != "" ? Level.LevelName : level.LevelName;
+			if (ln == "PB_Introduction" || ln.MakeLower() == "pb_introduction")
+				return false;
+		}
 		return true;
 	}
 
@@ -2001,3 +2009,21 @@ class PB_DynamicDoubleInterpolator : Object
 
 #include "zscript/PB_HelpNotifications.zs"
 #include "zscript/PBWP_Systems/PBWP_AddonWeaponHud.zs"
+
+// PBWP: title-backdrop-safe status bar (PBWP Gameinfo StatusBarClass override).
+class PBWP_MenuSafeHud : PB_Hud_ZS
+{
+	override void Draw(int state, double TicFrac)
+	{
+		if (!IsGameplayHudActive())
+			return;
+		Super.Draw(state, TicFrac);
+	}
+
+	override void Tick()
+	{
+		if (!IsGameplayHudActive())
+			return;
+		Super.Tick();
+	}
+}
