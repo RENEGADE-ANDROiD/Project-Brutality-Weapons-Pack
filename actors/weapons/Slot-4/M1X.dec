@@ -443,9 +443,5 @@ ACTOR M1XAmmo : Ammo
 	Inventory.Icon "M14PA0"
 }
 
-Actor Zoomed : Inventory
-{
-	inventory.maxamount 1
-}
 
 ACTOR Unloaded_M1X : Inventory { Inventory.MaxAmount 1 }

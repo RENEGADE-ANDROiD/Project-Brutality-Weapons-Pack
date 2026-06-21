@@ -1,4 +1,4 @@
-ACTOR Ion_Heavy : PB_WeaponBase //Back For This Weapon.
+﻿ACTOR Ion_Heavy : PB_WeaponBase //Back For This Weapon.
 {
 	Weapon.SelectionOrder 250
 	Weapon.AmmoType2 "Ion_Ammo"
@@ -282,7 +282,6 @@ ACTOR Ion_Heavy : PB_WeaponBase //Back For This Weapon.
 
 	}
 }
-ACTOR Unloaded_Plasma-Rifle : Inventory { Inventory.MaxAmount 1 }
 ACTOR IONResp : Inventory { Inventory.MaxAmount 1 }
 
 ACTOR Ion_Ammo : Ammo

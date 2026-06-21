@@ -1,10 +1,10 @@
 AddOptionMenu "OptionsMenu"
 {
-    Submenu "Project Brutality WAR PACK Settings", "ttwcoptions"
+    Submenu "PBWP Options", "ttwcoptions"
 }
 AddOptionMenu "OptionsMenuSimple"
 {
-	Submenu "PBWP Settings", "ttwcoptions"
+	Submenu "PBWP Options", "ttwcoptions"
 }
 
 DefaultListMenu
@@ -15,6 +15,7 @@ DefaultListMenu
 ListMenu "MainMenu"
 {
 	Class "PBWP_MainMenuListMenu"
+	Selector "PBWPSEL", 0, 0
 	Font "PBBIG","red","white"
 	Position 85, 66
 	IfGame(Doom, Strife, Chex)
@@ -32,7 +33,7 @@ ListMenu "MainMenu"
 		{
 			TextItem "Options", "o", "OptionsMenu"
 			TextItem "Project Brutality", "p", "PBSettings"
-			TextItem "PB WAR Pack", "p", "ttwcoptions"
+			TextItem "PBWP Options", "p", "ttwcoptions"
 			TextItem "Load Game", "l", "LoadGameMenu"
 			TextItem "Save Game", "s", "SaveGameMenu"
 		}
@@ -58,9 +59,9 @@ ListMenu "MainMenu"
 
 OptionMenu "ttwcoptions"
 {
-	Title "PB WAR PACK Settings"
+	Title "PBWP Options"
 	Class "PBWP_OptionMenu"
-	StaticText "Also under PB Options -> Addon Options -> PB War Pack", gold
+	StaticText "Also under PB Options -> Addon Options -> PBWP Options", gold
     StaticText ""
 	Submenu "$PBWP_General_OPTIONS", "GeneralSettings"
 	Submenu "$PBWP_WeaponSpawns_OPTIONS", "WeaponPackSpawnSettings"

@@ -537,7 +537,7 @@ Actor NemesisLMGFast : Inventory { Inventory.MaxAmount 1 }
 
 Actor NemesisRuneLMGSpawnerII : PB_Annihilator Replaces PB_Annihilator
 {
-	DropItem "CyberdemonsMissileLauncher", 64
+	DropItem "PBX_CyberdemonRL", 64
 	Dropitem "NemesisRune_LMG", 64
 	Dropitem "NemesisBFG", 64
 	Dropitem "NemesisLMG", 64
@@ -545,7 +545,7 @@ Actor NemesisRuneLMGSpawnerII : PB_Annihilator Replaces PB_Annihilator
 
 Actor NemesisRuneLMGSpawnerCyber : PB_Cyberdemon Replaces PB_Cyberdemon
 {
-	DropItem "CyberdemonsMissileLauncher", 64
+	DropItem "PBX_CyberdemonRL", 64
 	Dropitem "NemesisRune_LMG", 64
 	Dropitem "NemesisBFG", 64
 	Dropitem "NemesisLMG", 64

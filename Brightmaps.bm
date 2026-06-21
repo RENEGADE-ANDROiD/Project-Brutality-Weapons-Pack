@@ -19,39 +19,17 @@ brightmap sprite CRSSC0 { map "Brightmaps/Weapons/AncientCrossbow/CRSSC0.png" }
 brightmap sprite CRSSD0 { map "Brightmaps/Weapons/AncientCrossbow/CRSSD0.png" }
 brightmap sprite CRSSE0 { map "Brightmaps/Weapons/AncientCrossbow/CRSSE0.png" }
 
-//Ballista
-brightmap sprite BLEMA0 { map "Brightmaps/Weapons/BLEMA0.png" }
-brightmap sprite BLREA0 { map "Brightmaps/Weapons/BLREA0.png" }
-brightmap sprite BLREB0 { map "Brightmaps/Weapons/BLREB0.png" }
-brightmap sprite BLREC0 { map "Brightmaps/Weapons/BLREC0.png" }
-brightmap sprite BLRED0 { map "Brightmaps/Weapons/BLRED0.png" }
-brightmap sprite BLREE0 { map "Brightmaps/Weapons/BLREE0.png" }
-brightmap sprite BLREF0 { map "Brightmaps/Weapons/BLREF0.png" }
-brightmap sprite BLREG0 { map "Brightmaps/Weapons/BLREG0.png" }
-brightmap sprite BLREH0 { map "Brightmaps/Weapons/BLREH0.png" }
-brightmap sprite BLREI0 { map "Brightmaps/Weapons/BLREI0.png" }
-brightmap sprite BLREJ0 { map "Brightmaps/Weapons/BLREJ0.png" }
-brightmap sprite BLREK0 { map "Brightmaps/Weapons/BLREK0.png" }
-brightmap sprite BLREL0 { map "Brightmaps/Weapons/BLREL0.png" }
-brightmap sprite BLREM0 { map "Brightmaps/Weapons/BLREM0.png" }
-brightmap sprite BLREN0 { map "Brightmaps/Weapons/BLREN0.png" }
-brightmap sprite BLREO0 { map "Brightmaps/Weapons/BLREO0.png" }
-brightmap sprite BLRUA0 { map "Brightmaps/Weapons/BLRUA0.png" }
-
-
-
-
-//HexaLion
-brightmap sprite DEVABB { map "Brightmaps/Weapons/Devastator/DEVABB.png" }
-brightmap sprite DEVACB { map "Brightmaps/Weapons/Devastator/DEVACB.png" }
-brightmap sprite DEVADB { map "Brightmaps/Weapons/Devastator/DEVADB.png" }
-brightmap sprite DEVAEB { map "Brightmaps/Weapons/Devastator/DEVAEB.png" }
-brightmap sprite DEVAFB { map "Brightmaps/Weapons/Devastator/DEVAFB.png" }
-brightmap sprite DEVAJB { map "Brightmaps/Weapons/Devastator/DEVAJB.png" }
-brightmap sprite DEVAKB { map "Brightmaps/Weapons/Devastator/DEVAKB.png" }
-brightmap sprite DEVALB { map "Brightmaps/Weapons/Devastator/DEVALB.png" }
-brightmap sprite DEVAMB { map "Brightmaps/Weapons/Devastator/DEVAMB.png" }
-brightmap sprite DEVANB { map "Brightmaps/Weapons/Devastator/DEVANB.png" }
+//Devastator
+brightmap sprite DEVAB0 { map "Brightmaps/Weapons/Devastator/DEVABB.png" }
+brightmap sprite DEVAC0 { map "Brightmaps/Weapons/Devastator/DEVACB.png" }
+brightmap sprite DEVAD0 { map "Brightmaps/Weapons/Devastator/DEVADB.png" }
+brightmap sprite DEVAE0 { map "Brightmaps/Weapons/Devastator/DEVAEB.png" }
+brightmap sprite DEVAF0 { map "Brightmaps/Weapons/Devastator/DEVAFB.png" }
+brightmap sprite DEVAJ0 { map "Brightmaps/Weapons/Devastator/DEVAJB.png" }
+brightmap sprite DEVAK0 { map "Brightmaps/Weapons/Devastator/DEVAKB.png" }
+brightmap sprite DEVAL0 { map "Brightmaps/Weapons/Devastator/DEVALB.png" }
+brightmap sprite DEVAM0 { map "Brightmaps/Weapons/Devastator/DEVAMB.png" }
+brightmap sprite DEVAN0 { map "Brightmaps/Weapons/Devastator/DEVANB.png" }
 
 //Doom 4 Weapon Pack
 brightmap sprite BF4GA0 { map "Brightmaps/Weapons/Doom4WeaponPack/BF4GA0.png" }
@@ -95,16 +73,10 @@ brightmap sprite GNSEC0 { map "Brightmaps/Gauss/GNSEC0.png" }
 brightmap sprite GNSED0 { map "Brightmaps/Gauss/GNSED0.png" }
 
 //HexaLion
-brightmap sprite XSF2AB { map "Brightmaps/Weapons/HexaLion/XSF2AB.png" }
-brightmap sprite XSGFUB { map "Brightmaps/Weapons/HexaLion/XSGFUB.png" }
-brightmap sprite XSGFVB { map "Brightmaps/Weapons/HexaLion/XSGFVB.png" }
-brightmap sprite XSGFWB { map "Brightmaps/Weapons/HexaLion/XSGFWB.png" }
-
-//M41A Alien-Rifle
-brightmap sprite M41ABB { map "Brightmaps/Weapons/Slot4/M41A Alien-Rifle/Normal-Gun/M41ABB.png" }
-brightmap sprite M41ACB { map "Brightmaps/Weapons/Slot4/M41A Alien-Rifle/Normal-Gun/M41ACB.png" }
-brightmap sprite M41FAB { map "Brightmaps/Weapons/Slot4/M41A Alien-Rifle/Normal-Gun/M41FAB.png" }
-brightmap sprite M41FBB { map "Brightmaps/Weapons/Slot4/M41A Alien-Rifle/Normal-Gun/M41FBB.png" }
+brightmap sprite XS2FB0 { map "Brightmaps/Weapons/HexaLion/XSF2AB.png" }
+brightmap sprite XSGFB0 { map "Brightmaps/Weapons/HexaLion/XSGFUB.png" }
+brightmap sprite XSGFC0 { map "Brightmaps/Weapons/HexaLion/XSGFVB.png" }
+brightmap sprite XSGFD0 { map "Brightmaps/Weapons/HexaLion/XSGFWB.png" }
 
 //M1887
 brightmap sprite M87FA0 { map "Brightmaps/Weapons/M1887/M87FA0.png" }

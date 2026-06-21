@@ -9,6 +9,72 @@ ACTOR SlowingCloud
 	+NOBLOCKMAP
 }
 
+// ICE.dec references these before its commented full defs; minimal live stubs.
+ACTOR FreezeCloud : SlowingCloud
+{
+	+NOINTERACTION
+	States
+	{
+		Spawn:
+			TNT1 A 35
+			Stop
+		Death:
+			Stop
+	}
+}
+
+ACTOR FreezeCloudSmall : FreezeCloud
+{
+	Scale 0.65
+}
+
+ACTOR FreezeCloudSpawner : Actor
+{
+	+NOGRAVITY
+	Height 0
+	Radius 0
+	States
+	{
+		Spawn:
+			TNT1 A 0 A_JumpIfInventory("FreezeSpawnerCheck", 4, "CloudEnd")
+			TNT1 AAAA 2 A_SpawnItemEx("FreezeCloud", 0, 0, 0, 0, 0, 0)
+			TNT1 A 0 A_GiveInventory("FreezeSpawnerCheck", 1)
+			Loop
+		CloudEnd:
+			TNT1 A 0
+			Stop
+	}
+}
+
+ACTOR FreezeSpawnerCheck : Inventory { Inventory.MaxAmount 10 }
+
+ACTOR SnowStart : Actor
+{
+	+NOGRAVITY
+	+SKYEXPLODE
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			Stop
+		Death:
+			Stop
+	}
+}
+
+// Gauss / ThunderCarrier A_RailAttack trail (avoid Staging RailgunTrail name collision).
+ACTOR PBWP_RailGunTrail : Actor
+{
+	+NOBLOCKMAP
+	+NOINTERACTION
+	States
+	{
+		Spawn:
+			TNT1 A 1
+			Stop
+	}
+}
+
 ACTOR XIceChunk1 : Actor { +NOBLOCKMAP }
 ACTOR XIceChunk2 : XIceChunk1 {
 }
@@ -87,7 +153,6 @@ ACTOR DeathPistolClip : Actor { +NOBLOCKMAP }
 ACTOR BlueTracerSmall : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
 ACTOR PistolCaseSpawn : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
 ACTOR MagnumCasing : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
-ACTOR ShotCaseSpawn2 : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
 ACTOR ShotCaseSpawn3 : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
 ACTOR SmokeFX4 : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
 ACTOR ClasicDeathClip : Actor { +NOBLOCKMAP }
@@ -96,7 +161,6 @@ ACTOR FiftyCaseSpawn : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
 ACTOR MiniBeltPieceSpawn : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
 ACTOR RifleUpgrade : Actor { +NOBLOCKMAP }
 ACTOR GiantEmptyBrass : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
-ACTOR DukeRPG : Actor { +NOBLOCKMAP }
 ACTOR PlasmaDeathClip : Actor { +NOBLOCKMAP }
 ACTOR DoomerRailShot : Actor { +NOBLOCKMAP }
 ACTOR StunGrenadeExplosion : Actor { +NOBLOCKMAP }

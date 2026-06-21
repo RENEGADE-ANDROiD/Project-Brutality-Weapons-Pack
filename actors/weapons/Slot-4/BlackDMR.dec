@@ -1,4 +1,4 @@
-﻿ACTOR Black_DMR-RKX : PB_WeaponBase
+ACTOR Black_DMR-RKX : PB_WeaponBase
 {
 	Inventory.PickupSound "J2RCOCK"
 	Weapon.AmmoGive1 10
@@ -62,14 +62,14 @@
 				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 				Goto Ready3
 	DualSelectAnimation:
-		TNT1 A 0 A_PlaySound("J2RCLIPO", "AUTO")
+		TNT1 A 0 A_PlaySound("J2RCLIPO", CHAN_AUTO)
 		J2DA A 1 FAST A_SetPitch(Pitch+0.8)
 		J2DS B 1 FAST A_SetPitch(Pitch-0.4)
 		J2DS C 1 FAST A_SetPitch(Pitch-0.1)
 		J2DS D 1 FAST A_SetPitch(Pitch-0.1)
 		J2DS E 1 FAST A_SetPitch(Pitch-0.1)
 		J2DS F 1 FAST A_SetPitch(Pitch-0.1)
-		TNT1 A 0 A_PlaySound("J2RCLIPO", "AUTO")
+		TNT1 A 0 A_PlaySound("J2RCLIPO", CHAN_AUTO)
 		TNT1 A 0 A_SetCrosshair(14)
 	ReadySettle:
 	Ready3:

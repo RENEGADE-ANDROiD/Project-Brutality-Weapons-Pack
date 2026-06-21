@@ -193,7 +193,7 @@ extend class PB_WeaponBase
 			SHIE K 2 A_WeaponOffset(-160,90, WOF_ADD); 
 			TNT1 A 0 A_PlaySoundEx("ShieldSawSwing","Soundslot6");
 			SHIE K 1 A_AlertMonsters;
-			SHIE K 1 A_StartSound("ShieldSawThrow",1,0.8);
+			SHIE K 1 A_StartSound("ShieldSawThrow", 1, CHANF_DEFAULT, 0.8);
 			SHIE L 1 A_WeaponOffset(-160,200, WOF_ADD); 
 			SHIE L 1 A_FireProjectile("ShieldSawProjectile",frandom(1.5,-1.5),0,7,-2,0,frandom(1.5,-1.5));
 	   		TNT1 A 0 A_TakeInventory("ShieldsawAmmo",1);

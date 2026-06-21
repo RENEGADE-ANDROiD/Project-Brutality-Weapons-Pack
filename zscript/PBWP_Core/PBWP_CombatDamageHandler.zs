@@ -48,8 +48,8 @@ class PBWP_CombatDamageHandler : EventHandler
 
 	override void WorldTick()
 	{
-		let count = qVictim.Size();
-		for (uint i = 0; i < count; i++)
+		int count = qVictim.Size();
+		for (int i = 0; i < count; i++)
 		{
 			let victim = qVictim[i];
 			let source = qSource[i];

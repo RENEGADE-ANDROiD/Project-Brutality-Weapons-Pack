@@ -1,30 +1,6 @@
-// VietDoom v22 — tracers, footstep FX, plastic particles (from BD addon pk3).
+﻿// VietDoom v22 â€” tracers, footstep FX, plastic particles (from BD addon pk3).
 
-ACTOR FootStep : Actor
-{
-	+NOBLOCKMAP
-	+NOGRAVITY
-	+CLIENTSIDEONLY
-	States
-	{
-	Spawn:
-		TNT1 A 1
-		Stop
-	}
-}
 
-ACTOR BarrelParticle : Actor
-{
-	+NOBLOCKMAP
-	+NOGRAVITY
-	+CLIENTSIDEONLY
-	States
-	{
-	Spawn:
-		TNT1 A 1
-		Stop
-	}
-}
 
 Actor GreenPlasticParticle : BarrelParticle
 {
@@ -70,10 +46,9 @@ Actor BlackPlasticParticle : BarrelParticle
 	}
 }
 
-// VietDoom tracer aliases — use PB Staging TRAC sprite via PBWP_ProjectileFamilies.dec
+// VietDoom tracer aliases â€” use PB Staging TRAC sprite via PBWP_ProjectileFamilies.dec
 // (TRA2 lumps from VietDoom pk3 are optional; TRAC is always available from PB Staging.)
 Actor VietPistolTracer : PBWP_Tracer_Pistol {}
-Actor DecorativeTracer : PBWP_Tracer_Rifle {}
 Actor AK47Tracer : PBWP_Tracer_Intermediate {}
 Actor VietHeavyTracer : PBWP_Tracer_Heavy {}
 Actor VietSniperTracer : PBWP_Tracer_Sniper {}

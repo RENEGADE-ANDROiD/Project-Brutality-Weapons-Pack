@@ -68,14 +68,14 @@ ACTOR ThrownVoidGrenade {
 	Obituary "%o ate %k grenade."
 		States {
 			Spawn:
-				TNT1 A 0 A_PlaySoundEx("grenade/beep/void","Auto")
+				TNT1 A 0 A_PlaySoundEx("grenade/beep/void", CHAN_AUTO)
 				TNT1 A 0 A_SpawnItemEx ("PurpleFlareSmall",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
 				VGR1 ABCDEFA 2
 				TNT1 A 0 A_GiveInventory("GrenadeTime", 1)
 				TNT1 A 0 A_JumpIfInventory("GrenadeTime", 6, "Explode")
 				Loop
 			Death:
-				TNT1 A 0 A_PlaySoundEx("grenade/beep/void","Auto")
+				TNT1 A 0 A_PlaySoundEx("grenade/beep/void", CHAN_AUTO)
 				TNT1 A 0 A_SpawnItemEx ("PurpleFlareSmall",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
 				VGR1 E 14
 				TNT1 A 0 A_GiveInventory("GrenadeTime", 1)
@@ -87,7 +87,7 @@ ACTOR ThrownVoidGrenade {
 				TNT1 A 0 A_SpawnItemEx ("PurpleShockWave_Flat",0,0,40,0,0,0,0,SXF_NOCHECKPOSITION,0)
 				TNT1 A 0 A_StopSound(CHAN_5)
 				TNT1 A 0 A_StartSound("weapons/bh_app", CHAN_5)
-				TNT1 A 0 A_PlaysoundEx("weapons/bh_blast","Auto")
+				TNT1 A 0 A_PlaysoundEx("weapons/bh_blast", CHAN_AUTO)
 				029G ABCDEFGHIJKLM 1 Bright Light("BlackholeBall") {
 					A_SetScale(ScaleX-0.02, ScaleY-0.02);
 					Radius_Quake (8, 16, 0, 200, 0);//(intensity, duration, damrad, tremrad, tid)

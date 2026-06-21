@@ -510,26 +510,6 @@ object TankShellBall
     frame TNT1D { light TANKSHELL_X3 }
 }
 
-//LoRCalamityBlade//
-brightmap sprite BLEMA0 { map "Brightmaps/BLEMA0.png" }
-brightmap sprite BLRUA0 { map "Brightmaps/BLRUA0.png" }
-
-brightmap sprite BLREA0 { map "Brightmaps/BLREA0.png" }
-brightmap sprite BLREB0 { map "Brightmaps/BLREB0.png" }
-brightmap sprite BLREC0 { map "Brightmaps/BLREC0.png" }
-brightmap sprite BLRED0 { map "Brightmaps/BLRED0.png" }
-brightmap sprite BLREE0 { map "Brightmaps/BLREE0.png" }
-brightmap sprite BLREF0 { map "Brightmaps/BLREF0.png" }
-brightmap sprite BLREG0 { map "Brightmaps/BLREG0.png" }
-brightmap sprite BLREH0 { map "Brightmaps/BLREH0.png" }
-brightmap sprite BLREI0 { map "Brightmaps/BLREI0.png" }
-brightmap sprite BLREJ0 { map "Brightmaps/BLREJ0.png" }
-brightmap sprite BLREK0 { map "Brightmaps/BLREK0.png" }
-brightmap sprite BLREL0 { map "Brightmaps/BLREL0.png" }
-brightmap sprite BLREM0 { map "Brightmaps/BLREM0.png" }
-brightmap sprite BLREN0 { map "Brightmaps/BLREN0.png" }
-brightmap sprite BLREO0 { map "Brightmaps/BLREO0.png" }
-
 
 
 

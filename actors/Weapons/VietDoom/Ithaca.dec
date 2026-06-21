@@ -1,4 +1,4 @@
-ACTOR Ithaca : PB_WeaponBase
+﻿ACTOR Ithaca : PB_WeaponBase
 {
 	Weapon.SlotNumber 3
 	Game Doom
@@ -1095,7 +1095,7 @@ Goto SelectFirstPersonLegs
 		"####" A 0 { PB_GunSmoke(0,0,-0.9); }
 		"####" A 0 { PB_GunSmoke(0,0,0.9); }
 		TNT1 A 0 A_FireCustomMissile("DragonsBreathFire1", 0, 1, 0, 0, 0, 0)
-		ITCA AAAA 0 A_FireCustomMissile("DragonsBreathProjectile", random(-6.6,6.6), 0, 0, 0, 0, random(-2.6,2.6))
+		ITCA AAAA 0 A_FireCustomMissile("DragonsBreathProjectile", frandom(-6.6, 6.6), 0, 0, 0, 0, frandom(-2.6, 2.6))
 		"####" AAAAA 0 A_FireCustomMissile("DecorativeTracer", random(-3,3), 0, 0, -12, 0, random(-3,3))
 		//"####" A 1 BRIGHT A_FireBullets (5, 2.5, 5, 13, "ShotgunPuff", FBF_NORANDOM)
 		//"####" B 1 BRIGHT A_FireBullets (2.5, 2.5, 5, 13, "ShotgunPuff2", FBF_NORANDOM)
@@ -1201,7 +1201,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 0 A_Quake(4,4,0,12,"")
 		ITCI D 1 BRIGHT
 		TNT1 A 0 A_FireCustomMissile("DragonsBreathFire1", 0, 1, 0, 0, 0, 0)
-		ITCA AAAA 0 A_FireCustomMissile("DragonsBreathProjectile", random(-4.6,4.6), 0, 0, 0, 0, random(-2.2,2.2))
+		ITCA AAAA 0 A_FireCustomMissile("DragonsBreathProjectile", frandom(-4.6, 4.6), 0, 0, 0, 0, frandom(-2.2, 2.2))
 		ITCN A 0 A_SetPitch(pitch-10)
 		ITCI E 1 A_SetPitch(-8.0 + pitch)
 		ITCI F 1 A_SetPitch(+2.0 + pitch)
@@ -1835,71 +1835,6 @@ ACTOR ShotCaseSpawn2 : RifleCaseSpawn
 	Spawn:
 		TNT1 A 0
 		TNT1 A 1 A_CustomMissile("ShotgunCasing2",0,0,random(-80,-100),2,random(40,60))
-		Stop
-
-}
-
-}
-ACTOR ShotgunCasing2 : EmptyBrass
-{
-	Scale 0.25
-	DeathSound "weapons/shell"
-	BounceSound "weapons/shell"
-	States
-	{
-
-	Spawn:
-		C4S9 AABBCCDDEEFFGGHHAABBCCDDEEFFGGHH 1 A_CustomMissile("CasingSmoke", 0, 0, random(0, 360), 2, random(85, 90))
-		Stop
-
-	Death:
-		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("MicroSmokeColumn")
-		LCPJ A 0 A_Jump(256,"Rest1","Rest2","Rest3","Rest4","Rest5","Rest6","Rest7","Rest8")
-		Goto Rest1
-
-	Rest1:
-		C4S9 I 200
-		TNT1 A 0 A_JumpIfInventory("LowGraphicsMode", 1, "Stoping")
-		Loop
-
-	Rest2:
-		C4S9 J 200
-		TNT1 A 0 A_JumpIfInventory("LowGraphicsMode", 1, "Stoping")
-		Loop
-
-	Rest3:
-		C4S9 K 200
-		TNT1 A 0 A_JumpIfInventory("LowGraphicsMode", 1, "Stoping")
-		Loop
-
-	Rest4:
-		C4S9 L 200
-		TNT1 A 0 A_JumpIfInventory("LowGraphicsMode", 1, "Stoping")
-		Loop
-
-	Rest5:
-		C4S9 M 200
-		TNT1 A 0 A_JumpIfInventory("LowGraphicsMode", 1, "Stoping")
-		Loop
-
-	Rest6:
-		C4S9 I 200
-		TNT1 A 0 A_JumpIfInventory("LowGraphicsMode", 1, "Stoping")
-		Loop
-
-	Rest7:
-		C4S9 J 200
-		TNT1 A 0 A_JumpIfInventory("LowGraphicsMode", 1, "Stoping")
-		Loop
-
-	Rest8:
-		C4S9 K 200
-		TNT1 A 0 A_JumpIfInventory("LowGraphicsMode", 1, "Stoping")
-		Loop
-
-	Stoping:
-		TNT1 A 0
 		Stop
 
 }

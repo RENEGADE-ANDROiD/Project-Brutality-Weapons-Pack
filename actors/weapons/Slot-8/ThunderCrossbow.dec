@@ -1,8 +1,4 @@
-﻿Actor HasPlasmaWeapon: Inventory
-{
-inventory.maxamount 1
-}
-ACTOR LightningGunShockMode : Inventory
+﻿ACTOR LightningGunShockMode : Inventory
 {
 Inventory.MaxAmount 1
 }
@@ -465,43 +461,6 @@ actor ElectroBlast
   }
 }
 
-actor ElectroBlastTrail
-{
-  Radius 13
-  Height 8
-  Speed 20
-  Damage 0
-  Projectile
-  +RANDOMIZE
-  RenderStyle Add
-  Alpha 0.75
-  Scale 0.25
-  States
-  {
-  Spawn:
-    TNT1 A 0 A_Jump(256, "Spawn1", "Spawn2", "Spawn3")
-  Spawn1:
-    EBLT ABC 3 bright A_SpawnItemEx("LightningBeamSpark", 0, 0, 0, 0, 0, 0, 0, 128)
-    goto death
-  Spawn2:
-    EBLT BCA 3 bright A_SpawnItemEx("LightningBeamSpark", 0, 0, 0, 0, 0, 0, 0, 128)
-    goto death
-  Spawn3:
-    EBLT CAB 3 bright A_SpawnItemEx("LightningBeamSpark", 0, 0, 0, 0, 0, 0, 0, 128)
-    goto death
-  Death:
-	TNT1 A 0 A_Jump(256, "Death1", "Death2", "Death3")
-  Death1:
-	EBLT DEF 4 bright A_FadeOut(0.5)
-	loop
-  Death2:
-	EBLT FDE 4 bright A_FadeOut(0.5)
-	loop
-  Death3:
-    EBLT EFD 4 bright A_FadeOut(0.5)
-    loop
-  }
-}
 
 Actor ElectroBomb
 {
@@ -621,7 +580,7 @@ Attack:
     TNT1 A 0
 	TNT1 A 0 A_FaceTarget
 	TNT1 A 0 A_MissileAttack
-	TNT1 A 1 A_CustomRailgun(5,0,NONE,"Blue",RGF_SILENT | RGF_NOPIERCING | RGF_FULLBRIGHT, 1, 0, 0, 0, 0, 0, random(20, 25), 1, "Electroblasttrail", -1)
+	TNT1 A 1 A_CustomRailgun(5, 0, NONE, "Blue", RGF_SILENT | RGF_NOPIERCING | RGF_FULLBRIGHT, 1, 0, "NullPuff", 0, 0, random(20, 25), 0, 0, 0, "ElectroBlastTrail", 0)
 	Goto Death	
 Death:
 	TNT1 A 1

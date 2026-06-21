@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------
 //
 // Rifle Sniper / Fallen Hawk
 //
@@ -487,9 +487,5 @@ ACTOR Hawk_Mag : Ammo
 	Inventory.Icon "M14PA0"
 }
 
-Actor Zoomed : Inventory
-{
-	inventory.maxamount 1
-}
 
 ACTOR Unloaded_Hawk : Inventory { Inventory.MaxAmount 1 }

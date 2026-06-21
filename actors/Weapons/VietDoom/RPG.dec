@@ -1,4 +1,4 @@
-ACTOR RPG : PB_WeaponBase
+﻿ACTOR RPG : PB_WeaponBase
 {
 	Weapon.SlotNumber 6
 	Game Doom
@@ -575,37 +575,6 @@ actor RPGExplosion
 		TNT1 A 3 A_SpawnItem("WhiteShockwave")
 		TNT1 AAAAAAA 0 A_CustomMissile ("ExplosionAirBurstEffectSmall", 2, 0, random (0, 360), 2, random (-45, 45))
 		TNT1 A 0 A_Explode(200,200)
-		Stop
-
-}
-
-}
-ACTOR RPGPickUp: BDWeaponSpawner
-{
-	Inventory.PickupMessage "You got the \ceRPG! \c-(slot 5)"
-	Inventory.PickupSound "ROCKPKUP"
-	States
-	{
-	Spawn:
-		P3ST A 0
-		WRPG A 1
-		P3ST A 0 A_ChangeFlag("THRUACTORS", 0)
-	Stay:
-		WRPG A -1
-		Stop
-
-	Pickup:
-		P3ST A 0
-		P3ST A 0 A_JumpIfInventory("RPG", 1, "AmmoOnly")
-	PickupNormal:
-		P3ST A 0 A_GiveInventory("RPG", 1)
-		P3ST A 0 A_JumpIfInventory("VietDoomDurabilityDisabled", 1, 1)
-		P3ST A 0 A_GiveInventory("RPGDurability", 30)
-		Stop
-
-	AmmoOnly:
-		P3ST A 0
-		P3ST A 0 A_Giveinventory("PB_RocketAmmo", 1)
 		Stop
 
 }

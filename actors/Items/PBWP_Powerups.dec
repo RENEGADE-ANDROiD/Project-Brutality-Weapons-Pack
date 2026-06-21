@@ -163,27 +163,6 @@ actor DeflectionSphere : PowerupGiver
 	}
 }
 
-Actor PowerQuarterDamageST : PowerProtection
-{
-Damagefactor "Normal", 0.25
-}
-Actor GuardsphereST : PowerupGiver 5037
-{
-  +CountItem
-  +NoGravity
-  +Inventory.AutoActivate
-  +Inventory.AlwaysPickup
-  Inventory.MaxAmount 0
-  Powerup.Type QuarterDamageST
-  Powerup.Color GreenMap, 0.015
-  Inventory.PickupMessage "Guardsphere! Gain 75% Damage Reduction"
-  States
-  {
-  Spawn:
-    GARD ABCD 6 Bright
-    Loop
-  }
-}
 ACTOR LegendSphere : PowerupGiver
 {
   +COUNTITEM

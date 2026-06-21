@@ -16,9 +16,9 @@ PBWP_DOORBUSTER = "\cy⑄\c- DOORBUSTER Settings";
 PBWP_SCREEN_TILT = "\ck↻\c- Screen Tilt Settings";
 PBWP_WEAPON_VISUALS = "\cl⌖\c- Weapon Visual Settings";
 PBWP_GC_ENHANCEMENTS = "\co✦\c- God Complex Extras";
-PBWP_ADDON_SETTINGS = "PB War Pack";
-PBWP_ADDON_FULL_SPAWNS = "PB War Pack (full weapon list)";
-PBWP_ALL_SETTINGS = "PB WAR PACK Settings (main menu)";
+PBWP_ADDON_SETTINGS = "PBWP Options";
+PBWP_ADDON_FULL_SPAWNS = "PBWP Options (full weapon list)";
+PBWP_ALL_SETTINGS = "PBWP Options (main menu)";
 PBWP_TOGGLE_MELEE_MENU = "Open Melee Wheel";
 
 PB_PICKUP_PB_Fusil = "Picked up the Fusil rifle (slot 4).";

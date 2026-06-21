@@ -1,4 +1,4 @@
-﻿Actor TAdvRespect : Inventory { Inventory.MaxAmount 1 }
+Actor TAdvRespect : Inventory { Inventory.MaxAmount 1 }
 Actor TypeBAssaultSG : Inventory { Inventory.MaxAmount 1 }
 Actor AdvTLMGUnload : Inventory { Inventory.MaxAmount 1 }
 
@@ -147,7 +147,7 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		XFLF A 1 Bright {
 		 A_ZoomFactor(0.99);
 		 A_AlertMonsters;
-		 A_PlaySound("weapons/hdmr/fire","Weapon");
+		 A_PlaySound("weapons/hdmr/fire", CHAN_WEAPON);
 		 A_PlaySound("Fire/FaDD",CHAN_Body,0.77,0,2);
 		 
 				if(GetCvar("PB_alttracer") >=1) {
@@ -212,7 +212,7 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		A9SF A 1 Bright {
 		 A_ZoomFactor(0.99);
 		 A_AlertMonsters;
-		 A_PlaySound("Weapons/AutoShotgun","Weapon");
+		 A_PlaySound("Weapons/AutoShotgun", CHAN_WEAPON);
 		 A_PlaySound("Fire/FaDD",CHAN_Body,0.77,0,2);
 		 PB_FireBullets("PB_12GAPellet_ASG",9,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 		 A_FireCustomMissile("ShotCaseSpawn",5,0,6,-14);
@@ -264,7 +264,7 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		AUSZ H 1 Bright {
 		 A_AlertMonsters;
 		 A_ZoomFactor(1.99);
-		 A_PlaySound("weapons/hdmr/fire","Weapon");
+		 A_PlaySound("weapons/hdmr/fire", CHAN_WEAPON);
 		 A_PlaySound("Fire/FaDD",CHAN_Body,0.77,0,2);
 		 
 				if(GetCvar("PB_alttracer") >=1) {
@@ -321,7 +321,7 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		AUSZ H 1 Bright {
 		 A_AlertMonsters;
 		 A_ZoomFactor(1.99);
-		 A_PlaySound("Weapons/AutoShotgun","Weapon");
+		 A_PlaySound("Weapons/AutoShotgun", CHAN_WEAPON);
 		 A_PlaySound("Fire/FaDD",CHAN_Body,0.77,0,2);
 		 A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
 		 PB_FireBullets("PB_12GAPellet_ASG",9,frandom(5.85,6.65),0,0,frandom(5.32,6.75));

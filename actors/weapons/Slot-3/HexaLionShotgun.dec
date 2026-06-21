@@ -73,7 +73,7 @@ Actor HexaLionShotgun : PB_WeaponBase
 			 A_GiveInventory("RespectHexaLionShotgun",1);
 			 A_GiveInventory ("HexaLionAmmo", 6);
 			 A_GiveInventory("PB_LockScreenTilt",1);
-			 A_PlaySoundEx("Ironsights", "Auto");
+			 A_PlaySoundEx("Ironsights", CHAN_AUTO);
 			 }
 		XSGS FEDCBA 1 {
 			 A_SetRoll(roll+1.5,SPF_INTERPOLATE);

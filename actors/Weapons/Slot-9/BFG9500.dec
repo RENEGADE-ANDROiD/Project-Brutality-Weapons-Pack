@@ -121,7 +121,7 @@ ACTOR BFG9500 : PB_Weapon
 		     A_GunFlash;
 			 }
 		BF9G JKLMMLKJ 1 {
-		     A_FireCustomMissile("SmokeSpawner", random(-0.3,0.3), 0, 0, 0, 0, random(-0.3,0.3));
+		     A_FireCustomMissile("SmokeSpawner", frandom(-0.3, 0.3), 0, 0, 0, 0, frandom(-0.3, 0.3));
 			 }
 		BF9G A 5
 		Goto BFG9500ReadyToFire

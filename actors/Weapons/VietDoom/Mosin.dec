@@ -1224,52 +1224,6 @@ ACTOR MosinPickUpHC_40: CustomInventory
 	}
 }
 
-ACTOR MosinPickUpHC_40: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	//scale 0.74
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		WNUG A 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		WNUG A -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("Mosin", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 6, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceMosin-Nagant! \c-(Bulk: 5)\n Condition: \ciHeavily Worn")
-		TNT1 A 0 A_GiveInventory("Mosin", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 5)
-		TNT1 A 0 A_GiveInventory("MosinDurability", random(120, 149))
-		TNT1 A 0 A_SelectWeapon("Mosin")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("MosinPickUpHC_40")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("MosinPickUpHC_40")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
 ACTOR MosinPickUpHC_30: CustomInventory
 {
 	+INVENTORY.NOSCREENFLASH

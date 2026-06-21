@@ -214,12 +214,27 @@ class PB_Hud_ZS : BaseStatusBar
 
 	bool IsTitleMap() const
 	{
+		if (gamestate == GS_TITLELEVEL)
+			return true;
+
 		string mn = Level.MapName;
-		return mn == "TITLEMAP" || mn == "TitleMap";
+		if (mn == "")
+			mn = level.MapName;
+		if (mn == "TITLEMAP" || mn == "TitleMap")
+			return true;
+		if (mn.MakeLower() == "titlemap")
+			return true;
+
+		string ln = Level.LevelName;
+		if (ln == "")
+			ln = level.LevelName;
+		return ln == "PB_Introduction";
 	}
 
 	bool IsGameplayHudActive()
 	{
+		if (gamestate == GS_TITLELEVEL)
+			return false;
 		if (gamestate != GS_LEVEL)
 			return false;
 		if (!CPlayer || !CPlayer.mo)
@@ -227,7 +242,9 @@ class PB_Hud_ZS : BaseStatusBar
 		if (IsTitleMap())
 			return false;
 		// TITLEMAP load race: menu is up before MapName is resolved.
-		if (menuactive && Level.MapName == "")
+		if (menuactive && (Level.MapName == "" || level.MapName == ""))
+			return false;
+		if (menuactive && IsTitleMap())
 			return false;
 		return true;
 	}

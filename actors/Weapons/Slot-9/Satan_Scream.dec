@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------
 //
 // Unmaker / Satan Scream
 //
@@ -318,35 +318,6 @@ ACTOR Satan_Scream : PB_WeaponBase 20023
 }
 Actor SSModII : Inventory { Inventory.MaxAmount 1 }
 
-Actor UnmakerLaser: FastProjectile
-{
-	+RANDOMIZE
-	+FORCEXYBILLBOARD
-	+DONTSPLASH
-	-BLOODSPLATTER
-	damage (random(50, 50))
-	radius 1
-	height 1
-	speed 500
-	renderstyle ADD
-	alpha 0.9
-	scale .15
-	decal "scorch"
-	damagetype "desintegrate"
-	states
-		{
-		Spawn:
-			LEYS R 1 BRIGHT
-			Loop
-	Death:
-	XDeath:
-		TNT1 A 0 A_Jump(128, "DeathExplode")
-		UNHG A 0 A_SpawnItemEx ("ExplosionFlareSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION,0)
-	DeathExplode:
-		UNHG A 0 A_explode(20, 100)
-		Stop
-		}
-	}
 Actor UnmakerLaser2: UnmakerLaser
 {
 	decal "none"
@@ -359,27 +330,6 @@ Actor UnmakerLaser2: UnmakerLaser
 	XDeath:
 		TNT1 A 0 A_explode(20, 100)
 		Stop
-		}
-	}	
-Actor UnmakerLaserTrail
-{
-	+FORCEXYBILLBOARD
-	+CLIENTSIDEONLY
-	+NOBLOCKMAP
-	+NOGRAVITY
-	+SHADOW
-	+NOTELEPORT
-	+CANNOTPUSH
-	+NODAMAGETHRUST
-	renderstyle ADD
-	alpha 0.9
-	scale .15
-	states
-		{
-		Spawn:
-			LEYS R 0
-			LEYS R 1 BRIGHT
-			Stop
 		}
 	}	
 ACTOR SatanScreamLaserTrail

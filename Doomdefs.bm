@@ -179,11 +179,6 @@ Brightmap sprite MAATB0 { map "Brightmaps/MAABB0.png" disablefullbright }
 Brightmap sprite MAATC0 { map "Brightmaps/MAABC0.png" disablefullbright }
 */
 
-Brightmap Sprite M41AB0	{ Map "Brightmaps/Weapons/Slot4/M41A Alien-Rifle/Normal-Gun/M41ABB.png" DisableFullBright }
-Brightmap Sprite M41AC0	{ Map "Brightmaps/Weapons/Slot4/M41A Alien-Rifle/Normal-Gun/M41ACB.png" DisableFullBright }
-Brightmap Sprite M41FA0	{ Map "Brightmaps/Weapons/Slot4/M41A Alien-Rifle/Normal-Gun/M41FAB.png" DisableFullBright }
-Brightmap Sprite M41FB0	{ Map "Brightmaps/Weapons/Slot4/M41A Alien-Rifle/Normal-Gun/M41FBB.png" DisableFullBright }
-
 brightmap sprite CYBFA0 { map "brightmaps/Weapons/CyberdemonRL/CYBFA0.png" disablefullbright }
 brightmap sprite CYBFB0 { map "brightmaps/Weapons/CyberdemonRL/CYBFB0.png" disablefullbright }
 brightmap sprite CYBFC0 { map "brightmaps/Weapons/CyberdemonRL/CYBFC0.png" disablefullbright }

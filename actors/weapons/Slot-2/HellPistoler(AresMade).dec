@@ -1,4 +1,4 @@
-ACTOR HellPistolerFirer : StingerHellBullet
+﻿ACTOR HellPistolerFirer : StingerHellBullet
 {
 	Damage 22
 	Speed 100
@@ -44,7 +44,7 @@ ACTOR HellPistoler : PB_WeaponBase
 	Obituary "%o was decapitated by %k's Assasin."
     AttackSound "None"
     Scale 0.8
-	Tag "UAC-UM-03âˆ… HP Plasma Blaster - Annihilation Assassin"
+	Tag "UAC-UM-03Ã¢Ë†â€¦ HP Plasma Blaster - Annihilation Assassin"
 	PB_WeaponBase.WheelInfo "HellPistoler_Wheel"
 	States
 	{
@@ -354,12 +354,6 @@ ACTOR HellPistoler : PB_WeaponBase
 	}
 }
 
-ACTOR HellPistolerAmmo : Ammo
-{
-	+IGNORESKILL
-	Inventory.MaxAmount 16
-	Inventory.Icon "ARMZA0"
-}
 
 Actor PistolerMod : Inventory { Inventory.MaxAmount 1 }
 Actor Select_HP_Hellfire : Inventory { Inventory.MaxAmount 1 }

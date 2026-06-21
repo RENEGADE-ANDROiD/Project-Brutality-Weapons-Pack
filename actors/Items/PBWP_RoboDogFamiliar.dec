@@ -223,7 +223,7 @@ ACTOR PBWP_RoboDogFamiliar : Actor
 		
 		TNT1 A 0 A_JumpIfInTargetInventory("TargetIsAMarine", 1, "FollowPLayer")//
 		DOGW AA 1 A_Chase
-		TNT1 A 0 A_StartSound("misc/spark", CHAN_BODY, 0.3, true)
+		TNT1 A 0 A_StartSound("misc/spark", CHAN_BODY, CHANF_LOOP, 0.3)
 		TNT1 A 0 A_ChangeFlag("FASTER", 0)
 		TNT1 A 0 A_Recoil(-1)
 		TNT1 A 0 A_JumpIfInTargetInventory("TargetIsAMarine", 1, "FollowPLayer")//
@@ -564,8 +564,8 @@ ACTOR PBWP_RoboDogFamiliar : Actor
 		Goto See
 
 		ApplyStunEffect:
-		    TNT1 A 0 A_RadiusGive("Stunned", 64, AAPTR_TARGET, 0, 0, 0)
-		    TNT1 A 0 A_SpawnItemEx("StunSparks", 0, 0, 48, 0, 0, 0, 0, 0, AAPTR_TARGET)
+		    TNT1 A 0 A_RadiusGive("Stunned", 64, RGF_PLAYERS, 1)
+		    TNT1 A 0 A_SpawnItemEx("StunSparks", 0, 0, 48, 0, 0, 0, 0, 0)
 		    Goto See
  
 	CheckRetreat:

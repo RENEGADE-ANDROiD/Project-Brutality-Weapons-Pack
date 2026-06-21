@@ -54,5 +54,8 @@ Gameinfo
 	"PB_KatanaShieldHandler",
 	"PBWP_PBXWeaponSlotHandler",
 	"PBWP_GKAchievementHandler",
-	"PBWP_CombatDamageHandler"
+	"PBWP_CombatDamageHandler",
+	"PB_MapStartInputLockHandler",
+	"PB_ExternalMapCompatHandler",
+	"PBWP_RemovedWeaponPurgeHandler"
 }
