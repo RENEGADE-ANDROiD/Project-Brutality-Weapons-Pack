@@ -29,6 +29,7 @@ ACTOR Beacon : CustomInventory
 		Loop
 	Pickup:
 		TNT1 A 0 A_GiveInventory("BeaconAmmo",1) 
+		TNT1 A 0 A_GiveInventory("PBWP_BeaconToken",1)
 		TNT1 A 20
 		Stop
   }

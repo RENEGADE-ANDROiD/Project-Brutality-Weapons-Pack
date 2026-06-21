@@ -254,6 +254,10 @@ Actor ShieldsawAmmo : Ammo
 	Spawn:
 		SHIE A -1
 		Loop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("ShieldsawAmmo",1)
+		TNT1 A 0 A_GiveInventory("PBWP_ShieldSawToken",1)
+		Stop
 	}
 
 
