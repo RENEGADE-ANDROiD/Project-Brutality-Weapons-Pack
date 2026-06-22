@@ -56,6 +56,5 @@ Gameinfo
 	"PBWP_GKAchievementHandler",
 	"PBWP_CombatDamageHandler",
 	"PB_MapStartInputLockHandler",
-	"PB_ExternalMapCompatHandler",
-	"PBWP_RemovedWeaponPurgeHandler"
+	"PB_ExternalMapCompatHandler"
 }

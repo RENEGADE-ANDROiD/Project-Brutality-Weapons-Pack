@@ -1,4 +1,4 @@
-﻿Actor DukePistol : PB_Weapon
+Actor DukePistol : PB_Weapon
 {
     Game Doom
 	SpawnID 2200
@@ -42,7 +42,7 @@
 	    TNT1 A 0 {
 		     A_SetRoll(0);
 			 A_TakeInventory("PB_LockScreenTilt",1);
-			 return A_DoPBWeaponAction;
+			 return A_DoPBWeaponAction(WRF_NOFIRE);
 		}
 		P3DG A 0 A_GunFlash
 		P3DS AB 1
@@ -112,6 +112,7 @@
         TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 	    TNT1 A 0 {
 		     A_WeaponOffset(0,32);
 		     A_SetRoll(0);

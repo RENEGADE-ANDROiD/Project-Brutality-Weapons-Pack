@@ -57,28 +57,28 @@ Actor M45Shotgun : PB_Weapon
 		  }
 	 SY0S FE 1 {
 		  A_SetRoll(roll-1.5,SPF_INTERPOLATE);
-		  return A_DoPBWeaponAction;
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 SY0S DCB 1 {
 		  A_SetRoll(roll-1.5,SPF_INTERPOLATE);
-		  return A_DoPBWeaponAction;
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 SY0S AAAAAA 3 {
 		  A_SetRoll(0);
-		  return A_DoPBWeaponAction;
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 SY0P A 0 A_PlaySound("HaloPump", 6)
 	 SY0P BCDEFGHH 1 {
 		  A_SetRoll(roll-0.5,SPF_INTERPOLATE);
-		  return A_DoPBWeaponAction;
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 SY0P HHHIJKLLLLMNO 1 {
 		  A_SetRoll(roll+2.0,SPF_INTERPOLATE);
-		  return A_DoPBWeaponAction;
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 SY0P PQRSTUV 1 {
 		  A_SetRoll(roll-1.0,SPF_INTERPOLATE);
-		  return A_DoPBWeaponAction;
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 TNT1 A 0
 	 Goto Ready3
@@ -154,14 +154,14 @@ Actor M45Shotgun : PB_Weapon
 	 TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 	 Goto SelectFirstPersonLegs
 	 SelectContinue:
-	 TNT1 A 0 A_Raise
-     Wait
+	 TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+     Goto Ready3
 
   Fidget:
 	 SY0P A 0 A_PlaySound("HaloPump")
 	 SY0P BCDEFGHH 1
-	 SY0P HHHIJKLLLLMNO 1 A_WeaponReady
-	 SY0P PQRSTUV 1 A_WeaponReady 
+	 SY0P HHHIJKLLLLMNO 1 A_DoPBWeaponAction
+	 SY0P PQRSTUV 1 A_DoPBWeaponAction 
 	 SHTN A 0 A_TakeInventory("Reloading",1)
 	 Goto M45Halo3ShotgunReadyToFire
 
@@ -169,6 +169,7 @@ Actor M45Shotgun : PB_Weapon
 	 TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 	 TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
 	 TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 	 TNT1 A 0 {
 		  A_WeaponOffset(0,32);
 		  A_SetRoll(0);
@@ -219,7 +220,7 @@ Actor M45Shotgun : PB_Weapon
 	   SHTN A 0 {
 	        A_FireCustomMissile("ShotCaseSpawn",40,0,3,-26);
 			}
-	   SHTN A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   SHTN A 0 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
 	   SHTN A 0 A_JumpIfInventory("TurboReload", 1, "PumpNoReload")//Tactical Mode is slower to pump
 	   SY0P JK 1 A_JumpIfInventory("Reloading",1,"InsertingShells")
 	   SY0P LLLLM 1
@@ -329,7 +330,7 @@ Actor M45Shotgun : PB_Weapon
 		SHTN A 0
 	    SHTN A 0 A_TakeInventory("Zoomed",1)
         SHTN A 0 A_ZoomFactor(1.0)
-		SYR1 A 1 A_WeaponReady
+		SYR1 A 1 A_DoPBWeaponAction
 		SHTN A 0 A_JumpIfInventory("HaloShotgunAmmo",13,"Fidget")
 		SHTN A 0 A_JumpIfInventory("HaloShotgunAmmo", 1, "ReloadNormally")//Check if there is a shell in the chamber
 		SHTN A 0 A_GiveInventory("HaloShotgunWasEmpty", 1)//This means there is no shell in the chamber
@@ -357,7 +358,7 @@ Actor M45Shotgun : PB_Weapon
 		SYR2 A 0 A_PlaySound("HaloReload")
 		SYR2 ABCDEFG 1
         SYR2 HHHIIJ 1
-		SYR2 LKL 1 A_WeaponReady(WRF_NOBOB)
+		SYR2 LKL 1 A_DoPBWeaponAction(WRF_NOBOB)
         SSHR A 0 A_JumpIfInventory("Reloading", 1, "Pump2")
 		SHTN A 0
 		SHTN A 0 A_JumpIfInventory("HaloShotgunAmmo",13,"FinishedInsertingShells")//If there are 8+1 shells, stop it immediately
@@ -376,7 +377,7 @@ Actor M45Shotgun : PB_Weapon
 	FinishedInsertingShells:
 		SHTN A 0 A_TakeInventory("Reloading",1)
 		SHTN A 0 A_JumpIfInventory("HaloShotgunWasEmpty", 1, "Pump2")
-		SYR1 HGFEDCBA 1 A_WeaponReady
+		SYR1 HGFEDCBA 1 A_DoPBWeaponAction
 		SHTN A 0 A_TakeInventory("Reloading",1)
 		TNT1 A 0 { PB_SetMagUnloaded(false); }
 		Goto M45Halo3ShotgunReadyToFire

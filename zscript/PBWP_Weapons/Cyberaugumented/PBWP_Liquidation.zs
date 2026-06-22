@@ -22,8 +22,7 @@ class PBWP_Liquidation : PBWP_CA_WeaponBase
 
 	action void PBWP_LiquidationBeam()
 	{
-		A_RailAttack(100, 0, 0, "", "", RGF_SILENT | RGF_FULLBRIGHT, pufftype: "PBWP_CA_BFGPuff", sparsity: 64, spawnclass: "PBWP_CA_BFGExtra");
-		PBWP_CA_DeferredRailHit(100, 'BFG');
+		PBWP_CA_FireAurumRail(100, 64);
 		A_TakeInventory("PB_Cell", 1);
 		A_GunFlash();
 		A_AlertMonsters();
@@ -54,7 +53,7 @@ class PBWP_Liquidation : PBWP_CA_WeaponBase
 		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
-		L1QU ABCDEFGHI 1 A_WeaponReady(WRF_NOFIRE);
+		L1QU ABCDEFGHI 1 A_DoPBWeaponAction(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:

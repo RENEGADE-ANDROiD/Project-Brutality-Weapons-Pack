@@ -99,7 +99,7 @@ ACTOR Thompson : PB_WeaponBase
 		THMS A 1 offset(3,36) A_SetPitch(pitch -0.5)
 		THMS A 1 offset(6,34) A_SetPitch(pitch -0.5)
 		THMS A 1 offset(9,32) A_SetPitch(pitch -0.5)
-		THMA A 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		THMA A 0 offset(9,32) A_DoPBWeaponAction(WRF_NOBOB)
 		THMA A 0 A_JumpIfInventory("Taunting",1,"Taunt")
 		THMA A 0 A_JumpIfInventory("Reloading",1,"Reload")
 		THMA A 0 offset(-9,32) A_GiveInventory("UsedStamina", 5)
@@ -111,7 +111,7 @@ ACTOR Thompson : PB_WeaponBase
 		THMS A 1 offset(-3,36) A_SetPitch(pitch +0.5)
 		THMS A 1 offset(-6,34) A_SetPitch(pitch +0.5)
 		THMS A 1 offset(-9,32) A_SetPitch(pitch +0.5)
-		THMA A 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		THMA A 0 offset(-9,32) A_DoPBWeaponAction(WRF_NOBOB)
 		THMA A 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
 		Goto StopSprint
 
@@ -245,6 +245,7 @@ Goto SelectFirstPersonLegs
 		TNT1 A 0 A_TakeInventory("Salute2", 1)
 		Goto Ready3
 	Fire:
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 		THMI C 0 A_JumpIfInventory("Zoomed",1,13)
 		THMA A 0
 		"####" "#" 0 A_JumpIfInventory("NoReloading",1,"NoReload")
@@ -447,11 +448,11 @@ Goto SelectFirstPersonLegs
 		THMA "#" 0 A_TakeInventory("ThompsonReloadToken",1)
 		TNT1 A 0 A_GiveInventory("HoldInspect",1)
 	InspectHold:
-		THMC J 2 A_WeaponReady(WRF_ALLOWRELOAD|WRF_NOFIRE)
+		THMC J 2 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_NOFIRE)
 		TNT1 A 0 A_TakeInventory("HoldInspect",1)
 		//2IFR A 0 A_PlaySound("mp40/Bolt2", 5)
-		THMC KLLLLMNB 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
-		THMA A 3 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOBOB | WRF_ALLOWZOOM| WRF_NOFIRE)
+		THMC KLLLLMNB 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
+		THMA A 3 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOBOB | WRF_ALLOWZOOM| WRF_NOFIRE)
 		THMA "#" 0 A_Takeinventory("IsInspecting",1)
 		THMA "#" 0 A_TakeInventory("ThompsonReloadToken",1)
 		THMA "#" 0 A_Takeinventory("IsInspecting",1)
@@ -461,27 +462,27 @@ Goto SelectFirstPersonLegs
 
 	SelectRechamber:
 		THMA A 0 A_TakeInventory("DoInspect",1)
-		THMr ab 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		THMr ab 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		TNT1 A 0 A_Takeinventory("ZoomHold",1)
 		TNT1 A 0 A_Takeinventory("Zoomed",1)
 		TNT1 A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_SetCrosshair(7)
 		TNT1 A 0 A_Takeinventory("ADSmode",1)
-		THMc aBC 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		THMc aBC 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		THMA "#" 0 A_Giveinventory("IsInspecting",1)
-		THMc D 3 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		THMc D 3 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		//2IFR A 0 A_PlaySound("Rifle/Bolt1", 5)
 		THMA "#" 0 A_TakeInventory("ThompsonReloadToken",1)
 		THMC EFGGG 1
 		TNT1 A 0 A_GiveInventory("HoldInspect",1)
-		THMC H 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		THMC H 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		TNT1 A 0 A_TakeInventory("HoldInspect",1)
 		2IFR A 0 A_PlaySound("mp40/Bolt1", 5)
-		THMC I 2 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
-		THMC JKKKL 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		THMC I 2 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
+		THMC JKKKL 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		THMA "#" 0 A_Takeinventory("IsInspecting",1)
 		THMA "#" 0 A_TakeInventory("ThompsonReloadToken",1)
-		THMR MA 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		THMR MA 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		THMA "#" 0 A_Takeinventory("IsInspecting",1)
 		THMA "#" 0 A_TakeInventory("ThompsonReloadToken",1)
 		THMA "#" 0 A_Takeinventory("Reloading",1)
@@ -491,7 +492,7 @@ Goto SelectFirstPersonLegs
 		THMA A 0 { PB_SetMagUnloaded(false); }
 
 
-		THMA A 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		THMA A 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		Goto ReloadConcluded
 
 	Reload:
@@ -512,31 +513,31 @@ Goto SelectFirstPersonLegs
 		THMA A 0 A_Takeinventory("ZoomHold",1)
 		THMA A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_SetCrosshair(7)
-		//THMA A 3 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		//THMA A 3 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		THMA A 0 A_Takeinventory("ADSmode",1)
 		THMA A 0 A_Takeinventory("Zoomed",1)
 		THMA A 0 A_Takeinventory("ZoomHold",1)
 		THMA A 0 { PB_JumpIfMagUnloaded("ReloadFromEmpty"); }
 		THMA A 0 A_GiveInventory ("Pumping", 1)
 		THMA A 0 A_Takeinventory("Reloading",1)
-		THMR BCDDDDDD 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		THMR BCDDDDDD 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		THMA A 0 A_PlaySound("mp40/Reload1", 5)
 		THMA A 0 { PB_JumpIfMagUnloaded("PB_MagUnloadedSkip36"); }
 		THMR EFGH 1
-		THMR I 8 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		THMR I 8 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		RIFR G 0 A_FireCustomMissile("EmptyClip2Spawn",-5,0,8,-4)
 	PB_MagUnloadedSkip36:
 	ReloadFromEmpty:
-		THMR I 8 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
-		THMr JKLM 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		THMR I 8 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		THMr JKLM 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		RIFR A 0 A_PlaySound("mp40/Reload2", 5)
-		THMr D 7 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		THMr D 7 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		TNT1 A 0 A_GiveInventory("ThompsonReloadToken",1)
 		Goto InsertBullets
 
 	FinishReloading:
 		THMA A 0 A_ClearReFire
-		THMr CB 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		THMr CB 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		TNT1 A 0 A_TakeInventory("ThompsonReloadToken",1)
 		Goto ReloadConcluded
 
@@ -617,7 +618,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 1 offset(0,34)
 		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
 		"####" "#" 1 offset(0,33)
-		"####" "#" 1 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 1 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
 		"####" "#" 0 A_Print("Your gun has been destroyed!\n\n\n\n\n\n\n")
 		"####" "#" 0 A_GiveInventory("ThompsonDestroyed", 1)
 		"####" "#" 0 A_PlaySound("DSBRK2")
@@ -659,7 +660,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 1 offset(0,34)
 		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
 		"####" "#" 1 offset(0,33)
-		"####" "#" 2 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 2 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
 		"####" "#" 1 A_ClearReFire
 		THMA A 4		
 		THMC ABCDEEEFGHHHI 1

@@ -37,7 +37,7 @@
 #INCLUDE ACTORs/Weapons/FX/PhaseEraProjectiles.dec
 #INCLUDE ACTORs/Weapons/FX/PhaseSFX.dec
 #INCLUDE ACTORs/Weapons/FX/GCFXGaussCannon.dec
-#INCLUDE ACTORs/Weapons/FX/GCLeg10K_FX.dec
+//#INCLUDE ACTORs/Weapons/FX/GCLeg10K_FX.dec // LegendaryBFG10K removed — no weapon sprites in pack
 #INCLUDE ACTORs/Weapons/FX/GCParticles.dec
 #INCLUDE ACTORs/Weapons/FX/GCSFX.dec
 #INCLUDE ACTORs/Weapons/FX/GCSmoke.dec
@@ -96,7 +96,7 @@
 #INCLUDE ACTORs/Weapons/GodComplex/LegendaryPlasmaticRifle.dec
 #INCLUDE ACTORs/Weapons/GodComplex/NemesisBFG.dec
 #INCLUDE ACTORs/Weapons/GodComplex/NemesisLMG.dec
-#INCLUDE ACTORs/Weapons/GodComplex/LegendaryBFG10K.dec
+//#INCLUDE ACTORs/Weapons/GodComplex/LegendaryBFG10K.dec // removed — LG10/LB10 sprites not in pack
 #include "Actors/Items/GC_Enhancements.dec"
 
 	//Slot-1
@@ -207,6 +207,9 @@
 #INCLUDE ACTORs/Weapons/Karnage/Karnage.dec
 #INCLUDE ACTORs/Weapons/VietDoom/VietDoom.dec
 #INCLUDE ACTORs/Weapons/Cyberaugumented/Cyberaugumented.dec
+
+// PB Staging weapon select fixes (must load last — merges SelectContinue over PB Staging defs)
+#INCLUDE ACTORs/Weapons/PBWP_StagingCompat/StagingWeaponSelectFixes.dec
 
 // Tokens (bd_Token defined in VietDoom_Compat.dec before VietDoom weapons)
 ACTOR BDWeaponACtion : bd_Token {}

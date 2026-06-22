@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 //
 // Berreta 92 ||| UpGrade for Berreta 92
 //
@@ -289,7 +289,7 @@ Actor B92S : PB_WeaponBase
 		BE51 DDCBA 1 A_DoPBWeaponAction
 		Stop
 	Unload:
-		TNT1 A 0 A_WeaponReady
+		TNT1 A 0 A_DoPBWeaponAction
 		TNT1 A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_Takeinventory("Unloading",1)
 		TNT1 A 0 A_Takeinventory("ADSmode",1)

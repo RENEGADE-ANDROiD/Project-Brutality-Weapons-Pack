@@ -43,7 +43,7 @@ class VietDoomSpawnerInjector : PBInjector
 		Pistol(handler, 'M3PickUp', PBSpawnVietM3A1);
 		Pistol(handler, 'ThompsonPickUp', PBSpawnVietThompson);
 		Pistol(handler, 'MAT49PickUp', PBSpawnVietMAT49);
-		Pistol(handler, 'PPShPickUp', PBSpawnVietPPSh);
+		//Pistol(handler, 'PPShPickUp', PBSpawnVietPPSh);
 
 		Shotgun(handler, 'IthacaPickUp', PBSpawnVietIthaca);
 

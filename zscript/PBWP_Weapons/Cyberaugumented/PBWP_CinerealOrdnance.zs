@@ -25,8 +25,13 @@ class PBWP_CinerealOrdnance : PBWP_CA_WeaponBase
 	{
 		A_GunFlash();
 		A_QuakeEx(3, 3, 3, 25, 0, 1000, "", QF_RELATIVE | QF_SCALEDOWN);
-		A_FireCustomMissile("PBWP_CA_CinerealLaser", 0, altOffset ? 1 : 0);
+		A_FireProjectile("PBWP_CA_CinerealLaser", 0, altOffset ? 1 : 0);
 		A_TakeInventory("PBWP_CinerealMag", 3);
+	}
+
+	action void PBWP_CinerealIdleLoop()
+	{
+		A_StartSound("CinerealOrdnance/Idle", CHAN_6, CHANF_LOOPING | CHANF_NOSTOP, 1, 0.5);
 	}
 
 	states
@@ -48,26 +53,35 @@ class PBWP_CinerealOrdnance : PBWP_CA_WeaponBase
 
 	SelectContinue:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
+		TNT1 A 0 A_StopSound(CHAN_6);
 		TNT1 A 0 PB_WeaponRaise("CinerealOrdnance/Up");
 		TNT1 A 0 PB_WeapTokenSwitch("BFGSelected");
 		TNT1 A 0 PB_SetMagUnloaded(false);
-		TNT1 A 0 A_StartSound("CinerealOrdnance/Idle", CHAN_6, CHANF_LOOPING, 1, 0.5);
 		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
-		CINR WXY 1 A_WeaponReady(WRF_NOFIRE);
+		CINR WXY 1 A_DoPBWeaponAction(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:
-		TNT1 A 0 PBWP_CA_DeselectCleanup();
-		CINR YXW 1 { A_StopSound(CHAN_6); }
-		TNT1 A 0 A_Lower(120);
+		TNT1 A 0 {
+			A_StopSound(CHAN_6);
+			A_StopSound(CHAN_5);
+			PBWP_CA_DeselectCleanup();
+		}
+		CINR YXW 1;
+		Goto DeselectDown;
+	DeselectDown:
+		TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower(120);
 		Wait;
 
 	Ready3:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
 		TNT1 A 0 { PBWP_CA_ReadyPose(); }
-		CINR A 1 Bright A_DoPBWeaponAction(WRF_ALLOWRELOAD);
+		CINR A 1 Bright {
+			PBWP_CinerealIdleLoop();
+			A_DoPBWeaponAction(WRF_ALLOWRELOAD);
+		}
 		Loop;
 
 		Fire:
@@ -100,7 +114,6 @@ class PBWP_CinerealOrdnance : PBWP_CA_WeaponBase
 		}
 		CINR TSRQP 5;
 		TNT1 A 0 PBWP_CA_UnlockTilt();
-		TNT1 A 0 A_StartSound("CinerealOrdnance/Idle", CHAN_6, CHANF_LOOPING, 1, 0.5);
 		Goto Ready3;
 
 	ReloadMag:

@@ -156,6 +156,8 @@ Stop
 }
 }
 
+// LegendaryBFG10K projectiles — weapon removed (no LG10/LB10 sprites in pack)
+/*
 Actor PBLEG10KProjectile
 {
 Height 1
@@ -245,7 +247,7 @@ QRE3 ABCDEF 4 Bright
 Stop
 }
 }
-
+*/
 
 Actor PlayerNemesisGuruBall
 {

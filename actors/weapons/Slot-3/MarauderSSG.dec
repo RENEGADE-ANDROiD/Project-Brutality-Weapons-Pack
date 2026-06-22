@@ -229,126 +229,126 @@ Actor MarauderSSG : PBWP_Weapon
 		  A_PlaySoundEx("weapons/ssg/inspect4", CHAN_AUTO);
 		  }
      MSSS A 1 {
-		  return A_DoPBWeaponAction;
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSSS B 1 {
-		  return A_DoPBWeaponAction;
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSSS C 1 {
-		  return A_DoPBWeaponAction;
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSSS D 1 {
-		  return A_DoPBWeaponAction;
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MXSG AAAAAA 3 {
-		  return A_DoPBWeaponAction;
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 R 1 {
-		  return A_DoPBWeaponAction;
+		  return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 Q 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 P 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 O 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 N 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 M 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 L 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 K 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 J 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 I 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 H 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 G 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 F 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 TNT1 A 0 A_PlaySound("MSSOP", 51)
 	 MSS2 E 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 D 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 C 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 B 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 AAAAAA 3 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 B 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 C 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 D 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 TNT1 A 0 A_PlaySound("MSSLD", 52)
 	 MSS2 E 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 F 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 G 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 H 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 I 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 J 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 K 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 L 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 M 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 N 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 O 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 P 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 Q 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 MSS2 R 1 {
-	      return A_DoPBWeaponAction;
+	      return A_DoPBWeaponAction(WRF_NOFIRE);
 		  }
 	 TNT1 A 0 A_GiveInventory("MaraudSSGAmmo", 2)
 	 Goto Ready3

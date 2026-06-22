@@ -30,11 +30,8 @@ ACTOR MAT49 : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "FlashBarrelPunching")
 		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
 		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "FlashBarrelPunching")
-		MATR A 1 A_DoPBWeaponAction
-		MATS AB 1 A_DoPBWeaponAction
-		MATS C 11 A_DoPBWeaponAction
-		MATS ba 1 A_DoPBWeaponAction
-		MATg A 2 A_DoPBWeaponAction
+		MATS AA 0 A_Lower
+		MATS A 4 A_Lower
 		Stop
 	FlashAirKicking:
 		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "FlashBarrelAirKicking")
@@ -79,7 +76,7 @@ ACTOR MAT49 : PB_WeaponBase
 		MATS A 1 offset(3,36) A_SetPitch(pitch -0.5)
 		MATS A 1 offset(6,34) A_SetPitch(pitch -0.5)
 		MATS A 1 offset(9,32) A_SetPitch(pitch -0.5)
-		MATG A 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		MATG A 0 offset(9,32) A_DoPBWeaponAction(WRF_NOBOB)
 		MATG A 0 A_JumpIfInventory("Taunting",1,"Taunt")
 		MATG A 0 A_JumpIfInventory("Reloading",1,"Reload")
 		MATG A 0 offset(-9,32) A_GiveInventory("UsedStamina", 4)
@@ -91,7 +88,7 @@ ACTOR MAT49 : PB_WeaponBase
 		MATS A 1 offset(-3,36) A_SetPitch(pitch +0.5)
 		MATS A 1 offset(-6,34) A_SetPitch(pitch +0.5)
 		MATS A 1 offset(-9,32) A_SetPitch(pitch +0.5)
-		MATG A 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		MATG A 0 offset(-9,32) A_DoPBWeaponAction(WRF_NOBOB)
 		MATG A 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
 		Goto StopSprint
 
@@ -138,18 +135,18 @@ Goto SelectFirstPersonLegs
 	Tacticalselect:
 		TNT1 A 0 A_TakeInventory("NeverSelectedMAT",1)
 		TNT1 A 3 A_DoPBWeaponAction(WRF_ALLOWZOOM|WRF_ALLOWRELOAD)
-		MATR J 6 A_WEAPONREADY(WRF_ALLOWZOOM)
+		MATR J 6 A_DoPBWeaponAction(WRF_ALLOWZOOM)
 		RIFR A 0 A_PlaySound("smg/Reload2", 5)
-		MATr IHGFE 1 A_WEAPONREADY(WRF_ALLOWZOOM)
+		MATr IHGFE 1 A_DoPBWeaponAction(WRF_ALLOWZOOM)
 		//TNT1 A 0 A_GiveInventory("MATReloadToken",1)
-		MATr DDDCBAK 1 A_WEAPONREADY(WRF_ALLOWZOOM)
+		MATr DDDCBAK 1 A_DoPBWeaponAction(WRF_ALLOWZOOM)
 		MATR L 3 A_DoPBWeaponAction(WRF_ALLOWZOOM|WRF_ALLOWRELOAD)
 		2IFR A 0 A_PlaySound("Rifle/Bolt1", 5)
-		MATR M 1 A_WEAPONREADY(WRF_ALLOWZOOM)
-		MATR N 5 A_WEAPONREADY(WRF_ALLOWZOOM)
+		MATR M 1 A_DoPBWeaponAction(WRF_ALLOWZOOM)
+		MATR N 5 A_DoPBWeaponAction(WRF_ALLOWZOOM)
 		2IFR A 0 A_PlaySound("mp40/Bolt2", 5)
-		MATR MLLKA 1 A_WEAPONREADY(WRF_ALLOWZOOM)
-		MATG A 1 A_WEAPONREADY(WRF_ALLOWZOOM)
+		MATR MLLKA 1 A_DoPBWeaponAction(WRF_ALLOWZOOM)
+		MATG A 1 A_DoPBWeaponAction(WRF_ALLOWZOOM)
 		goto ready
 
 	Ready:
@@ -224,6 +221,7 @@ Goto SelectFirstPersonLegs
 		TNT1 A 0 A_TakeInventory("Salute2", 1)
 		Goto Ready3
 	Fire:
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 		MATI C 0 A_JumpIfInventory("Zoomed",1,13)
 		MATG A 0
 		"####" "#" 0 A_JumpIfInventory("NoReloading",1,"NoReload")
@@ -422,15 +420,15 @@ Goto SelectFirstPersonLegs
 		MATG "#" 0 A_Giveinventory("IsInspecting",1)
 		MATR L 5 A_DoPBWeaponAction(WRF_ALLOWZOOM|WRF_ALLOWRELOAD)
 		2IFR A 0 A_PlaySound("Rifle/Bolt1", 5)
-		MATR M 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		MATR M 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		MATG "#" 0 A_TakeInventory("MATReloadToken",1)
 		TNT1 A 0 A_GiveInventory("HoldInspect",1)
 	InspectHold:
-		MATR N 2 A_WeaponReady(WRF_ALLOWRELOAD|WRF_NOFIRE)
+		MATR N 2 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_NOFIRE)
 		TNT1 A 0 A_TakeInventory("HoldInspect",1)
 		2IFR A 0 A_PlaySound("mp40/Bolt2", 5)
-		MATR MLLLLKA 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
-		MATG A 2 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOBOB | WRF_ALLOWZOOM| WRF_NOFIRE)
+		MATR MLLLLKA 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
+		MATG A 2 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOBOB | WRF_ALLOWZOOM| WRF_NOFIRE)
 		MATG "#" 0 A_Takeinventory("IsInspecting",1)
 		MATG "#" 0 A_TakeInventory("MATReloadToken",1)
 		MATG "#" 0 A_Takeinventory("IsInspecting",1)
@@ -440,27 +438,27 @@ Goto SelectFirstPersonLegs
 
 	SelectRechamber:
 		MATG A 0 A_TakeInventory("DoInspect",1)
-		MATr ab 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		MATr ab 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		TNT1 A 0 A_Takeinventory("ZoomHold",1)
 		TNT1 A 0 A_Takeinventory("Zoomed",1)
 		TNT1 A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_SetCrosshair(7)
 		TNT1 A 0 A_Takeinventory("ADSmode",1)
-		MATc a 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		MATc a 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		MATG "#" 0 A_Giveinventory("IsInspecting",1)
-		MATc b 5 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		MATc b 5 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		2IFR A 0 A_PlaySound("Rifle/Bolt1", 5)
 		MATG "#" 0 A_TakeInventory("MATReloadToken",1)
 		MATC CDE 1
 		TNT1 A 0 A_GiveInventory("HoldInspect",1)
-		MATC E 2 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		MATC E 2 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		TNT1 A 0 A_TakeInventory("HoldInspect",1)
 		2IFR A 0 A_PlaySound("mp40/Bolt2", 5)
-		MATC F 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
-		MATC A 5 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		MATC F 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
+		MATC A 5 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		MATG "#" 0 A_Takeinventory("IsInspecting",1)
 		MATG "#" 0 A_TakeInventory("MATReloadToken",1)
-		MATR ba 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		MATR ba 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		MATG "#" 0 A_Takeinventory("IsInspecting",1)
 		MATG "#" 0 A_TakeInventory("MATReloadToken",1)
 		MATG "#" 0 A_Takeinventory("Reloading",1)
@@ -470,7 +468,7 @@ Goto SelectFirstPersonLegs
 		MATG A 0 { PB_SetMagUnloaded(false); }
 
 
-		MATG A 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		MATG A 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		Goto ReloadConcluded
 
 	Reload:
@@ -490,27 +488,27 @@ Goto SelectFirstPersonLegs
 		MATG A 0 A_Takeinventory("ZoomHold",1)
 		MATG A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_SetCrosshair(7)
-		//MATG A 3 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		//MATG A 3 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		MATG A 0 A_Takeinventory("ADSmode",1)
 		MATG A 0 A_Takeinventory("Zoomed",1)
 		MATG A 0 A_Takeinventory("ZoomHold",1)
 		MATG A 0 { PB_JumpIfMagUnloaded("ReloadFromEmpty"); }
 		MATG A 0 A_GiveInventory ("Pumping", 1)
 		MATG A 0 A_Takeinventory("Reloading",1)
-		MATR ABCDDDDDD 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		MATR ABCDDDDDD 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		MATG A 0 A_PlaySound("smg/Reload1", 5)
 		MATR EFGHI 1
 		RIFR G 0 A_FireCustomMissile("EmptyClip2Spawn",-5,0,8,-4)
 	ReloadFromEmpty:
-		MATR J 12 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		MATR J 12 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		RIFR A 0 A_PlaySound("smg/Reload2", 5)
-		MATr IHGFE 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		MATr IHGFE 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		TNT1 A 0 A_GiveInventory("MATReloadToken",1)
 		Goto InsertBullets
 
 	FinishReloading:
 		MATG A 0 A_ClearReFire
-		MATr DDDDDCBA 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		MATr DDDDDCBA 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		TNT1 A 0 A_TakeInventory("MATReloadToken",1)
 		Goto ReloadConcluded
 
@@ -591,7 +589,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 1 offset(0,34)
 		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
 		"####" "#" 1 offset(0,33)
-		"####" "#" 1 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 1 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
 		"####" "#" 0 A_Print("Your gun has been destroyed!\n\n\n\n\n\n\n")
 		"####" "#" 0 A_GiveInventory("MAT49Destroyed", 1)
 		"####" "#" 0 A_PlaySound("DSBRK2")
@@ -636,7 +634,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 1 offset(0,34)
 		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
 		"####" "#" 1 offset(0,33)
-		"####" "#" 2 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 2 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
 		"####" "#" 1 A_ClearReFire
 		MATG A 3
 		MATR AK 1		
@@ -646,7 +644,7 @@ Goto SelectFirstPersonLegs
 		MATR M 0 A_FireCustomMissile("PistolCaseSpawn",5,0,6,-14)
 		MATR N 3
 		2IFR A 0 A_PlaySound("mp40/Bolt2", 5)
-		MATR MLLLLKA 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		MATR MLLLLKA 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		MATG A 2
 		Goto Ready
 

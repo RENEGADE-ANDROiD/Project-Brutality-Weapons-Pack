@@ -42,7 +42,7 @@ class PB_Fusil : PB_WeaponBase
 
 		ReadySeen:
         "RPTG" A 0 A_PlaySound("CLIPIN");
-        "FUSI" "ABCDE" 1 A_WeaponReady;
+        "FUSI" "ABCDE" 1 A_DoPBWeaponAction;
         Goto RealReady;
 
 		Ready:
@@ -102,15 +102,15 @@ class PB_Fusil : PB_WeaponBase
 			Goto Ready3;
 		SelectAnimation:
         TNT1 A 0 A_PlaySound("CLIPIN");
-        "RPTG" "AAAAAAAAA" 4 A_WeaponReady;
-        "MIRA" "CCCBBB" 1 A_WeaponReady;
-        "MIRA" "AAAAAAAAAAA" 2 A_WeaponReady;
-        "MIRA" "BC" 2 A_WeaponReady;
+        "RPTG" "AAAAAAAAA" 4 A_DoPBWeaponAction;
+        "MIRA" "CCCBBB" 1 A_DoPBWeaponAction;
+        "MIRA" "AAAAAAAAAAA" 2 A_DoPBWeaponAction;
+        "MIRA" "BC" 2 A_DoPBWeaponAction;
         Goto Ready3;
 
 		WeaponRespect:
         TNT1 A 0 A_GiveInventory("PB_FusilSeen", 1);
-        "FUSI" "ABCDE" 1 A_WeaponReady;
+        "FUSI" "ABCDE" 1 A_DoPBWeaponAction;
         Goto SelectAnimation;
 
 		Fire:
@@ -125,6 +125,7 @@ class PB_Fusil : PB_WeaponBase
             }
         }
         TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
+        TNT1 A 0 PB_TryAutoFatalityOnFire();
         TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Fire2");
         TNT1 A 0 A_JumpIfInventory("PB_FusilMag",1,2);
         Goto Reload;
@@ -291,7 +292,7 @@ class PB_Fusil : PB_WeaponBase
             A_ClearOverlays(10,11);
             A_OverlayScale(PSP_WEAPON,1.0,1.0);
         }
-        "RPTG" A 1 A_WeaponReady;
+        "RPTG" A 1 A_DoPBWeaponAction;
         TNT1 A 0 A_ZoomFactor(1.0);
         TNT1 A 0 A_TakeInventory("Unloading",1);
         TNT1 A 0 A_TakeInventory("ADSmode",1);
@@ -404,8 +405,7 @@ class PB_Fusil : PB_WeaponBase
 
 		FlashPunching:
         TNT1 A 0 A_ClearOverlays(10,11);
-        "FUSI" "EDCCDE" 1;
-        TNT1 A 0 A_WeaponOffset(0, 32);
+        "FUSI" "EDCCCCDE" 1;
         TNT1 A 0 A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
         Goto Ready3;
 

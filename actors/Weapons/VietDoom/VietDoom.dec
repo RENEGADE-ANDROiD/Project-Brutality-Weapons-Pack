@@ -7,7 +7,7 @@
 #INCLUDE ACTORs/Weapons/VietDoom/M3A1.dec
 #INCLUDE ACTORs/Weapons/VietDoom/Thompson.dec
 #INCLUDE ACTORs/Weapons/VietDoom/MAT49.dec
-#INCLUDE ACTORs/Weapons/VietDoom/PPS.dec
+//#INCLUDE ACTORs/Weapons/VietDoom/PPS.dec
 #INCLUDE ACTORs/Weapons/VietDoom/Ithaca.dec
 #INCLUDE ACTORs/Weapons/VietDoom/M16.dec
 #INCLUDE ACTORs/Weapons/VietDoom/M14.dec

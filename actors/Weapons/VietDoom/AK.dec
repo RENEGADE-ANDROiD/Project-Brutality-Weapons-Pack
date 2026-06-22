@@ -103,7 +103,7 @@ ACTOR AK : PB_WeaponBase
 		AKMS "#" 1 offset(3,36) A_SetPitch(pitch -0.5)
 		AKMS "#" 1 offset(6,34) A_SetPitch(pitch -0.5)
 		AKMS "#" 1 offset(9,32) A_SetPitch(pitch -0.5)
-		AKMS "#" 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		AKMS "#" 0 offset(9,32) A_DoPBWeaponAction(WRF_NOBOB)
 		AKMS "#" 0 A_JumpIfInventory("Taunting",1,"Taunt")
 		AKMS "#" 0 A_JumpIfInventory("Reloading",1,"Reload")
 		AKMS "#" 0 offset(-9,32) A_GiveInventory("UsedStamina", 6)
@@ -115,7 +115,7 @@ ACTOR AK : PB_WeaponBase
 		AKMS "#" 1 offset(-3,36) A_SetPitch(pitch +0.5)
 		AKMS "#" 1 offset(-6,34) A_SetPitch(pitch +0.5)
 		AKMS "#" 1 offset(-9,32) A_SetPitch(pitch +0.5)
-		AKMS "#" 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		AKMS "#" 0 offset(-9,32) A_DoPBWeaponAction(WRF_NOBOB)
 		AKMS "#" 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
 		Goto StopSprint
 	StopSprint:
@@ -178,18 +178,18 @@ Goto SelectFirstPersonLegs
 	Tacticalselect:
 		TNT1 A 0 A_TakeInventory("NeverSelectedAK",1)
 		TNT1 A 1 A_DoPBWeaponAction(WRF_ALLOWZOOM|WRF_ALLOWRELOAD)
-		AKRL I 8 A_WEAPONREADY(WRF_ALLOWZOOM)
-		AKRL JKL 1 A_WEAPONREADY(WRF_ALLOWZOOM)
+		AKRL I 8 A_DoPBWeaponAction(WRF_ALLOWZOOM)
+		AKRL JKL 1 A_DoPBWeaponAction(WRF_ALLOWZOOM)
 		RIFR A 0 A_PlaySound("Rifle/Reload2", 5)
-		AKRL FEEDDDCBA 1 A_WEAPONREADY(WRF_ALLOWZOOM)
-		AKRL MMMM 1 A_WEAPONREADY(WRF_ALLOWZOOM)
+		AKRL FEEDDDCBA 1 A_DoPBWeaponAction(WRF_ALLOWZOOM)
+		AKRL MMMM 1 A_DoPBWeaponAction(WRF_ALLOWZOOM)
 		AKRL NOPQQQQRS 1
 		2IFR A 0 A_PlaySound("Rifle/Bolt1", 5)
-		AKRL T 5 A_WEAPONREADY(WRF_ALLOWZOOM)
+		AKRL T 5 A_DoPBWeaponAction(WRF_ALLOWZOOM)
 		2IFR A 0 A_PlaySound("rifle/Bolt2", 5)
-		AKRL N 1 A_WEAPONREADY(WRF_ALLOWZOOM)
-		AKRL M 5 A_WEAPONREADY(WRF_ALLOWZOOM)
-		AKMG A 1 A_WEAPONREADY(WRF_ALLOWZOOM)
+		AKRL N 1 A_DoPBWeaponAction(WRF_ALLOWZOOM)
+		AKRL M 5 A_DoPBWeaponAction(WRF_ALLOWZOOM)
+		AKMG A 1 A_DoPBWeaponAction(WRF_ALLOWZOOM)
 		Goto Ready3
 
 	Ready:
@@ -274,6 +274,7 @@ Goto SelectFirstPersonLegs
 		TNT1 A 0 A_TakeInventory("Salute2", 1)
 		Goto Ready3
 	Fire:
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 		AKMI C 0 A_JumpIfInventory("Zoomed",1,13)
 		AKMG A 0
 		"####" "#" 0 A_JumpIfInventory("NoReloading",1,"NoReload")
@@ -487,11 +488,11 @@ Goto SelectFirstPersonLegs
 		2IFR A 0 A_PlaySound("Rifle/Bolt1", 5)
 		TNT1 A 0 A_GiveInventory("HoldInspect",1)
 	InspectHold:
-		AKRL T 3 A_WeaponReady(WRF_ALLOWRELOAD|WRF_NOFIRE)
+		AKRL T 3 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_NOFIRE)
 		TNT1 A 0 A_TakeInventory("HoldInspect",1)
 		2IFR A 0 A_PlaySound("rifle/Bolt2", 5)
-		AKRL N 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
-		AKRL M 5 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOBOB | WRF_ALLOWZOOM| WRF_NOFIRE)
+		AKRL N 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
+		AKRL M 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOBOB | WRF_ALLOWZOOM| WRF_NOFIRE)
 		AKMG "#" 0 A_Takeinventory("IsInspecting",1)
 		AKMG "#" 0 A_TakeInventory("AKReloadToken",1)
 		//AKRL BA 1 A_DoPBWeaponAction(WRF_ALLOWZOOM|WRF_ALLOWRELOAD)
@@ -502,27 +503,27 @@ Goto SelectFirstPersonLegs
 
 	SelectRechamber:
 		AKMG A 0 A_TakeInventory("DoInspect",1)
-		AKRL ab 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		AKRL ab 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		TNT1 A 0 A_Takeinventory("ZoomHold",1)
 		TNT1 A 0 A_Takeinventory("Zoomed",1)
 		TNT1 A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_SetCrosshair(7)
 		TNT1 A 0 A_Takeinventory("ADSmode",1)
-		AKMG a 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		AKMG a 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		AKMG "#" 0 A_Giveinventory("IsInspecting",1)
-		AKRL M 5 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		AKRL M 5 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		AKMG "#" 0 A_TakeInventory("AKReloadToken",1)
 		AKRL NOPQQQQRS 1
 		2IFR A 0 A_PlaySound("Rifle/Bolt1", 5)
 		TNT1 A 0 A_GiveInventory("HoldInspect",1)
-		AKRL T 5 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		AKRL T 5 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		TNT1 A 0 A_TakeInventory("HoldInspect",1)
 		2IFR A 0 A_PlaySound("rifle/Bolt2", 5)
-		AKRL N 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
-		AKRL M 5 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		AKRL N 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
+		AKRL M 5 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		AKMG "#" 0 A_Takeinventory("IsInspecting",1)
 		AKMG "#" 0 A_TakeInventory("AKReloadToken",1)
-		//AKRL ba 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		//AKRL ba 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		AKMG "#" 0 A_Takeinventory("IsInspecting",1)
 		AKMG "#" 0 A_TakeInventory("AKReloadToken",1)
 		AKMG "#" 0 A_Takeinventory("Reloading",1)
@@ -532,7 +533,7 @@ Goto SelectFirstPersonLegs
 		AKMG A 0 { PB_SetMagUnloaded(false); }
 
 
-		AKMG A 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		AKMG A 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		Goto ReloadConcluded
 
 	Reload:
@@ -554,7 +555,7 @@ Goto SelectFirstPersonLegs
 		AKMG A 0 A_Takeinventory("ZoomHold",1)
 		AKMG A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_SetCrosshair(7)
-		//AKMG A 3 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		//AKMG A 3 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		AKMG A 0 A_Takeinventory("ADSmode",1)
 		AKMG A 0 A_Takeinventory("Zoomed",1)
 		AKMG A 0 A_Takeinventory("ZoomHold",1)
@@ -563,33 +564,33 @@ Goto SelectFirstPersonLegs
 		AKMG A 0 A_Takeinventory("Reloading",1)
 		AKRL ABCDDDEE 1
 		AKMG A 0 A_PlaySound("Rifle/Reload1", 5)
-		AKRL F 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		AKRL F 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		AKMG A 0 { PB_JumpIfMagUnloaded("PB_MagUnloadedSkip17"); }
 		AKRL GH 1
-		AKRL I 8 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		AKRL I 8 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		RIFR G 0 A_FireCustomMissile("EmptyClipSpawn",-5,0,8,-4)
 	PB_MagUnloadedSkip17:
 	ReloadFromEmpty:
-		AKRL I 8 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
-		AKRL JKL 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		AKRL I 8 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		AKRL JKL 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		RIFR A 0 A_PlaySound("Rifle/Reload2", 5)
-		AKRL FEEDDDCBA 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		AKRL FEEDDDCBA 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		AKMG A 0 A_JumpIfInventory("AKAmmo",1,"InsertBullets2")//30+1 effect
 		TNT1 A 0 A_GiveInventory("AKReloadToken",1)
 		Goto InsertBullets
 
 	FinishReloading:
 		AKMG A 0 A_ClearReFire
-		AKRL MMMM 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		AKRL MMMM 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		AKRL NOPQQQQRS 1
 		2IFR A 0 A_PlaySound("Rifle/Bolt1", 5)
-		AKRL T 5 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		AKRL T 5 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		2IFR A 0 A_PlaySound("rifle/Bolt2", 5)
-		AKRL N 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
-		AKRL M 5 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
+		AKRL N 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
+		AKRL M 5 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
 		TNT1 A 0 A_TakeInventory("AKReloadToken",1)
-		AKMG A 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
-		//AKRL EDCBA 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		AKMG A 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		//AKRL EDCBA 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		Goto ReloadConcluded
 
 	InsertBullets:
@@ -683,7 +684,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 1 offset(0,34)
 		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
 		"####" "#" 1 offset(0,33)
-		"####" "#" 1 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 1 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
 		"####" "#" 0 A_Print("Your rifle has been destroyed!\n\n\n\n\n\n\n")
 		"####" "#" 0 A_GiveInventory("AKDestroyed", 1)
 		"####" "#" 0 A_PlaySound("DSBRK2")
@@ -729,7 +730,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 1 offset(0,34)
 		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
 		"####" "#" 1 offset(0,33)
-		"####" "#" 2 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 2 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
 		"####" "#" 1 A_ClearReFire
 		AKRL M 5
 		AKRL NOPQQQQRS 1

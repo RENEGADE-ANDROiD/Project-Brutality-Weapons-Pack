@@ -67,4 +67,33 @@ class PBWP_CA_WeaponBase : PB_WeaponBase
 		if (PBWP_CombatDamageHandler.IsCombatTarget(lt.hitActor, mo))
 			PBWP_CombatDamageHandler.Schedule(lt.hitActor, mo, mo, damage, dmgType);
 	}
+
+	// Visual rail + deferred damage (damage 0 on A_RailAttack avoids double-hit with CombatDamageHandler).
+	action void PBWP_CA_FireAurumRail(int damage, int sparsity = 64)
+	{
+		A_RailAttack(0, 0, 0, "", "", RGF_SILENT | RGF_FULLBRIGHT,
+			pufftype: "PBWP_CA_AurumPuff", sparsity: sparsity, spawnclass: "PBWP_CA_AurumRailTrail");
+		PBWP_CA_DeferredRailHit(damage, 'BFG');
+	}
+
+	action void PBWP_CA_FireBfgGreenRail(int damage, int sparsity = 64)
+	{
+		A_RailAttack(0, 0, 0, "", "", RGF_SILENT | RGF_FULLBRIGHT,
+			pufftype: "PBWP_CA_BfgGreenPuff", sparsity: sparsity, spawnclass: "PBWP_CA_BfgGreenRailTrail");
+		PBWP_CA_DeferredRailHit(damage, 'BFG');
+	}
+
+	action void PBWP_CA_FireNeonicRail(int damage, int sparsity = 30)
+	{
+		A_RailAttack(0, 0, false, "", "", RGF_SILENT | RGF_FULLBRIGHT,
+			pufftype: "PBWP_CA_NeonicPuff", sparsity: sparsity, spawnclass: "PBWP_CA_NeonicRailTrail");
+		PBWP_CA_DeferredRailHit(damage, 'Plasma');
+	}
+
+	action void PBWP_CA_FireMinigunLaser(int damage, int sparsity = 24)
+	{
+		A_RailAttack(0, 0, 0, "", "", RGF_SILENT | RGF_FULLBRIGHT,
+			pufftype: "PBWP_CA_NeonicPuff", sparsity: sparsity, spawnclass: "PBWP_CA_NeonicRailTrail");
+		PBWP_CA_DeferredRailHit(damage, 'Plasma');
+	}
 }

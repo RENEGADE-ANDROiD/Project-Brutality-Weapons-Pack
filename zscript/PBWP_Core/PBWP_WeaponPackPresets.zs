@@ -58,7 +58,7 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 		SetSpawn("PBSpawnLegendaryPlasmaticRifle", on);
 		SetSpawn("PBSpawnNemesisBFG", on);
 		SetSpawn("PBSpawnNemesisLMG", on);
-		SetSpawn("PBSpawnLegendaryBFG10K", on);
+		//SetSpawn("PBSpawnLegendaryBFG10K", on); // weapon removed — no sprites
 		SetPackToggle("PBWP_Pack_GodComplex", on);
 	}
 
@@ -100,7 +100,7 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 		SetSpawn("PBSpawnThunderCarrierTI", on);
 		SetSpawn("PBSpawnSatan_Scream", on);
 		SetMonsterDrop("PBSpawnBioAcidLauncherDrop", on);
-		SetSpawn("PBSpawnPB_CalamityBlade", on);
+		//SetSpawn("PBSpawnPB_CalamityBlade", on);
 		SetSpawn("PBSpawnIon_Heavy", on);
 		SetPackToggle("PBWP_Pack_IN", on);
 	}
@@ -178,7 +178,7 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 		SetSpawn("PBSpawnVietM3A1", on);
 		SetSpawn("PBSpawnVietThompson", on);
 		SetSpawn("PBSpawnVietMAT49", on);
-		SetSpawn("PBSpawnVietPPSh", on);
+		//SetSpawn("PBSpawnVietPPSh", on);
 		SetSpawn("PBSpawnVietIthaca", on);
 		SetSpawn("PBSpawnVietM16", on);
 		SetSpawn("PBSpawnVietM14", on);
@@ -244,6 +244,7 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 		SetSpawn("PBSpawnAutoCannon", on);
 		SetSpawn("PBSpawnSuperNailgun", on);
 		SetSpawn("PBSpawnPB_GaussCannon", on);
+		SetSpawn("PBSpawnCalamityBlade", on);
 		SetSpawn("PBSpawnLegacyUnmaker", on);
 		SetSpawn("PBSpawnPhaseEradicatorBFG", on);
 		SetSpawn("PBSpawnAncientCrossbow", on);

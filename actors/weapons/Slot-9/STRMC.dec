@@ -131,8 +131,8 @@ ACTOR Stormcast : PB_WeaponBase
 		Goto Ready3
 	Ready:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
-		TNT1 A 0 A_GiveInventory("IsUsingStormcast") // Token for testing
-		TNT1 A 0 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
+		TNT1 A 0 A_GiveInventory("IsUsingStormcast")
+		Goto Ready3
 	SelectAnimation:
 		TNT1 A 0 A_PlaySound("DRAW", 1)
 		TNT1 A 0 {
@@ -141,15 +141,15 @@ ACTOR Stormcast : PB_WeaponBase
 		"####" A 0 A_JumpIfInventory("Quickspell",1,"Quickspell")
 		CONE A 1 A_JumpIfInventory("GoWeaponSpecialAbility", 1, "InitializeThunderstorm")
 		TNT1 A 0 A_TakeInventory("PowerChargeStorm", 1)
-		CONE A 1 A_WeaponReady
+		CONE A 1 A_DoPBWeaponAction
 		TNT1 A 0 A_GiveInventory("PowerChargeStorm", 2)
-		CONE A 1 A_WeaponReady
+		CONE A 1 A_DoPBWeaponAction
 		TNT1 A 0 A_GiveInventory("PowerChargeStorm", 1)
 		TNT1 A 0 A_StopSound(CHAN_WEAPON)
 		TNT1 A 0 A_JumpIfInventory("KraterOfMight",1,1)
 		TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")		
 		TNT1 A 0 A_StopSound(CHAN_WEAPON)
-		CONE A 1 A_WeaponReady
+		CONE A 1 A_DoPBWeaponAction
 				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 				Goto Ready3
 	ReadySettle:
@@ -167,7 +167,7 @@ ACTOR Stormcast : PB_WeaponBase
 		    }
 		TNT1 A 0 A_JumpIfInventory("GoFatality",1,"Steady")
 		TNT1 A 0 A_StopSound(CHAN_WEAPON)
-		CONE A 0 A_WeaponReady
+		CONE A 0 A_DoPBWeaponAction
 		CONE A 1 A_DoPBWeaponAction
 		Loop
 	Deselect:
@@ -208,13 +208,18 @@ ACTOR Stormcast : PB_WeaponBase
 		}
 		Goto SelectFirstPersonLegs
 	SelectContinue:
-		TNT1 A 0 PB_WeapTokenSwitch("AddonSelected")
+		TNT1 A 0 { PB_WeaponRaise("PZAPCHR2"); }
+		TNT1 A 0 { PB_WeapTokenSwitch("AddonSelected"); }
 		TNT1 A 0 PBWP_EnsureMonsterDurability("StormcastDurability", 50)
-		CONE A 0 A_GiveInventory ("PowerChargeStorm", 200)
-		TNT1 A 0 A_TakeInventory("CastingArcOfDeath",1)
+		TNT1 A 0 A_JumpIfInventory("PowerChargeStorm", 1, "StormcastSelectAnim")
+		CONE A 0 A_GiveInventory("PowerChargeStorm", 200)
+	StormcastSelectAnim:
+		TNT1 A 0 A_TakeInventory("CastingArcOfDeath", 1)
+		TNT1 A 0 A_JumpIfInventory("ArcOfDeath_Fake", 1, "StormcastSelectRaise")
 		TNT1 A 0 A_GiveInventory("ArcOfDeath_Fake", 1)
-				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
-				Goto Ready3
+	StormcastSelectRaise:
+		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+		Goto SelectAnimation
 	Spawn:
       		MSCR AABBCCBB 2 BRIGHT A_SpawnItem("PlasmaFlareSpawn",0,20)
 		MSCR A 1 bright A_SpawnItem("ElectroBlastTrail",0,30)
@@ -713,28 +718,28 @@ ACTOR Stormcast : PB_WeaponBase
 		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
 		TNT1 A 10 
 		TNT1 A 0 A_SelectWeapon("ArcOfDeath_Fake")
-		TNT1 A 0 A_WeaponReady
+		TNT1 A 0 A_DoPBWeaponAction
 		Goto Ready3
 	InitializeThunderstorm2:	
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
 		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
 		TNT1 A 0 A_GiveInventory("CastingArcOfDeath",1)
 		TNT1 A 0 A_SelectWeapon("ArcOfDeath_Fake")
-		TNT1 A 0 A_WeaponReady
+		TNT1 A 0 A_DoPBWeaponAction
 		Goto Ready3
 	InitializeThunderstorm3:	
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
 		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
 		TNT1 A 0 A_GiveInventory("CastingArcOfDeath",2)
 		TNT1 A 0 A_SelectWeapon("ArcOfDeath_Fake")
-		TNT1 A 0 A_WeaponReady
+		TNT1 A 0 A_DoPBWeaponAction
 		Goto Ready3
 	InitializeThunderstorm4:	
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
 		TNT1 A 0 A_FireCustomMissile("ShakeYourAssQuad", 0, 0, 0, 0)
 		TNT1 A 0 A_GiveInventory("CastingArcOfDeath",3)
 		TNT1 A 0 A_SelectWeapon("ArcOfDeath_Fake")
-		TNT1 A 0 A_WeaponReady
+		TNT1 A 0 A_DoPBWeaponAction
 		Goto Ready3	
 
 	Teleportium:
@@ -809,7 +814,15 @@ ACTOR Stormcast : PB_WeaponBase
 	   TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
 	   TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelPunching")
 	   TNT1 A 0 A_ClearOverlays(10,11)
-	   TNT1 A 15
+	   MEQI A 1
+	   MEQI A 1
+	   MEQI A 1
+	   MEQI A 1
+	   MEQI A 7
+	   MEQI A 1
+	   MEQI A 1
+	   MEQI A 1
+	   MEQI A 1
 	   Stop
 	}
 }
@@ -839,28 +852,28 @@ ACTOR ArcOfDeath_Fake : MWeapLightning //replaces MWeapLightning
 	goto ReadyLoop 
 
 		ReadyLoop:
-		MLNG A 1 Bright A_WeaponReady
+		MLNG A 1 Bright A_WeaponReady(WRF_ALLOWRELOAD)
 		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		MLNG A 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		MLNG A 1 Bright A_LightningReady
 		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		MLNG A 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		TNT1 A 0 
-		MLNG B 1 Bright A_WeaponReady
+		MLNG B 1 Bright A_WeaponReady(WRF_ALLOWRELOAD)
 		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		MLNG B 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		MLNG B 1 Bright A_LightningReady
 		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		MLNG B 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		TNT1 A 0 
-		MLNG C 1 Bright A_WeaponReady
+		MLNG C 1 Bright A_WeaponReady(WRF_ALLOWRELOAD)
 		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		MLNG C 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		MLNG C 1 Bright A_LightningReady
 		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		MLNG C 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		TNT1 A 0 
-		MLNG D 1 Bright A_WeaponReady
+		MLNG D 1 Bright A_WeaponReady(WRF_ALLOWRELOAD)
 		TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		MLNG D 1 Bright A_FireCustomMissile("PlasmaFlareSpawn",0,0,0,-10)
 		MLNG D 1 Bright A_LightningReady
@@ -2028,6 +2041,33 @@ States
 
 //Projectile being shot from sides of the main Overlord storm projectile.
 //They work, but they don't have graphics.
+
+// [MagicWazard] Storm side-seeker base; BlueStormLite is the upgraded variant below.
+ACTOR StormLite2
+{
+	+SEEKERMISSILE
+	Speed 48
+	Damage 10
+	Scale 0.25
+	States
+	{
+	Spawn:
+		BFX2 K 1 Bright A_SeekerMissile(1, 8, SMF_LOOK)
+		TNT1 A 0 A_SpawnItem("ElectroBlastTrail")
+		BFX2 L 1 Bright A_SeekerMissile(1, 8, SMF_LOOK)
+		TNT1 A 0 A_SpawnItem("ElectroBlastTrail")
+		BFX2 M 1 Bright A_SeekerMissile(1, 8, SMF_LOOK)
+		TNT1 A 0 A_SpawnItem("ElectroBlastTrail")
+		BFX2 N 1 Bright A_SeekerMissile(1, 8, SMF_LOOK)
+		TNT1 A 0 A_SpawnItem("ElectroBlastTrail")
+		BFX2 O 1 Bright A_SeekerMissile(1, 8, SMF_LOOK)
+		TNT1 A 0 A_SpawnItem("ElectroBlastTrail")
+		Loop
+	Death:
+		XELC ABCDEF 3 Bright
+		Stop
+	}
+}
 
 // [MagicWazard] More powerful version of StormLite1
 

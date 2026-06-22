@@ -1,0 +1,34 @@
+// PBWP late-merge stubs for PB Staging weapons (load after PB Staging via DECORATE.PBWP).
+// Reopens the actor and replaces SelectContinue only; all other states stay from PB Staging.
+
+ACTOR PB_Flamethrower : PB_Weapon
+{
+	States
+	{
+	SelectContinue:
+		TNT1 A 0 { PB_WeapTokenSwitch("FlameCannonSelected"); }
+		TNT1 A 0 { PB_WeaponRaise("weapons/flamethrower/respect1"); }
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		Goto SelectAnimation
+	}
+}
+
+ACTOR PB_Railgun : PB_Weapon
+{
+	States
+	{
+	SelectContinue:
+		TNT1 A 0 {
+			PB_WeapTokenSwitch("RailGunSelected");
+			if (CountInv("RailgunLaserMode") == 1) {
+				PB_HandleCrosshair(93);
+			} else {
+				PB_HandleCrosshair(77);
+			}
+			A_TakeInventory("RailgunCooldown", 25);
+		}
+		TNT1 A 0 { PB_WeaponRaise("weapons/railgun/inspect1"); }
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		Goto SelectAnimation
+	}
+}

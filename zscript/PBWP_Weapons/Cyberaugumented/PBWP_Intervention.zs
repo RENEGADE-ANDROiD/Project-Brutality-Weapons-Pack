@@ -40,9 +40,9 @@ class PBWP_Intervention : PBWP_CA_WeaponBase
 		TNT1 A 0 PB_WeaponRaise("dcy/rocketpickup");
 		TNT1 A 0 PB_WeapTokenSwitch("RLSelected");
 		TNT1 A 0 PBWP_CA_SelectPose();
-		Goto Ready3;
+		Goto SelectAnimation;
 	SelectAnimation:
-		GNN_ WXY 1 A_WeaponReady(WRF_NOFIRE);
+		GNN_ WXY 1 A_DoPBWeaponAction(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:
@@ -73,6 +73,7 @@ class PBWP_Intervention : PBWP_CA_WeaponBase
 			A_FireCustomMissile("PBWP_CA_Grenade", 0, 0, 0, 0, 0, -7.5);
 			A_TakeInventory("PB_RocketAmmo", 1);
 			A_GunFlash();
+			PB_GunSmoke_Launcher(0, 0, 0);
 			A_AlertMonsters();
 			PB_QuakeCamera(25, 0.4);
 		}

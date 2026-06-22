@@ -192,7 +192,7 @@ Deselect:
 	LMAR LKJ 1
 	LMAR I 2
 	LMAR P 6 A_PlayWeaponSound("lasgguy/asgin")
-	TNT1 A 0 A_WeaponReady
+	TNT1 A 0 A_DoPBWeaponAction
 	TNT1 A 0 A_JumpIfInventory("LegendaryShotgunDrum",1,"Reload2")
   InsertBullets:
 	TNT1 A 0
@@ -219,7 +219,7 @@ Deselect:
 	LMCK C 4 A_PlayWeaponSound("LShotgun/Cock")
 	LMCK D 3
 	LMCK A 2
-	LMAG A 3 A_WeaponReady	
+	LMAG A 3 A_DoPBWeaponAction	
 	Goto Ready3
   MaxReload:
 	LMAR H 3
@@ -229,7 +229,7 @@ Deselect:
 	LMAR LKJ 1
 	LMAR I 2
 	LMAR P 6 A_PlaySound("lasgguy/asgin")
-	TNT1 A 0 A_WeaponReady
+	TNT1 A 0 A_DoPBWeaponAction
   Reload2:
 	TNT1 A 0
 	TNT1 A 0 A_TakeInventory("Reloading", 1)
@@ -249,7 +249,7 @@ Deselect:
   Full:
 	LMAR NOG 2
 	LMAR FEDCBA 1
-	LMAG A 3 A_WeaponReady
+	LMAG A 3 A_DoPBWeaponAction
 	LMAG A 5
 	Goto Ready3
  WeaponSpecial:

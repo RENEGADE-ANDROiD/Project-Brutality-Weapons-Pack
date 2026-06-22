@@ -395,7 +395,6 @@ OptionMenu "WeaponPackSpawnSettings"
 	Option "Spawn GC - Legendary Plasmatic Rifle", "PBSpawnLegendaryPlasmaticRifle", "OnOff"
 	Option "Spawn GC - Nemesis BFG", "PBSpawnNemesisBFG", "OnOff"
 	Option "Spawn GC - Nemesis LMG", "PBSpawnNemesisLMG", "OnOff"
-	Option "Spawn GC - Legendary BFG 10K", "PBSpawnLegendaryBFG10K", "OnOff"
 	Submenu "$PBWP_GC_ENHANCEMENTS", "GodComplexEnhanceOpts"
 
 	StaticText ""
@@ -512,7 +511,7 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText "---------------Slot 9 weapons---------------", gold
 	StaticText ""
 	Option "Spawn IN - Bio-Acid Launcher", "PBSpawnBioAcidLauncher", "OnOff"
-	Option "Spawn IN - Calamity Blade", "PBSpawnPB_CalamityBlade", "OnOff"
+	//Option "Spawn IN - Calamity Blade", "PBSpawnPB_CalamityBlade", "OnOff"
 	// PBX: PBX_Prosurv_Ballista
 	Option "Spawn BFG9500", "PBSpawnBFG9500", "OnOff"
 	Option "Spawn Legacy Unmaker", "PBSpawnLegacyUnmaker", "OnOff"
@@ -549,7 +548,7 @@ OptionMenu "WeaponPackSpawnSettings"
 	Option "Spawn VietDoom - M3 Grease Gun", "PBSpawnVietM3A1", "OnOff"
 	Option "Spawn VietDoom - Thompson M1A1", "PBSpawnVietThompson", "OnOff"
 	Option "Spawn VietDoom - MAT-49", "PBSpawnVietMAT49", "OnOff"
-	Option "Spawn VietDoom - PPSh-41", "PBSpawnVietPPSh", "OnOff"
+	//Option "Spawn VietDoom - PPSh-41", "PBSpawnVietPPSh", "OnOff"
 	Option "Spawn VietDoom - Ithaca 37", "PBSpawnVietIthaca", "OnOff"
 	Option "Spawn VietDoom - M16A1", "PBSpawnVietM16", "OnOff"
 	Option "Spawn VietDoom - M14", "PBSpawnVietM14", "OnOff"
@@ -1237,7 +1236,6 @@ AddOptionMenu "AddonWeaponSpawns" after "BFGT4"
 {
 	FlagOption	"PBWP - Nemesis BFG",				"pbwp_bfg_filter",	"OffOn", 2
 	FlagOption	"PBWP - Enraged Legendary BFG",		"pbwp_bfg_filter",	"OffOn", 3
-	FlagOption	"PBWP - Legendary BFG 10K",			"pbwp_bfg_filter",	"OffOn", 4
 }
 
 // Route common engine menus through PBWP menu subclasses.

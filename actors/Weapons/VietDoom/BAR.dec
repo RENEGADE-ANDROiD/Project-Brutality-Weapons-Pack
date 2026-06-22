@@ -123,7 +123,7 @@ Goto SelectFirstPersonLegs
 		918G A 0 A_JumpIfInventory("Salute1", 1, "Salute")
 		918G A 0 A_JumpIfInventory("Salute2", 1, "Salute")
 		918G A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
-		918U B 1 A_WeaponReady(WRF_NOPRIMARY)
+		918U B 1 A_DoPBWeaponAction(WRF_NOPRIMARY)
 		TNT1 A 0 A_JumpIFInventory("MGIsOverSomething", 1, "Ready2")
 		"####" "#" 0 A_JumpIfInventory("DropIt",1,"Dropper")
 		Loop
@@ -154,7 +154,7 @@ Goto SelectFirstPersonLegs
 		"####" A 1 offset(3,36) A_SetPitch(pitch -0.5)
 		"####" A 1 offset(6,34) A_SetPitch(pitch -0.5)
 		"####" A 1 offset(9,32) A_SetPitch(pitch -0.5)
-		"####" A 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		"####" A 0 offset(9,32) A_DoPBWeaponAction(WRF_NOBOB)
 		"####" A 0 A_JumpIfInventory("Taunting",1,"Taunt")
 		"####" A 0 A_JumpIfInventory("Reloading",1,"Reload")
 		"####" A 0 offset(-9,32) A_GiveInventory("UsedStamina", 7)
@@ -166,7 +166,7 @@ Goto SelectFirstPersonLegs
 		"####" A 1 offset(-3,36) A_SetPitch(pitch +0.5)
 		"####" A 1 offset(-6,34) A_SetPitch(pitch +0.5)
 		"####" A 1 offset(-9,32) A_SetPitch(pitch +0.5)
-		"####" A 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		"####" A 0 offset(-9,32) A_DoPBWeaponAction(WRF_NOBOB)
 		"####" A 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
 		Goto StopSprint
 	StopSprint:
@@ -201,6 +201,7 @@ Goto SelectFirstPersonLegs
 		TNT1 A 0 A_TakeInventory("Salute2", 1)
 		Goto Ready3
 	Fire:
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 		TNT1 A 0 A_JumpIFInventory("918Deployed", 1, "Fire2")
 		918G a 0 a_JumpIfInventory("NoReloading",1,"NoReload")
 		918G A 0 A_JumpIfInventory("M1918Ammo",1,1)
@@ -245,7 +246,7 @@ Goto SelectFirstPersonLegs
 		918G A 0 A_ZoomFactor(1.0)
 		918G A 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918F D 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918F D 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918G A 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
 		TNT1 A 0 A_JumpIfInventory("StartDualWield",1,"DualWield")
@@ -273,38 +274,38 @@ Goto SelectFirstPersonLegs
 		918G A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
 		918G A 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918G A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918G A 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918G A 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918G A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918G A 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918G A 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918G A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918G A 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918G A 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918G A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918G A 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918G A 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918G A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918G A 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918G A 0 A_SetANgle(angle+0.1)
 		918G A 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918G A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918G A 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918G A 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918G A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918G A 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918G A 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918G A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918G A 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918G A 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918G A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918G A 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918G A 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918G A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918G A 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918G A 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918G A 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918G A 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
 		918G A 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
 		918G A 0 A_Refire
@@ -335,7 +336,7 @@ Goto SelectFirstPersonLegs
 		918A D 1 A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14)
 		918G A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918A E 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918A E 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		TNT1 A 0 A_JumpIFInventory("918Fast", 1, "EndOfFiring2")
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
 		TNT1 A 0 A_JumpIfInventory("StartDualWield",1,"DualWield")
@@ -364,53 +365,53 @@ Goto SelectFirstPersonLegs
 		918i C 0 //Nope
 		918i C 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918i C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918i C 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918i C 0 //Nope
 		918i C 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918i C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918i C 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918i C 0 //Nope
 		918i C 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918i C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918i C 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918i C 0 //Nope
 		918i C 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918i C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918i C 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918i C 0 //Nope
 		918i C 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918i C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918i C 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918i C 0 //Nope
 		918i C 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918i C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918i C 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918i C 0 //Nope
 		918i C 0 A_SetANgle(angle+0.1)
 		918i C 0 //Nope
 		918i C 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918i C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918i C 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918i C 0 //Nope
 		918i C 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918i C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918i C 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918i C 0 //Nope
 		918i C 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918i C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918i C 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918i C 0 //Nope
 		918i C 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918i C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918i C 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918i C 0 //Nope
 		918i C 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918i C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918i C 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		918i C 0 //Nope
 		918i C 0 A_SetANgle(angle+0.1)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
-		918i C 1 A_WeaponReady(WRF_NOFIRE | WRF_ALLOWRELOAD)
+		918i C 1 A_DoPBWeaponAction(WRF_NOFIRE | WRF_ALLOWRELOAD)
 		TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")
 		918i C 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
 		918i C 0 A_Refire
@@ -512,11 +513,11 @@ Goto SelectFirstPersonLegs
 		2IFR A 0 A_PlaySound("sniper/BoltBack", 5)
 		TNT1 A 0 A_GiveInventory("HoldInspect",1)
 	InspectHold:
-		918C D 3 A_WeaponReady(WRF_ALLOWRELOAD|WRF_NOFIRE)
+		918C D 3 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_NOFIRE)
 		TNT1 A 0 A_TakeInventory("HoldInspect",1)
 		2IFR A 0 A_PlaySound("rifle/Bolt2", 5)
-		918C C 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE)
-		918C B 5 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOBOB | WRF_ALLOWZOOM| WRF_NOFIRE)
+		918C C 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE)
+		918C B 5 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOBOB | WRF_ALLOWZOOM| WRF_NOFIRE)
 		918G "#" 0 A_Takeinventory("IsInspecting",1)
 		918G "#" 0 A_TakeInventory("918ReloadToken",1)
 		918C A 1 A_DoPBWeaponAction(WRF_ALLOWZOOM|WRF_ALLOWRELOAD)
@@ -538,13 +539,13 @@ Goto SelectFirstPersonLegs
 		TNT1 AAA 0
 		918O a 0 A_JumpIfInventory("918Deployed", 1,2)
 		918R A 0
-		"####" ABCCCCC 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		"####" ABCCCCC 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		"####" C 0 A_PLaySound("Sniper/Magout", 5)
-		"####" DEFG 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
-		"####" H 10 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		"####" DEFG 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		"####" H 10 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		918O a 0 A_JumpIfInventory("918Deployed", 1,2)
 		918R A 0
-		"####" CBA 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		"####" CBA 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		918G A 0 A_GiveInventory ("Pumping", 1)
 		918G A 0 A_Takeinventory("Unloading",1)
 
@@ -558,7 +559,7 @@ Goto SelectFirstPersonLegs
 		Goto RemoveBullets
 
 	FInishUnload:
-		918G A 0 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		918G A 0 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		918G A 0 A_PlaySound("weapons/empty", 5)
 		918G A 0 { PB_SetMagUnloaded(true);}
 
@@ -586,16 +587,16 @@ Goto SelectFirstPersonLegs
 		"####" A 0 { PB_JumpIfMagUnloaded("ReloadFromEmpty"); }
 		918O a 0 A_JumpIfInventory("918Deployed", 1,2)
 		918R A 0
-		"####" ABCCCCC 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		"####" ABCCCCC 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		"####" C 0 A_PLaySound("Sniper/MagOut", 5)
-		"####" DEFG 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
-		"####" H 12 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		"####" DEFG 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		"####" H 12 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		"####" H 0 A_FireCustomMissile("EmptySniperAmmoSpawn",-5,0,8,-4)
 	ReloadFromEmpty:
-		"####" H 12 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
-		"####" GF 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		"####" H 12 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		"####" GF 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		"####" A 0 A_PLaySound("rifle/Reload2", 5)
-		"####" EDCCCCCBA 1 A_WEAPONREADY(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
+		"####" EDCCCCCBA 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		"####" A 0 A_GiveInventory("918ReloadToken",1)
 	InsertBullets:
 		TNT1 AAAA 0
@@ -631,7 +632,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 1 offset(0,34)
 		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
 		"####" "#" 1 offset(0,33)
-		"####" "#" 1 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 1 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
 		"####" "#" 0 A_Print("Your machine gun has been destroyed!\n\n\n\n\n\n\n")
 		"####" "#" 0 A_GiveInventory("BARDestroyed", 1)
 		"####" "#" 0 A_PlaySound("DSBRK2")
@@ -679,7 +680,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 1 offset(0,34)
 		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
 		"####" "#" 1 offset(0,33)
-		"####" "#" 2 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 2 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
 		"####" "#" 1 A_ClearReFire
 		"####" "#" 1
 		918T A 0 A_JumpIfInventory("918Deployed",1,2)

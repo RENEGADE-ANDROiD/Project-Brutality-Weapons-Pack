@@ -29,6 +29,7 @@ class PB_MegaRig : PB_WeaponBase
 		Weapon.AmmoGive1 0;
 		Weapon.AmmoUse1 1;
 		+WEAPON.NOAUTOAIM;
+		+WEAPON.CHEATNOTWEAPON;
 		+INVENTORY.UNDROPPABLE;
 		+FORCEXYBILLBOARD;
 		Tag "Hyperweapon Rig";
@@ -45,6 +46,24 @@ class PB_MegaRig : PB_WeaponBase
 		mo.A_ClearOverlays(MRG_OVERLAY_LAYER_MIN, MRG_OVERLAY_LAYER_MAX, false);
 	}
 
+	// Hyperweapon Rig is only valid while PB_PowerMegaRig is active (killstreak sphere).
+	override void AttachToOwner(Actor owner)
+	{
+		if (!owner || !owner.FindInventory("PB_PowerMegaRig"))
+		{
+			Destroy();
+			return;
+		}
+		Super.AttachToOwner(owner);
+	}
+
+	override void DoEffect()
+	{
+		Super.DoEffect();
+		if (Owner && !Owner.FindInventory("PB_PowerMegaRig"))
+			Owner.TakeInventory(GetClass(), 1);
+	}
+
 	States
 	{
 	Spawn:
@@ -56,6 +75,10 @@ class PB_MegaRig : PB_WeaponBase
 		Goto Ready3;
 
 	Select:
+		TNT1 A 0 A_JumpIfInventory("PB_PowerMegaRig", 1, "SelectPowered");
+		Goto ExpireDeselect;
+
+	SelectPowered:
 		TNT1 A 0 A_WeaponOffset(0, 32);
 		Goto SelectFirstPersonLegs;
 
@@ -69,7 +92,10 @@ class PB_MegaRig : PB_WeaponBase
 		}
 		TNT1 A 0 PB_Mega_PrecacheSprites();
 		TNT1 A 0 PB_Mega_ApplyAllVisuals();
+		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE);
 		TNT1 A 0 { return PB_RespectIfNeeded(); }
+
+	SelectAnimation:
 		TNT1 A 1 A_StartSound("BFG2704/Select", CHAN_WEAPON);
 		Goto Ready3;
 
@@ -92,6 +118,7 @@ class PB_MegaRig : PB_WeaponBase
 
 	ExpireDeselect:
 		TNT1 A 0 PB_Mega_ClearOverlays();
+		TNT1 A 0 A_TakeInventory("PB_MegaRig", 1);
 		TNT1 A 0 A_WeaponOffset(0, 32);
 		TNT1 A 0 A_Lower(120);
 		Wait;
