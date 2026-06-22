@@ -3796,6 +3796,8 @@ action int getReadyFlags(int weapflags, bool noReload)
 
 class LaserSightActivated : Inventory { Default { +INVENTORY.UNDROPPABLE; Inventory.MaxAmount 1; } }
 class DoGloryMelee : Inventory { Default { Inventory.MaxAmount 1; } }
+// Glory Kills equipment token — real behavior when glorykills pk3 is loaded; stub satisfies CountInv without it.
+class DoShoulderCannon : Inventory { Default { Inventory.MaxAmount 1; } }
 class ShieldSawThrowAnim : Inventory { Default { Inventory.MaxAmount 1; } }
 
 // Monster Pack GK still filters on legacy DisableASGGuy (same bit as DisablePB_ASGGuy).
