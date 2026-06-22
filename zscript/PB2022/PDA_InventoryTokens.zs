@@ -33,7 +33,7 @@ class FireModeAcidGun : Inventory { Default { Inventory.MaxAmount 1; } }
 
 // PB_WeaponTacticalFeel_Inventory / PB_CryoShotgun — Staging tokens not visible to PBWP ZScript TU
 class PlayerIsThrowingAMolotovCocktail : Inventory { Default { Inventory.MaxAmount 1; } }
-// DoShoulderCannon — provided by glorykills-master.zip (EquipmentLauncher.txt)
+// DoShoulderCannon — stub in BaseWeapon_Functions.zsc; Glory Kills replaces behavior when loaded
 class HasBurningBarrel : Inventory { Default { Inventory.MaxAmount 1; } }
 class GrabbedBurningBarrel : Inventory { Default { Inventory.MaxAmount 1; } }
 class HasFreezerWeapon : Inventory { Default { Inventory.MaxAmount 1; } }
