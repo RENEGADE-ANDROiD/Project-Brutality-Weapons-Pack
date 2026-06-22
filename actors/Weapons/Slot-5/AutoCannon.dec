@@ -245,7 +245,7 @@ Actor AutoCannon : PB_WeaponBase
 	// 	     }
 	// 	ACNN AAAAAAA 3 {
 	// 	     A_SetRoll(roll+2.0,SPF_INTERPOLATE);
-	// 		 return A_DoPBWeaponAction;
+	// 		 return A_DoPBWeaponAction(WRF_NOFIRE);
 	// 		 }
 	// 	TNT1 A 0 A_PlaySound("IMPKUP",CHAN_WEAPON)
     //     ACRR C 1 {
@@ -363,9 +363,8 @@ Actor AutoCannon : PB_WeaponBase
 	    TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 		SelectContinue:
-		TNT1 A 0
-		TNT1 A 0 A_Raise
-		Wait
+		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+		Goto Ready3
 
 	AmmoSwap:
         	TNT1 A 0 A_JumpIfInventory("PB_RocketAmmo",1,1)

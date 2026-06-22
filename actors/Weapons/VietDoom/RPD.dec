@@ -92,7 +92,7 @@ ACTOR RPD : PB_WeaponBase
 		RPDS "#" 1 offset(3,36) A_SetPitch(pitch -0.5)
 		RPDS "#" 1 offset(6,34) A_SetPitch(pitch -0.5)
 		RPDS "#" 1 offset(9,32) A_SetPitch(pitch -0.5)
-		RPDS "#" 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		RPDS "#" 0 offset(9,32) A_DoPBWeaponAction(WRF_NOBOB)
 		RPDS "#" 0 A_JumpIfInventory("Taunting",1,"Taunt")
 		RPDS "#" 0 A_JumpIfInventory("Reloading",1,"Reload")
 		RPDS "#" 0 offset(-9,32) A_GiveInventory("UsedStamina", 7)
@@ -104,7 +104,7 @@ ACTOR RPD : PB_WeaponBase
 		RPDS "#" 1 offset(-3,36) A_SetPitch(pitch +0.5)
 		RPDS "#" 1 offset(-6,34) A_SetPitch(pitch +0.5)
 		RPDS "#" 1 offset(-9,32) A_SetPitch(pitch +0.5)
-		RPDS "#" 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		RPDS "#" 0 offset(-9,32) A_DoPBWeaponAction(WRF_NOBOB)
 		RPDS "#" 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
 		Goto StopSprint
 	StopSprint:
@@ -203,7 +203,7 @@ Goto SelectFirstPersonLegs
 		RPDu b 0
 		RPDu b 0 A_JumpIfInventory("PB_HighCalMag",2,2)
 		RPDu d 0
-		"####" "#" 1 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOPRIMARY)
+		"####" "#" 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOPRIMARY)
 		"####" "#" 0 A_JumpIfInventory("DropIt",1,"Dropper")
 		TNT1 A 0 A_JumpIFInventory("MGIsOverSomething", 1, "Ready2")
 		Loop
@@ -246,6 +246,7 @@ Goto SelectFirstPersonLegs
 		TNT1 A 0 A_TakeInventory("Salute2", 1)
 		Goto Ready3
 	Fire:
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 		RPDG A 0
 		RPDG "#" 0 A_JumpIfInventory("PB_HighCalMag",1,"ContinueFiring")
 		Goto RPDEmpty
@@ -301,11 +302,11 @@ Goto SelectFirstPersonLegs
 	RPDEmpty:
 		TNT1 A 0 A_PlaySound("Weapon/Empty", 5)
 		TNT1 A 0 A_JumpIFInventory("RPDDeployed", 1, "RPDDeployedEmpty")
-		RPDG B 1 A_WeaponReady(WRF_NOPRIMARY)
+		RPDG B 1 A_DoPBWeaponAction(WRF_NOPRIMARY)
 		Goto Ready
 	RPDDeployedEmpty:
 		TNT1 A 0 A_PlaySound("Weapon/Empty", 5)
-		RPDA g 1 A_WeaponReady(WRF_NOPRIMARY)
+		RPDA g 1 A_DoPBWeaponAction(WRF_NOPRIMARY)
 		Goto Ready2
 	 AltFire:
 		TNT1 A 0
@@ -340,7 +341,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 1 offset(0,34)
 		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
 		"####" "#" 1 offset(0,33)
-		"####" "#" 1 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 1 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
 		"####" "#" 0 A_Print("Your machine gun has been destroyed!\n\n\n\n\n\n\n")
 		"####" "#" 0 A_GiveInventory("RPDDestroyed", 1)
 		"####" "#" 0 A_PlaySound("DSBRK2")
@@ -385,7 +386,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 0 A_ClearReFire
 		"####" "#" 1 offset(0,34)
 		"####" "#" 1 offset(0,33)
-		"####" "#" 2 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 2 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
 		"####" "#" 1 A_ClearReFire
 		"####" "#" 3
 

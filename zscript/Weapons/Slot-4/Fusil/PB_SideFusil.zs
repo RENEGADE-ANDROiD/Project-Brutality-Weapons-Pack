@@ -39,7 +39,7 @@ class PB_SideFusil : PB_WeaponBase
 
 		ReadySeen:
         TNT1 A 0 A_PlaySound("CLIPIN");
-        "RPTF" "GHI" 1 A_WeaponReady;
+        "RPTF" "GHI" 1 A_DoPBWeaponAction;
         Goto RealReady;
 
 		Ready:
@@ -53,11 +53,11 @@ class PB_SideFusil : PB_WeaponBase
         TNT1 A 2 A_JumpIfInventory("GoFatality", 1, "Steady");
         TNT1 A 0 A_JumpIfInventory("PB_SideFusilSeen", 1, "ReadySeen");
         TNT1 A 0 A_GiveInventory("PB_SideFusilSeen", 1);
-        "ANIM" "AAAAA" 5 A_WeaponReady;
-        "ANIM" "CEGI" 1 A_WeaponReady;
+        "ANIM" "AAAAA" 5 A_DoPBWeaponAction;
+        "ANIM" "CEGI" 1 A_DoPBWeaponAction;
         TNT1 A 0 A_PlaySound("ENTEIN");
-        "ANIM" J 5 A_WeaponReady;
-        "ANIM" "KLMN" 1 A_WeaponReady;
+        "ANIM" J 5 A_DoPBWeaponAction;
+        "ANIM" "KLMN" 1 A_DoPBWeaponAction;
         Goto RealReady;
 
 		RealReady:
@@ -122,6 +122,7 @@ class PB_SideFusil : PB_WeaponBase
             }
         }
         TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
+        TNT1 A 0 PB_TryAutoFatalityOnFire();
         TNT1 A 0 {
             A_WeaponOffset(0,32);
             A_SetRoll(0);
@@ -222,7 +223,7 @@ class PB_SideFusil : PB_WeaponBase
             A_TakeInventory("PB_LockScreenTilt",1);
             A_ClearOverlays(10,11);
         }
-        "SIDE" A 1 A_WeaponReady;
+        "SIDE" A 1 A_DoPBWeaponAction;
         TNT1 A 0 A_ZoomFactor(1.0);
         TNT1 A 0 A_TakeInventory("Unloading",1);
         TNT1 A 0 A_TakeInventory("ADSmode",1);
@@ -274,8 +275,7 @@ class PB_SideFusil : PB_WeaponBase
 
 		FlashPunching:
         TNT1 A 0 A_ClearOverlays(10,11);
-        "FUSI" "YXEDCCCDEXY" 1;
-        TNT1 A 0 A_WeaponOffset(0, 32);
+        "FUSI" "YXEDCCCCCCDEXY" 1;
         TNT1 A 0 A_ClearOverlays(PSP_FLASH, PSP_FLASH, false);
         Goto Ready3;
 

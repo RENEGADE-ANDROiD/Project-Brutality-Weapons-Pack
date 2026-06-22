@@ -21,7 +21,7 @@ ACTOR Extinction_Ray : PB_WeaponBase //Flamethrower?
     +WEAPON.NOAUTOFIRE
 	+FORCEXYBILLBOARD
 	+WEAPON.NO_AUTO_SWITCH
-	// Weapon.SlotNumber 8
+	Weapon.SlotNumber 8
 	Weapon.SlotPriority 8
 	Inventory.PickupMessage "UAC IDA-557Assault Extinction Ray (Slot 6)"
 	Obituary "$O has been Desintegrated"
@@ -36,7 +36,8 @@ ACTOR Extinction_Ray : PB_WeaponBase //Flamethrower?
 	SelectReady:
 	Ready:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
-		TNT1 A 0 { PB_RespectIfNeeded; }
+		TNT1 A 0 { return PB_RespectIfNeeded(); }
+		Goto RealReady
 	WeaponRespect:
 		TNT1 A 0 A_GiveInventory("ExtResp",1)
 		HPBO ABCD 1
@@ -61,6 +62,7 @@ ACTOR Extinction_Ray : PB_WeaponBase //Flamethrower?
 		HPBP A 1 FAST A_SetPitch(Pitch-0.2)
 		TNT1 A 0 A_PlaySound("LASRDRAW",16)
 		TNT1 A 0 A_SetCrosshair(78)
+		Goto RealReady
 	Ready3:
 	RealReady:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
@@ -94,9 +96,10 @@ ACTOR Extinction_Ray : PB_WeaponBase //Flamethrower?
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 		SelectContinue:
-		TNT1 A 0 A_SetCrosshair(22)
-				TNT1 A 0 A_WeaponOffset(0, 32)
-				Goto Ready3
+		TNT1 A 0 { PB_WeaponRaise("LASRDRAW"); }
+		TNT1 A 0 { PB_WeapTokenSwitch("PlasmaGunSelected"); }
+		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+		Goto SelectAnimation
 	WeaponSpecial:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
@@ -400,7 +403,7 @@ ACTOR Extinction_Ray : PB_WeaponBase //Flamethrower?
 		HPBO CBA 1
 		Goto RealReady
 	Unload:
-		HPBG A 1 A_WeaponReady
+		HPBG A 1 A_DoPBWeaponAction
 		TNT1 A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_Takeinventory("Unloading",1)
         TNT1 A 0 A_JumpIfInventory("PB_Cell",1,3)

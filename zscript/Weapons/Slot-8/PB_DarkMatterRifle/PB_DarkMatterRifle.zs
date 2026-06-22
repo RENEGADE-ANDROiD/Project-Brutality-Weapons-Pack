@@ -34,7 +34,6 @@ class PB_DarkMatterRifle : PB_WeaponBase
 		Steady:
 		TNT1 A 1;
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
-		TNT1 A 0 SetPlayerProperty(0, 0, 0);
 		TNT1 A 0 SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
 		Goto Ready3;
 
@@ -43,24 +42,31 @@ class PB_DarkMatterRifle : PB_WeaponBase
 
 		SelectAnimation:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
-		TNT1 A 0 A_PlaySound("PLSDRAW");
-		"PZC9" ABC 1 A_WeaponReady(WRF_NOFIRE);
+		"PZC9" ABC 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE);
 		Goto Ready3;
 
 		Ready3:
-		TNT1 A 0 { PB_RespectIfNeeded(); }
+		TNT1 A 0 SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
 		TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1, "WeaponSpecial");
 		TNT1 A 0 {
+			A_WeaponOffset(0, 32);
+			A_SetRoll(0);
 			PB_HandleCrosshair(76);
 			A_TakeInventory("PB_LockScreenTilt", 1);
 		}
 		TNT1 A 0 A_PlaySound("PLSIDLE", 6, 1, 1);
-		"PZC4" ABCDEDCBA 1 A_DoPBWeaponAction;
+		Goto ReadyLoop;
+
+		ReadyLoop:
+		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
+		TNT1 A 0 A_JumpIfInventory("GoWeaponSpecialAbility", 1, "WeaponSpecial");
+		"PZC4" ABCDEDCBA 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD);
 		Loop;
 
 		GunEmpty:
-		"PZCR" A 1 A_WeaponReady;
+		"PZCR" A 1 A_DoPBWeaponAction;
 		"PZCR" A 1 A_JumpIfInventory("GoFatality", 1, "Steady");
 		TNT1 AA 0;
 		TNT1 A 0 A_JumpIfInventory("UseEquipment", 1, "UseEquipment");
@@ -104,6 +110,11 @@ class PB_DarkMatterRifle : PB_WeaponBase
 		Wait;
 
 		Select:
+		TNT1 A 0 {
+			A_WeaponOffset(0, 32);
+			A_SetRoll(0);
+			A_TakeInventory("PB_LockScreenTilt", 1);
+		}
 		TNT1 A 0 A_TakeInventory("HasBarrel", 1);
 		TNT1 A 0 A_TakeInventory("HasIceBarrel", 1);
 		TNT1 A 0 A_TakeInventory("HasFlameBarrel", 1);
@@ -114,11 +125,12 @@ class PB_DarkMatterRifle : PB_WeaponBase
 
 		SelectContinue:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
+		TNT1 A 0 PB_WeaponRaise("PLSDRAW");
 		TNT1 A 0 PB_WeapTokenSwitch("PlasmaGunSelected");
 		TNT1 A 0 PB_SetMagUnloaded(false);
 		TNT1 A 0 A_GiveInventory("HasPlasmaWeapon", 1);
-			TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE);
-			Goto Ready3;
+		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE);
+		TNT1 A 0 { return PB_RespectIfNeeded(); }
 
 		Fire:
 		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
@@ -486,41 +498,41 @@ class PB_DarkMatterRifle : PB_WeaponBase
 		Goto Ready3;
 
 		PDA_Preview_DMRReady:
-		"PZC4" A 1 A_WeaponReady(WRF_NOFIRE);
-		"PZC4" B 1 A_WeaponReady(WRF_NOFIRE);
-		"PZC4" C 1 A_WeaponReady(WRF_NOFIRE);
-		"PZC4" D 1 A_WeaponReady(WRF_NOFIRE);
+		"PZC4" A 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZC4" B 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZC4" C 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZC4" D 1 A_DoPBWeaponAction(WRF_NOFIRE);
 		Stop;
 		PDA_Preview_DMRFire:
-		"PZCF" A 1 BRIGHT A_WeaponReady(WRF_NOFIRE);
-		"PZCF" B 1 A_WeaponReady(WRF_NOFIRE);
-		"PZCF" C 1 A_WeaponReady(WRF_NOFIRE);
-		"PZCU" B 1 A_WeaponReady(WRF_NOFIRE);
-		"PZCU" C 1 A_WeaponReady(WRF_NOFIRE);
-		"PZCU" D 1 A_WeaponReady(WRF_NOFIRE);
+		"PZCF" A 1 BRIGHT A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCF" B 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCF" C 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCU" B 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCU" C 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCU" D 1 A_DoPBWeaponAction(WRF_NOFIRE);
 		Stop;
 		PDA_Preview_DMRAltCharge:
-		"PZC4" A 5 BRIGHT A_WeaponReady(WRF_NOFIRE);
-		"PZC4" B 5 BRIGHT A_WeaponReady(WRF_NOFIRE);
-		"PZC4" C 5 BRIGHT A_WeaponReady(WRF_NOFIRE);
-		"PZC4" D 5 BRIGHT A_WeaponReady(WRF_NOFIRE);
-		"PZCS" A 1 BRIGHT A_WeaponReady(WRF_NOFIRE);
-		"PZCS" B 1 BRIGHT A_WeaponReady(WRF_NOFIRE);
-		"PZCS" C 1 BRIGHT A_WeaponReady(WRF_NOFIRE);
+		"PZC4" A 5 BRIGHT A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZC4" B 5 BRIGHT A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZC4" C 5 BRIGHT A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZC4" D 5 BRIGHT A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCS" A 1 BRIGHT A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCS" B 1 BRIGHT A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCS" C 1 BRIGHT A_DoPBWeaponAction(WRF_NOFIRE);
 		Stop;
 		PDA_Preview_DMRAltFire:
-		"PZCF" A 2 BRIGHT A_WeaponReady(WRF_NOFIRE);
-		"PZCR" A 1 A_WeaponReady(WRF_NOFIRE);
-		"PZCR" B 1 A_WeaponReady(WRF_NOFIRE);
-		"PZCG" D 1 A_WeaponReady(WRF_NOFIRE);
-		"PZCG" C 1 A_WeaponReady(WRF_NOFIRE);
-		"PZCG" B 1 A_WeaponReady(WRF_NOFIRE);
+		"PZCF" A 2 BRIGHT A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCR" A 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCR" B 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCG" D 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCG" C 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCG" B 1 A_DoPBWeaponAction(WRF_NOFIRE);
 		Stop;
 		PDA_Preview_DMRReload:
-		"PZCR" A 1 A_WeaponReady(WRF_NOFIRE);
-		"PZCR" B 2 A_WeaponReady(WRF_NOFIRE);
-		"PZCR" C 1 A_WeaponReady(WRF_NOFIRE);
-		"PZCR" D 2 A_WeaponReady(WRF_NOFIRE);
+		"PZCR" A 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCR" B 2 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCR" C 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		"PZCR" D 2 A_DoPBWeaponAction(WRF_NOFIRE);
 		Stop;
 	}
 }

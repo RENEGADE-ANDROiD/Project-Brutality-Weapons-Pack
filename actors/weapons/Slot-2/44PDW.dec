@@ -1,4 +1,4 @@
-﻿ACTOR 44PDW : PB_WeaponBase
+ACTOR 44PDW : PB_WeaponBase
 {
 	Weapon.AmmoUse1 0
 	Weapon.AmmoGive1 20
@@ -120,6 +120,7 @@
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 		44PF A 0 A_JumpIfInventory("44PDWAmmo",1,1)
         Goto NoAmmo
 		44PF A 0 A_JumpIfInventory("Zoomed",1,"Fire2")

@@ -37,7 +37,7 @@ A community weapons and systems addon for [Project Brutality Staging](https://gi
 
 | System | What it does |
 |--------|----------------|
-| **132 weapons** | Per-weapon spawn toggles for custom playthroughs (firearms + melee) |
+| **129 weapons** | Per-weapon spawn toggles for custom playthroughs (firearms + melee) |
 | **Weapon pack presets** | One-click enable/disable for whole sets (God Complex, Karnage, IN, Schism/F&I, Freezer, VietDoom, Duke, etc.) |
 | **PDA** | Weapon codex, monster log, combat shop — press **P** |
 | **Experience economy** | Kill XP, 25 ranks, floating damage numbers, reward spin |
@@ -154,7 +154,7 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | **Demon-Tech** | Demon-Tech Pistol |
 | **PB 2022** | Demon-Tech Pistol (Hell Pistoler — shrink beam + weapon wheel) |
 | **Karnage Legacy** | Handgun G2, MP-55 |
-| **VietDoom (BD v22)** | M1911A1, M3 Grease Gun, Thompson M1A1, MAT-49, PPSh-41 |
+| **VietDoom (BD v22)** | M1911A1, M3 Grease Gun, Thompson M1A1, MAT-49 |
 | **Duke Nukem 3D** | Pistol (dual-wield) |
 | **PB3.0 weapons** | UAC-12a Automat (IBMP-12), UAC-33 Ballistic Shield (Riot Shield) |
 
@@ -238,10 +238,10 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | **Freezer** | Cryo Rifle (Freeze Thrower) |
 | **Insanity's Nightmare** | Extinction Ray (Argent Fury), Ion Rifle, Plasma Assault Rifle, Thunder Carrier (Type A) |
 | **PB 2022** | UAC Prototype Dark Matter Rifle |
-| **Legacy of Rust (LoR)** | Calamity Blade |
 | **Demon-Tech** | Tech Blaster |
 | **Schism / Fire & Ice** | Thunder Crossbow |
 | **Karnage Legacy** | Plasmastinger |
+| **Legacy of Rust (LoR)** | Calamity Blade |
 | **Cyberaugumented** | Deracinator, Dismantler |
 
 > Cryo Rifle and Thunder Crossbow are **monster drops only** (Frost Dark Imp / Volcabus and Revenant) — enable via Freezer / Schism presets or Monster Drop Settings.
@@ -254,10 +254,10 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | Mancubus Flame Cannon | *Monster drop only — Mancubus arm gas* |
 | **PB 2022** | Mancubus Flame Cannon (salvage durability) |
 | Dual Mancubus Flame Cannons | *Monster drop only — second Mancubus pickup upgrades single cannon* |
-| **God Complex** | Enraged Legendary BFG, God Enraged BFG, Nemesis BFG, Legendary BFG 10K |
+| **God Complex** | Enraged Legendary BFG, God Enraged BFG, Nemesis BFG |
 | **Demon-Tech** | Demon-Tech Minigun, Phase Eradicator BFG |
 | **Schism / Fire & Ice** | Stormcast |
-| **Insanity's Nightmare** | Bio-Acid Launcher, Calamity Blade, Satan Scream (Unmaker variant) |
+| **Insanity's Nightmare** | Bio-Acid Launcher, Satan Scream (Unmaker variant) |
 | **PB3.0 weapons** | BFG9500 |
 | **Cyberaugumented** | Cinereal Ordnance |
 
@@ -267,10 +267,9 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 
 | Preset | Weapons / systems covered |
 |--------|---------------------------|
-| **God Complex** | 10 weapons — slots 1, 3, 4, 7, 8, 9 (+ God Complex Extras menu) |
+| **God Complex** | 8 weapons — slots 1, 3, 4, 7, 8, 9 (+ God Complex Extras menu) |
 | **Karnage Legacy** | 8 weapons — slots 2, 3, 4, 6, 8 |
-| **Insanity's Nightmare (IN)** | 25+ IN weapons across slots 0, 2–6, 8, 9 + Bio-Acid drop (includes IN Calamity Blade) |
-| **Legacy of Rust (LoR)** | Calamity Blade (slot 8) |
+| **Insanity's Nightmare (IN)** | 24+ IN weapons across slots 0, 2–6, 8, 9 + Bio-Acid drop |
 | **Demon-Tech (DTECH)** | Demon-Tech Pistol, Demon-Tech Shotgun, Tech Blaster, Demon-Tech Minigun, Phase Eradicator BFG |
 | **Schism / Fire & Ice** | Battle Axe, DragonSlayer + 2 monster-drop weapons (Thunder Crossbow, Stormcast) |
 | **Freezer** | Cryo Shotgun spawn + Cryo Rifle drop (+ freeze grenade / freezebot spawns) |
@@ -278,7 +277,7 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | **Doom 2016 (D2016)** | D2016 Shotgun, Machinegun, Rocket Launcher, Plasma Gun, Vortex Rifle |
 | **Duke Nukem 3D** | 5 weapons + pipebomb equipment — slots 2, 3, 5, 6 |
 | **PB3.0 weapons** | X12, M45, IBMP-12, Riot Shield, Tactical Nailgun, Kar98k, BFG9500 |
-| **VietDoom (BD v22)** | 21 weapons across slots 1–6 and 8; optional **VietDoom weapon durability** toggle in Weapon Spawn Settings |
+| **VietDoom (BD v22)** | 20 weapons across slots 1–6 and 8; optional **VietDoom weapon durability** toggle in Weapon Spawn Settings |
 | **Cyberaugumented** | 9 weapons across slots 4–9 (Warbringer through Cinereal Ordnance) |
 
 ---
@@ -407,7 +406,6 @@ Attributions for included mods, systems, and assets. See the `CREDITS/` folder f
 | UAC / LiT weapon packs | LiT Revolver, Totenheim Integridar Nuke, Phase Eradicator BFG, 50B Bolt-Action Sniper, Legacy Unmaker, MACH-3 HYDRA, Hexa-Soyboy Shotgun |
 | VietDoom v22 | Sgt Mark & Thorir |
 | Insanity's Nightmare weapons | Insanity's Nightmare authors |
-| Legacy of Rust (Calamity Blade) | xxHeavySwagxx / Not So Vanilla LoR pack |
 | Schism weapons | Schism authors |
 | Russian Overkill weapons | Russian Overkill authors |
 | Demon-Tech weapons | Demon-Tech authors |

@@ -1,4 +1,4 @@
-﻿ACTOR ApocalypseKiller : PB_WeaponBase
+ACTOR ApocalypseKiller : PB_WeaponBase
 {
 	Inventory.PickupSound "Phalanx/PickUp"
 	Weapon.AmmoType2 "HAR_AK"
@@ -112,6 +112,7 @@
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 		TNT1 A 0 {
 				A_WeaponOffset(0,32);
 				A_SetRoll(0);
@@ -146,16 +147,16 @@
 		TNT1 A 0 A_FireBullets (0, 0, 10, 100, "ShotgunPuff")
 		TNT1 A 0 A_PlaySound("weapons/rifle/sniperfire",CHAN_Weapon)
 		XAPK K 1 A_WeaponOffset(random(-3,3),random(32,40))
-		TNT1 A 0 A_WeaponReady(WRF_NOFIRE)
+		TNT1 A 0 A_DoPBWeaponAction(WRF_NOFIRE)
 		XAPK K 1 A_WeaponOffset(random(-2,2),random(32,38))
 		TNT1 A 0 A_FireProjectile("RifleSmokeScopeSpawner",0,0,0,-1, FPF_NOAUTOAIM)
-		TNT1 A 0 A_WeaponReady(WRF_NOFIRE)
+		TNT1 A 0 A_DoPBWeaponAction(WRF_NOFIRE)
 		XAPK K 1 A_WeaponOffset(random(-1,1),random(32,36))
-		TNT1 A 0 A_WeaponReady(WRF_NOFIRE)
+		TNT1 A 0 A_DoPBWeaponAction(WRF_NOFIRE)
 		XAPK K 1 A_WeaponOffset(random(-1,1),random(32,34))
-		TNT1 A 0 A_WeaponReady(WRF_NOFIRE)
+		TNT1 A 0 A_DoPBWeaponAction(WRF_NOFIRE)
 		XAPK K 1 A_WeaponOffset(random(-1,1),random(32,33))
-		TNT1 A 0 A_WeaponReady(WRF_NOFIRE)
+		TNT1 A 0 A_DoPBWeaponAction(WRF_NOFIRE)
 		TNT1 A 0 A_WeaponOffset(0,32)
 		Goto Ready2
 	AltFire:

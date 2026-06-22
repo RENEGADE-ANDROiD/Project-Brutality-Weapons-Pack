@@ -9,7 +9,7 @@ ACTOR Melee_Attacks : PB_WeaponBase
 	States
 	{
 		Ready:
-			TNT1 A 1 A_WeaponReady
+			TNT1 A 1 A_DoPBWeaponAction
 			Loop
 		Select:
 			TNT1 A 1

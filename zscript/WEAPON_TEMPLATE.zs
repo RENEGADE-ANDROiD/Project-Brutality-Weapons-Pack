@@ -156,24 +156,24 @@ Class PB_AddonWeapon : PB_WeaponBase
 		
 		//for quick melee
 		FlashPunching:
-			TNT1 AAAAAAAAAAAAAA 1; //14 frames
+			TNT1 AAAAAAAAAAAAAA 1 A_DoPBWeaponAction(); //14 frames
 			stop;
 		
 		//for kicking — end Stop on PSP_WEAPON (Staging parity; never Goto Ready3)
 		FlashKicking:
-			TNT1 AAAAAAAAAAAAAAA 1;
+			TNT1 AAAAAAAAAAAAAAA 1 A_DoPBWeaponAction();
 			Stop;
 			
 		FlashAirKicking:
-			TNT1 AAAAAAAAAAAAAAAA 1;
+			TNT1 AAAAAAAAAAAAAAAA 1 A_DoPBWeaponAction();
 			Stop;
 			
 		FlashSlideKicking:
-			TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAA 1;
+			TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAA 1 A_DoPBWeaponAction();
 			Stop;
 			
 		FlashSlideKickingStop:
-			TNT1 AAAAAAA 1;
+			TNT1 AAAAAAA 1 A_DoPBWeaponAction();
 			Stop;
 		
 		

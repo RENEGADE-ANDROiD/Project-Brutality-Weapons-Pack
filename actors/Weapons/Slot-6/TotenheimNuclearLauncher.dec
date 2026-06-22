@@ -103,6 +103,7 @@ Stop
 
 
 Fire:
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 TNT1 A 0
 TNT1 A 0 A_JumpIfInventory("RocketAmmo",1,1)
 TNT1 A 0 A_PlaySound("hellboundbfg9000/charge", 7, 1, 0, 0.8)

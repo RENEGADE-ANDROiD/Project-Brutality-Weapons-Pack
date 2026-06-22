@@ -171,8 +171,7 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		"Extinction_Ray",
 		"ThunderCrossbow",
 		"PB_DarkMatterRifle",
-		"Devastador",
-		"LoRCalamityBlade";
+		"Devastador";
 
 		Player.WeaponSlot 9,
 		"PB_Railgun",
@@ -183,9 +182,8 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 		"EnragedLegendaryBFG",
 		"GodEnragedBFG",
 		"NemesisBFG",
-		"LegendaryBFG10K",
-		"LegendaryPlasmaticRifle",
-		"PB_CalamityBlade";
+		//"LegendaryBFG10K", // removed — no sprites in pack
+		"LegendaryPlasmaticRifle";
 
 		Player.WeaponSlot 0,
 		"PB_DemonTech",

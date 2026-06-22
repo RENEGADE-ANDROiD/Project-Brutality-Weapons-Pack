@@ -77,11 +77,11 @@ Actor HexaLionShotgun : PB_WeaponBase
 			 }
 		XSGS FEDCBA 1 {
 			 A_SetRoll(roll+1.5,SPF_INTERPOLATE);
-			 return A_DoPBWeaponAction;
+			 return A_DoPBWeaponAction(WRF_NOFIRE);
 		     }
 		XSGF TTTTTT 3 {
 			 A_SetRoll(0);
-			 return A_DoPBWeaponAction;
+			 return A_DoPBWeaponAction(WRF_NOFIRE);
 		     }
 		XSGF T 1 Offset(-2,33)
 		XSGF T 1 Offset(-4,34)

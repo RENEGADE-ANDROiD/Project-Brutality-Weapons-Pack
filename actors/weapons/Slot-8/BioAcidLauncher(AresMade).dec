@@ -1,6 +1,7 @@
 ACTOR BioAcidLauncher : PB_WeaponBase //Caustic Ammo Used!
 {
 	Weapon.SelectionOrder 7385
+	Weapon.SlotNumber 8
     Weapon.AmmoType1 "PB_DTech"
     Weapon.AmmoGive1 300
 	Weapon.AmmoUse1 0
@@ -27,11 +28,14 @@ ACTOR BioAcidLauncher : PB_WeaponBase //Caustic Ammo Used!
 		Goto Ready
 	Ready:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
+		Goto Ready3
+	SelectAnimation:
 		TNT1 A 0 A_Playsound("UNMUP")
 		BAWL A 1 A_WeaponOffset(0,37)
 		BAWL A 1 A_WeaponOffset(0,36)
 		BAWL A 1 A_WeaponOffset(0,35)
 		BAWL A 1 A_WeaponOffset(0,30)
+		Goto Ready3
 	Ready3:
 		TNT1 A 0 {
 				A_TakeInventory("PB_LockScreenTilt",1);
@@ -78,8 +82,10 @@ ACTOR BioAcidLauncher : PB_WeaponBase //Caustic Ammo Used!
 				}
 		Goto SelectFirstPersonLegs
 	SelectContinue:
-				TNT1 A 0 A_WeaponOffset(0, 32)
-				Goto Ready3
+		TNT1 A 0 { PB_WeaponRaise("BFGPICKUP"); }
+		TNT1 A 0 { PB_WeapTokenSwitch("AddonSelected"); }
+		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+		Goto SelectAnimation
 	NoAmmo:
 		BAWL A 1 A_PlaySOund("UNMSTO", 8)
 		Goto Ready3

@@ -43,18 +43,24 @@ class PB_CalamityBlade : PB_WeaponBase
 			}
 	    Goto Ready;
 		WeaponRespect:
+			TNT1 A 0 A_GiveInventory("RespectPB_CalamityBlade", 1);
 			TNT1 A 0 A_DoPBWeaponAction();
 			TNT1 A 0 {
-				A_SetInventory("PB_LockScreenTilt",1);
+				A_SetInventory("PB_LockScreenTilt", 1);
 				A_SetCrosshair(5);
-				}			
-			goto ready3;
-			
+			}
+			Goto SelectAnimation;
+
 		Select:
-			TNT1 A 0 A_weaponoffset(0,32);
-			TNT1 A 0 {PB_HandleCrosshair(69);}
-			TNT1 A 0 A_SetInventory("RandomHeadExploder",1);
-			goto SelectFirstPersonLegs;
+			TNT1 A 0 A_TakeInventory("HasBarrel", 1);
+			TNT1 A 0 A_TakeInventory("HasIceBarrel", 1);
+			TNT1 A 0 A_TakeInventory("HasFlameBarrel", 1);
+			TNT1 A 0 A_TakeInventory("GrabbedBarrel", 1);
+			TNT1 A 0 A_TakeInventory("GrabbedIceBarrel", 1);
+			TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel", 1);
+			TNT1 A 0 A_weaponoffset(0, 32);
+			TNT1 A 0 { PB_HandleCrosshair(69); }
+			Goto SelectFirstPersonLegs;
 		SelectContinue:
 			TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
 			TNT1 A 0 PB_WeaponRaise("WP9/UP1");
@@ -68,23 +74,40 @@ class PB_CalamityBlade : PB_WeaponBase
 			goto Ready3;
 		
 		Deselect:
-			TNT1 A 0 {PB_HandleCrosshair(69);}
-			TNT1 A 0 A_ClearOverlays(10,11);
-			TNT1 A 0 PB_jumpIfHasBarrel("PlaceBarrel","PlaceFlameBarrel","PlaceIceBarrel");
-			TNT1 A 0
-		{
-			A_StopSound(6);
-			A_StopSound(7);
-			A_ZoomFactor(1);
-		}
-			TNT1 A 0 A_Lower(120);
-			wait;
-		
+			TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "PlaceBarrel");
+			TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "PlaceFlameBarrel");
+			TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "PlaceIceBarrel");
+			TNT1 A 0 { PB_HandleCrosshair(69); }
+			TNT1 A 0 A_ClearReFire();
+			TNT1 A 0 A_ClearOverlays(-2, -2);
+			TNT1 A 0 A_ClearOverlays(10, 11);
+			TNT1 A 0 {
+				invoker.ChargeLevel = 0;
+				A_WeaponOffset(0, 32);
+				A_SetRoll(0);
+				A_OverlayScale(PSP_WEAPON, 1, 1);
+				A_OverlayRotate(OverlayID(), 0);
+				A_TakeInventory("RandomHeadExploder", 1);
+				A_TakeInventory("PB_LockScreenTilt", 1);
+				A_StopSound(1);
+				A_StopSound(5);
+				A_StopSound(6);
+				A_StopSound(7);
+				A_StopSound(CHAN_AUTO);
+				A_StopSound(CHAN_WEAPON);
+				A_ZoomFactor(1);
+			}
+			Goto DeselectDown;
+		DeselectDown:
+			TNT1 AAAAAAAAAAAAAAAAAA 0 A_Lower(120);
+			Wait;
+
 		Ready:
-			TNT1 A 0 A_WeaponOffset(0,32);
+			TNT1 A 0 A_WeaponOffset(0, 32);
 			TNT1 A 0 PB_HandleCrosshair(42);
+			TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
+			TNT1 A 0 PB_RespectIfNeeded;
 		Ready3:
-			TNT1 A 0 { PB_RespectIfNeeded(); }
 			TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
 			TNT1 A 0 {
 				PB_HandleCrosshair(42);
@@ -92,7 +115,7 @@ class PB_CalamityBlade : PB_WeaponBase
 				PB_CoolDownBarrel(0, 0, 3);
 			}
 			WP0G A 1 A_DoPBWeaponAction;
-			loop;		
+			Loop;		
 		
 		////////////////////////////////////////////////////////////////////////
 		// Main Attacks states
@@ -117,6 +140,7 @@ class PB_CalamityBlade : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel");
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel");
+		TNT1 A 0 PB_TryAutoFatalityOnFire();
 			TNT1 A 0 {
 				invoker.ChargeLevel = 0;
 				A_WeaponOffset(0,32);
@@ -137,7 +161,7 @@ class PB_CalamityBlade : PB_WeaponBase
 			Return ResolveState("Unleash");
 			Return ResolveState(Null);
 		}
-			TNT1 A 0 PB_Refire("Charging");
+			TNT1 A 0 PB_ReFire("Charging");
 			Goto Unleash;
 			
 			Unleash:

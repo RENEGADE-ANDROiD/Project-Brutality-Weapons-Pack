@@ -22,6 +22,7 @@ class PB_PowerMegaRig : Powerup
 		if (cur && !(cur is 'PB_MegaRig'))
 			prevWeaponName = cur.GetClassName();
 
+		// Weapon is granted only while this power is active (see PB_MegaRig.AttachToOwner).
 		if (!Owner.FindInventory("PB_MegaRig"))
 			Owner.GiveInventory("PB_MegaRig", 1);
 

@@ -118,6 +118,8 @@ class NemesisLMGSpawnerInjector : PBInjector
 		}
 	}
 }
+// LegendaryBFG10K removed — LG10/LB10 sprites not in pack
+/*
 class LegendaryBFG10KSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
@@ -128,6 +130,7 @@ class LegendaryBFG10KSpawnerInjector : PBInjector
 		}
 	}
 }
+*/
 
 //SLOT 0 ===================================================================================== 0 ==
 //Ancient Crossbow
@@ -1053,25 +1056,20 @@ class Extinction_RaySpawnerInjector : PBInjector
 	}
 }
 
-//Calamity Blade
+//Calamity Blade — LoR (Legacy of Rust)
 class CalamityBladeSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
 	{
-	if (PBSpawnCalamityBlade)
+		if (PBSpawnCalamityBlade)
 		{
-		handler.InjectSpawn('PB_BFGSpawnerT1', 'LoRCalamityBlade', 255, 1);
-		handler.InjectSpawn('PB_BFGSpawnerT2', 'LoRCalamityBlade', 255, 1);
-		handler.InjectSpawn('PB_BFGSpawnerT3', 'LoRCalamityBlade', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'LoRCalamityBlade', 255, 1);
+			handler.InjectSpawn('PB_BFGSpawnerT1', 'LoRCalamityBlade', 255, 1);
+			handler.InjectSpawn('PB_BFGSpawnerT2', 'LoRCalamityBlade', 255, 1);
+			handler.InjectSpawn('PB_BFGSpawnerT3', 'LoRCalamityBlade', 255, 1);
+			handler.InjectSpawn('PB_UpgradeSpawnerT3', 'LoRCalamityBlade', 255, 1);
 		}
-	if (PBSpawnPB_CalamityBlade)
-		{
-		handler.InjectSpawn('PB_BFGSpawnerT1', 'PB_CalamityBlade', 255, 1);
-		handler.InjectSpawn('PB_BFGSpawnerT2', 'PB_CalamityBlade', 255, 1);
-		handler.InjectSpawn('PB_BFGSpawnerT3', 'PB_CalamityBlade', 255, 1);
-		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'PB_CalamityBlade', 255, 1);
-		}
+		// PB_CalamityBlade (IN / WP0 sprites) — enable with CalamityBlade.zs include
+		//if (PBSpawnPB_CalamityBlade) { ... }
 	}
 }
 

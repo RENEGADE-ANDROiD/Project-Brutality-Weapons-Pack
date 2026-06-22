@@ -4110,6 +4110,7 @@ DSKatHit                        sounds/COMBAT/Weapons/Slot1/BeamKatana/DSKatHit
 Weapon/HeatwaveFire             DSWP0FR1
 Weapon/HeatwaveCharge           DSHETCHG
 Weapon/HeatwaveUp               DSCALMUP
+Weapon/HeatwaveExplosion        DSWP0FR1
 WP9/DF1                         DSWP0FR2
 WP9/UP1                         DSCALMUP
 $random weapons/thmagnum/fire { THMGF1 THMGF2 THMGF3 }

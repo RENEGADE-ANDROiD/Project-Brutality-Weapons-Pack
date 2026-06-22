@@ -98,18 +98,6 @@ extend class PB_Hud_ZS
 			adjustY = 12;
 			adjustScale = 0.85;
 		}
-		else if (cn == "LoRCalamityBlade")
-		{
-			adjustX = -15;
-			adjustY = 20;
-			adjustScale = 0.65;
-		}
-		else if (cn == "PB_CalamityBlade")
-		{
-			adjustX = -12;
-			adjustY = 18;
-			adjustScale = 0.75;
-		}
 	}
 
 	void PBWP_DrawAddonWeaponIcon()

@@ -42,7 +42,7 @@ Actor AncientCrossbow : PB_WeaponBase
 		TNT1 A 0 {
 		     A_SetRoll(0);
 			 A_TakeInventory("PB_LockScreenTilt",1);
-			 return A_DoPBWeaponAction;
+			 return A_DoPBWeaponAction(WRF_NOFIRE);
 		     }
 		CRSS EDCBA 1
 		TNT1 A 0 A_PlaySound("CrossSelect")
@@ -168,7 +168,7 @@ Actor AncientCrossbow : PB_WeaponBase
 		CRSB E 1 A_SetPitch(+1.0 + pitch)
 		CRSB FG 1 A_SetPitch(+1.0 + pitch)
 		CRSB H 1 A_SetPitch(+0.5 + pitch)
-		CRSB I 2 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+		CRSB I 2 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
 		Goto Pump1
 
 	FireExplosive:
@@ -191,7 +191,7 @@ Actor AncientCrossbow : PB_WeaponBase
 		CRSB E 1 A_SetPitch(+1.0 + pitch)
 		CRSB FG 1 A_SetPitch(+1.0 + pitch)
 		CRSB H 1 A_SetPitch(+0.5 + pitch)
-		CRSB I 2 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+		CRSB I 2 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
 		Goto Pump1
 
 
@@ -225,7 +225,7 @@ Actor AncientCrossbow : PB_WeaponBase
        Goto NoAmmo
        TNT1 AA 0
 	   SHTN A 0   
-	   CRSB JKL 1  A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   CRSB JKL 1  A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
 	   CRSB MN 1
 	   CRSB O 2
 	   CRSB PQRSTT 1
@@ -242,7 +242,7 @@ Actor AncientCrossbow : PB_WeaponBase
 	  "####" AB 1
 	  "####" C 3
 	  "####" DEFGHIJK 1
-	  "####" A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	  "####" A 0 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
 	  "####" A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
 	   Goto Ready3
 
@@ -253,7 +253,7 @@ Actor AncientCrossbow : PB_WeaponBase
 	   TNT1 A 0 A_PlaySound("weapons/empty", 4)
 	NoAmmo2:
 	   RIFG A 0
-	   CRSB I 4 A_WeaponReady(WRF_ALLOWRELOAD | WRF_NOPRIMARY)
+	   CRSB I 4 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOPRIMARY)
 	   RIFG A 0 A_JumpIfInventory("Reloading",1,"Reload")
 	   RIFG A 0 A_JumpIfInventory("PB_DTech",30,"Reload")
 	   RIFG A 0 A_JumpIfInventory("FiredPrimary",1,"NoAmmo2")
@@ -293,7 +293,7 @@ Actor AncientCrossbow : PB_WeaponBase
 
 	SwitchingModesAnimation:
 	   SHTN A 0   
-	   CRSB JKL 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	   CRSB JKL 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
 	   CRSB MN 1
 	   CRSB O 1
 	   CRSB PQRST 1
@@ -309,7 +309,7 @@ Actor AncientCrossbow : PB_WeaponBase
 	  "####" AB 1
 	  "####" C 2
 	  "####" DEFGHIJK 1
-	  "####" A 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
+	  "####" A 0 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
 	  "####" A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
 	   Goto Ready3
 

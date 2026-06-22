@@ -122,16 +122,7 @@ class PB_CryoShotgun : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
 		TNT1 A 0 A_JumpIfInventory("GrabbedBurningBarrel", 1, "ThrowFlameBarrel");
 		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
-		TNT1 A 0 {
-			A_WeaponOffset(0, 32);
-			A_SetRoll(0);
-			PB_HandleCrosshair(39);
-			A_TakeInventory("PB_LockScreenTilt", 1);
-			if (CountInv("NoFatality") == 0 && GetCVAR("pb_auto_fatality_fire") == 1) {
-				return PB_Execute();
-			}
-			return ResolveState(null);
-		}
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 		TNT1 A 0 {
 			if (CountInv("PB_CryoShotgun_Pellet") >= 1) return ResolveState("FirePellet");
 			if (CountInv("PB_CryoShotgun_Orb") >= 1) return ResolveState("FireOrb");
@@ -262,16 +253,7 @@ class PB_CryoShotgun : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "PlaceBarrel");
 		TNT1 A 0 A_JumpIfInventory("GrabbedBurningBarrel", 1, "PlaceFlameBarrel");
 		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "PlaceIceBarrel");
-		TNT1 A 0 {
-			A_WeaponOffset(0, 32);
-			A_SetRoll(0);
-			A_TakeInventory("PB_LockScreenTilt", 1);
-			A_ClearOverlays(10, 11);
-			if (CountInv("NoFatality") == 0 && GetCVAR("pb_auto_fatality_fire") == 1) {
-				return PB_Execute();
-			}
-			return ResolveState(null);
-		}
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 		TNT1 A 0 A_GiveInventory("GoSpecial", 1);
 		TNT1 A 0 A_JumpIfInventory("Zoomed", 1, "ZoomOut");
 		TNT1 A 0 A_GiveInventory("Zoomed", 1);
@@ -576,6 +558,15 @@ class PB_CryoShotgun : PB_WeaponBase
 		TNT1 A 0 A_PlaySound("menu/choose", CHAN_AUTO);
 		TNT1 A 0 A_Print("Cryo Wind");
 		Goto CryoShotgunReadyToFire;
+
+		FlashPunching:
+		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "FlashBarrelPunching");
+		TNT1 A 0 A_JumpIfInventory("GrabbedBurningBarrel", 1, "FlashBarrelPunching");
+		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "FlashBarrelPunching");
+		"FZGH" ABCDE 1;
+		"FZGH" F 4;
+		"FZGH" EDCBA 1;
+		Stop;
 
 		FlashKicking:
 		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "FlashBarrelKicking");

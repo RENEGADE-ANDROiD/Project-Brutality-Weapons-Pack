@@ -811,10 +811,10 @@ Actor IN_Beretta : PB_WeaponBase
 		BERZ HI 1
 		TNT1 A 0 A_ZoomFactor(2.0)
 		
-		BERZ D 1 A_WeaponReady(1)
-		BERZ D 1 A_WeaponReady(1)
-		BERZ D 1 A_WeaponReady(1)
-		BERZ D 1 A_WeaponReady(1)
+		BERZ D 1 A_DoPBWeaponAction(1)
+		BERZ D 1 A_DoPBWeaponAction(1)
+		BERZ D 1 A_DoPBWeaponAction(1)
+		BERZ D 1 A_DoPBWeaponAction(1)
 		BERZ D 1 {
 		A_DoPBWeaponAction(WRF_ALLOWRELOAD);
 		PB_ReFire;
@@ -901,10 +901,10 @@ Actor IN_Beretta : PB_WeaponBase
 		BERZ G 1
 		BERZ HI 1
 		
-		BERZ D 1 A_WeaponReady(1)
-		BERZ D 1 A_WeaponReady(1)
-		BERZ D 1 A_WeaponReady(1)
-		BERZ D 1 A_WeaponReady(1)
+		BERZ D 1 A_DoPBWeaponAction(1)
+		BERZ D 1 A_DoPBWeaponAction(1)
+		BERZ D 1 A_DoPBWeaponAction(1)
+		BERZ D 1 A_DoPBWeaponAction(1)
 		BERZ D 1 {
 		A_DoPBWeaponAction(WRF_ALLOWRELOAD);
 		PB_ReFire;

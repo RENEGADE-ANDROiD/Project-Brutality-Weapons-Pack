@@ -1,4 +1,4 @@
-﻿ACTOR EXPM1X : Inventory { Inventory.MaxAmount 1 }
+ACTOR EXPM1X : Inventory { Inventory.MaxAmount 1 }
 ACTOR M1XRespect : Inventory { Inventory.MaxAmount 1 }
 ACTOR M1X : PB_WeaponBase //Back For This Weapon Again.
 {
@@ -39,29 +39,29 @@ ACTOR M1X : PB_WeaponBase //Back For This Weapon Again.
 		MagBag:
 		BADM A 0 A_PlaySound("MAGBAG1")
 		TNT1 A 7
-		BADM ABCDEFG 1 A_WeaponReady
+		BADM ABCDEFG 1 A_DoPBWeaponAction
 		BADM HIJKLMNOPQ 1
 		BADM A 0 A_PlaySound("MAGBAG2",1)
 		BADM RSTU 1
 		BADM VWXYZ 1
 		B4DM AB 1 
 		BADM A 0 A_PlaySound("MAGBAG3")
-		B4DM CDEFGHIJKLMN 1 A_WeaponReady
+		B4DM CDEFGHIJKLMN 1 A_DoPBWeaponAction
 		B4DM OPQR 1 { PB_WeaponRecoil(-0.20,-0.15); } //(PITCH+1.0); }
 		TNT1 A 0 A_GIVEINVENTORY("M1XAmmo",26)
 MagLoad:
-		TNT1 A 10 A_WeaponReady
+		TNT1 A 10 A_DoPBWeaponAction
 		BADC AABBBBBBCC 1
-		BADC DD 1 A_WeaponReady
+		BADC DD 1 A_DoPBWeaponAction
 		TNT1 A 0 A_GIVEINVENTORY("M1XAmmo",1)
 		BADF A 0 A_PlaySound("CLIPICK2",6)
-		BADC EEEEFFFFFFFFGHIJKLMM 1 A_WeaponReady
+		BADC EEEEFFFFFFFFGHIJKLMM 1 A_DoPBWeaponAction
 		TNT1 A 0 A_GIVEINVENTORY("M1XAmmo",1)
 		BADF A 0 A_PlaySound("CLIPICK2",6)
-		BADC NNNNOOOOOOOFGHIJKLMM 1 A_WeaponReady
+		BADC NNNNOOOOOOOFGHIJKLMM 1 A_DoPBWeaponAction
 		TNT1 A 0 A_GIVEINVENTORY("M1XAmmo",1)
 		BADF A 0 A_PlaySound("CLIPICK2",6)
-		BADC NNNNOOOOOOOFGHIJKLMM 1 A_WeaponReady
+		BADC NNNNOOOOOOOFGHIJKLMM 1 A_DoPBWeaponAction
 		TNT1 A 0 A_GIVEINVENTORY("M1XAmmo",1)
 		BADF A 0 A_PlaySound("CLIPICK2",6)
 		BADC NNNNOOOOOOO 1

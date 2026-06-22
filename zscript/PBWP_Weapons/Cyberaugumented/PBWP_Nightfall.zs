@@ -26,8 +26,9 @@ class PBWP_Nightfall : PBWP_CA_WeaponBase
 		A_GunFlash();
 		if (invoker.laserMode)
 		{
-			A_FireCustomMissile("PBWP_Tracer_Rifle", frandom(-1.2, 1.2), 0, 0, 0, 0, 0);
 			A_StartSound("Minigun/EmphasisLoop", CHAN_WEAPON, CHANF_DEFAULT, 1.0);
+			PBWP_CA_FireMinigunLaser(35, 24);
+			A_FireCustomMissile("PBWP_Tracer_Rifle", frandom(-1.2, 1.2), 0, 0, 0, 0, 0);
 		}
 		else
 		{
@@ -35,6 +36,7 @@ class PBWP_Nightfall : PBWP_CA_WeaponBase
 			A_QuakeEx(1, 1, 1, 20, 0, 100, "none", QF_SCALEDOWN, falloff: 200);
 			PB_FireBullets("PB_762x51mm", 1, 0.75, 0, 0, 0.75);
 			PB_WeaponRecoil(-0.5, 0.2);
+			A_FireCustomMissile("PBWP_Tracer_Rifle", frandom(-1.2, 1.2), 0, 0, 0, 0, 0);
 		}
 		A_TakeInventory("PBWP_NightfallMag", 1);
 		A_AlertMonsters();
@@ -65,7 +67,7 @@ class PBWP_Nightfall : PBWP_CA_WeaponBase
 		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
-		CHG_ WXY 1 A_WeaponReady(WRF_NOFIRE);
+		CHG_ WXY 1 A_DoPBWeaponAction(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:
@@ -91,7 +93,7 @@ class PBWP_Nightfall : PBWP_CA_WeaponBase
 		Goto Reload;
 		TNT1 A 0 PBWP_CA_LockTilt();
 		CHG_ F 1 Bright { PBWP_NightfallFire(); }
-		CHG_ H 1 Bright A_WeaponReady(WRF_NOFIRE | WRF_NOSWITCH);
+		CHG_ H 1 Bright A_DoPBWeaponAction(WRF_NOFIRE | WRF_NOSWITCH);
 		CHG_ H 0 Bright A_Refire("Fire");
 		CHG_ A 1
 		{

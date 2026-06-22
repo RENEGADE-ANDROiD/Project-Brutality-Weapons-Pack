@@ -1,3 +1,4 @@
+// DISABLED — LG10/LB10 weapon sprites are not in this pack (see DECORATE.PBWP).
 Actor LegendaryBFG10K : PB_WeaponBase
 {
 Height 20
@@ -9,7 +10,7 @@ Weapon.AmmoUse2 0
 Weapon.AmmoType1 "PBWP_ComplexAmmo"
 // Weapon.AmmoType2 "PBWP_ComplexAmmo"
 Weapon.KickBack 90
-// Weapon.SlotNumber 8
+Weapon.SlotNumber 9
 Weapon.SlotPriority 1.2
 Inventory.PickupSound "Leg10k/Draw"
 Inventory.PickupMessage "You picked up the Legendary BFG 10K! Primitive, new technology is at your disposal."
@@ -78,8 +79,10 @@ TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 
 Goto SelectFirstPersonLegs
 SelectContinue:
-		TNT1 A 0 A_WeaponOffset(0, 32)
-		Goto Ready3
+	TNT1 A 0 { PB_WeaponRaise("Leg10k/Draw"); }
+	TNT1 A 0 { PB_WeapTokenSwitch("BFGSelected"); }
+	TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+	Goto Ready3
 
 
 Fire:

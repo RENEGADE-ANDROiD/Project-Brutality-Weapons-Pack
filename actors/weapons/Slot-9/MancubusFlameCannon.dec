@@ -45,9 +45,10 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 	+FORCEXYBILLBOARD
 	+FLOORCLIP
 	+DONTGIB
-	Inventory.PickupMessage "You got the UAC Mancubus Flame Cannon/Daedabus Slime Cannon (Slot 8)"
-	// Weapon.SlotNumber 8
-   Weapon.SelectionOrder 5550
+   Inventory.PickupMessage "You got the UAC Mancubus Flame Cannon/Daedabus Slime Cannon (Slot 8)"
+   Weapon.SlotNumber 8
+   Weapon.SelectionOrder 5552
+   Weapon.SlotPriority 1
 	Scale 0.9
 	Tag "UAC Mancubus Flame Cannon/Daedabus Slime Cannon"
 	Inventory.AltHudIcon "MANAH0"
@@ -65,7 +66,7 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 
 	Ready:
 		TNT1 A 0
-		TNT1 A 0 { PB_RespectIfNeeded; }
+		TNT1 A 0 { return PB_RespectIfNeeded(); }
 	WeaponRespect:
 		TNT1 A 0 A_PlaySound("FLMDRAW")
 		FUMS ABCD 1 A_DoPBWeaponAction
@@ -95,7 +96,7 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		TNT1 A 0
         	TNT1 A 0 A_PlaySound("FLMRIDL",6,1,1)	
 		TNT1 A 0 A_JumpIfInventory("DaedabusSlimeSelected", 1, "Ready2")
-	    	FUMG GHI 1 A_DoPBWeaponAction
+	    	FUMG GHI 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOFIRE)
 	    Goto Ready3
 
 	Ready2:
@@ -103,7 +104,7 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("PB_Fuel", 4, 1)
 		Goto NoAmmo
         	TNT1 A 0 A_PlaySound("FLMRIDL",6,1,1)
-	    FUMG JKL 1 A_DoPBWeaponAction
+	    FUMG JKL 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOFIRE)
 	    Goto Ready2
 
 	WeaponSpecial:
@@ -155,14 +156,14 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 			A_StartSound("meleeweapon/break", CHAN_AUTO);
 			A_AlertMonsters;
 		}
-		Stop
+		Goto DeselectDown
 
 	NoAmmo:
 		TNT1 A 0 A_StopSound(6)
 		TNT1 A 0 A_StopSound(3)
 		TNT1 A 0 A_StopSound(2)
 		TNT1 A 0 A_ZoomFactor(1.0)
-		FUMG Z 1 A_DoPBWeaponAction
+		FUMG Z 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 		TNT1 A 0 A_JumpIfInventory("PB_Fuel", 4, 1)
 		Loop
 		TNT1 A 0
@@ -180,6 +181,8 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 			}
 	    TNT1 A 0 A_StopSound(CHAN_WEAPON)
 	    TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_StopSound(3)
+		TNT1 A 0 A_StopSound(2)
 		TNT1 A 0 A_JumpIfInventory("GotMeatShield", 1, "GrabEnemy")
 		TNT1 A 0 {
 			if(CountInv("DaedabusSlimeSelected") == 1) {A_SetWeaponSprite("FVMS"); }
@@ -203,9 +206,12 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 	TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
 	TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 	Goto SelectFirstPersonLegs
-  SelectContinue:
+	SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise("FLMDRAW"); }
+		TNT1 A 0 { PB_WeapTokenSwitch("AddonSelected"); }
+		TNT1 A 0 PBWP_EnsureMonsterDurability("MancubusFlameCannonDurability", 60)
 				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
-				Goto Ready3
+				Goto SelectAnimation
 
 	AltFire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")

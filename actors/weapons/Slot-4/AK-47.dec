@@ -1,4 +1,4 @@
-﻿ACTOR HasSemiFire : Inventory { Inventory.MaxAmount 1 }
+ACTOR HasSemiFire : Inventory { Inventory.MaxAmount 1 }
 ACTOR AK-47Respect : Inventory { Inventory.MaxAmount 1 }
 ACTOR AK-47 : PB_WeaponBase
 {
@@ -314,7 +314,7 @@ ACTOR AK-47 : PB_WeaponBase
 		Stop
 
 	Unload:
-		AK7G A 1 A_WeaponReady
+		AK7G A 1 A_DoPBWeaponAction
 		TNT1 A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_Takeinventory("Unloading",1)
 		TNT1 A 0 A_Takeinventory("ADSmode",1)

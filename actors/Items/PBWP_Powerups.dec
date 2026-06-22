@@ -830,7 +830,7 @@ ACTOR FamiliarSmoke
 //   States
 //   {
 //   Ready:
-//     TNT1 A 1 A_WeaponReady
+//     TNT1 A 1 A_DoPBWeaponAction
 //     Loop
 //   Deselect:
 //     TNT1 A 1 A_Lower

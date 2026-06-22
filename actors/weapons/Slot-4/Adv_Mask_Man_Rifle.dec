@@ -170,14 +170,14 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		TNT1 A 0 A_Jump (256, "FireSequence1", "FireSequence2")
 
 	FireSequence1:
-		XFLF B 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		XFLF B 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_ZoomFactor(0.96)
 		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+0.4 + pitch); }
 		Goto EndSequence
 
 	FireSequence2:
-		XFLF C 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		XFLF C 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_ZoomFactor(0.96)
 		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+0.4 + pitch); }
@@ -189,18 +189,18 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		TNT1 A 0 A_ZoomFactor(0.99)
 		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+0.2 + pitch); }
 		TNT1 A 0 A_TakeInventory ("SP50cAmmo", 1)
-		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 AAA 0 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		
 		TNT1 A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_JumpIfInventory("TypeBAssaultSG",1,"FinalFire")
-		XFLF D 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
-		XFLF E 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		XFLF D 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
+		XFLF E 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 	Refire:
 		MRKR B 0 { PB_ReFire; }
-		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 AAA 0 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 	FinalFire:
-		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
-		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 AAA 0 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 AAA 0 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"FinalFire1")
 		Goto RealReady
 		
@@ -292,14 +292,14 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 
 	Recoil_1:
 		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+0.2 + Pitch); }
-		AUSZ I 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		AUSZ I 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(-0.2 + Angle); }
 		TNT1 A 0 A_ZoomFactor(1.98)
 		Goto EndOfRecoil
 
 	Recoil_2:
 		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(-0.2 + Pitch); }
-		AUSZ I 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		AUSZ I 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(+0.2 + Angle); }
 		Goto EndOfRecoil
 
@@ -308,7 +308,7 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		TNT1 A 0 A_ZoomFactor(2.0)
 
 		TNT1 A 0 A_JumpIfInventory("TypeBAssaultSG",1,"FinalFire")
-		AUSZ J 3 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		AUSZ J 3 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 	Refire1:
 		MRKR B 0 { PB_ReFire; }
 		TNT1 AAA 0

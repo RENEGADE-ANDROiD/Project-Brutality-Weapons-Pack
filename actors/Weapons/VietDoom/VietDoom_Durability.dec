@@ -14,12 +14,12 @@ ACTOR Dropper : PB_WeaponBase
 	{
 	Ready:
 	Ready3:
-	    TNT1 A 1 A_weaponready(WRF_NOFIRE)
+	    TNT1 A 1 A_DoPBWeaponAction(WRF_NOFIRE)
 		TNT1 A 0 A_Takeinventory("DropIt",1)
 		TNT1 A 0 A_JumpIfInventory("DropM1911",1,"DropM1911")
 		TNT1 A 0 A_JumpIfInventory("DropM3",1,"DropM3")
 		TNT1 A 0 A_JumpIfInventory("DropMAT49",1,"DropMAT49")
-		TNT1 A 0 A_JumpIfInventory("DropPPSh",1,"DropPPSh")
+		//TNT1 A 0 A_JumpIfInventory("DropPPSh",1,"DropPPSh")
 		TNT1 A 0 A_JumpIfInventory("DropThompson",1,"DropThompson")
 		TNT1 A 0 A_JumpIfInventory("DropIthaca",1,"DropIthaca")
 		TNT1 A 0 A_JumpIfInventory("DropM14",1,"DropM14")

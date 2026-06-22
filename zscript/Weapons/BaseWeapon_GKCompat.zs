@@ -178,7 +178,7 @@ extend class PB_WeaponBase
 			CRCB D 1 bright A_StartSound("Crucible_Idle",10,CHANF_LOOP|CHANF_OVERLAP,0.2);
 			CRCB D 1 bright
 			{
-				A_WeaponReady();
+				A_DoPBWeaponAction();
 				if (!countinv("DoGloryMelee"))
 				{
 					return ResolveState("DoCrucible");
@@ -198,7 +198,7 @@ extend class PB_WeaponBase
 			CRCB D 1 A_WeaponOffset(40, 8, WOF_ADD);
 			CRCB D 1 A_WeaponOffset(50,10, WOF_ADD);
 			CRCB D 1 A_WeaponOffset(60,12, WOF_ADD);
-			TNT1 A 0 A_WeaponReady(WRF_NoFire|WRF_NoSwitch);
+			TNT1 A 0 A_DoPBWeaponAction(WRF_NoFire|WRF_NoSwitch);
 			
 			//First Swing
 			
@@ -213,7 +213,7 @@ extend class PB_WeaponBase
 				A_SpawnItemEx("CrucibleBladeWave", 0, 0, Height / 2, 0, 0, 0, 0, SXF_CLIENTSIDE|SXF_TRANSFERPITCH);
 			}
 			
-			TNT1 A 0 A_WeaponReady(WRF_NoFire|WRF_NoSwitch);
+			TNT1 A 0 A_DoPBWeaponAction(WRF_NoFire|WRF_NoSwitch);
 			
 			CRCB HII 1 
 			{
