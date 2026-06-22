@@ -1,4 +1,14 @@
-﻿ACTOR HellPistolerFirer : StingerHellBullet
+﻿ACTOR HellPistolerAmmo : Ammo
+{
+	+IGNORESKILL
+	Inventory.Amount 0
+	Inventory.MaxAmount 16
+	Ammo.BackpackAmount 0
+	Ammo.BackpackMaxAmount 16
+	Inventory.Icon "CELLA0"
+}
+
+ACTOR HellPistolerFirer : StingerHellBullet
 {
 	Damage 22
 	Speed 100
