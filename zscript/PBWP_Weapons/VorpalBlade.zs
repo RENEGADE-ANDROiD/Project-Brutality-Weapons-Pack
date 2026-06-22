@@ -1,4 +1,4 @@
-// Tiberium's Soulblade — folded from Insanity's Requiem Mk.2 (PB_VorpalBlade_from_Insanitys_Requiem-MK2.wad)
+// Tiberium's Soulblade â€” folded from Insanity's Requiem Mk.2 (PB_VorpalBlade_from_Insanitys_Requiem-MK2.wad)
 // RedParticleSpawner uses actors/Weapons/FX/GCSFX.dec; spawner in PBWP_WeaponSpawners.zs
 class VorpalBlade : PB_WeaponBase
 {
@@ -74,7 +74,6 @@ class VorpalBlade : PB_WeaponBase
 
     // ----- Execution integration -----
     bool meleeLocked;       // becomes true when A_BDPMeleeStart successfully locks on
-    bool ttwcfbex;          // some condition â€“ adjust as needed
 
     // ----- Weapon definition -----
     Default
@@ -179,21 +178,21 @@ class VorpalBlade : PB_WeaponBase
             Loop;
 
         Fire:
+            TNT1 A 0 { return PB_FireExecuteCheck(); }
             TNT1 A 0
             {
                 A_WeaponOffset(0,32);
                 A_SetRoll(0);
                 A_SetInventory("PB_LockScreenTilt", 0);
                 PB_HandleCrosshair(1);
-                A_BDPMeleeStart(200);      
-                PB_Execute();
+                A_BDPMeleeStart(200);
             }
             TNT1 A 0 A_Jump(256, "SwingRighty", "SwingLefty");
             Goto Ready3;
 
         SwingRighty:
             VORR A 0 Offset(15,32);
-            VORR A 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORR A 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 A_PlaySound("Sword/Swing", CHAN_WEAPON, 1.0, 0, 2);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
                                            roll: 45, area: 45, dist: 48,
@@ -201,17 +200,17 @@ class VorpalBlade : PB_WeaponBase
                                            HitActorSound: "Sword/HitMeat",
                                            HitWallSound: "Sword/HitWall");
             TNT1 A 0 A_FireCustomMissile("RedParticleSpawner");
-            VORR B 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            VORR C 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            VORR D 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            VORR E 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            TNT1 A 3 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORR B 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            VORR C 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            VORR D 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            VORR E 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            TNT1 A 3 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 A_Refire("Fire");
             Goto PreReady;
 
         SwingLefty:
             VORL A 0 Offset(15,32);
-            VORL A 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORL A 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 A_PlaySound("Sword/Swing", CHAN_WEAPON, 1.0, 0, 2);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
                                            roll: -45, area: 45, dist: 48,
@@ -219,16 +218,16 @@ class VorpalBlade : PB_WeaponBase
                                            HitActorSound: "Sword/HitMeat",
                                            HitWallSound: "Sword/HitWall");
             TNT1 A 0 A_FireCustomMissile("RedParticleSpawner");
-            VORL B 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            VORL C 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            VORL D 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            VORL E 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            TNT1 A 3 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORL B 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            VORL C 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            VORL D 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            VORL E 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            TNT1 A 3 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 A_Refire("Fire");
             Goto PreReady;
 
         PreReady:
-            VORS EDCBA 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORS EDCBA 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             Goto Ready3;
 
         AltFire:
@@ -239,7 +238,7 @@ class VorpalBlade : PB_WeaponBase
         SwingRightyZerked:
             VORR A 0 Offset(15,32);
             TNT1 A 0 A_JumpIfInventory("PowerStrength", 1, "SwingRightyBladeStorm");
-            VORR A 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORR A 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 A_PlaySound("Sword/Swing", CHAN_WEAPON, 1.0, 0, 2);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
                                            roll: 45, area: 45, dist: 48,
@@ -247,18 +246,18 @@ class VorpalBlade : PB_WeaponBase
                                            HitActorSound: "Sword/HitMeat",
                                            HitWallSound: "Sword/HitWall");
             TNT1 A 0 A_FireCustomMissile("RedParticleSpawner");
-            VORR B 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            VORR C 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORR B 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            VORR C 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 Bright A_FireProjectile("BladeSlash1",0,1,0,0);
-            VORR D 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            VORR E 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            TNT1 A 10 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORR D 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            VORR E 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            TNT1 A 10 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             Goto PreReady;
 
         SwingLeftyZerked:
             VORL A 0 Offset(15,32);
             TNT1 A 0 A_JumpIfInventory("PowerStrength", 1, "SwingLeftyBladeStorm");
-            VORL A 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORL A 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 A_PlaySound("Sword/Swing", CHAN_WEAPON, 1.0, 0, 2);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
                                            roll: -45, area: 45, dist: 48,
@@ -266,17 +265,17 @@ class VorpalBlade : PB_WeaponBase
                                            HitActorSound: "Sword/HitMeat",
                                            HitWallSound: "Sword/HitWall");
             TNT1 A 0 A_FireCustomMissile("RedParticleSpawner");
-            VORL B 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            VORL C 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORL B 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            VORL C 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 Bright A_FireProjectile("BladeSlash2",0,1,0,0);
-            VORL D 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            VORL E 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
-            TNT1 A 10 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORL D 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            VORL E 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
+            TNT1 A 10 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             Goto PreReady;
 
         SwingRightyBladeStorm:
             TNT1 A 0 A_SpawnItemEx("DamageNoArmor10");
-            VORR A 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORR A 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 A_PlaySound("Sword/Swing", CHAN_WEAPON, 1.0, 0, 2);
             TNT1 A 0 Bright A_FireProjectile("BladeSlash1",0,1,0,0);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
@@ -285,19 +284,19 @@ class VorpalBlade : PB_WeaponBase
                                            HitActorSound: "Sword/HitMeat",
                                            HitWallSound: "Sword/HitWall");
             TNT1 A 0 A_FireCustomMissile("RedParticleSpawner");
-            VORR B 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORR B 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 Bright A_FireProjectile("BladeSlash1",0,1,0,0);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
                                            roll: 45, area: 45, dist: 48);
-            VORR C 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORR C 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 Bright A_FireProjectile("BladeSlash1",0,1,0,0);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
                                            roll: 45, area: 45, dist: 48);
-            VORR D 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORR D 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 Bright A_FireProjectile("BladeSlash1",0,1,0,0);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
                                            roll: 45, area: 45, dist: 48);
-            VORR E 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORR E 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 Bright A_FireProjectile("BladeSlash1",0,1,0,0);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
                                            roll: 45, area: 45, dist: 48);
@@ -305,7 +304,7 @@ class VorpalBlade : PB_WeaponBase
 
         SwingLeftyBladeStorm:
             TNT1 A 0 A_SpawnItemEx("DamageNoArmor10");
-            VORL A 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORL A 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 A_PlaySound("Sword/Swing", CHAN_WEAPON, 1.0, 0, 2);
             TNT1 A 0 Bright A_FireProjectile("BladeSlash2",0,1,0,0);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
@@ -314,19 +313,19 @@ class VorpalBlade : PB_WeaponBase
                                            HitActorSound: "Sword/HitMeat",
                                            HitWallSound: "Sword/HitWall");
             TNT1 A 0 A_FireCustomMissile("RedParticleSpawner");
-            VORL B 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORL B 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 Bright A_FireProjectile("BladeSlash2",0,1,0,0);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
                                            roll: -45, area: 45, dist: 48);
-            VORL C 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORL C 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 Bright A_FireProjectile("BladeSlash2",0,1,0,0);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
                                            roll: -45, area: 45, dist: 48);
-            VORL D 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORL D 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 Bright A_FireProjectile("BladeSlash2",0,1,0,0);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
                                            roll: -45, area: 45, dist: 48);
-            VORL E 1 A_WeaponReady(WRF_NOBOB|WRF_NOFIRE);
+            VORL E 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 Bright A_FireProjectile("BladeSlash2",0,1,0,0);
             TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
                                            roll: -45, area: 45, dist: 48);

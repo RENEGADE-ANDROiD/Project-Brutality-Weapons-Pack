@@ -70,6 +70,26 @@ ACTOR M3Spawner : Actor { +NOBLOCKMAP }
 ACTOR ThompsonSpawner : Actor { +NOBLOCKMAP }
 ACTOR MAT49Spawner : Actor { +NOBLOCKMAP }
 ACTOR PPShSpawner : Actor { +NOBLOCKMAP }
+
+// PPSh-41 — disabled (PPS.dec unwired); stubs satisfy VietDoom_Durability.dec references.
+ACTOR PPSh : Inventory { Inventory.MaxAmount 1 }
+ACTOR PPShDestroyed : bd_Token {}
+ACTOR PPShAmmo : Ammo { Inventory.MaxAmount 71 }
+ACTOR PPShPickUp : BDWeaponSpawner { +NOBLOCKMAP }
+ACTOR PPShPickUpHC : CustomInventory { Inventory.MaxAmount 1 }
+ACTOR PPShPickUpHC_90 : PPShPickUpHC {}
+ACTOR PPShPickUpHC_80 : PPShPickUpHC {}
+ACTOR PPShPickUpHC_70 : PPShPickUpHC {}
+ACTOR PPShPickUpHC_60 : PPShPickUpHC {}
+ACTOR PPShPickUpHC_50 : PPShPickUpHC {}
+ACTOR PPShPickUpHC_40 : PPShPickUpHC {}
+ACTOR PPShPickUpHC_30 : PPShPickUpHC {}
+ACTOR PPShPickUpHC_20 : PPShPickUpHC {}
+ACTOR PPShPickUpHC_10 : PPShPickUpHC {}
+ACTOR PPShPickUpHC_5 : PPShPickUpHC {}
+ACTOR PPShPickUpHC_trash : PPShPickUpHC {}
+ACTOR PPSSelected : Inventory { Inventory.MaxAmount 1 }
+
 ACTOR IthacaSpawner : Actor { +NOBLOCKMAP }
 ACTOR M16Spawner : Actor { +NOBLOCKMAP }
 ACTOR M14Spawner : Actor { +NOBLOCKMAP }

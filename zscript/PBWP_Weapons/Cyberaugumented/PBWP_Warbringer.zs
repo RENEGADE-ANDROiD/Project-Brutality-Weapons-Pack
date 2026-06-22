@@ -27,6 +27,8 @@ class PBWP_Warbringer : PBWP_CA_WeaponBase
 		A_GunFlash();
 		PB_FireBullets("PB_762x51mm", 1, 0.35, 0, 0, 0.35);
 		PB_WeaponRecoil(-1.2, 0.4);
+		PB_SpawnCasing("PB_EmptyBrass", 32, -2, 30, frandom(4, 7), frandom(6, 9), frandom(0, 5));
+		PB_GunSmoke(0, 0, 0);
 		A_FireCustomMissile("PBWP_Tracer_Rifle", random(-2, 2), 0, -1, 0, 0, random(-2, 2));
 		A_AlertMonsters();
 	}
@@ -56,7 +58,7 @@ class PBWP_Warbringer : PBWP_CA_WeaponBase
 		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
-		RFL_ ABCDEF 1 A_WeaponReady(WRF_NOFIRE);
+		RFL_ ABCDEF 1 A_DoPBWeaponAction(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:

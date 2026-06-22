@@ -1,4 +1,4 @@
-﻿Actor SniperAttackState : Inventory 
+Actor SniperAttackState : Inventory 
 { 
     Inventory.MaxAmount 10 
 }
@@ -80,7 +80,7 @@ Actor PB_BoltRifle : PB_WeaponBase
 	BoltRifleReadyToFire:
 	    BLRF A 1 {
 		       PB_CoolDownBarrel;
-			return A_Weaponready(WRF_ALLOWRELOAD);  
+			return A_DoPBWeaponAction(WRF_ALLOWRELOAD);  
 		      }
 	        Loop
 	        
@@ -99,7 +99,7 @@ Actor PB_BoltRifle : PB_WeaponBase
 	    TNT1 A 0
 	BoltRifleZoomReadyToFire:
 	    BLRZ E 1 {
-			return A_DoPBWeaponAction;
+			return A_DoPBWeaponAction(WRF_NOFIRE);
 		      }
 	        Loop
 	        

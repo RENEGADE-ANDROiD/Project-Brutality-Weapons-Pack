@@ -41,12 +41,10 @@ class GC_Enhancements
 			case 'GodEnragedBFG':
 			case 'EnragedLegendaryBFG':
 			case 'NemesisBFG':
-			case 'LegendaryBFG10K':
 			case 'LegendaryAssaultShotgun':
 			case 'LegendaryChainsaw':
 			case 'LegendaryPlasmaticRifle':
 			case 'NemesisLMG':
-			case 'PB_MegaRig':
 				return true;
 		}
 		return false;
@@ -60,12 +58,6 @@ class GC_Enhancements
 		array<Name> strip;
 		switch (pickedUp)
 		{
-			case 'LegendaryBFG10K':
-				strip.Push('NemesisBFG');
-				strip.Push('EnragedLegendaryBFG');
-				strip.Push('GodEnragedBFG');
-				strip.Push('Devastador');
-				break;
 			case 'NemesisBFG':
 				strip.Push('EnragedLegendaryBFG');
 				strip.Push('GodEnragedBFG');
@@ -174,7 +166,7 @@ class GC_Enhancements
 			return;
 		}
 
-		if (cls == 'GodEnragedBFG' || cls == 'EnragedLegendaryBFG' || cls == 'LegendaryBFG10K' || cls == 'NemesisBFG')
+		if (cls == 'GodEnragedBFG' || cls == 'EnragedLegendaryBFG' || cls == 'NemesisBFG')
 		{
 			if (pm.CountInv("NemesisBFGMode") >= 1)
 			{

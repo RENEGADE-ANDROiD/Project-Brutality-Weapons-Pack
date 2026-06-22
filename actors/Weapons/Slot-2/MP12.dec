@@ -1,4 +1,4 @@
-﻿Actor MP12SilencerIsOn : Inventory {inventory.maxamount 1}
+Actor MP12SilencerIsOn : Inventory {inventory.maxamount 1}
 
 Actor SoundDummyForPistol : Inventory {inventory.maxamount 1}
 
@@ -207,13 +207,15 @@ ACTOR MP12 : PB_Weapon
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 	SelectContinue:
-		TNT1 A 0 A_Raise
-		Wait
+	SelectAnimation:
+		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+		Goto Ready3
 		
     Fire:
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
         TNT1 A 0 A_JumpIfInventory("MP12Ammo2",1,2)
         Goto Reload
         TNT1 AAAA 0

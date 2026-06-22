@@ -32,8 +32,7 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 		else
 		{
 			A_StartSound("Lazer/Fire", CHAN_WEAPON);
-			A_RailAttack(75, 0, 0, flags: RGF_FULLBRIGHT, pufftype: "PBWP_CA_BFGPuff", sparsity: 30);
-			PBWP_CA_DeferredRailHit(75, 'Plasma');
+			PBWP_CA_FireNeonicRail(75, 30);
 			A_TakeInventory("PBWP_CaduceusMag", 1);
 		}
 		A_AlertMonsters();
@@ -64,7 +63,7 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
-		C_AD XYZ 1 Bright A_WeaponReady(WRF_NOFIRE);
+		C_AD XYZ 1 Bright A_DoPBWeaponAction(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:

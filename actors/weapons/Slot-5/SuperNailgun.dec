@@ -61,7 +61,7 @@ Actor SuperNailgun : PB_WeaponBase {
 			A_SetRoll(0);
 			A_GiveInventory("RespectSNG",1);
 			A_TakeInventory("PB_LockScreenTilt",1);
-			return A_DoPBWeaponAction;
+			return A_DoPBWeaponAction(WRF_NOFIRE);
 		    }
 		TNT1 A 0 A_PlaySound("GENREADY")
 		TNT1 A 0 A_JumpIfInventory("RespectSNGDone",1,"SelectAnimation")
@@ -95,7 +95,7 @@ Actor SuperNailgun : PB_WeaponBase {
 	SelectAnimation:
         TNT1 A 0 {
 			A_SetRoll(0);
-			return A_DoPBWeaponAction;
+			return A_DoPBWeaponAction(WRF_NOFIRE);
 		     }
 		TNT1 A 0 A_PlaySound("GENREADY")
 		SNSU A 0 A_JumpIfInventory("SNGUnloaded",1,2)

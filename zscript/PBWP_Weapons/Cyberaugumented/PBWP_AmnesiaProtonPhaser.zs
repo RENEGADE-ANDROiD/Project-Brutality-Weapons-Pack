@@ -25,6 +25,7 @@ class PBWP_AmnesiaProtonPhaser : PBWP_CA_WeaponBase
 		A_StartSound("DCYBFG/Fire", CHAN_WEAPON, CHANF_DEFAULT, 0.8, ATTN_IDLE);
 		A_FireCustomMissile("PBWP_CA_BFGSpheroid", 0, 0);
 		A_TakeInventory("PB_Cell", 40);
+		A_GunFlash();
 		A_AlertMonsters();
 	}
 
@@ -50,9 +51,9 @@ class PBWP_AmnesiaProtonPhaser : PBWP_CA_WeaponBase
 		TNT1 A 0 PB_WeaponRaise("BFG10000Proto/UP");
 		TNT1 A 0 PB_WeapTokenSwitch("BFGSelected");
 		TNT1 A 0 PBWP_CA_SelectPose();
-		Goto Ready3;
+		Goto SelectAnimation;
 	SelectAnimation:
-		BFG_ ABCDEFGHI 1 Bright A_WeaponReady(WRF_NOFIRE);
+		BFG_ ABCDEFGHI 1 Bright A_DoPBWeaponAction(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:

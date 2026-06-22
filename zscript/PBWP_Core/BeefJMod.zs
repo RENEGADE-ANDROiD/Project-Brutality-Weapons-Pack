@@ -42,7 +42,7 @@ Class PBWP_JModService : Service{
 
 					// Plasma Weapons
 					"PlasmaRifleAssault", "D4PlasmaGun", "ThunderCarrierTI", "D4VortexRifle", 
-                    "D4Machinegun", "Extinction_Ray", "LoRCalamityBlade", "PB_CalamityBlade", "PB_GaussCannon",
+                    "D4Machinegun", "Extinction_Ray", "PB_GaussCannon",
 					"Ion_Heavy", "PBX_Prosurv_Ballista", "PhaseEradicatorBFG",
 
 					// Demonic Weapons

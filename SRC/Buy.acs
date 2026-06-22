@@ -328,9 +328,11 @@ Script "BuyUnmaker64" (Void) {
 BuySomething(900, "Unmaker64", 1);
 }
 
+/*
 Script "BuyLoRCalamityBlade" (Void) {
 BuySomething(700, "LoRCalamityBlade", 1);
 }
+*/
 
 Script "BuyDemonTechMinigun" (Void) {
 BuySomething(800, "DemonTechMinigun", 1);

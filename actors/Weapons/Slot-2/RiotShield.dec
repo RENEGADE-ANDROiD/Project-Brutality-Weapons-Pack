@@ -503,7 +503,7 @@ Actor RiotShield : PB_Weapon
 		TNT1 AAA 1 {
 			 A_Setroll(roll+1.0, SPF_INTERPOLATE);
 			 A_SetAngle(angle-0.5, SPF_INTERPOLATE);
-			 return A_DoPBWeaponAction;
+			 return A_DoPBWeaponAction(WRF_NOFIRE);
 		}
 		TNT1 A 0 A_Refire("Fire")
 		AX00 ABCD 1 {
@@ -559,7 +559,7 @@ Actor RiotShield : PB_Weapon
 		TNT1 AAA 1 {
 			 A_Setroll(roll-1.0, SPF_INTERPOLATE);
 			 A_SetAngle(angle+0.5, SPF_INTERPOLATE);
-			 return A_DoPBWeaponAction;
+			 return A_DoPBWeaponAction(WRF_NOFIRE);
 		}
 		TNT1 A 0 A_Refire("Fire")
 		AX00 ABCD 1 {
@@ -588,7 +588,7 @@ Actor RiotShield : PB_Weapon
 		TNT1 A 0 A_SpawnItemEx("RiotShieldProtection", 20, 0, 15, 0, 0, 0, 0,SXF_NOCHECKPOSITION)
 		RSWT A 1
 		TNT1 A 0 A_SpawnItemEx("RiotShieldProtection", 20, 0, 15, 0, 0, 0, 0,SXF_NOCHECKPOSITION)
-		RSWT A 1 A_WeaponReady
+		RSWT A 1 A_DoPBWeaponAction
 		Goto ReadyShield	
 
 	ShieldMeeleBerserk:
@@ -601,7 +601,7 @@ Actor RiotShield : PB_Weapon
 		TNT1 A 0 A_SpawnItemEx("RiotShieldProtection", 20, 0, 15, 0, 0, 0, 0,SXF_NOCHECKPOSITION)
 		RSWT F 1
 		TNT1 A 0 A_SpawnItemEx("RiotShieldProtection", 20, 0, 15, 0, 0, 0, 0,SXF_NOCHECKPOSITION)
-		RSWT A 1 A_WeaponReady
+		RSWT A 1 A_DoPBWeaponAction
 		Goto ReadyShield	
 
 	AltFire: //New Shield Functions
@@ -732,7 +732,7 @@ Actor RiotShield : PB_Weapon
         Goto Ready3
 
 	Unload: //Unload Animation
-		RSWG A 1 A_WeaponReady
+		RSWG A 1 A_DoPBWeaponAction
 		TNT1 A 0 A_TakeInventory("Unloading",1)
 		TNT1 A 0 A_TakeInventory("ADSmode",1)
 		TNT1 A 0 A_JumpIfInventory("PrimaryPistolAmmo",1,3)

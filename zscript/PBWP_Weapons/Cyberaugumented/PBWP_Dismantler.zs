@@ -55,7 +55,7 @@ class PBWP_Dismantler : PBWP_CA_WeaponBase
 		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
-		LTBS ABC 1 A_WeaponReady(WRF_NOFIRE);
+		LTBS ABC 1 A_DoPBWeaponAction(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:

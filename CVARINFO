@@ -148,8 +148,8 @@ server bool PBSpawnD4VortexRifle = True;
 //Slot 8
 server bool PBSpawnExtinction_Ray = True;
 server bool PBSpawnPB_DarkMatterRifle = True;
-server bool PBSpawnCalamityBlade = True;
-server bool PBSpawnPB_CalamityBlade = True;
+server bool PBSpawnCalamityBlade = False;
+server bool PBSpawnPB_CalamityBlade = False;
 server bool PBSpawnPB_GaussCannon = True;
 server bool PBSpawnIon_Heavy = True;
 server bool PBSpawnPB_MancubusFlameCannon = True;
@@ -189,7 +189,7 @@ server bool PBSpawnVietM1911 = True;
 server bool PBSpawnVietM3A1 = True;
 server bool PBSpawnVietThompson = True;
 server bool PBSpawnVietMAT49 = True;
-server bool PBSpawnVietPPSh = True;
+server bool PBSpawnVietPPSh = False;
 server bool PBSpawnVietIthaca = True;
 server bool PBSpawnVietM16 = True;
 server bool PBSpawnVietM14 = True;
@@ -240,8 +240,6 @@ server bool PBSpawnLegendaryChainsaw = True;
 server bool PBSpawnLegendaryPlasmaticRifle = True;
 server bool PBSpawnNemesisBFG = True;
 server bool PBSpawnNemesisLMG = True;
-server bool PBSpawnLegendaryBFG10K = True;
-
 // God Complex enhancements (gameplay layer; no new keys/HUD)
 server bool pb_gc_enhancements = True;
 server bool pb_gc_rune_lite = True;

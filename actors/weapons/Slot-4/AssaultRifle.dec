@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 //
 // MaskMan Rifle Assault
 //
@@ -45,7 +45,7 @@ ACTOR AssaultR1 : PB_WeaponBase 26050
 		MagBag:
 		BADM A 0 A_PlaySound("MAGBAG1")
 		TNT1 A 7
-		BADM ABCDEFG 1 A_WeaponReady
+		BADM ABCDEFG 1 A_DoPBWeaponAction
 		
 		BADM HIJKLMNOPQ 1
 		BADM A 0 A_PlaySound("MAGBAG2",1)
@@ -54,29 +54,29 @@ ACTOR AssaultR1 : PB_WeaponBase 26050
 		
 		B4DM AB 1 
 		BADM A 0 A_PlaySound("MAGBAG3")
-		B4DM CDEFGHIJKLMN 1 A_WeaponReady
+		B4DM CDEFGHIJKLMN 1 A_DoPBWeaponAction
 		
 		B4DM OPQR 1 { PB_WeaponRecoil(-0.10,-0.15); } //(PITCH+1.0); }
 		
 		TNT1 A 0 A_GIVEINVENTORY("AR1EMag",36)
 		
 MagLoad:
-		TNT1 A 10 A_WeaponReady
+		TNT1 A 10 A_DoPBWeaponAction
 		
 		BADC AABBBBBBCC 1 { PB_WeaponRecoil(-0.10,-0.15); } //(PITCH-1.0); }
-		BADC DD 1 A_WeaponReady
+		BADC DD 1 A_DoPBWeaponAction
 		TNT1 A 0 A_GIVEINVENTORY("AR1EMag",1)
 		BADF A 0 A_PlaySound("CLIPICK2",6)
 		
-		BADC EEEEFFFFFFFFGHIJKLMM 1 A_WeaponReady
+		BADC EEEEFFFFFFFFGHIJKLMM 1 A_DoPBWeaponAction
 		TNT1 A 0 A_GIVEINVENTORY("AR1EMag",1)
 		BADF A 0 A_PlaySound("CLIPICK2",6)
 		
-		BADC NNNNOOOOOOOFGHIJKLMM 1 A_WeaponReady
+		BADC NNNNOOOOOOOFGHIJKLMM 1 A_DoPBWeaponAction
 		TNT1 A 0 A_GIVEINVENTORY("AR1EMag",1)
 		BADF A 0 A_PlaySound("CLIPICK2",6)
 		
-		BADC NNNNOOOOOOOFGHIJKLMM 1 A_WeaponReady
+		BADC NNNNOOOOOOOFGHIJKLMM 1 A_DoPBWeaponAction
 		TNT1 A 0 A_GIVEINVENTORY("AR1EMag",1)
 		BADF A 0 A_PlaySound("CLIPICK2",6)
 		
@@ -211,14 +211,14 @@ MagLoad:
 		TNT1 A 0 A_Jump (256, "FireSequence1", "FireSequence2")
 
 	FireSequence1:
-		MRKF B 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		MRKF B 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_ZoomFactor(0.96)
 		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(+0.4 + pitch); }
 		Goto EndSequence
 
 	FireSequence2:
-		MRKF C 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		MRKF C 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_ZoomFactor(0.96)
 		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(+0.4 + pitch); }
@@ -230,22 +230,22 @@ MagLoad:
 		TNT1 A 0 A_ZoomFactor(0.99)
 		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(+0.2 + pitch); }
 		TNT1 A 0 A_TakeInventory ("AR1EMag", 1)
-		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 AAA 0 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		
 		TNT1 A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire")
 		TNT1 AAA 0
-		MRKF D 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		MRKF D 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 
 		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire")
 		TNT1 AAA 0
 		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire")
 	Refire:
 		MRKR B 0 { PB_ReFire; }
-		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 AAA 0 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 	FinalFire:
-		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
-		TNT1 AAA 0 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 AAA 0 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
+		TNT1 AAA 0 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"FinalFire1")
 		Goto RealReady
 
@@ -312,14 +312,14 @@ MagLoad:
 
 	Recoil_1:
 		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(+0.2 + Pitch); }
-		MR2F B 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		MR2F B 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(-0.2 + Angle); }
 		TNT1 A 0 A_ZoomFactor(1.98)
 		Goto EndOfRecoil
 
 	Recoil_2:
 		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(-0.2 + Pitch); }
-		MR2F C 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		MR2F C 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(+0.2 + Angle); }
 		Goto EndOfRecoil
 
@@ -329,7 +329,7 @@ MagLoad:
 
 		TNT1 A 0 A_JumpIfInventory("SemiFire",1,"FinalFire")
 		TNT1 AAA 0
-		MR2F D 1 A_WeaponReady(WRF_NOFIRE| WRF_NOBOB)
+		MR2F D 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 
         TNT1 A 0 A_JumpIfInventory("Taunting",1,"Taunt")
         TNT1 A 0 A_JumpIfInventory("Reloading",1,"Reload")

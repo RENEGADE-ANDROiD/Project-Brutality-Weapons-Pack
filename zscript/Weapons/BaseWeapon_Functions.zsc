@@ -3016,7 +3016,7 @@ action int getReadyFlags(int weapflags, bool noReload)
 
 		static const statelabel switchLabels[] =
 		{
-			"Select", "SelectContinue", "SelectAnimation", "FirstSelectAnimation",
+			"Select", "SelectContinue", "SelectAnimation", "SelectFirstPersonLegs", "FirstSelectAnimation",
 			"ReadySettle", "ReadySettle4", "Deselect", "DeselectDown",
 			"DualSelectAnimation", "Select2", "Select3", "Select4", "SelectPurist",
 			"SelectDual", "SelectRechamber", "ResumeNormalRaise", "SelectFirstTime"
@@ -3795,6 +3795,7 @@ action int getReadyFlags(int weapflags, bool noReload)
 }
 
 class LaserSightActivated : Inventory { Default { +INVENTORY.UNDROPPABLE; Inventory.MaxAmount 1; } }
+class DoGloryMelee : Inventory { Default { Inventory.MaxAmount 1; } }
 class ShieldSawThrowAnim : Inventory { Default { Inventory.MaxAmount 1; } }
 
 // Monster Pack GK still filters on legacy DisableASGGuy (same bit as DisablePB_ASGGuy).

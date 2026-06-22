@@ -54,22 +54,15 @@ Actor MPGLPICKUP : Custominventory
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 		SelectContinue:
-		GREN A 1 Offset(40,100)
-		TNT1 A 0 A_Setpitch(pitch+2)
-		GREN A 1 Offset(30,80)A_Playsound("ARDN")
-		TNT1 A 0 A_Setpitch(pitch-0.5)
-		GREN A 1 Offset(20,50)
-		TNT1 A 0 A_Setpitch(pitch-0.5)
-		GREN A 1 Offset(10,42)
-		TNT1 A 0 A_Setpitch(pitch-0.5)
-		GREN A 1 Offset(6,38)
-		GREN A 1 Offset(3,35)
-		GREN A 1 A_Raise
-		Loop
+		TNT1 A 0 A_SetPitch(0)
+	SelectAnimation:
+		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+		Goto Ready3
 	Fire:
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 	    TNT1 A 0 A_JUMPIFINVENTORY("GRENCLIP",1,1)
 		GOTO RELOAD
 		TNT1 A 0 A_Jumpifinventory("aimswitch",1,"aimfire")
@@ -220,11 +213,11 @@ Actor MPGLPICKUP : Custominventory
 		GREN R 1 offset(-3,52)
 		GREN R 1 offset(-4,49)
 		GREN R 1 offset(-4,49)
-		GREN R 1 offset(-3,49) A_Weaponready(WRF_NOBOB)
-		GREN R 1 offset(-2,50) A_Weaponready(WRF_NOBOB)
-		GREN R 1 offset(-1,51) A_Weaponready(WRF_NOBOB)
-		GREN R 1 offset(-1,52)//A_Weaponready(WRF_NOBOB)
-		GREN R 1 offset(-1,53)//A_Weaponready(WRF_NOBOB)
+		GREN R 1 offset(-3,49) A_DoPBWeaponAction(WRF_NOBOB)
+		GREN R 1 offset(-2,50) A_DoPBWeaponAction(WRF_NOBOB)
+		GREN R 1 offset(-1,51) A_DoPBWeaponAction(WRF_NOBOB)
+		GREN R 1 offset(-1,52)//A_DoPBWeaponAction(WRF_NOBOB)
+		GREN R 1 offset(-1,53)//A_DoPBWeaponAction(WRF_NOBOB)
 		TNT1 A 0 A_Takeinventory("PB_RocketAmmo",1,TIF_NOTAKEINFINITE)
 		TNT1 A 0 A_Giveinventory("GRENclip",1)
 		goto reloadcounter
@@ -274,27 +267,29 @@ Actor MPGLPICKUP : Custominventory
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
-		TNT1 A 0
-		Goto Ready3
+		TNT1 AAAAAAAAAAAAAAA 1 A_DoPBWeaponAction
+		Stop
 		
 	FlashAirKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
-		TNT1 A 0
-		Goto Ready3
+		TNT1 AAAAAAAAAAAAAAAA 1 A_DoPBWeaponAction
+		Stop
 		
 	FlashSlideKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
-		TNT1 A 0
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAA 1 A_DoPBWeaponAction
+		Stop
+		
 	FlashSlideKickingStop:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
-		TNT1 A 0
-		Goto Ready3
+		TNT1 AAAAAAA 1 A_DoPBWeaponAction
+		Stop
 	Spawn:
 		TNT1 A 0 A_CustomMissile ("miniparticle", 0, 0, random (0, 360), 2, random (0, 360))
 		SGRN A 1 Bright A_CustomMissile ("MiniSmoke", 1, 0, 0, 2, 90)

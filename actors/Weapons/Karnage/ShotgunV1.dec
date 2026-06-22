@@ -57,23 +57,15 @@ Actor ShotgunV1PICKUP : Custominventory
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 		SelectContinue:
-		SGUN A 1 Offset(40,100)
-		TNT1 A 0 A_Setpitch(pitch+2)
-		SGUN A 1 Offset(30,80)A_Playsound("ARDN")
-		TNT1 A 0 A_Setpitch(pitch-0.5)
-		SGUN A 1 Offset(20,50)
-		TNT1 A 0 A_Setpitch(pitch-0.5)
-		SGUN A 1 Offset(10,42)
-		TNT1 A 0 A_Setpitch(pitch-0.5)
-		SGUN A 1 Offset(6,38)
-		TNT1 A 0 A_Setpitch(pitch-0.5)
-		SGUN A 1 Offset(3,35)
-		SGUN A 1 A_Raise
-		Loop
+		TNT1 A 0 A_SetPitch(0)
+	SelectAnimation:
+		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+		Goto Ready3
 	Fire:
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 		TNT1 A 0 A_Jumpifinventory("noammosg",1,"FirenoShell")
 		TNT1 A 0 A_JumpIfInventory("SGUNClip",1,1)
 		GOTO RELOAD
@@ -222,9 +214,9 @@ Actor ShotgunV1PICKUP : Custominventory
 		SGUN R 2 offset(-4,28)
 		SGUN R 1 offset(-3,29)
 		SGUN R 1 offset(-2,30)
-		SGUN R 1 offset(-1,31)A_Weaponready(WRF_NOBOB)
-		SGUN R 1 offset(-1,32)A_Weaponready(WRF_NOBOB)
-		SGUN R 2 offset(-1,33)A_Weaponready(WRF_NOBOB)
+		SGUN R 1 offset(-1,31)A_DoPBWeaponAction(WRF_NOBOB)
+		SGUN R 1 offset(-1,32)A_DoPBWeaponAction(WRF_NOBOB)
+		SGUN R 2 offset(-1,33)A_DoPBWeaponAction(WRF_NOBOB)
 		TNT1 A 0 A_Takeinventory("PB_Shell",1,TIF_NOTAKEINFINITE)
 		TNT1 A 0 A_Giveinventory("SGUNclip",1)
 		goto reloadcounter
@@ -247,9 +239,9 @@ Actor ShotgunV1PICKUP : Custominventory
 		SGUN Z 2 offset(-28,73)
 		SGUN Z 1 offset(-27,72)
 		SGUN Z 1 offset(-26,71)
-		SGUN Z 1 offset(-25,70)A_Weaponready(WRF_NOBOB)
-		SGUN Z 1 offset(-25,70)A_Weaponready(WRF_NOBOB)
-		SGUN Z 2 offset(-25,70)A_Weaponready(WRF_NOBOB)
+		SGUN Z 1 offset(-25,70)A_DoPBWeaponAction(WRF_NOBOB)
+		SGUN Z 1 offset(-25,70)A_DoPBWeaponAction(WRF_NOBOB)
+		SGUN Z 2 offset(-25,70)A_DoPBWeaponAction(WRF_NOBOB)
 		TNT1 A 0 A_Takeinventory("PB_Shell",1,TIF_NOTAKEINFINITE)
 		TNT1 A 0 A_Giveinventory("SGUNclip",1)
 		goto reloadcounterZ
@@ -331,24 +323,26 @@ Actor ShotgunV1PICKUP : Custominventory
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
-		TNT1 A 0
-		Goto Ready3
+		TNT1 AAAAAAAAAAAAAAA 1 A_DoPBWeaponAction
+		Stop
 		
 	FlashAirKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
-		TNT1 A 0
-		Goto Ready3
+		TNT1 AAAAAAAAAAAAAAAA 1 A_DoPBWeaponAction
+		Stop
 		
 	FlashSlideKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
-		TNT1 A 0
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAA 1 A_DoPBWeaponAction
+		Stop
+		
 	FlashSlideKickingStop:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
-		TNT1 A 0
-		Goto Ready3
+		TNT1 AAAAAAA 1 A_DoPBWeaponAction
+		Stop

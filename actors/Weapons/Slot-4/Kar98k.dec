@@ -1,4 +1,4 @@
-﻿Actor RifleK98StagedReload : Inventory
+Actor RifleK98StagedReload : Inventory
 {
 inventory.maxamount 1
 }
@@ -145,46 +145,50 @@ TNT1 A 0 A_SetCrosshair(0)
 		ZK9S ABC 1 A_DoPBWeaponAction(WRF_NOFIRE)
 		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 		Goto Ready3
-		FIRE:
-TNT1 A 0 A_JumpIfInventory("RifleK98StagedReload",1,"BoltAction")
-TNT1 A 0 A_Takeinventory("Reloading",1)
-TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Fire2")
-TNT1 A 0 A_JumpIfInventory("karabineAmmo",1,1)
-Goto Reload
-TNT1 AAAA 0
-TNT1 A 0 A_AlertMonsters
-TNT1 A 0 A_PlaySound("M40Rifle/Fire", 1)
-TNT1 A 0 A_Takeinventory("karabineAmmo",1)
-TNT1 A 0 A_Recoil(1.5)
-ZK9G B 1 Bright 
-TNT1 A 0 { PB_GunSmoke_Sniper(0,0,0); }
-TNT1 A 0 A_FireCustomMissile("PBWP_Tracer_Sniper", frandom(-2, 2), 0, 0, 0, 0, frandom(-2, 2))
-TNT1 A 0 A_FireBullets(3,5,0,550,"ShotgunPuff",FBF_NORANDOM)
-TNT1 A 0 A_JumpIfInventory("IsTacticalClass",1,"Tacticoool")
-TNT1 A 0 A_SetPitch(pitch - 8.0)
-TNT1 A 0 A_GiveInventory("RifleK98StagedReload",1)
-ZK9G CDEF 1 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)
-ZK9G FFF 1 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)
-ZK9G FDEC 1 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)
 
-BoltAction:
-TNT1 A 0 A_PlaySound("M40Rifle/Bolt1", 3)
-ZK9R ABCD 2
-TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
-ZK9R EEE 2 
-TNT1 A 0 A_PlaySound("M40Rifle/Bolt2", 3)
-ZK9R DCBA 2 
-TNT1 A 0 A_TakeInventory("RifleK98StagedReload",1)
-Goto Ready3
+	Fire:
+		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
+		TNT1 A 0 A_JumpIfInventory("RifleK98StagedReload",1,"BoltAction")
+		TNT1 A 0 A_Takeinventory("Reloading",1)
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"Fire2")
+		TNT1 A 0 A_JumpIfInventory("karabineAmmo",1,1)
+		Goto Reload
+		TNT1 AAAA 0
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("M40Rifle/Fire", 1)
+		TNT1 A 0 A_Takeinventory("karabineAmmo",1)
+		TNT1 A 0 A_Recoil(1.5)
+		ZK9G B 1 Bright 
+		TNT1 A 0 { PB_GunSmoke_Sniper(0,0,0); }
+		TNT1 A 0 A_FireCustomMissile("PBWP_Tracer_Sniper", frandom(-2, 2), 0, 0, 0, 0, frandom(-2, 2))
+		TNT1 A 0 A_FireBullets(3,5,0,550,"ShotgunPuff",FBF_NORANDOM)
+		TNT1 A 0 A_JumpIfInventory("IsTacticalClass",1,"Tacticoool")
+		TNT1 A 0 A_SetPitch(pitch - 8.0)
+		TNT1 A 0 A_GiveInventory("RifleK98StagedReload",1)
+		ZK9G CDEF 1 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)
+		ZK9G FFF 1 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)
+		ZK9G FDEC 1 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)
 
-Tacticoool:
-TNT1 A 0 A_SetPitch(pitch - 16.0)
-TNT1 A 0 A_GiveInventory("RifleK98StagedReload",1)
-ZK9G CDEF 1 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)
-ZK9G FFF 1 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)
-ZK9G FDEC 1 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)
-Goto BoltAction
+	BoltAction:
+		TNT1 A 0 A_PlaySound("M40Rifle/Bolt1", 3)
+		ZK9R ABCD 2
+		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+		ZK9R EEE 2 
+		TNT1 A 0 A_PlaySound("M40Rifle/Bolt2", 3)
+		ZK9R DCBA 2 
+		TNT1 A 0 A_TakeInventory("RifleK98StagedReload",1)
+		Goto Ready3
 
+	Tacticoool:
+		TNT1 A 0 A_SetPitch(pitch - 16.0)
+		TNT1 A 0 A_GiveInventory("RifleK98StagedReload",1)
+		ZK9G CDEF 1 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)
+		ZK9G FFF 1 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)
+		ZK9G FDEC 1 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)
+		Goto BoltAction
 
 Fire2:
 TNT1 A 0 A_JumpIfInventory("RifleK98StagedReload",1,"BoltAction2")

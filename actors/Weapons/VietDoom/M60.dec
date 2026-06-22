@@ -93,7 +93,7 @@ ACTOR M60 : PB_WeaponBase
 		M60S "#" 1 offset(3,36) A_SetPitch(pitch -0.5)
 		M60S "#" 1 offset(6,34) A_SetPitch(pitch -0.5)
 		M60S "#" 1 offset(9,32) A_SetPitch(pitch -0.5)
-		M60S "#" 0 offset(9,32) A_WeaponReady(WRF_NOBOB)
+		M60S "#" 0 offset(9,32) A_DoPBWeaponAction(WRF_NOBOB)
 		M60S "#" 0 A_JumpIfInventory("Taunting",1,"Taunt")
 		M60S "#" 0 A_JumpIfInventory("Reloading",1,"Reload")
 		M60S "#" 0 offset(-9,32) A_GiveInventory("UsedStamina", 8)
@@ -105,7 +105,7 @@ ACTOR M60 : PB_WeaponBase
 		M60S "#" 1 offset(-3,36) A_SetPitch(pitch +0.5)
 		M60S "#" 1 offset(-6,34) A_SetPitch(pitch +0.5)
 		M60S "#" 1 offset(-9,32) A_SetPitch(pitch +0.5)
-		M60S "#" 0 offset(-9,32) A_WeaponReady(WRF_NOBOB)
+		M60S "#" 0 offset(-9,32) A_DoPBWeaponAction(WRF_NOBOB)
 		M60S "#" 0 offset(-9,32) A_JumpIfInventory("IsRunning", 1, "Sprinting")
 		Goto StopSprint
 	StopSprint:
@@ -203,7 +203,7 @@ Goto SelectFirstPersonLegs
 		M60u b 0
 		M60u b 0 A_JumpIfInventory("PB_HighCalMag",2,2)
 		M60u d 0
-		"####" "#" 1 A_WeaponReady(WRF_NOPRIMARY)
+		"####" "#" 1 A_DoPBWeaponAction(WRF_NOPRIMARY)
 		"####" "#" 0 A_JumpIfInventory("DropIt",1,"Dropper")
 		TNT1 A 0 A_JumpIFInventory("MGIsOverSomething", 1, "Ready2")
 		Loop
@@ -246,6 +246,7 @@ Goto SelectFirstPersonLegs
 		TNT1 A 0 A_TakeInventory("Salute2", 1)
 		Goto Ready3
 	Fire:
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 		M60G A 0
 		M60G "#" 0 A_JumpIfInventory("PB_HighCalMag",2,1)
 		Goto M60Empty
@@ -319,11 +320,11 @@ Goto SelectFirstPersonLegs
 	M60Empty:
 		TNT1 A 0 A_PlaySound("Weapon/Empty", 5)
 		TNT1 A 0 A_JumpIFInventory("M60Deployed", 1, "M60DeployedEmpty")
-		M60G B 1 A_WeaponReady(WRF_NOPRIMARY)
+		M60G B 1 A_DoPBWeaponAction(WRF_NOPRIMARY)
 		Goto Ready
 	M60DeployedEmpty:
 		TNT1 A 0 A_PlaySound("Weapon/Empty", 5)
-		M60A g 1 A_WeaponReady(WRF_NOPRIMARY)
+		M60A g 1 A_DoPBWeaponAction(WRF_NOPRIMARY)
 		Goto Ready2
 	 AltFire:
 		TNT1 A 0
@@ -359,7 +360,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 1 offset(0,34)
 		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
 		"####" "#" 1 offset(0,33)
-		"####" "#" 1 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 1 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
 		"####" "#" 0 A_Print("Your machine gun has been destroyed!\n\n\n\n\n\n\n")
 		"####" "#" 0 A_GiveInventory("M60Destroyed", 1)
 		"####" "#" 0 A_PlaySound("DSBRK2")
@@ -404,7 +405,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 0 A_ClearReFire
 		"####" "#" 1 offset(0,34)
 		"####" "#" 1 offset(0,33)
-		"####" "#" 2 A_WeaponReady(WRF_NOFIRE)// | WRF_NOFIRE)
+		"####" "#" 2 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
 		"####" "#" 1 A_ClearReFire
 		"####" "#" 3
 

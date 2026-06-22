@@ -362,7 +362,7 @@ Actor PB_GaussCannon : PB_WeaponBase
 			TNT1 A 0 A_GiveInventory("SiegeModeFireReady")
 			Goto SiegeModeReady
 		SiegeModeReady:
-			GCSI JKLMNOPQR 2 A_WeaponReady(WRF_NOSWITCH) //yeees
+			GCSI JKLMNOPQR 2 A_DoPBWeaponAction(WRF_NOSWITCH) //yeees
 			Loop
 		FireSiege:
 			TNT1 A 0 A_StopSound(1)

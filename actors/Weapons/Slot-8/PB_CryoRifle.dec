@@ -190,7 +190,8 @@ ACTOR PB_CryoRifle : PB_Weapon
 	    RAIL A 0 A_JumpIf(CountInv("FreezerAmmo")==0,"SelectAnimationNoAmmo")
         FR1S EDCBA 1 A_DoPBWeaponAction(WRF_NOFIRE)
 		TNT1 A 0 A_PlaySound("weapons/CryoRifle/up", 2)
-        
+		Goto Ready3
+
 	Ready:
 	Ready3:
 		TNT1 A 0 A_JumpIf(CountInv("FreezerAmmo")==0,"ReadyNoAmmo")
@@ -264,10 +265,12 @@ ACTOR PB_CryoRifle : PB_Weapon
 		TNT1 A 0 A_TakeInventory("GrabbedIceBarrel",1)
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
-	SelectContinue: 
+	SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise("PLSDRAW"); }
+		TNT1 A 0 { PB_WeapTokenSwitch("CryoRifleSelected"); }
 		TNT1 A 0 PBWP_EnsureMonsterDurability("CryoRifleDurability", 45)
-				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
-				Goto Ready3
+		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+		Goto SelectAnimation
 	NoAmmo:
 		RIFG A 0
 		RIFG A 0 A_ZoomFactor(1.0)
@@ -288,6 +291,7 @@ ACTOR PB_CryoRifle : PB_Weapon
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 		RAIL A 0 A_JumpIfInventory("FreezerAmmo",1,2)
 		Goto NoAmmo
 		FR1D D 3

@@ -24,6 +24,7 @@ class PBWP_Deracinator : PBWP_CA_WeaponBase
 		A_FireCustomMissile("PBWP_CA_DeracinatorBolt", 0, 0);
 		A_TakeInventory("PB_Cell", 5);
 		A_GunFlash();
+		PB_GunSmoke(0, 0, 0);
 		A_QuakeEx(3, 3, 3, 25, 0, 800, "", QF_SCALEDOWN);
 		A_AlertMonsters();
 	}
@@ -53,7 +54,7 @@ class PBWP_Deracinator : PBWP_CA_WeaponBase
 		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
-		DC7_ ABCD 1 A_WeaponReady(WRF_NOFIRE);
+		DC7_ ABCD 1 A_DoPBWeaponAction(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:

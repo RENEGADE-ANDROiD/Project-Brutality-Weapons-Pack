@@ -69,7 +69,7 @@ class PBWP_VietDoomDurability
 
 		static const Name kWeapons[] =
 		{
-			'M1911', 'M3a1', 'Thompson', 'MAT49', 'PPSh', 'Ithaca', 'IthacaFlame',
+			'M1911', 'M3a1', 'Thompson', 'MAT49', 'Ithaca', 'IthacaFlame',
 			'M14', 'SKS', 'M16', 'XM21', 'Mosin', 'AK', 'BAR',
 			'M79', 'RPG', 'M60', 'RPD', 'Stoner'
 		};
@@ -100,9 +100,6 @@ class PBWP_VietDoomDurability
 				return true;
 			case 'MAT49':
 				durToken = 'MAT49Durability'; destroyedToken = 'MAT49Destroyed'; maxAmt = 500;
-				return true;
-			case 'PPSh':
-				durToken = 'PPShDurability'; destroyedToken = 'PPShDestroyed'; maxAmt = 800;
 				return true;
 			case 'Ithaca':
 			case 'IthacaFlame':

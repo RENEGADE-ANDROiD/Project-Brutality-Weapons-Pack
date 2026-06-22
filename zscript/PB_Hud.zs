@@ -1243,7 +1243,6 @@ class PB_Hud_ZS : BaseStatusBar
 				break;
 			case 'GodEnragedBFG':
 			case 'EnragedLegendaryBFG':
-			case 'LegendaryBFG10K':
 			case 'NemesisBFG':
 				if(CheckInventory("NemesisBFGMode"))
 				{
@@ -1675,6 +1674,10 @@ class PB_Hud_ZS : BaseStatusBar
                             weaponBarAccent = Font.CR_GREEN;
                             DrawAmmoBar("BARBACO1", "BARBACO2", "BARBACO3", "BAMBAR3", "ABAR3", "ABAR3", "STCPB0", Font.CR_GREEN, true, false);
                             break;
+                        case 'DemonPower':
+                            weaponBarAccent = Font.CR_PURPLE;
+                            DrawAmmoBar("BARBACP1", "BARBACP2", "BARBACP3", "BAMBAR5", "ABAR5", "ABAR5", "AMMOIC5", Font.CR_PURPLE, true, true, false);
+                            break;
                         default:
                             weaponBarAccent = cachedFontColors[HUDBLUEBAR];
                             if(PB_WeaponUsesPBAmmoType1()) DrawAmmoBar("BARBACC1", "BARBACC2", "BARBACC3", "BAMBAR8", "ABAR8", "ABAR8", "AMMOIC8", Font.CR_GREY);
@@ -1821,11 +1824,6 @@ class PB_Hud_ZS : BaseStatusBar
 						weaponBarAccent = Font.CR_YELLOW;
 						break;
 					}
-					case 'LoRCalamityBlade':
-					case 'PB_CalamityBlade':
-						DrawAmmoBar("BARBACZ1", "BARBACZ2", "BARBACZ3", "BAMBAR7", "ABAR7", "ABAR7", "AMMOIC7", cachedFontColors[DTECHAMMO]);
-						weaponBarAccent = cachedFontColors[DTECHAMMO];
-						break;
 					case 'IN_Beretta':
 					case 'W_SMG':
 					case 'TechBlaster':

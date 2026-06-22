@@ -62,18 +62,18 @@ ACTOR Rainmaker : PB_Weapon //karnageweapon
 	{
 	Ready3:
 	Ready:
+		TNT1 A 0 { PB_HandleCrosshair(39); }
 		RAIN A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
 		Loop
 	Deselect:
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
-		RAIN A 1 offset(0,34) A_Playsound("ARDN")
-		goto down
-	Down:
-		RAIN AA 0 A_Lower
-		RAIN A 1 A_Lower
-		Loop
+		TNT1 A 0 A_SetCrosshair(0)
+		Goto DeselectDown
+	DeselectDown:
+		TNT1 A 0 A_Lower(120)
+		Wait
 	Select:
 	    TNT1 A 0 A_TakeInventory("HasBarrel",1)
 		TNT1 A 0 A_TakeInventory("HasIceBarrel",1)
@@ -83,23 +83,16 @@ ACTOR Rainmaker : PB_Weapon //karnageweapon
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 		SelectContinue:
-		RAIN A 1 Offset(40,100)
-		TNT1 A 0 A_Setpitch(pitch+2)
-		RAIN A 1 Offset(30,80)A_Playsound("ARDN")
-		TNT1 A 0 A_Setpitch(pitch-0.5)
-		RAIN A 1 Offset(20,50)
-		TNT1 A 0 A_Setpitch(pitch-0.5)
-		RAIN A 1 Offset(10,42)
-		TNT1 A 0 A_Setpitch(pitch-0.5)
-		RAIN A 1 Offset(6,38)
-		TNT1 A 0 A_Setpitch(pitch-0.5)
-		RAIN A 1 Offset(3,35)
-		RAIN A 1 A_Raise
-		Loop
+		RAIN A 0 A_PlaySound("ARDN", CHAN_WEAPON)
+		TNT1 A 0 A_SetPitch(0)
+	SelectAnimation:
+		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
+		Goto Ready3
 	Fire:
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 	    TNTT A 0 A_Jumpifinventory("Rainmakerclip",1,1)
 		GOTO RELOAD
 		TNT1 A 0 A_Jumpifnoammo("reload")
@@ -291,7 +284,7 @@ ACTOR Rainmaker : PB_Weapon //karnageweapon
 		KICK B 1 Offset(10,50)
 		KICK A 1 Offset(5,40)
 		KICK A 1 Offset(10,50)
-		goto select
+		goto Ready3
 	Pitch:
 		TNT1 A 0 A_Setpitch(pitch-2)
 		NULL A 1 A_Setpitch(pitch-1)
@@ -320,27 +313,29 @@ FlashKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelKicking")
-		TNT1 A 0
-		Goto Ready3
+		TNT1 AAAAAAAAAAAAAAA 1 A_DoPBWeaponAction
+		Stop
 		
 	FlashAirKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelAirKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelAirKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelAirKicking")	
-		TNT1 A 0
-		Goto Ready3
+		TNT1 AAAAAAAAAAAAAAAA 1 A_DoPBWeaponAction
+		Stop
 		
 	FlashSlideKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKicking")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKicking")
-		TNT1 A 0
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAA 1 A_DoPBWeaponAction
+		Stop
+		
 	FlashSlideKickingStop:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelSlideKickingStop")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "FlashBarrelSlideKickingStop")
-		TNT1 A 0
-		Goto Ready3
+		TNT1 AAAAAAA 1 A_DoPBWeaponAction
+		Stop
 	FlashPunching:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelPunching")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "FlashBarrelPunching")
