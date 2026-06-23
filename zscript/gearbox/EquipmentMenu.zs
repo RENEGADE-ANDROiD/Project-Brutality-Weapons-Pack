@@ -1,3 +1,17 @@
+class PBWP_EquipmentWheelHelper
+{
+	static bool HasLegacyUnlock(Actor player, string ownedToken, string relAmmo)
+	{
+		if (!player)
+			return false;
+		if (relAmmo != "" && player.CountInv(relAmmo) > 0)
+			return true;
+		if (ownedToken == "PB_LeechToken" && player.CountInv("HasLeech") > 0)
+			return true;
+		return false;
+	}
+}
+
 Class gb_equipmentmenu
 {
 	static gb_equipmentmenu from()
@@ -104,7 +118,8 @@ Class gb_equipmentmenu
 		helditems.clear();
 		for(int i = 0; i < tags.size(); i++)
 		{
-			if(ownedtokens[i] == "" || player.FindInventory(ownedtokens[i]))
+			if(ownedtokens[i] == "" || player.FindInventory(ownedtokens[i])
+				|| PBWP_EquipmentWheelHelper.HasLegacyUnlock(player, ownedtokens[i], relAmmo[i]))
 			{
 				int filteredIdx = helditems.size();
 				viewModel.tags        .push(tags[i]);

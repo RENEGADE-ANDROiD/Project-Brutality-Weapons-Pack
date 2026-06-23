@@ -710,6 +710,7 @@ extend class PB_WeaponBase
 			TNT1 A 0 A_JumpIf(PressingUser1(), "UseEquipment");
 			Goto GoingToReady2;
 		TossGrenade:
+			TNT1 A 0 A_TakeInventory("TossGrenade", 1);
 			TNT1 A 1;
 			HND1 RSTU 1 A_SetRoll(roll-1.5, SPF_INTERPOLATE);
 			TNT1 A 0 {
