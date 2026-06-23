@@ -236,6 +236,8 @@ class PB_WeaponTilterInventory : Inventory
 		if (!weap || !psp || !psp.CurState) { return false; }
 		st = weap.FindState("Reload");
 		if (st && weap.InStateSequence(psp.CurState, st)) { return true; }
+		st = weap.FindState("PBWP_OffsetReloadAnim");
+		if (st && weap.InStateSequence(psp.CurState, st)) { return true; }
 		st = weap.FindState("Reload2");
 		if (st && weap.InStateSequence(psp.CurState, st)) { return true; }
 		st = weap.FindState("Reload3");

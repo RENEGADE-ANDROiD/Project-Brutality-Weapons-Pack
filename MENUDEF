@@ -576,6 +576,9 @@ OptionMenu "WeaponPackSpawnSettings"
 	Option "Spawn Cyberaugumented - Deracinator", "PBSpawnPBWP_Deracinator", "OnOff"
 	Option "Spawn Cyberaugumented - Dismantler", "PBSpawnPBWP_Dismantler", "OnOff"
 	Option "Spawn Cyberaugumented - Cinereal Ordnance", "PBSpawnPBWP_CinerealOrdnance", "OnOff"
+	Option "Spawn Cyberaugumented - Dispatcher", "PBSpawnPBWP_Dispatcher", "OnOff"
+	Option "Spawn Cyberaugumented - Legionnaire", "PBSpawnPBWP_Legionnaire", "OnOff"
+	Option "Spawn Cyberaugumented - Sirius Crisis Roscoe", "PBSpawnPBWP_SiriusCrisis", "OnOff"
 }
 
 ////////

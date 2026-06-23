@@ -15,6 +15,7 @@ class PBWP_AmnesiaProtonPhaser : PBWP_CA_WeaponBase
 		Inventory.PickupSound "BFG10000Proto/UP";
 		Weapon.UpSound "BFG10000Proto/UP";
 		Inventory.Icon "BIG_U0";
+		Inventory.AltHudIcon "BIG_U0";
 		Obituary "%o was atomized by %k's Amnesia Proton Phaser.";
 	}
 
@@ -89,6 +90,11 @@ class PBWP_AmnesiaProtonPhaser : PBWP_CA_WeaponBase
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
 		Goto Ready3;
 
+		Reload:
+		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
+		TNT1 A 0 { return ResolveState("PBWP_OffsetReloadAnim"); }
 		FlashPunching:
 		TNT1 AAAAAAAAAAAAAA 1 A_DoPBWeaponAction();
 		Stop;

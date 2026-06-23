@@ -15,6 +15,7 @@ class PBWP_Intervention : PBWP_CA_WeaponBase
 		Inventory.PickupMessage "You got the Intervention! Demons won't know what hit them.";
 		Inventory.PickupSound "dcy/rocketpickup";
 		Inventory.Icon "G3RNZ0";
+		Inventory.AltHudIcon "G3RNZ0";
 		Obituary "%o was blasted by %k's Intervention.";
 	}
 
@@ -82,10 +83,39 @@ class PBWP_Intervention : PBWP_CA_WeaponBase
 		TNT1 A 0 A_Refire();
 		Goto Ready3;
 
+		AltFire:
+		TNT1 A 0 PBWP_CA_FatalityGate();
+		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
+		TNT1 A 0 A_JumpIfInventory("PB_RocketAmmo", 1, 2);
+		Goto Ready3;
+		TNT1 A 0 PBWP_CA_LockTilt();
+		GNN_ A 2;
+		GNN_ B 2 Bright;
+		GNN_ C 2 Bright
+		{
+			A_StartSound("Grenade/Launch", CHAN_WEAPON, 0, 0.85);
+			A_FireCustomMissile("PBWP_CA_NapalmGrenade", 0, 0, 0, 0, 0, -7.5);
+			A_TakeInventory("PB_RocketAmmo", 1);
+			A_GunFlash();
+			PB_GunSmoke_Launcher(0, 0, 0);
+			A_AlertMonsters();
+			PB_QuakeCamera(25, 0.4);
+		}
+		GNN_ D 2 Bright;
+		TNT1 A 0 PBWP_CA_UnlockTilt();
+		Goto Ready3;
+
 		Weaponspecial:
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
 		Goto Ready3;
 
+		Reload:
+		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
+		TNT1 A 0 { return ResolveState("PBWP_OffsetReloadAnim"); }
 		FlashPunching:
 		TNT1 AAAAAAAAAAAAAA 1 A_DoPBWeaponAction();
 		Stop;

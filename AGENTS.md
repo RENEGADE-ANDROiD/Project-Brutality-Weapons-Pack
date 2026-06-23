@@ -146,6 +146,56 @@ These were removed from `PB_WeaponBase` in PB Staging, so PBWP re-declares them 
 - `string UnloaderToken` + `property UnloaderToken : UnloaderToken` — weapon unload tracking
 - `action state PB_ExecuteGK()` — stub that delegates to `PB_Execute()`. The full implementation in `BaseWeapon_GKCompat.zs` is currently disabled (its `#include` is commented out in `BaseWeapon_PBWP.zs` line 3).
 
+---
+
+## Cyberaugumented Weapon Fold (PBWP)
+
+Ten slot-4–9 weapons folded from the Cyberaugumented pk7 (`DCY_*` sources) live under `zscript/PBWP_Weapons/Cyberaugumented/`. All extend `PBWP_CA_WeaponBase` (in `PBWP_CA_Common.zs`), which extends `PB_WeaponBase`.
+
+| Class | Slot | Ammo model | Source |
+|---|---|---|---|
+| `PBWP_Warbringer` | 4 | `PB_HighCalMag` → `PBWP_WarbringerMag` (20) | DCY_Cyberrifle |
+| `PBWP_Nightfall` | 5 | `PB_HighCalMag` → `PBWP_NightfallMag` (200) | DCY_Minigun |
+| `PBWP_Intervention` | 6 | `PB_RocketAmmo` direct | DCY_Grenades |
+| `PBWP_Caduceus` | 6 | `PB_Cell` → `PBWP_CaduceusMag` (60) | DCY_NeonicWand |
+| `PBWP_Dispatcher` | 6 | `PB_Cell` direct | DCY_RehauledPlasmaRifle |
+| `PBWP_AmnesiaProtonPhaser` | 7 | `PB_Cell` ×40 per shot | DCY_TheBFG9000 |
+| `PBWP_Liquidation` | 7 | `PB_Cell` direct (hold beam) | DCY_TheBFG10000 |
+| `PBWP_Deracinator` | 8 | `PB_Cell` ×5 per shot | DCY slot-8 BFG |
+| `PBWP_Dismantler` | 8 | `PB_DTech` → `PBWP_DismantlerMag` (100) | DCY_VeneratedTruncheon |
+| `PBWP_CinerealOrdnance` | 9 | `PB_DTech` → `PBWP_CinerealMag` (100) | DCY_TheCinerealOrdnance |
+
+Shared projectiles / FX: `PBWP_CA_Projectiles.zs`. Magazine actors: `actors/Weapons/Cyberaugumented/CyberaugumentedAmmo.dec`.
+
+### Sprite layout (`SPRITES/WEAPONS/Cyberaugumented/`)
+
+**Do not use loose `_Shared/` or `_Patches/` folders.** Each weapon has a PascalCase subfolder matching its class name (e.g. `Warbringer/`, `Dispatcher/`). Rules:
+
+- Weapon view/pickup/projectile PNGs for a weapon go in that weapon’s subfolder (lump name unchanged — GZDoom resolves by filename, not path).
+- Cross-weapon lumps (`TRAC`, `PUFF`, `PBAL`) come from PB Staging / `PBWP_ProjectileFamilies.dec` — do not duplicate in CA folders.
+- `_Common/FX/` holds **selective** upstream projectile/explosion sprites (M_TR, KABE, EF1_, BF3X, MNAD, etc.) imported via `tools/Import-CA-FX-Sprites.ps1`. Hybrid FX logic lives in `PBWP_CA_Projectiles.zs` (upstream sprites + PB particles/HitSpark/RocketExplosion).
+- `_Common/ModImport/` is a **temporary** pk7 overflow only. After import, run `tools/Trim-CA-Common.ps1` to move still-needed patch sources into weapon folders and delete duplicates/orphans. Do not ship a full ModImport dump in releases.
+- Cross-reference upstream vs PBWP FX: `tools/Audit-CA-FX.ps1` → `tools/ca_fx_audit.txt`.
+- When consolidating, **prefer the file already in the weapon subfolder** over a duplicate in a loose folder (delete the duplicate).
+- First-person composites for many CA weapons are still defined in `TEXTURES.PBWP` (patch layers); loose PNGs are patch sources only.
+
+Re-run `tools/Consolidate-CA-Sprites.ps1` after bulk sprite imports, then `tools/Trim-CA-Common.ps1` to drop duplicate/orphan ModImport lumps. After trimming, run `tools/Import-CA-FX-Sprites.ps1` if weapon FX sprites need restoring from pk7.
+
+### Mag + reserve reload pattern (required for CA mag weapons)
+
+Do **not** rely on `PB_CheckReload()` alone for mag-fed CA weapons — `chamberEmpty` defaults false and reload silently fails.
+
+1. Fire gate: `return PB_jumpIfNoAmmo("Reload", min);` (or a custom count check for burst costs).
+2. Ammo take: `PB_TakeAmmo("PBWP_*Mag", n, 0, 0)` — not bare `A_TakeInventory` on the mag.
+3. `Reload` state (must be named **`Reload`**, not `ReloadMag`): Fusil-style checks then animated `DoReload`:
+   - If mag ≥ max → `Ready3`
+   - If reserve < 1 → `Ready3`
+   - Else → `DoReload` with weapon sprite frames + reload sounds → `PB_AmmoIntoMag(...)` then `PB_SetChamberEmpty(false)`, `PB_SetMagEmpty(false)`, and `PB_SetMagUnloaded(false)`.
+   - Use `PBWP_CA_ReloadPreamble()` at reload entry; `PB_JumpIfMagUnloaded("MagIn")` before clip eject when applicable.
+4. Set `Inventory.AltHudIcon` to the pickup sprite; add HUD offsets in `PBWP_AddonWeaponHud.zs` if needed.
+
+Spawners / toggles: `zscript/PBWP_Spawners/PBWP_FoldedWeaponSpawners.zs`, `CVARINFO` (`PBSpawnPBWP_*`), `PBWP_WeaponPackPresets.SetCyberaugumented()`.
+
 ### When Adding New Weapons
 
 All new weapons must use the **current** API signatures:

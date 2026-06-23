@@ -98,6 +98,60 @@ extend class PB_Hud_ZS
 			adjustY = 12;
 			adjustScale = 0.85;
 		}
+		else if (cn == "BFG9500")
+		{
+			adjustX = -10;
+			adjustY = 10;
+			adjustScale = 0.85;
+		}
+		else if (cn == "PBWP_Warbringer")
+		{
+			adjustX = -8;
+			adjustY = 14;
+			adjustScale = 0.85;
+		}
+		else if (cn == "PBWP_Nightfall")
+		{
+			adjustX = -6;
+			adjustY = 12;
+			adjustScale = 0.75;
+		}
+		else if (cn == "PBWP_Intervention" || cn == "PBWP_Legionnaire")
+		{
+			adjustX = -8;
+			adjustY = 14;
+			adjustScale = 0.8;
+		}
+		else if (cn == "PBWP_Caduceus" || cn == "PBWP_Dispatcher")
+		{
+			adjustX = -10;
+			adjustY = 12;
+			adjustScale = 0.85;
+		}
+		else if (cn == "PBWP_AmnesiaProtonPhaser")
+		{
+			adjustX = -8;
+			adjustY = 10;
+			adjustScale = 0.8;
+		}
+		else if (cn == "PBWP_Liquidation" || cn == "PBWP_Deracinator")
+		{
+			adjustX = -8;
+			adjustY = 12;
+			adjustScale = 0.8;
+		}
+		else if (cn == "PBWP_Dismantler" || cn == "PBWP_CinerealOrdnance")
+		{
+			adjustX = -10;
+			adjustY = 10;
+			adjustScale = 0.85;
+		}
+		else if (cn == "PBWP_SiriusCrisis")
+		{
+			adjustX = -8;
+			adjustY = 8;
+			adjustScale = 0.75;
+		}
 	}
 
 	void PBWP_DrawAddonWeaponIcon()

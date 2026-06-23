@@ -4187,6 +4187,12 @@ Minigun/EmphasisLoop "sounds/combat/Weapons/Cyberaugumented/Slot 4/Nightfall/dcy
 weapons/plasmaf2 "sounds/combat/Weapons/Cyberaugumented/Slot 6/Dissipator/dcy_plasma_fire.ogg"
 $limit weapons/plasmaf2 0
 dcy/plasmaf "sounds/combat/Weapons/Cyberaugumented/Slot 6/Dissipator/dcy_plasma.ogg"
+dcy/plasmariflepickup "sounds/combat/Weapons/Cyberaugumented/Dispatcher/dcy_pickup_plasma.wav"
+$random LASRX { LASRX1 LASRX2 LASRX3 }
+LASRX1 "sounds/combat/Weapons/Cyberaugumented/Projectiles/dcy_zombie_laser_impact1.ogg"
+LASRX2 "sounds/combat/Weapons/Cyberaugumented/Projectiles/dcy_zombie_laser_impact2.ogg"
+LASRX3 "sounds/combat/Weapons/Cyberaugumented/Projectiles/dcy_zombie_laser_impact3.ogg"
+$limit LASRX 0
 $random Plasma/HeatBlast { HEATBLST HEATBLS2 HEATBLS3 }
 HEATBLST "sounds/combat/Weapons/Cyberaugumented/Slot 6/Dissipator/dcy_dissipator_heat_blast1.ogg"
 HEATBLS2 "sounds/combat/Weapons/Cyberaugumented/Slot 6/Dissipator/dcy_dissipator_heat_blast2.ogg"
