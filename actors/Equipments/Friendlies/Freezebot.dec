@@ -15,7 +15,8 @@ ACTOR FreezeBotPickup: CustomInventory {
 			FZBL A 1 A_SpawnItem("BlueFlareMedium",-1,1)
 			Loop
 		Pickup:
-			TNT1 A 0 A_GiveInventory("FreezeBotAmmo",1) 
+			TNT1 A 0 A_GiveInventory("FreezeBotAmmo",1)
+			TNT1 A 0 A_GiveInventory("PBWP_FreezeBotToken", 1)
 			TNT1 A 20
 			Stop
 		}

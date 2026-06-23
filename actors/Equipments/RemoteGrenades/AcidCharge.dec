@@ -30,8 +30,9 @@ ACTOR AcidCharge: CustomInventory {
 			REMT S 1 A_SpawnItem("GreenFlareSmall",-1,1)
 			Loop
 		Pickup:
-			TNT1 A 0 A_GiveInventory("AcidChargeAmmo",1) 
+			TNT1 A 0 A_GiveInventory("AcidChargeAmmo",1)
 			TNT1 A 0 A_GiveInventory("DetonatorAmmo",1)
+			TNT1 A 0 A_GiveInventory("PBWP_AcidChargeToken", 1)
 			//TNT1 A 0 A_GiveInventory("MineAmmo",1) 
 			//TNT1 A 0 A_TakeInventory("LaserChargeAmmo",1) 
 			//TNT1 A 0 A_TakeInventory("SwarmChargeAmmo",1) 

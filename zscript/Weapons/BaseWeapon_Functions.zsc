@@ -1930,6 +1930,9 @@ extend class PB_WeaponBase
 					if(monster.BloodColor == colorBlue)
 						PB_SetExecutionBlueBlood(true);
 
+					if (!invoker.FindState("ExecutionFlashWindup"))
+						return resolveState(null);
+
 					A_SetAngle(AngleTo(monster));
 					pitchToMonster = VectorAngle( sqrt(delta.y * delta.y + delta.x * delta.x), delta.z );
 					A_SetPitch(-pitchToMonster);
@@ -2771,7 +2774,10 @@ action int getReadyFlags(int weapflags, bool noReload)
 		};
 		if (PB_executingEnemy())
 		{
-			return ResolveState("Steady");
+			if (!invoker.FindState("ExecutionFlashWindup"))
+				PB_SetExecutingEnemy(false);
+			else
+				return ResolveState("Steady");
 		}
 
 		if (CountInv("ShieldSawThrowAnim") >= 1 || CountInv("CantFire") >= 1)

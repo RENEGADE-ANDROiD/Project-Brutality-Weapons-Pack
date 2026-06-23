@@ -376,8 +376,9 @@ Goto SelectFirstPersonLegs
 		"####" "####" 0 A_CustomMissile ("MetalShard3", 20, 0, random(-30, 30), 2, random(-10, 25))
 		"####" "#" 0 A_FireCustomMissile("SmokeSpawner",0,0,0,5)
 		TNT1 A 0 A_GiveInventory("DropM60", 1)
+		TNT1 A 0 A_TakeInventory("DropIt", 1)
 		TNT1 A 0 A_SelectWeapon("Dropper")
-		Goto Ready
+		Stop
 
 	RollForJam:
 		"####" "#" 0 A_JumpIfInventory("M60Durability", 90, "JamChanceLow")
@@ -493,8 +494,9 @@ CarryOnWithThatChecking:
 		919A A 0 A_Takeinventory("ADSmode",1)
 		919A A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_GiveInventory("DropM60", 1)
+		TNT1 A 0 A_TakeInventory("DropIt", 1)
 		TNT1 A 0 A_SelectWeapon("Dropper")
-		Goto Ready
+		Stop
 	Spawn:
 		WM60 A 1
 		WM60 A 1 A_SpawnItemEx ("M60Spawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION | SXF_TRANSFERAMBUSHFLAG ,0)

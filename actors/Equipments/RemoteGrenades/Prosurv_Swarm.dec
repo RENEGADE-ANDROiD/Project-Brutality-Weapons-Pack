@@ -32,10 +32,9 @@ ACTOR SwarmCharge: CustomInventory {
 			SWRM R 1 A_SpawnItem("OrangeFlareSmall",-1,1)
 			Loop
 		Pickup:
-			//TNT1 A 0 A_TakeInventory("MineAmmo",1) 
-			//TNT1 A 0 A_TakeInventory("LaserChargeAmmo",1) 
-			TNT1 A 0 A_GiveInventory("SwarmerAmmo",1)   
+			TNT1 A 0 A_GiveInventory("SwarmerAmmo",1)
 			TNT1 A 0 A_GiveInventory("DetonatorAmmo",1)
+			TNT1 A 0 A_GiveInventory("PBWP_SwarmerToken", 1)
 			//TNT1 A 0 A_TakeInventory("PickedUpRemoteCharge",1) 
 			//TNT1 A 0 A_TakeInventory("PickedUpLaserCharge",1) 
 			//TNT1 A 0 A_GiveInventory("PickedUpSwarmCharge",1)
