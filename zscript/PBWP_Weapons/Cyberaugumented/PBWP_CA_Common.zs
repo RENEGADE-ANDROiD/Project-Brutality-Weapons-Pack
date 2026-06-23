@@ -54,6 +54,17 @@ class PBWP_CA_WeaponBase : PB_WeaponBase
 		A_ZoomFactor(1.0);
 	}
 
+	action void PBWP_CA_ReloadPreamble()
+	{
+		PBWP_OffsetReloadSetReturn('Ready3');
+		A_WeaponOffset(0, 32);
+		A_SetRoll(0);
+		A_TakeInventory("PB_LockScreenTilt", 1);
+		A_TakeInventory("Reloading", 1);
+		A_TakeInventory("Zoomed", 1);
+		A_ZoomFactor(1.0);
+	}
+
 	action void PBWP_CA_DeferredRailHit(int damage, Name dmgType = 'Hitscan')
 	{
 		let ply = player;
@@ -94,6 +105,13 @@ class PBWP_CA_WeaponBase : PB_WeaponBase
 	{
 		A_RailAttack(0, 0, 0, "", "", RGF_SILENT | RGF_FULLBRIGHT,
 			pufftype: "PBWP_CA_NeonicPuff", sparsity: sparsity, spawnclass: "PBWP_CA_NeonicRailTrail");
+		PBWP_CA_DeferredRailHit(damage, 'Plasma');
+	}
+
+	// Upstream Nightfall laser mode fires DCY_MechaZombiePlasma2 bolts — visual bolt + deferred hit.
+	action void PBWP_CA_FireMinigunLaserBolt(int damage)
+	{
+		A_FireCustomMissile("PBWP_CA_MinigunLaserBolt", frandom(-1.2, 1.2), 0);
 		PBWP_CA_DeferredRailHit(damage, 'Plasma');
 	}
 }

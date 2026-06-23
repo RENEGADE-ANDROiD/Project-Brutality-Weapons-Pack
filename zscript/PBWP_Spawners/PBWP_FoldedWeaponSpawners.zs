@@ -304,3 +304,41 @@ class PBWP_CinerealOrdnanceSpawnerInjector : PBInjector
 		}
 	}
 }
+
+class PBWP_DispatcherSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		if (PBSpawnPBWP_Dispatcher)
+		{
+			handler.InjectSpawn('PB_PlasSpawnerT1', 'PBWP_Dispatcher', 255, 2);
+			handler.InjectSpawn('PB_PlasSpawnerT2', 'PBWP_Dispatcher', 255, 2);
+			handler.InjectSpawn('PB_PlasSpawnerT3', 'PBWP_Dispatcher', 255, 2);
+		}
+	}
+}
+
+class PBWP_LegionnaireSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		if (PBSpawnPBWP_Legionnaire)
+		{
+			handler.InjectSpawn('PB_RLSpawnerT2', 'PBWP_Legionnaire', 255, 2);
+			handler.InjectSpawn('PB_RLSpawnerT3', 'PBWP_Legionnaire', 255, 2);
+			handler.InjectSpawn('PB_RLSpawnerT4', 'PBWP_Legionnaire', 255, 1);
+		}
+	}
+}
+
+class PBWP_SiriusCrisisSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+		if (PBSpawnPBWP_SiriusCrisis)
+		{
+			handler.InjectSpawn('PB_BFGSpawnerT3', 'PBWP_SiriusCrisis', 255, 1);
+			handler.InjectSpawn('PB_BFGSpawnerT4', 'PBWP_SiriusCrisis', 255, 1);
+		}
+	}
+}

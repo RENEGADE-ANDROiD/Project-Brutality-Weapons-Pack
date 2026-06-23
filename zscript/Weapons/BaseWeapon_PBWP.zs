@@ -316,5 +316,6 @@ extend class PB_WeaponBase
 				fg.detonateNow = true;
 		}
 	}
-
 }
+
+#include "zscript/PBWP_Misc/PBWP_GenericOffsetReload.zs"

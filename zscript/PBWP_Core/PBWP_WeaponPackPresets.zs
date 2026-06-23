@@ -207,6 +207,9 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 		SetSpawn("PBSpawnPBWP_Deracinator", on);
 		SetSpawn("PBSpawnPBWP_Dismantler", on);
 		SetSpawn("PBSpawnPBWP_CinerealOrdnance", on);
+		SetSpawn("PBSpawnPBWP_Dispatcher", on);
+		SetSpawn("PBSpawnPBWP_Legionnaire", on);
+		SetSpawn("PBSpawnPBWP_SiriusCrisis", on);
 		SetPackToggle("PBWP_Pack_Cyberaugumented", on);
 	}
 

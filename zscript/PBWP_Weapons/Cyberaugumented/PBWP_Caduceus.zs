@@ -11,12 +11,13 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 		Weapon.AmmoType1 "PB_Cell";
 		Weapon.AmmoType2 "PBWP_CaduceusMag";
 		Weapon.AmmoGive1 0;
-		Weapon.AmmoGive2 40;
+		Weapon.AmmoGive2 60;
 		+WEAPON.EXPLOSIVE;
 		Tag "Caduceus";
 		Inventory.PickupMessage "You hold the Caduceus. Not your average plasma rifle.";
 		Inventory.PickupSound "dcy/plasmariflepickup";
 		Inventory.Icon "NNW3Z0";
+		Inventory.AltHudIcon "NNW3Z0";
 		Obituary "%o couldn't surpass %k's Caduceus azure power.";
 	}
 
@@ -27,13 +28,13 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 		{
 			A_StartSound("NeonicBall/Fire", CHAN_WEAPON);
 			A_FireCustomMissile("PBWP_CA_NeonicBall", 0, 0);
-			A_TakeInventory("PBWP_CaduceusMag", 4);
+			PB_TakeAmmo("PBWP_CaduceusMag", 4, 0, 0);
 		}
 		else
 		{
 			A_StartSound("Lazer/Fire", CHAN_WEAPON);
 			PBWP_CA_FireNeonicRail(75, 30);
-			A_TakeInventory("PBWP_CaduceusMag", 1);
+			PB_TakeAmmo("PBWP_CaduceusMag", 1, 0, 0);
 		}
 		A_AlertMonsters();
 	}
@@ -63,7 +64,7 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 		TNT1 A 0 PBWP_CA_SelectPose();
 		Goto Ready3;
 	SelectAnimation:
-		C_AD XYZ 1 Bright A_DoPBWeaponAction(WRF_NOFIRE);
+		C_AD XYZ 1 A_DoPBWeaponAction(WRF_NOFIRE);
 		Goto Ready3;
 
 	Deselect:
@@ -74,15 +75,37 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 	Ready3:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
 		TNT1 A 0 { PBWP_CA_ReadyPose(); }
-		C_AD A 1 Bright A_DoPBWeaponAction(WRF_ALLOWRELOAD);
+		C_AD A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD);
 		Loop;
 
 		Reload:
+		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
 		TNT1 A 0 A_TakeInventory("Unloading", 1);
-		TNT1 A 0 PB_CheckReload(null, "DoReload", null, "Ready3", "Ready3", 60, 1);
+		TNT1 A 0 PBWP_CA_ReloadPreamble();
+		TNT1 A 0 A_JumpIfInventory("PBWP_CaduceusMag", 60, "Ready3");
+		TNT1 A 0 A_JumpIfInventory("PB_Cell", 1, "DoReload");
 		Goto Ready3;
 	DoReload:
-		TNT1 A 10 { PB_AmmoIntoMag("PBWP_CaduceusMag", "PB_Cell", 60, 1, 1); }
+		C_AD G 2 A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 A_PlaySound("CELLOUT2", CHAN_AUTO);
+		C_AD H 2 A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 { return PB_JumpIfMagUnloaded("CaduceusMagIn"); }
+		TNT1 A 0 A_FireCustomMissile("PlasmaCaseSpawn", -5, 0, 8, -4);
+		C_AD IJ 2 A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 A_PlaySound("CELLIN2", CHAN_AUTO);
+		C_AD KLM 2 A_DoPBWeaponAction(WRF_NOFIRE);
+		CaduceusMagIn:
+		TNT1 A 0
+		{
+			PB_AmmoIntoMag("PBWP_CaduceusMag", "PB_Cell", 60, 1, 1);
+			PB_SetChamberEmpty(false);
+			PB_SetMagEmpty(false);
+			PB_SetMagUnloaded(false);
+		}
+		C_AD A 2 A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 A_TakeInventory("Reloading", 1);
 		Goto Ready3;
 
 		Unload:
@@ -103,10 +126,23 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 				return ResolveState(null);
 			return ResolveState("Reload");
 		}
-		C_AD B 1 Bright;
-		C_AD C 1 Bright { PBWP_CaduceusFire(); }
-		C_AD D 1 Bright;
-		C_AD E 1 Bright A_Refire("Fire");
+		C_AD BCD 1 A_DoPBWeaponAction(WRF_NOPRIMARY | WRF_NOSECONDARY | WRF_NOSWITCH | WRF_NOBOB);
+		Goto FireHold;
+
+	FireHold:
+		C_AD E 1 Bright
+		{
+			PBWP_CaduceusFire();
+			A_DoPBWeaponAction(WRF_NOPRIMARY | WRF_NOSECONDARY | WRF_NOSWITCH | WRF_NOBOB);
+		}
+		C_AD FGHI 1 Bright A_DoPBWeaponAction(WRF_NOPRIMARY | WRF_NOSECONDARY | WRF_NOSWITCH | WRF_NOBOB);
+		C_AD I 0 Bright
+		{
+			if (!invoker.weaponmode)
+				return A_Refire("FireHold");
+		}
+		C_AD I 0 Bright A_DoPBWeaponAction(WRF_NOFIRE | WRF_NOBOB);
+		C_AD JKLAA 2 A_DoPBWeaponAction(WRF_NOFIRE | WRF_NOBOB);
 		Goto Ready3;
 
 		Weaponspecial:
@@ -116,7 +152,7 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 			A_StartSound("NeonicWand/Switch", CHAN_WEAPON);
 			invoker.weaponmode = !invoker.weaponmode;
 		}
-		C_AD BCD 2 Bright;
+		C_AD BCD 2;
 		Goto Ready3;
 
 		FlashPunching:

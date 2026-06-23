@@ -19,6 +19,7 @@ class PBWP_Dismantler : PBWP_CA_WeaponBase
 		Inventory.PickupSound "VeneratedTruncheon/Pickup";
 		Weapon.UpSound "VeneratedTruncheon/Up";
 		Inventory.Icon "LTBRA0";
+		Inventory.AltHudIcon "LTBRA0";
 		Obituary "%o was incinerated by %k's Dismantler.";
 	}
 
@@ -26,7 +27,7 @@ class PBWP_Dismantler : PBWP_CA_WeaponBase
 	{
 		A_FireCustomMissile("PBWP_CA_VeneratedBeam", frandom(-10, 10), 0);
 		A_QuakeEx(3, 3, 3, 15, 0, 1000, "", QF_SCALEDOWN, falloff: 1600);
-		if ((level.time % 2) == 1) A_TakeInventory("PBWP_DismantlerMag", 1);
+		if ((level.time % 2) == 1) PB_TakeAmmo("PBWP_DismantlerMag", 1, 0, 0);
 		if ((level.time % 3) == 1) A_StartSound("VeneratedTruncheon/LaserShoot", 9, CHANF_OVERLAP);
 	}
 
@@ -75,8 +76,7 @@ class PBWP_Dismantler : PBWP_CA_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
 		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
 		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
-		TNT1 A 0 A_JumpIfInventory("PBWP_DismantlerMag", 1, 2);
-		Goto ReloadMag;
+		TNT1 A 0 { return PB_jumpIfNoAmmo("Reload", 1); }
 		TNT1 A 0 PBWP_CA_LockTilt();
 		LTBR F 4 A_StartSound("VeneratedTruncheon/LaserCharge", CHAN_WEAPON, CHANF_DEFAULT, 1.0, 0.85);
 		LTBR GH 4;
@@ -94,12 +94,34 @@ class PBWP_Dismantler : PBWP_CA_WeaponBase
 		TNT1 A 0 PBWP_CA_UnlockTilt();
 		Goto Ready3;
 
-	ReloadMag:
+		Reload:
+		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
 		TNT1 A 0 A_TakeInventory("Unloading", 1);
-		TNT1 A 0 PB_CheckReload(null, "DoReload", null, "Ready3", "Ready3", 100, 1);
+		TNT1 A 0 PBWP_CA_ReloadPreamble();
+		TNT1 A 0 A_JumpIfInventory("PBWP_DismantlerMag", 100, "Ready3");
+		TNT1 A 0 A_JumpIfInventory("PB_DTech", 1, "DoReload");
 		Goto Ready3;
 	DoReload:
-		TNT1 A 10 { PB_AmmoIntoMag("PBWP_DismantlerMag", "PB_DTech", 100, 1, 1); }
+		LTBR M 3 Bright A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 A_PlaySound("TechBlaster/Unload", CHAN_AUTO);
+		LTBR N 3 Bright A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 { return PB_JumpIfMagUnloaded("DismantlerMagIn"); }
+		LTBR O 2 Bright A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 A_PlaySound("TechBlaster/LoadIn", CHAN_AUTO);
+		LTBR R 4 Bright A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 A_PlaySound("TechBlaster/Online", CHAN_AUTO);
+		DismantlerMagIn:
+		TNT1 A 0
+		{
+			PB_AmmoIntoMag("PBWP_DismantlerMag", "PB_DTech", 100, 1, 1);
+			PB_SetChamberEmpty(false);
+			PB_SetMagEmpty(false);
+			PB_SetMagUnloaded(false);
+		}
+		LTBR BCDE 2 A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 A_TakeInventory("Reloading", 1);
 		Goto Ready3;
 
 		Unload:

@@ -1408,25 +1408,25 @@ Graphic RMKSHELLE, 100, 20
 
 Sprite RAINB0, 338, 200
 {
-	Patch HNDDA0, 150, 120
+	Patch HANDA0, 150, 120
 	Patch RAINN0, 135, 35
 }
 
 Sprite RAINC0, 338, 200
 {
-	Patch HNDDA0, 150, 130
+	Patch HANDA0, 150, 130
 	Patch RAINN0, 135, 35
 }
 
 Sprite RAIND0, 338, 200
 {
-	Patch HNDDA0, 150, 145
+	Patch HANDA0, 150, 145
 	Patch RAINN0, 135, 35
 }
 
 Sprite RAINE0, 338, 200
 {
-	Patch HNDDA0, 150, 155
+	Patch HANDA0, 150, 155
 	Patch RAINN0, 135, 35
 }
 
@@ -2115,401 +2115,52 @@ Sprite "LTBSC0", 320, 168
 	}
 }
 
-Sprite "S0HTW0", 320, 168
-{
-	XScale 0.850
-	YScale 0.850
-	Offset 24, -43
-	Patch "ASG_A0", 98, 72
-	{
-		Style Overlay
-	}
-}
 
-Sprite "S0HTX0", 320, 168
-{
-	XScale 0.950
-	YScale 0.950
-	Offset 8, -35
-	Patch "ASG_A0", 98, 72
-	{
-		Style Overlay
-	}
-}
 
-Sprite "S0HTY0", 320, 168
-{
-	Offset 0, -28
-	Patch "ASG_A0", 98, 72
-	{
-		Style Overlay
-	}
-}
 
-Sprite "S0HTA0", 320, 168
-{
-	Offset 0, -17
-	Patch "ASG_A0", 98, 72
-	{
-		Style Overlay
-	}
-}
 
-Sprite "S0HTB0", 320, 168
-{
-	XScale 0.950
-	YScale 0.950
-	Offset 8, -16
-	Patch "ASG_F0", 98, 51
-}
 
-Sprite "S0HTC0", 320, 168
-{
-	XScale 0.900
-	YScale 0.900
-	Offset 16, -16
-	Patch "ASG_G0", 98, 51
-}
 
-Sprite "S0HTD0", 320, 168
-{
-	XScale 0.850
-	YScale 0.850
-	Offset 24, -11
-	Patch "ASG_G0", 98, 51
-}
 
-Sprite "S0HTE0", 320, 168
-{
-	XScale 0.825
-	YScale 0.825
-	Offset 28, -8
-	Patch "ASG_A0", 98, 72
-	{
-		Style Overlay
-	}
-}
 
-Sprite "S0HTF0", 320, 168
-{
-	XScale 0.875
-	YScale 0.875
-	Offset 20, -9
-	Patch "ASG_A0", 98, 72
-	{
-		Style Overlay
-	}
-}
 
-Sprite "S0HTG0", 320, 168
-{
-	XScale 0.950
-	YScale 0.950
-	Offset 8, -13
-	Patch "ASG_A0", 98, 72
-	{
-		Style Overlay
-	}
-}
 
-Sprite "S0HTH0", 320, 168
-{
-	XScale 0.975
-	YScale 0.975
-	Offset 4, -15
-	Patch "ASG_A0", 98, 72
-	{
-		Style Overlay
-	}
-}
 
-Sprite "PIS_A0", 320, 168
-{
-	Offset 0, -8
-	Patch "PII_A0", 104, 84
-}
 
-Sprite "PIS_B0", 320, 168
-{
-	XScale 0.975
-	YScale 0.975
-	Offset 4, -6
-	Patch "PII_A0", 104, 84
-}
 
-Sprite "PIS_C0", 320, 168
-{
-	XScale 0.950
-	YScale 0.950
-	Offset 8, -6
-	Patch "P_ZXB0", 113, 45
-	{
-		Style Add
-	}
-	Patch "PII_A0", 104, 84
-}
 
-Sprite "PIS_D0", 320, 168
-{
-	XScale 0.900
-	YScale 0.900
-	Offset 16, 0
-	Patch "P_ZXC0", 112, 39
-	{
-		Style Add
-	}
-	Patch "PII_B0", 118, 78
-}
 
-Sprite "PIS_E0", 320, 168
-{
-	XScale 0.900
-	YScale 0.900
-	Offset 16, -4
-	Patch "PII_C0", 121, 74
-}
 
-Sprite "PIS_F0", 320, 168
-{
-	XScale 0.850
-	YScale 0.850
-	Offset 24, -3
-	Patch "PII_B0", 118, 78
-}
 
-Sprite "PIS_G0", 320, 168
-{
-	XScale 0.900
-	YScale 0.900
-	Offset 16, -9
-	Patch "PII_B0", 118, 78
-}
 
-Sprite "PIS_H0", 320, 168
-{
-	XScale 0.950
-	YScale 0.950
-	Offset 8, -9
-	Patch "PII_A0", 104, 83
-}
 
-Sprite "PIS_I0", 320, 168
-{
-	XScale 0.975
-	YScale 0.975
-	Offset 4, -9
-	Patch "PII_A0", 104, 83
-}
 
-Sprite "SHG_A0", 320, 168
-{
-	Offset 0, -7
-	Patch "SHT_A0", 102, 86
-}
 
-Sprite "PES_A0", 320, 168
-{
-	XScale 0.900
-	YScale 0.900
-	Offset 33, -33
-	Patch "PII_C0", 121, 74
-}
 
-Sprite "PES_B0", 320, 168
-{
-	XScale 0.950
-	YScale 0.950
-	Offset 17, -24
-	Patch "PII_B0", 118, 78
-}
 
-Sprite "PES_C0", 320, 168
-{
-	XScale 0.975
-	YScale 0.975
-	Offset 9, -13
-	Patch "PII_A0", 104, 83
-}
 
-Sprite "SHG_W0", 320, 168
-{
-	Offset -65, -97
-	Patch "SHT_G0", 32, 19
-	{
-		Style Overlay
-	}
-}
 
-Sprite "SHG_X0", 320, 168
-{
-	Offset -23, -53
-	Patch "SHT_E0", 81, 42
-}
 
-Sprite "SHG_Y0", 320, 168
-{
-	XScale 0.950
-	YScale 0.950
-	Offset 12, -14
-	Patch "SHT_D0", 98, 68
-}
 
-Sprite "SHG_B0", 320, 168
-{
-	XScale 0.975
-	YScale 0.975
-	Offset 4, -5
-	Patch "SHT_B0", 0, 0
-	{
-		Style Add
-	}
-}
 
-Sprite "SHG_C0", 320, 168
-{
-	XScale 0.950
-	YScale 0.950
-	Offset 8, -5
-	Patch "SHT_C0", 0, 0
-	{
-		Style Add
-	}
-}
 
-Sprite "SHG_D0", 320, 168
-{
-	XScale 0.975
-	YScale 0.975
-	Offset 4, -7
-	Patch "SHT_H0", 0, 0
-}
 
-Sprite "SHG_E0", 320, 168
-{
-	XScale 0.975
-	YScale 0.975
-	Offset 4, -7
-	Patch "SHT_I0", 0, 0
-}
 
-Sprite "SHG_F0", 320, 168
-{
-	Offset -1, -8
-	Patch "SHT_A0", 101, 86
-}
 
-Sprite "SHG_G0", 320, 168
-{
-	XScale 0.975
-	YScale 0.975
-	Offset 4, -8
-	Patch "SHT_A0", 103, 86
-}
 
-Sprite "SHG_H0", 320, 168
-{
-	XScale 0.950
-	YScale 0.950
-	Offset 8, -9
-	Patch "SHT_D0", 98, 68
-}
 
-Sprite "SHG_I0", 320, 168
-{
-	XScale 0.975
-	YScale 0.975
-	Offset 11, -7
-	Patch "SHT_D0", 98, 68
-}
 
-Sprite "SHG_J0", 320, 168
-{
-	Offset 0, -11
-	Patch "SHT_E0", 81, 42
-}
 
-Sprite "SHG_K0", 320, 168
-{
-	Offset 6, -13
-	Patch "SHT_F0", 44, 5
-	{
-		Style Overlay
-	}
-}
 
-Sprite "SHG_L0", 320, 168
-{
-	Offset 12, -18
-	Patch "SHT_F0", 44, 5
-	{
-		Style Overlay
-	}
-}
 
-Sprite "SHG_M0", 320, 168
-{
-	Offset 12, -18
-	Patch "SHT_F0", 32, 19
-	{
-		Style Overlay
-	}
-}
 
-Sprite "SHG_N0", 320, 168
-{
-	Offset 19, -22
-	Patch "SHT_G0", 32, 19
-	{
-		Style Overlay
-	}
-}
 
-Sprite "SHG_O0", 320, 168
-{
-	Offset 23, -25
-	Patch "SHT_G0", 32, 19
-	{
-		Style Overlay
-	}
-}
 
-Sprite "SHG_P0", 320, 168
-{
-	Offset 11, -22
-	Patch "SHT_G0", 23, 19
-}
 
-Sprite "SHG_Q0", 320, 168
-{
-	Offset 13, -16
-	Patch "SHT_G0", 38, 19
-}
 
-Sprite "SHG_R0", 320, 168
-{
-	Offset -3, -11
-	Patch "SHT_F0", 35, 5
-}
 
-Sprite "SHG_S0", 320, 168
-{
-	Offset -1, -8
-	Patch "SHT_F0", 70, 5
-}
 
-Sprite "SHG_T0", 320, 168
-{
-	XScale 0.975
-	YScale 0.975
-	Offset 3, -7
-	Patch "SHT_D0", 94, 67
-}
 
-Sprite "SHG_U0", 320, 168
-{
-	Offset -9, -12
-	Patch "SHT_D0", 100, 68
-}
 
 Sprite "RCC_W0", 320, 168
 {
@@ -2648,189 +2299,34 @@ Sprite "RCC_N0", 320, 168
 	Patch "RCK_A0", 111, 93
 }
 
-Sprite "_SSGA0", 320, 168
-{
-	Offset 0, -6
-	Patch "SSG_A0", 90, 92
-}
 
-Sprite "_SSGB0", 320, 168
-{
-	Offset 0, -7
-	Patch "SSG_B0", 90, 69
-}
 
-Sprite "_SSGC0", 320, 168
-{
-	XScale 0.900
-	YScale 0.900
-	Offset 16, 7
-	Patch "SSG_B0", 90, 69
-}
 
-Sprite "_SSGD0", 320, 168
-{
-	XScale 0.885
-	YScale 0.885
-	Offset 18, 3
-	Patch "SSG_C0", 90, 54
-}
 
-Sprite "_SSGE0", 320, 168
-{
-	XScale 0.925
-	YScale 0.925
-	Offset 13, -7
-	Patch "SSG_B0", 91, 69
-}
 
-Sprite "_SSGF0", 320, 168
-{
-	XScale 0.965
-	YScale 0.965
-	Offset 6, -14
-	Patch "SSG_A0", 90, 92
-}
 
-Sprite "_SSGG0", 320, 168
-{
-	XScale 0.995
-	YScale 0.995
-	Offset 1, -14
-	Patch "SSG_A0", 90, 92
-}
 
-Sprite "_SSGH0", 320, 168
-{
-	Offset 0, -10
-	Patch "SSG_A0", 90, 92
-}
 
-Sprite "_SSGI0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_E0", 115, 87
-}
 
-Sprite "_SSGJ0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_D0", 66, 54
-}
 
-Sprite "_SSGK0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_D0", 40, 45
-}
 
-Sprite "_SSGL0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_D0", 38, 55
-}
 
-Sprite "_SSGM0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_D0", 54, 61
-}
 
-Sprite "_SSGN0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_D0", 78, 66
-}
 
-Sprite "_SSGO0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_E0", 117, 82
-}
 
-Sprite "_SSGP0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_F0", 107, 93
-}
 
-Sprite "_SSGQ0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_G0", 107, 118
-}
 
-Sprite "_SSGR0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_H0", 119, 145
-}
 
-Sprite "_SSGS0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_I0", 8, 111
-}
 
-Sprite "_SSGT0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_J0", 24, 125
-}
 
-Sprite "_SSGU0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_K0", 20, 105
-}
 
-Sprite "_SSGV0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_L0", 31, 79
-}
 
-Sprite "_SSGW0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_M0", 83, 110
-}
 
-Sprite "_SSGX0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_N0", 92, 119
-}
 
-Sprite "_SSGY0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_O0", 108, 109
-}
 
-Sprite "_SSGZ0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_P0", 101, 130
-}
 
-Sprite "_S2GA0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_G0", 119, 113
-}
 
-Sprite "_S2GB0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_F0", 113, 86
-}
 
-Sprite "_S2GC0", 320, 168
-{
-	Offset 0, -8
-	Patch "SSG_A0", 90, 92
-}
 
 Sprite "PLG_W0", 320, 168
 {
@@ -3170,93 +2666,18 @@ Sprite "CHG_L0", 320, 168
 	}
 }
 
-Sprite "SAW_A0", 320, 168
-{
-	Offset 0, -8
-	Patch "CHAINS3", 77, 90
-}
 
-Sprite "SAW_B0", 320, 168
-{
-	Offset 0, -8
-	Patch "CHAINS4", 77, 90
-}
 
-Sprite "SAW_C0", 320, 168
-{
-	XScale 0.900
-	YScale 0.900
-	Offset -13, 0
-	Patch "CHAINS4", 77, 90
-}
 
-Sprite "SAW_D0", 320, 168
-{
-	XScale 0.800
-	YScale 0.800
-	Offset -26, 0
-	Patch "CHAINS4", 77, 90
-}
 
-Sprite "SAW_E0", 320, 168
-{
-	XScale 0.950
-	YScale 0.950
-	Offset -10, -14
-	Patch "CHAINS5", 59, 61
-}
 
-Sprite "SAW_F0", 320, 168
-{
-	Offset -14, -11
-	Patch "CHAINS5", 59, 61
-}
 
-Sprite "SAW_G0", 320, 168
-{
-	Offset -14, -11
-	Patch "CHAINS6", 59, 61
-}
 
-Sprite "SAW_H0", 320, 168
-{
-	Offset -11, -14
-	Patch "CHAINS6", 59, 61
-}
 
-Sprite "SAW_I0", 320, 168
-{
-	Offset -9, -17
-	Patch "CHAINS6", 59, 61
-}
 
-Sprite "SAW_J0", 320, 168
-{
-	Offset 0, -8
-	Patch "CHAINS3", 78, 90
-}
 
-Sprite "SAW_K0", 320, 168
-{
-	XScale 0.800
-	YScale 0.800
-	Offset 70, -17
-	Patch "CHAINS4", 77, 90
-}
 
-Sprite "SAW_L0", 320, 168
-{
-	XScale 0.900
-	YScale 0.900
-	Offset 28, -20
-	Patch "CHAINS4", 77, 90
-}
 
-Sprite "SAW_M0", 320, 168
-{
-	Offset 7, -15
-	Patch "CHAINS3", 77, 90
-}
 
 Sprite "REE_A0", 320, 168
 {
@@ -3476,153 +2897,22 @@ Sprite "BIG_Z0", 320, 168
 	Patch "BFF_U0", 0, 0
 }
 
-Sprite "PW3XA0", 320, 168
-{
-	XScale 0.975
-	YScale 0.975
-	Offset 4, -14
-	Patch "PWBXE0", 2, 19
-	{
-		Style Add
-	}
-}
 
-Sprite "PW3XB0", 320, 168
-{
-	XScale 0.900
-	YScale 0.900
-	Offset 16, -13
-	Patch "PWBXF0", 2, 18
-	{
-		Style Add
-	}
-}
 
-Sprite "PW3XC0", 320, 168
-{
-	XScale 0.850
-	YScale 0.850
-	Offset 24, -14
-	Patch "PWBXF0", 2, 18
-	{
-		Style Add
-	}
-}
 
-Sprite "PW3XD0", 320, 168
-{
-	XScale 0.825
-	YScale 0.825
-	Offset 28, -16
-	Patch "PWBXG0", 2, 18
-	{
-		Style Add
-	}
-}
 
-Sprite "PW3XE0", 320, 168
-{
-	XScale 0.825
-	YScale 0.825
-	Offset 28, -20
-	Patch "PWBXG0", 2, 18
-}
 
-Sprite "PW3XF0", 320, 168
-{
-	XScale 0.825
-	YScale 0.825
-	Offset 28, -23
-	Patch "PWBXH0", 2, 18
-}
 
-Sprite "PW3XG0", 320, 168
-{
-	XScale 0.825
-	YScale 0.825
-	Offset 28, -25
-	Patch "PWBXH0", 2, 18
-}
 
-Sprite "PW3XH0", 320, 168
-{
-	XScale 0.825
-	YScale 0.825
-	Offset 28, -27
-	Patch "PWBXI0", 2, 68
-}
 
-Sprite "PW3XI0", 320, 168
-{
-	XScale 0.825
-	YScale 0.825
-	Offset 28, -26
-	Patch "PWBXI0", 2, 68
-}
 
-Sprite "PW3XJ0", 320, 168
-{
-	XScale 0.825
-	YScale 0.825
-	Offset 28, -24
-	Patch "PWBXI0", 2, 68
-}
 
-Sprite "PW3XK0", 320, 168
-{
-	XScale 0.825
-	YScale 0.825
-	Offset 28, -20
-	Patch "PWBXI0", 2, 68
-}
 
-Sprite "PW3XL0", 320, 168
-{
-	XScale 0.850
-	YScale 0.850
-	Offset 24, -20
-	Patch "PWBXA0", 2, 68
-}
 
-Sprite "PW3XM0", 320, 168
-{
-	XScale 0.875
-	YScale 0.875
-	Offset 20, -18
-	Patch "PWBXB0", 2, 68
-}
 
-Sprite "PW3XN0", 320, 168
-{
-	XScale 0.900
-	YScale 0.900
-	Offset 16, -16
-	Patch "PWBXC0", 2, 68
-}
 
-Sprite "PW3XO0", 320, 168
-{
-	XScale 0.925
-	YScale 0.925
-	Offset 12, -13
-	Patch "PWBXD0", 2, 68
-}
 
-Sprite "PW3XP0", 320, 168
-{
-	XScale 0.950
-	YScale 0.950
-	Offset 8, -14
-	Patch "PWBXC0", 2, 68
-}
 
-Sprite "PW3XQ0", 320, 168
-{
-	XScale 0.975
-	YScale 0.975
-	Offset 4, -16
-	Patch "PWBXB0", 2, 68
-}
 
 Sprite "GNN_W0", 320, 168
 {
