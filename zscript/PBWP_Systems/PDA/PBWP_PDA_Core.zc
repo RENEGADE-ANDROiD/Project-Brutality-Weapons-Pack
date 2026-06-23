@@ -979,6 +979,17 @@ class PBWP_PDAHandler : StaticEventHandler
 		}
 	}
 
+	ui void DrawPDACursor(double alpha = 1.0)
+	{
+		Color col = color(120, 220, 255);
+		int a = int(220 * alpha);
+		int s = max(6, int(GetPDAScale() * 3));
+		Screen.DrawLine(MouseX - s, MouseY, MouseX + s, MouseY, col, a);
+		Screen.DrawLine(MouseX, MouseY - s, MouseX, MouseY + s, col, a);
+		Screen.DrawLine(MouseX - s, MouseY - s, MouseX - 1, MouseY - 1, col, int(160 * alpha));
+		Screen.DrawLine(MouseX + s, MouseY - s, MouseX + 1, MouseY - 1, col, int(160 * alpha));
+	}
+
 	override void RenderOverlay(RenderEvent e)
 	{
 		if (!PBWP_PDAPlayHandler.IsPDAModeActive() || !playeringame[consoleplayer] || !players[consoleplayer].mo)
@@ -1018,6 +1029,8 @@ class PBWP_PDAHandler : StaticEventHandler
 				"Use page arrows or BACK / PDA key to scroll", scale);
 			DrawPDAAchievementBrowse(1.0);
 		}
+
+		DrawPDACursor(1.0);
 	}
 
 	ui void DrawCodexLabel(Font fnt, string txt, int x, int y, int w, int h, bool hovered, double scale)

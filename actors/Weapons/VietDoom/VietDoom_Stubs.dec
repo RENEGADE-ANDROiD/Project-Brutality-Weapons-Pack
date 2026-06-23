@@ -53,8 +53,9 @@ ACTOR UsedStamina : Inventory { Inventory.MaxAmount 100 }
 
 ACTOR WeakPuff : Actor { +NOBLOCKMAP }
 ACTOR ShotgunPuff2 : Actor { +NOBLOCKMAP }
-ACTOR DistantFireSoundShotgun : Actor { +NOBLOCKMAP }
-ACTOR DistantFireSoundSSG : Actor { +NOBLOCKMAP }
+ACTOR DistantFireSoundRifle : DistantRifleFireSound {}
+ACTOR DistantFireSoundShotgun : DistantShotgunFireSound {}
+ACTOR DistantFireSoundSSG : DistantSSGFireSound {}
 ACTOR EmptyPistolClipSpawn : Actor { +NOBLOCKMAP }
 ACTOR PistolCasingSpawner : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
 ACTOR EmptyASGAmmoSpawn : Actor { +NOBLOCKMAP }

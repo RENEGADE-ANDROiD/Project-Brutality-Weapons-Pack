@@ -146,7 +146,6 @@ ACTOR GoldAmmoShellBox : Actor { +NOBLOCKMAP }
 ACTOR IceArmorPickup : Actor { +NOBLOCKMAP }
 ACTOR FrostSerumVial : Actor { +NOBLOCKMAP }
 ACTOR SnowCasterDevice : Actor { +NOBLOCKMAP }
-ACTOR DistantFireSoundRifle : Actor { +NOBLOCKMAP }
 
 ACTOR BlueShellCasing : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
 ACTOR LegendaryEmptyDrumSpawner : Actor { +NOBLOCKMAP }
