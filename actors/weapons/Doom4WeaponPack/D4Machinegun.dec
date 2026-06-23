@@ -482,6 +482,9 @@ Actor D4Machinegun : PB_WeaponBase
 		Loop
 
 	Reload:
+	    TNT1 A 0 { PB_CheckBarrelIdle1(); }
+	    TNT1 A 0 { PBWP_OffsetReloadSetReturn("Ready3"); }
+	    TNT1 A 0 { return ResolveState("PBWP_OffsetReloadAnim"); }
 	WeaponSpecial:
 	    TNT1 A 0 { PB_CheckBarrelIdle1(); }
 	    TNT1 A 0 {

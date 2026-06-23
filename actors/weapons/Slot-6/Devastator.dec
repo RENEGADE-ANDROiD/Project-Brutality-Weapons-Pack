@@ -178,9 +178,8 @@ Actor Devastator : PB_WeaponBase
 	    TNT1 A 0 {
 		     A_Takeinventory("PB_LockScreenTilt",1);
 		     }
-		TNT1 A 0
-        Goto DevastatorReadyToFire
-
+		TNT1 A 0 { PBWP_OffsetReloadSetReturn("DevastatorReadyToFire"); }
+        TNT1 A 0 { return ResolveState("PBWP_OffsetReloadAnim"); }
 	Spawn:
         DEVA R 1
         Loop

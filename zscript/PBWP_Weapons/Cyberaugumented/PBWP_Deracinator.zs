@@ -16,6 +16,7 @@ class PBWP_Deracinator : PBWP_CA_WeaponBase
 		Inventory.PickupSound "ObliterationBFG/Raise";
 		Weapon.UpSound "ObliterationBFG/Raise";
 		Inventory.Icon "BFG8A0";
+		Inventory.AltHudIcon "BFG8A0";
 		Obituary "%o was deracinated by %k's Deracinator.";
 	}
 
@@ -91,6 +92,11 @@ class PBWP_Deracinator : PBWP_CA_WeaponBase
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
 		Goto Ready3;
 
+		Reload:
+		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
+		TNT1 A 0 { return ResolveState("PBWP_OffsetReloadAnim"); }
 		FlashPunching:
 		TNT1 AAAAAAAAAAAAAA 1 A_DoPBWeaponAction();
 		Stop;

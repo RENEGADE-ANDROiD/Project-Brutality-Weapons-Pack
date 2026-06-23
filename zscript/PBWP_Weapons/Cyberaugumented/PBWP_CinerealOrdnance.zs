@@ -18,6 +18,7 @@ class PBWP_CinerealOrdnance : PBWP_CA_WeaponBase
 		Inventory.PickupSound "CinerealOrdnance/Up";
 		Weapon.UpSound "CinerealOrdnance/Up";
 		Inventory.Icon "CINRZ0";
+		Inventory.AltHudIcon "CINRZ0";
 		Obituary "%o got removed by %k's Cinereal Ordnance.";
 	}
 
@@ -26,7 +27,7 @@ class PBWP_CinerealOrdnance : PBWP_CA_WeaponBase
 		A_GunFlash();
 		A_QuakeEx(3, 3, 3, 25, 0, 1000, "", QF_RELATIVE | QF_SCALEDOWN);
 		A_FireProjectile("PBWP_CA_CinerealLaser", 0, altOffset ? 1 : 0);
-		A_TakeInventory("PBWP_CinerealMag", 3);
+		PB_TakeAmmo("PBWP_CinerealMag", 3, 0, 0);
 	}
 
 	action void PBWP_CinerealIdleLoop()
@@ -90,8 +91,7 @@ class PBWP_CinerealOrdnance : PBWP_CA_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
 		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
 		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
-		TNT1 A 0 A_JumpIfInventory("PBWP_CinerealMag", 3, 2);
-		Goto ReloadMag;
+		TNT1 A 0 { return PB_jumpIfNoAmmo("Reload", 3); }
 		TNT1 A 0 PBWP_CA_LockTilt();
 		CINR H 0
 		{
@@ -116,12 +116,36 @@ class PBWP_CinerealOrdnance : PBWP_CA_WeaponBase
 		TNT1 A 0 PBWP_CA_UnlockTilt();
 		Goto Ready3;
 
-	ReloadMag:
+		Reload:
+		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
+		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
+		TNT1 A 0 A_StopSound(CHAN_6);
 		TNT1 A 0 A_TakeInventory("Unloading", 1);
-		TNT1 A 0 PB_CheckReload(null, "DoReload", null, "Ready3", "Ready3", 100, 1);
+		TNT1 A 0 PBWP_CA_ReloadPreamble();
+		TNT1 A 0 A_JumpIfInventory("PBWP_CinerealMag", 100, "Ready3");
+		TNT1 A 0 A_JumpIfInventory("PB_DTech", 1, "DoReload");
 		Goto Ready3;
 	DoReload:
-		TNT1 A 10 { PB_AmmoIntoMag("PBWP_CinerealMag", "PB_DTech", 100, 1, 1); }
+		CINR W 1 Bright A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 A_PlaySound("TechBlaster/Unload", CHAN_AUTO);
+		CINR X 2 Bright A_DoPBWeaponAction(WRF_NOFIRE);
+		CINR Y 2 Bright A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 { return PB_JumpIfMagUnloaded("CinerealMagIn"); }
+		CINR U 2 Bright A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 A_PlaySound("TechBlaster/LoadIn", CHAN_AUTO);
+		CINR V 3 Bright A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 A_PlaySound("TechBlaster/Online", CHAN_AUTO);
+		CinerealMagIn:
+		TNT1 A 0
+		{
+			PB_AmmoIntoMag("PBWP_CinerealMag", "PB_DTech", 100, 1, 1);
+			PB_SetChamberEmpty(false);
+			PB_SetMagEmpty(false);
+			PB_SetMagUnloaded(false);
+		}
+		CINR A 2 Bright A_DoPBWeaponAction(WRF_NOFIRE);
+		TNT1 A 0 A_TakeInventory("Reloading", 1);
 		Goto Ready3;
 
 		Unload:
