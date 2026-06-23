@@ -1439,28 +1439,27 @@ RUNEIDLE RUNEIDLE
 //Distant gun sounds
 
 //Assault Rifle
-FARRIF FARRIF
+FARRIF M16FIRE
 $limit FARRIF 80
 $rolloff  FARRIF 3000 9000
 
-
 //Heavy Machinegun
-FARHMG FARHMG
+FARHMG M60FIRE
 $limit FARHMG 80
 $rolloff  FARHMG 3000 9000
 
 //Pistol or SMG
-FARSMG FARSMG
+FARSMG sounds/combat/Weapons/MP12/SMGFIRE1
 $limit FARSMG 80
-$rolloff  FARHMG 3000 9000
+$rolloff  FARSMG 3000 9000
 
 //Shotgun
-FARSHT FARSHT
+FARSHT sounds/combat/Weapons/Karnage/SHOTFIR
 $limit FARSHT 80
 $rolloff  FARSHT 3000 9000
 
 //Light Machinegun
-FARMGN FARMGN
+FARMGN M60FIRE
 $limit FARMGN 20
 $rolloff  FARMGN 3000 9000
 
@@ -1469,7 +1468,7 @@ FARCAN1 FARCAN1
 $rolloff  FARCAN1 6000 9000
 
 //SuperShotgun or Sniper Rifle
-FARSSG FARSSG
+FARSSG sounds/combat/Weapons/Karnage/SHOTFIR
 $limit FARSSG 80
 $rolloff  FARSSG 3000 9000
 //=============================================================================================
@@ -1962,7 +1961,7 @@ $random MP40/Fire	{ Mp40 }
 //Weapon reload
 SGCOUT SGCOUT
 SGCIN SGCIN
-Mp40 Mp40
+Mp40 sounds/combat/Weapons/Slot2/MP 40/MP40
 MP_BOLT MP_BOLT
 57CIN 57CIN
 SLAPBABY SLAPBABY
@@ -3928,7 +3927,7 @@ $alias Pistol/Reload1 MS_GRB
 $alias Pistol/Reload2 MS_IN
 $alias Pistol/slide MS_PHS
 $alias pistol/slide2 MS_PHS
-$alias Shotgun/Fire ASG/Fire
+$alias Shotgun/Fire SHOTGUNFIRE
 $alias Shotgun/Pump1 SHOTGUNPUMP
 $alias Shotgun/Pump2 SHOTGUNPUMP
 $alias Shotgun/Reload MS_IN
@@ -3972,6 +3971,8 @@ SISAK SISAK
 KULACS KULACS
 DRINK DRINK
 $alias Melee/Swing KNIFSWNG
+KNIFSWNG weapons/fistwhoosh
+DSBRK2 DryFire/Rifle
 $alias Kick/Swing KICK
 $alias Flamer/select MS_SLCT
 $alias Flamer/loop FLAMER_LOOP
