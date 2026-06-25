@@ -435,6 +435,8 @@ Actor MarauderSSG : PBWP_Weapon
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 		SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("SSGSelected"); }
 				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 				Goto Ready3
 
@@ -491,21 +493,22 @@ Actor MarauderSSG : PBWP_Weapon
 			A_SpawnItem("BlueFlareSpawn",0,0,-3,0);
 			A_SpawnItem("BlueFlareSpawn",0,0,3,0);
          A_FireProjectile("IceKeeperBlaster", 0, 0, -1, 0, 0, 0);
-         A_FireBullets (8, 6, 10, 18, "ShotKeeperPuff",FBF_NORANDOM,8192,"MaruderSSGFrozenTracer",-12);
-         A_FireBullets (8, 6, 10, 18, "IceKeeperPuff",FBF_NORANDOM,8192,"MaruderSSGFrozenTracer",-12);
+         PB_FireBullets("PB_12GAPellet", 10, 8, 0, 0, 6);
+         PB_FireBullets("PB_12GAPellet", 10, 8, 0, 0, 6);
+         PB_LowAmmoSoundWarning("Shotgun");
 				}
 			Else {
 			A_PlaySoundEx("MSSFR", CHAN_WEAPON);
 			A_SpawnItem("YellowFlareSpawn",0,0,-3,0);
 			A_SpawnItem("YellowFlareSpawn",0,0,3,0);
-         A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
          PB_FireBullets("PB_12GAPellet",20,12,0,0,6);
+         PB_LowAmmoSoundWarning("Shotgun");
          }
          A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
-			A_FireCustomMissile("GunFireSmoke", 0, 0, 2, 0, 0, 0);
-			A_FireCustomMissile("GunFireSmoke", 0, 0, 2, 0, 0, 0);
-			A_FireCustomMissile("GunFireSmoke", 0, 0, -2, 0, 0, 0);
-			A_FireCustomMissile("GunFireSmoke", 0, 0, -2, 0, 0, 0);
+			PB_GunSmoke(0, 2, 0);
+			PB_GunSmoke(0, 2, 0);
+			PB_GunSmoke(0, -2, 0);
+			PB_GunSmoke(0, -2, 0);
 			A_GiveInventory("MarauderShotgunBarrelHeat",120);
 			A_GunFlash;
 			if (CountInv("SSGDoubleTrouble") == 1) {
@@ -528,20 +531,22 @@ Actor MarauderSSG : PBWP_Weapon
 			A_SpawnItem("BlueFlareSpawn",0,0,-3,0);
 			A_SpawnItem("BlueFlareSpawn",0,0,3,0);
          A_FireProjectile("IceKeeperBlaster", 0, 0, -1, 0, 0, 0);
-         A_FireBullets (8, 6, 10, 18, "ShotKeeperPuff",FBF_NORANDOM,8192,"MaruderSSGFrozenTracer",-12);
-         A_FireBullets (8, 6, 10, 18, "IceKeeperPuff",FBF_NORANDOM,8192,"MaruderSSGFrozenTracer",-12);
+         PB_FireBullets("PB_12GAPellet", 10, 8, 0, 0, 6);
+         PB_FireBullets("PB_12GAPellet", 10, 8, 0, 0, 6);
+         PB_LowAmmoSoundWarning("Shotgun");
 				}
 			Else {
 			A_PlaySoundEx("MSSFR", CHAN_WEAPON);
 			A_SpawnItem("YellowFlareSpawn",0,0,-3,0);
 			A_SpawnItem("YellowFlareSpawn",0,0,3,0);
 			PB_FireBullets("PB_12GAPellet",20,12,0,0,6);
+			PB_LowAmmoSoundWarning("Shotgun");
          }
          A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
-			A_FireCustomMissile("GunFireSmoke", 0, 0, 2, 0, 0, 0);
-			A_FireCustomMissile("GunFireSmoke", 0, 0, 2, 0, 0, 0);
-			A_FireCustomMissile("GunFireSmoke", 0, 0, -2, 0, 0, 0);
-			A_FireCustomMissile("GunFireSmoke", 0, 0, -2, 0, 0, 0);
+			PB_GunSmoke(0, 2, 0);
+			PB_GunSmoke(0, 2, 0);
+			PB_GunSmoke(0, -2, 0);
+			PB_GunSmoke(0, -2, 0);
 			A_GiveInventory("MarauderShotgunBarrelHeat",120);
 			A_GunFlash;
 			A_TakeInventory("MaraudSSGAmmo", 2);
@@ -630,8 +635,8 @@ Actor MarauderSSG : PBWP_Weapon
 		A_FireCustomMissile("Chunk4", -1, 0, 1, -10);
 		A_SpawnItem("YellowFlareSpawn",0,0,-3,0);
 		A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
-		A_FireCustomMissile("GunFireSmoke", 0, 0, 2, 0, 0, 0);
-		A_FireCustomMissile("GunFireSmoke", 0, 0, -2, 0, 0, 0);
+		PB_GunSmoke(0, 2, 0);
+		PB_GunSmoke(0, -2, 0);
 		A_GiveInventory("MarauderShotgunBarrelHeat",120);
 		A_GunFlash;
 		A_ZoomFactor(0.95);
@@ -663,8 +668,8 @@ Actor MarauderSSG : PBWP_Weapon
 		A_FireCustomMissile("Chunk4", -1, 0, 1, -10);
 		A_SpawnItem("YellowFlareSpawn",0,0,-3,0);
 		A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
-		A_FireCustomMissile("GunFireSmoke", 0, 0, 2, 0, 0, 0);
-		A_FireCustomMissile("GunFireSmoke", 0, 0, -2, 0, 0, 0);
+		PB_GunSmoke(0, 2, 0);
+		PB_GunSmoke(0, -2, 0);
 		A_GiveInventory("MarauderShotgunBarrelHeat",120);
 		A_GunFlash;
 		A_ZoomFactor(0.95);
@@ -699,8 +704,8 @@ Actor MarauderSSG : PBWP_Weapon
 	HookFire:
       TNT1 A 0 A_JumpIfInventory("HookCooldown",1,"NoHook")
 		TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
-		TNT1 AA 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 2, 0, 0, 0)
-		TNT1 AA 0 A_FireCustomMissile("GunFireSmoke", 0, 0, -2, 0, 0, 0)
+		TNT1 AA 0 { PB_GunSmoke(0,2,0); }
+		TNT1 AA 0 { PB_GunSmoke(0,-2,0); }
       TNT1 A 0 A_FireProjectile("HookShot", 0, 0)
 		MSSF CD 1 BRIGHT
 		TNT1 A 0 A_SetPitch(pitch-6)

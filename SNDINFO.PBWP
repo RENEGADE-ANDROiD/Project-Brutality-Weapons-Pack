@@ -3757,6 +3757,12 @@ Weapon_switch1	sounds/combat/Weapons/Karnage/WEPSWC1
 //--Misc--//
 
 CASINGSOUND	sounds/combat/Weapons/Karnage/CASIN
+REVOLF	REVOLF
+$alias Revolf REVOLF
+REVCYL	REVCYL
+$alias MODESWITCH Modeswitch
+Revre	sounds/combat/Weapons/Karnage/REVRE
+MELEE	sounds/combat/Weapons/Karnage/MELEEE
 $Random	RICOCHET { RICOCHE1 RICOCHE2 RICOCHE3 RICOCHE3 RICOCHE }
 RICOCHE1	sounds/combat/Weapons/Karnage/RICOCHE1
 RICOCHE2	sounds/combat/Weapons/Karnage/RICOCHE2

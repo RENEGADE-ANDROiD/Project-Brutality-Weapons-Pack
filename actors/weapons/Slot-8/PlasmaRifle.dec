@@ -118,14 +118,14 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 		PB_FireOffset;
 		A_AlertMonsters;
 		A_FireCustomMissile("PlasmaFlareSpawn", 0, 0, 0, 0);
-		A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		PB_GunSmoke(0, 0, 0);
 		A_FireCustomMissile("Shakeyourassminor", 0, 0, 0, 0);
 		A_FireCustomMissile("Plasma_Ball");
 	    A_PlaySound("D4Plasma/Fire",6);
 		PB_LowAmmoSoundWarning(hdmr);
 		A_TakeInventory("Plasma-Mag", 1,TIF_NOTAKEINFINITE);
 		}
-	  NPLF B 1 Bright PB_WeaponRecoil(-1.00,+0.90)
+	  NPLF B 1 Bright { PB_WeaponRecoil(-1.00,+0.90); }
 	  RNLF F 0
 	  NPLF C 1 Bright
 	  NPLF D 1
@@ -151,7 +151,7 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 		PB_FireOffset;
 		A_AlertMonsters;
 		A_FireCustomMissile("PlasmaFlareSpawn", 0, 0, 0, 0);
-		A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		PB_GunSmoke(0, 0, 0);
 		A_FireCustomMissile("Shakeyourassminor", 0, 0, 0, 0);
 		A_FireCustomMissile("Plasma_Ball");
 	    A_PlaySound("D4Plasma/Fire",6);
@@ -159,7 +159,7 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 		PB_LowAmmoSoundWarning(hdmr);
 		A_TakeInventory("Plasma-Mag", 1,TIF_NOTAKEINFINITE);
 		}
-	  NPLF B 1 Bright PB_WeaponRecoil(-1.00,+0.90)
+	  NPLF B 1 Bright { PB_WeaponRecoil(-1.00,+0.90); }
 	  RNLF F 0
 	  NPLF C 1 Bright
 	  NPLF D 1
@@ -181,7 +181,7 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 		PB_FireOffset;
 		A_AlertMonsters;
 		A_FireCustomMissile("PlasmaFlareSpawn", 0, 0, 0, 0);
-		A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		PB_GunSmoke(0, 0, 0);
 		A_FireCustomMissile("Shakeyourassminor", 0, 0, 0, 0);
 		A_FireCustomMissile("NeonPlasma_Ball");
 	    A_PlaySound("D4Plasma/Fire",6);
@@ -189,7 +189,7 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 		PB_LowAmmoSoundWarning(hdmr);
 		A_TakeInventory("Plasma-Mag", 1,TIF_NOTAKEINFINITE);
 		}
-	  NPLF B 1 Bright PB_WeaponRecoil(-1.00,+0.90)
+	  NPLF B 1 Bright { PB_WeaponRecoil(-1.00,+0.90); }
 	  RNLF F 0
 	  NPLF C 1 Bright
 	  NPLF D 1
@@ -209,14 +209,14 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 	  TNT1 A 0 {
 		A_AlertMonsters;
 		A_FireCustomMissile("PlasmaFlareSpawn", 0, 0, 0, 0);
-		A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+		PB_GunSmoke(0, 0, 0);
 		A_FireCustomMissile("Shakeyourassminor", 0, 0, 0, 0);
 		A_FireCustomMissile("NeonPlasma_Ball");
 	    A_PlaySound("PLSM9", CHAN_WEAPON);
 		PB_LowAmmoSoundWarning(hdmr);
 		A_TakeInventory("Plasma-Mag", 1,TIF_NOTAKEINFINITE);
 		}
-	  NPLF B 1 Bright PB_FireOffset
+	  NPLF B 1 Bright { PB_FireOffset; }
 	  RNLF F 0
 	  NPLF C 1 Bright
 	  NPLF D 1
@@ -235,11 +235,12 @@ ACTOR PlasmaRifleAssault : PB_WeaponBase 23817
 	  NPLF A 1
 	  TNT1 A 0 A_AlertMonsters
 	  TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn", 0, 0, 0, 0)
-	  TNT1 A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
+	  TNT1 A 0 { PB_GunSmoke(0, 0, 0); }
 	  TNT1 A 0 A_FireCustomMissile("Shakeyourassminor", 0, 0, 0, 0)
 	  NPLF B 1 Bright
 	  
 	  
+	  RNLF F 0 { PB_LowAmmoSoundWarning(hdmr, "Plasma-Mag", 25); }
 	  RNLF F 0 A_TakeInventory("Plasma-Mag", 25,TIF_NOTAKEINFINITE)
 	  TNT1 AA 0
 	

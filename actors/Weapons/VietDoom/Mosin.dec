@@ -129,6 +129,8 @@ ACTOR Mosin : PB_WeaponBase
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 Goto SelectFirstPersonLegs
 	SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("DMRSelected"); }
 		TNT1 A 0 A_Giveinventory("GoSpecial",1)
 		TNT1 A 0 A_GiveInventory("TokenCleaner")
 		NUGG A 0 A_Giveinventory("MosinSelected",1)
@@ -243,10 +245,7 @@ Goto SelectFirstPersonLegs
 		"####" A 0 A_SpawnItemEx("PlayerMuzzle1",30,5,30)
 		"####" A 0 { PB_GunSmoke_Sniper(0,0,0); }
 		"####" "#" 0 A_JumpIfInventory("Zoomed",1,"Fire2")
-		"####" "#" 0 A_FireCustomMissile("VietSniperTracer", 0, 0, 0, 0)
-		NUGF A 1 BRIGHT A_FireBullets (0, 0, -1, 75, "ShotgunPuff", FBF_NORANDOM, 500)//point blank damage extra
-		x21F A 0 BRIGHT A_FireBullets (0, 0, -1, 75, "sniperpuff", FBF_NORANDOM, 15000)//penetration 1
-		x21F A 0 BRIGHT A_FireBullets (0, 0, -1, 75, "sniperpuff", FBF_NORANDOM, 15000)//penetration 2
+		NUGF A 1 BRIGHT { PB_LowAmmoSoundWarning("sniper"); PB_FireBullets("PB_762x51mmAP", 1, 0, 0, 0, 0); }
 		x21F A 0 BRIGHT A_RailAttack (0, 0, 0, "none", "Gray", RGF_SILENT, 0, "None", 0, 0, 14000, 15, 1)//Trail effect only
 		x21F A 0 BRIGHT A_RailAttack (50, 0, 0, "none", "None", RGF_SILENT, 0, "sniperpuff", 0, 0, 500, 15, 1)//Heavy penetration
 		"####" A 0 A_ZoomFactor(0.97)
@@ -270,7 +269,7 @@ Goto SelectFirstPersonLegs
 		NUGB ABCDE 1
 		TNT1 A 0 A_PlaySound("MBolt1", 5)
 		NUGB A 0 A_Takeinventory("MosinWasEmpty",1)
-		NUGB A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14)
+		NUGB A 0 { PB_SpawnCasing("PB_EmptyBrass", 32, 6, -14, frandom(4,7), frandom(6,9), frandom(0,5)); }
 		NUGB A 0 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)//Allows quick switch
 		NUGB FGH 1
 		NUGB IJ 1
@@ -341,11 +340,8 @@ Goto SelectFirstPersonLegs
 		NUGG A 0 A_JumpIfInventory("MosinWasEmpty", 1, "Bolt3")
 		NUGG A 0 A_AlertMonsters
 		SNIP D 0
-		"####" "#" 0 A_FireCustomMissile("VietSniperTracer", 0, 0, 0, 0)
 		"####" "#" 0 { PB_GunSmoke_Sniper(0,0,0); }
-		SNIP A 1 BRIGHT A_FireBullets (0, 0, -1, 75, "ShotgunPuff", FBF_NORANDOM, 500)//point blank damage extra
-		x21F A 0 BRIGHT A_FireBullets (0, 0, -1, 75, "sniperpuff", FBF_NORANDOM, 15000)//penetration 1
-		x21F A 0 BRIGHT A_FireBullets (0, 0, -1, 75, "sniperpuff", FBF_NORANDOM, 15000)//penetration 2
+		SNIP A 1 BRIGHT { PB_LowAmmoSoundWarning("sniper"); PB_FireBullets("PB_762x51mmAP", 1, 0, 0, 0, 0); }
 		x21F A 0 BRIGHT A_RailAttack (0, 0, 0, "none", "Gray", RGF_SILENT, 0, "None", 0, 0, 14000, 15, 1)//Trail effect only
 		x21F A 0 BRIGHT A_RailAttack (50, 0, 0, "none", "None", RGF_SILENT, 0, "sniperpuff", 0, 0, 500, 15, 1)//Heavy penetration
 		x21G A 0 A_ZoomFactor(4.93)
@@ -417,7 +413,7 @@ Goto SelectFirstPersonLegs
 		SNIP D 0 A_SetPitch(-0.1 + pitch)
 		//SHTN A 0 A_JumpIfInventory("MosinNagantWasEmpty", 1, 1))
 		SHTN A 0 A_TakeInventory("MosinWasEmpty", 1)
-		SNIP D 0 A_FireCustomMissile("rifleCaseSpawn",40,0,14,0)
+		SNIP D 0 { PB_SpawnCasing("PB_EmptyBrass", 32, 14, 0, frandom(4,7), frandom(6,9), frandom(0,5)); }
 		MNOA A 0 A_Takeinventory("YetToBolt",1)
 		SNIP bB 2 Offset(7,41)
 		SNIP BBB 3 Offset(8,42)
@@ -592,7 +588,7 @@ Goto SelectFirstPersonLegs
 		NUGG A 1 A_GiveInventory ("Bolting", 1)
 		NUGB ABCDE 1
 		TNT1 A 0 A_PlaySound("MBolt1", 5)
-		NUGB A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14)
+		NUGB A 0 { PB_SpawnCasing("PB_EmptyBrass", 32, 6, -14, frandom(4,7), frandom(6,9), frandom(0,5)); }
 		NUGB FGH 1
 		NUGB IJ 1
 		NUGB KKKKKKK 1
@@ -759,7 +755,7 @@ Goto SelectFirstPersonLegs
 		"####" "#" 1 
 		NUGB ABCDE 1
 		NUGB E 0 A_PlaySound("MBolt1", 5)
-		NUGB F 0 A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14)
+		NUGB F 0 { PB_SpawnCasing("PB_EmptyBrass", 32, 6, -14, frandom(4,7), frandom(6,9), frandom(0,5)); }
 		NUGB FGHIJ 1
 		NUGB K 10
 		NUGB J 0 A_PlaySound("MBolt2", 5)

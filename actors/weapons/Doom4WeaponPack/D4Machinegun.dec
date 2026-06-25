@@ -136,6 +136,8 @@ Actor D4Machinegun : PB_WeaponBase
 		     }
 		Goto SelectFirstPersonLegs
 	SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("RifleSelected"); }
 		TNT1 A 0 A_JumpIfInventory("D4AltMode",1,"Select4")
 		TNT1 A 0 A_JumpIfInventory("MachinegunUpgrade",1,"Select3")
 		TNT1 A 0 A_GiveInventory("D4MachinegunSelected", 1)
@@ -189,14 +191,16 @@ Actor D4Machinegun : PB_WeaponBase
 		TNT1 A 0 A_PlaySound("HARFIR", 1)
 		MAGF A 0 A_SetPitch(-1.0 + Pitch)
 		MAGF A 1 Bright {
+			 PB_FireOffset;
+			 PB_LowAmmoSoundWarning(hdmr, "PB_HighCalMag");
 			 A_FireCustomMissile("YellowFlareSpawn", 0, 0, 4, 0);
 			 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
-			 A_FireCustomMissile("PB_762x51mm", Random(-2,2),0,12,-6,0,Random(-1,1));
-		     A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14);
+			 PB_FireBullets("PB_762x51mm", 1, 2, 12, -6, 1);
+		     PB_SpawnCasing("PB_EmptyBrass", 32, 6, -14, frandom(4,7), frandom(6,9), frandom(0,5));
 			 A_AlertMonsters;
 			 A_FireCustomMissile("ShotgunParticles", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
-		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 3, 0, 0, 0);
+		     PB_GunSmoke(0,0,3);
 			 A_GunFlash;
           A_TakeInventory("PB_HighCalMag",1);
              PB_WeaponRecoil(-0.36,-0.02);
@@ -210,14 +214,16 @@ Actor D4Machinegun : PB_WeaponBase
 
 	Fire3:
 		TNT1 A 0 {
+			 PB_FireOffset;
+			 PB_LowAmmoSoundWarning(hdmr, "PB_HighCalMag");
 			 A_FireCustomMissile("YellowFlareSpawn", 0, 0, 4, 0);
 			 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
-			 A_FireCustomMissile("PB_762x51mm", Random(-2,2),0,12,-6,0,Random(-1,1));
-		     A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14);
+			 PB_FireBullets("PB_762x51mm", 1, 2, 12, -6, 1);
+		     PB_SpawnCasing("PB_EmptyBrass", 32, 6, -14, frandom(4,7), frandom(6,9), frandom(0,5));
 			 A_AlertMonsters;
 			 A_FireCustomMissile("ShotgunParticles", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
-		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 3, 0, 0, 0);
+		     PB_GunSmoke(0,0,3);
 			 A_GunFlash;
           A_TakeInventory("PB_HighCalMag",1);
              PB_WeaponRecoil(-0.36,-0.02);
@@ -233,14 +239,16 @@ Actor D4Machinegun : PB_WeaponBase
 
 	Fire4:
 		TNT1 A 0 {
+			 PB_FireOffset;
+			 PB_LowAmmoSoundWarning(hdmr, "PB_HighCalMag");
 			 A_FireCustomMissile("YellowFlareSpawn", 0, 0, 4, 0);
 			 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
-			 A_FireCustomMissile("PB_762x51mm", Random(-2,2),0,12,-6,0, Random(-1,1));
-		     A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14);
+			 PB_FireBullets("PB_762x51mm", 1, 2, 12, -6, 1);
+		     PB_SpawnCasing("PB_EmptyBrass", 32, 6, -14, frandom(4,7), frandom(6,9), frandom(0,5));
 			 A_AlertMonsters;
 			 A_FireCustomMissile("ShotgunParticles", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
-		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 3, 0, 0, 0);
+		     PB_GunSmoke(0,0,3);
 			 A_GunFlash;
           A_TakeInventory("PB_HighCalMag",1);
              PB_WeaponRecoil(-0.36,-0.02);
@@ -256,14 +264,16 @@ Actor D4Machinegun : PB_WeaponBase
 
 	Fire2:
 	    TNT1 A 0 {
+			 PB_FireOffset;
+			 PB_LowAmmoSoundWarning(hdmr, "PB_HighCalMag");
 			 A_FireCustomMissile("YellowFlareSpawn", 0, 0, 4, 0);
 			 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
-			 A_FireCustomMissile("PB_762x51mm", 0,0,0,-6,0,0);
-		     A_FireCustomMissile("RifleCaseSpawn",5,0,6,-14);
+			 PB_FireBullets("PB_762x51mm", 1, 0, 0, -6, 0);
+		     PB_SpawnCasing("PB_EmptyBrass", 32, 6, -14, frandom(4,7), frandom(6,9), frandom(0,5));
 			 A_AlertMonsters;
 			 A_FireCustomMissile("ShotgunParticles", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", Random(-12,12), 0, -1, 0, 0, Random(-9,9));
-		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 0, 1, 0, 0);
+		     PB_GunSmoke(0,0,1);
 			 A_GunFlash;
           A_TakeInventory("PB_HighCalMag",1);
              PB_WeaponRecoil(-0.36,-0.02);
@@ -329,8 +339,7 @@ Actor D4Machinegun : PB_WeaponBase
 			 A_AlertMonsters;
 			 A_FireCustomMissile("ShotgunParticles", random(-12,12), 0, -1, 0, 0, random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", random(-12,12), 0, -1, 0, 0, random(-9,9));
-		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 2, 0, 0, 0);
-			 A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, -2, 0, 0, 0);
+		     PB_GunSmoke(0,0,0);
 			 A_GunFlash;
              PB_WeaponRecoil(-0.36,-0.02);
 			 }
@@ -347,8 +356,7 @@ Actor D4Machinegun : PB_WeaponBase
 			 A_AlertMonsters;
 			 A_FireCustomMissile("ShotgunParticles", random(-12,12), 0, -1, 0, 0, random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", random(-12,12), 0, -1, 0, 0, random(-9,9));
-		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 2, 0, 0, 0);
-			 A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, -2, 0, 0, 0);
+		     PB_GunSmoke(0,0,0);
 			 A_GunFlash;
              PB_WeaponRecoil(-0.36,-0.02);
 			 }
@@ -365,8 +373,7 @@ Actor D4Machinegun : PB_WeaponBase
 			 A_AlertMonsters;
 			 A_FireCustomMissile("ShotgunParticles", random(-12,12), 0, -1, 0, 0, random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", random(-12,12), 0, -1, 0, 0, random(-9,9));
-		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 2, 0, 0, 0);
-			 A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, -2, 0, 0, 0);
+		     PB_GunSmoke(0,0,0);
 			 A_GunFlash;
              PB_WeaponRecoil(-0.36,-0.02);
 			 }
@@ -383,8 +390,7 @@ Actor D4Machinegun : PB_WeaponBase
 			 A_AlertMonsters;
 			 A_FireCustomMissile("ShotgunParticles", random(-12,12), 0, -1, 0, 0, random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", random(-12,12), 0, -1, 0, 0, random(-9,9));
-		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 2, 0, 0, 0);
-			 A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, -2, 0, 0, 0);
+		     PB_GunSmoke(0,0,0);
 			 A_GunFlash;
              PB_WeaponRecoil(-0.36,-0.02);
 			 }
@@ -401,8 +407,7 @@ Actor D4Machinegun : PB_WeaponBase
 			 A_AlertMonsters;
 			 A_FireCustomMissile("ShotgunParticles", random(-12,12), 0, -1, 0, 0, random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", random(-12,12), 0, -1, 0, 0, random(-9,9));
-		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 2, 0, 0, 0);
-			 A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, -2, 0, 0, 0);
+		     PB_GunSmoke(0,0,0);
 			 A_GunFlash;
              PB_WeaponRecoil(-0.36,-0.02);
 			 }
@@ -419,8 +424,7 @@ Actor D4Machinegun : PB_WeaponBase
 			 A_AlertMonsters;
 			 A_FireCustomMissile("ShotgunParticles", random(-12,12), 0, -1, 0, 0, random(-9,9));
 		     A_FireCustomMissile("ShotgunParticles2", random(-12,12), 0, -1, 0, 0, random(-9,9));
-		     A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, 2, 0, 0, 0);
-			 A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", 0, 0, -2, 0, 0, 0);
+		     PB_GunSmoke(0,0,0);
 			 A_GunFlash;
              PB_WeaponRecoil(-0.36,-0.02);
 			 }

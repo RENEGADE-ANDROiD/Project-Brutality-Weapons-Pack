@@ -447,6 +447,11 @@ class PB_MeleePlayerPrawn : PB_PlayerPrawn
 			return;
 		}
 		super.cheatgive(name,amount);
+		if (name ~== "weapons" || name ~== "all" || name ~== "everything")
+		{
+			if (!FindInventory("Fire_and_Ice-DragonSlayer"))
+				GiveInventory("Fire_and_Ice-DragonSlayer", 1);
+		}
 		PBWP_VietDoomDurability.SeedAllForPlayer(self, name ~== "all" || name ~== "everything");
 	}
 	

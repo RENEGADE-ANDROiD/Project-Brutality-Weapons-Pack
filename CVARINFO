@@ -441,9 +441,25 @@ server int		cl_Markers				= 1;
 server float	cl_MarkerScale			= 1.08;
 server int		cl_Particles			= 1;
 server int		cl_VisualFX				= 1;
+server bool		cl_fx_throttle			= true;
+server bool		cl_fx_visibility		= true;
+server bool		cl_performance_lite		= false;
 server int		cl_Mutations			= 12;
 
 server int		cl_OverrideChance		= -1;
+
+server bool		cl_cap_enabled			= true;
+server int		cl_cap_small			= 12;
+server int		cl_cap_medium			= 24;
+server int		cl_cap_large			= 48;
+server int		cl_cap_medium_count		= 75;
+server int		cl_cap_large_count		= 275;
+
+server int		cl_bulwark_armor_mul	= 3;
+
+server int		cl_captain_radius		= 512;
+server int		cl_captain_buff_dr		= 60;
+server int		cl_captain_buff_speed	= 125;
 
 server int		cl_weight_Bulwark		= 10;
 server int		cl_weight_Brute			= 8;
@@ -454,6 +470,7 @@ server int		cl_weight_Blink			= 7;
 server int		cl_weight_Stalker		= 8;
 server int		cl_weight_Splitter		= 7;
 server int		cl_weight_Veteran		= 6;
+server int		cl_weight_Captain		= 5;
 
 server int		cl_weight_Giant			= 3;
 server int		cl_weight_Spectral		= 5;

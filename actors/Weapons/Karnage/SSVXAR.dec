@@ -54,6 +54,8 @@ Actor SSARPICKUP : Custominventory
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 		SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("RifleSelected"); }
 	SelectAnimation:
 		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 		Goto Ready3
@@ -65,24 +67,24 @@ Actor SSARPICKUP : Custominventory
 	    TNT1 A 0 A_JUMPIFINVENTORY("SSARclip",1,1)
 		GOTO RELOAD
 		TNT1 A 0 A_Jumpifinventory("SSARaimswitch",1,"Fireaim")
+		TNT1 A 0 { PB_FireOffset; }
 		SSAR A 1 offset(5,39) Bright {
 			 A_Playsound("ssar_shot",6);
 			 A_FireCustomMissile("bullettracer",frandom(-3,3),0,9);
-			 A_FireProjectile("KRG_556x45mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			 PB_FireBullets("PB_556x45mm", 1, 0.1, 0, 0, 0.1);
 	 		A_Setblend("yellow",.07,1);
 	 		A_Gunflash("Flash");
 			A_FireCustomMissile("muzzlelight", 1,0,6,15);
+			PB_GunSmoke(0,6,15);
 			}
 		SSAR A 1 offset(4,37) bright {
-			A_FireCustomMissile("muzzlesmoker", 1,0,6,15);
-			PB_LowAmmoSoundWarning;
+			PB_LowAmmoSoundWarning("hdmr");
 			A_TAKEINVENTORY("SSARCLIP",1);
 			PB_WeaponRecoil(-0.36,-0.02);
-			A_FireCustomMissile("EmptyCaseSpawnAR",5,0,8,-14);
+			PB_SpawnCasing("PB_EmptyBrass", 32, 8, -14, frandom(4,7), frandom(6,9), frandom(0,5));
 			A_quake(1,2,0,50);
 			}
 		SSAR A 1 offset(4,37) bright {
-			A_FireCustomMissile("muzzlesmoker", 1,0,6,15);
 			PB_WeaponRecoil(-0.36,-0.02);
 			}
 		SSAR A 0 A_ReFire("Fire1")
@@ -95,19 +97,21 @@ Actor SSARPICKUP : Custominventory
 	    TNT1 A 0 A_JUMPIFINVENTORY("SSARclip",1,1)
 		GOTO RELOAD
 		TNT1 A 0 A_Jumpifinventory("SSARaimswitch",1,"Fireaim")
+		TNT1 A 0 { PB_FireOffset; }
 		SSAR A 1 offset(7,40) Bright {
 		A_Playsound("ssar_shot",7);
 		A_FireCustomMissile("bullettracer",frandom(-3,3),0,9);
-		A_FireProjectile("KRG_556x45mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+		PB_FireBullets("PB_556x45mm", 1, 0.1, 0, 0, 0.1);
 		A_Setblend("yellow",.07,1);
 		A_Gunflash("Flash");
 		A_FireCustomMissile("muzzlelight", 1,0,6,15);
+		PB_GunSmoke(0,6,15);
 		}
 		SSAR A 1 offset(5,37) bright {
-		A_FireCustomMissile("muzzlesmoker", 1,0,6,15);
+		PB_LowAmmoSoundWarning("hdmr");
 		A_TAKEINVENTORY("SSARCLIP",1);
 		PB_Weaponrecoil(-0.42,+0.05);
-		A_FireCustomMissile("EmptyCaseSpawnAR",5,0,8,-14);
+		PB_SpawnCasing("PB_EmptyBrass", 32, 8, -14, frandom(4,7), frandom(6,9), frandom(0,5));
 		A_quake(1,2,0,50);
 		}
 		SSAR A 1 offset(2,33) {
@@ -125,14 +129,14 @@ Actor SSARPICKUP : Custominventory
 		GOTO RELOAD
 		SSAM B 1 Offset(0,37)Bright{
 		A_FireCustomMissile("bullettracer",0,0,0,0);
-		A_FireProjectile("KRG_556x45mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+		PB_FireBullets("PB_556x45mm", 1, 0.1, 0, 0, 0.1);
  		A_Setblend("yellow",.09,1);
 		A_FireCustomMissile("muzzlelight", 1,0,0,15);
-		A_FireCustomMissile("muzzlesmokeblst", 1,0,6,15);
+		PB_GunSmoke(0,0,15);
 		A_Playsound("ssar_shotaim",6);
-		PB_LowAmmoSoundWarning;
+		PB_LowAmmoSoundWarning("hdmr");
 		A_TAKEINVENTORY("SSARCLIP",1);
-		A_FireCustomMissile("EmptyCaseSpawnAR",5,0,8,-14);
+		PB_SpawnCasing("PB_EmptyBrass", 32, 8, -14, frandom(4,7), frandom(6,9), frandom(0,5));
 		}
 		SSAM A 1 Offset(0,34)PB_WeaponRecoil(-0.51,+0.10)
 		TNT1 A 0 A_JUMPIFINVENTORY("SSARclip",1,1)
@@ -140,29 +144,29 @@ Actor SSARPICKUP : Custominventory
 		SSAM B 1 Offset(0,33)Bright{
 		
 		A_FireCustomMissile("bullettracer",0,0,0,0);
-		A_FireProjectile("KRG_556x45mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+		PB_FireBullets("PB_556x45mm", 1, 0.1, 0, 0, 0.1);
  		A_Setblend("yellow",.09,1);
 		A_FireCustomMissile("muzzlelight", 1,0,0,15);
-		A_FireCustomMissile("muzzlesmokeblst", 1,0,6,15);
+		PB_GunSmoke(0,0,15);
 		A_Playsound("ssar_shotaim",6);
-		PB_LowAmmoSoundWarning;
+		PB_LowAmmoSoundWarning("hdmr");
 		A_TAKEINVENTORY("SSARCLIP",1);
 		
-		A_FireCustomMissile("EmptyCaseSpawnAR",5,0,8,-14);
+		PB_SpawnCasing("PB_EmptyBrass", 32, 8, -14, frandom(4,7), frandom(6,9), frandom(0,5));
 		}
 		SSAM A 1 Offset(0,32)PB_WeaponRecoil(-0.51,+0.10)
 		TNT1 A 0 A_JUMPIFINVENTORY("SSARclip",1,1)
 		GOTO RELOAD
 		SSAM B 1 Offset(0,29)Bright{
 		A_FireCustomMissile("bullettracer",0,0,0,0);
-		A_FireProjectile("KRG_556x45mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+		PB_FireBullets("PB_556x45mm", 1, 0.1, 0, 0, 0.1);
  		A_Setblend("yellow",.09,1);
 		A_FireCustomMissile("muzzlelight", 1,0,0,15);
-		A_FireCustomMissile("muzzlesmokeblst", 1,0,6,15);
+		PB_GunSmoke(0,0,15);
 		A_Playsound("ssar_shotaim",6);
-		PB_LowAmmoSoundWarning;
+		PB_LowAmmoSoundWarning("hdmr");
 		A_TAKEINVENTORY("SSARCLIP",1);
-		A_FireCustomMissile("EmptyCaseSpawnAR",5,0,8,-14);
+		PB_SpawnCasing("PB_EmptyBrass", 32, 8, -14, frandom(4,7), frandom(6,9), frandom(0,5));
 		}
 		SSAM A 1 Offset(0,30)PB_WeaponRecoil(-0.51,+0.10)
 		SSAM A 1 A_Playsound("SHOTHUM",7)

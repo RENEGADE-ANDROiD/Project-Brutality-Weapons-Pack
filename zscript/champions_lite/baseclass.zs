@@ -36,16 +36,25 @@ class cl_BaseController : Thinker
 		{
 		if (!cl_Static.cl_ActorIsUsable(champion))
 			return false;
-		if (PBWP_FXThrottleHandler.PerformanceFireEnabled())
+		if (cl_FXThrottleHandler.PerformanceFireEnabled())
 			return false;
-		return PBWP_FXThrottleHandler.ShouldSpawnCosmeticFX(champion);
+		if (!cl_FXThrottleHandler.ShouldSpawnCosmeticFX(champion))
+			return false;
+		return cl_Static.cl_CosmeticFXVisible(champion);
+		}
+
+	bool cl_CosmeticFXVisible()
+		{
+		if (!cl_Static.cl_ActorIsUsable(champion))
+			return false;
+		return cl_Static.cl_CosmeticFXVisible(champion);
 		}
 
 	void cl_RegisterCombatFX()
 		{
 		if (!cl_Static.cl_ActorIsUsable(champion))
 			return;
-		PBWP_FXThrottleHandler.RegisterCombatEvent(champion);
+		cl_FXThrottleHandler.RegisterCombatEvent(champion);
 		}
 
 	void cl_SpawnParticles()
@@ -202,9 +211,10 @@ class cl_BaseController : Thinker
 		if (shouldRampage && !rampaging)
 			{
 			rampaging = true;
-			champion.A_PlaySound("misc/pickup", CHAN_BODY, 0.6, pitch: 0.85);
-			if (particles)
+			cl_Sounds.PlayPickup(champion, 0.6, 0.85);
+			if (particles && cl_CosmeticFXAllowed())
 				{
+				cl_RegisterCombatFX();
 				for (int i = 0; i < 8; i++)
 					{
 					champion.A_SpawnParticle("ff4400",

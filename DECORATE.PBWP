@@ -191,6 +191,7 @@
 #INCLUDE ACTORs/Weapons/Slot-8/BioAcidLauncher(AresMade).dec
 #INCLUDE ACTORs/Weapons/Slot-8/TypeAThunderCarrier(AresMade).dec
 #INCLUDE ACTORs/Weapons/Slot-8/TechBlaster.dec
+#INCLUDE ACTORs/Weapons/Slot-8/ThunderCrossbow_Tokens.dec
 #INCLUDE ACTORs/Weapons/Slot-8/ThunderCrossbow.dec
 #INCLUDE ACTORs/Weapons/Slot-8/PB_DarkMatterRifle.dec
 	//Slot-9

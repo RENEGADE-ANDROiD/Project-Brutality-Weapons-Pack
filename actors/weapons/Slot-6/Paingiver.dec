@@ -107,6 +107,8 @@ Actor Paingiver : PB_WeaponBase
 	    TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 		SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("AddonSelected"); }
 				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 				Goto Ready3
 
@@ -145,8 +147,7 @@ Actor Paingiver : PB_WeaponBase
 		     A_FireCustomMissile("Alerter", 0, 0, 0, 0);
 			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
 			 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
-		     A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+			 PB_GunSmoke(0, 0, 0);
 		     A_TakeInventory("PB_RocketAmmo", 1);
 			 }
 		TNT1 A 0 A_PlaySound("RLFIRE", CHAN_WEAPON)
@@ -198,8 +199,7 @@ Actor Paingiver : PB_WeaponBase
 		     A_FireCustomMissile("Alerter", 0, 0, 0, 0);
 			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
 		     A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
-		     A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+			 PB_GunSmoke(0, 0, 0);
 		     A_TakeInventory("PB_RocketAmmo", 3);
 			 }
 		TNT1 A 0 A_PlaySound("RLFIRE2", 1)
@@ -219,8 +219,7 @@ Actor Paingiver : PB_WeaponBase
 		     A_FireCustomMissile("Alerter", 0, 0, 0, 0);
 			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
 		     A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
-		     A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+			 PB_GunSmoke(0, 0, 0);
 			 }
 		W17F A 1 Bright A_DoPBWeaponAction(WRF_NOFIRE)
 		TNT1 A 0 {
@@ -237,8 +236,7 @@ Actor Paingiver : PB_WeaponBase
 		     A_FireCustomMissile("Alerter", 0, 0, 0, 0);
 			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
 		     A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
-		     A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+			 PB_GunSmoke(0, 0, 0);
 			 }
 		W17F A 1 Bright A_DoPBWeaponAction(WRF_NOFIRE)
 		TNT1 A 0 {
@@ -255,8 +253,7 @@ Actor Paingiver : PB_WeaponBase
 			 A_FireCustomMissile("Alerter", 0, 0, 0, 0);
 			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
 		     A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
-		     A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+			 PB_GunSmoke(0, 0, 0);
 			 }
 		TNT1 A 0
 	FireEnd:

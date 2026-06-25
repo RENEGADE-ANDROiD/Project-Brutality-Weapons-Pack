@@ -117,6 +117,8 @@ ACTOR M79 : PB_WeaponBase
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 Goto SelectFirstPersonLegs
 	SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("GrenadeLauncherSelected"); }
 		TNT1 A 0 A_Giveinventory("GoSpecial",1)
 		TNT1 A 0 A_GiveInventory("TokenCleaner")
 		TNT1 A 0 A_Giveinventory("GrenadeLauncherSelected",1)
@@ -223,7 +225,6 @@ Goto SelectFirstPersonLegs
 	ResumeFireFrame:
 		M79N A 0
 		M79N A 0 A_FireCustomMissile("ShortGrenade2", 0, 1, 4, -6)
-		M79N A 0 PB_DetonateFragGrenades
 		M79N A 0 A_FireCustomMissile("GrenadeMissileBreaksGlass", 0, 0, 4, -6)
 		"####" "#" 0 A_JumpIfInventory("VietDoomDurabilityDisabled", 1, 6)
 		"####" "#" 0 A_Takeinventory("M79Durability",1)
@@ -235,16 +236,15 @@ Goto SelectFirstPersonLegs
 		M79N "#" 0
 		M79N A 0
 		M79N A 0 A_FireCustomMissile("DistantFireSoundSSG", random(-1,1), 0, 0, -12, 0, random(-1,1))
-		M79N A 0 A_firebullets (0,0,1,40,"shotpuff",FBF_NORANDOM,300)
+		M79N A 0 { PB_LowAmmoSoundWarning("Shotgun"); PB_FireBullets("PB_12GASlug", 1, 0, 0, 0, 0); }
 		M79N A 0 BRIGHT A_playsound("SSG/Fire", 1)
-		M79N AAAAAAAAAAA 0 A_FireCustomMissile("DecorativeTracer", random(-10,10), 0, 0, -12, 0, random(-5,5))
 		M79N AAAAAAAAAAAAAAAAAAAA 0 BRIGHT A_FireCustomMissile("ShotgunParticles", random(-19,19), 0, -1, 0, 0, random(-9,9))
 		M79N AAAAAAAAAAAAA 0 BRIGHT A_FireCustomMissile("ShotgunParticles2", random(-19,19), 0, -1, 0, 0, random(-9,9))
 		M79N A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,27)
 		M79N A 0 { PB_GunSmoke_Launcher(0,0,0); }
-		M79N A 0 A_FireBullets (8, 8, 10, 13, "ShotgunPuff", FBF_NORANDOM)
-		M79N A 0 A_FireBullets (6, 6, 10, 13, "ShotgunPuff", FBF_NORANDOM)
-		M79N A 0 A_FireBullets (10, 10, 10, 13, "ShotgunPuff2", FBF_NORANDOM)
+		M79N A 0 { PB_LowAmmoSoundWarning("Shotgun"); PB_FireBullets("PB_12GAPellet", 10, 8, 0, 0, 8); }
+		M79N A 0 { PB_FireBullets("PB_12GAPellet", 10, 6, 0, 0, 6); }
+		M79N A 0 { PB_FireBullets("PB_12GAPellet", 10, 10, 0, 0, 10); }
 
 	FinishFire:
 		M79N A 0 A_AlertMonsters
@@ -412,14 +412,13 @@ Goto SelectFirstPersonLegs
 		"####" "#" 0 A_SpawnItemEx("PlayerMuzzle1",30,0,45)
 		M79N A 0 A_FireCustomMissile("DistantFireSoundSSG", random(-1,1), 0, 0, -12, 0, random(-1,1))
 		M79N A 0 BRIGHT A_playsound("SSG/Fire", 1)
-		M79N AAAAAAAAAAA 0 A_FireCustomMissile("DecorativeTracer", random(-10,10), 0, 0, -12, 0, random(-5,5))
 		M79N AAAAAAAAAAAAAAAAAAAA 0 BRIGHT A_FireCustomMissile("ShotgunParticles", random(-19,19), 0, -1, 0, 0, random(-9,9))
 		M79N AAAAAAAAAAAAA 0 BRIGHT A_FireCustomMissile("ShotgunParticles2", random(-19,19), 0, -1, 0, 0, random(-9,9))
 		M79N A 0 A_SpawnItemEx("PlayerMuzzle2",30,5,27)
 		M79N A 0 { PB_GunSmoke_Launcher(0,0,0); }
-		M79N A 0 A_FireBullets (16, 16, 15, 13, "ShotgunPuff", FBF_NORANDOM)
-		M79N A 0 A_FireBullets (12, 12, 15, 13, "ShotgunPuff", FBF_NORANDOM)
-		M79N A 0 A_FireBullets (20, 20, 15, 13, "ShotgunPuff2", FBF_NORANDOM)
+		M79N A 0 { PB_LowAmmoSoundWarning("Shotgun"); PB_FireBullets("PB_12GAPellet", 15, 16, 0, 0, 16); }
+		M79N A 0 { PB_FireBullets("PB_12GAPellet", 15, 12, 0, 0, 12); }
+		M79N A 0 { PB_FireBullets("PB_12GAPellet", 15, 20, 0, 0, 20); }
 		"####" "#########" 0 A_CustomMissile("Shotgunparticles2", 20, 0, random(-30, 30), 2, random(-10, 25))
 		"####" "#########" 0 A_CustomMissile("Shotgunparticles", 20, 0, random(-35, 35), 2, random(-10, 25))
 		"####" "#" 0 A_CustomMissile ("MetalShard2", 20, 0, random(-30, 30), 2, random(-10, 25))

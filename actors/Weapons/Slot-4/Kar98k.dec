@@ -102,41 +102,7 @@ TNT1 A 0 A_SetCrosshair(0)
 	SelectContinue:
 		TNT1 A 0 { PB_WeaponRaise; }
 		DEAG A 0 { PB_SetMagUnloaded(false); }
-		DEAG A 0 A_Takeinventory("Unloading",1)
-		DEAG A 0 A_TakeInventory("DMRSelected",1)
-		DEAG A 0 A_TakeInventory("CarbineSelected",1)
-		DEAG A 0 A_TakeInventory("FistsSelected",1)
-		DEAG A 0 A_TakeInventory("SawSelected",1)
-		DEAG A 0 A_TakeInventory("SledgeSelected",1)
-		DEAG A 0 A_TakeInventory("HandgunSelected",1)
-		DEAG A 0 A_TakeInventory("DualHandgunSelected",1)
-		DEAG A 0 A_TakeInventory("RevolverSelected",1)
-		DEAG A 0 A_TakeInventory("ShotgunSelected",1)
-		DEAG A 0 A_GiveInventory("SSGSelected",1)
-		DEAG A 0 A_TakeInventory("ASGSelected",1)
-		DEAG A 0 A_TakeInventory("QSGSelected",1)
-		DEAG A 0 A_TakeInventory("MinigunSelected",1)
-		DEAG A 0 A_TakeInventory("NewChaingunSelected",1)	
-		DEAG A 0 A_TakeInventory("RocketLauncherSelected",1)
-		DEAG A 0 A_TakeInventory("GrenadeLauncherSelected",1)
-		DEAG A 0 A_TakeInventory("SGLSelected",1)
-		DEAG A 0 A_TakeInventory("PlasmaGunSelected",1)
-		DEAG A 0 A_TakeInventory("M2Selected",1)	
-		DEAG A 0 A_TakeInventory("CryoRifleSelected",1)
-		DEAG A 0 A_TakeInventory("RailGunSelected",1)
-		DEAG A 0 A_TakeInventory("BFGSelected",1)
-		DEAG A 0 A_TakeInventory("BFGBeamSelected",1)
-		DEAG A 0 A_TakeInventory("BHCSelected",1)
-		DEAG A 0 A_TakeInventory("RevenantLauncherSelected",1)
-		DEAG A 0 A_TakeInventory("FlameCannonSelected",1)
-		DEAG A 0 A_TakeInventory("HellRifleSelected",1)
-		DEAG A 0 A_TakeInventory("LandMineSelected",1)
-		DEAG A 0 A_TakeInventory("UACSMGSelected",1)
-		DEAG A 0 A_TakeInventory("SubMachineGunSelected",1)
-		DEAG A 0 A_TakeInventory("LostSoulSelected",1)
-		DEAG A 0 A_TakeInventory("HasBarrel",1)
-		DEAG A 0 A_TakeInventory("HasFlameBarrel",1)
-		DEAG A 0 A_TakeInventory("HasIceBarrel", 1)
+		TNT1 A 0 { PB_WeapTokenSwitch("SSGSelected"); }
 		DEAG A 0 A_GiveInventory("GoSpecial",1)
 		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 		Goto Ready3
@@ -159,6 +125,7 @@ TNT1 A 0 A_SetCrosshair(0)
 		TNT1 AAAA 0
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlaySound("M40Rifle/Fire", 1)
+		TNT1 A 0 { PB_LowAmmoSoundWarning("sniper"); }
 		TNT1 A 0 A_Takeinventory("karabineAmmo",1)
 		TNT1 A 0 A_Recoil(1.5)
 		ZK9G B 1 Bright 
@@ -175,7 +142,7 @@ TNT1 A 0 A_SetCrosshair(0)
 	BoltAction:
 		TNT1 A 0 A_PlaySound("M40Rifle/Bolt1", 3)
 		ZK9R ABCD 2
-		TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+		TNT1 A 0 { PB_SpawnCasing("PB_EmptyBrass", 32, 8, -9, frandom(4,7), frandom(6,9), frandom(0,5)); }
 		ZK9R EEE 2 
 		TNT1 A 0 A_PlaySound("M40Rifle/Bolt2", 3)
 		ZK9R DCBA 2 
@@ -198,6 +165,7 @@ Goto Reload
 TNT1 AAAA 0
 TNT1 A 0 A_AlertMonsters
 TNT1 A 0 A_PlaySound("M40Rifle/Fire", 1)
+TNT1 A 0 { PB_LowAmmoSoundWarning("sniper"); }
 TNT1 A 0 A_Takeinventory("karabineAmmo",1)
 TNT1 A 0 A_Recoil(1.5)
 ZK92 B 1 Bright 
@@ -241,7 +209,7 @@ TNT1 A 0 A_ZoomFactor(1.0)
 ZK9X FEDCBA 1 
 TNT1 A 0 A_PlaySound("M40Rifle/Bolt1", 3)
 ZK9R ABCD 2
-TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+TNT1 A 0 { PB_SpawnCasing("PB_EmptyBrass", 32, 8, -9, frandom(4,7), frandom(6,9), frandom(0,5)); }
 ZK9R EEE 2  
 TNT1 A 0 A_PlaySound("M40Rifle/Bolt2", 3)
 ZK9R DCBA 2 
@@ -250,16 +218,11 @@ ZK9X ABCDEF 1
 TNT1 A 0 A_TakeInventory("RifleK98StagedReload",1)
 Goto Ready2
 
-Reload:
-TNT1 A 0 A_JumpIfInventory("karabineAmmo",1,"Reload2")
+	Reload:
 ContinueReloading:
+TNT1 A 0 { return PB_CheckReloadMag("NoReload", "NoAmmo", 5); }
 TNT1 A 0 A_SetCrosshair(0)
-TNT1 A 0 A_ZoomFactor(1.0)
-TNT1 A 0 A_Takeinventory("Reloading",1)
-TNT1 A 0 A_Takeinventory("Zoomed",1)
 TNT1 A 0 A_JumpIfInventory("karabineAmmo",5,"InsertBullets")
-TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,3)
-Goto NoAmmo
 DEAG A 0 A_JumpIfInventory("TurboReload",1,"TurboReload")
 TNT1 AAA 0
 ZK9R AB 2 
@@ -276,19 +239,23 @@ ZK9R EDCBA 2
 
 InsertBullets:
 TNT1 AAAA 0
-TNT1 A 0 A_JumpIfInventory("karabineAmmo",5,"Ready3")
+TNT1 A 0 A_JumpIfInventory("karabineAmmo",5,"ReloadFinish")
 TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,"AmmoIn")
-Goto Ready3
+Goto ReloadFinish
 
 AmmoIn:
 TNT1 A 0 A_Giveinventory("karabineAmmo",1)
 TNT1 A 0 A_Takeinventory("PB_HighCalMag",1)
 Goto InsertBullets
 
+NoReload:
 NoAmmo:
-TNT1 A 0 A_Takeinventory("Zoomed",1)
-TNT1 A 0 A_ZoomFactor(1.0)
 TNT1 A 0 A_Takeinventory("ADSmode",1)
+Goto ReloadFinish
+
+ReloadFinish:
+TNT1 A 0 { PB_SetChamberEmpty(false); PB_SetMagEmpty(false); PB_SetMagUnloaded(false); }
+TNT1 A 0 A_TakeInventory("Reloading", 1)
 Goto Ready3
 
  	Spawn:

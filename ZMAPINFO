@@ -27,6 +27,7 @@ Gameinfo
 	"PB_KillstreakRareFlare",
 	"BusterHandler",
 	"cl_Handler",
+	"cl_FXThrottleHandler",
 	// MISC
 	//"FractalDoom_Game",
 	"KSHUDMessageHandler",
@@ -57,4 +58,9 @@ Gameinfo
 	"PBWP_CombatDamageHandler",
 	"PB_MapStartInputLockHandler",
 	"PB_ExternalMapCompatHandler"
+}
+
+DamageType cl_Poison
+{
+	Obituary = "%o was poisoned"
 }

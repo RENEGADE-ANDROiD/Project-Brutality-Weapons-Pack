@@ -101,6 +101,14 @@ class PBWP_CA_WeaponBase : PB_WeaponBase
 		PBWP_CA_DeferredRailHit(damage, 'Plasma');
 	}
 
+	// Caduceus primary — wider trail spacing + lighter puff/trail actors (upstream wand was blinding in PB view).
+	action void PBWP_CA_FireCaduceusRail(int damage)
+	{
+		A_RailAttack(0, 0, false, "", "", RGF_SILENT | RGF_FULLBRIGHT,
+			pufftype: "PBWP_CA_CaduceusRailPuff", sparsity: 48, spawnclass: "PBWP_CA_CaduceusRailTrail");
+		PBWP_CA_DeferredRailHit(damage, 'Plasma');
+	}
+
 	action void PBWP_CA_FireMinigunLaser(int damage, int sparsity = 24)
 	{
 		A_RailAttack(0, 0, 0, "", "", RGF_SILENT | RGF_FULLBRIGHT,

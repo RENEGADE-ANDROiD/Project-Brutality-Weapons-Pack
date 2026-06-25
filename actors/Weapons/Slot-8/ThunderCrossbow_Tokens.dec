@@ -1,0 +1,36 @@
+// Thunder Crossbow — fire-mode tokens + storm shield powerups.
+
+ACTOR PB_ThunderCrossbow_Beam       : Inventory { Inventory.MaxAmount 1 }
+ACTOR PB_ThunderCrossbow_Bolt       : Inventory { Inventory.MaxAmount 1 }
+ACTOR PB_ThunderCrossbow_Shockwave  : Inventory { Inventory.MaxAmount 1 }
+ACTOR PB_ThunderCrossbow_Cluster    : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR Select_PB_ThunderCrossbow_Beam       : Inventory { Inventory.MaxAmount 1 }
+ACTOR Select_PB_ThunderCrossbow_Bolt       : Inventory { Inventory.MaxAmount 1 }
+ACTOR Select_PB_ThunderCrossbow_Shockwave  : Inventory { Inventory.MaxAmount 1 }
+ACTOR Select_PB_ThunderCrossbow_Cluster    : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR PB_ThunderCrossbowShieldActive : Inventory { Inventory.MaxAmount 1 }
+ACTOR PB_ThunderCrossbowShieldRingLive : Inventory { Inventory.MaxAmount 1 }
+
+ACTOR PB_ThunderCrossbowShieldPower : PowerProtection
+{
+	DamageFactor "Bullet", 0.45
+	DamageFactor "Melee", 0.5
+	DamageFactor "Cut", 0.55
+	DamageFactor "Plasma", 0.25
+	DamageFactor "Lightning", 0.15
+	DamageFactor "Explosion", 0.7
+	DamageFactor "Fire", 0.75
+	DamageFactor "SSG", 0.55
+}
+
+ACTOR PB_ThunderCrossbowShieldGiver : PowerupGiver
+{
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	-INVENTORY.INVBAR
+	Powerup.Type "PB_ThunderCrossbowShieldPower"
+	Powerup.Duration 6
+	Inventory.MaxAmount 0
+}

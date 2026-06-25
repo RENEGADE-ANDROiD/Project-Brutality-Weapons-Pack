@@ -260,7 +260,8 @@ Actor PB_GaussCannon : PB_WeaponBase
 	        TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		    Goto SelectFirstPersonLegs
 		    SelectContinue:
-		    TNT1 A 0 
+		    TNT1 A 0 { PB_WeaponRaise; }
+		    TNT1 A 0 { PB_WeapTokenSwitch("RailGunSelected"); }
 		    TNT1 A 0 A_TakeInventory("RailgunCooldown",25)
 		    		TNT1 A 0 A_WeaponOffset(0, 32)
 		    		Goto Ready3
@@ -288,6 +289,7 @@ Actor PB_GaussCannon : PB_WeaponBase
 			TNT1 A 0
 			TNT1 A 0 {
 				 A_PlaySound("GAUSFIRE");
+				 PB_LowAmmoSoundWarning(hdmr, "PB_Cell", 15);
 				 A_TakeInventory("PB_Cell",15);
 				 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
 				 A_FireCustomMissile("RailgunWallPenetrationHitscan", 0, 0, -1, 0, 0, 0);
@@ -304,7 +306,7 @@ Actor PB_GaussCannon : PB_WeaponBase
 			GISF A 0 A_JumpIfInventory("GaussModeSiege", 1, 2)
 			GCSF A 0
 		   "####" A 0
-		   "####" BC 1 BRIGHT PB_WeaponRecoil(-4.5,-1.2)
+		   "####" BC 1 BRIGHT { PB_WeaponRecoil(-4.5,-1.2); }
 		   "####" A 0 A_ZoomFactor(1)
 		   "####" DEFGHHHHHHHHHH 1
 		   "####" GFEDIJKL 2
@@ -321,14 +323,15 @@ Actor PB_GaussCannon : PB_WeaponBase
 				 A_TakeInventory("PB_LockScreenTilt",1);
 				 A_TakeInventory("GaussScopeCharge",10);
 				 A_PlaySound("GASCFIRE", 1);
+				 PB_LowAmmoSoundWarning(hdmr, "PB_Cell", 15);
 				 A_TakeInventory("PB_Cell",15);
 				 A_FireCustomMissile("ShakeYourAssDouble");
 				 A_FireCustomMissile("RailgunWallPenetrationHitscan", 0, 0, -1, 0, 0, 0);
 				 A_FireCustomMissile("DoomerGaussShot", 0, 0, 0, 0);
 				 A_AlertMonsters;
-				 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
-				 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
-				 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+				 PB_GunSmoke(0, 0, 0);
+				 PB_GunSmoke(0, 0, 0);
+				 PB_GunSmoke(0, 0, 0);
 				 A_ZoomFactor(1.96);
 				 if (CountInv("GaussScopeCharge") != 10) {
 				 A_RailAttack(200, 0, 0, "Green","Cyan", RGF_SILENT, 0, "RAILGUNPUFF1",0,0,0,0,5,1.0,"PBWP_RailGunTrail");
@@ -339,7 +342,7 @@ Actor PB_GaussCannon : PB_WeaponBase
 				 }
 			GCSF M 0
 		   "####" A 0
-		   "####" MM 1 Bright PB_WeaponRecoil(-4.5,-1.2)
+		   "####" MM 1 Bright { PB_WeaponRecoil(-4.5,-1.2); }
 		   "####" A 0 A_ZoomFactor(2)
 		   "####" MMMMMMMMMMMMMM 1 Bright
 		   "####" MMMMMMMM 2 Bright
@@ -374,21 +377,22 @@ Actor PB_GaussCannon : PB_WeaponBase
 				 A_TakeInventory("PB_LockScreenTilt",1);
 				 A_TakeInventory("SiegeModeFireReady",1);
 				 A_PlaySound("GSSGFIRE");
+				 PB_LowAmmoSoundWarning(hdmr, "PB_Cell", 45);
 				 A_TakeInventory("PB_Cell",45);
 				 A_FireCustomMissile("ShakeYourAssDouble");
 				 A_FireCustomMissile("RailgunWallPenetrationHitscan", 0, 0, -1, 0, 0, 0);
 				 A_FireCustomMissile("DoomerGaussSiegeShot", 0, 0, 0, 0);
 				 A_AlertMonsters;
-				 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
-				 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
-				 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+				 PB_GunSmoke(0, 0, 0);
+				 PB_GunSmoke(0, 0, 0);
+				 PB_GunSmoke(0, 0, 0);
 				 A_RailAttack(200, 0, 0, "Green","Cyan", RGF_SILENT, 0, "RAILGUNPUFF1",0,0,0,0,5,1.0,"PBWP_RailGunTrail");
 				 A_ZoomFactor(0.94);
 			     }
 			GISF A 0 A_JumpIfInventory("GaussModeSiege", 1, 2)
 			GCSF A 0
 		   "####" A 0
-		   "####" BC 1 Bright PB_WeaponRecoil(-6.5,-3.2)
+		   "####" BC 1 Bright { PB_WeaponRecoil(-6.5,-3.2); }
 		   "####" DEFG 1 { PB_WeaponRecoil(-6.5,-3.2); }
 		   "####" A 0 A_ZoomFactor(1)
 		   "####" HHHHHHHHHHHHHHH 1

@@ -2043,7 +2043,7 @@ States
 //They work, but they don't have graphics.
 
 // [MagicWazard] Storm side-seeker base; BlueStormLite is the upgraded variant below.
-ACTOR StormLite2
+ACTOR PBWP_StormLite2
 {
 	+SEEKERMISSILE
 	Speed 48
@@ -2071,7 +2071,7 @@ ACTOR StormLite2
 
 // [MagicWazard] More powerful version of StormLite1
 
-ACTOR BlueStormLite : StormLite2
+ACTOR BlueStormLite : PBWP_StormLite2
 {
    +SEEKERMISSILE
    Speed 64

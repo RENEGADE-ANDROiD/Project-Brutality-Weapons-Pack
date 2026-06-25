@@ -32,7 +32,7 @@ TIP_PBSpawnMastermindCGDrop = "Spider Masterminds and its variants will drop the
 TIP_PBSpawnPaingiverDrop = "Paingiver Trooper will drop the Paingiver";
 TIP_PBSpawnMancFlameCannonDrop = "Mancubus variants drop the Flame Cannon; a second drop upgrades to Dual Flame Cannons";
 TIP_PBSpawnCryoRifleDrop = "Frost Dark Imps and Volcabus drop the Cryo Rifle (salvage durability)";
-TIP_PBSpawnThunderCrossbowDrop = "Revenants drop the Thunder Crossbow (salvage durability)";
+TIP_PBSpawnThunderCrossbowDrop = "Revenants can drop the Thunder Crossbow (refills cells if you already have it)";
 TIP_PBSpawnStormcastDrop = "Arch-viles drop Stormcast (salvage durability)";
 TIP_PBSpawnBioAcidLauncherDrop = "Cacodemons drop the Bio-Acid Launcher (salvage durability)";
 TIP_AllMeleeDrop = "Enemies that have are between 20-200 HP have a 20% chance to drop Melee items";
@@ -110,11 +110,11 @@ TIP_PBSpawnPBSpawnBattleAxe = "HACK N SLASH";
 TIP_PBSpawnCalamityBlade = "Legacy of Rust heat blade (HRTG sprites)";
 //TIP_PBSpawnPB_CalamityBlade = "Insanity's Nightmare heat blade (WP0 sprites)";
 TIP_PBSpawnHASG = "RA's original favorite!  *I love gooooO0Oold*";
-TIP_PBSpawnHellPistoler = "An O.P. handgun that disintegrates fools";
+TIP_PBSpawnHellPistoler = "PB 2022 shrink-beam sidearm with weapon wheel";
 TIP_PBSpawnThanatosMagnum = "Ares's Eraser, to use. You'll know what to do this weapon..."
 TIP_PBSpawnMagnumSniperRifle = "She's not much to look at, but she handles like a dream";
 
 
 TIP_PBSpawnMarauderSSG = "Here's a tip, use the MeatHook as much as you can but be careful";
 TIP_PBSpawnHexaLionShotgun = "BeefRice: Remind me why we need a 6 barrel shotgun again";
-TIP_PBSpawnFire_and_IceDragonSlayer = "GRIFFITH!!!!";
+TIP_PBSpawnFire_and_IceDragonSlayer = "Fire & Ice Dragon Slayer. Random chainsaw spawner pickup from progression tier 3 (second half of the campaign) onward.";

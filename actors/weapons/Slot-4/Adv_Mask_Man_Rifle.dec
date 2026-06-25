@@ -73,10 +73,10 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		
 	SelectAnimation:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady")
-	    4XGU A 1 FAST PB_WeaponRecoil(-0.20,-0.15) //(Pitch+0.8)
+	    4XGU A 1 FAST { PB_WeaponRecoil(-0.20,-0.15); } //(Pitch+0.8);
 		TNT1 A 0 A_PlaySound("MS_SLCT",1)
-		4XGU B 1 FAST PB_WeaponRecoil(-0.20,-0.15) //(Pitch-0.4)
-		4XGU C 1 FAST PB_WeaponRecoil(-0.20,-0.15) //(Pitch-0.4)
+		4XGU B 1 FAST { PB_WeaponRecoil(-0.20,-0.15); } //(Pitch-0.4);
+		4XGU C 1 FAST { PB_WeaponRecoil(-0.20,-0.15); } //(Pitch-0.4);
 		TNT1 A 0 A_SetCrosshair(25)
 		TNT1 AAA 0
 		
@@ -122,6 +122,8 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 		SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("RifleSelected"); }
 				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 				Goto Ready3
 		
@@ -152,15 +154,14 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		 
 				if(GetCvar("PB_alttracer") >=1) {
 				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
-				A_FireProjectile("PB_762x51mmAP", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_FireBullets("PB_762x51mmAP", 1, 0.1, 0, 0, 0.1);
 				PB_LowAmmoSoundWarning(hdmr);
 			}
-			else { 
-				A_FireCustomMissile("PBWP_Tracer_Heavy", frandom(-2, 2), 0, 0, 0, 0, frandom(-2, 2));
-				A_FireProjectile("PB_762x51mmAP", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			else {
+				PB_FireBullets("PB_762x51mmAP", 1, 0.1, 0, 0, 0.1);
 				PB_LowAmmoSoundWarning(hdmr);
 			}
-		 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9);
+		 PB_SpawnCasing("PB_EmptyBrass", 32, 8, -9, frandom(4,7), frandom(6,9), frandom(0,5));
 		 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
 		 A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
 		 PB_GunSmoke(0,0,0);
@@ -173,21 +174,21 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		XFLF B 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_ZoomFactor(0.96)
-		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+0.4 + pitch); }
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); }
 		Goto EndSequence
 
 	FireSequence2:
 		XFLF C 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_ZoomFactor(0.96)
-		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+0.4 + pitch); }
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); }
 		Goto EndSequence
 
 
 	EndSequence:
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_ZoomFactor(0.99)
-		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+0.2 + pitch); }
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); }
 		TNT1 A 0 A_TakeInventory ("SP50cAmmo", 1)
 		TNT1 AAA 0 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
 		
@@ -215,7 +216,7 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		 A_PlaySound("Weapons/AutoShotgun", CHAN_WEAPON);
 		 A_PlaySound("Fire/FaDD",CHAN_Body,0.77,0,2);
 		 PB_FireBullets("PB_12GAPellet_ASG",9,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
-		 A_FireCustomMissile("ShotCaseSpawn",5,0,6,-14);
+		 PB_SpawnCasing("ShotgunCasing", 51, 6, -14, frandom(-3,5), frandom(3,7), frandom(3,7));
 		 A_FireCustomMissile("ShakeYourAssMinor", 0, 0, 0, 0);
 		 A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
 		PB_GunSmoke(0,0,0);
@@ -242,9 +243,9 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
         TNT1 A 0 A_ZoomFactor(1.8)
 		TNT1 A 0 A_PlaySound("Weapon/IronSit")
         4XFF E 1
-		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+1.0 + pitch); }
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); }
 		4XFF D 1
-		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+1.0 + pitch); }
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); }
 		TNT1 A 0 A_SetCrosshair(0)
         Goto Ready2
 		
@@ -252,14 +253,15 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
         TNT1 A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_PlaySound("Weapon/IronSit")
         4XFF D 1
-		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(-1.0 + pitch); }
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); }
 		4XFF E 1
-		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(-1.0 + pitch); }
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); }
 		TNT1 A 0 A_Takeinventory("Zoomed",1)
 		TNT1 A 0 A_SetCrosshair(25)
         Goto RealReady
 
 	Fire2:
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_JumpIfInventory("TypeBAssaultSG",1,"ASGFire2")
 		AUSZ H 1 Bright {
 		 A_AlertMonsters;
@@ -269,12 +271,11 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		 
 				if(GetCvar("PB_alttracer") >=1) {
 				A_RailAttack(0, 0, 0, none,none, RGF_SILENT|RGF_NOPIERCING|RGF_EXPLICITANGLE, 0, none,0.1,0.1,700,0,1,1.0,"Tracer_Trail",-6,0,0);
-				A_FireProjectile("PB_762x51mmAP", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+				PB_FireBullets("PB_762x51mmAP", 1, 0.1, 0, 0, 0.1);
 				PB_LowAmmoSoundWarning(hdmr);
 			}
-			else { 
-				A_FireCustomMissile("PBWP_Tracer_Heavy", frandom(-2, 2), 0, 0, 0, 0, frandom(-2, 2));
-				A_FireProjectile("PB_762x51mmAP", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			else {
+				PB_FireBullets("PB_762x51mmAP", 1, 0.1, 0, 0, 0.1);
 				PB_LowAmmoSoundWarning(hdmr);
 			}
 		 A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
@@ -285,22 +286,22 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		 A_TakeInventory ("SP50cAmmo", 1);
 		 PB_WeaponRecoil(-0.20,-0.15); //(+0.3 + Pitch)
 		 A_ZoomFactor(1.98);
-		 A_FireCustomMissile("RifleCaseSpawn",5,0,8,5);
+		 PB_SpawnCasing("PB_EmptyBrass", 32, 8, 5, frandom(4,7), frandom(6,9), frandom(0,5));
 		}
 		TNT1 A 0 A_ZoomFactor(1.97)
 		TNT1 A 0 A_Jump(255,"Recoil_1","Recoil_2")
 
 	Recoil_1:
-		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(+0.2 + Pitch); }
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); }
 		AUSZ I 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
-		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(-0.2 + Angle); }
+		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); }
 		TNT1 A 0 A_ZoomFactor(1.98)
 		Goto EndOfRecoil
 
 	Recoil_2:
-		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); } //(-0.2 + Pitch); }
+		TNT1 A 0 { PB_WeaponRecoil(-0.20,-0.15); }
 		AUSZ I 1 A_DoPBWeaponAction(WRF_NOFIRE| WRF_NOBOB)
-		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(+0.2 + Angle); }
+		TNT1 A 0 { PB_WeaponRecoil(-0.10,-0.15); }
 		Goto EndOfRecoil
 
 	EndOfRecoil:
@@ -323,7 +324,6 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		 A_ZoomFactor(1.99);
 		 A_PlaySound("Weapons/AutoShotgun", CHAN_WEAPON);
 		 A_PlaySound("Fire/FaDD",CHAN_Body,0.77,0,2);
-		 A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
 		 PB_FireBullets("PB_12GAPellet_ASG",9,frandom(5.85,6.65),0,0,frandom(5.32,6.75));
 		 A_FireCustomMissile("YellowFlareSpawn",0,0,0,5);
 		 PB_GunSmoke(0,0,0);
@@ -333,7 +333,7 @@ ACTOR Adv_MaskMan_Rifle : PB_WeaponBase
 		 A_TakeInventory ("SP50cAmmo", 1);
 		 PB_WeaponRecoil(-0.30,-0.25); //(+0.3 + Pitch)
 		 A_ZoomFactor(1.98);
-		 A_FireCustomMissile("ShotCaseSpawn",5,0,6,-14);
+		 PB_SpawnCasing("ShotgunCasing", 51, 6, -14, frandom(-3,5), frandom(3,7), frandom(3,7));
 		}
 		TNT1 A 0 A_ZoomFactor(1.97)
 		AUSZ I 2

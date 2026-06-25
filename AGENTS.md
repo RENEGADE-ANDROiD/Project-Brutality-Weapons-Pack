@@ -329,6 +329,166 @@ These are available to all weapons via the `BaseWeapon_*.zsc` extension files:
 
 ---
 
+## PB Staging Fire-State Standards
+
+All PBWP ballistic firearms should use PB Staging helper calls in **fire states** (and bolt/chamber casing eject frames) instead of legacy missile spawners. Apply these **per weapon** when touching a file — do not batch-replace across the roster without reading each weapon's offsets and fire modes.
+
+Reference implementations: `AK-47.dec`, `AssaultRifle.dec`, `LiTRevolver.dec`, `D2016SHOTGUN.dec`, `Demon_Murderer.dec`.
+
+### Migration map (legacy → PB)
+
+| Legacy call | PB replacement | Notes |
+|---|---|---|
+| `A_FireCustomMissile("GunFireSmoke", 0, 0, hor, vert, …)` | `PB_GunSmoke(0, hor, vert)` | Params 4–5 of the missile call map to `d2`/`d3`. Respects `pb_gunsmoketype` CVar and FX throttle. |
+| `A_FireCustomMissile("GunSmokeSpawner", …)` | `PB_GunSmoke(0, hor, vert)` | Same as GunFireSmoke. |
+| `A_FireCustomMissile("Doom4WeaponPackGunFireSmoke", …)` | `PB_GunSmoke(0, hor, vert)` | D4 pack primary fire only. |
+| `A_FireCustomMissile("RifleCaseSpawn", …)` / `RifleCaseSpawnLeft` | `PB_SpawnCasing("PB_EmptyBrass", 32, hor, vert, frandom(4,7), frandom(6,9), frandom(0,5))` | Use hor/vert from missile args 4–5. OK on bolt-cycle frames (Kar98k pattern). |
+| `PistolCasingSpawner` / `Mp40CaseSpawnLeft` / `MP40CaseSpawn` | `PB_SpawnCasing("PB_EmptyBrass", 28, hor, 28, …)` | Pistols: `hor=-2`, speeds `frandom(-6,-3)` for left eject. Dual pistols: mirror hor (±3/±10). |
+| `SMGCasingSpawner` / `EmptyCaseSpawn` | `PB_SpawnCasing("PB_EmptyBrass", 28, hor, 28, …)` | SMG right eject often `hor=8`, `vert=-14`. |
+| `LMGCasingStandard` on LMGs | Keep class or use `PB_SpawnCasing("LMGCasingStandard", …)` | Demon Murderer uses `LMGCasingStandard`; HYDRA/INMinigun use `PB_EmptyBrass`. |
+| `ShotgunCasing` | `PB_SpawnCasing("ShotgunCasing", 51, 10, 28.6, …)` | See `D2016SHOTGUN.dec`. |
+| `ShakeYourAssMinor` + separate shot sounds | Keep **or** use `PB_GunShot` | See below. |
+
+### Smoke variants
+
+| Variant | When to use |
+|---|---|
+| `PB_GunSmoke()` | Default pistols, SMGs, rifles, shotguns, miniguns. |
+| `PB_GunSmoke_Deagle()` | Magnum handguns (44PDW, THMagnum, heavy revolvers). |
+| `PB_GunSmoke_Sniper()` | Bolt rifles, DMRs, snipers (Kar98k, BlackDMR, ChthonicRifle, Fallen Hawk). |
+| `PB_GunSmoke_Launcher()` | Rocket/grenade launchers (Duke RPG already uses this). |
+| `PB_GunSmoke_Compensator()` | Compensated/ ported barrels (rare in PBWP). |
+
+Do **not** replace `SmokeSpawner` / `SmokeSpawner11` on **reload animation** frames (`####` templated poses, shell-insert puffs) unless they are clearly muzzle fire on the same frame as `PB_FireBullets`.
+
+### Required fire-state checklist (ballistic weapons)
+
+On every `Fire` path that calls `PB_FireBullets`:
+
+1. **`PB_LowAmmoSoundWarning(type)`** — call on the same tic as fire, **before** ammo is taken if possible.
+   - Types: `"pistol"`, `"smg"`, `"hdmr"`, `"Shotgun"`, `"sniper"`, `"revolver"`.
+   - Belt-fed / no mag actor: pass reserve class as 2nd arg, e.g. `PB_LowAmmoSoundWarning(hdmr, "PB_HighCalMag")`.
+   - Dual mag: pass mag class, e.g. `PB_LowAmmoSoundWarning(hdmr, "LeftBlack_Clip")`.
+2. **`PB_GunSmoke` or variant** — once per shot (remove duplicate GunFireSmoke on the same frame).
+3. **`PB_SpawnCasing`** — when the weapon ejects brass on fire or bolt cycle.
+4. **`PB_FireOffset`** — at the start of full-auto / refire loops (rifles, SMGs, LMGs). Already on AK-47, Assault Rifle, ACR.
+5. **Keep `A_RailAttack` + `PB_alttracer` branches** — PB_FireBullets handles damage tracers when CVar is off; rail is cosmetic when on.
+
+### `PB_GunShot` — use sparingly
+
+`PB_GunShot(shotSound, mechSound, tailInside, tailOutside, ammoType, …)` combines shot + mechanical + `PB_DynamicTail` + low-ammo warning. **Do not** replace weapons that use:
+
+- Custom multi-channel sound stacks (Duke `FARSHT` + `P3DFIRE`, VietDoom `DistantFireSoundRifle` missiles).
+- Unique tail systems not mapped to PB atmo paths (`weapons/atmo/int/*`, `weapons/atmo/ext/*`).
+
+Prefer `PB_GunShot` only when refactoring a weapon that already matches PB Staging's two-sound + tail pattern. Most PBWP addon weapons keep explicit `A_PlaySound` + `PB_LowAmmoSoundWarning` + optional `DistantRifleFireSound`.
+
+### Exemptions (do not force PB_FireBullets helpers)
+
+| Category | Reason |
+|---|---|
+| `AutoCannon` guided laser | `A_FireBullets` with `GuidedLaser` — not ballistic |
+| `DTPISTOL`, energy/plasma weapons firing projectiles | Hellbullet / beam actors, not caliber hitscan |
+| `Extinction_Ray` | IN laser projectiles |
+| Explosives (RPG, pipebombs, grenade modes) | Not hitscan |
+| `MegaRig` | Custom mount `A_FireProjectile("PB_*")` |
+| Reload-only decorative smoke | `SmokeSpawner` on insert poses, cooldown steam (`Extinction_Ray ToCompleteCooldown`) |
+| Cosmetic-only legacy FX | Karnage `muzzlesmoker` / `muzzlelight` may coexist with `PB_GunSmoke` until individually reviewed |
+
+### Caliber roster
+
+See `zscript/PBWP_Misc/PBWP_FirearmCaliber.zs` for IN/Duke/Karnage → PB caliber maps and exempt weapons.
+
+---
+
+## PB Staging Non-Fire State Standards
+
+Apply these **per weapon** when touching Select / Ready / Reload / Unload — same discipline as the fire-state pass. Reference: `zscript/WEAPON_TEMPLATE.zs`, `zscript/Weapons/Slot-4/Fusil/PB_Fusil.zs`, `zscript/PBWP_Weapons/Cyberaugumented/PBWP_Warbringer.zs`, `actors/Weapons/Slot-4/AK-47.dec`.
+
+### Select flow (required on `PB_WeaponBase` firearms)
+
+```
+Select → [barrel token cleanup] → SelectFirstPersonLegs → SelectContinue → SelectAnimation → Ready/Ready3
+```
+
+On **`SelectContinue`** (after leg overlay), every firearm should call:
+
+1. **`PB_WeaponRaise(upSnd)`** — optional select sound string; bare `PB_WeaponRaise;` is valid. Clears overlays, resets tilt/zoom, sets leg overlay baseline.
+2. **`PB_WeapTokenSwitch("TokenName")`** — replaces manual `A_TakeInventory("XSelected",1)` / `A_GiveInventory` spam. Required for PB monster death animations.
+3. **`PB_RespectIfNeeded()`** — on `Ready`/`SelectReady` entry when the weapon defines `PB_WeaponBase.RespectItem` and a respect animation (see AK-47, AssaultRifle, BlackDMR).
+
+Do **not** use `A_Overlay(-10, "FirstPersonLegs…")` — use `SelectFirstPersonLegs` / `A_LegOverlay(-1000, …)` via `PB_WeaponRaise`.
+
+#### Common selection tokens
+
+| Weapon category | Token |
+|---|---|
+| Pistols / general handguns | `HandgunSelected` |
+| Revolvers / magnum handguns | `RevolverSelected` or `DeagleSelected` |
+| SMGs | `UACSMGSelected` |
+| Rifles / carbines (slot 4) | `RifleSelected` |
+| DMRs / marksman | `DMRSelected` |
+| Bolt / sniper (single-shot insert) | `SSGSelected` |
+| Pump / auto shotguns | `SSGSelected` / `ASGSelected` |
+| LMGs / miniguns | `MinigunSelected` |
+| Rockets / grenade launchers | `RocketLauncherSelected` / `GrenadeLauncherSelected` |
+| Plasma / energy rifles | `PlasmaGunSelected` |
+| BFG-tier | `BFGSelected` |
+| Duke pistol | `DukePistolSelected` |
+| Oddball addon weapons | `AddonSelected` |
+
+`PB_WeapTokenSwitch` clears the standard PB token set then sets the one passed in. Prefer it over copying the long manual list (legacy Kar98k/ACR pattern).
+
+### Ready states
+
+- **`Ready` / `Ready3`** must call **`A_DoPBWeaponAction(...)`** every tic — never bare `A_WeaponReady()`.
+- Pass **`WRF_ALLOWRELOAD`** (or appropriate `weapflags`) so reload, kick, equipment, and unload routing work.
+- **`Ready`** may branch to respect / steady / zoom setup; **`Ready3`** is the main idle loop after select completes.
+
+### Reload (mag + reserve weapons)
+
+State label must be **`Reload`** (not `ReloadMag`). Pattern:
+
+1. **Barrel guards** at entry (`GrabbedBarrel` / flame / ice → idle throw states).
+2. **`PB_CheckReload(unloadedReload, emptyReload, loadChamber, fullAlready, noAmmo, full, equal)`** — replaces manual `A_JumpIfInventory(mag, max)` + `A_JumpIfInventory(reserve)` + zoom clears at reload entry. First three labels are `null` when unused. Resets zoom, clears dual-wield reload state, calls `PB_SetReloading(true)`.
+   - Example (31-round rifle mag): `PB_CheckReload(null, null, null, "NoReload", "NoAmmo", 31)`
+   - Dual mag: pass `dual=true` and use left-mag ammo class on the actor.
+3. **Animated reload** — mag-out frames, `PB_JumpIfMagUnloaded("MagIn")` before clip eject when the weapon supports unload.
+4. **`PB_AmmoIntoMag("MagClass", "PB_HighCalMag", maxFill, 1)`** — replaces `InsertBullets` loops that `GiveInventory` one round at a time when animation already played.
+5. **After fill:** `PB_SetChamberEmpty(false)`, `PB_SetMagEmpty(false)`, `PB_SetMagUnloaded(false)`.
+6. **`A_TakeInventory("Reloading", 1)`** before `Goto Ready3` if the reload animation used the `Reloading` token.
+
+**Fire gate:** use **`return PB_jumpIfNoAmmo("Reload", min);`** (or custom count) on fire entry — do not rely on `PB_CheckReload` alone; `chamberEmpty` defaults false and silent reload fails on CA-style weapons.
+
+**Refire after shot:** keep **`A_CheckReload`** or **`A_JumpIfInventory(mag, 1, …)`** on auto-fire refire paths unless the weapon maintains PB chamber/mag flags — then **`PB_jumpIfNoAmmo`** is valid. Do **not** substitute `PB_CheckReload` on refire; it is reload-entry validation only.
+
+### Unload
+
+1. Take **`Unloading`** token at Unload entry (cleared by `A_DoPBWeaponAction` when done).
+2. Prefer **`PB_UnloadMag(mag, pool, giveReserve, takeMag, maxSize, goal, spawnActor)`** over manual `RemoveBullets` loops.
+3. Set **`PB_SetMagUnloaded(true)`** when the mag is physically out; pair with per-weapon unload token / `PB_JumpIfMagUnloaded` on reload.
+
+### Exemptions (defer full reload migration)
+
+| Category | Reason |
+|---|---|
+| VietDoom durability / multi-stage reload trees | Custom `PB_Viet*` ammo + condition tokens — Select/Ready pass only until ammo refactor |
+| Duke / Karnage clip-token weapons (`DukePistolAmmo`, `Rainmakerclip`, Karnage clips) | Non-PB mag actors — keep legacy reload until model unified |
+| Weapons with animated per-round insert where loop **is** the animation | Keep loop or refactor individually; still add `PB_CheckReload` at entry + flags after fill |
+| `ACR.dec` legacy Select | Inline token list + no `SelectFirstPersonLegs` — migrate individually |
+| Melee / equipment / energy projectile weapons | Select token only where `PB_WeaponBase`; skip mag reload pattern |
+
+### Non-fire checklist (per weapon touch)
+
+- [ ] `SelectContinue`: `PB_WeaponRaise` + `PB_WeapTokenSwitch`
+- [ ] `PB_RespectIfNeeded` on ready/select path when `RespectItem` defined
+- [ ] `A_DoPBWeaponAction` on all Ready/Ready3 loops
+- [ ] Reload entry: `PB_CheckReload` + animated `DoReload` → `PB_AmmoIntoMag` + flag resets
+- [ ] Unload: `PB_UnloadMag` where mag+reserve model matches PB pools
+- [ ] Refire: `A_CheckReload` or mag-count jump (not `PB_CheckReload`)
+
+---
+
 ## State Machine Conventions
 
 PB weapons do not use the standard `Ready` state as a true idle. The typical flow:
@@ -340,7 +500,7 @@ Select → SelectFirstPersonLegs → SelectContinue → SelectAnimation → Read
 - `Ready` / `Ready3`: Main idle loop. Always calls `A_DoPBWeaponAction()`.
 - `Fire`: Check barrels first (`PB_jumpIfHasBarrel`), then check execution (`PB_Execute`), then fire logic.
 - `AltFire`: Secondary fire mode — often mode-dependent via `invoker.SecondaryFire` bool or `invoker.specialmode` int/enum.
-- `Reload`: Use `PB_checkReload()` at entry, `PB_AmmoIntoMag()` for the transfer.
+- `Reload`: Use `PB_CheckReload()` at entry, `PB_AmmoIntoMag()` for the transfer.
 - `Unload`: Take `"Unloading"` token, use `PB_UnloadMag()`.
 - `Deselect`: Animation frames → `A_Lower(120); wait;`
 
@@ -416,5 +576,7 @@ Prefer ZScript class variables (`bool`, `int`, `enum`) over tokens for new weapo
 - **GKCompat is disabled:** `BaseWeapon_GKCompat.zs` exists but its `#include` is commented out in `BaseWeapon_PBWP.zs` (line 3). `PB_ExecuteGK()` is provided as a stub in `BaseWeapon_PBWP.zs` instead. Do not uncomment the GKCompat include without verifying it compiles.
 - **Stub classes are local:** `LaserSightActivated`, `HasLeech`, and `ThrownStunGrenade` are minimal stubs defined at the end of `BaseWeapon_Functions.zsc`. They exist solely to satisfy references — they have no real behavior. If PB Staging re-adds these classes, the stubs should be removed to avoid duplicate definitions.
 - **`PB_VisualRailBlue`/`PB_VisualRailRed` are stubs:** These are local replacements appended to `BaseWeapon_Functions.zsc`. Both currently use identical `PB_LightVisualRail()` parameters (no actual color differentiation). If color-specific behavior is needed, the stub implementations must be updated.
+- **Legacy fire FX on migrated weapons:** Do not add new `GunFireSmoke`, `GunSmokeSpawner`, `RifleCaseSpawn`, or `*CasingSpawner` missile calls on ballistic fire states — use the PB Staging helpers documented in **PB Staging Fire-State Standards**. VietDoom `SmokeSpawner` on reload poses is not the same as muzzle smoke.
+- **Legacy non-fire patterns:** Do not add manual `A_TakeInventory("*Selected")` lists on `SelectContinue` — use `PB_WeapTokenSwitch`. Do not use `PB_CheckReload` on auto-fire refire paths (keep `A_CheckReload` or mag-count jumps). After `PB_AmmoIntoMag`, always clear `PB_SetChamberEmpty/MagEmpty/MagUnloaded(false)` on mag-fed weapons. Bulk Select injection: `tools/Apply-PBWP-NonFireSelectPass.ps1` (re-run after adding weapons with `SelectContinue`).
 - **Case sensitivity in ZScript:** ZScript is case-sensitive. There is a known issue in `PB_UnloadMag` where `maxsize` (lowercase) is used on lines 1828–1829 instead of the parameter name `maxSize`. Be careful with casing when referencing parameters.
 - **Lump-path collisions with PB Staging:** PBWP overrides three PB Staging files by having identically-pathed files that the engine loads instead (last pk3 wins). When PB Staging adds new functions or changes logic in any of these files, those changes must be manually synced into PBWP's copies or the add-on will fail to load. The colliding files are: `zscript/Weapons/BaseWeapon_Functions.zsc`, `zscript/Weapons/BaseWeapon_Melee.zsc`, `zscript/Weapons/BaseWeapon_Equipment.zsc`. These overrides exist because PBWP needed to patch API signatures and add extension code that chains into PBWP-specific includes.

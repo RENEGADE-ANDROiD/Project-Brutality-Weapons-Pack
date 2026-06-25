@@ -13,8 +13,6 @@ class XM21HasBallistics : Inventory { Default { Inventory.MaxAmount 1; } }
 class LeverActionHellMode : Inventory { Default { Inventory.MaxAmount 1; } }
 class Select_LeverAction_Marlin : Inventory { Default { Inventory.MaxAmount 1; } }
 
-class HellPistolerBeamMode : Inventory { Default { Inventory.MaxAmount 1; } }
-
 class PB_CryoShotgun_Pellet : Inventory { Default { Inventory.MaxAmount 1; } }
 class PB_CryoShotgun_Electric : Inventory { Default { Inventory.MaxAmount 1; } }
 class PB_CryoShotgun_Orb : Inventory { Default { Inventory.MaxAmount 1; } }
@@ -26,6 +24,8 @@ class Select_PB_DMR_SuperBall : Inventory { Default { Inventory.MaxAmount 1; } }
 class Select_PB_DMR_GravityBomb : Inventory { Default { Inventory.MaxAmount 1; } }
 
 class BallistaDemonicMode : Inventory { Default { Inventory.MaxAmount 1; } }
+
+class HellPistolerBeamMode : Inventory { Default { Inventory.MaxAmount 1; } }
 
 // PB Staging monster fire-mode tokens (Cryo Rifle / Acid Gun addons may be absent)
 class FireModeCryoRifleBeam : Inventory { Default { Inventory.MaxAmount 1; } }

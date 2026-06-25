@@ -98,6 +98,7 @@ version "4.14.2"
 // Ouchie!
 #include "zscript/Ouchie.zs"
 // Champions Lite (trimmed trait system from PBWPE)
+#include "zscript/champions_lite/fxthrottle.zs"
 #include "zscript/champions_lite/handler.zs"
 #include "zscript/champions_lite/baseclass.zs"
 #include "zscript/champions_lite/tokens.zs"
@@ -111,6 +112,7 @@ version "4.14.2"
 #include "zscript/champions_lite/traits/trait_stalker.zs"
 #include "zscript/champions_lite/traits/trait_splitter.zs"
 #include "zscript/champions_lite/traits/trait_veteran.zs"
+#include "zscript/champions_lite/traits/trait_captain.zs"
 #include "zscript/champions_lite/static.zs"
 
 // God Complex enhancements (Phase 1 + 2)
@@ -171,6 +173,7 @@ version "4.14.2"
 	// PBX duplicates removed — see PBWP_PBX_DEDUP.md
 #include "zscript/PBWP_Weapons/BeamKatana_Weapon.zs"
 #include "zscript/PBWP_Weapons/VorpalBlade.zs"
+#include "zscript/Weapons/Slot-5/PB_FireAndIceDragonSlayer.zs"
 #include "zscript/PBWP_Weapons/Karnage/KRG_SYS.zc"
 #include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_CA_Common.zs"
 #include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_CA_Projectiles.zs"
@@ -201,6 +204,8 @@ version "4.14.2"
 #include "zscript/Weapons/CatsFrozen/PB_CatsFrozenWeapons.zc"
 #include "zscript/Weapons/Slot-3/CryoShotgun/PB_CryoShotgun.zs"
 #include "zscript/PBWP_Misc/Individual_WeaponWheels/PB_CryoShotgun_Wheel.zs"
+#include "zscript/PBWP_Misc/Individual_WeaponWheels/PB_ThunderCrossbow_Wheel.zs"
+#include "zscript/PBWP_Weapons/ThunderCrossbow/PB_ThunderCrossbow_Shield.zs"
 #include "zscript/PBWP_Misc/Individual_WeaponWheels/HellPistoler_Wheel.zs"
 
 // Late include — extends engine Inventory (must follow other inventory/powerup modules).
