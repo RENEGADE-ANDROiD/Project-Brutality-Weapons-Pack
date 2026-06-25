@@ -99,7 +99,7 @@ Actor PB_BoltRifle : PB_WeaponBase
 	    TNT1 A 0
 	BoltRifleZoomReadyToFire:
 	    BLRZ E 1 {
-			return A_DoPBWeaponAction(WRF_NOFIRE);
+			return A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM);
 		      }
 	        Loop
 	        
@@ -163,6 +163,8 @@ Actor PB_BoltRifle : PB_WeaponBase
 	        Goto SelectFirstPersonLegs
 	        
 	SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("SSGSelected"); }
 	    		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 	    		Goto Ready3
 	        
@@ -189,7 +191,8 @@ Actor PB_BoltRifle : PB_WeaponBase
 	    TNT1 A 0 A_TakeInventory ("BoltRifleAmmo",1)
 	    TNT1 A 0 {
 		       A_RailAttack(300,0,1,None,None,RGF_SILENT,0,"ShotgunPuff",0,0,8192,0,1.0,1.0,None,0,0,6);
-	              A_FireProjectile("PB_762x51mmAP", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+	              PB_FireBullets("PB_762x51mmAP", 1, 0.1, 0, 0, 0.1);
+		       PB_LowAmmoSoundWarning("sniper");
 		      }
 	    TNT1 A 0 A_PlaySound("M40Rifle/Fire")
 	    TNT1 A 0 {
@@ -200,7 +203,7 @@ Actor PB_BoltRifle : PB_WeaponBase
 	    BLRF A 0
 	    BLRF F 2 BRIGHT
 	    BLRF BBCCDD 1 {
-		            A_FireCustomMissile("SmokeSpawner", random(-1,1), 0, 0, 0, 0, random(-1,1));
+		            PB_GunSmoke_Sniper(0,0,0);
 		            PB_CoolDownBarrel;
 		           }
 	    TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo",1,1)
@@ -210,7 +213,7 @@ Actor PB_BoltRifle : PB_WeaponBase
 	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt1", 3)
 	    BLRR GHI 2
 	    TNT1 A 0 {
-		       A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9);
+		       PB_SpawnCasing("PB_EmptyBrass", 32, 8, -9, frandom(4,7), frandom(6,9), frandom(0,5));
 		      }
 	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt2", 3)
 	    BLRR JKLMNO 2
@@ -229,10 +232,11 @@ Actor PB_BoltRifle : PB_WeaponBase
 	    BLRZ F 1 BRIGHT 
 	             {
 		       A_RailAttack(300,0,1,None,None,RGF_SILENT,0,"ShotgunPuff",0,0,8192,0,1.0,1.0,None,0,0,6);
-		       A_FireProjectile("PB_762x51mmAP", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+		       PB_FireBullets("PB_762x51mmAP", 1, 0.1, 0, 0, 0.1);
+		       PB_LowAmmoSoundWarning("sniper");
+                     PB_GunSmoke_Sniper(0,0,0);
                      A_FireCustomMissile("ShakeYourAss", 0, 0, 0, 0);
 		       A_SpawnItemEx("PlayerMuzzle1",30,0,45);
-		       A_FireCustomMissile("SmokeSpawner", random(-1,1), 0, 0, 0, 0, random(-1,1));
 		       PB_CoolDownBarrel;
 		      }
 	    BLRZ GH 2		
@@ -246,7 +250,7 @@ Actor PB_BoltRifle : PB_WeaponBase
 	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt1", 5)
 	    BLRR GHI 2
 	    TNT1 A 0 {
-		       A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9);
+		       PB_SpawnCasing("PB_EmptyBrass", 32, 8, -9, frandom(4,7), frandom(6,9), frandom(0,5));
 		      }
 	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt2", 5)
 	    BLRR JKLMNO 2
@@ -326,9 +330,7 @@ Actor PB_BoltRifle : PB_WeaponBase
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
-	    TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo",11,"Ready3")
-	    TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,1)
-		 Goto DryFire
+	    TNT1 A 0 { return PB_CheckReloadMag("Ready3", "DryFire", 11); }
 	    TNT1 A 0 A_JumpIfInventory("TurboReload",1,"Refill")
 	    TNT1 A 0 A_JumpIfInventory("Zoomed",1,1)
 	        Goto ReloadAnimStart
@@ -351,7 +353,7 @@ Actor PB_BoltRifle : PB_WeaponBase
 	    BLRR DEF 2
 	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt1", 5)
 	    BLRR GHI 2
-	    TNT1 A 0 A_FireCustomMissile("RifleCaseSpawn",5,0,8,-9)
+	    TNT1 A 0 { PB_SpawnCasing("PB_EmptyBrass", 32, 8, -9, frandom(4,7), frandom(6,9), frandom(0,5)); }
 	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt2", 5)
 	    BLRR JKLMNO 2
 	SkipBoltingOnReload:
@@ -375,6 +377,7 @@ Actor PB_BoltRifle : PB_WeaponBase
 	    TNT1 A 0 A_Takeinventory("PB_HighCalMag",2)
 		 Goto ReloadLoop11
 	ReloadDone:
+	    TNT1 A 0 { PB_SetChamberEmpty(false); PB_SetMagEmpty(false); PB_SetMagUnloaded(false); }
 	    TNT1 A 0 { PB_ReFire; }
 		 Goto Ready3
 		 

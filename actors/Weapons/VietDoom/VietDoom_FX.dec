@@ -52,9 +52,10 @@ Actor VietPistolTracer : PBWP_Tracer_Pistol {}
 Actor AK47Tracer : PBWP_Tracer_Intermediate {}
 Actor VietHeavyTracer : PBWP_Tracer_Heavy {}
 Actor VietSniperTracer : PBWP_Tracer_Sniper {}
+// DecorativeTracer is provided by PB Staging — do not redefine here.
 
 // M79 grenade round + glass-break tracer (VietDoom).
-// ShortGrenade2 extends PB_FragGrenade; M79 Fire must call PB_DetonateFragGrenades after spawn.
+// ShortGrenade2 extends PB_FragGrenade (impact detonation via Death/XDeath — do not call PB_DetonateFragGrenades on fire).
 ACTOR ShortGrenade2 : PB_FragGrenade
 {
 }

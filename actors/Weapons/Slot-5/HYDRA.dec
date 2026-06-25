@@ -81,6 +81,8 @@ States
 			TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 			Goto SelectFirstPersonLegs
 			SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("MinigunSelected"); }
 					TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 					Goto Ready3
 
@@ -115,6 +117,7 @@ States
 		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
 		Goto NoAmmo
 		TNT1 AAAAAA 0
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_TakeInventory("PB_HighCalMag", 1,TIF_NOTAKEINFINITE)
 	    TNT1 A 0 A_PlaySound("Hailstorm/Spin", 4)
 		TNT1 A 0 A_PlaySound("Hailstorm/Fire/Loop2", 6, 1, TRUE)
@@ -126,8 +129,7 @@ States
 		TNT1 A 0 { PB_GunSmoke(0,0,0); }
 		//TNT1 A 0 A_JumpIfInventory("NoPenetration", 1, 2)
 		RIFF A 0 A_FireCustomMissile("WallPenetrationHitscan", random(-3,3), 0, -1, 0, 0, random(-3,3))
-		RIFF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
-        TNT1 A 0 A_Firecustommissile("50CalCaseSpawn",0,0,-12,-18)
+        TNT1 A 0 { PB_SpawnCasing("PB_EmptyBrass", 32, -12, -18, frandom(4,7), frandom(6,9), frandom(0,5)); }
         J5GF BC 1 
 		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
 		Goto NoAmmo
@@ -140,7 +142,7 @@ States
 		//TNT1 A 0 A_JumpIfInventory("NoPenetration", 1, 2)
 		RIFF A 0 A_FireCustomMissile("WallPenetrationHitscan", random(-3,3), 0, -1, 0, 0, random(-3,3))
 		TNT1 A 0
-        TNT1 A 0 A_Firecustommissile("50CalCaseSpawn",0,0,-12,-18)
+        TNT1 A 0 { PB_SpawnCasing("PB_EmptyBrass", 32, -12, -18, frandom(4,7), frandom(6,9), frandom(0,5)); }
 	    J5GF E 1
 		J5GF F 1
 		TNT1 A 0 A_TakeInventory("PB_HighCalMag", 1,TIF_NOTAKEINFINITE)
@@ -154,8 +156,7 @@ States
 		TNT1 A 0 { PB_GunSmoke(0,0,0); }
 		//TNT1 A 0 A_JumpIfInventory("NoPenetration", 1, 2)
 		RIFF A 0 A_FireCustomMissile("WallPenetrationHitscan", random(-3,3), 0, -1, 0, 0, random(-3,3))
-		RIFF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
-        TNT1 A 0 A_Firecustommissile("50CalCaseSpawn",0,0,-12,-18)
+        TNT1 A 0 { PB_SpawnCasing("PB_EmptyBrass", 32, -12, -18, frandom(4,7), frandom(6,9), frandom(0,5)); }
         J5GF HI 1
 		MNGG B 0 A_ReFire("Hold")
 		Goto CoolDown
@@ -196,17 +197,21 @@ CoolDown:
 	 
 	 BulletFlash:
 	TNT1 A 0
-		TNT1 A 0 A_FireCustomMissile("PBWP_Tracer_Heavy", frandom(-3,3), 0, -1, -12, 0, frandom(-3,3))
-	TNT1 A 0 A_FireBullets(6, 4, 1, 10, "MachineGunBulletPuff", 1)
-		TNT1 A 0 A_FireCustomMissile("PBWP_Tracer_Heavy", frandom(-3,3), 0, -1, -12, 0, frandom(-3,3))
-	TNT1 A 0 A_FireBullets(6, 4, 1, 10, "MachineGunBulletPuff", 1)
-		TNT1 A 0 A_FireCustomMissile("PBWP_Tracer_Heavy", frandom(-3,3), 0, -1, -12, 0, frandom(-3,3))
-	TNT1 A 0 A_FireBullets(6, 4, 1, 10, "MachineGunBulletPuff", 1)
+	TNT1 A 0 { PB_FireBullets("PB_762x51mm", 1, 6, 0, 0, 6); }
+	TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr, "PB_HighCalMag"); }
+	TNT1 A 0
+	TNT1 A 0 { PB_FireBullets("PB_762x51mm", 1, 6, 0, 0, 6); }
+	TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr, "PB_HighCalMag"); }
+	TNT1 A 0
+	TNT1 A 0 { PB_FireBullets("PB_762x51mm", 1, 6, 0, 0, 6); }
+	TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr, "PB_HighCalMag"); }
+	TNT1 A 0
 	Stop
 	Fire2:
 		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
 		Goto NoAmmo
 		TNT1 AAAAAA 0
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_TakeInventory("PB_HighCalMag", 1,TIF_NOTAKEINFINITE)
 		TNT1 A 0 A_PlaySound("Hailstorm/Spin")
 		TNT1 A 0 A_PlaySound("Hailstorm/Fire/Loop2", 6, 1, TRUE)
@@ -218,8 +223,7 @@ CoolDown:
 		TNT1 A 0 { PB_GunSmoke(0,0,0); }
 		//TNT1 A 0 A_JumpIfInventory("NoPenetration", 1, 2)
 		RIFF A 0 A_FireCustomMissile("WallPenetrationHitscan", random(-3,3), 0, -1, 0, 0, random(-3,3))
-		RIFF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0)
-        TNT1 A 0 A_Firecustommissile("50CalCaseSpawn",0,0,-12,-18)
+        TNT1 A 0 { PB_SpawnCasing("PB_EmptyBrass", 32, -12, -18, frandom(4,7), frandom(6,9), frandom(0,5)); }
         J5GF B 1 
 		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
 		Goto NoAmmo
@@ -232,7 +236,7 @@ CoolDown:
 		//TNT1 A 0 A_JumpIfInventory("NoPenetration", 1, 2)
 		RIFF A 0 A_FireCustomMissile("WallPenetrationHitscan", random(-3,3), 0, -1, 0, 0, random(-3,3))
 		TNT1 A 0
-        TNT1 A 0 A_Firecustommissile("50CalCaseSpawn",0,0,-12,-18)
+        TNT1 A 0 { PB_SpawnCasing("PB_EmptyBrass", 32, -12, -18, frandom(4,7), frandom(6,9), frandom(0,5)); }
 		J5GF E 1 
 		TNT1 A 0 A_TakeInventory("PB_HighCalMag", 1,TIF_NOTAKEINFINITE)
 		TNT1 A 0 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0)
@@ -242,7 +246,7 @@ CoolDown:
 		//TNT1 A 0 A_JumpIfInventory("NoPenetration", 1, 2)
 		RIFF A 0 A_FireCustomMissile("WallPenetrationHitscan", random(-3,3), 0, -1, 0, 0, random(-3,3))
 		TNT1 A 0
-        TNT1 A 0 A_Firecustommissile("50CalCaseSpawn",0,0,-12,-18)
+        TNT1 A 0 { PB_SpawnCasing("PB_EmptyBrass", 32, -12, -18, frandom(4,7), frandom(6,9), frandom(0,5)); }
 		J5GF H 1 
         MNGG B 0 A_ReFire("Fire2")
 		TNT1 A 0 A_StopSound(6)

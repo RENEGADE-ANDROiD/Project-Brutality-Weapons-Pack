@@ -25,6 +25,7 @@ defaultbind M PBWP_MagnetModeOff
 
 alias SwitchItUp "NetEvent SwitchItUp"
 alias BackItUp "NetEvent SwitchBack"
+alias cl_menu "openmenu mk_CLMenu"
 
 //addkeysection "Random Weapon Switch Bind" "RandomSwitchBind"
 addmenukey "Switch It Up: Random Weapon Select" 									"SwitchItUp"
@@ -64,3 +65,4 @@ AddSlotDefault 6 PAGrenadelauncher
 AddSlotDefault 7 Plasmastinger
 AddSlotDefault 2 LiTRevolver
 AddSlotDefault 5 PB_HYDRA
+AddSlotDefault 5 Fire_and_Ice-DragonSlayer

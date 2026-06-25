@@ -164,7 +164,6 @@ class IN_SawSpawnerT3 : PB_WeaponSpawner
 		DropItem 'PB_FlamethrowerUpgrade', 128, 1;
 		DropItem 'P_SMG', 64, 1;
 		Dropitem 'BioAcidLauncher', 32, 1;
-		Dropitem 'HellPistoler', 84, 1;
 		Dropitem 'B92S', 96, 1;
 	}
 }
@@ -176,7 +175,6 @@ class IN_SawSpawnerT4 : PB_WeaponSpawner
 		DropItem 'PB_FlamethrowerUpgrade', 255, 1;
 		DropItem 'P_SMG', 64, 1;
 		Dropitem 'BioAcidLauncher', 32, 1;
-		Dropitem 'HellPistoler', 84, 1;
 		Dropitem 'B92S', 96, 1;
 		Dropitem 'HASGDrum', 42, 1;
 		//You have to find this Last one of OP! this one is will be too tough!;

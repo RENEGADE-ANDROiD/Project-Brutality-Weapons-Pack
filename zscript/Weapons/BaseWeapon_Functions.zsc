@@ -306,6 +306,12 @@ extend class PB_WeaponBase
 		}
 		return resolvestate(null);
 	}
+
+	// DECORATE state blocks cannot pass null statelabels — use this for mag+reserve reload entry.
+	action state PB_CheckReloadMag(statelabel fullAlready, statelabel noAmmo, int full, int equal = 1, bool dual = false)
+	{
+		return PB_CheckReload(null, null, null, fullAlready, noAmmo, full, equal, dual);
+	}
 	
 	//maybe constants would be better for this
 	action bool,int isHoldingBarrel()

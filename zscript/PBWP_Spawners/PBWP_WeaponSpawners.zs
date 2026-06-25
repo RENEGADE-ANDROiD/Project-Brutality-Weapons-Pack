@@ -274,6 +274,19 @@ class VorpalBladeSpawnerInjector : PBInjector
 	}
 }
 
+// Dragon Slayer — Fire & Ice (Craneo); chainsaw spawner pool, second half of progression only (T3/T4)
+class Fire_and_IceDragonSlayerSpawnerInjector : PBInjector
+{
+	override void Init(PB_EventHandler handler)
+	{
+	if (PBWP_SpawnFilters.MaySpawn(PBSpawnFire_and_IceDragonSlayer, pbwp_saw_filter, DisablePBWP_DragonSlayer))
+		{
+		handler.InjectSpawn("PB_SawSpawnerT3", "Fire_and_Ice-DragonSlayer", 255, 1);
+		handler.InjectSpawn("PB_SawSpawnerT4", "Fire_and_Ice-DragonSlayer", 255, 1);
+		}
+	}
+}
+
 //SLOT 2 ===================================================================================== 2 ==
 
 //Beretta92 Silenced - IN
@@ -335,7 +348,7 @@ class HellPistolSpawnerInjector : PBInjector
 	}
 }
 
-//Plasma Annihilator - IN
+// PB 2022 Hell Pistoler (shrink-beam + weapon wheel) — not part of IN Plasma Annihilator roster.
 class HellPistolerSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
@@ -555,13 +568,15 @@ class M1887SpawnerInjector : PBInjector
 	}
 }
 
-// MSSG weapon is monster-drop only; map spawners inject upgrades only.
+// MSSG — rare SSG spawner pickup T3/T4; upgrades inject separately.
 class MarauderSSGSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
 	{
 	if (PBWP_SpawnFilters.MaySpawn(PBSpawnMarauderSSG, pbwp_ssg_filter, DisablePBWP_MarauderSSG))
 		{
+		handler.InjectSpawn('PB_SSGSpawnerT3', 'MarauderSSG', 64, 1);
+		handler.InjectSpawn('PB_SSGSpawnerT4', 'MarauderSSG', 64, 1);
 		handler.InjectSpawn('PB_PackSpawnerT2', 'PBWP_MSSGUpgrade', 255, 1);
 		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'PBWP_MSSGUpgrade', 255, 1);
 		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'PBWP_MSSGUpgrade', 255, 1);
@@ -765,21 +780,6 @@ class AutoCannonSpawnerInjector : PBInjector
 	}
 }
 
-//Dragon Slayer - SCHISM & F&I
-class Fire_and_IceDragonSlayerSpawnerInjector : PBInjector
-{
-	override void init(PB_EventHandler handler)
-	{
-	if (PBSpawnFire_and_IceDragonSlayer)
-		{
-		handler.InjectSpawn("PB_SawSpawnerT3", "Fire_and_Ice-DragonSlayer", 255, 1);
-		handler.InjectSpawn("PB_SawSpawnerT4", "Fire_and_Ice-DragonSlayer", 255, 1);
-		handler.InjectSpawn("PB_SawSpawnerT3", "Fire_and_Ice-DragonSlayer", 255, 1);
-		handler.InjectSpawn("PB_SawSpawnerT4", "Fire_and_Ice-DragonSlayer", 255, 1);
-		}
-	}
-}
-
 //Gallary - IN
 class INNailGunSpawnerInjector : PBInjector
 {
@@ -948,10 +948,17 @@ class MastermindChaingunSpawnerInjector : PBInjector
 	override void Init(PB_EventHandler handler) {}
 }
 
-// Paingiver — monster-drop only (Hell Trooper)
+// Paingiver — RL spawner T3/T4; Hell Trooper drop remains optional bonus.
 class PaingiverSpawnerInjector : PBInjector
 {
-	override void Init(PB_EventHandler handler) {}
+	override void Init(PB_EventHandler handler)
+	{
+		if (PBWP_SpawnFilters.MaySpawn(PBSpawnPaingiver, pbwp_rocketlauncher_filter, DisablePBWP_Paingiver))
+		{
+			handler.InjectSpawn('PB_RLSpawnerT3', 'Paingiver', 255, 1);
+			handler.InjectSpawn('PB_RLSpawnerT4', 'Paingiver', 255, 1);
+		}
+	}
 }
 
 //Rocket Launcher - D2016
@@ -1157,10 +1164,18 @@ class StormcastSpawnerInjector : PBInjector
 	override void Init(PB_EventHandler handler) {}
 }
 
-// Thunder Crossbow — monster-drop only (Revenant)
+// Thunder Crossbow — plasma-tier map spawns (Fire & Ice / Brutal Hexen)
 class ThunderCrossbowSpawnerInjector : PBInjector
 {
-	override void Init(PB_EventHandler handler) {}
+	override void Init(PB_EventHandler handler)
+	{
+		if (PBWP_SpawnFilters.MaySpawn(PBSpawnThunderCrossbow, pbwp_plasmarifle_filter, DisablePBWP_ThunderCrossbow))
+		{
+			handler.InjectSpawn('PB_PlasSpawnerT2', 'ThunderCrossbow', 255, 1);
+			handler.InjectSpawn('PB_PlasSpawnerT3', 'ThunderCrossbow', 255, 1);
+			handler.InjectSpawn('PB_PlasSpawnerT4', 'ThunderCrossbow', 255, 1);
+		}
+	}
 }
 
 //Misc=======================================================================================

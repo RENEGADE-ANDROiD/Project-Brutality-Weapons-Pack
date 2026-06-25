@@ -1,6 +1,6 @@
 // PB_DarkMatterRifle weapon states: C:\Users\shawn\OneDrive\Desktop\temp\ProjectBrutality2022\zscript/Weapons/Slot8/PB_DarkMatterRifle/PB_DarkMatterRifle.zs
 // PB 3.x UAC Prototype Dark Matter Rifle (Pulse Cannon) — folded for PB2022 as PB_DarkMatterRifle.
-// Slot 8 energy rifle; Cell reserve + PB_DarkMatterMag internal magazine; Weapon Special wheel selects Alt-Fire payload.
+// Slot 8 energy rifle; PB_Cell reserve + PB_DarkMatterMag internal magazine; Weapon Special wheel selects Alt-Fire payload.
 
 ACTOR PB_DarkMatterMag : Ammo
 {

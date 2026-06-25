@@ -89,22 +89,22 @@ When the timer expires, overlays clear and your previous weapon is restored auto
 
 ## Monster weapon drops
 
-These weapons **do not spawn on weapon pads**. You get them by killing the right enemy with drops enabled.
+These weapons are **primarily** obtained by killing the right enemy with drops enabled. Several also appear on map weapon spawners when their spawn toggles are on (see notes in the chart).
 
 **Where to turn them on:** `PB Options → Addon Options → PB War Pack → Monster Drop Settings`  
-**Quick presets:** `Weapon Spawn Settings` pack buttons also flip drop toggles — e.g. **Enable Schism / Fire & Ice** turns on Stormcast and Thunder Crossbow drops; **Enable Freezer** turns on Cryo Rifle drops; **Enable IN** turns on Bio-Acid Launcher drops.
+**Quick presets:** `Weapon Spawn Settings` pack buttons also flip drop toggles — e.g. **Enable Schism / Fire & Ice** turns on Stormcast (Schism) and Thunder Crossbow (Fire & Ice) drops; **Enable Freezer** turns on Cryo Rifle map spawns and drops; **Enable IN** turns on Bio-Acid Launcher drops.
 
 ### Drop chart
 
 | Weapon | Enemy that drops it | Notes |
 |--------|---------------------|-------|
-| **Marauder SSG** | Marauder | May also spawn Meat Hook + MSSG upgrade packs |
-| **Paingiver** | Hell Trooper | |
+| **Marauder SSG** | Marauder | May also spawn Meat Hook + MSSG upgrade packs; rare **shotgun spawner** T3/T4 pickup |
+| **Paingiver** | Hell Trooper | Also spawns on **rocket launcher spawns** T3/T4 when enabled |
 | **Mancubus Flame Cannon** | Mancubus (arm gas on death) | First pickup |
 | **Dual Flame Cannons** | Mancubus (arm gas) | Second pickup while you hold the single cannon |
-| **Cryo Rifle** | Frost Dark Imp / Volcabus | Freezer preset |
-| **Thunder Crossbow** | Revenant family | |
-| **Stormcast** | Arch-vile / Hellion | Schism preset |
+| **Cryo Rifle** | Frost Dark Imp / Volcabus | Freezer preset — optional drop refills ammo; also spawns on **plasma rifle spawns** T3/T4 |
+| **Thunder Crossbow** | Revenant family | Fire & Ice — optional drop refills cells; also spawns on **plasma rifle spawns** T2–T4 |
+| **Stormcast** | Arch-vile / Hellion | Schism |
 | **Bio-Acid Launcher** | Cacodemon | IN preset |
 | **Cyberdemon RL** | Cyberdemon gun wreck | PBX weapon — toggle in same menu |
 | **Mastermind Chaingun** | Spider Mastermind | PBX weapon — toggle in same menu |
@@ -136,8 +136,9 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | Argent Sith Beam Katana | |
 | **Insanity's Requiem Mk.2** | Vorpal Blade |
 | **God Complex** | Legendary Chainsaw |
-| **Schism / Fire & Ice** | Battle Axe and Shield |
+| **Schism** | Battle Axe and Shield |
 | **Russian Overkill** | Razorjack |
+| **Fire & Ice** | Dragon Slayer (slot 5 weapon; random **chainsaw spawner** pickup from progression tier 3 onward) |
 | **VietDoom (BD v22)** | Machete |
 
 ### Slot 2 — Pistols / SMGs
@@ -150,9 +151,9 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | Thanatos Magnum | |
 | UZI SMG | |
 | **LiTDoom** | LiT .500 Magnum Revolver |
-| **Insanity's Nightmare** | Plasma Annihilator Pistol, Beretta92 Harmony, Holy Bastard (W-SMG) |
+| **Insanity's Nightmare** | Beretta92 Harmony, Holy Bastard (W-SMG) |
 | **Demon-Tech** | Demon-Tech Pistol |
-| **PB 2022** | Demon-Tech Pistol (Hell Pistoler — shrink beam + weapon wheel) |
+| **PB 2022** | Hell Pistoler (shrink beam + weapon wheel) |
 | **Karnage Legacy** | Handgun G2, MP-55 |
 | **VietDoom (BD v22)** | M1911A1, M3 Grease Gun, Thompson M1A1, MAT-49 |
 | **Duke Nukem 3D** | Pistol (dual-wield) |
@@ -164,11 +165,10 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 |--------|-------|
 | Hexa-Lion Shotgun | Hexa-Soyboy |
 | M1887 Winchester Lever-Action | |
-| Marauder SSG | *Monster drop only — Marauder* |
+| Marauder SSG | Rare **shotgun spawner** T3/T4; also drops from Marauder |
 | **PB 2022** | Marauder SSG (alt-fire shotgun blast; hook on weapon special) |
 | Rotating Double Barrel | |
 | **God Complex** | Legendary Assault Shotgun |
-| **Freezer** | Cryo Shotgun |
 | **PB 2022** | Cryo Shotgun (5 fire modes + weapon wheel) |
 | **Insanity's Nightmare** | Rotational SG, HASG (Lady Golide) |
 | **Demon-Tech** | Demon-Tech Shotgun |
@@ -201,24 +201,24 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | UAC Super Nailgun | |
 | UAC MACH-3 Type-B HYDRA | |
 | **Insanity's Nightmare** | Gallery Nailgun, Insanity's Nightmare Minigun, Apocalypse Killer HAR |
-| **Schism / Fire & Ice** | Fire and Ice DragonSlayer |
+| **Fire & Ice** | Dragon Slayer (melee/nailgun hybrid — tap forward swing, hold lunge + reverse swing; see Slot 1 for spawn info) |
 | **VietDoom (BD v22)** | M60, M1918 BAR, RPD, Stoner 63 |
 | **Duke Nukem 3D** | Ripper Chaingun |
-| **Cyberaugumented** | Nightfall Augumented |
+| **Cyberaugumented** | Nightfall Augumented, X40-DK Legionnaire |
 | **PB3.0 weapons** | Tactical Nailgun (Stroggos SGP-331) |
 
 ### Slot 6 — Explosives
 
 | Weapon | Notes |
 |--------|-------|
-| Paingiver | *Monster drop only — Hell Trooper* |
+| Paingiver | **Rocket launcher spawner** T3/T4; also drops from Hell Trooper |
 | Totenheim Integridar Nuke | Hellbound Tactical Nuke Launcher |
 | **Insanity's Nightmare** | Chthonic Rifle, Fallen Hawk, Super Grenade Launcher (Samantha) |
 | **Doom 2016** | Doom 2016 Rocket Launcher |
 | **Karnage Legacy** | PA Grenade Launcher |
 | **VietDoom (BD v22)** | RPG-7, M79 Grenade Launcher |
 | **Duke Nukem 3D** | RPG, Devastator |
-| **Cyberaugumented** | Intervention Y0, Caduceus |
+| **Cyberaugumented** | Intervention Y0, Caduceus, Dispatcher of Delusions |
 
 ### Slot 7 — Energy Rifles
 
@@ -228,23 +228,23 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | Gauss Cannon | |
 | **God Complex** | Legendary Plasmatic Rifle |
 | **Doom 2016** | Doom 2016 Plasma Gun, Doom 2016 Vortex Rifle |
-| **Cyberaugumented** | Amnesia Proton Phaser, Liquidation |
+| **Cyberaugumented** | Amnesia Proton Phaser, Liquidation, Sirius Crisis Roscoe |
 
 ### Slot 8 — Special Energy
 
 | Weapon | Notes |
 |--------|-------|
 | **God Complex** | Devastador (UAC-Prototype BFG) |
-| **Freezer** | Cryo Rifle (Freeze Thrower) |
+| **Freezer** | Cryo Rifle (Freeze Thrower) — **plasma spawner** T3/T4 + Frost Imp / Volcabus drop |
 | **Insanity's Nightmare** | Extinction Ray (Argent Fury), Ion Rifle, Plasma Assault Rifle, Thunder Carrier (Type A) |
 | **PB 2022** | UAC Prototype Dark Matter Rifle |
 | **Demon-Tech** | Tech Blaster |
-| **Schism / Fire & Ice** | Thunder Crossbow |
+| **Fire & Ice** | Thunder Crossbow (4 fire modes + storm shield alt-fire) |
 | **Karnage Legacy** | Plasmastinger |
 | **Legacy of Rust (LoR)** | Calamity Blade |
 | **Cyberaugumented** | Deracinator, Dismantler |
 
-> Cryo Rifle and Thunder Crossbow are **monster drops only** (Frost Dark Imp / Volcabus and Revenant) — enable via Freezer / Schism presets or Monster Drop Settings.
+> **Plasma-tier map spawns (T3/T4):** Cryo Rifle (Freezer) and Thunder Crossbow (Fire & Ice, T2–T4) inject into PB plasma rifle spawners when their spawn toggles are on. Cryo Rifle and Thunder Crossbow no longer use salvage durability gates — monster drops remain optional bonuses (ammo/cell refills).
 
 ### Slot 9 — BFG Tier
 
@@ -256,7 +256,7 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | Dual Mancubus Flame Cannons | *Monster drop only — second Mancubus pickup upgrades single cannon* |
 | **God Complex** | Enraged Legendary BFG, God Enraged BFG, Nemesis BFG |
 | **Demon-Tech** | Demon-Tech Minigun, Phase Eradicator BFG |
-| **Schism / Fire & Ice** | Stormcast |
+| **Schism** | Stormcast |
 | **Insanity's Nightmare** | Bio-Acid Launcher, Satan Scream (Unmaker variant) |
 | **PB3.0 weapons** | BFG9500 |
 | **Cyberaugumented** | Cinereal Ordnance |
@@ -271,14 +271,14 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | **Karnage Legacy** | 8 weapons — slots 2, 3, 4, 6, 8 |
 | **Insanity's Nightmare (IN)** | 24+ IN weapons across slots 0, 2–6, 8, 9 + Bio-Acid drop |
 | **Demon-Tech (DTECH)** | Demon-Tech Pistol, Demon-Tech Shotgun, Tech Blaster, Demon-Tech Minigun, Phase Eradicator BFG |
-| **Schism / Fire & Ice** | Battle Axe, DragonSlayer + 2 monster-drop weapons (Thunder Crossbow, Stormcast) |
-| **Freezer** | Cryo Shotgun spawn + Cryo Rifle drop (+ freeze grenade / freezebot spawns) |
+| **Schism / Fire & Ice** | **Schism:** Battle Axe, Stormcast drop. **Fire & Ice:** Dragon Slayer (chainsaw spawner T3+), Thunder Crossbow (plasma spawner + Revenant drop) |
+| **Freezer** | Cryo Rifle (plasma spawner T3/T4 + drop), Cryo Shotgun spawns, freeze grenades, freeze bots |
 | **Russian Overkill (RO)** | Razorjack, Power Overwhelming |
 | **Doom 2016 (D2016)** | D2016 Shotgun, Machinegun, Rocket Launcher, Plasma Gun, Vortex Rifle |
 | **Duke Nukem 3D** | 5 weapons + pipebomb equipment — slots 2, 3, 5, 6 |
 | **PB3.0 weapons** | X12, M45, IBMP-12, Riot Shield, Tactical Nailgun, Kar98k, BFG9500 |
 | **VietDoom (BD v22)** | 20 weapons across slots 1–6 and 8; optional **VietDoom weapon durability** toggle in Weapon Spawn Settings |
-| **Cyberaugumented** | 9 weapons across slots 4–9 (Warbringer through Cinereal Ordnance) |
+| **Cyberaugumented** | 11 weapons across slots 4–9 (Warbringer through Cinereal Ordnance; includes Legionnaire, Dispatcher, Sirius Crisis) |
 
 ---
 
@@ -342,7 +342,7 @@ Shared **detonator** — picking up any remote charge also grants `DetonatorAmmo
 |-----------|-------|
 | Throwing Axe | Also available on the **melee wheel** |
 | Shurikens | Ninja stars |
-| **Schism / Fire & Ice** | Shield Saw |
+| **Fire & Ice** | Shield Saw |
 
 > Shield Saw has no ammo counter; equip and throw from the wheel once you own it.
 
@@ -406,7 +406,8 @@ Attributions for included mods, systems, and assets. See the `CREDITS/` folder f
 | UAC / LiT weapon packs | LiT Revolver, Totenheim Integridar Nuke, Phase Eradicator BFG, 50B Bolt-Action Sniper, Legacy Unmaker, MACH-3 HYDRA, Hexa-Soyboy Shotgun |
 | VietDoom v22 | Sgt Mark & Thorir |
 | Insanity's Nightmare weapons | Insanity's Nightmare authors |
-| Schism weapons | Schism authors |
+| Schism weapons | Schism authors (Battle Axe, Stormcast) |
+| Fire & Ice weapons | Brutal Hexen / Fire & Ice authors (Thunder Crossbow, DragonSlayer, Shield Saw) |
 | Russian Overkill weapons | Russian Overkill authors |
 | Demon-Tech weapons | Demon-Tech authors |
 | Duke 3D weapons | Duke addon authors (Pistol, Shotgun, RPG, Pipebombs, Ripper, Devastator) |

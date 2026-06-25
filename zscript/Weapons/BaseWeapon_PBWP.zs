@@ -305,7 +305,7 @@ extend class PB_WeaponBase
 		return resolveState(null);
 	}
 
-	// PB_Staging SuperGL arms PB_FragGrenade via detonateNow; DECORATE launchers (VietDoom M79, etc.) need this after spawn.
+	// PB_Staging SuperGL alt-fire remote detonation only (PB_LookAndDetonateGrenades). Do not call on launcher fire.
 	action void PB_DetonateFragGrenades()
 	{
 		ThinkerIterator tit = ThinkerIterator.Create("PB_FragGrenade");

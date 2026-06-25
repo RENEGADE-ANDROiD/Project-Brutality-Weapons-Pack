@@ -5,7 +5,7 @@ Credits!  Thanks to our amazing mod community.  I love you all.
 - Shieldsaw by Craneo (Schism / Fire & Ice equipment).
 - BattleAxe and Shield\Stormcast is made by Dreo & Lord Lothar for the amazing mod Schism!
 - ThunderCrossbow sprites from Brutal Hexen by Seidolon.
-- ThunderCrossbow AltFire is the PSI Thunder ability from the mod PSI Powers by Mini--Joe - https://forum.zdoom.org/viewtopic.php?p=1181250
+- ThunderCrossbow storm-shield alt-fire uses orbiting STFL panels (PBWP).
 
 Huge thanks to my tech support scripting badass, BROS_ETT_311, for converting some BD tokens for Stormcast functionality in PB and for creating their PB Weapon Injectors.  Huge thanks to the Project Brutality team for making such a fun and complete way to enjoy Doom & Doom II
 

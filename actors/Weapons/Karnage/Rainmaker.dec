@@ -1,4 +1,4 @@
-﻿/*Actor RainmakerPICKUP : Custominventory
+/*Actor RainmakerPICKUP : Custominventory
 {
 	Scale 0.5
 	+INVENTORY.ALWAYSPICKUP
@@ -83,6 +83,8 @@ ACTOR Rainmaker : PB_Weapon //karnageweapon
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 		SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("SSGSelected"); }
 		RAIN A 0 A_PlaySound("ARDN", CHAN_WEAPON)
 		TNT1 A 0 A_SetPitch(0)
 	SelectAnimation:
@@ -98,9 +100,10 @@ ACTOR Rainmaker : PB_Weapon //karnageweapon
 		TNT1 A 0 A_Jumpifnoammo("reload")
 		TNTT A 0 A_Jumpifinventory("firedtwo",1,"Firethird")
 		TNTT A 0 A_Jumpifinventory("firedone",1,"Firesecond")
-		TNT1 AAAA 0 A_Firecustommissile("BulletTracershotgun", frandom(-4,4), 0, 5, 4, 0, frandom(-2,2))
-		TNT1 A 0 A_Firebullets(7,7,12,9,"Shotgunpuff",FBF_NORANDOM, 8192,"Tracer",-2.0)
+		TNT1 A 0 { PB_FireBullets("PB_12GAPellet", 12, 7, 5, 4, 7); }
+		TNT1 A 0 { PB_GunSmoke(0,5,4); }
 		TNT1 A 0 A_Playsound("Rainmaker_shot",7)
+		TNT1 A 0 { PB_LowAmmoSoundWarning("Shotgun"); }
 		TNT1 A 0 A_TAKEINVENTORY("Rainmakerclip",1)
 		TNT1 AA 0 A_FireCustomMissile("muzzlelight", 1,0,4,15)
 		TNT1 A 0 A_FireCustomMissile("muzzlesmoker", 1,0,4,15)
@@ -120,9 +123,10 @@ ACTOR Rainmaker : PB_Weapon //karnageweapon
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
 		TNTT A 0 A_Jumpifinventory("Rainmakerclip",1,1)
 		GOTO RELOAD
-		TNT1 AAAA 0 A_Firecustommissile("BulletTracershotgun", frandom(-4,4), 0, 5, 4, 0, frandom(-2,2))
-		TNT1 A 0 A_Firebullets(7,7,12,9,"Shotgunpuff",FBF_NORANDOM, 8192,"Tracer",-2.0)
+		TNT1 A 0 { PB_FireBullets("PB_12GAPellet", 12, 7, 5, 4, 7); }
+		TNT1 A 0 { PB_GunSmoke(0,5,4); }
 		TNT1 A 0 A_Playsound("Rainmaker_shot",7)
+		TNT1 A 0 { PB_LowAmmoSoundWarning("Shotgun"); }
 		TNT1 A 0 A_TAKEINVENTORY("Rainmakerclip",1)
 		TNT1 A 0 A_FireCustomMissile("muzzlelight", 1,0,4,15)
 		TNT1 A 0 A_FireCustomMissile("muzzlesmoker", 1,0,4,15)
@@ -142,9 +146,11 @@ ACTOR Rainmaker : PB_Weapon //karnageweapon
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
 		TNTT A 0 A_Jumpifinventory("Rainmakerclip",1,1)
 		GOTO RELOAD
-		TNT1 AAAA 0 A_Firecustommissile("BulletTracershotgun", frandom(-4,4), 0, 5, 4, 0, frandom(-2,2))
-		TNT1 A 0 A_Firebullets(7,7,12,18,"Shotgunpuff",FBF_NORANDOM, 8192,"Tracer",-2.0)
+		TNT1 A 0 { PB_FireBullets("PB_12GAPellet", 12, 7, 5, 4, 7); }
+		TNT1 A 0 { PB_FireBullets("PB_12GAPellet", 12, 7, 5, 4, 7); }
+		TNT1 A 0 { PB_GunSmoke(0,5,4); }
 		TNT1 A 0 A_Playsound("Rainmaker_shot",7)
+		TNT1 A 0 { PB_LowAmmoSoundWarning("Shotgun"); }
 		TNT1 A 0 A_TAKEINVENTORY("Rainmakerclip",1)
 		TNT1 A 0 A_FireCustomMissile("muzzlelight", 1,0,4,15)
 		TNT1 A 0 A_FireCustomMissile("muzzlesmoker", 1,0,4,15)

@@ -12,7 +12,7 @@ class PB_DarkMatterRifle : PB_WeaponBase
 	Weapon.AmmoGive1 60;
 	Weapon.AmmoUse2 0;
 	Weapon.AmmoGive2 0;
-	Weapon.AmmoType1 "Cell";
+	Weapon.AmmoType1 "PB_Cell";
 	Weapon.AmmoType2 "PB_DarkMatterMag";
 	Inventory.PickupSound "7LSPICK";
 	Weapon.SelectionOrder 7150;
@@ -358,7 +358,7 @@ class PB_DarkMatterRifle : PB_WeaponBase
 		TNT1 A 0 A_TakeInventory("Reloading", 1);
 		TNT1 A 0 A_JumpIfInventory("PB_DarkMatterMag", 60, "DontNeedToReload");
 		TNT1 A 0 A_PlaySound("BEEEP");
-		TNT1 A 0 A_JumpIfInventory("Cell", 1, 3);
+		TNT1 A 0 A_JumpIfInventory("PB_Cell", 1, 3);
 		Goto Ready3;
 		TNT1 AAAA 0;
 		"PZCR" A 1;
@@ -383,11 +383,11 @@ class PB_DarkMatterRifle : PB_WeaponBase
 		InsertBullets:
 		TNT1 AAAA 0;
 		TNT1 A 0 A_JumpIfInventory("PB_DarkMatterMag", 60, "Ready3");
-		TNT1 A 0 A_JumpIfInventory("Cell", 1, 3);
+		TNT1 A 0 A_JumpIfInventory("PB_Cell", 1, 3);
 		Goto Ready3;
 		TNT1 AAAAAA 0;
 		TNT1 A 0 A_GiveInventory("PB_DarkMatterMag", 1);
-		TNT1 A 0 A_TakeInventory("Cell", 1, TIF_NOTAKEINFINITE);
+		TNT1 A 0 A_TakeInventory("PB_Cell", 1, TIF_NOTAKEINFINITE);
 		Goto InsertBullets;
 		TNT1 AAAAAAAA 0;
 		TNT1 A 0 A_Refire();
@@ -428,7 +428,7 @@ class PB_DarkMatterRifle : PB_WeaponBase
 		Goto FinishUnload;
 		TNT1 AAAAAA 0;
 		TNT1 A 0 A_TakeInventory("PB_DarkMatterMag", 1);
-		TNT1 A 0 A_GiveInventory("Cell", 1);
+		TNT1 A 0 A_GiveInventory("PB_Cell", 1);
 		Goto RemoveBullets;
 
 		FinishUnload:

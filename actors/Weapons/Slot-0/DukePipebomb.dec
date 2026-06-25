@@ -210,7 +210,7 @@ ACTOR Det_SatchelCharge : PB_Weapon
 	SatchelChargeReadyToThrow:
 	    TNT1 A 0 A_GunFlash("SCReady", GFF_NOEXTCHANGE)
 	    SREM A 1 {
-			return A_DoPBWeaponAction(WRF_NOFIRE);
+			return A_DoPBWeaponAction(WRF_ALLOWRELOAD);
 
 
 
@@ -261,7 +261,8 @@ ACTOR Det_SatchelCharge : PB_Weapon
 	   TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 	   Goto SelectFirstPersonLegs
 	   SelectContinue:
-	   TNT1 A 0 
+	   TNT1 A 0 { PB_WeaponRaise; }
+	   TNT1 A 0 { PB_WeapTokenSwitch("AddonSelected"); }
 	   TNT1 A 0 A_Gunflash("SCSelect", GFF_NOEXTCHANGE)
 	   Goto Ready3
 

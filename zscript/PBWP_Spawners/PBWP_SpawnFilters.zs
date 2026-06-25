@@ -8,6 +8,7 @@ enum PBWP_eSawSpawns
 	DisablePBWP_BattleAxe           = 1 << 1,
 	DisablePBWP_LegendaryChainsaw   = 1 << 2,
 	DisablePBWP_ArgentSith          = 1 << 3,
+	DisablePBWP_DragonSlayer        = 1 << 4,
 	DisablePBWP_VorpalBlade         = 1 << 5,
 }
 
@@ -53,6 +54,8 @@ enum PBWP_ePlasmaRifleSpawns
 	DisablePBWP_PlasmaAssault       = 1 << 2,
 	DisablePBWP_LegendaryPlasmatic  = 1 << 3,
 	DisablePBWP_GCDevastador        = 1 << 4,
+	DisablePBWP_ThunderCrossbow     = 1 << 5,
+	DisablePBWP_CryoRifle           = 1 << 6,
 }
 
 enum PBWP_eBFGSpawns

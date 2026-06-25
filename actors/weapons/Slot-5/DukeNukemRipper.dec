@@ -157,6 +157,8 @@ Actor DukeNukemRipper : PB_WeaponBase
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 	    SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("MinigunSelected"); }
 				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 				Goto Ready3
 
@@ -191,6 +193,7 @@ Actor DukeNukemRipper : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("PB_HighCalMag",1,2)
         Goto NoAmmo
         TNT1 AA 0
+		TNT1 A 0 { PB_FireOffset; }
 		RIPR B 0 A_PlaySound("RipprPew", 1)
 		SMGG A 0 A_PlaySound("FARRIF", 5)
 		RIPR B 0 A_ZoomFactor(0.98)
@@ -201,11 +204,10 @@ Actor DukeNukemRipper : PB_WeaponBase
 		     A_SpawnItemEx("PlayerMuzzle2",30,5,27);
 			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
 			 A_FireCustomMissile("ShakeYourAssMinor", 270, 0, 0, 0);
-			 A_FireCustomMissile("PBWP_Tracer_Pistol", frandom(-1, 1), 0, 0, 0, 0, frandom(-1, 1));
-			 A_FireProjectile("Duke_9x19mmRipper", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
-		     A_FireCustomMissile("Tracer", random(-2,2), 0, 0, -12, 0, random(-2,2));
+			 PB_FireBullets("PB_762x51mm", 1, 0.1, 0, 0, 0.1);
+			 PB_LowAmmoSoundWarning("hdmr", "PB_HighCalMag");
 		     A_AlertMonsters;
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+			 PB_GunSmoke(0,0,0);
 			 A_GiveInventory("RipperChaingunFired1",10);
 			 A_GunFlash;
 			 }
@@ -222,15 +224,13 @@ Actor DukeNukemRipper : PB_WeaponBase
 		     A_FireCustomMissile("YellowFlareSpawn",0, 0, -1.6, 0, 0, 0);
 			 A_FireCustomMissile("YellowFlareSpawn",0, 0, 1.6, 0, 0, 0);
 			 A_FireCustomMissile("ShakeYourAssMinor", 270, 0, 0, 0);
-		     A_FireCustomMissile("PBWP_Tracer_Pistol", frandom(-1, 1), 0, 0, 0, 0, frandom(-1, 1));
-		     A_FireProjectile("Duke_9x19mmRipper", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+		     PB_FireBullets("PB_762x51mm", 1, 0.1, 0, 0, 0.1);
+			 PB_LowAmmoSoundWarning("hdmr", "PB_HighCalMag");
 			 }
 		TNT1 A 0 BRIGHT {
-		     A_FireCustomMissile("Tracer", random(-2,2), 0, 5, -12, 0, random(-2,2));
-		     A_FireCustomMissile("Tracer", random(-2,2), 0, -5, -12, 0, random(-2,2));
 			 A_AlertMonsters;
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, -1.6, 0, 0, 0);
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, 1.6, 0, 0, 0);
+			 PB_GunSmoke(0,0,-1.6);
+			 PB_GunSmoke(0,0,1.6);
 			 A_GiveInventory("RipperChaingunFired2",10);
 			 A_GunFlash;
 			 }
@@ -246,17 +246,16 @@ Actor DukeNukemRipper : PB_WeaponBase
 	FireDNF:
 		TNT1 A 0 A_JumpIfInventory("DNFFireSecond",1,"Fire2DNF")
 		TNT1 A 0 A_JumpIfInventory("DNFFireThird",1,"Fire3DNF")
-			TNT1 A 0 A_FireCustomMissile("PBWP_Tracer_Pistol", frandom(-1, 1), 0, 0, 0, 0, frandom(-1, 1))
-		RIPR C 1 BRIGHT A_FireProjectile("Duke_9x19mmRipper", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
-		CHAF A 0 BRIGHT A_FireCustomMissile("Tracer", random(-2,2), 0, -5, -12, 0, random(-2,2))
 		RIPR B 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_SetPitch(Pitch-0.5)
 		RIPR V 1 BRIGHT A_SetPitch(Pitch+0.25)
 		TNT1 A 0 BRIGHT {
 		     A_FireCustomMissile("YellowFlareSpawn",0, 0, -1.6, 0, 0, 0);
 			 A_FireCustomMissile("ShakeYourAssMinor", 270, 0, 0, 0);
+			 PB_FireBullets("PB_762x51mm", 1, 0.1, -1.6, 0, 0.1);
+			 PB_LowAmmoSoundWarning("hdmr", "PB_HighCalMag");
 			 A_AlertMonsters;
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, -1.6, 0, 0, 0);
+			 PB_GunSmoke(0,0,-1.6);
 			 A_GiveInventory("RipperChaingunFired3",10);
 			 A_GunFlash;
 			 }
@@ -266,17 +265,16 @@ Actor DukeNukemRipper : PB_WeaponBase
 		Goto RipperChaingunReadyToFire
 
 	Fire2DNF:
-			TNT1 A 0 A_FireCustomMissile("PBWP_Tracer_Pistol", frandom(-1, 1), 0, 0, 0, 0, frandom(-1, 1))
-		RIPR D 1 BRIGHT A_FireProjectile("Duke_9x19mmRipper", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
-		CHAF A 0 BRIGHT A_FireCustomMissile("Tracer", random(-2,2), 0, 0, -12, 0, random(-2,2))
 		RIPR B 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_SetPitch(Pitch-0.5)
 		RIPR W 1 BRIGHT A_SetPitch(Pitch+0.25)
 		TNT1 A 0 BRIGHT {
 		     A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
 			 A_FireCustomMissile("ShakeYourAssMinor", 270, 0, 0, 0);
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 0, 0, 0);
+			 PB_FireBullets("PB_762x51mm", 1, 0.1, 0, 0, 0.1);
+			 PB_LowAmmoSoundWarning("hdmr", "PB_HighCalMag");
 			 A_AlertMonsters;
+			 PB_GunSmoke(0,0,0);
 			 A_GiveInventory("RipperChaingunFired4",10);
 			 A_GunFlash;
 			 }
@@ -287,17 +285,16 @@ Actor DukeNukemRipper : PB_WeaponBase
 		Goto RipperChaingunReadyToFire
 
 	Fire3DNF:
-			TNT1 A 0 A_FireCustomMissile("PBWP_Tracer_Pistol", frandom(-1, 1), 0, 0, 0, 0, frandom(-1, 1))
-		RIPR E 1 BRIGHT A_FireProjectile("Duke_9x19mmRipper", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
-		CHAF A 0 BRIGHT A_FireCustomMissile("Tracer", random(-2,2), 0, 5, -12, 0, random(-2,2))
 		RIPR B 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_SetPitch(Pitch-0.5)
 		RIPR X 1 BRIGHT A_SetPitch(Pitch+0.25)
 		TNT1 A 0 BRIGHT {
 		     A_FireCustomMissile("YellowFlareSpawn",0, 0, 1.6, 0, 0, 0);
 			 A_FireCustomMissile("ShakeYourAssMinor", 270, 0, 0, 0);
+			 PB_FireBullets("PB_762x51mm", 1, 0.1, 1.6, 0, 0.1);
+			 PB_LowAmmoSoundWarning("hdmr", "PB_HighCalMag");
 			 A_AlertMonsters;
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, 1.6, 0, 0, 0);
+			 PB_GunSmoke(0,0,1.6);
 			 A_GiveInventory("RipperChaingunFired5",10);
 			 A_GunFlash;
 			 }
