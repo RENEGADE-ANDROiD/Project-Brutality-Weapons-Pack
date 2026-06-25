@@ -107,6 +107,8 @@ ACTOR BattleAxe : PB_WeaponBase
 	   	TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 	SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("AddonSelected"); }
 		//TNT1 A 0 SetPlayerProperty(0,0,0)
 				TNT1 A 0 A_WeaponOffset(0, 32)
 				Goto Ready3
@@ -423,10 +425,10 @@ ACTOR BattleAxe : PB_WeaponBase
 		//"####" A 0 SetPlayerProperty(0,0,0)
 		"####" J 1 
 		TNT1 AA 2
-		TNT1 A 0 { PB_ReFire("FastSlash"); } //A_DoPBWeaponAction; }
+		TNT1 A 0 { PB_ReFire("FastSlash"); }
 		"####" A 0 A_TakeInventory("PunchCombo", 1)
 		"####" A 0 A_JumpIfInventory("Kicking",1,"KickLeft")
-		W01G BDFGK 2 { PB_ReFire("FastSlash"); } //A_DoPBWeaponAction; }
+		W01G BDFGK 2 { PB_ReFire("FastSlash"); }
 		"####" A 0 A_JumpIfInventory("Kicking",1,"KickLeft")
 		//Take Away Charged Axe
 		"####" A 0 A_TakeInventory("AxeIsCharged", 1)

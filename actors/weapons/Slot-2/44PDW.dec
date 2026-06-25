@@ -80,6 +80,8 @@ ACTOR 44PDW : PB_WeaponBase
 		TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 		Goto SelectFirstPersonLegs
 	SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("DeagleSelected"); }
 				TNT1 A 0 A_WeaponOffset(0, 32)
 				Goto Ready3
 	SelectFire:
@@ -142,57 +144,59 @@ ACTOR 44PDW : PB_WeaponBase
 		44PF A 0 A_JumpIfInventory("44PDWQuadAction",1,"FireAQA")
 		44PF A 0 A_JumpIfInventory("44PDWTripleAction",1,"FireATA")
 		44PF A 0 A_JumpIfInventory("44PDWSingleAction",1,"FireASA")
-		44PF C 0 A_FireProjectile("PB_500SW", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
-   //     RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
-		44PF J 1 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, -5, 0, 0)
-		REVO A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(pitch-5); }
+		TNT1 A 0 { PB_FireBullets("PB_500SW", 1, 0.1, 0, 0, 0.1); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning("pistol"); }
+		44PF C 0 //     RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
+		44PF J 1 { PB_GunSmoke_Deagle(0, 0, -5); }
+		REVO A 0 { PB_WeaponRecoil(-0.10,-0.15); }
 		44PF A 0 A_ZoomFactor(0.97)
 		44PF KI 1
 		Goto Recoil
+	Recoil:
+		44PF K 1 { PB_WeaponRecoil(-0.20,-0.35); }
+		44PF I 1 { PB_WeaponRecoil(-0.30,-0.35); }
+		Goto EndFire
 	FireASA:
-		44PF C 0 A_FireProjectile("PB_500SW", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
-  //      RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
-		44PF J 1 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, -5, 0, 0)
-		REVO A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(pitch-5); }
+		TNT1 A 0 { PB_FireBullets("PB_500SW", 1, 0.1, 0, 0, 0.1); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning("pistol"); }
+		44PF C 0 //      RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
+		44PF J 1 { PB_GunSmoke_Deagle(0, 0, -5); }
+		REVO A 0 { PB_WeaponRecoil(-0.10,-0.15); }
 		44PF A 0 A_ZoomFactor(0.97)
-		44PF KI 1 { PB_WeaponRecoil(-0.20,-0.35); } //(pitch+2.5); }
+		44PF KI 1 { PB_WeaponRecoil(-0.20,-0.35); }
 		Goto EndFire
 	FireATA:
-		44PF C 0 A_FireProjectile("PB_45ACP", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
-    //    RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
-		44PF J 1 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, -5, 0, 0)
-		REVO A 0 { PB_WeaponRecoil(-0.50,-0.35); } //(pitch-5); }
+		TNT1 A 0 { PB_FireBullets("PB_45ACP", 1, 0.1, 0, 0, 0.1); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning("pistol"); }
+		44PF C 0 //    RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
+		44PF J 1 { PB_GunSmoke_Deagle(0, 0, -5); }
+		REVO A 0 { PB_WeaponRecoil(-0.50,-0.35); }
 		44PF A 0 A_ZoomFactor(0.97)
-		44PF K 1 { PB_WeaponRecoil(-0.20,-0.35); } //(pitch+1.87); }
-		44PF I 1 { PB_WeaponRecoil(-0.30,-0.35); } //(pitch+1.88); }
+		44PF K 1 { PB_WeaponRecoil(-0.20,-0.35); }
+		44PF I 1 { PB_WeaponRecoil(-0.30,-0.35); }
 		//RIFG A 0 A_JumpIfInventory("IsNOTTacticalClass", 1, 2)//tactical mode has muzzle climb
-		RIFG A 0 { PB_WeaponRecoil(-0.05,-0.10); } //(pitch-1.1); }
+		RIFG A 0 { PB_WeaponRecoil(-0.05,-0.10); }
         44PF A 0 A_ZoomFactor(1.0)
 		44PF A 0 { PB_ReFire; }
 		//44PF A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
 		44PF A 7 A_DoPBWeaponAction(1)
 		Goto Ready3
 	FireAQA:
-		44PF C 0 A_FireProjectile("PB_45ACP", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
-  //      RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
-		44PF G 1 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, -5, 0, 0)
-		REVO A 0 { PB_WeaponRecoil(-0.50,-0.35); } //(pitch-5); }
+		TNT1 A 0 { PB_FireBullets("PB_45ACP", 1, 0.1, 0, 0, 0.1); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning("pistol"); }
+		44PF C 0 //      RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
+		44PF G 1 { PB_GunSmoke_Deagle(0, 0, -5); }
+		REVO A 0 { PB_WeaponRecoil(-0.50,-0.35); }
 		44PF A 0 A_ZoomFactor(0.97)
-		44PF H 1 { PB_WeaponRecoil(-0.20,-0.15); } //(pitch+1.25); }
-		44PF I 1 { PB_WeaponRecoil(-0.20,-0.15); } //(pitch+1.25); }
+		44PF H 1 { PB_WeaponRecoil(-0.20,-0.15); }
+		44PF I 1 { PB_WeaponRecoil(-0.20,-0.15); }
 		44PF A 0 A_Recoil(1)
         44PF A 0 A_ZoomFactor(1.0)
 		//RIFG A 0 A_JumpIfInventory("IsNOTTacticalClass", 1, 2)//tactical mode has muzzle climb
-		RIFG A 0 { PB_WeaponRecoil(-0.17,-0.15); } //(pitch-1.1); }
+		RIFG A 0 { PB_WeaponRecoil(-0.17,-0.15); }
 		44PF A 0 { PB_ReFire("FireQA"); }
-		//44PF A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
-		44PF A 7 A_DoPBWeaponAction(1)
-		Goto Ready3
-	Recoil:
 		44PF A 1 A_DoPBWeaponAction(WRF_NOBOB | WRF_ALLOWRELOAD)
-		REVO A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(pitch+1.0); }
-		44PF A 1 A_DoPBWeaponAction(WRF_NOBOB | WRF_ALLOWRELOAD)
-		REVO A 0 { PB_WeaponRecoil(-0.10,-0.15); } //(pitch+1.0); }
+		REVO A 0 { PB_WeaponRecoil(-0.10,-0.15); }
 		Goto EndFire
 	EndFire:
         44PF A 0 A_ZoomFactor(1.0)
@@ -228,29 +232,35 @@ ACTOR 44PDW : PB_WeaponBase
 		44PF A 0 A_JumpIfInventory("44PDWQuadAction",1,"FireAQA2")
 		44PF A 0 A_JumpIfInventory("44PDWTripleAction",1,"FireATA2")
 		44PF A 0 A_JumpIfInventory("44PDWSingleAction",1,"FireASA2")
-		44PF C 0 A_FireProjectile("PB_500SW", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
-   //     RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
+		TNT1 A 0 { PB_FireBullets("PB_500SW", 1, 0.1, 0, 0, 0.1); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning("pistol"); }
+		44PF C 0 //     RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
 		44PA L 1 A_ZoomFactor(1.7)
-		STGF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, -1, 0, 0)
-        44PA M 1 { PB_WeaponRecoil(-0.20,-0.20); } //(pitch-2); }
+		STGF A 0 { PB_GunSmoke_Deagle(0, 0, -1); }
+        44PA M 1 { PB_WeaponRecoil(-0.20,-0.20); }
 		44PA N 1
 		Goto Recoil2
+	Recoil2:
+		44PA N 1 { PB_WeaponRecoil(-0.10,-0.10); }
+		Goto EndFire2
 	FireASA2:
-		44PF C 0 A_FireProjectile("PB_500SW", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
-    //    RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
+		TNT1 A 0 { PB_FireBullets("PB_500SW", 1, 0.1, 0, 0, 0.1); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning("pistol"); }
+		44PF C 0 //    RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
 		44PA L 1 A_ZoomFactor(1.26)
-		STGF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, -1, 0, 0)
-        44PA M 1 { PB_WeaponRecoil(-0.20,-0.20); } //(pitch-2); }
-		44PA N 1 { PB_WeaponRecoil(-0.10,-0.10); } //(pitch+2); }
+		STGF A 0 { PB_GunSmoke_Deagle(0, 0, -1); }
+        44PA M 1 { PB_WeaponRecoil(-0.20,-0.20); }
+		44PA N 1 { PB_WeaponRecoil(-0.10,-0.10); }
 		Goto Cock2
 	FireATA2:
-		44PF C 0 A_FireProjectile("PB_45ACP", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
-   //     RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
+		TNT1 A 0 { PB_FireBullets("PB_45ACP", 1, 0.1, 0, 0, 0.1); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning("pistol"); }
+		44PF C 0 //     RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
 		44PA L 1 A_ZoomFactor(1.7)
-		STGF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, -1, 0, 0)
-		STGF A 0 { PB_WeaponRecoil(-0.20,-0.20); } //(pitch-2); }
-        44PA M 1 { PB_WeaponRecoil(-0.05,-0.05); } //(pitch+0.75); }
-		44PA N 1 { PB_WeaponRecoil(-0.05,-0.05); } //(pitch+0.75); }
+		STGF A 0 { PB_GunSmoke_Deagle(0, 0, -1); }
+		STGF A 0 { PB_WeaponRecoil(-0.20,-0.20); }
+        44PA M 1 { PB_WeaponRecoil(-0.05,-0.05); }
+		44PA N 1 { PB_WeaponRecoil(-0.05,-0.05); }
         44PA H 0 A_ZoomFactor(1.75)
 		//44PA A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
 		//44PA A 0 A_JumpIfInventory("FiredSecondary",1,"HoldAim")//If still pressing alt fire, it means its holding aim
@@ -260,32 +270,26 @@ ACTOR 44PDW : PB_WeaponBase
         TORA A 0
 		Goto Ready2
 	FireAQA2:
-		44PF C 0 A_FireProjectile("PB_45ACP", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1))
-      //  RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
+		TNT1 A 0 { PB_FireBullets("PB_45ACP", 1, 0.1, 0, 0, 0.1); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning("pistol"); }
+		44PF C 0 //  RIFF A 0 A_FireCustomMissile("DecorativeTracer", random(-1,1), 0, 0, 0)
 		44PA J 1 A_ZoomFactor(1.7)
-		STGF A 0 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, -1, 0, 0)
-		STGF A 0 { PB_WeaponRecoil(-0.20,-0.20); } //(pitch-2); }
-        44PA K 1 { PB_WeaponRecoil(-0.05,-0.05); } //(pitch+0.5); }
-		44PA N 1 { PB_WeaponRecoil(-0.05,-0.05); } //(pitch+0.5); }
+		STGF A 0 { PB_GunSmoke_Deagle(0, 0, -1); }
+		STGF A 0 { PB_WeaponRecoil(-0.20,-0.20); }
+        44PA K 1 { PB_WeaponRecoil(-0.05,-0.05); }
+		44PA N 1 { PB_WeaponRecoil(-0.05,-0.05); }
         44PA H 0 A_ZoomFactor(1.75)
 		//44PA A 0 A_JumpIfInventory("FiredPrimary",1,"FireQA2")
 		//44PA A 0 A_JumpIfInventory("FiredSecondary",1,"HoldAim")//If still pressing alt fire, it means its holding aim
         44PA B 0 { PB_ReFire("FireQA2"); }
-		//44PA A 0 A_JumpIfInventory("ZoomHold", 1, "NoAim")
-		44PA F 10 A_DoPBWeaponAction(1)
-        TORA A 0
-		Goto Ready2
-	Recoil2:
 		44PA F 1 A_DoPBWeaponAction(WRF_NOBOB | WRF_ALLOWRELOAD)
-		REVO A 0 { PB_WeaponRecoil(-0.05,-0.05); } //(pitch+0.5); }
+		REVO A 0 { PB_WeaponRecoil(-0.05,-0.05); }
 		44PA F 1 A_DoPBWeaponAction(WRF_NOBOB | WRF_ALLOWRELOAD)
-		REVO A 0 { PB_WeaponRecoil(-0.05,-0.05); } //(pitch+0.5); }
+		REVO A 0 { PB_WeaponRecoil(-0.05,-0.05); }
 		44PA F 1 A_DoPBWeaponAction(WRF_NOBOB | WRF_ALLOWRELOAD)
-		REVO A 0 { PB_WeaponRecoil(-0.05,-0.05); } //(pitch+0.5); }
+		REVO A 0 { PB_WeaponRecoil(-0.05,-0.05); }
 		44PA F 1 A_DoPBWeaponAction(WRF_NOBOB | WRF_ALLOWRELOAD)
-		REVO A 0 { PB_WeaponRecoil(-0.05,-0.05); } //(pitch+0.5); }
-		44PA F 1 A_DoPBWeaponAction(WRF_NOBOB | WRF_ALLOWRELOAD)
-		REVO A 0 { PB_WeaponRecoil(-0.05,-0.05); } //(pitch+0.5); }
+		REVO A 0 { PB_WeaponRecoil(-0.05,-0.05); }
 		Goto EndFire2
 	Cock2:
 		44PA O 1

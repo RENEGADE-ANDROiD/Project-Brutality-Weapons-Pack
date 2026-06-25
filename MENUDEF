@@ -415,7 +415,7 @@ OptionMenu "WeaponPackSpawnSettings"
 	Option "Spawn Doom Blaster", "PBSpawnDoomBlaster", "OnOff"
 	Option "Spawn UZI", "PBSpawnUZI", "OnOff"
 	Option "Spawn DTECH - Demon-Tech Pistol", "PBSpawnHellPistol", "OnOff"
-	Option "Spawn IN - Plasma Annihilator Pistol", "PBSpawnHellPistoler", "OnOff"
+	Option "Spawn PB 2022 - Hell Pistoler", "PBSpawnHellPistoler", "OnOff"
 	Option "Spawn IN - Holy Bastard", "PBSpawnW_SMG", "OnOff"
 	Option "Spawn Thanatos Magnum", "PBSpawnTHMagnum", "OnOff"
 	Option "Spawn UAC-12a Automat (IBMP-12)", "PBSpawnMP12", "OnOff"
@@ -464,7 +464,7 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText "---------------Slot 5 weapons---------------", gold
 	StaticText ""
 	Option "Spawn Auto Cannon", "PBSpawnAutoCannon", "OnOff"
-	Option "Spawn SCHISM - Dragon Slayer Sword", "PBSpawnFire_and_IceDragonSlayer", "OnOff"
+	Option "Spawn Fire & Ice - Dragon Slayer Sword", "PBSpawnFire_and_IceDragonSlayer", "OnOff"
 	Option "Spawn IN - Gallary Nailgun", "PBSpawnINNailGun", "OnOff"
 	// PBX: PBX_NeoHMG
 	Option "Spawn D2016 - Machinegun", "PBSpawnD4Machinegun", "OnOff"
@@ -517,7 +517,7 @@ OptionMenu "WeaponPackSpawnSettings"
 	Option "Spawn Legacy Unmaker", "PBSpawnLegacyUnmaker", "OnOff"
 	Option "Spawn IN - Satan Scream (Unmaker)", "PBSpawnSatan_Scream", "OnOff"
 	Option "Spawn SCHISM - Stormcast", "PBSpawnStormcast", "OnOff"
-	Option "Spawn SCHISM - Thunder Crossbow", "PBSpawnThunderCrossbow", "OnOff"
+	Option "Spawn Fire & Ice - Thunder Crossbow", "PBSpawnThunderCrossbow", "OnOff"
 
      StaticText ""
 	StaticText "---------------Slot 0 weapons---------------", gold
@@ -824,16 +824,59 @@ OptionMenu "mk_CLMenu"
 	{
 	Class "PBWP_OptionMenu"
 	Title "Champions Lite"
-	StaticText "Reload map after changes", gold
+	StaticText "Reload the map after changing settings", gold
 	StaticText " "
+
+	Submenu "Quick Presets", "mk_CLPresetMenu"
 	Submenu "Trait Weights", "mk_CLTraitMenu"
 	Submenu "Mutation Weights", "mk_CLMutationMenu"
+	Submenu "Map Caps", "mk_CLCapMenu"
+	Submenu "Captain Aura", "mk_CLCaptainMenu"
 	StaticText " "
+
 	ScaleSlider "Spawn Chance", "cl_OverrideChance", -1, 256, 1, "Off", "By Difficulty"
 	ScaleSlider "Mutation Chance", "cl_Mutations", 0, 256, 1, "Off"
 	Option "Visual FX", "cl_VisualFX", "YesNo"
+	Option "Combat FX Throttle", "cl_fx_throttle", "OnOff"
+	Option "Performance Lite Mode", "cl_performance_lite", "OnOff"
+	Option "Visibility FX Cull", "cl_fx_visibility", "OnOff"
 	Option "Trait Particles", "cl_Particles", "YesNo"
 	Option "Size Markers", "cl_Markers", "YesNo"
+	ScaleSlider "Bulwark Armor Mul", "cl_bulwark_armor_mul", 1, 8, 1, "1x", "8x"
+	}
+
+OptionMenu "mk_CLPresetMenu"
+	{
+	Class "PBWP_OptionMenu"
+	Title "Quick Presets"
+	StaticText "Applies spawn, weights, caps, and FX settings", gold
+	StaticText "Reload map after applying", gold
+	StaticText " "
+
+	SafeCommand "Lite (performance)", "event cl_preset_lite", "Apply Lite preset?"
+	SafeCommand "Standard (defaults)", "event cl_preset_standard", "Reset to Standard preset?"
+	SafeCommand "Mayhem (maximum)", "event cl_preset_mayhem", "Apply Mayhem preset?"
+	}
+
+OptionMenu "mk_CLCapMenu"
+	{
+	Class "PBWP_OptionMenu"
+	Title "Map Champion Caps"
+	Option "Enable Map Caps", "cl_cap_enabled", "OnOff"
+	ScaleSlider "Small Map Cap", "cl_cap_small", 0, 128, 1, "Off"
+	ScaleSlider "Medium Map Cap", "cl_cap_medium", 0, 256, 1, "Off"
+	ScaleSlider "Large Map Cap", "cl_cap_large", 0, 512, 1, "Off"
+	Slider "Medium Threshold", "cl_cap_medium_count", 25, 500, 5
+	Slider "Large Threshold", "cl_cap_large_count", 100, 1000, 25
+	}
+
+OptionMenu "mk_CLCaptainMenu"
+	{
+	Class "PBWP_OptionMenu"
+	Title "Captain Aura"
+	Slider "Aura Radius", "cl_captain_radius", 128, 1024, 32
+	Slider "Minion Damage Taken", "cl_captain_buff_dr", 10, 100, 5
+	Slider "Minion Speed Boost", "cl_captain_buff_speed", 100, 200, 5
 	}
 
 OptionMenu "mk_CLTraitMenu"
@@ -841,7 +884,7 @@ OptionMenu "mk_CLTraitMenu"
 	Class "PBWP_OptionMenu"
 	Title "Trait Weights"
 	SafeCommand "Reset Defaults", "event cl_reset_traitweight", "Reset all trait weights?"
-	StaticText ""
+	StaticText " "
 	ScaleSlider "Bulwark", "cl_weight_Bulwark", 0, 10, 1, "Off"
 	ScaleSlider "Brute", "cl_weight_Brute", 0, 10, 1, "Off"
 	ScaleSlider "Swift", "cl_weight_Swift", 0, 10, 1, "Off"
@@ -851,6 +894,7 @@ OptionMenu "mk_CLTraitMenu"
 	ScaleSlider "Stalker", "cl_weight_Stalker", 0, 10, 1, "Off"
 	ScaleSlider "Splitter", "cl_weight_Splitter", 0, 10, 1, "Off"
 	ScaleSlider "Veteran", "cl_weight_Veteran", 0, 10, 1, "Off"
+	ScaleSlider "Captain", "cl_weight_Captain", 0, 10, 1, "Off"
 	}
 
 OptionMenu "mk_CLMutationMenu"
@@ -874,6 +918,7 @@ OptionValue "cl_traits"
 	6, "Stalker"
 	7, "Splitter"
 	8, "Veteran"
+	9, "Captain"
 	}
 
 OptionMenu "SwitchItUpOptions" 
@@ -1148,6 +1193,7 @@ AddOptionMenu "AddonWeaponSpawns" after "SAWT2"
 AddOptionMenu "AddonWeaponSpawns" after "SAWT3"
 {
 	FlagOption	"PBWP - Argent Sith Katana",		"pbwp_saw_filter",	"OffOn", 3
+	FlagOption	"PBWP - Fire & Ice Dragon Slayer",	"pbwp_saw_filter",	"OffOn", 4
 	FlagOption	"PBWP - Tiberium Soulblade (Vorpal)",	"pbwp_saw_filter",	"OffOn", 5
 }
 
@@ -1226,6 +1272,8 @@ AddOptionMenu "AddonWeaponSpawns" after "PLST4"
 {
 	FlagOption	"PBWP - Legendary Plasmatic Rifle",	"pbwp_plasmarifle_filter",	"OffOn", 3
 	FlagOption	"PBWP - GC Devastador",				"pbwp_plasmarifle_filter",	"OffOn", 4
+	FlagOption	"PBWP - Thunder Crossbow",			"pbwp_plasmarifle_filter",	"OffOn", 5
+	FlagOption	"PBWP - Cryo Rifle",				"pbwp_plasmarifle_filter",	"OffOn", 6
 }
 
 // BFG / slot 9

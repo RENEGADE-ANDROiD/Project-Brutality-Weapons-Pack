@@ -104,9 +104,10 @@ class PBWP_Warbringer : PBWP_CA_WeaponBase
 		TNT1 A 0 { return PB_JumpIfMagUnloaded("WarbringerMagIn"); }
 		TNT1 A 0 A_FireCustomMissile("EmptyClipSpawn", -5, 0, 8, -4);
 		TNT1 A 0 A_PlaySound("RIFCL_CL", CHAN_AUTO);
-		RFL_ FEB 2 A_DoPBWeaponAction(WRF_NOFIRE);
+		RFL_ F 2 A_DoPBWeaponAction(WRF_NOFIRE);
+		RFL_ B 2 A_DoPBWeaponAction(WRF_NOFIRE);
 		TNT1 A 0 A_PlaySound("weapons/rifle/magin", CHAN_AUTO);
-		RFL_ C 1 A_DoPBWeaponAction(WRF_NOFIRE);
+		RFL_ B 1 A_DoPBWeaponAction(WRF_NOFIRE);
 		WarbringerMagIn:
 		TNT1 A 0
 		{

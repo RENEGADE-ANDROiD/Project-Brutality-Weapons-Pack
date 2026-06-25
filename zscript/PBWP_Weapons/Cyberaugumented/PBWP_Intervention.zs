@@ -71,7 +71,7 @@ class PBWP_Intervention : PBWP_CA_WeaponBase
 		GNN_ C 2 Bright
 		{
 			A_StartSound("Grenade/Launch", CHAN_WEAPON, 0, 0.85);
-			A_FireCustomMissile("PBWP_CA_Grenade", 0, 0, 0, 0, 0, -7.5);
+			A_FireCustomMissile("PBWP_CA_Grenade", 0, 0, 0, 0, 0, 0);
 			A_TakeInventory("PB_RocketAmmo", 1);
 			A_GunFlash();
 			PB_GunSmoke_Launcher(0, 0, 0);
@@ -96,7 +96,7 @@ class PBWP_Intervention : PBWP_CA_WeaponBase
 		GNN_ C 2 Bright
 		{
 			A_StartSound("Grenade/Launch", CHAN_WEAPON, 0, 0.85);
-			A_FireCustomMissile("PBWP_CA_NapalmGrenade", 0, 0, 0, 0, 0, -7.5);
+			A_FireCustomMissile("PBWP_CA_NapalmGrenade", 0, 0, 0, 0, 0, 0);
 			A_TakeInventory("PB_RocketAmmo", 1);
 			A_GunFlash();
 			PB_GunSmoke_Launcher(0, 0, 0);

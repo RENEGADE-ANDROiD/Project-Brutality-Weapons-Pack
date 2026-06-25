@@ -169,6 +169,38 @@ class PBWP_CA_NeonicRailTrail : Actor
 	}
 }
 
+// Caduceus rail — toned-down trail so sustained auto-fire does not white-out the view.
+class PBWP_CA_CaduceusRailTrail : Actor
+{
+	Default
+	{
+		+NOINTERACTION;
+		+NOCLIP;
+		+BRIGHT;
+		+ROLLSPRITE;
+		+CLIENTSIDEONLY;
+		RenderStyle "Add";
+		Alpha 0.22;
+		Scale 0.65;
+		Translation "0:255=%[0.00,0.00,0.00]:[0.07,0.36,0.83]";
+	}
+	States
+	{
+	Spawn:
+		M_TR C 0 NoDelay
+		{
+			A_SpawnParticle(0x88ccff, SPF_FULLBRIGHT, random(8, 12), random(2, 3), frandom(0, 360),
+				frandom(-1, 1), frandom(-1, 1), frandom(-1, 1), fadestepf: 0.08, sizestep: -0.25);
+		}
+		M_TR CCDDDEE 1
+		{
+			A_FadeOut(0.09);
+			A_SetScale(Scale.X - 0.1, Scale.Y - 0.1);
+		}
+		Stop;
+	}
+}
+
 // Dismantler — holy white
 class PBWP_CA_HolyRailTrail : PBWP_CA_RailTrailBase
 {
@@ -312,6 +344,32 @@ class PBWP_CA_NeonicPuff : PBWP_CA_PuffFX
 	}
 }
 
+// Caduceus rail impact — skip fullscreen flares/rings from CA_SpawnNeonicBurst.
+class PBWP_CA_CaduceusRailPuff : PBWP_CA_PuffFX
+{
+	Default
+	{
+		+ALWAYSPUFF;
+		+NOBLOCKMAP;
+		+CLIENTSIDEONLY;
+		RenderStyle "Add";
+		Scale 0.35;
+		Translation "0:255=%[0.00,0.00,0.00]:[0.07,0.36,0.83]";
+	}
+	States
+	{
+	Spawn:
+		TNT1 A 0 NoDelay
+		{
+			for (int i = 0; i < 2; i++)
+				A_SpawnParticle(0xaaddff, SPF_FULLBRIGHT, random(8, 14), random(2, 4), frandom(0, 360),
+					frandom(-2, 2), frandom(-2, 2), frandom(-2, 2), fadestepf: 0.08, sizestep: -0.3);
+		}
+		PUFF A 1 Bright { A_FadeOut(0.18); }
+		Stop;
+	}
+}
+
 class PBWP_CA_CinerealPuff : PBWP_CA_PuffFX
 {
 	Default
@@ -356,12 +414,12 @@ class PBWP_CA_Grenade : Rocket
 {
 	Default
 	{
-		Speed 25;
+		Speed 30;
 		Damage 20;
 		Radius 5;
 		Height 5;
 		Scale 0.5;
-		Gravity 0.45;
+		Gravity 0.22;
 		BounceType "Doom";
 		BounceFactor 0.3;
 		WallBounceFactor 0.3;
@@ -535,6 +593,64 @@ class PBWP_CA_NeonicBall : FastProjectile
 			A_SpawnItem("PBWP_CA_NeonicPuff");
 		}
 		TNT1 A 2 { A_Explode(256, 128, XF_NOTMISSILE); }
+		Stop;
+	}
+}
+
+class PBWP_CA_CaduceusOrb : PBWP_CA_NeonicBall
+{
+	Default
+	{
+		MissileType "PBWP_CA_CaduceusOrbTrail";
+		MissileHeight 6;
+	}
+	States
+	{
+	Spawn:
+		PBAL HI 1
+		{
+			if ((level.time % 2) == 0)
+			{
+				A_SpawnParticle(0x88ccff, SPF_FULLBRIGHT | SPF_RELATIVE, random(10, 14), random(2, 3), frandom(0, 360),
+					0, 0, -4, fadestepf: 0.07, sizestep: -0.25);
+			}
+			A_Weave(1, 1, 0.5, 0.5);
+		}
+		Loop;
+	Death:
+		TNT1 A 0
+		{
+			A_SpawnItemEx("PBWP_CA_NeonicExplode", flags: SXF_NOCHECKPOSITION);
+			A_SpawnItem("PBWP_CA_CaduceusRailPuff");
+		}
+		TNT1 A 2 { A_Explode(256, 128, XF_NOTMISSILE); }
+		Stop;
+	}
+}
+
+// Orb trail — must not inherit CLIENTSIDEONLY from CaduceusRailTrail (breaks MissileType).
+class PBWP_CA_CaduceusOrbTrail : Actor
+{
+	Default
+	{
+		+NOINTERACTION;
+		+NOCLIP;
+		+BRIGHT;
+		RenderStyle "Add";
+		Alpha 0.32;
+		Scale 0.4;
+		Translation "0:255=%[0.00,0.00,0.00]:[0.07,0.36,0.83]";
+	}
+	States
+	{
+	Spawn:
+		TNT1 A 0 NoDelay
+		{
+			A_SpawnParticle(0x88ccff, SPF_FULLBRIGHT, random(10, 16), random(2, 4), frandom(0, 360),
+				frandom(-1, 1), frandom(-1, 1), frandom(-1, 1), fadestepf: 0.08, sizestep: -0.28);
+		}
+		M_TR C 1 { A_FadeOut(0.1); A_SetScale(Scale.X - 0.12, Scale.Y - 0.12); }
+		M_TR DDEE 1 { A_FadeOut(0.1); }
 		Stop;
 	}
 }

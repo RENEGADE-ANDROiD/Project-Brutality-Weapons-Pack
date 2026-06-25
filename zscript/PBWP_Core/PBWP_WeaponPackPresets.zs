@@ -76,7 +76,6 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 
 	static void SetInsanitysNightmare(bool on)
 	{
-		SetSpawn("PBSpawnHellPistoler", on);
 		SetSpawn("PBSpawnIN_Beretta", on);
 		SetSpawn("PBSpawnW_SMG", on);
 		SetSpawn("PBSpawnRotationalSG", on);
@@ -119,6 +118,7 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 	{
 		SetSpawn("PBSpawnBattleAxe", on);
 		SetSpawn("PBSpawnFire_and_IceDragonSlayer", on);
+		SetSpawn("PBSpawnThunderCrossbow", on);
 		SetMonsterDrop("PBSpawnStormcastDrop", on);
 		SetMonsterDrop("PBSpawnThunderCrossbowDrop", on);
 		SetPackToggle("PBWP_Pack_SCHISM", on);
@@ -126,6 +126,7 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 
 	static void SetFreezer(bool on)
 	{
+		SetSpawn("PBSpawnPB_CryoRifle", on);
 		SetMonsterDrop("PBSpawnCryoRifleDrop", on);
 		SetSpawn("PBSpawnPB_CryoShotgun", on);
 		SetSpawn("SpawnFreezeNade", on);
@@ -235,6 +236,7 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 		SetSpawn("PBSpawn44PDW", on);
 		SetSpawn("PBSpawnB92S", on);
 		SetSpawn("PBSpawnDoomBlaster", on);
+		SetSpawn("PBSpawnHellPistoler", on);
 		SetSpawn("PBSpawnUZI", on);
 		SetSpawn("PBSpawnTHMagnum", on);
 		SetSpawn("PBSpawnRiotShield", on);

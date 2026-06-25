@@ -107,6 +107,8 @@ Actor DukeShotgun : PB_Weapon
 	    TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 	    Goto SelectFirstPersonLegs
 	    SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("SSGSelected"); }
 	    		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 	    		Goto Ready3
 
@@ -139,10 +141,9 @@ Actor DukeShotgun : PB_Weapon
 			 A_SpawnItemEx("PlayerMuzzle1",32,0,28);
 			 A_FireCustomMissile("YellowFlareSpawn",0,0,0,0);
 			 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0);
-			 A_FireCustomMissile("BulletTracershotgun", frandom(-4, 4), 0, 5, 4, 0, frandom(-4, 4));
-			 PB_FireBullets("Duke_12GAPellet",8,1.5,0,0,1.5);
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 1, 0, 0);
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, 0, 1, 0, 0);
+			 PB_FireBullets("PB_12GAPellet",8,1.5,0,0,1.5);
+			 PB_LowAmmoSoundWarning("Shotgun");
+			 PB_GunSmoke(0,0,1);
 			 PB_WeaponRecoil(-1.64,+0.88);
 
 
@@ -154,7 +155,6 @@ Actor DukeShotgun : PB_Weapon
 		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
 		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
 		     A_FireCustomMissile("ShotgunParticles", random(-17,17), 0, -1, random(-17,17));
-		     A_FireCustomMissile("Tracer", 0, 0, 0, -14, 0, 0);
 
 
 
@@ -192,10 +192,7 @@ Actor DukeShotgun : PB_Weapon
 	   S3DG A 0 A_GiveInventory ("Pumping", 1)
 	   S3DG BCDE 1
 	   S3DG A 0 {
-	        A_FireCustomMissile("SSGCaseSpawner",-40,0,0,-8);
-
-
-
+	        PB_SpawnCasing("ShotgunCasing", 51, 0, -8, frandom(4,7), frandom(6,9), frandom(0,5));
 }
 	   S3DG A 0 A_DoPBWeaponAction(WRF_NOFIRE|WRF_NOBOB)//Allows Quick Switch   
 	   S3DG FGG 1

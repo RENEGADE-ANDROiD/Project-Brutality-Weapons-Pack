@@ -153,6 +153,8 @@ Actor SuperNailgun : PB_WeaponBase {
 	   TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 	   Goto SelectFirstPersonLegs
 	   SelectContinue:
+	   		TNT1 A 0 { PB_WeaponRaise; }
+	   		TNT1 A 0 { PB_WeapTokenSwitch("AddonSelected"); }
 	   		TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 	   		Goto Ready3
 
@@ -195,40 +197,52 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1, 1)
 		Goto Reload
 		TNT1 A 0 A_JumpIfInventory("NailFireMode", 1, "FireFlame")
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_ZoomFactor (0.98)
 		TNT1 A 0 A_PlaySound("SNFIRE", 50)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr); }
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 1)
-		TNT1 A 0 A_FireProjectile("PB_SMGNail")
+		TNT1 A 0 { PB_FireBullets("PB_SMGNail", 1, 0, 0, 0, 0); }
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
 		TNT1 A 0 { PB_WeaponRecoil(-0.6, 0); }
 		SNLR GHI 1
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1,1)
 		Goto Reload
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_ZoomFactor (0.98)
 		TNT1 A 0 A_PlaySound("SNFIRE", 50)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr); }
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 1)
-		TNT1 A 0 A_FireProjectile("PB_SMGNail1")
+		TNT1 A 0 { PB_FireBullets("PB_SMGNail1", 1, 0, 0, 0, 0); }
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
 		TNT1 A 0 { PB_WeaponRecoil(-0.6, 0); }
 		SNLR GHI 1
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1, 1)
 		Goto Reload
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_ZoomFactor (0.98)
 		TNT1 A 0 A_PlaySound("SNFIRE", 50)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr); }
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 1)
-		TNT1 A 0 A_FireProjectile("PB_SMGNail2")
+		TNT1 A 0 { PB_FireBullets("PB_SMGNail2", 1, 0, 0, 0, 0); }
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
 		TNT1 A 0 { PB_WeaponRecoil(-0.6, 0); }
 		SNLR GHI 1
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1, 1)
 		Goto Reload
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_ZoomFactor (0.98)
 		TNT1 A 0 A_PlaySound("SNFIRE", 50)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr); }
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 1)
-		TNT1 A 0 A_FireProjectile("PB_SMGNail")
+		TNT1 A 0 { PB_FireBullets("PB_SMGNail", 1, 0, 0, 0, 0); }
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
 		TNT1 A 0 { PB_WeaponRecoil(-0.6, 0); }
@@ -243,40 +257,52 @@ Actor SuperNailgun : PB_WeaponBase {
 	FireFlame:
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1,1)
 		Goto Reload
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_ZoomFactor (0.98)
 		TNT1 A 0 A_PlaySound("SNFIRE", 50)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr); }
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 1)
-		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
+		TNT1 A 0 { PB_FireBullets("PB_SMGNailHot", 1, 0, 0, 0, 0); }
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
 		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
 		SNLR GHI 4
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1,1)
 		Goto Reload
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_ZoomFactor (0.98)
 		TNT1 A 0 A_PlaySound("SNFIRE", 50)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr); }
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 1)
-		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
+		TNT1 A 0 { PB_FireBullets("PB_SMGNailHot", 1, 0, 0, 0, 0); }
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
 		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
 		SNLR GHI 3
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1,1)
 		Goto Reload
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_ZoomFactor (0.98)
 		TNT1 A 0 A_PlaySound("SNFIRE", 50)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr); }
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 1)
-		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
+		TNT1 A 0 { PB_FireBullets("PB_SMGNailHot", 1, 0, 0, 0, 0); }
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
 		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
 		SNLR GHI 3
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1,1)
 		Goto Reload
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_ZoomFactor (0.98)
 		TNT1 A 0 A_PlaySound("SNFIRE", 50)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr); }
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 1)
-		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
+		TNT1 A 0 { PB_FireBullets("PB_SMGNailHot", 1, 0, 0, 0, 0); }
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
 		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
@@ -286,30 +312,39 @@ Actor SuperNailgun : PB_WeaponBase {
 	FireHoldFlame:
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1,1)
 		Goto Reload
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_ZoomFactor (0.98)
 		TNT1 A 0 A_PlaySound("SNFIRE", 50)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr); }
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 1)
-		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
+		TNT1 A 0 { PB_FireBullets("PB_SMGNailHot", 1, 0, 0, 0, 0); }
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
 		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
 		SNLR GHI 1
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1, 1)
 		Goto Reload
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_ZoomFactor (0.98)
 		TNT1 A 0 A_PlaySound("SNFIRE", 50)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr); }
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 1)
-		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
+		TNT1 A 0 { PB_FireBullets("PB_SMGNailHot", 1, 0, 0, 0, 0); }
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
 		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
 		SNLR GHI 1
 		TNT1 A 0 A_JumpIfInventory("SNGAmmo", 1, 1)
 		Goto Reload
+		TNT1 A 0 { PB_FireOffset; }
 		TNT1 A 0 A_ZoomFactor (0.98)
 		TNT1 A 0 A_PlaySound("SNFIRE", 50)
+		TNT1 A 0 { PB_GunSmoke(0,0,0); }
+		TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr); }
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 1)
-		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
+		TNT1 A 0 { PB_FireBullets("PB_SMGNailHot", 1, 0, 0, 0, 0); }
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)
 		TNT1 A 0 { PB_WeaponRecoil(-1, 0); }
@@ -344,10 +379,10 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_Playsound("SNGA", 50)
 		TNT1 A 0 A_Playsound("SNGB", 51)
 		TNT1 A 0 A_PlaySound("SNFIRE", 52)
-		TNT1 A 0 A_FireProjectile("PB_SMGNail")
-		TNT1 A 0 A_FireProjectile("PB_SMGNail1",  0, 0, 7)
-		TNT1 A 0 A_FireProjectile("PB_SMGNail2",  0, 0, -7)
-		TNT1 A 0 A_FireProjectile("PB_SMGNail",  0, 0, 0, -8)
+		TNT1 A 0 { PB_FireBullets("PB_SMGNail", 1, 0, 0, 0, 0); }
+		TNT1 A 0 { PB_FireBullets("PB_SMGNail1", 1, 0, 7, 0, 0); }
+		TNT1 A 0 { PB_FireBullets("PB_SMGNail2", 1, 0, -7, 0, 0); }
+		TNT1 A 0 { PB_FireBullets("PB_SMGNail", 1, 0, 0, -8, 0); }
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 4)
 		SNLR F 1 BRIGHT
 		TNT1 A 0 { PB_WeaponRecoil(-2.5, 0); }
@@ -370,10 +405,10 @@ Actor SuperNailgun : PB_WeaponBase {
 		TNT1 A 0 A_Playsound("SNGA", 50)
 		TNT1 A 0 A_Playsound("SNGB", 51)
 		TNT1 A 0 A_PlaySound("SNFIRE", 52)
-		TNT1 A 0 A_FireProjectile("PB_SMGNailHot")
-		TNT1 A 0 A_FireProjectile("PB_SMGNailHot",  0, 0, 7)
-		TNT1 A 0 A_FireProjectile("PB_SMGNailHot",  0, 0, -7)
-		TNT1 A 0 A_FireProjectile("PB_SMGNailHot",  0, 0, 0, -8)
+		TNT1 A 0 { PB_FireBullets("PB_SMGNailHot", 1, 0, 0, 0, 0); }
+		TNT1 A 0 { PB_FireBullets("PB_SMGNailHot", 1, 0, 7, 0, 0); }
+		TNT1 A 0 { PB_FireBullets("PB_SMGNailHot", 1, 0, -7, 0, 0); }
+		TNT1 A 0 { PB_FireBullets("PB_SMGNailHot", 1, 0, 0, -8, 0); }
 		TNT1 A 0 A_TakeInventory("SNGAmmo", 4)
 		SNLR F 1 BRIGHT
 		TNT1 A 0 A_ZoomFactor (1)

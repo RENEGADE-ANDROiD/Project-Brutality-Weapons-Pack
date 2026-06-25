@@ -13,7 +13,7 @@ class cl_BulwarkController : cl_BaseController
 
 	override void cl_InitEffect()
 		{
-		champion.Health *= 2;
 		champion.PainChance = int(champion.PainChance * 0.75);
+		champion.A_GiveInventory("cl_BulwarkArmorGiver");
 		}
 	}

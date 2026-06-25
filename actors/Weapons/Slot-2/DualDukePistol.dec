@@ -107,6 +107,8 @@ Actor DualDukePistols : PB_Weapon
 	    TNT1 A 0 A_TakeInventory("GrabbedFlameBarrel",1)
 	    Goto SelectFirstPersonLegs
 	    SelectContinue:
+		TNT1 A 0 { PB_WeaponRaise; }
+		TNT1 A 0 { PB_WeapTokenSwitch("DukePistolSelected"); }
 	    		TNT1 A 0 A_WeaponOffset(0, 32)
 	    		Goto Ready3
 
@@ -119,12 +121,12 @@ Actor DualDukePistols : PB_Weapon
 		PD3G A 0 A_ZoomFactor(0.98)
 		PD3F AB 1 BRIGHT {
 		     A_AlertMonsters;
-			 A_FireCustomMissile("PBWP_Tracer_Pistol", frandom(-1, 1), 0, 0, 0, 0, frandom(-1, 1));
-			 A_FireProjectile("Duke_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			 PB_FireBullets("PB_9x19mm", 1, 0.1, 0, 0, 0.1);
+			 PB_LowAmmoSoundWarning("pistol");
 			 A_FireCustomMissile("YellowFlareSpawn",0,0,-3,0);
 			 A_FireCustomMissile("ShakeYourAssMinor", 270, 0, 0, 0);
-			 A_FireCustomMissile("PistolCasingSpawner", 0,0,0,-2);
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, 4, 0, 0, 0);
+			 PB_SpawnCasing("PB_EmptyBrass", 28, -3, 28, frandom(4,7), frandom(-6,-3), frandom(0,4));
+			 PB_GunSmoke(0,0,4);
 			 A_GunFlash;
 			 PB_WeaponRecoil(-0.84,-1.2);
 
@@ -151,12 +153,12 @@ Actor DualDukePistols : PB_Weapon
         PD3G A 0 A_PlaySound("P3DFIRE")
 		PD3F DE 1 BRIGHT {
 		     A_AlertMonsters;
-			 A_FireCustomMissile("PBWP_Tracer_Pistol", frandom(-1, 1), 0, 0, 0, 0, frandom(-1, 1));
-			 A_FireProjectile("Duke_9x19mm", frandom(-0.1,0.1),0,0,0, FPF_NOAUTOAIM, frandom(-0.1,0.1));
+			 PB_FireBullets("PB_9x19mm", 1, 0.1, 0, 0, 0.1);
+			 PB_LowAmmoSoundWarning("pistol");
 			 A_FireCustomMissile("YellowFlareSpawn",0,0,3,0);
 			 A_FireCustomMissile("ShakeYourAssMinor", 270, 0, 0, 0);
-			 A_FireCustomMissile("PistolCasingSpawner", 0,0,0,-2);
-			 A_FireCustomMissile("GunFireSmoke", 0, 0, -4, 0, 0, 0);
+			 PB_SpawnCasing("PB_EmptyBrass", 28, 3, 28, frandom(4,7), frandom(-6,-3), frandom(0,4));
+			 PB_GunSmoke(0,0,-4);
 			 A_GunFlash;
 			 PB_WeaponRecoil(-0.84,+1.2);
 

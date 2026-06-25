@@ -4,7 +4,7 @@ class cl_Handler : EventHandler
 		{
 		'cl_weight_Bulwark', 'cl_weight_Brute', 'cl_weight_Swift', 'cl_weight_Volatile',
 		'cl_weight_Toxic', 'cl_weight_Blink', 'cl_weight_Stalker', 'cl_weight_Splitter',
-		'cl_weight_Veteran'
+		'cl_weight_Veteran', 'cl_weight_Captain'
 		};
 
 	static const name cl_WeightVars_Mutations[] =
@@ -16,7 +16,7 @@ class cl_Handler : EventHandler
 		{
 		"cl_BulwarkController", "cl_BruteController", "cl_SwiftController", "cl_VolatileController",
 		"cl_ToxicController", "cl_BlinkController", "cl_StalkerController", "cl_SplitterController",
-		"cl_VeteranController"
+		"cl_VeteranController", "cl_CaptainController"
 		};
 
 	static const int cl_MutationIds[] =
@@ -35,6 +35,8 @@ class cl_Handler : EventHandler
 	bool missileGlow;
 	bool traitFX;
 	int mutationchance;
+	int championsThisMap;
+	int mapCap;
 	array<Actor> cl_PendingRolls;
 	int cl_PendingCursor;
 
@@ -79,10 +81,93 @@ class cl_Handler : EventHandler
 			}
 		}
 
+	void cl_ApplyPresetLite()
+		{
+		CVar.GetCVar("cl_OverrideChance").SetInt(-1);
+		CVar.GetCVar("cl_Mutations").SetInt(4);
+		CVar.GetCVar("cl_VisualFX").SetInt(1);
+		CVar.GetCVar("cl_fx_throttle").SetInt(1);
+		CVar.GetCVar("cl_fx_visibility").SetInt(1);
+		CVar.GetCVar("cl_performance_lite").SetInt(1);
+		CVar.GetCVar("cl_Particles").SetInt(0);
+		CVar.GetCVar("cl_cap_enabled").SetInt(1);
+		CVar.GetCVar("cl_cap_small").SetInt(8);
+		CVar.GetCVar("cl_cap_medium").SetInt(16);
+		CVar.GetCVar("cl_cap_large").SetInt(32);
+		CVar.GetCVar("cl_weight_Bulwark").SetInt(6);
+		CVar.GetCVar("cl_weight_Brute").SetInt(5);
+		CVar.GetCVar("cl_weight_Swift").SetInt(6);
+		CVar.GetCVar("cl_weight_Volatile").SetInt(4);
+		CVar.GetCVar("cl_weight_Toxic").SetInt(4);
+		CVar.GetCVar("cl_weight_Blink").SetInt(4);
+		CVar.GetCVar("cl_weight_Stalker").SetInt(5);
+		CVar.GetCVar("cl_weight_Splitter").SetInt(3);
+		CVar.GetCVar("cl_weight_Veteran").SetInt(4);
+		CVar.GetCVar("cl_weight_Captain").SetInt(3);
+		CVar.GetCVar("cl_weight_Giant").SetInt(2);
+		CVar.GetCVar("cl_weight_Spectral").SetInt(3);
+		CVar.GetCVar("cl_weight_Rampage").SetInt(2);
+		}
+
+	void cl_ApplyPresetStandard()
+		{
+		CVar.GetCVar("cl_OverrideChance").ResetToDefault();
+		CVar.GetCVar("cl_Mutations").ResetToDefault();
+		CVar.GetCVar("cl_VisualFX").ResetToDefault();
+		CVar.GetCVar("cl_fx_throttle").ResetToDefault();
+		CVar.GetCVar("cl_fx_visibility").ResetToDefault();
+		CVar.GetCVar("cl_performance_lite").ResetToDefault();
+		CVar.GetCVar("cl_Particles").ResetToDefault();
+		CVar.GetCVar("cl_cap_enabled").ResetToDefault();
+		CVar.GetCVar("cl_cap_small").ResetToDefault();
+		CVar.GetCVar("cl_cap_medium").ResetToDefault();
+		CVar.GetCVar("cl_cap_large").ResetToDefault();
+		CVar.GetCVar("cl_weight_Bulwark").ResetToDefault();
+		CVar.GetCVar("cl_weight_Brute").ResetToDefault();
+		CVar.GetCVar("cl_weight_Swift").ResetToDefault();
+		CVar.GetCVar("cl_weight_Volatile").ResetToDefault();
+		CVar.GetCVar("cl_weight_Toxic").ResetToDefault();
+		CVar.GetCVar("cl_weight_Blink").ResetToDefault();
+		CVar.GetCVar("cl_weight_Stalker").ResetToDefault();
+		CVar.GetCVar("cl_weight_Splitter").ResetToDefault();
+		CVar.GetCVar("cl_weight_Veteran").ResetToDefault();
+		CVar.GetCVar("cl_weight_Captain").ResetToDefault();
+		CVar.GetCVar("cl_weight_Giant").ResetToDefault();
+		CVar.GetCVar("cl_weight_Spectral").ResetToDefault();
+		CVar.GetCVar("cl_weight_Rampage").ResetToDefault();
+		}
+
+	void cl_ApplyPresetMayhem()
+		{
+		CVar.GetCVar("cl_OverrideChance").SetInt(160);
+		CVar.GetCVar("cl_Mutations").SetInt(48);
+		CVar.GetCVar("cl_VisualFX").SetInt(1);
+		CVar.GetCVar("cl_fx_throttle").SetInt(0);
+		CVar.GetCVar("cl_fx_visibility").SetInt(0);
+		CVar.GetCVar("cl_performance_lite").SetInt(0);
+		CVar.GetCVar("cl_Particles").SetInt(1);
+		CVar.GetCVar("cl_cap_enabled").SetInt(0);
+		CVar.GetCVar("cl_weight_Bulwark").SetInt(10);
+		CVar.GetCVar("cl_weight_Brute").SetInt(10);
+		CVar.GetCVar("cl_weight_Swift").SetInt(10);
+		CVar.GetCVar("cl_weight_Volatile").SetInt(10);
+		CVar.GetCVar("cl_weight_Toxic").SetInt(10);
+		CVar.GetCVar("cl_weight_Blink").SetInt(10);
+		CVar.GetCVar("cl_weight_Stalker").SetInt(10);
+		CVar.GetCVar("cl_weight_Splitter").SetInt(10);
+		CVar.GetCVar("cl_weight_Veteran").SetInt(10);
+		CVar.GetCVar("cl_weight_Captain").SetInt(10);
+		CVar.GetCVar("cl_weight_Giant").SetInt(8);
+		CVar.GetCVar("cl_weight_Spectral").SetInt(8);
+		CVar.GetCVar("cl_weight_Rampage").SetInt(8);
+		}
+
 	override void WorldLoaded(WorldEvent e)
 		{
 		cl_PendingRolls.Clear();
 		cl_PendingCursor = 0;
+		championsThisMap = 0;
+		mapCap = cl_Static.cl_GetMapCap();
 		cl_BuildWeightedTraits();
 		cl_BuildMutationArray();
 		markers = cl_Static.cl_ReturnCVAR("cl_Markers");
@@ -112,15 +197,17 @@ class cl_Handler : EventHandler
 			{
 			if (missileTarget.Health < 1)
 				return;
-			if (PBWP_FXThrottleHandler.PerformanceFireEnabled())
+			if (cl_FXThrottleHandler.PerformanceFireEnabled())
+				return;
+			if (!cl_Static.cl_CosmeticFXVisible(missileTarget))
 				return;
 
 			let info = cl_PersistentInfo(missileTarget.FindInventory("cl_PersistentInfo"));
 			if (info)
 				{
-				if (!PBWP_FXThrottleHandler.ShouldSpawnCosmeticFX(missileTarget))
+				if (!cl_FXThrottleHandler.ShouldSpawnCosmeticFX(missileTarget))
 					return;
-				PBWP_FXThrottleHandler.RegisterCombatEvent(missileTarget);
+				cl_FXThrottleHandler.RegisterCombatEvent(missileTarget);
 				let effect = cl_MissileGlow(e.Thing.Spawn("cl_MissileGlow", e.Thing.pos));
 				if (effect)
 					{
@@ -162,6 +249,7 @@ class cl_Handler : EventHandler
 			return false;
 		return mob.bCOUNTKILL
 			&& !mob.bSPECIAL
+			&& !mob.bBOSS
 			&& !mob.CountInv("cl_NullToken")
 			&& !mob.CountInv("cl_PersistentInfo");
 		}
@@ -169,6 +257,9 @@ class cl_Handler : EventHandler
 	void cl_TryChampionRoll(Actor mob)
 		{
 		if (!cl_CanChampionRoll(mob) || cl_WeightedTraits.Size() < 1)
+			return;
+
+		if (cl_Static.cl_CapsEnabled() && championsThisMap >= mapCap)
 			return;
 
 		int sk = G_SkillPropertyInt(SKILLP_ACSReturn);
@@ -199,6 +290,7 @@ class cl_Handler : EventHandler
 			controller.hitFX = hitFX;
 			controller.traitFX = traitFX;
 			controller.mutation = cl_DoMutation(mob);
+			championsThisMap++;
 			}
 		}
 
@@ -231,6 +323,10 @@ class cl_Handler : EventHandler
 			return 0;
 
 		int pick = cl_WeightedMutations[random(0, cl_WeightedMutations.Size() - 1)];
+
+		if (mob.bBOSS && pick == mutation_Giant)
+			pick = cl_WeightedMutations[random(0, cl_WeightedMutations.Size() - 1)];
+
 		info.m = pick;
 		return pick;
 		}
@@ -269,9 +365,73 @@ class cl_Handler : EventHandler
 
 	override void ConsoleProcess(ConsoleEvent e)
 		{
-		if (e.Name != 'cl_reset_traitweight')
+		if (e.Name == 'cl_reset_traitweight')
+			{
+			CVar.GetCVar("cl_weight_Bulwark").ResetToDefault();
+			CVar.GetCVar("cl_weight_Brute").ResetToDefault();
+			CVar.GetCVar("cl_weight_Swift").ResetToDefault();
+			CVar.GetCVar("cl_weight_Volatile").ResetToDefault();
+			CVar.GetCVar("cl_weight_Toxic").ResetToDefault();
+			CVar.GetCVar("cl_weight_Blink").ResetToDefault();
+			CVar.GetCVar("cl_weight_Stalker").ResetToDefault();
+			CVar.GetCVar("cl_weight_Splitter").ResetToDefault();
+			CVar.GetCVar("cl_weight_Veteran").ResetToDefault();
+			CVar.GetCVar("cl_weight_Captain").ResetToDefault();
 			return;
+			}
 
+		if (e.Name == 'cl_preset_lite')
+			cl_MenuPresets.ApplyLite();
+		if (e.Name == 'cl_preset_standard')
+			cl_MenuPresets.ApplyStandard();
+		if (e.Name == 'cl_preset_mayhem')
+			cl_MenuPresets.ApplyMayhem();
+		}
+	}
+
+class cl_MenuPresets ui
+	{
+	static void ApplyLite()
+		{
+		CVar.GetCVar("cl_OverrideChance").SetInt(-1);
+		CVar.GetCVar("cl_Mutations").SetInt(4);
+		CVar.GetCVar("cl_VisualFX").SetInt(1);
+		CVar.GetCVar("cl_fx_throttle").SetInt(1);
+		CVar.GetCVar("cl_fx_visibility").SetInt(1);
+		CVar.GetCVar("cl_performance_lite").SetInt(1);
+		CVar.GetCVar("cl_Particles").SetInt(0);
+		CVar.GetCVar("cl_cap_enabled").SetInt(1);
+		CVar.GetCVar("cl_cap_small").SetInt(8);
+		CVar.GetCVar("cl_cap_medium").SetInt(16);
+		CVar.GetCVar("cl_cap_large").SetInt(32);
+		CVar.GetCVar("cl_weight_Bulwark").SetInt(6);
+		CVar.GetCVar("cl_weight_Brute").SetInt(5);
+		CVar.GetCVar("cl_weight_Swift").SetInt(6);
+		CVar.GetCVar("cl_weight_Volatile").SetInt(4);
+		CVar.GetCVar("cl_weight_Toxic").SetInt(4);
+		CVar.GetCVar("cl_weight_Blink").SetInt(4);
+		CVar.GetCVar("cl_weight_Stalker").SetInt(5);
+		CVar.GetCVar("cl_weight_Splitter").SetInt(3);
+		CVar.GetCVar("cl_weight_Veteran").SetInt(4);
+		CVar.GetCVar("cl_weight_Captain").SetInt(3);
+		CVar.GetCVar("cl_weight_Giant").SetInt(2);
+		CVar.GetCVar("cl_weight_Spectral").SetInt(3);
+		CVar.GetCVar("cl_weight_Rampage").SetInt(2);
+		}
+
+	static void ApplyStandard()
+		{
+		CVar.GetCVar("cl_OverrideChance").ResetToDefault();
+		CVar.GetCVar("cl_Mutations").ResetToDefault();
+		CVar.GetCVar("cl_VisualFX").ResetToDefault();
+		CVar.GetCVar("cl_fx_throttle").ResetToDefault();
+		CVar.GetCVar("cl_fx_visibility").ResetToDefault();
+		CVar.GetCVar("cl_performance_lite").ResetToDefault();
+		CVar.GetCVar("cl_Particles").ResetToDefault();
+		CVar.GetCVar("cl_cap_enabled").ResetToDefault();
+		CVar.GetCVar("cl_cap_small").ResetToDefault();
+		CVar.GetCVar("cl_cap_medium").ResetToDefault();
+		CVar.GetCVar("cl_cap_large").ResetToDefault();
 		CVar.GetCVar("cl_weight_Bulwark").ResetToDefault();
 		CVar.GetCVar("cl_weight_Brute").ResetToDefault();
 		CVar.GetCVar("cl_weight_Swift").ResetToDefault();
@@ -281,6 +441,35 @@ class cl_Handler : EventHandler
 		CVar.GetCVar("cl_weight_Stalker").ResetToDefault();
 		CVar.GetCVar("cl_weight_Splitter").ResetToDefault();
 		CVar.GetCVar("cl_weight_Veteran").ResetToDefault();
+		CVar.GetCVar("cl_weight_Captain").ResetToDefault();
+		CVar.GetCVar("cl_weight_Giant").ResetToDefault();
+		CVar.GetCVar("cl_weight_Spectral").ResetToDefault();
+		CVar.GetCVar("cl_weight_Rampage").ResetToDefault();
+		}
+
+	static void ApplyMayhem()
+		{
+		CVar.GetCVar("cl_OverrideChance").SetInt(160);
+		CVar.GetCVar("cl_Mutations").SetInt(48);
+		CVar.GetCVar("cl_VisualFX").SetInt(1);
+		CVar.GetCVar("cl_fx_throttle").SetInt(0);
+		CVar.GetCVar("cl_fx_visibility").SetInt(0);
+		CVar.GetCVar("cl_performance_lite").SetInt(0);
+		CVar.GetCVar("cl_Particles").SetInt(1);
+		CVar.GetCVar("cl_cap_enabled").SetInt(0);
+		CVar.GetCVar("cl_weight_Bulwark").SetInt(10);
+		CVar.GetCVar("cl_weight_Brute").SetInt(10);
+		CVar.GetCVar("cl_weight_Swift").SetInt(10);
+		CVar.GetCVar("cl_weight_Volatile").SetInt(10);
+		CVar.GetCVar("cl_weight_Toxic").SetInt(10);
+		CVar.GetCVar("cl_weight_Blink").SetInt(10);
+		CVar.GetCVar("cl_weight_Stalker").SetInt(10);
+		CVar.GetCVar("cl_weight_Splitter").SetInt(10);
+		CVar.GetCVar("cl_weight_Veteran").SetInt(10);
+		CVar.GetCVar("cl_weight_Captain").SetInt(10);
+		CVar.GetCVar("cl_weight_Giant").SetInt(8);
+		CVar.GetCVar("cl_weight_Spectral").SetInt(8);
+		CVar.GetCVar("cl_weight_Rampage").SetInt(8);
 		}
 	}
 

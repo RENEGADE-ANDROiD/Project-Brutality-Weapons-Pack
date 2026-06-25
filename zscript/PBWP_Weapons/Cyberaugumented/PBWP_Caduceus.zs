@@ -27,13 +27,13 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 		if (invoker.weaponmode)
 		{
 			A_StartSound("NeonicBall/Fire", CHAN_WEAPON);
-			A_FireCustomMissile("PBWP_CA_NeonicBall", 0, 0);
+			A_FireCustomMissile("PBWP_CA_CaduceusOrb", 0, 0);
 			PB_TakeAmmo("PBWP_CaduceusMag", 4, 0, 0);
 		}
 		else
 		{
 			A_StartSound("Lazer/Fire", CHAN_WEAPON);
-			PBWP_CA_FireNeonicRail(75, 30);
+			PBWP_CA_FireCaduceusRail(75);
 			PB_TakeAmmo("PBWP_CaduceusMag", 1, 0, 0);
 		}
 		A_AlertMonsters();
@@ -130,18 +130,18 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 		Goto FireHold;
 
 	FireHold:
-		C_AD E 1 Bright
+		C_AD E 1
 		{
 			PBWP_CaduceusFire();
 			A_DoPBWeaponAction(WRF_NOPRIMARY | WRF_NOSECONDARY | WRF_NOSWITCH | WRF_NOBOB);
 		}
-		C_AD FGHI 1 Bright A_DoPBWeaponAction(WRF_NOPRIMARY | WRF_NOSECONDARY | WRF_NOSWITCH | WRF_NOBOB);
-		C_AD I 0 Bright
+		C_AD FGHI 1 A_DoPBWeaponAction(WRF_NOPRIMARY | WRF_NOSECONDARY | WRF_NOSWITCH | WRF_NOBOB);
+		C_AD I 0
 		{
 			if (!invoker.weaponmode)
 				return A_Refire("FireHold");
 		}
-		C_AD I 0 Bright A_DoPBWeaponAction(WRF_NOFIRE | WRF_NOBOB);
+		C_AD I 0 A_DoPBWeaponAction(WRF_NOFIRE | WRF_NOBOB);
 		C_AD JKLAA 2 A_DoPBWeaponAction(WRF_NOFIRE | WRF_NOBOB);
 		Goto Ready3;
 
@@ -172,7 +172,6 @@ class PBWP_Caduceus : PBWP_CA_WeaponBase
 		Stop;
 
 		Flash:
-		TNT1 A 2 A_Light1();
 		TNT1 A 1 A_Light0();
 		Goto LightDone;
 	}

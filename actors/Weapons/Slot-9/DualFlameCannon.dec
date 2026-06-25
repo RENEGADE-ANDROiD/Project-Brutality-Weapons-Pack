@@ -51,7 +51,7 @@ ACTOR DualFlameCannon : PB_WeaponBase
 	   MARM GHI 1 A_DoPBWeaponAction
 		MAR2 ABCDEFGH 2 A_DoPBWeaponAction
 		TNT1 A 0 A_PlaySound("HRSteam", 6)//FLMDRAW
-		TNT1 AAAAA 0 A_FireCustomMissile("GunFireSmoke", random(-5,5), 0, random(-3,3),random(-12,-5))
+		TNT1 AAAAA 0 { PB_GunSmoke(random(-3,3), random(-12,-5), 0); }
 		TNT1 A 0 A_FireCustomMissile("MancubusSwitchModeEffect", 0, 0, 0, random(-12,-5))
 		TNT1 AAAAA 0 A_FireCustomMissile("ShotgunParticles", random(-5,5), 0, random(-3,3),random(-12,-5))
 		MAR2 IJJJ 2 A_DoPBWeaponAction
@@ -74,7 +74,7 @@ ACTOR DualFlameCannon : PB_WeaponBase
 		TNT1 A 0
         	TNT1 A 0 A_PlaySound("FLMRIDL",6,1,1)	
 		TNT1 A 0 A_JumpIfInventory("DaedabusSlimeSelected", 1, "Ready2")
-	    	MARM GHI 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOFIRE)
+	    	MARM GHI 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 	    Goto Ready3
 
 	Ready2:
@@ -82,7 +82,7 @@ ACTOR DualFlameCannon : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("PB_Fuel", 4, 1)
 		Goto NoAmmo
         	TNT1 A 0 A_PlaySound("FLMRIDL",6,1,1)
-	    MARM JKL 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOFIRE)
+	    MARM JKL 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 	    Goto Ready2
 
 	WeaponSpecial:
@@ -98,7 +98,7 @@ ACTOR DualFlameCannon : PB_WeaponBase
 		MAR2 ABCDEFGH 2
 		TNT1 A 0 A_PlaySound("HRSteam", 6)//FLMDRAW
 		TNT1 A 0 A_FireCustomMissile("DaedabusSwitchModeEffect", 0, 0, 0, random(-12,-5))
-		TNT1 AAAAA 0 A_FireCustomMissile("GunFireSmoke", random(-5,5), 0, random(-3,3),random(-12,-5))
+		TNT1 AAAAA 0 { PB_GunSmoke(random(-3,3), random(-12,-5), 0); }
 		TNT1 AAAAA 0 A_FireCustomMissile("PlasmaParticle", random(-5,5), 0, random(-3,3),random(-12,-5))
 		MAR2 IJJJ 2 
 		TNT1 A 0 A_PlaySound("FLMDRAW", 7)
@@ -111,7 +111,7 @@ ACTOR DualFlameCannon : PB_WeaponBase
 		TNT1 A 0 A_PlaySound("FLMSWTC", 3)//FLMDRAW
 		MAR2 ABCDEFGH 2
 		TNT1 A 0 A_PlaySound("HRSteam", 6)//FLMDRAW
-		TNT1 AAAAA 0 A_FireCustomMissile("GunFireSmoke", random(-5,5), 0, random(-3,3),random(-12,-5))
+		TNT1 AAAAA 0 { PB_GunSmoke(random(-3,3), random(-12,-5), 0); }
 		TNT1 A 0 A_FireCustomMissile("MancubusSwitchModeEffect", 0, 0, 0, random(-12,-5))
 		TNT1 AAAAA 0 A_FireCustomMissile("ShotgunParticles", random(-5,5), 0, random(-3,3),random(-12,-5))
 		MAR2 IJJJ 2 
@@ -121,7 +121,7 @@ ACTOR DualFlameCannon : PB_WeaponBase
 
 	DryFire:
 		TNT1 A 0 A_PlaySound("HRSteam")//FLMDRAW
-		TNT1 AAAA 0 A_FireCustomMissile("GunFireSmoke", random(-5,5), 0, random(-3,3),random(-4,-2))
+		TNT1 AAAA 0 { PB_GunSmoke(random(-3,3), random(-4,-2), 0); }
 	    MAR2 ABCDBAAA 2 //A_PlaySound("weapons/empty")
 	NoAmmo:
 		TNT1 A 0 A_StopSound(6)
@@ -174,29 +174,10 @@ ACTOR DualFlameCannon : PB_WeaponBase
 	Goto SelectFirstPersonLegs
   SelectContinue:
 		TNT1 A 0 { PB_WeaponRaise("FLMDRAW"); }
-		TNT1 A 0 { PB_WeapTokenSwitch("AddonSelected"); }
+		TNT1 A 0 { PB_WeapTokenSwitch("PlasmaGunSelected"); }
 		TNT1 A 0 PBWP_EnsureMonsterDurability("DualFlameCannonDurability", 60)
 				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 				Goto SelectAnimation
-
-	AltFire:
-		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
-		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
-		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
-		TNT1 A 0 A_WeaponOffset(0,32)
-        TNT1 A 0 A_JumpIfInventory("PB_Fuel", 15, "Fireball")
-		TNT1 A 0 A_StopSound(6)
-		TNT1 A 0 A_StopSound(CHAN_WEAPON)
-		Goto DryFire
-
-	Fireball:	
-        MARM A 1 BRIGHT A_FireCustomMissile("BigFireBall_II", 0, 1, 0, 0)
-		TNT1 A 0 A_TakeInventory("PB_Fuel", 15)
-		TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
-        MARM BC 1 BRIGHT 
-        MARM CD 1 
-		MARM A 10
-		Goto Ready3
 
 	////////////////////////////////////////////////////////
 	Fire:
@@ -327,7 +308,7 @@ ACTOR DualFlameCannon : PB_WeaponBase
 		Goto DryFire
 		TNT1 A 0
 		TNT1 A 0 A_PlaySound("acid/spewstop ", 2)
-		TNT1 AAAAA 0 A_FireCustomMissile("GunFireSmoke", random(-5,5), 0, random(-3,3),random(-5,-2))
+		TNT1 AAAAA 0 { PB_GunSmoke(random(-3,3), random(-5,-2), 0); }
 		TNT1 AAAA 0 A_FireCustomMissile("PlasmaParticle", random(-5,5), 0, random(-3,3),random(-5,-2))
 		MARM H 2 BRIGHT A_FireCustomMissile("GreenCloudMissile", 0, 0, 0, 5)
 		MARM J 2 BRIGHT A_FireCustomMissile("GreenCloudMissile", 0, 0, 0, 5)
@@ -339,7 +320,7 @@ ACTOR DualFlameCannon : PB_WeaponBase
 		Goto DryFire
 		MARM A 1 BRIGHT A_FireCustomMissile("FlamethrowerMissileNew", 0, 1, 0, 1)
 		MARM B 1 BRIGHT A_FireCustomMissile("FlamethrowerMissileNew", 0, 1, 0, 0)
-		TNT1 AAAAA 0 A_FireCustomMissile("GunFireSmoke", random(-5,5), 0, random(-3,3),random(-5,-2))
+		TNT1 AAAAA 0 { PB_GunSmoke(random(-3,3), random(-5,-2), 0); }
 		MARM CD 1 BRIGHT
 		MARM EF 1 
 		Goto Ready3

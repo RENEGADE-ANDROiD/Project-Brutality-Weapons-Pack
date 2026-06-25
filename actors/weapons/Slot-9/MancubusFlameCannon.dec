@@ -73,7 +73,7 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 	   FUMG GHI 1 A_DoPBWeaponAction
 		FUMY ABCDEFGH 2 A_DoPBWeaponAction
 		TNT1 A 0 A_PlaySound("HRSteam", 6)//FLMDRAW
-		TNT1 AAAAA 0 A_FireCustomMissile("GunFireSmoke", random(-5,5), 0, random(-3,3),random(-12,-5))
+		TNT1 AAAAA 0 { PB_GunSmoke(random(-3,3), random(-12,-5), 0); }
 		TNT1 A 0 A_FireCustomMissile("MancubusSwitchModeEffect", 0, 0, 0, random(-12,-5))
 		TNT1 AAAAA 0 A_FireCustomMissile("ShotgunParticles", random(-5,5), 0, random(-3,3),random(-12,-5))
 		FUMY IJJJ 2 A_DoPBWeaponAction
@@ -96,7 +96,7 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		TNT1 A 0
         	TNT1 A 0 A_PlaySound("FLMRIDL",6,1,1)	
 		TNT1 A 0 A_JumpIfInventory("DaedabusSlimeSelected", 1, "Ready2")
-	    	FUMG GHI 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOFIRE)
+	    	FUMG GHI 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 	    Goto Ready3
 
 	Ready2:
@@ -104,7 +104,7 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("PB_Fuel", 4, 1)
 		Goto NoAmmo
         	TNT1 A 0 A_PlaySound("FLMRIDL",6,1,1)
-	    FUMG JKL 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOFIRE)
+	    FUMG JKL 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD)
 	    Goto Ready2
 
 	WeaponSpecial:
@@ -120,7 +120,7 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		FUMY ABCDEFGH 2
 		TNT1 A 0 A_PlaySound("HRSteam", 6)//FLMDRAW
 		TNT1 A 0 A_FireCustomMissile("DaedabusSwitchModeEffect", 0, 0, 0, random(-12,-5))
-		TNT1 AAAAA 0 A_FireCustomMissile("GunFireSmoke", random(-5,5), 0, random(-3,3),random(-12,-5))
+		TNT1 AAAAA 0 { PB_GunSmoke(random(-3,3), random(-12,-5), 0); }
 		TNT1 AAAAA 0 A_FireCustomMissile("PlasmaParticle", random(-5,5), 0, random(-3,3),random(-12,-5))
 		FUMY IJJJ 2 
 		TNT1 A 0 A_PlaySound("FLMDRAW", 7)
@@ -133,7 +133,7 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		TNT1 A 0 A_PlaySound("FLMSWTC", 3)//FLMDRAW
 		FUMY ABCDEFGH 2
 		TNT1 A 0 A_PlaySound("HRSteam", 6)//FLMDRAW
-		TNT1 AAAAA 0 A_FireCustomMissile("GunFireSmoke", random(-5,5), 0, random(-3,3),random(-12,-5))
+		TNT1 AAAAA 0 { PB_GunSmoke(random(-3,3), random(-12,-5), 0); }
 		TNT1 A 0 A_FireCustomMissile("MancubusSwitchModeEffect", 0, 0, 0, random(-12,-5))
 		TNT1 AAAAA 0 A_FireCustomMissile("ShotgunParticles", random(-5,5), 0, random(-3,3),random(-12,-5))
 		FUMY IJJJ 2 
@@ -143,7 +143,7 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 
 	DryFire:
 		TNT1 A 0 A_PlaySound("HRSteam")//FLMDRAW
-		TNT1 AAAA 0 A_FireCustomMissile("GunFireSmoke", random(-5,5), 0, random(-3,3),random(-4,-2))
+		TNT1 AAAA 0 { PB_GunSmoke(random(-3,3), random(-4,-2), 0); }
 	    FUMY ABCDBAAA 2 //A_PlaySound("weapons/empty")
 
 	WeaponBreak:
@@ -212,28 +212,6 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		TNT1 A 0 PBWP_EnsureMonsterDurability("MancubusFlameCannonDurability", 60)
 				TNT1 A 0 A_WeaponOffset(2, 34, WOF_INTERPOLATE)
 				Goto SelectAnimation
-
-	AltFire:
-		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
-		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
-		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
-		TNT1 A 0 A_WeaponOffset(0,32)
-        TNT1 A 0 A_JumpIfInventory("PB_Fuel", 15, "Fireball")
-		TNT1 A 0 A_StopSound(6)
-		TNT1 A 0 A_StopSound(CHAN_WEAPON)
-		Goto DryFire
-
-	Fireball:	
-		TNT1 A 0 A_JumpIfInventory("MancubusFlameCannonDurability",1,1)
-		Goto WeaponBreak
-        FUMF A 1 BRIGHT A_FireCustomMissile("BigFireBall_II", 0, 1, 0, 0)
-		TNT1 A 0 A_TakeInventory("PB_Fuel", 15)
-		TNT1 A 0 A_TakeInventory("MancubusFlameCannonDurability",1,TIF_NOTAKEINFINITE)
-		TNT1 A 0 A_FireCustomMissile("ShakeYourAssDouble", 0, 0, 0, 0)
-        FUMF BC 1 BRIGHT 
-        FUMF CD 1 
-		FUMG A 10
-		Goto Ready3
 
 	////////////////////////////////////////////////////////
 	Fire:
@@ -371,7 +349,7 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		Goto DryFire
 		TNT1 A 0
 		TNT1 A 0 A_PlaySound("acid/spewstop ", 2)
-		TNT1 AAAAA 0 A_FireCustomMissile("GunFireSmoke", random(-5,5), 0, random(-3,3),random(-5,-2))
+		TNT1 AAAAA 0 { PB_GunSmoke(random(-3,3), random(-5,-2), 0); }
 		TNT1 AAAA 0 A_FireCustomMissile("PlasmaParticle", random(-5,5), 0, random(-3,3),random(-5,-2))
 		FUMF H 2 BRIGHT A_FireCustomMissile("GreenCloudMissile", 0, 0, 0, 5)
 		FUMF J 2 BRIGHT A_FireCustomMissile("GreenCloudMissile", 0, 0, 0, 5)
@@ -383,7 +361,7 @@ ACTOR MancubusFlameCannon : PB_WeaponBase
 		Goto DryFire
 		FUMF A 1 BRIGHT A_FireCustomMissile("FlamethrowerMissileNew", 0, 1, 0, 1)
 		FUMF B 1 BRIGHT A_FireCustomMissile("FlamethrowerMissileNew", 0, 1, 0, 0)
-		TNT1 AAAAA 0 A_FireCustomMissile("GunFireSmoke", random(-5,5), 0, random(-3,3),random(-5,-2))
+		TNT1 AAAAA 0 { PB_GunSmoke(random(-3,3), random(-5,-2), 0); }
 		FUMF CD 1 BRIGHT
 		FUMF EF 1 
 		Goto Ready3

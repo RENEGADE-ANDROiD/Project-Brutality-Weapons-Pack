@@ -90,7 +90,7 @@ class PBWP_Liquidation : PBWP_CA_WeaponBase
 			A_StartSound("BFG10kLaser/Fire", CHAN_6, CHANF_DEFAULT, 0.75);
 			A_SetBlend("White", 0.85, 20, "Yellow");
 		}
-		L1QU IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII 1 Bright { PBWP_LiquidationBeam(); }
+		L1QU IIIIIIIIIIIIIIII 1 Bright { PBWP_LiquidationBeam(); }
 		Goto Hold;
 
 		Hold:
@@ -102,7 +102,7 @@ class PBWP_Liquidation : PBWP_CA_WeaponBase
 		TNT1 A 0 A_Refire("Hold");
 		TNT1 A 1 Bright;
 		TNT1 A 10 { A_StopSound(CHAN_7); A_StartSound("BFG10kLaser/Stop", CHAN_6, CHANF_DEFAULT, 0.75); }
-		L1QU IJ 2 Bright;
+		L1QU IJ 1 Bright;
 		L1QU KKKKKKKKKK 1 Bright;
 		L1QU LLLMMMNNNOOOPPPQQQRRR 1 Bright;
 		L1QU A 5 Bright A_WeaponOffset(0, 32, WOF_INTERPOLATE);
