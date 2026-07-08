@@ -4,14 +4,6 @@
 //PB Arcade 500HP//
 server int PBAT_PickupMode = 0;
 
-//DamageIndicatorsV2//
-user 	bool 	D4D_DamageIndicators 	= true;
-user 	int 	D4D_IndicatorType 		= 0;
-user 	float 	D4D_DIScale 			= 0.5;
-user 	float 	D4D_DIAlpha 			= 1.0;
-user 	int 	D4D_DITimer 			= 35;
-user	int		D4D_DIAnim				= 0;
-
 //HealthSystem//
 user bool cl_Health_FX = true;
 
@@ -96,7 +88,6 @@ server bool PBSpawnW_SMG = True;
 //Slot 3
 //server bool PBSpawnProsurv_LeverAction = true; // PBX: PBX_Prosurv_LeverAction
 server bool PBSpawnPB_Doom2016Shotgun = True;	//BORING GUN // Skill Issue :Cacotroll:
-server bool PBSpawnPB_CryoShotgun = True;
 //server bool PBSpawnPB_CSSG = True; // PBX: PBX_CSSG
 server bool PBSpawnRotationalSG = True;
 server bool PBSpawnHASG = True;
@@ -119,7 +110,7 @@ server bool PBSpawnPB_Fusil = True;
 server bool PBSpawnPowerOverwhelming = True;
 //Slot 5
 server bool PBSpawnAutoCannon = True;
-server bool PBSpawnFire_and_IceDragonSlayer = True;
+//server bool PBSpawnFire_and_IceDragonSlayer = True; // disabled pending polish
 server bool PBSpawnINNailGun = True;
 //server bool PBSpawnNeoHMG = True; // PBX: PBX_NeoHMG
 server bool PBSpawnD4Machinegun = True;
@@ -135,9 +126,8 @@ server bool PBSpawnSuperNailgun = True;
 server bool PBSpawnChthonicRifle = True;
 //server bool PBSpawnCyberdemonsMissileLauncher = True; // PBX: PBX_CyberdemonRL
 server bool PBSpawnDevastator = True;
-//server bool PBSpawnPB_Excavator = True; // PBX: PBX_Excavator
+//server bool PBSpawnPB_Excavator = True; // PBX-only (PBX_Excavator)
 //server bool PBSpawnMastermindChaingun = True; // PBX: PBX_MastermindChaingun
-server bool PBSpawnPaingiver = True;
 server bool PBSpawnD4RocketLauncher = True;
 server bool PBSpawnSuperGrenadeLauncher = True;
 //Slot 7
@@ -213,7 +203,6 @@ server bool PBSpawnPBWP_Deracinator = True;
 server bool PBSpawnPBWP_Dismantler = True;
 server bool PBSpawnPBWP_CinerealOrdnance = True;
 server bool PBSpawnPBWP_Dispatcher = True;
-server bool PBSpawnPBWP_Legionnaire = True;
 server bool PBSpawnPBWP_SiriusCrisis = True;
 server bool PBWP_Pack_Cyberaugumented = True;
 server bool PBSpawnVietRPG = True;
@@ -232,7 +221,6 @@ server bool PBWP_Pack_D2016 = True;
 server bool PBWP_Pack_Duke = True;
 server bool PBWP_Pack_PB30 = True;
 server bool PBWP_Pack_VietDoom = True;
-server bool PB_VietDoomDurability = True;
 server bool PBWP_Pack_Freezer = True;
 //God Complex
 server bool PBSpawnDevastador = True;
@@ -317,7 +305,6 @@ server bool isCMLoaded = false;
 // isGKLoaded — owned by glorykills-master.zip when present; do not redeclare here
 server bool isPBXLoaded = false;
 server bool pbwp_compat_dragonsector = false;
-server bool HelmetDropCVAR = true;
 server bool AllMeleeDrop = true;
 server bool FloatingVials = true;
 
@@ -425,7 +412,6 @@ server bool PBSpawnMSSGDrop = true;
 server bool PBSpawnALLDTechDrop = true;
 server bool PBSpawnMastermindCGDrop = true;
 server bool PBSpawnCyberdemonRLDrop = true;
-server bool PBSpawnPaingiverDrop = true;
 server bool PBSpawnMancFlameCannonDrop = true;
 server bool PBSpawnCryoRifleDrop = true;
 server bool PBSpawnThunderCrossbowDrop = true;
@@ -434,49 +420,6 @@ server bool PBSpawnBioAcidLauncherDrop = true;
 
 //Equipments from Monsters
 server bool EQSpawnShieldGR = true;
-
-// Champions Lite
-server int		cl_Debug				= 0;
-server int		cl_Markers				= 1;
-server float	cl_MarkerScale			= 1.08;
-server int		cl_Particles			= 1;
-server int		cl_VisualFX				= 1;
-server bool		cl_fx_throttle			= true;
-server bool		cl_fx_visibility		= true;
-server bool		cl_performance_lite		= false;
-server int		cl_Mutations			= 12;
-
-server int		cl_OverrideChance		= -1;
-
-server bool		cl_cap_enabled			= true;
-server int		cl_cap_small			= 12;
-server int		cl_cap_medium			= 24;
-server int		cl_cap_large			= 48;
-server int		cl_cap_medium_count		= 75;
-server int		cl_cap_large_count		= 275;
-
-server int		cl_bulwark_armor_mul	= 3;
-
-server int		cl_captain_radius		= 512;
-server int		cl_captain_buff_dr		= 60;
-server int		cl_captain_buff_speed	= 125;
-
-server int		cl_weight_Bulwark		= 10;
-server int		cl_weight_Brute			= 8;
-server int		cl_weight_Swift			= 10;
-server int		cl_weight_Volatile		= 8;
-server int		cl_weight_Toxic			= 8;
-server int		cl_weight_Blink			= 7;
-server int		cl_weight_Stalker		= 8;
-server int		cl_weight_Splitter		= 7;
-server int		cl_weight_Veteran		= 6;
-server int		cl_weight_Captain		= 5;
-
-server int		cl_weight_Giant			= 3;
-server int		cl_weight_Spectral		= 5;
-server int		cl_weight_Rampage		= 4;
-
-server noarchive int cl_debug_forced	= -1;
 
 // Weapon tilt / sway / Tilt++ cvars: defined by PB_Staging CVARINFO (do not re-register here).
 
@@ -492,16 +435,38 @@ server int pbwp_bfg_filter = 0;
 // Riot Shield (PB3.0 addon folded into PBWP)
 server bool RS_AxeCheck = true;
 
-// PB 2022 tactical weapon motion (strafe tilt, movement lowering, lean)
-user bool pb_tac_enable = true;
-user bool pb_tac_ready_only = false;
-user bool pb_tac_move_only = false;
-user float pb_tac_roll_velocity = 2.0;
-user float pb_tac_roll_resistance = 0.149687;
-user bool pb_tac_roll_cap = true;
-user float pb_tac_roll_cap_value = 1.01563;
-user float pb_tac_lowering_scale = 0.5;
-user bool pb_tac_lean_enable = true;
-user float pb_tac_lean_angle = 12.0;
-user float pb_tac_lean_smoothing = 0.20;
-user float pb_tac_tilt_smoothing = 0.70;
+// Champions Lite — Monster Enhancement Settings (cl_ prefix)
+server int		cl_Debug				= 0;
+server int		cl_Markers				= 1;
+server float	cl_MarkerScale			= 1.08;
+server int		cl_Particles			= 1;
+server int		cl_VisualFX				= 1;
+server bool		cl_fx_throttle			= true;
+server bool		cl_fx_visibility		= true;
+server bool		cl_performance_lite		= false;
+server int		cl_Mutations			= 12;
+server int		cl_OverrideChance		= -1;
+server bool		cl_cap_enabled			= true;
+server int		cl_cap_small			= 12;
+server int		cl_cap_medium			= 24;
+server int		cl_cap_large			= 48;
+server int		cl_cap_medium_count		= 75;
+server int		cl_cap_large_count		= 275;
+server int		cl_bulwark_armor_mul	= 3;
+server int		cl_captain_radius		= 512;
+server int		cl_captain_buff_dr		= 60;
+server int		cl_captain_buff_speed	= 125;
+server int		cl_weight_Bulwark		= 10;
+server int		cl_weight_Brute			= 8;
+server int		cl_weight_Swift			= 10;
+server int		cl_weight_Volatile		= 8;
+server int		cl_weight_Toxic			= 8;
+server int		cl_weight_Blink			= 7;
+server int		cl_weight_Stalker		= 8;
+server int		cl_weight_Splitter		= 7;
+server int		cl_weight_Veteran		= 6;
+server int		cl_weight_Captain		= 5;
+server int		cl_weight_Giant			= 3;
+server int		cl_weight_Spectral		= 5;
+server int		cl_weight_Rampage		= 4;
+server noarchive int cl_debug_forced	= -1;

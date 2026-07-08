@@ -20,8 +20,8 @@ class PBWP_SiriusCrisis : PBWP_CA_WeaponBase
 		Inventory.PickupMessage "Your hands handle the great Sirius Crisis Roscoe.";
 		Inventory.PickupSound "SiriusBFG/Pickup";
 		Weapon.UpSound "SiriusBFG/Up";
-		Inventory.Icon "S1R_Z0";
-		Inventory.AltHudIcon "S1R_Z0";
+		Inventory.Icon "BFG8A0";
+		Inventory.AltHudIcon "BFG8A0";
 		Obituary "%o could not handle the power of %k's Sirius Crisis Roscoe.";
 	}
 
@@ -43,9 +43,17 @@ class PBWP_SiriusCrisis : PBWP_CA_WeaponBase
 	{
 		A_SetBlend("Cyan", 0.5, 10 + int(invoker.chargeMeter / 5), "Blue");
 		A_GunFlash();
-		if (invoker.chargeMeter > 0)
-			A_FireCustomMissile("PBWP_CA_SiriusLaser", 0, 0);
-		A_TakeInventory("PB_Cell", 5);
+		if (CountInv("SiriusCrisisFlare") >= 1)
+		{
+			A_FireCustomMissile("PBWP_CA_CrisisFlare", 0, 0);
+			A_TakeInventory("PB_Cell", 15);
+		}
+		else
+		{
+			if (invoker.chargeMeter > 0)
+				A_FireCustomMissile("PBWP_CA_SiriusLaser", 0, 0);
+			A_TakeInventory("PB_Cell", 5);
+		}
 		A_StartSound("Eradicator/Laser", CHAN_WEAPON, CHANF_DEFAULT, 1.0, 0.5,
 			1.253 - (invoker.chargeMeter / 23));
 		A_AlertMonsters();
@@ -54,7 +62,7 @@ class PBWP_SiriusCrisis : PBWP_CA_WeaponBase
 	states
 	{
 	Spawn:
-		S1R_ Z -1;
+		BFG8 A -1;
 		Stop;
 
 		Steady:
@@ -86,8 +94,13 @@ class PBWP_SiriusCrisis : PBWP_CA_WeaponBase
 
 	Ready3:
 		TNT1 A 0 A_JumpIfInventory("GoFatality", 1, "Steady");
-		TNT1 A 0 { PBWP_CA_ReadyPose(); }
-		SRB0 ABCB 1 Bright A_DoPBWeaponAction();
+		TNT1 A 0
+		{
+			invoker.chargeMeter = 0;
+			invoker.shakeMeter = 0;
+			PBWP_CA_ReadyPose();
+		}
+		SRB0 A 1 Bright A_DoPBWeaponAction();
 		Loop;
 
 		Fire:
@@ -96,8 +109,13 @@ class PBWP_SiriusCrisis : PBWP_CA_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
 		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
 		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
-		TNT1 A 0 A_JumpIfInventory("PB_Cell", 5, 2);
-		Goto Ready3;
+		TNT1 A 0
+		{
+			int need = (CountInv("SiriusCrisisFlare") >= 1) ? 15 : 5;
+			if (CountInv("PB_Cell") < need)
+				return ResolveState("Ready3");
+			return ResolveState(null);
+		}
 		TNT1 A 0 PBWP_CA_LockTilt();
 		SRB0 A 10 Bright
 		{
@@ -169,6 +187,15 @@ class PBWP_SiriusCrisis : PBWP_CA_WeaponBase
 
 		Weaponspecial:
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
+		TNT1 A 0 A_JumpIfInventory("SiriusCrisisFlare", 1, "SiriusCrisisFlareOff");
+		TNT1 A 0 A_GiveInventory("SiriusCrisisFlare", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Mode: Crisis Flare");
+		Goto Ready3;
+	SiriusCrisisFlareOff:
+		TNT1 A 0 A_TakeInventory("SiriusCrisisFlare", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Mode: Crisis Laser");
 		Goto Ready3;
 
 		FlashPunching:

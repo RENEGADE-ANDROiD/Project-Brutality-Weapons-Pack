@@ -258,14 +258,7 @@ extend class PB_WeaponBase
 				if (CountInv("PowerBloodOnVisor") >= 1 ) { A_SetWeaponSprite("AX31"); }
 				A_Setroll(roll+0.5, SPF_INTERPOLATE);
 			}
-			TNT1 A 0 {
-			if(CountInv("PowerGreenBloodOnVisor") >=1 ) {A_FireCustomMissile("ThrownAxe_Green", 0, 0, 0, 0);}
-			else if (CountInv("PowerBlueBloodOnVisor") >=1 ) {A_FireCustomMissile("ThrownAxe_Blue", 0, 0, 0, 0);}
-            else if (CountInv("PowerBloodOnVisor") >=1 ) {A_FireCustomMissile("ThrownAxe_Red", 0, 0, 0, 0);}
-            else {
-			A_FireCustomMissile("ThrownAxe", 0, 0, 0, 0);
-			}
-			}
+			TNT1 A 0 PB_ThrowEquipmentAxe();
 			TNT1 A 0 A_TakeInventory("PB_Axe", 1);
 			TNT1 A 0 A_JumpIf(PressingUser1(), "UseEquipment");
 			Goto GoingToReady2;
@@ -615,42 +608,65 @@ extend class PB_WeaponBase
 				A_TakeInventory("UseEquipment", 1);
 			}
 			TNT1 A 0 A_JumpIfInventory("PB_QuickLauncherAmmo", 1, 2);
-			TNT1 A 0 A_Print("No Revenant Launcher Ammo");
+			TNT1 A 0 A_Print("No Quick Launcher Missiles Left");
 			stop;
 			TNT1 A 0 {A_StartSound("revup", CHAN_AUTO, CHANF_OVERLAP);}
 			RVCA ABCDEFGHIJK 1;
 			RVCF AB 1;
 		FiringRevGun:
 			TNT1 A 0 {if (player.FindPSprite(PSP_WEAPON) && InStateSequence(player.FindPSprite(PSP_WEAPON).curstate, ResolveState("Deselect"))){return ResolveState("FireRevGunDeselect");} return ResolveState(null);}
-			RVCF C 1 {
+			RVCF C 1 BRIGHT {
 				A_AlertMonsters();
-				A_TakeInventory("PB_QuickLauncherAmmo", 1);
+				A_TakeInventory("PB_QuickLauncherAmmo", 1, TIF_NOTAKEINFINITE);
 					/*
 					if(!FindInventory("PB_RevLauncherFireCount")){A_AlertMonsters();}
 					if(CountInv("PB_RevLauncherFireCount")<3){A_GiveInventory("PB_RevLauncherFireCount",1);
 					}else{A_TakeInventory("PB_QuickLauncherAmmo", 1);A_SetInventory("PB_RevLauncherFireCount",0);}
 					*/
 				A_FireProjectile("Alerter",0,0,-1,0);
-				A_StartSound("hellishmissle/fire",CHAN_AUTO, CHANF_OVERLAP);
+				A_FireProjectile("DoomerRevenantSeeker3", random(4, -4), 0, -16, 8);
+				A_StartSound("hellishmissle/fire",CHAN_AUTO, CHANF_OVERLAP, 0.5, pitch:frandom(0.95, 1.05));
+				if(JustPressed(BT_USER1) && CVar.GetCVar("pb_toggle_launchers", player).GetBool()) {
+					SetInventory("UseEquipment",1);
+				}
 			}
-			RVCF D 1 BRIGHT A_FireProjectile("DoomerRevenantSeeker3", random(4,-4), 0, -8, 0);
-			RVCF E 1 BRIGHT {
-				A_StartSound("hellishmissle/fire", CHAN_AUTO, CHANF_OVERLAP);
+			RVCF D 1 BRIGHT {
+				A_StartSound("hellishmissle/fire", CHAN_AUTO, CHANF_OVERLAP, 0.5, pitch:frandom(0.95, 1.05));
 				A_FireProjectile("ShakeYourAss",0,0,0,0,0,0);
-				A_FireProjectile("DoomerRevenantSeeker2", random(4,-4), 0, 8, 0);
+				A_FireProjectile("DoomerRevenantSeeker2", random(4, -4), 0, 16, 8);
+				if(JustPressed(BT_USER1) && CVar.GetCVar("pb_toggle_launchers", player).GetBool()) {
+					SetInventory("UseEquipment",1);
+				}
 			}
-			RVCF FG 1 BRIGHT {if (player.FindPSprite(PSP_WEAPON) && InStateSequence(player.FindPSprite(PSP_WEAPON).curstate, ResolveState("Deselect"))){return ResolveState("FireRevGunDeselect");} return ResolveState(null);}
-			RVCF HI 1 {if (player.FindPSprite(PSP_WEAPON) && InStateSequence(player.FindPSprite(PSP_WEAPON).curstate, ResolveState("Deselect"))){return ResolveState("FireRevGunDeselect");} return ResolveState(null);}
-			TNT1 A 0 A_JumpIf(CountInv("PB_QuickLauncherAmmo") > 0 && PressingUser1(), "FiringRevGun");
+			RVCF EFG 1 BRIGHT {
+				if(player.FindPSprite(PSP_WEAPON) && InStateSequence(player.FindPSprite(PSP_WEAPON).curstate, ResolveState("Deselect"))) {
+					return ResolveState("FireRevGunDeselect");
+				}
+				if((JustPressed(BT_USER1) || FindInventory("UseEquipment")) && CVar.GetCVar("pb_toggle_launchers", player).GetBool()) {
+					return ResolveState("FireRevGunFinish");
+				}
+				return ResolveState(null);
+			}
+			RVCF HI 1 {
+				if(player.FindPSprite(PSP_WEAPON) && InStateSequence(player.FindPSprite(PSP_WEAPON).curstate, ResolveState("Deselect"))) {
+					return ResolveState("FireRevGunDeselect");
+				}
+				if((JustPressed(BT_USER1) || FindInventory("UseEquipment")) && CVar.GetCVar("pb_toggle_launchers", player).GetBool()) {
+					return ResolveState("FireRevGunFinish");
+				}
+				return ResolveState(null);
+			}
+			TNT1 A 0 A_JumpIf(CountInv("PB_QuickLauncherAmmo") > 0 && (PressingUser1() || CVar.GetCVar("pb_toggle_launchers", player).GetBool()), "FiringRevGun");
 			goto FireRevGunFinish;
 		FireRevGunFinish:
-			RVCF BA 1 {
-				if(CountInv("PB_QuickLauncherAmmo") < 1 && PressingUser1()){
-					A_Print("No Revenant Launcher Ammo");
+			TNT1 A 0 {
+				if(CountInv("PB_QuickLauncherAmmo") < 1 && (PressingUser1() || CVar.GetCVar("pb_toggle_launchers", player).GetBool() && !FindInventory("UseEquipment"))) {
+					A_Print("No Quick Launcher Missiles Left");
 				}
 				A_TakeInventory("UseEquipment", 1);
 				A_TakeInventory("ToggleEquipment", 1);
 			}
+			RVCF BA 1;
 			RVCA K 1 A_StartSound("revcyc", CHAN_AUTO, CHANF_OVERLAP);
 			RVCA JIHGFEDCB 1;
 			RVCA A 1 {

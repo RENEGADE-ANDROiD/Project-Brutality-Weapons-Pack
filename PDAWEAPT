@@ -143,7 +143,7 @@ RPM: Semi-auto grenade cadence
 Recoil: High
 Alt-Fire: Payload swaps per weapon programming
 Firemodes: Semi-auto grenade launcher
-Akimbo: X#UAC Guided Rocket Launcher$Standard-issue rocket system distinct from cryo or Excavator specials???fires guided motors with selectable rocket families on Weapon Special.$PB_RocketLauncher$Manufacturer: UAC Ballistic Firearms Research Division
+Akimbo: X#UAC Guided Rocket Launcher$Standard-issue rocket system distinct from cryo rocket specials???fires guided motors with selectable rocket families on Weapon Special.$PB_RocketLauncher$Manufacturer: UAC Ballistic Firearms Research Division
 Magazine Capacity: RocketAmmo tube + RocketRounds reserve logic
 Ammunition: RocketAmmo / RocketRounds
 Effective Range: Medium???long
@@ -240,9 +240,6 @@ Ammunition: Varies
 Effective Range: Varies#HASG$Project Brutality Weapons Pack firearm (HASG).$HASG$Manufacturer: PBWP
 Class: HASG
 Ammunition: Varies
-Effective Range: Varies#CryoShotgun$Project Brutality Weapons Pack firearm (PB_CryoShotgun).$PB_CryoShotgun$Manufacturer: PBWP
-Class: PB_CryoShotgun
-Ammunition: Varies
 Effective Range: Varies#CryoRifle$Project Brutality Weapons Pack firearm (PB_CryoRifle).$PB_CryoRifle$Manufacturer: PBWP
 Class: PB_CryoRifle
 Ammunition: Varies
@@ -260,9 +257,6 @@ Class: MancubusFlameCannon
 Ammunition: Varies
 Effective Range: Varies#DualFlameCannon$Project Brutality Weapons Pack firearm (DualFlameCannon).$DualFlameCannon$Manufacturer: PBWP
 Class: DualFlameCannon
-Ammunition: Varies
-Effective Range: Varies#Paingiver$Project Brutality Weapons Pack firearm (Paingiver).$Paingiver$Manufacturer: PBWP
-Class: Paingiver
 Ammunition: Varies
 Effective Range: Varies#LegendaryChainsaw$Project Brutality Weapons Pack firearm (LegendaryChainsaw).$LegendaryChainsaw$Manufacturer: PBWP
 Class: LegendaryChainsaw
@@ -446,10 +440,6 @@ Source: Requires PBX-Weapons addon
 Ammunition: Varies
 Effective Range: Varies#Neo HMG$Neo-pattern heavy machine gun from PBX. Sustained automatic fire for suppression roles.$PBX_NeoHMG$Manufacturer: PBX-Weapons
 Class: PBX_NeoHMG
-Source: Requires PBX-Weapons addon
-Ammunition: Varies
-Effective Range: Varies#Excavator$PBX Excavator rocket platform. Demolition-grade launcher for hardened targets.$PBX_Excavator$Manufacturer: PBX-Weapons
-Class: PBX_Excavator
 Source: Requires PBX-Weapons addon
 Ammunition: Varies
 Effective Range: Varies#Cyberdemon Rocket Launcher$Salvaged cyberdemon rocket battery adapted for infantry carry. Devastating volley launcher.$PBX_CyberdemonRL$Manufacturer: PBX-Weapons

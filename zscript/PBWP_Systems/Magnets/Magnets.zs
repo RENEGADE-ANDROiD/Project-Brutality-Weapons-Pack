@@ -121,6 +121,28 @@ Class PBWP_ItemMagnet : Inventory
 		return True;
 	}
 
+	// Failed magnet pull: push pickup away so Touch() does not spam default messages.
+	void RepelFailedPickup(Inventory item, double minDist)
+	{
+		if (!owner || !item)
+			return;
+		item.A_Stop();
+		item.bNOCLIP = false;
+		item.bNOBLOCKMONST = false;
+		if (PBWP_PickupMessageUtil.IsSilentMsg(item))
+			item.bQuiet = true;
+		Vector3 delta = item.pos - owner.pos;
+		double len = delta.Length();
+		if (len < 1.)
+		{
+			double ang = frandom(0., 360.);
+			delta = (cos(ang), sin(ang), 0);
+			len = 1.;
+		}
+		double dist = max(minDist, owner.radius + item.radius + 32.);
+		item.SetOrigin(owner.pos + delta * (dist / len), true);
+	}
+
 	// This has to be called every tick to perform pulling and pickup:
 	void PullFoundItems(double maxdist = 256, double pullspeed = 15)
 	{
@@ -179,7 +201,7 @@ Class PBWP_ItemMagnet : Inventory
 				}
 				else  // Stop the item and then add it it's the current game tic to the CantPickupForNow array.
 				{
-					item.A_Stop();
+					RepelFailedPickup(item, PickupRange * 0.55);
 					CantPickupForNow.Push(PBWP_ItemMagnetInfo.Create(item, level.time));
 				}
 				FoundItems.Delete(i);

@@ -24,12 +24,12 @@ Class PBWP_JModService : Service{
                     "UZISMG", "44PDW", "LiTRevolver",
 
 					// Shotguns
-					"PB_Doom2016Shotgun", "PB_CryoShotgun", "RotationalSG", "HASG",
+					"PB_Doom2016Shotgun", "RotationalSG", "HASG",
                     "HexaLionShotgun", "M1887", "MarauderSSG", "RotatingDoubleBarrel",
 
 					// Rifles
 					"AK-47", "AssaultR1", "Black_DMR-RKX", "Adv_MaskMan_Rifle", "MaskMan_Rifle", "M1X",
-                    "PB_BoltRifle", "Dark_Fate",
+                    "PB_BoltRifle",
                     "MagnumSniperRifle", "PBX_NormalRifle", "ChthonicRifle", "Fallen_Hawk",
 
 					// Heavy Weapons
@@ -38,7 +38,7 @@ Class PBWP_JModService : Service{
 
 					// Explosives
 					"Devastator",
-                    "Paingiver", "D4RocketLauncher", "SuperGrenadeLauncher", "PB_Totenheim",
+                    "D4RocketLauncher", "SuperGrenadeLauncher", "PB_Totenheim",
 
 					// Plasma Weapons
 					"PlasmaRifleAssault", "D4PlasmaGun", "ThunderCarrierTI", "D4VortexRifle", 
@@ -51,7 +51,7 @@ Class PBWP_JModService : Service{
 
 					// Melee/Misc.
 					"AncientCrossbow", "PB_BeamKatana", "PB_ArgentSith", "BattleAxe", 
-                    "Razorjack", "Fire_and_Ice-DragonSlayer", "PB_MancubusFlameCannon", "DualFlameCannon",
+                    "Razorjack", "PB_MancubusFlameCannon", "DualFlameCannon",
                     "BioAcidLauncher", "Stormcast", "ThunderCrossbow",
 
 					//

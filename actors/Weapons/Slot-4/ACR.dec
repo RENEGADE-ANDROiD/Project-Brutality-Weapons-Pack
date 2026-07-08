@@ -162,8 +162,16 @@ ACTOR ACR : PB_Weapon
         TNT1 A 0 A_ZoomFactor(1.0)
 		TNT1 A 0 A_Takeinventory("ADSmode",1)
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
-		
-		TNT1 A 0 A_Print("You already have an attachment...")
+		TNT1 A 0 A_TakeInventory("ACRBurstShots", 3)
+		TNT1 A 0 A_JumpIfInventory("ACRBurstMode", 1, "ACRSetFullAuto")
+		TNT1 A 0 A_GiveInventory("ACRBurstMode", 1)
+		TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+		TNT1 A 0 A_Print("Switch Mode: 3-Round Burst")
+		Goto RealReady
+	ACRSetFullAuto:
+		TNT1 A 0 A_TakeInventory("ACRBurstMode", 1)
+		TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+		TNT1 A 0 A_Print("Switch Mode: Full Auto")
 		Goto RealReady
    Fire:
 		TNT1 A 0 { PB_FireOffset; }
@@ -172,6 +180,7 @@ ACTOR ACR : PB_Weapon
 		TNT1 A 0 A_JumpIfInventory("ACRAmmo",1,2)
         Goto Reload
         TNT1 AAAA 0
+		TNT1 A 0 A_JumpIfInventory("ACRBurstMode", 1, "ACRBurstFire")
 		
 		TNT1 A 0 A_JumpIfInventory("ACRSpread", 10, "FireHighSpreadLoop")
 		TNT1 A 0 A_GiveInventory("ACRSpread", 1)
@@ -196,7 +205,20 @@ ACTOR ACR : PB_Weapon
         ACRG A 1 A_DoPBWeaponAction(WRF_NOBOB)
 		Goto RefireState1
 	RefireState1:
+		RIFG A 0 A_JumpIfInventory("ACRBurstMode", 1, "ACRBurstAdvance")
 		RIFG A 0 A_Refire("FireLoop")
+		Goto DoneFiring
+
+	ACRBurstFire:
+		TNT1 A 0 A_TakeInventory("ACRBurstShots", 3)
+		Goto FireLoud1
+	ACRBurstAdvance:
+		TNT1 A 0 A_GiveInventory("ACRBurstShots", 1)
+		TNT1 A 0 A_JumpIfInventory("ACRBurstShots", 3, "ACRBurstDone")
+		TNT1 A 0 A_JumpIfInventory("ACRAmmo", 1, "FireLoop")
+		Goto DoneFiring
+	ACRBurstDone:
+		TNT1 A 0 A_TakeInventory("ACRBurstShots", 3)
 		Goto DoneFiring
 		
 	FireLoop:
@@ -231,7 +253,13 @@ ACTOR ACR : PB_Weapon
         ACRG A 1 A_DoPBWeaponAction(WRF_NOBOB)
 		Goto RefireState2
 	RefireState2:
+		RIFG A 0 A_JumpIfInventory("ACRBurstMode", 1, "ACRBurstAdvance2")
 		RIFG A 0 A_Refire("Fire")
+		Goto DoneFiring
+	ACRBurstAdvance2:
+		TNT1 A 0 A_GiveInventory("ACRBurstShots", 1)
+		TNT1 A 0 A_JumpIfInventory("ACRBurstShots", 3, "ACRBurstDone")
+		TNT1 A 0 A_JumpIfInventory("ACRAmmo", 1, "Fire")
 		Goto DoneFiring
 		
 	FireHighSpread:

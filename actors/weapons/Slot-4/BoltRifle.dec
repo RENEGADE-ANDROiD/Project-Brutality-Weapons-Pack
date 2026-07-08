@@ -190,9 +190,17 @@ Actor PB_BoltRifle : PB_WeaponBase
 		      }
 	    TNT1 A 0 A_TakeInventory ("BoltRifleAmmo",1)
 	    TNT1 A 0 {
-		       A_RailAttack(300,0,1,None,None,RGF_SILENT,0,"ShotgunPuff",0,0,8192,0,1.0,1.0,None,0,0,6);
-	              PB_FireBullets("PB_762x51mmAP", 1, 0.1, 0, 0, 0.1);
-		       PB_LowAmmoSoundWarning("sniper");
+			if (CountInv("BoltRifleMatchGrade") >= 1)
+			{
+				A_RailAttack(360,0,1,None,"Gold",RGF_SILENT|RGF_FULLBRIGHT,0,"ShotgunPuff",0,0,8192,0,1.0,1.0,None,0,0,6);
+				PB_FireBullets("PB_762x51mmAP", 1, 0.0, 0, 0, 0.0);
+			}
+			else
+			{
+				A_RailAttack(300,0,1,None,None,RGF_SILENT,0,"ShotgunPuff",0,0,8192,0,1.0,1.0,None,0,0,6);
+				PB_FireBullets("PB_762x51mmAP", 1, 0.1, 0, 0, 0.1);
+			}
+			PB_LowAmmoSoundWarning("sniper");
 		      }
 	    TNT1 A 0 A_PlaySound("M40Rifle/Fire")
 	    TNT1 A 0 {
@@ -206,6 +214,7 @@ Actor PB_BoltRifle : PB_WeaponBase
 		            PB_GunSmoke_Sniper(0,0,0);
 		            PB_CoolDownBarrel;
 		           }
+	    TNT1 A 0 A_JumpIfInventory("BoltRifleMatchGrade", 1, "MatchGradeBolt")
 	    TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo",1,1)
 	        Goto SkipBolting
 	    BLRR BC 1
@@ -217,6 +226,19 @@ Actor PB_BoltRifle : PB_WeaponBase
 		      }
 	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt2", 3)
 	    BLRR JKLMNO 2
+	        Goto SkipBolting
+	MatchGradeBolt:
+	    TNT1 A 0 A_JumpIfInventory("BoltRifleAmmo",1,1)
+	        Goto SkipBolting
+	    BLRR BC 2
+	    BLRR DEF 3
+	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt1", 3)
+	    BLRR GHI 3
+	    TNT1 A 0 {
+		       PB_SpawnCasing("PB_EmptyBrass", 32, 8, -9, frandom(4,7), frandom(6,9), frandom(0,5));
+		      }
+	    TNT1 A 0 A_PlaySound("M40Rifle/Bolt2", 3)
+	    BLRR JKLMNO 3
 	SkipBolting:
 	    TNT1 A 0 A_TakeInventory("SniperAttackState",10)
 	    TNT1 A 0 A_StopSound(1)
@@ -296,9 +318,18 @@ Actor PB_BoltRifle : PB_WeaponBase
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
 	    TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
-	    TNT1 A 0 A_JumpIfInventory("Zoomed", 1, 1)
-	        Goto Ready3
 	    TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1)
+	    TNT1 A 0 A_JumpIfInventory("Zoomed", 1, "WeaponSpecialZoom")
+	    TNT1 A 0 A_JumpIfInventory("BoltRifleMatchGrade", 1, "BoltRifleMatchGradeOff")
+	    TNT1 A 0 A_GiveInventory("BoltRifleMatchGrade", 1)
+	    TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	    TNT1 A 0 A_Print("Grade: Match")
+	        Goto Ready3
+	BoltRifleMatchGradeOff:
+	    TNT1 A 0 A_TakeInventory("BoltRifleMatchGrade", 1)
+	    TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	    TNT1 A 0 A_Print("Grade: Standard")
+	        Goto Ready3
 	WeaponSpecialZoom:
 	    TNT1 A 0 A_JumpIfInventory("SniperZoomFactor", 2, 10)
 	    TNT1 A 0 A_GiveInventory("SniperZoomFactor", 1)

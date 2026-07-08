@@ -1,5 +1,4 @@
 #include "zscript/Weapons/BaseWeapon_EquipmentAnims.zs"
-#include "zscript/Weapons/PB_WeaponTacticalFeel_Inventory.zc"
 
 // DETONATOR
 class RemoteChargeDetonator : Inventory {Default{Inventory.MaxAmount 1;}}

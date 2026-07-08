@@ -48,7 +48,7 @@ Class PB_AddonWeapon : PB_WeaponBase
 			TNT1 A 0 A_zoomfactor(1.0);
 			TNT1 A 0 A_setroll(0);
 			//TNT1 A 0 A_startsound("SomeSound",20); the select sound if any
-			TNT1 ABCD 1; //the real select animation — bob suppressed in select/deselect via PB_WeaponBase.DoEffect
+			TNT1 ABCD 1; //the real select animation
 			goto Ready3;
 			
 		Deselect:
@@ -247,5 +247,5 @@ Class MyWeaponRespect : inventory
 
 /*
 Class MyWeaponUnloaded:inventory — deprecated; mag-unload state lives on PB_WeaponBase fields.
-Use PB_SetMagUnloaded / PB_GetMagUnloaded in DECORATE, or PBWEAP_UNLOADED in A_DoPBWeaponAction.
+Use PB_SetMagUnloaded / PB_GetMagUnloaded in DECORATE, or PB_NOUNLOAD in A_DoPBWeaponAction pbFlags to suppress unload routing.
 */

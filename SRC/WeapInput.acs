@@ -1,8 +1,7 @@
 #library "WeapInput"
 #include "zcommon.acs"
 
-// FiredPrimary / FiredSecondary — required by VietDoom hold-to-aim, Cryo Shotgun,
-// Battle Axe, STRMC, and other legacy ready loops. Staging ZScript input does not
+// FiredPrimary / FiredSecondary — required by VietDoom hold-to-aim, Battle Axe,
 // provide these tokens; keep this script only for attack-button polling.
 script "CheckAttackButtons" ENTER
 {

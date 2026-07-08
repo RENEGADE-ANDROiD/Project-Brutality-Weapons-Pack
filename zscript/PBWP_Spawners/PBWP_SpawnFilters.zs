@@ -42,14 +42,12 @@ enum PBWP_eChaingunSpawns
 
 enum PBWP_eRocketLauncherSpawns
 {
-	DisablePBWP_Paingiver           = 1 << 0,
-	DisablePBWP_D4RocketLauncher    = 1 << 1,
-	DisablePBWP_SuperGL             = 1 << 2,
+	DisablePBWP_D4RocketLauncher    = 1 << 0,
+	DisablePBWP_SuperGL             = 1 << 1,
 }
 
 enum PBWP_ePlasmaRifleSpawns
 {
-	DisablePBWP_CryoShotgun         = 1 << 0,
 	DisablePBWP_GaussCannon         = 1 << 1,
 	DisablePBWP_PlasmaAssault       = 1 << 2,
 	DisablePBWP_LegendaryPlasmatic  = 1 << 3,

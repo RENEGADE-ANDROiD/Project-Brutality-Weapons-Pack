@@ -227,19 +227,39 @@ class PB_CalamityBlade : PB_WeaponBase
 		
 		
 		WeaponSpecial:
-			TNT1 A 0 A_setinventory("GoWeaponSpecialAbility",0);
-			TNT1 A 0 PB_WeaponRecoil(-4,frandom(-1.5,1.5));
-			TNT1 A 0 {
-				A_SetInventory("GoWeaponSpecialAbility",0);
-				A_SetInventory("Zoomed",0);
-				A_SetInventory("ADSmode",0);
-				A_SetInventory("PB_LockScreenTilt",1);
-				A_WeaponOffset(0,32);
-				PB_HandleCrosshair(42);
+			TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
+			TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "IdleBarrel");
+			TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "IdleFlameBarrel");
+			TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "IdleIceBarrel");
+			TNT1 A 0
+			{
+				A_SetInventory("Zoomed", 0);
+				A_SetInventory("ADSmode", 0);
+				A_WeaponOffset(0, 32);
 				A_ZoomFactor(1.0);
-				A_ClearOverlays(10,11);
-				}
-			TNT1 A 0 A_Print("No WeaponSpecial!");
+				A_ClearOverlays(10, 11);
+			}
+			TNT1 A 0 A_JumpIfInventory("PB_Cell", 30, "CalamityWave");
+			TNT1 A 0 A_Print("Calamity Wave: Need cells");
+			Goto Ready3;
+		CalamityWave:
+			TNT1 A 0
+			{
+				if (!sv_infiniteammo)
+					A_TakeInventory("PB_Cell", 30);
+				A_StartSound("WP0/FR2", CHAN_WEAPON);
+				A_StartSound("LIGHTON", CHAN_AUTO);
+				A_Print("Calamity Wave!");
+				A_FireProjectile("CalamitySlice", -30, 0, flags: FPF_NOAUTOAIM);
+				A_FireProjectile("CalamitySlice", -20, 0, flags: FPF_NOAUTOAIM);
+				A_FireProjectile("CalamitySlice", -10, 0, flags: FPF_NOAUTOAIM);
+				A_FireProjectile("CalamitySlice", 0, 0, flags: FPF_NOAUTOAIM);
+				A_FireProjectile("CalamitySlice", 10, 0, flags: FPF_NOAUTOAIM);
+				A_FireProjectile("CalamitySlice", 20, 0, flags: FPF_NOAUTOAIM);
+				A_FireProjectile("CalamitySlice", 30, 0, flags: FPF_NOAUTOAIM);
+				PB_WeaponRecoil(2.5, frandom(-1.5, 1.5));
+			}
+			WP0G A 4 Bright;
 			Goto Ready3;
 		
 		////////////////////////////////////////////////////////////////////////

@@ -102,9 +102,9 @@ class PB_Hud_ZS : BaseStatusBar
     int tickRandSeed;
 
 	//CVars
-	int16 hudXMargin, hudYMargin, playerMsgPrint;
-	bool hudDynamicsCvar, showVisor, showVisorGlass, showLevelStats, lowresfont, curmaxammolist, hideunusedtypes, showList, customPBMugshot, showBloodDrops, showGlassCracks, bottomMiddlePart, showtutorials;
-	float playerAlpha, playerBoxAlpha, messageSize, bloodDropsAlpha, glassCracksAlpha, visorScale, visorOffsets;
+	int16 hudXMargin, hudYMargin, playerMsgPrint, screenblocks;
+	bool hudDynamicsCvar, showVisor, showVisorGlass, showLevelStats, lowresfont, curmaxammolist, hideunusedtypes, showList, customPBMugshot, showBloodDrops, showGlassCracks, showtutorials, altHUDEnabled;
+	float playerAlpha, playerBoxAlpha, messageSize, bloodDropsAlpha, glassCracksAlpha, visorScale, visorOffsets, bottomMiddlePart;
 
 	bool centerNotify;
   
@@ -210,6 +210,9 @@ class PB_Hud_ZS : BaseStatusBar
         bottomMiddlePart = CVar.GetCVar("pb_visormiddlepartbottom", CPlayer).GetFloat();
 
         showtutorials = CVar.GetCVar("pb_showtutorials", CPlayer).GetBool();
+		//zdoom cvars
+		altHUDEnabled = CVar.GetCvar("hud_althud", CPlayer).GetBool();
+		screenblocks = CVar.GetCvar("screenblocks", CPlayer).GetInt();
 	}
 
 	bool IsTitleMap() const
@@ -299,7 +302,7 @@ class PB_Hud_ZS : BaseStatusBar
         interpolatedOfs = ofsOldFrame * (1. - ticfrac) + ofsCurrentFrame * ticfrac;
         interpolatedSway = swayOldFrame * (1. - ticfrac) + swayCurrentFrame * ticfrac;
 		
-		if(hudState != HUD_None)
+		if(hudState != HUD_None && (screenblocks < 11 || screenblocks < 12 && !altHUDEnabled))
 		{
 			BeginHUD();
 			DrawFullScreenStuff();
@@ -1435,12 +1438,19 @@ class PB_Hud_ZS : BaseStatusBar
 			if(dasher) {
 				/*PBHud_DrawBar("DASHHUD2", "DASHHUD1", Dasher.DashCharge, 17.5, (252, -51), 0, 0, DI_SCREEN_LEFT_BOTTOM | DI_ITEM_LEFT_BOTTOM, clamp(dashIndAlpha, 0.0, 1.0), slanted: false);
 				PBHud_DrawBar("DASHHUD2", "DASHHUD1", Dasher.DashCharge - 17.5, 17.5, (261, -51), 0, 0, DI_SCREEN_LEFT_BOTTOM | DI_ITEM_LEFT_BOTTOM, clamp(dashIndAlpha, 0.0, 1.0), slanted: false);*/
-			   
-				PBHud_DrawImage(Dasher.DashCharge >= 17.5 ? "DASHHUD2" : "DASHHUD1", (251 - 9 * dashScale2, -60), DI_SCREEN_LEFT_BOTTOM | DI_ITEM_VCENTER | DI_ITEM_LEFT, clamp(dashIndAlpha, 0.0, 1.0), scale: (1 + dashScale1, 1 + dashScale1));
-				PBHud_DrawImage(Dasher.DashCharge >= 35 ? "DASHHUD2" : "DASHHUD1", (275 + 9 * dashScale1, -60), DI_SCREEN_LEFT_BOTTOM | DI_ITEM_VCENTER | DI_ITEM_RIGHT, clamp(dashIndAlpha, 0.0, 1.0), scale: (1 + dashScale2, 1 + dashScale2));
-				
-				if(Dasher.DashCharge != 35 && dashIndAlpha < 1)
+				if(CheckInventory("PB_PowerSpeed")) {
+					PBHud_DrawImage("DASHHUD3", (241, -60), DI_SCREEN_LEFT_BOTTOM | DI_ITEM_VCENTER | DI_ITEM_LEFT);
+					PBHud_DrawImage("DASHHUD3", (265, -60), DI_SCREEN_LEFT_BOTTOM | DI_ITEM_VCENTER | DI_ITEM_RIGHT);
 					dashIndAlpha = 5.0;
+				}
+				else {
+					PBHud_DrawImage(Dasher.DashCharge >= 17.5 ? "DASHHUD2" : "DASHHUD1", (241 - 9 * dashScale2, -60), DI_SCREEN_LEFT_BOTTOM | DI_ITEM_VCENTER | DI_ITEM_LEFT, clamp(dashIndAlpha, 0.0, 1.0), scale: (1 + dashScale1, 1 + dashScale1));
+					PBHud_DrawImage(Dasher.DashCharge >= 35 ? "DASHHUD2" : "DASHHUD1", (265 + 9 * dashScale1, -60), DI_SCREEN_LEFT_BOTTOM | DI_ITEM_VCENTER | DI_ITEM_RIGHT, clamp(dashIndAlpha, 0.0, 1.0), scale: (1 + dashScale2, 1 + dashScale2));
+					
+					if(Dasher.DashCharge != 35 && dashIndAlpha < 1) {
+						dashIndAlpha = 5.0;
+					}
+				}
 			}
 			
 			PBHud_DrawBar(inPain ? "HOBAR" : "HPBAR", "BGBARL", IntHealth, min(MaxHealth, 100), (111, -52), 0, 0, DI_SCREEN_LEFT_BOTTOM | DI_ITEM_LEFT_BOTTOM);
@@ -1630,7 +1640,7 @@ class PB_Hud_ZS : BaseStatusBar
 					rw = pmo.player.ReadyWeapon.GetClassName();
 
                 if(Primary && rw != "PB_Unmaker" && rw != "PB_Flamethrower" && rw != "PB_TauntWeapon"
-				&& rw != "NemesisLMG" && rw != "PowerOverwhelming" && rw != "PBX_Prosurv_Ballista" && rw != "PB_MG42") 
+				&& rw != "NemesisLMG" && rw != "PowerOverwhelming" && rw != "PB_MG42") 
                 {
                     switch(Primary.GetClassName())
                     {
@@ -1777,37 +1787,6 @@ class PB_Hud_ZS : BaseStatusBar
 						weaponBarAccent = Font.CR_YELLOW;
 						break;
 					}
-					case 'PBX_Prosurv_Ballista':
-					{
-						// PBX inventory token not visible cross-TU in 4.14; render non-upgraded view as fallback.
-						if(true)
-						{
-							DrawAmmoBar("BARBACY1", "BARBACY2", "BARBACY3", "BAMBAR1", "ABAR1", "ABAR1", "AMMOIC1", Font.CR_YELLOW, true, true, true, false);
-							PBHud_DrawImage("BARBACR3", (-92, -69), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
-							PBHud_DrawBar("ABAR4", "BGBARL", GetAmount("PB_RocketAmmo"), GetMaxAmount("PB_RocketAmmo"), (-101, -72), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
-							PBHud_DrawString(mDefaultFont, Formatnumber(GetAmount("PB_RocketAmmo")), (-194, -88.75), DI_TEXT_ALIGN_RIGHT, Font.CR_RED);
-							weaponBarAccent = Font.CR_YELLOW;
-						}
-						else
-						{
-							if(Primary) {
-								PBHud_DrawImage("BARBACZ1", (-72, -17), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
-								PBHud_DrawBar("ABAR7", "BGBARL", GetAmount("PB_DTech"), GetMaxAmount("PB_DTech"), (-122, -32), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
-								PBHud_DrawString(mDefaultFont, Formatnumber(GetAmount("PB_DTech")), (-216, -48.75), DI_TEXT_ALIGN_RIGHT, cachedFontColors[DTECHAMMO]);
-							}
-							if(Secondary) {
-								PBHud_DrawImage("BARBACZ2", (-73, -49), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
-								PBHud_DrawBar("ABAR7", "BGBARL", IntAmmo2, Secondary.MaxAmount, (-111, -52), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
-								PBHud_DrawString(mDefaultFont, Formatnumber(Secondary.Amount), (-205, -68.75), DI_TEXT_ALIGN_RIGHT, cachedFontColors[DTECHAMMO]);
-							}
-							PBHud_DrawImage("AMMOIC7", (-76, -24), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, 1, (28, 23));
-							PBHud_DrawImage("BARBACD3", (-92, -69), DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM, playerBoxAlpha);
-							PBHud_DrawBar("ABAR6", "BGBARL", GetAmount("PB_Fuel"), GetMaxAmount("PB_Fuel"), (-101, -72), 0, 1, DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM);
-							PBHud_DrawString(mDefaultFont, Formatnumber(GetAmount("PB_Fuel")), (-194, -88.75), DI_TEXT_ALIGN_RIGHT, cachedFontColors[FUELAMMO]);
-							weaponBarAccent = cachedFontColors[DTECHAMMO];
-						}
-						break;
-					}
 					case 'PB_MG42':
 					{
 						if(Primary) {
@@ -1835,7 +1814,6 @@ class PB_Hud_ZS : BaseStatusBar
 				
 				PBHud_DrawString(mDefaultFont, weap.GetTag(), (-110, -24), DI_SCREEN_RIGHT_BOTTOM | DI_TEXT_ALIGN_RIGHT, weaponBarAccent, scale: (0.5, 0.5));
 				PB_DrawGCWeaponMode((-110, -16));
-				PBX_DrawWeaponHudFromServices();
 				PBWP_DrawAddonWeaponIcon();
 				
 				//Equipment
@@ -1938,6 +1916,28 @@ class PB_Hud_ZS : BaseStatusBar
 			}
 
 		}
+		
+		//zmove speedometer
+		let speedometer = CVar.GetCvar("pb_speedometer", cplayer).GetInt();
+		if(speedometer) {
+			if(plr && PlayerInGame[consoleplayer]) {
+				double unitscale;
+				switch(speedometer) {
+				default:
+				case 1:
+					unitscale = 10; //doom
+					break;
+				case 2:
+					unitscale = 32; //quake
+					break;
+				case 3:
+					unitscale = 655360; //srb2
+					break;
+				}
+				
+				PBHud_DrawString(mBoldFont, String.format("XY: %i Z: %i", plr.vel.xy.Length() * unitscale, abs(plr.vel.z) * unitscale), (0, 120), DI_TEXT_ALIGN_CENTER|DI_SCREEN_CENTER_TOP, Font.CR_WHITE);
+			}
+		}
 	}
 
 	bool PB_WeaponUsesPBAmmoType()
@@ -2007,7 +2007,6 @@ class PB_DynamicDoubleInterpolator : Object
 }
 
 #include "zscript/PB_HelpNotifications.zs"
-#include "zscript/PBWP_Systems/PBX/PBWP_PBXHUDData.zs"
 #include "zscript/PBWP_Systems/PBWP_AddonWeaponHud.zs"
 
 // PBWP: title-backdrop-safe status bar (PBWP Gameinfo StatusBarClass override).

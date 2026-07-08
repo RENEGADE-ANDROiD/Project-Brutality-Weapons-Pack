@@ -22,7 +22,7 @@ Actor D4Machinegun : PB_WeaponBase
 	+FLOORCLIP
 	+DONTGIB
 	//Weapon.SlotNumber 5
-	Weapon.SelectionOrder 1300
+	Weapon.SelectionOrder 1320
 	Scale 0.9
 	Tag "Doom 4 Machinegun"
 	Inventory.AltHudIcon "D4W4A0"

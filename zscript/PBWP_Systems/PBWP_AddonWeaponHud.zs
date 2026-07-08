@@ -80,12 +80,6 @@ extend class PB_Hud_ZS
 			adjustY = 14;
 			adjustScale = 0.9;
 		}
-		else if (cn == "PBX_Prosurv_Ballista")
-		{
-			adjustX = -10;
-			adjustY = 10;
-			adjustScale = 0.85;
-		}
 		else if (cn == "NemesisLMG")
 		{
 			adjustX = -5;
@@ -116,7 +110,7 @@ extend class PB_Hud_ZS
 			adjustY = 12;
 			adjustScale = 0.75;
 		}
-		else if (cn == "PBWP_Intervention" || cn == "PBWP_Legionnaire")
+		else if (cn == "PBWP_Intervention")
 		{
 			adjustX = -8;
 			adjustY = 14;
@@ -134,13 +128,25 @@ extend class PB_Hud_ZS
 			adjustY = 10;
 			adjustScale = 0.8;
 		}
-		else if (cn == "PBWP_Liquidation" || cn == "PBWP_Deracinator")
+		else if (cn == "PBWP_Liquidation")
 		{
 			adjustX = -8;
 			adjustY = 12;
 			adjustScale = 0.8;
 		}
-		else if (cn == "PBWP_Dismantler" || cn == "PBWP_CinerealOrdnance")
+		else if (cn == "PBWP_Deracinator")
+		{
+			adjustX = -8;
+			adjustY = 10;
+			adjustScale = 0.75;
+		}
+		else if (cn == "PBWP_Dismantler")
+		{
+			adjustX = -14;
+			adjustY = 6;
+			adjustScale = 0.7;
+		}
+		else if (cn == "PBWP_CinerealOrdnance")
 		{
 			adjustX = -10;
 			adjustY = 10;

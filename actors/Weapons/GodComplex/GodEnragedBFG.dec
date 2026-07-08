@@ -121,6 +121,7 @@ TNT1 A 0 A_JumpifInventory("PBWP_ComplexAmmo",100,"Firing")
 Goto NoAmmo
 
 Firing:
+ENBG A 0 A_JumpIfInventory("GodEnragedGodwrath", 1, "GodwrathFiring")
 ENBG A 0 A_PlaySound("EBFG/Trigger",1)
 ENBG ABCDEF 1 BRIGHT
 ENBG A 0 A_PlaySound("EBFG/Charge1",7,0.9)
@@ -143,6 +144,31 @@ ENBG AA 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", 0, 0, 0, 0)
 ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", -10, 1, 0, 0)
 ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", -20, 0, 0, 0)
 ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", -25, 0, 0, 0)
+Goto GodEnragedFireFinish
+GodwrathFiring:
+ENBG A 0 A_PlaySound("EBFG/Trigger",1)
+ENBG ABCDEF 1 BRIGHT
+ENBG A 0 A_PlaySound("EBFG/Charge1",7,0.9)
+ENBG A 0 A_GiveInventory("GuruCharge",2)
+GodwrathCharger:
+ENBG A 0 A_TakeInventory("GuruCharge",1)
+ENBG ABCDEF 1 Bright A_Quake (5, 2, 0, 2,"none")
+ENBG A 0 A_JumpIfInventory("GuruCharge",1,"GodwrathCharger")
+ENBG FFGGHHIIJJKK 1 BRIGHT
+ENBG A 0 A_StopSound(5)
+ENBG A 0 A_StopSound(6)
+ENBG A 0 A_PlaySound("EBFG/Fire1",6,0.9)
+TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",100,TIF_NOTAKEINFINITE)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", 35, 0, 0, 0)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", 28, 0, 0, 0)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", 20, 0, 0, 0)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", 12, 0, 0, 0)
+ENBG AA 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", 0, 0, 0, 0)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", -12, 1, 0, 0)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", -20, 0, 0, 0)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", -28, 0, 0, 0)
+ENBG A 0 A_FireCustomMissile("GodPlayerEnragedGuruBall", -35, 0, 0, 0)
+GodEnragedFireFinish:
 TNT1 A 0 Radius_Quake(6,60,0,100,0)
 ENBG VWXYZ 1 BRIGHT
 ENBG A 0 A_GunFlash
@@ -224,6 +250,15 @@ TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
 TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
 TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
 TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+TNT1 A 0 A_JumpIfInventory("GodEnragedGodwrath", 1, "GodEnragedGodwrathOff")
+TNT1 A 0 A_GiveInventory("GodEnragedGodwrath", 1)
+TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+TNT1 A 0 A_Print("Mode: Godwrath")
+Goto Ready3
+GodEnragedGodwrathOff:
+TNT1 A 0 A_TakeInventory("GodEnragedGodwrath", 1)
+TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+TNT1 A 0 A_Print("Mode: Perfect Hatred")
 Goto Ready3
  
 FlashKicking:

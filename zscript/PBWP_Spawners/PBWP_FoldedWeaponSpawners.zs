@@ -318,19 +318,6 @@ class PBWP_DispatcherSpawnerInjector : PBInjector
 	}
 }
 
-class PBWP_LegionnaireSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-		if (PBSpawnPBWP_Legionnaire)
-		{
-			handler.InjectSpawn('PB_RLSpawnerT2', 'PBWP_Legionnaire', 255, 2);
-			handler.InjectSpawn('PB_RLSpawnerT3', 'PBWP_Legionnaire', 255, 2);
-			handler.InjectSpawn('PB_RLSpawnerT4', 'PBWP_Legionnaire', 255, 1);
-		}
-	}
-}
-
 class PBWP_SiriusCrisisSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)

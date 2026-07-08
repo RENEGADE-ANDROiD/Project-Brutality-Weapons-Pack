@@ -41,10 +41,6 @@ version "4.14.2"
 #include "zscript/PBWP_Systems/PDA/PBWP_PDA_ShopBrowse.zc"
 #include "zscript/PBWP_Systems/PDA/PBWP_PDA_AchievementsBrowse.zc"
 
-// PBX HUD compat: cannot extend PBX_Hud from PBWP (separate ZScript translation units in 4.14).
-// PBWP_PBXHudCompat.zs kept for reference; merge weapon exceptions into PBX if needed.
-//#include "zscript/PBWP_Systems/PBX/PBWP_PBXHudCompat.zs" // superseded by PBWP_AddonWeaponHud.zs on shadowed PB_Hud.zs
-
 // PDA compat: cannot extend PB_WeaponBase from PBWP ZScript (separate TUs in 4.14).
 // Pickup unlocks use PB Staging PBPDA on PB_WeaponBase. Menu: PBWP_PDA_Core + PDAWEAP lumps.
 // PBWP_FXThrottleCore is included from lump-shadowed BaseWeapon_Functions.zsc (PDA TU).
@@ -64,7 +60,6 @@ version "4.14.2"
 #include "zscript/PBWP_Spawners/PBWP_WeaponSpawners.zs"
 #include "zscript/PBWP_Spawners/PBWP_FoldedWeaponSpawners.zs"
 #include "zscript/PBWP_Spawners/PBWP_VietDoomSpawners.zs"
-#include "zscript/PBWP_Systems/VietDoom/PBWP_VietDoomDurability.zs"
 #include "zscript/PBWP_Spawners/PBWP_DukeMauserSpawners.zs"
 #include "zscript/PBWP_Spawners/PBWP_FireAndIceSpawners.zs"
 #include "zscript/PBWP_Weapons/DukeNukemBulletsSystem.zc"
@@ -91,29 +86,12 @@ version "4.14.2"
 #include "zscript/PBWP_Systems/Doorbuster/doorbuster_handler.zs"
 // Magnets
 #include "zscript/PBWP_Systems/Magnets/Magnets.zs"
-// Helmet Drops
-#include "zscript/PBWP_Systems/HelmetDrops/HelmetDropSpawner.zs"
-//DamageIndicatorsV2
-#include "zscript/PBWP_Systems/DmgIndicatorV2/EventRender.zs"
+// Helmet drops + directional damage indicators: PBX-Addons-main (optional, load after PBWP).
 // Ouchie!
 #include "zscript/Ouchie.zs"
-// Champions Lite (trimmed trait system from PBWPE)
-#include "zscript/champions_lite/fxthrottle.zs"
-#include "zscript/champions_lite/handler.zs"
-#include "zscript/champions_lite/baseclass.zs"
-#include "zscript/champions_lite/tokens.zs"
-#include "zscript/champions_lite/fx.zs"
-#include "zscript/champions_lite/traits/trait_bulwark.zs"
-#include "zscript/champions_lite/traits/trait_brute.zs"
-#include "zscript/champions_lite/traits/trait_swift.zs"
-#include "zscript/champions_lite/traits/trait_volatile.zs"
-#include "zscript/champions_lite/traits/trait_toxic.zs"
-#include "zscript/champions_lite/traits/trait_blink.zs"
-#include "zscript/champions_lite/traits/trait_stalker.zs"
-#include "zscript/champions_lite/traits/trait_splitter.zs"
-#include "zscript/champions_lite/traits/trait_veteran.zs"
-#include "zscript/champions_lite/traits/trait_captain.zs"
-#include "zscript/champions_lite/static.zs"
+
+// Champions Lite — monster enhancement (cl_ namespace)
+#include "zscript/PBWP_Systems/ChampionsLite/ChampionsLite.zc"
 
 // God Complex enhancements (Phase 1 + 2)
 #include "zscript/PBWP_Systems/GC/GC_Enhancements.zs"
@@ -138,6 +116,7 @@ version "4.14.2"
 #include "ZScript/Player/PBMeleePlayer.zc"
 #include "ZScript/Player/PBBIGPlayer.zc"
 #include "ZScript/Player/miniPlayer.zc"
+#include "zscript/Player/PBWP_CheatWeaponDedupe.zs"
 
 // PBWP_Misc
 // PowerUps
@@ -170,10 +149,10 @@ version "4.14.2"
 
 // Weapons & Etc (Testing)
 
-	// PBX duplicates removed — see PBWP_PBX_DEDUP.md
+	// PBX weapon duplicates removed — use PBX-Weapons-main when loaded after PBWP.
 #include "zscript/PBWP_Weapons/BeamKatana_Weapon.zs"
 #include "zscript/PBWP_Weapons/VorpalBlade.zs"
-#include "zscript/Weapons/Slot-5/PB_FireAndIceDragonSlayer.zs"
+//#include "zscript/Weapons/Slot-5/PB_FireAndIceDragonSlayer.zs" // disabled pending polish
 #include "zscript/PBWP_Weapons/Karnage/KRG_SYS.zc"
 #include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_CA_Common.zs"
 #include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_CA_Projectiles.zs"
@@ -187,7 +166,6 @@ version "4.14.2"
 #include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_Dismantler.zs"
 #include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_CinerealOrdnance.zs"
 #include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_Dispatcher.zs"
-#include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_Legionnaire.zs"
 #include "zscript/PBWP_Weapons/Cyberaugumented/PBWP_SiriusCrisis.zs"
 #include "zscript/Weapons/Slot-8/CalamityBlade_FX.zs"
 #include "zscript/Weapons/Slot-8/LoRCalamityBlade.zs"
@@ -197,16 +175,12 @@ version "4.14.2"
 #include "zscript/Weapons/Slot-8/PB_DarkMatterRifle/PB_DarkMatterRifle.zs"
 #include "zscript/PBWP_Misc/Individual_WeaponWheels/PB_DarkMatterRifle_Wheel.zs"
 
-// PB 2022 folds: tactical feel, katana shield filter, cryo shotgun modes
-#include "zscript/Weapons/PB_WeaponTacticalFeel.zc"
+// PB 2022 folds: katana shield filter
 #include "zscript/PBWP_Weapons/PB_KatanaShieldPlayerFilter.zc"
-#include "zscript/Effects/PBCF_CryoSlowProjectiles.zc"
-#include "zscript/Weapons/CatsFrozen/PB_CatsFrozenWeapons.zc"
-#include "zscript/Weapons/Slot-3/CryoShotgun/PB_CryoShotgun.zs"
-#include "zscript/PBWP_Misc/Individual_WeaponWheels/PB_CryoShotgun_Wheel.zs"
 #include "zscript/PBWP_Misc/Individual_WeaponWheels/PB_ThunderCrossbow_Wheel.zs"
 #include "zscript/PBWP_Weapons/ThunderCrossbow/PB_ThunderCrossbow_Shield.zs"
 #include "zscript/PBWP_Misc/Individual_WeaponWheels/HellPistoler_Wheel.zs"
+#include "zscript/PBWP_Misc/Individual_WeaponWheels/VietDoom_Wheels.zs"
 
 // Late include — extends engine Inventory (must follow other inventory/powerup modules).
 #include "zscript/PBWP_Core/PBWP_PickupMessageFix.zs"

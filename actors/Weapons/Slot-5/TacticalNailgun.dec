@@ -64,7 +64,7 @@ ACTOR FireSingleExpProjectile : FastProjectile
 	}
 }
 
-Actor NailTacticMod : Inventory {Inventory.MaxAmount 2}
+Actor NailTacticMod : Inventory {Inventory.MaxAmount 3}
 Actor TACNailUnloaded : Inventory {Inventory.MaxAmount 1}
 
 ACTOR TacticalNailgunAmmo : Ammo
@@ -85,7 +85,7 @@ ACTOR Tactical_Nail_Gun : PB_Weapon
 	Weapon.AmmoGive2 0
 	YScale 0.6
 	XScale 0.8
-	Weapon.SelectionOrder 4500
+	Weapon.SelectionOrder 1303
 	Weapon.AmmoType1 "PB_HighCalMag"
 	Weapon.AmmoType2 "TacticalNailgunAmmo"
 	Obituary "%o met stroggos by %k's Tactical Nailgun."
@@ -98,7 +98,6 @@ ACTOR Tactical_Nail_Gun : PB_Weapon
     +WEAPON.NOALERT
     +WEAPON.NOAUTOFIRE
 	+FORCEXYBILLBOARD
-	+WEAPON.NO_AUTO_SWITCH
 	Weapon.SlotNumber 5
 	Weapon.SlotPriority 0.2
     Scale 0.6
@@ -237,6 +236,7 @@ ACTOR Tactical_Nail_Gun : PB_Weapon
 		Goto RealReady
 		
 	EXPFire:
+		TNT1 A 0 A_JumpIfInventory("NailTacticMod", 3, "CryoFire")
 		TNT1 A 0 A_JumpIfInventory("TacticalNailgunAmmo",1,2)
         Goto Reload
         TNT1 AAAA 0
@@ -261,6 +261,23 @@ ACTOR Tactical_Nail_Gun : PB_Weapon
 		7HRF B 1
 		7HRF CD 1
 		7HRG A 10
+		HMRG A 0 A_Refire
+		7HRG A 1 A_DoPBWeaponAction(1)
+		7HRG A 1
+		7HRG A 5 A_DoPBWeaponAction(1)
+		Goto RealReady
+
+	CryoFire:
+		TNT1 A 0 A_JumpIfInventory("TacticalNailgunAmmo",1,2)
+		Goto Reload
+		TNT1 A 0 A_JumpIfInventory("Zoomed",1,"CryoFire2")
+		TNT1 A 0 A_PlaySound("weapons/CryoRifle/missile",5)
+		7HRN B 0 BRIGHT A_AlertMonsters
+		TNT1 A 0 A_SpawnItemEx("PlayerMuzzle1",30,5,30)
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAss",0,0,0,0)
+		7HRF A 1 BRIGHT A_FireCustomMissile("PB_MGNailCryo", 0, 0, 12, -6, 0, random(-1,1))
+		TNT1 A 0 A_Takeinventory("TacticalNailgunAmmo",1)
+		7HRF BCD 1
 		HMRG A 0 A_Refire
 		7HRG A 1 A_DoPBWeaponAction(1)
 		7HRG A 1
@@ -315,6 +332,7 @@ ACTOR Tactical_Nail_Gun : PB_Weapon
 		Goto Ready2
 		
 	EXPFire2:
+		TNT1 A 0 A_JumpIfInventory("NailTacticMod", 3, "CryoFire2")
 		TNT1 A 0 A_PlaySound("ExplosiveRifleFire",5)
         //TNT1 A 0 A_FireCustomMissile("SmokeSpawner",0,0,0,5)
 		TNT1 A 0 A_SetBlend("White", 0.5, 3)
@@ -333,6 +351,21 @@ ACTOR Tactical_Nail_Gun : PB_Weapon
 		HKFZ BBBBB 1 A_DoPBWeaponAction(1)
 		TNT1 A 0 A_TakeInventory("RifleSpread", 5)
 		TNT1 A 0 A_SetBlend("Red", 0.25, 5)
+		HKFZ BBBBB 1 A_DoPBWeaponAction(1)
+		Goto Ready2
+
+	CryoFire2:
+		TNT1 A 0 A_PlaySound("weapons/CryoRifle/missile",5)
+		TNT1 A 0 A_SetBlend("Cyan", 0.4, 3)
+		HKFZ B 1 BRIGHT A_AlertMonsters
+		TNT1 A 0 A_SpawnItemEx("PlayerMuzzle1",30,5,30)
+		XMFF A 0 A_FireCustomMissile("PB_MGNailCryo", random(-1,1), 0, -1, -12, 0, random(-1,1))
+		TNT1 A 0 A_FireCustomMissile("ShakeYourAss",0,0,0,0)
+		TNT1 A 0 A_Takeinventory("TacticalNailgunAmmo",1)
+		HKFZ B 1 A_SetBlend("Cyan", 0.2, 5)
+		HKFZ B 1
+		RIFG A 0 A_Refire("Fire")
+		HKFZ BBBBB 1 A_DoPBWeaponAction(1)
 		HKFZ BBBBB 1 A_DoPBWeaponAction(1)
 		Goto Ready2
 		
@@ -480,7 +513,7 @@ ACTOR Tactical_Nail_Gun : PB_Weapon
 		Goto Ready3
 		
 	Explosive:
-		TNT1 A 0 A_JumpIfInventory("NailTacticMod",2,"Normal")
+		TNT1 A 0 A_JumpIfInventory("NailTacticMod",2,"CryoNails")
 		TNT1 A 0 A_GiveInventory("NailTacticMod",1)
 		TNT1 A 0 A_Playsound("NAILCLPN")
 		TNT1 A 0 A_Print("Explosive Cartridge Mode \n \cq This one is only for 3 Shots only")
@@ -489,9 +522,20 @@ ACTOR Tactical_Nail_Gun : PB_Weapon
 		7HRR OPQRSTUVWXY 1
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
 		Goto Ready3
+
+	CryoNails:
+		TNT1 A 0 A_JumpIfInventory("NailTacticMod",3,"Normal")
+		TNT1 A 0 A_GiveInventory("NailTacticMod",1)
+		TNT1 A 0 A_Playsound("NAILCLPN")
+		TNT1 A 0 A_Print("Cryo Nail Mode \n \cq Chill and slow your prey")
+		7HRR IIIIIIIIIIJKLM 1
+		7HRR N 1 A_Playsound("FAL/cin", 7)
+		7HRR OPQRSTUVWXY 1
+		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+		Goto Ready3
 		
 	Normal:
-		TNT1 A 0 A_TakeInventory("NailTacticMod",2)
+		TNT1 A 0 A_TakeInventory("NailTacticMod",3)
 		TNT1 A 0 A_Playsound("NAILCLPN")
 		TNT1 A 0 A_Print("Nail Cartridge Mode")
 		7HRR IIIIIIIIIIJKLM 1

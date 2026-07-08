@@ -112,7 +112,6 @@ class MiniPlayer : PB_PlayerPrawn
 		"HexaLionShotgun",
 		"SSG",
 		"RotationalSG",
-		"PB_CryoShotgun",
 		"PB_Doom2016Shotgun",
 		"DTShotgun",
 		"M1887",
@@ -133,8 +132,7 @@ class MiniPlayer : PB_PlayerPrawn
 		"M1X",
 		"MagnumSniperRifle",
 		"PB_BoltRifle",
-		"PB_Fusil",
-		"NemesisLMG";
+		"PB_Fusil";
 
 		Player.WeaponSlot 5,
 		"PB_Minigun",
@@ -142,12 +140,10 @@ class MiniPlayer : PB_PlayerPrawn
 		"PB_MG42",
 		// PBWP SLOT 5
 		"D4Machinegun",
-		"Dark_Fate",
 		"Heavy_Assault_Rifle",
 		"INMiniGun",
 		"ApocalypseKiller",
 		"INNailGun",
-		"Fire_and_Ice-DragonSlayer",
 		"DukeNukemRipper",
 		"SuperNailgun",
 		"PowerOverwhelming",
@@ -161,7 +157,6 @@ class MiniPlayer : PB_PlayerPrawn
 		"SuperGrenadeLauncher",
 		"ChthonicRifle",
 		"Fallen_Hawk",
-		"Paingiver",
 		"D4RocketLauncher";
 
 		Player.WeaponSlot 7,
@@ -208,7 +203,6 @@ class MiniPlayer : PB_PlayerPrawn
 		"TechBlaster",
 		"PB_LegacyUnmaker",
 		"Satan_Scream",
-		"Unmaker64",
 		"DemonTechMinigun";
 
 		Player.StartItem "PB_PDAWeaponContainer",1;

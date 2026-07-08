@@ -38,7 +38,7 @@ Actor INMGUpgrade : Inventory { Inventory.MaxAmount 1 }
 
 ACTOR INMiniGun: PB_WeaponBase 19443
 {
-Weapon.SelectionOrder 700
+Weapon.SelectionOrder 1304
 Weapon.AmmoType1 "PB_HighCalMag"
 Weapon.AmmoGive 60
 Weapon.AmmoUse1 0
@@ -46,7 +46,6 @@ Weapon.AmmoUse1 0
 +WEAPON.NOAUTOAIM
 +WEAPON.NOAUTOFIRE
 +FORCEXYBILLBOARD
-+WEAPON.NO_AUTO_SWITCH
 
 // Weapon.SlotNumber 5
 Weapon.SlotPriority 1

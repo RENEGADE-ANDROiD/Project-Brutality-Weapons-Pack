@@ -20,8 +20,9 @@ Actor DragonSlayerEnergy : Ammo
     +INVENTORY.IGNORESKILL
     Inventory.Icon "CELLA0" 
 }
-ACTOR Fire_and_Ice-DragonSlayer : PB_FireAndIceDragonSlayer
+ACTOR Fire_and_Ice-DragonSlayer : PB_FireAndIceDragonSlayerBase
 {
+	Weapon.SelectionOrder 8500
 }
 
 actor FireballBlocker

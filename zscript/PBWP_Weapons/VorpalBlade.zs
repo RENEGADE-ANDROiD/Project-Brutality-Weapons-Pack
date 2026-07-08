@@ -177,6 +177,19 @@ class VorpalBlade : PB_WeaponBase
             VORP A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD);
             Loop;
 
+        WeaponSpecial:
+            TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
+            TNT1 A 0 A_JumpIfInventory("VorpalSoulRend", 1, "VorpalSoulRendOff");
+            TNT1 A 0 A_GiveInventory("VorpalSoulRend", 1);
+            TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+            TNT1 A 0 A_Print("Stance: Soul Rend");
+            Goto Ready3;
+        VorpalSoulRendOff:
+            TNT1 A 0 A_TakeInventory("VorpalSoulRend", 1);
+            TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+            TNT1 A 0 A_Print("Stance: Standard");
+            Goto Ready3;
+
         Fire:
             TNT1 A 0 { return PB_FireExecuteCheck(); }
             TNT1 A 0
@@ -194,11 +207,21 @@ class VorpalBlade : PB_WeaponBase
             VORR A 0 Offset(15,32);
             VORR A 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 A_PlaySound("Sword/Swing", CHAN_WEAPON, 1.0, 0, 2);
-            TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
-                                           roll: 45, area: 45, dist: 48,
-                                           PuffActor: "KyreiPuffRight",
-                                           HitActorSound: "Sword/HitMeat",
-                                           HitWallSound: "Sword/HitWall");
+            TNT1 A 0
+            {
+                int dmg = 2;
+                double heal = 0.5;
+                if (CountInv("VorpalSoulRend") >= 1)
+                {
+                    dmg = 6;
+                    heal = 1.25;
+                }
+                hxa_CustomRollAttack(damage: dmg, healfactor: heal, PierceEnemies: FALSE,
+                    roll: 45, area: 45, dist: 48,
+                    PuffActor: "KyreiPuffRight",
+                    HitActorSound: "Sword/HitMeat",
+                    HitWallSound: "Sword/HitWall");
+            }
             TNT1 A 0 A_FireCustomMissile("RedParticleSpawner");
             VORR B 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             VORR C 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
@@ -212,11 +235,21 @@ class VorpalBlade : PB_WeaponBase
             VORL A 0 Offset(15,32);
             VORL A 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             TNT1 A 0 A_PlaySound("Sword/Swing", CHAN_WEAPON, 1.0, 0, 2);
-            TNT1 A 0 hxa_CustomRollAttack(damage: 2, healfactor: 0.5, PierceEnemies: FALSE,
-                                           roll: -45, area: 45, dist: 48,
-                                           PuffActor: "KyreiPuffLeft",
-                                           HitActorSound: "Sword/HitMeat",
-                                           HitWallSound: "Sword/HitWall");
+            TNT1 A 0
+            {
+                int dmg = 2;
+                double heal = 0.5;
+                if (CountInv("VorpalSoulRend") >= 1)
+                {
+                    dmg = 6;
+                    heal = 1.25;
+                }
+                hxa_CustomRollAttack(damage: dmg, healfactor: heal, PierceEnemies: FALSE,
+                    roll: -45, area: 45, dist: 48,
+                    PuffActor: "KyreiPuffLeft",
+                    HitActorSound: "Sword/HitMeat",
+                    HitWallSound: "Sword/HitWall");
+            }
             TNT1 A 0 A_FireCustomMissile("RedParticleSpawner");
             VORL B 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
             VORL C 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE);
