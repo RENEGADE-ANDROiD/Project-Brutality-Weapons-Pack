@@ -145,7 +145,7 @@ class PB_MegaRigCatalog
 					case MRG_SLOT_OUTER_L: return 7;  // Hell Pistoler
 					case MRG_SLOT_INNER_L: return 8;  // Plasmastinger
 					case MRG_SLOT_CENTER:  return 9;  // Gauss Cannon
-					case MRG_SLOT_INNER_R: return 6;  // Nemesis LMG
+					case MRG_SLOT_INNER_R: return 6;  // M60
 					default:               return 2;  // UZI
 				}
 			case 2: // heavy automatics
@@ -154,7 +154,7 @@ class PB_MegaRigCatalog
 					case MRG_SLOT_OUTER_L: return 20; // Rotational SG
 					case MRG_SLOT_INNER_L: return 14; // Hell Pistol
 					case MRG_SLOT_CENTER:  return 15; // Demon-Tech Minigun
-					case MRG_SLOT_INNER_R: return 23; // Cryo Shotgun
+					case MRG_SLOT_INNER_R: return 5;  // Marauder SSG
 					default:               return 19; // Dual UZI
 				}
 			default: // exotic mix
@@ -324,8 +324,8 @@ class PB_MegaRigCatalog
 				e.attack = MRG_ATK_PROJ_SHOTGUN; e.spread = 5.0;
 				ApplyFireProfile(e, 4, 4, -7, 0, 0, 4, 0);
 				break;
-			case 6: // Nemesis LMG
-				e.sourceClass = 'NemesisLMG'; e.spritePrefix = 'UVMG';
+			case 6: // M60 (Nemesis LMG removed)
+				e.sourceClass = 'M60'; e.spritePrefix = 'M60G';
 				e.readyFrame = 0; e.fireFrame = 7;
 				e.attack = MRG_ATK_PROJ_762; e.spread = 2.0; e.isTall = true;
 				ApplyFireProfile(e, 3, 4, -4, 0, 0, 4, 0);
@@ -425,12 +425,6 @@ class PB_MegaRigCatalog
 				e.readyFrame = 0; e.fireFrame = 7;
 				e.attack = MRG_ATK_MISSILE_ENERGY; e.spread = 1.0; e.isTall = true; e.isHero = true;
 				ApplyFireProfile(e, 4, 5, -7, 0, 0, 4, 3);
-				break;
-			case 23: // Cryo Shotgun
-				e.sourceClass = 'PB_CryoShotgun'; e.spritePrefix = 'FZGA'; e.fireSpritePrefix = 'FZGF';
-				e.readyFrame = 0; e.fireFrame = 0;
-				e.attack = MRG_ATK_PROJ_SHOTGUN; e.spread = 3.5;
-				ApplyFireProfile(e, 3, 3, -6, 0, 0, 4, 0);
 				break;
 			default:
 				e.sourceClass = 'AssaultR1'; e.spritePrefix = 'MRKR'; e.fireSpritePrefix = 'MRKF';

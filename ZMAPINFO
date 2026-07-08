@@ -18,16 +18,12 @@ Gameinfo
 	"BeefMiscHandler",
 	/* "BeefEnums", */
 	// WEAPONS (CSSGEvent / ExterminatorStuff provided by PBX-Weapons)
-	// SYSTEMS
-	"HelmetDropHandler",
+	// SYSTEMS (HelmetDropHandler + D4DHandler: PBX-Addons-main when loaded after PBWP)
 	"OuchieFlashHandler",
-	"D4DHandler",
     "RandomWeaponSwitcher",
 	"PB_KillstreakHandler",
 	"PB_KillstreakRareFlare",
 	"BusterHandler",
-	"cl_Handler",
-	"cl_FXThrottleHandler",
 	// MISC
 	//"FractalDoom_Game",
 	"KSHUDMessageHandler",
@@ -38,7 +34,6 @@ Gameinfo
 	"PBWP_PDAHandler",
 	"PBWP_PackPresetPoll",
 	"PBWP_WeaponPackPresets",
-	"PBWP_VietDoomDurabilityHandler",
 	"PBWP_RoboDogFamiliarHandler",
 	"PB_PDAShopPurchaseHandler",
 	"PB_XPRewardsHandler",
@@ -51,13 +46,14 @@ Gameinfo
 	"PB_AchievementSetup",
 	"PB_AchievementCombatHandler",
 	"GC_EnhancementsHandler",
-	"PB_TacticalFeelHandler",
 	"PB_KatanaShieldHandler",
-	"PBWP_PBXWeaponSlotHandler",
 	"PBWP_GKAchievementHandler",
 	"PBWP_CombatDamageHandler",
 	"PB_MapStartInputLockHandler",
-	"PB_ExternalMapCompatHandler"
+	"PB_ExternalMapCompatHandler",
+	"PBWP_PickupSpamGuardHandler",
+	"cl_Handler",
+	"cl_FXThrottleHandler"
 }
 
 DamageType cl_Poison

@@ -93,6 +93,15 @@ ACTOR LightningGun : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
 		TNT1 A 0 A_Takeinventory("GoWeaponSpecialAbility",1)
+		TNT1 A 0 A_JumpIfInventory("LightningGunChainStorm", 1, "LightningGunChainStormOff")
+		TNT1 A 0 A_GiveInventory("LightningGunChainStorm", 1)
+		TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+		TNT1 A 0 A_Print("Mode: Chain Storm")
+		Goto Ready3
+	LightningGunChainStormOff:
+		TNT1 A 0 A_TakeInventory("LightningGunChainStorm", 1)
+		TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+		TNT1 A 0 A_Print("Mode: Focus Bolt")
 		Goto Ready3
 	Fire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "ThrowBarrel")
@@ -112,9 +121,26 @@ ACTOR LightningGun : PB_WeaponBase
 		LTGG A 0 A_PlaySound("electrogun/loop", 7, 1, 1)
     Hold:
 	    LTGG A 0 A_GunFlash 
+		LTGG A 0 A_JumpIfInventory("LightningGunChainStorm", 1, "ChainStormHold")
 		LTGG A 0 A_TakeInventory("PB_Cell", 1,TIF_NOTAKEINFINITE)
 		LTGF I 1 A_FireCustomMissile("LightningGunProjectile", 0, 0, 0, 0, 0, 0)
 		LTGF J 1 A_FireCustomMissile("LightningGunProjectile", 0, 0, 0, 0, 0, 0)
+		LTGG AAAAAAA 0 { PB_ReFire("Hold"); }
+	 	LTGG AAA 1
+		Goto Ready3
+	ChainStormHold:
+		LTGG A 0 A_TakeInventory("PB_Cell", 2,TIF_NOTAKEINFINITE)
+		LTGF I 1
+		{
+			A_FireCustomMissile("LightningGunProjectile", -8, 0, 0, 0, 0, 0);
+			A_FireCustomMissile("LightningGunProjectile", 0, 0, 0, 0, 0, 0);
+			A_FireCustomMissile("LightningGunProjectile", 8, 0, 0, 0, 0, 0);
+		}
+		LTGF J 1
+		{
+			A_FireCustomMissile("LightningGunProjectile", -12, 0, 0, 0, 0, 0);
+			A_FireCustomMissile("LightningGunProjectile", 12, 0, 0, 0, 0, 0);
+		}
 		LTGG AAAAAAA 0 { PB_ReFire("Hold"); }
 	 	LTGG AAA 1
 		Goto Ready3

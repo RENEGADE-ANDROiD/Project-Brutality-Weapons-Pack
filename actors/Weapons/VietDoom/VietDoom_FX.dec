@@ -1,6 +1,4 @@
-﻿// VietDoom v22 â€” tracers, footstep FX, plastic particles (from BD addon pk3).
-
-
+// VietDoom v22 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â tracers, footstep FX, plastic particles (from BD addon pk3).
 
 Actor GreenPlasticParticle : BarrelParticle
 {
@@ -46,18 +44,34 @@ Actor BlackPlasticParticle : BarrelParticle
 	}
 }
 
-// VietDoom tracer aliases â€” use PB Staging TRAC sprite via PBWP_ProjectileFamilies.dec
+// VietDoom tracer aliases ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â use PB Staging TRAC sprite via PBWP_ProjectileFamilies.dec
 // (TRA2 lumps from VietDoom pk3 are optional; TRAC is always available from PB Staging.)
 Actor VietPistolTracer : PBWP_Tracer_Pistol {}
 Actor AK47Tracer : PBWP_Tracer_Intermediate {}
 Actor VietHeavyTracer : PBWP_Tracer_Heavy {}
 Actor VietSniperTracer : PBWP_Tracer_Sniper {}
-// DecorativeTracer is provided by PB Staging — do not redefine here.
+// DecorativeTracer is provided by PB Staging Ã¢â‚¬â€ do not redefine here.
 
 // M79 grenade round + glass-break tracer (VietDoom).
-// ShortGrenade2 extends PB_FragGrenade (impact detonation via Death/XDeath — do not call PB_DetonateFragGrenades on fire).
+// ShortGrenade2 extends PB_FragGrenade (impact detonation via Death/XDeath Ã¢â‚¬â€ do not call PB_DetonateFragGrenades on fire).
 ACTOR ShortGrenade2 : PB_FragGrenade
 {
+}
+
+// Timed airburst — detonates mid-flight after ReactionTime countdown ticks.
+ACTOR ShortGrenade2Airburst : ShortGrenade2
+{
+	ReactionTime 14
+	States
+	{
+	Spawn:
+		TNT1 A 1 Bright
+		{
+			A_SpawnItemEx("OrangeLensFlareAlt", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION);
+			A_Countdown();
+		}
+		Loop
+	}
 }
 
 ACTOR GrenadeMissileBreaksGlass : RocketGlassBreaker

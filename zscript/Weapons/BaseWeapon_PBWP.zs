@@ -1,7 +1,6 @@
-// BDPMath: provided by PBX-Weapons (Zscript/Maths/math.zsc). Do not include BDPmath.zsc here.
 #include "zscript/PBWP_Core/PBWP_CombatDamageHandler.zs"
 #include "zscript/Weapons/BaseWeapon_MonsterPackCompat.zs"
-//#include "zscript/Weapons/BaseWeapon_GKCompat.zs" // disabled: GK shoulder-cannon states need Staging-only tokens; PB_ExecuteGK stub below
+//#include "zscript/Weapons/BaseWeapon_GKCompat.zs" // disabled: GK shoulder-cannon states need Staging-only tokens; GK mod provides PB_ExecuteGK
 
 // Credits to Jaih1r0 again for this functions from the HeavySniper, CSSG, and DemonExt mod
 extend class PB_WeaponBase
@@ -267,7 +266,7 @@ extend class PB_WeaponBase
 	// For DECORATE { return A_DoPBWeaponAction(...); } blocks — ternary args fail to parse.
 	action state PB_DoPBWeaponActionUnloaded(int weapflags = WRF_ALLOWRELOAD)
 	{
-		return A_DoPBWeaponAction(weapflags, PB_GetMagUnloaded() ? PBWEAP_UNLOADED : 0);
+		return A_DoPBWeaponAction(weapflags, PB_GetMagUnloaded() ? PB_NOUNLOAD : 0);
 	}
 
 	// PB 2022 name for fire-triggered executions; PBWP menu uses ttwcfbex via PB_FireExecuteCheck().
@@ -295,15 +294,8 @@ extend class PB_WeaponBase
 		}
 	}
 
-	// Glory Kills optional: GK mod routes via FinisherToken; fallback to PB fatality.
-	action state PB_ExecuteGK()
-	{
-		let cv = CVar.GetCVar("isGKLoaded");
-		if (!cv || !cv.GetBool())
-			return PB_Execute();
-		EventHandler.SendNetworkEvent("pbwp_glory_kill");
-		return resolveState(null);
-	}
+	// PB_ExecuteGK is provided by glorykills-master.zip when loaded — do not stub here;
+	// a local action state override breaks GK finisher animations (PBWP loads after GK).
 
 	// PB_Staging SuperGL alt-fire remote detonation only (PB_LookAndDetonateGrenades). Do not call on launcher fire.
 	action void PB_DetonateFragGrenades()

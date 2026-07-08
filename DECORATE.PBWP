@@ -49,7 +49,6 @@
 // Entities
 #include "Actors/Entities/HealthPickups.dec"
 #include "Actors/Entities/ArmorPickups.dec"
-#include "Actors/Entities/HelmetDrops.dec"
 #include "Actors/Entities/ArmorsMT.dec"
 #include "Actors/Entities/Medikits.dec"
 #include "Actors/Entities/Potions.dec"
@@ -95,7 +94,7 @@
 #INCLUDE ACTORs/Weapons/GodComplex/LegendaryChainsaw.dec
 #INCLUDE ACTORs/Weapons/GodComplex/LegendaryPlasmaticRifle.dec
 #INCLUDE ACTORs/Weapons/GodComplex/NemesisBFG.dec
-#INCLUDE ACTORs/Weapons/GodComplex/NemesisLMG.dec
+//#INCLUDE ACTORs/Weapons/GodComplex/NemesisLMG.dec // disabled — Nemesis Explosive Rifle removed
 //#INCLUDE ACTORs/Weapons/GodComplex/LegendaryBFG10K.dec // removed — LG10/LB10 sprites not in pack
 #include "Actors/Items/GC_Enhancements.dec"
 
@@ -130,7 +129,6 @@
 #INCLUDE ACTORs/Weapons/Slot-3/RotationalSG(AresMade).dec 
 #INCLUDE ACTORs/Weapons/Slot-3/D2016SHOTGUN.dec	//BORING GUN // Skill Issue :cacotroll:
 #INCLUDE ACTORs/Weapons/Slot-3/DTShotgun.dec
-#INCLUDE ACTORs/Weapons/Slot-3/PB_CryoShotgun_Tokens.dec
 #INCLUDE ACTORs/Weapons/MonsterWeaponDurability.dec
 #INCLUDE ACTORs/Weapons/Slot-3/HexaLionShotgun.dec
 #INCLUDE ACTORs/Weapons/Slot-3/MarauderSSG.dec
@@ -156,13 +154,13 @@
 #INCLUDE ACTORs/Weapons/Slot-4/Kar98k.dec
 #INCLUDE ACTORs/Weapons/Slot-4/PB_Fusil.dec
 	//Slot-5
-#INCLUDE ACTORs/Weapons/Slot-5/Dark_Fate.dec
+//#INCLUDE ACTORs/Weapons/Slot-5/Dark_Fate.dec // PBX: PBX_MetalSniper
 #INCLUDE ACTORs/Weapons/Slot-5/Gallary.dec
 #INCLUDE ACTORs/Weapons/Slot-5/TacticalNailgun.dec
 #INCLUDE ACTORs/Weapons/Slot-5/HYDRA.dec
 #INCLUDE ACTORs/Weapons/Slot-5/INMinigun.dec
 #INCLUDE ACTORs/Weapons/Slot-5/Apocalypse_Killer.dec
-#INCLUDE ACTORs/Weapons/Slot-5/DSlayer.dec
+//#INCLUDE ACTORs/Weapons/Slot-5/DSlayer.dec // disabled pending polish
 #INCLUDE ACTORs/Weapons/Slot-5/SuperNailgun.dec
 #INCLUDE ACTORs/Weapons/Slot-5/DukeNukemRipper.dec
 #INCLUDE ACTORs/Weapons/Slot-5/AutoCannon.dec
@@ -170,7 +168,6 @@
 #INCLUDE ACTORs/Weapons/Slot-6/ChthonicRifle.dec
 #INCLUDE ACTORs/Weapons/Slot-6/Fallen_Hawk.dec
 //#INCLUDE ACTORs/Weapons/Slot-6/MastermindChaingun.dec // PBX: PBX_MastermindChaingun
-#INCLUDE ACTORs/Weapons/Slot-6/Paingiver.dec
 #INCLUDE ACTORs/Weapons/Slot-6/Devastator.dec
 #INCLUDE ACTORs/Weapons/Slot-6/DukeRPG.dec
 #INCLUDE ACTORs/Weapons/Slot-6/TotenheimAmmo.dec
@@ -211,7 +208,6 @@
 
 // PB Staging weapon select fixes (must load last — merges SelectContinue over PB Staging defs)
 #INCLUDE ACTORs/Weapons/PBWP_StagingCompat/StagingWeaponSelectFixes.dec
-
 // Tokens (bd_Token defined in VietDoom_Compat.dec before VietDoom weapons)
 ACTOR BDWeaponACtion : bd_Token {}
 ACTOR InAction : bd_Token {}
@@ -220,6 +216,7 @@ ACTOR IsUsingAddictivePackTypeIN : Inventory { Inventory.MaxAmount 1 }
 
 // Combat challenges (Progression.acs) — currency is PB_XPBank (ZScript inventory)
 ACTOR MonsterKilled : Inventory {
++INVENTORY.QUIET
 Inventory.MaxAmount 10 }
 
 // By Warcarlsson

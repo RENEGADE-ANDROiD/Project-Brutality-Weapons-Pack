@@ -14,7 +14,6 @@ class BeefRiceWeaponDrop : EventHandler
         // Get CVARs
         let DTechDrop = CVar.GetCVAR('PBSpawnALLDTechDrop').GetBool();
         let MSSGDrop = CVar.GetCVAR('PBSpawnMSSGDrop').GetBool();
-        let PaingiverDrop = CVar.GetCVAR('PBSpawnPaingiverDrop').GetBool();
         let CryoRifleDrop = CVar.GetCVAR('PBSpawnCryoRifleDrop').GetBool();
         let ThunderCrossbowDrop = CVar.GetCVAR('PBSpawnThunderCrossbowDrop').GetBool();
         let StormcastDrop = CVar.GetCVAR('PBSpawnStormcastDrop').GetBool();
@@ -65,11 +64,6 @@ class BeefRiceWeaponDrop : EventHandler
                 if (BioAcidLauncherDrop) { self.spawnThings("PBWP_BioAcidLauncherDrop", monsPos); }
                 break;
 
-            // Rocket Hell Trooper — Paingiver
-            case 'HellTrooper':
-            case 'FrozenHellTrooper':
-                if (PaingiverDrop) { self.spawnThings("PBWP_PaingiverDrop", monsPos); }
-                break;
         }
 	}
 
@@ -129,17 +123,14 @@ class BeefModChecker : EventHandler
         string gkcompat = "ASGGuyGK";
         class <actor> isgkcompat = gkcompat;
 
-        // PBX-Weapons (optional addon)
+        // PBX-Weapons (optional — load PBX-Core + PBX-Weapons after PBWP)
         string pbxcompat = "PBX_PlasmaBlaster";
         class <actor> ispbxcompat = pbxcompat;
 
         if (ispbxcompat)
             CVar.FindCVar('isPBXLoaded').SetBool(true);
         else
-        {
             CVar.FindCVar('isPBXLoaded').SetBool(false);
-            console.printf("\x1b[1;33mPBWP:\x1b[0m PBX-Weapons not loaded — PBX weapon spawns, drops, and scroll slots are disabled.");
-        }
 
         if (dragonSectorPresent)
             CVAR.FindCVar('pbwp_compat_dragonsector').SetBool(true);

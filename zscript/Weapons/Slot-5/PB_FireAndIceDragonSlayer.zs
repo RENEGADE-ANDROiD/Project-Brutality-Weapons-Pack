@@ -1,7 +1,7 @@
 // Fire & Ice Dragon Slayer — ZScript port (Craneo / PBWP).
 // Tap fire: forward SLAY swing. Hold + release: lock-on lunge + reverse SLBY swing.
 
-class PB_FireAndIceDragonSlayer : PB_WeaponBase
+class PB_FireAndIceDragonSlayerBase : PB_WeaponBase
 {
 	int holdCharge;
 
@@ -32,7 +32,6 @@ class PB_FireAndIceDragonSlayer : PB_WeaponBase
 		Weapon.AmmoType2 "PB_NailgunAmmo";
 		Weapon.AmmoGive2 90;
 		Weapon.AmmoUse2 1;
-		Weapon.SelectionOrder 220;
 	}
 
 	action void PBWP_DS_ResetHold()
@@ -149,7 +148,6 @@ class PB_FireAndIceDragonSlayer : PB_WeaponBase
 	Ready3:
 		TNT1 A 0 {
 			A_WeaponOffset(0, 32);
-			A_SetRoll(0);
 			PB_HandleCrosshair(90);
 			A_TakeInventory("PB_LockScreenTilt", 1);
 		}

@@ -74,7 +74,12 @@ Fire:
 	BF27 B 15
 	BF27 C 4 Bright A_GunFlash
 	TNT1 A 0 A_PlaySound("BFG2704/AltFire", 1)
+	TNT1 A 0 A_JumpIfInventory("DevastadorLance", 1, "DevastadorLanceFire")
 	TNT1 A 0 A_FireCustomMissile("2704ClusterBall",0,1,0,0,0,0)
+	Goto DevastadorFireFinish
+	DevastadorLanceFire:
+	TNT1 A 0 A_RailAttack(400, 0, 1, "None", "Green", RGF_SILENT|RGF_FULLBRIGHT, 0, "None", 0, 0, 0, 0, 1.0, 1.0)
+	DevastadorFireFinish:
 	TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo", 20)
 	BF27 E 1 Bright A_CheckReload
 	BF27 E 1 Bright 
@@ -110,6 +115,15 @@ Fire:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
 	TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+	TNT1 A 0 A_JumpIfInventory("DevastadorLance", 1, "DevastadorLanceOff")
+	TNT1 A 0 A_GiveInventory("DevastadorLance", 1)
+	TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	TNT1 A 0 A_Print("Mode: Devastation Lance")
+	Goto Ready3
+	DevastadorLanceOff:
+	TNT1 A 0 A_TakeInventory("DevastadorLance", 1)
+	TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	TNT1 A 0 A_Print("Mode: Cluster")
 	Goto Ready3
 	FlashKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")

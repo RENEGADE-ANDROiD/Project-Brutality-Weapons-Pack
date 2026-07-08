@@ -1,5 +1,6 @@
 // PBWP late-merge stubs for PB Staging weapons (load after PB Staging via DECORATE.PBWP).
 // Reopens the actor and replaces SelectContinue only; all other states stay from PB Staging.
+// Note: engine may warn about duplicate class names — patches still merge when PBWP loads last.
 
 ACTOR PB_Flamethrower : PB_Weapon
 {

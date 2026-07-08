@@ -232,11 +232,12 @@ ACTOR BattleAxe : PB_WeaponBase
 		}
 		"####" A 0 A_JumpIfInventory("ReadyToQuickSlash", 1, "FastSlash")
 		"####" A 0 A_JumpIfInventory("IsCrouching", 1, "Uppercut")
-	        "####" A 0 A_JumpIfInventory("SpecialAttackPunch", 1, "NormPunch")
-		//"####" A 0 A_JumpIfInventory("SpecialAttackPunch", 1, "QuickFire")
 	        "####" A 0 A_JumpIfInventory("SpecialAttackAxe", 1, "SpecialAttack")
 		"####" A 0 A_JumpIf (momZ > 0, "JumpSlash")
 		"####" A 0 A_JumpIf (momZ < 0, "JumpSlash")
+		TNT1 A 0 A_PlaySound("AXSWING")
+		W01D ABCDEFGH 1
+		TNT1 A 0 A_Custompunch(random(60,120),1,1,"BrutalAxePuff", 125)
 		W01F ABC 2 
     
 	Hold:
@@ -245,7 +246,7 @@ ACTOR BattleAxe : PB_WeaponBase
 	        W01F D 1
 		//TNT1 A 0 A_JumpIfInventory("Taunting",1,"AxeThrow") //HAHAHA! (nope :P)
 		TNT1 A 0 A_JumpIfInventory("FiredSecondary", 1, "AxeThrowReady") //Real HAHAHA!!!
-		W01F D 1 { PB_ReFire; }
+		W01F D 1 { PB_ReFire("QuickFire"); }
 	QuickFire:
 		"####" A 0 A_JumpIfInventory("IsCrouching", 1, "Uppercut")
 		"####" A 0 A_JumpIf (momZ > 0, "JumpSlash")
@@ -786,13 +787,9 @@ ACTOR BattleAxe : PB_WeaponBase
 			PB_HandleCrosshair(90);
 			A_SetInventory("PB_LockScreenTilt",0);
 		}
-		TNT1 A 0 A_PlaySound("AXSWING")
 	    TNT1 A 0 A_JumpIfInventory("PunchCombo", 1, "NormPunch")
 		TNT1 A 0 A_JumpIfInventory("SpecialAttackPunch", 1, "NormPunch")
-		W01D ABCDEFGH 1
-		TNT1 A 0 A_Custompunch(random(60,120),1,1,"BrutalAxePuff", 125)
 		TNT1 A 0 A_ChangeFlag("SHIELDREFLECT", TRUE)
-		TNT1 A 0 A_Giveinventory("ReadyToQuickSlash",1)
 		//Give Shield up Inventory
 		TNT1 A 0 A_GiveInventory("ShieldUp", 1)
 		//////////////////////////

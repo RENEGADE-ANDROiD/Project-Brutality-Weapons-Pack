@@ -27,6 +27,8 @@ class PBWP_CinerealOrdnance : PBWP_CA_WeaponBase
 		A_GunFlash();
 		A_QuakeEx(3, 3, 3, 25, 0, 1000, "", QF_RELATIVE | QF_SCALEDOWN);
 		A_FireProjectile("PBWP_CA_CinerealLaser", 0, altOffset ? 1 : 0);
+		if (CountInv("CinerealAshStorm") >= 1)
+			A_FireProjectile("PBWP_CA_AshStormSeed", frandom(-4, 4), 0);
 		PB_TakeAmmo("PBWP_CinerealMag", 3, 0, 0);
 	}
 
@@ -155,6 +157,15 @@ class PBWP_CinerealOrdnance : PBWP_CA_WeaponBase
 
 		Weaponspecial:
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
+		TNT1 A 0 A_JumpIfInventory("CinerealAshStorm", 1, "CinerealAshStormOff");
+		TNT1 A 0 A_GiveInventory("CinerealAshStorm", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Mode: Ash Storm");
+		Goto Ready3;
+	CinerealAshStormOff:
+		TNT1 A 0 A_TakeInventory("CinerealAshStorm", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Mode: Ordnance Beam");
 		Goto Ready3;
 
 		FlashPunching:

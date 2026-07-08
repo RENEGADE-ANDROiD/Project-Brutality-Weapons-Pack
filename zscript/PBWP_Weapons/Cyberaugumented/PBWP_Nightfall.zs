@@ -7,6 +7,7 @@ class PBWP_Nightfall : PBWP_CA_WeaponBase
 	default
 	{
 		Weapon.SlotNumber 5;
+		Weapon.SelectionOrder 1302;
 		Weapon.SlotPriority 0.14;
 		Weapon.AmmoType1 "PB_HighCalMag";
 		Weapon.AmmoType2 "PBWP_NightfallMag";

@@ -23,7 +23,10 @@ class PBWP_Liquidation : PBWP_CA_WeaponBase
 
 	action void PBWP_LiquidationBeam()
 	{
-		PBWP_CA_FireAurumRail(100, 64);
+		if (CountInv("LiquidationFocus") >= 1)
+			PBWP_CA_FireAurumRail(160, 24);
+		else
+			PBWP_CA_FireAurumRail(100, 64);
 		A_TakeInventory("PB_Cell", 1);
 		A_GunFlash();
 		A_AlertMonsters();
@@ -112,6 +115,15 @@ class PBWP_Liquidation : PBWP_CA_WeaponBase
 
 		Weaponspecial:
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
+		TNT1 A 0 A_JumpIfInventory("LiquidationFocus", 1, "LiquidationFocusOff");
+		TNT1 A 0 A_GiveInventory("LiquidationFocus", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Beam: Focus");
+		Goto Ready3;
+	LiquidationFocusOff:
+		TNT1 A 0 A_TakeInventory("LiquidationFocus", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Beam: Wide");
 		Goto Ready3;
 
 		Reload:

@@ -8,6 +8,33 @@ class PB_Complex12GAPellet : PB_12GAPellet_ASG
 	}
 }
 
+class PB_MGNailCryo : PB_MGNail
+{
+	Default
+	{
+		PB_Projectile.BaseDamage 14;
+		PB_Projectile.RipperCount 3;
+		+FORCEPAIN;
+		+BRIGHT;
+		DamageType "Ice";
+		Translation "0:255=%[0.00,0.10,0.35]:[0.55,0.85,1.40]";
+		Speed 90;
+		Obituary "%o was chilled by %k's cryo nails.";
+	}
+	States
+	{
+	Death:
+		NLPJ A 1
+		{
+			A_StopSound(CHAN_BODY);
+			A_SpawnItemEx("HitPuff");
+			A_Explode(8, 48, XF_NOTMISSILE);
+			StickToWall();
+		}
+		Goto DeathLoop;
+	}
+}
+
 class PB_SMGNail : PB_MGNail
 {
 	Default

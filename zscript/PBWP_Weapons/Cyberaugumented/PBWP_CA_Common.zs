@@ -7,7 +7,6 @@ class PBWP_CA_WeaponBase : PB_WeaponBase
 	{
 		A_WeaponOffset(0, 32);
 		A_OverlayScale(PSP_WEAPON, 1.0, 1.0);
-		A_SetRoll(0);
 		PB_HandleCrosshair(crosshair);
 		A_TakeInventory("PB_LockScreenTilt", 1);
 		A_ClearOverlays(10, 11);

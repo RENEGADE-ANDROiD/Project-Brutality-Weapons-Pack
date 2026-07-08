@@ -82,6 +82,7 @@ TNT1 A 0 A_PlaySound("hellboundbfg9000/load", 5, 1, 0, 1.2)
 HBFG JKLMNOPR 1
 HBFG A 1
 FireHold:
+TNT1 A 0 A_JumpIfInventory("TotenheimTacticalYield", 1, "TacticalFireHold")
 TNT1 A 0 A_GunFlash ("Flash")
 HBFG S 1 Bright
 TNT1 A 0 A_AlertMonsters
@@ -98,9 +99,26 @@ HBFG X 1
 HBFG A 1
 TNT1 A 0 A_Refire("FireHold")
 Goto ready+6
+TacticalFireHold:
+TNT1 A 0 A_JumpIfInventory("RocketAmmo", 10, 1)
+Goto ready+6
+TNT1 A 0 A_GunFlash ("Flash")
+HBFG S 1 Bright
+TNT1 A 0 A_AlertMonsters
+TNT1 A 0 A_PlaySound("DSRFIRE", CHAN_WEAPON, 1, 0, 0.8)
+TNT1 A 0 A_PlaySound("IANFIR", 5, 1, 0, 1.2)
+TNT1 A 0 A_Quake(4, 12, 0, 384, "")
+TNT1 A 0 A_FireCustomMissile ("FDHellboundTotenheimMissile", 0, 1, 0, 0)
+TNT1 A 0 A_TakeInventory("RocketAmmo",10)
+HBFG TUV 1 Bright
+HBFG WX 1
+HBFG A 1
+TNT1 A 0 A_Refire("TacticalFireHold")
+Goto ready+6
 
 AltFire:
 TNT1 A 0
+TNT1 A 0 A_JumpIfInventory("TotenheimTacticalYield", 1, "TacticalAltFire")
 TNT1 A 0 A_JumpIfInventory("RocketAmmo",50,1)
 TNT1 A 0 A_PlaySound("hellboundbfg9000/charge", 7, 1, 0, 0.8)
 TNT1 A 0 A_AlertMonsters (random(256,400))
@@ -115,7 +133,7 @@ TNT1 A 0 A_AlertMonsters
 TNT1 A 0 A_PlaySound("DSRFIRE", CHAN_WEAPON, 1, 0, 0.8)
 TNT1 A 0 A_PlaySound("IANFIR", 5, 1, 0, 1.2)
 TNT1 A 0 A_Quake(6, 20, 0, 512, "")
-TNT1 A 0 A_FireCustomMissile ("NuclearRocket", 0, 1, 0, 0)
+TNT1 A 0 A_FireCustomMissile ("FDHellboundTotenheimMissile", 0, 1, 0, 0)
 TNT1 A 0 A_TakeInventory("RocketAmmo",50)
 HBFG T 1 Bright
 HBFG T 1 Bright
@@ -142,12 +160,36 @@ TNT1 A 3 A_Light1
 TNT1 A 0 A_Light0
 Goto LightDone
 
-WeaponSpecial:
-TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
-TNT1 A 0 A_PlaySound("NOUPGRD",1)
-TNT1 A 0 A_Print("No Special Attack for u.")
+TacticalAltFire:
+TNT1 A 0 A_JumpIfInventory("RocketAmmo",20,1)
+Goto Ready3
+TNT1 A 0 A_PlaySound("hellboundbfg9000/charge", 7, 1, 0, 0.8)
+TNT1 A 0 A_AlertMonsters (random(256,400))
+HBFG BCDEFGHI 1
+HBFG JKLMNOPR 1
+TNT1 A 0 A_GunFlash ("Flash")
+HBFG S 2 Bright
+TNT1 A 0 A_AlertMonsters
+TNT1 A 0 A_PlaySound("DSRFIRE", CHAN_WEAPON, 1, 0, 0.8)
+TNT1 A 0 A_PlaySound("IANFIR", 5, 1, 0, 1.2)
+TNT1 A 0 A_Quake(5, 14, 0, 400, "")
+TNT1 A 0 A_FireCustomMissile ("FDHellboundTotenheimMissile", 0, 1, 0, 0)
+TNT1 A 0 A_TakeInventory("RocketAmmo",20)
+HBFG TUVWX 1 Bright
+HBFG A 2
 Goto Ready3
 
+WeaponSpecial:
+TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+TNT1 A 0 A_JumpIfInventory("TotenheimTacticalYield", 1, "TotenheimTacticalOff")
+TNT1 A 0 A_GiveInventory("TotenheimTacticalYield", 1)
+TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+TNT1 A 0 A_Print("Yield: Tactical")
+Goto Ready3
+TotenheimTacticalOff:
+TNT1 A 0 A_TakeInventory("TotenheimTacticalYield", 1)
+TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+TNT1 A 0 A_Print("Yield: Full Integridar")
 Goto Ready3
 
 	FlashPunching:

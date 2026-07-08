@@ -290,6 +290,7 @@ ACTOR PB_CryoRifle : PB_Weapon
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel")
 		TNT1 A 0 { return PB_FireExecuteCheck(); }
+		TNT1 A 0 A_JumpIfInventory("CryoRifleAbsoluteZero", 1, "AbsoluteZeroBeam")
 		RAIL A 0 A_JumpIfInventory("FreezerAmmo",1,2)
 		Goto NoAmmo
 		FR1D D 3
@@ -313,10 +314,31 @@ ACTOR PB_CryoRifle : PB_Weapon
 		TNT1 A 0 A_Refire
 		TNT1 A 0 A_Takeinventory("HasFreezerWeapon",1)
 		Goto Ready3
+	AbsoluteZeroBeam:
+		RAIL A 0 A_JumpIfInventory("FreezerAmmo",1,2)
+		Goto NoAmmo
+		RAIL A 0 A_Giveinventory("HasFreezerWeapon",1)
+		RAIL A 0 A_TakeInventory("FreezerAmmo",1)
+		FLMT A 0 A_PlaySound("weapons/cryobowflyby", 1, 1, 1)
+		TNT1 AA 0 A_FireCustomMissile ("BluePlasmaParticleWeapon", random(-20,20), 0, random(-2,2), random(-3,1), 0, random(-4,12))
+		NULL A 0 A_WeaponOffset(random(1,-1),32+random(-1,1))
+		FR1D R 1 BRIGHT A_FireCustomMissile("FreezeThrowerMissile", 0, 1, 0, -12, 0, 8)
+		NULL A 0 A_WeaponOffset(random(1,-1),32+random(-1,1))
+		FR1D S 1 BRIGHT
+		RAIL A 0 A_JumpIf(CountInv("FreezerAmmo")<1,"AltGoToNoAmmo")
+		RAIL A 0 A_Refire("AbsoluteZeroBeam")
+		NULL A 0 A_WeaponOffset(0,32)
+		RAIL A 0 A_Takeinventory("HasFreezerWeapon",1)
+		TNT1 A 0 A_StopSound(1)
+		FLMT A 0 BRIGHT A_PlaySound("weapons/CryoRifle/powerdown", 1)
+		FR1D KJJJKKLMNOPNOPNO 1 BRIGHT
+		TNT1 A 0 A_Overlay(3, "SpawnSmoke")
+		Goto Ready3
 	AltFire:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "PlaceBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "PlaceFlameBarrel")
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "PlaceIceBarrel")
+		TNT1 A 0 A_JumpIfInventory("CryoRifleAbsoluteZero", 1, "AbsoluteZeroAltBurst")
 	    RAIL A 0
 		RAIL A 0 A_JumpIfInventory("FreezerAmmo",1,2)
 		Goto NoAmmo
@@ -341,7 +363,22 @@ ACTOR PB_CryoRifle : PB_Weapon
 		TNT1 A 0 A_Overlay(3, "SpawnSmoke")
 		//RAIL A 0 A_JumpIfInventory("FreezerAmmo",0,"Reload")
 		//TNT1 A 0 A_FireCustomMissile("FrozenSmokeSpawner",0,0,-1.5,7)
-		Goto Ready3		
+		Goto Ready3
+	AbsoluteZeroAltBurst:
+		RAIL A 0 A_JumpIfInventory("FreezerAmmo",1,2)
+		Goto NoAmmo
+		FR1D D 2
+		FR1D E 1
+		RAIL A 0 A_Giveinventory("HasFreezerWeapon",1)
+		RAIL A 0 A_TakeInventory("FreezerAmmo",1)
+		RAIL A 0 A_PlaySound("weapons/CryoRifle/missile", CHAN_WEAPON)
+		TNT1 AA 0 A_FireCustomMissile ("BluePlasmaParticleWeapon", random(-11,11), 0, -1, -3, 0, random(-7,14))
+		FR1D H 1 BRIGHT A_FireCustomMissile("CryoShot", frandom(0.4,-0.4),0, 0, -3, 0)
+		FR1D I 1 BRIGHT A_SetPitch(-1.0 + pitch, SPF_INTERPOLATE)
+		FR1D JKM 1 A_SetPitch(0.35 + pitch, SPF_INTERPOLATE)
+		TNT1 A 0 A_Refire("AbsoluteZeroAltBurst")
+		TNT1 A 0 A_Takeinventory("HasFreezerWeapon",1)
+		Goto Ready3
 	GoToNoAmmo:
 		TNT1 A 0 A_PlaySound("RAILRIP")
 		FR1D NOP 1
@@ -458,6 +495,15 @@ ACTOR PB_CryoRifle : PB_Weapon
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
 	TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+	TNT1 A 0 A_JumpIfInventory("CryoRifleAbsoluteZero", 1, "CryoAbsoluteZeroOff")
+	TNT1 A 0 A_GiveInventory("CryoRifleAbsoluteZero", 1)
+	TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	TNT1 A 0 A_Print("Mode: Absolute Zero")
+	Goto Ready3
+	CryoAbsoluteZeroOff:
+	TNT1 A 0 A_TakeInventory("CryoRifleAbsoluteZero", 1)
+	TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	TNT1 A 0 A_Print("Mode: Cryo Burst")
 	Goto Ready3
 	PlaceFreezeBot:
 	TNT1 A 0 A_takeinventory("GoWeaponSpecialAbility",1)

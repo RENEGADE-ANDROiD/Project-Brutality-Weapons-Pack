@@ -71,7 +71,10 @@ class PBWP_Intervention : PBWP_CA_WeaponBase
 		GNN_ C 2 Bright
 		{
 			A_StartSound("Grenade/Launch", CHAN_WEAPON, 0, 0.85);
-			A_FireCustomMissile("PBWP_CA_Grenade", 0, 0, 0, 0, 0, 0);
+			if (CountInv("InterventionMicroYield") >= 1)
+				A_FireCustomMissile("PBWP_CA_MicroYieldGrenade", 0, 0, 0, 0, 0, 0);
+			else
+				A_FireCustomMissile("PBWP_CA_Grenade", 0, 0, 0, 0, 0, 0);
 			A_TakeInventory("PB_RocketAmmo", 1);
 			A_GunFlash();
 			PB_GunSmoke_Launcher(0, 0, 0);
@@ -109,6 +112,15 @@ class PBWP_Intervention : PBWP_CA_WeaponBase
 
 		Weaponspecial:
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
+		TNT1 A 0 A_JumpIfInventory("InterventionMicroYield", 1, "InterventionYieldOff");
+		TNT1 A 0 A_GiveInventory("InterventionMicroYield", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Payload: Micro-Yield");
+		Goto Ready3;
+	InterventionYieldOff:
+		TNT1 A 0 A_TakeInventory("InterventionMicroYield", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Payload: Standard");
 		Goto Ready3;
 
 		Reload:

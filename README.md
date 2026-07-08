@@ -16,8 +16,21 @@ A community weapons and systems addon for [Project Brutality Staging](https://gi
 | 2 | [Project Brutality Staging](https://github.com/Project-Brutality/Project-Brutality) | **Yes** |
 | 3 | [Glory Kills](https://github.com/thedoctorofdoom/glorykills) | Optional |
 | 4 | **PBWP** | **Yes** (this pack) |
+| 5+ | **PBX stack** (optional) | No — see below |
 
-**Minimal stack:** Map → PB Staging → **PBWP** loads and runs. PBWP shadows Staging `BaseWeapon_*` lumps and must stay **after** Staging.
+**Minimal stack:** Map → PB Staging → **PBWP**. PBWP shadows Staging `BaseWeapon_*` lumps and must stay **after** Staging.
+
+**Optional PBX stack** (load **after** PBWP, in this order):
+
+| Order | Addon | Role |
+|------:|-------|------|
+| 5 | `PBX-Core-main.zip` | Shared HUD, upgrades, maths (`PBXCore_*`) |
+| 6 | `PBX-Weapons-main.zip` | Replaces legacy PBWP weapons (CSSG, NeoHMG, Ballista, Demon Ext, etc.) |
+| 7 | `PBX-Armors-main.zip` | Armor system |
+| 8 | `PBX-Items-main.zip` | Powerups / item spawners |
+| 9 | `PBX-Addons-main.zip` | Helmet drops, damage indicators, hit feedback, smart scavenger, backpack reload |
+
+PBWP does **not** require PBX. When PBX is loaded, PBWP skips duplicate systems (helmet drops, directional damage indicators, PBX weapon spawns) so the two packs do not fight.
 
 ---
 
@@ -27,17 +40,19 @@ A community weapons and systems addon for [Project Brutality Staging](https://gi
 |-------|-----------|--------------------------|
 | **Project Brutality Staging** | **Yes** | Everything — player, HUD base, spawners, PDA hooks |
 | **Glory Kills** | No | Glory-kill finisher path; PB `PB_Execute()` fatalities still work |
+| **PBX stack** | No | Extra weapons (CSSG, NeoHMG, Ballista, …), helmet drops, damage indicators — use PBX zips after PBWP |
 
 ## Load-order notes
 
 - **PBWP must load after PB Staging** so weapon-base patches apply.
+- **PBWP loads before PBX** when using the optional PBX stack (`PBX-Core` → `PBX-Weapons` → … → `PBX-Addons`).
 - **Glory Kills** is probed at map load (`isGKLoaded`); GKCompat weapon states and glory-kill achievements activate only when detected. Load the Glory Kills pk3 for the GK ability HUD overlay (provided by that mod, not PBWP).
 
 ## Features & Systems
 
 | System | What it does |
 |--------|----------------|
-| **129 weapons** | Per-weapon spawn toggles for custom playthroughs (firearms + melee) |
+| **127+ weapons** | Per-weapon spawn toggles for custom playthroughs (firearms + melee) |
 | **Weapon pack presets** | One-click enable/disable for whole sets (God Complex, Karnage, IN, Schism/F&I, Freezer, VietDoom, Duke, etc.) |
 | **PDA** | Weapon codex, monster log, combat shop — press **P** |
 | **Experience economy** | Kill XP, 25 ranks, floating damage numbers, reward spin |
@@ -46,13 +61,12 @@ A community weapons and systems addon for [Project Brutality Staging](https://gi
 | **Killstreaks** | PB-Pand Edition streak rewards (includes **Hyperweapon Rig** — see below) |
 | **Melee weapon wheel** | 12+ melee options with durability |
 | **Gadgets & equipment** | 22 equipment-wheel items + melee wheel, Meat Hook, Shieldsaw, and more |
-| **Champions Lite** | Universal champion variants |
+| **Monster Enhancement Settings** | Built-in Champions Lite — champion traits/mutations on any monster pack (PB Options → Addon Options → PB War Pack) |
 | **Item magnet** | Buy from XP shop; bind **Toggle PBWP Item Magnet** (default `M`) |
 | **Screen tilt / weapon sway** | PBWP Options → Screen Tilt / Weapon Visual Settings |
-| **Tactical weapon motion** | PB 2022 strafe tilt, movement lowering, and lean — **PBWP Options → Tactical Weapon Motion** |
 | **Random weapon switcher** | Optional interval randomizer |
 | **Doorbuster** | Optional door-breach mechanic |
-| **Pickup polish** | Helmet drops, floating cruelty bonuses, armor mutators, pickup variations |
+| **Pickup polish** | Floating cruelty bonuses, armor mutators, pickup variations (helmet drops: **PBX-Addons**) |
 | **God Complex Extras** | Optional gameplay layer for GC weapons: Rune-Lite buffs, complex ammo drops, BFG-tier weapon replacer, shield/leg sphere and chalice pickups, and alt-fire modes via the Gearbox wheel (no extra keys) |
 
 ### PDA quick reference
@@ -80,7 +94,7 @@ When the timer expires, overlays clear and your previous weapon is restored auto
 | **PB Options → Addon Options → PB War Pack** | Main PBWP hub |
 | **PB War Pack → Weapon Spawn Settings** | Full per-weapon spawn list + **pack preset buttons** (Enable/Disable Karnage, IN, VietDoom, Duke, etc.) |
 | **Addon Options → Configure Spawns → Weapons** | Quick weapon-tier toggles |
-| **PBWP Options** | Fatalities, killstreaks, magnet, tilt, tactical weapon motion, and more |
+| **PBWP Options** | Fatalities, killstreaks, magnet, and more |
 | **PB War Pack → God Complex Extras** | Master toggle + Rune-Lite, complex ammo, BFG replacer, sphere/chalice spawns |
 | **Weapon Spawn Settings → God Complex** | Per-GC-weapon spawn toggles (also links to God Complex Extras) |
 | **PB War Pack → Monster Drop Settings** | Salvage weapons from specific enemies (see below) |
@@ -99,12 +113,11 @@ These weapons are **primarily** obtained by killing the right enemy with drops e
 | Weapon | Enemy that drops it | Notes |
 |--------|---------------------|-------|
 | **Marauder SSG** | Marauder | May also spawn Meat Hook + MSSG upgrade packs; rare **shotgun spawner** T3/T4 pickup |
-| **Paingiver** | Hell Trooper | Also spawns on **rocket launcher spawns** T3/T4 when enabled |
 | **Mancubus Flame Cannon** | Mancubus (arm gas on death) | First pickup |
 | **Dual Flame Cannons** | Mancubus (arm gas) | Second pickup while you hold the single cannon |
 | **Cryo Rifle** | Frost Dark Imp / Volcabus | Freezer preset — optional drop refills ammo; also spawns on **plasma rifle spawns** T3/T4 |
 | **Thunder Crossbow** | Revenant family | Fire & Ice — optional drop refills cells; also spawns on **plasma rifle spawns** T2–T4 |
-| **Stormcast** | Arch-vile / Hellion | Schism |
+| **Stormcast** | Arch-vile / Hellion | Schism — also **BFG spawner** T3/T4 when enabled |
 | **Bio-Acid Launcher** | Cacodemon | IN preset |
 | **Cyberdemon RL** | Cyberdemon gun wreck | PBX weapon — toggle in same menu |
 | **Mastermind Chaingun** | Spider Mastermind | PBX weapon — toggle in same menu |
@@ -119,8 +132,6 @@ Monster-drop gear is **salvaged**, not factory-fresh:
 4. **Repeat drop** — refills partial durability and some ammo instead of giving a duplicate gun.
 
 PBX monster weapons (Cyberdemon RL, Mastermind Chaingun) use their own durability pools from PBX-Weapons.
-
-**VietDoom firearms** can use the same style of wear-and-tear when **VietDoom weapon durability** is on (**PB War Pack → Weapon Spawn Settings**, VietDoom section). Toggle off for classic PB behavior without jam/clean/inspect loops.
 
 ---
 
@@ -138,7 +149,6 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | **God Complex** | Legendary Chainsaw |
 | **Schism** | Battle Axe and Shield |
 | **Russian Overkill** | Razorjack |
-| **Fire & Ice** | Dragon Slayer (slot 5 weapon; random **chainsaw spawner** pickup from progression tier 3 onward) |
 | **VietDoom (BD v22)** | Machete |
 
 ### Slot 2 — Pistols / SMGs
@@ -169,7 +179,6 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | **PB 2022** | Marauder SSG (alt-fire shotgun blast; hook on weapon special) |
 | Rotating Double Barrel | |
 | **God Complex** | Legendary Assault Shotgun |
-| **PB 2022** | Cryo Shotgun (5 fire modes + weapon wheel) |
 | **Insanity's Nightmare** | Rotational SG, HASG (Lady Golide) |
 | **Demon-Tech** | Demon-Tech Shotgun |
 | **Doom 2016** | Doom 2016 Shotgun |
@@ -183,7 +192,6 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | Weapon | Notes |
 |--------|-------|
 | Bolt-Action Sniper | UAC 50B |
-| **God Complex** | Nemesis LMG (Nemesis Explosive Rifle) |
 | **Insanity's Nightmare** | AK-47, Assault R1 (HAR), Black DMR, Advanced Mask Man Rifle, Mask Man Rifle, M1X, Dark Fate, Magnum Sniper Rifle |
 | **Doom 2016** | Doom 2016 Machinegun |
 | **Russian Overkill** | Power Overwhelming |
@@ -201,7 +209,6 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 | UAC Super Nailgun | |
 | UAC MACH-3 Type-B HYDRA | |
 | **Insanity's Nightmare** | Gallery Nailgun, Insanity's Nightmare Minigun, Apocalypse Killer HAR |
-| **Fire & Ice** | Dragon Slayer (melee/nailgun hybrid — tap forward swing, hold lunge + reverse swing; see Slot 1 for spawn info) |
 | **VietDoom (BD v22)** | M60, M1918 BAR, RPD, Stoner 63 |
 | **Duke Nukem 3D** | Ripper Chaingun |
 | **Cyberaugumented** | Nightfall Augumented, X40-DK Legionnaire |
@@ -211,7 +218,6 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 
 | Weapon | Notes |
 |--------|-------|
-| Paingiver | **Rocket launcher spawner** T3/T4; also drops from Hell Trooper |
 | Totenheim Integridar Nuke | Hellbound Tactical Nuke Launcher |
 | **Insanity's Nightmare** | Chthonic Rifle, Fallen Hawk, Super Grenade Launcher (Samantha) |
 | **Doom 2016** | Doom 2016 Rocket Launcher |
@@ -267,17 +273,17 @@ Weapons below ship in PBWP lumps. Toggle each in **Weapon Spawn Settings**, or f
 
 | Preset | Weapons / systems covered |
 |--------|---------------------------|
-| **God Complex** | 8 weapons — slots 1, 3, 4, 7, 8, 9 (+ God Complex Extras menu) |
+| **God Complex** | 7 weapons — slots 1, 3, 7, 8, 9 (+ God Complex Extras menu) |
 | **Karnage Legacy** | 8 weapons — slots 2, 3, 4, 6, 8 |
 | **Insanity's Nightmare (IN)** | 24+ IN weapons across slots 0, 2–6, 8, 9 + Bio-Acid drop |
 | **Demon-Tech (DTECH)** | Demon-Tech Pistol, Demon-Tech Shotgun, Tech Blaster, Demon-Tech Minigun, Phase Eradicator BFG |
-| **Schism / Fire & Ice** | **Schism:** Battle Axe, Stormcast drop. **Fire & Ice:** Dragon Slayer (chainsaw spawner T3+), Thunder Crossbow (plasma spawner + Revenant drop) |
-| **Freezer** | Cryo Rifle (plasma spawner T3/T4 + drop), Cryo Shotgun spawns, freeze grenades, freeze bots |
+| **Schism / Fire & Ice** | **Schism:** Battle Axe, Stormcast drop. **Fire & Ice:** Thunder Crossbow (plasma spawner + Revenant drop) |
+| **Freezer** | Cryo Rifle (plasma spawner T3/T4 + drop), freeze grenades, freeze bots |
 | **Russian Overkill (RO)** | Razorjack, Power Overwhelming |
 | **Doom 2016 (D2016)** | D2016 Shotgun, Machinegun, Rocket Launcher, Plasma Gun, Vortex Rifle |
 | **Duke Nukem 3D** | 5 weapons + pipebomb equipment — slots 2, 3, 5, 6 |
 | **PB3.0 weapons** | X12, M45, IBMP-12, Riot Shield, Tactical Nailgun, Kar98k, BFG9500 |
-| **VietDoom (BD v22)** | 20 weapons across slots 1–6 and 8; optional **VietDoom weapon durability** toggle in Weapon Spawn Settings |
+| **VietDoom (BD v22)** | 20 weapons across slots 1–6 and 8 |
 | **Cyberaugumented** | 11 weapons across slots 4–9 (Warbringer through Cinereal Ordnance; includes Legionnaire, Dispatcher, Sirius Crisis) |
 
 ---
@@ -407,7 +413,7 @@ Attributions for included mods, systems, and assets. See the `CREDITS/` folder f
 | VietDoom v22 | Sgt Mark & Thorir |
 | Insanity's Nightmare weapons | Insanity's Nightmare authors |
 | Schism weapons | Schism authors (Battle Axe, Stormcast) |
-| Fire & Ice weapons | Brutal Hexen / Fire & Ice authors (Thunder Crossbow, DragonSlayer, Shield Saw) |
+| Fire & Ice weapons | Brutal Hexen / Fire & Ice authors (Thunder Crossbow, Shield Saw) |
 | Russian Overkill weapons | Russian Overkill authors |
 | Demon-Tech weapons | Demon-Tech authors |
 | Duke 3D weapons | Duke addon authors (Pistol, Shotgun, RPG, Pipebombs, Ripper, Devastator) |

@@ -1,27 +1,6 @@
 // Missing inventory tokens referenced by PBWP weapons/equipment.
 // (Actor stubs live in PBWP_ActorStubs.dec — loaded first from DECORATE.PBWP.)
 
-// VietDoom Dropper hub selects bare-hands when done dropping weapons.
-ACTOR Melee_Attacks : PB_WeaponBase
-{
-	Weapon.SlotNumber 0
-	+WEAPON.CHEATNOTWEAPON
-	States
-	{
-		Ready:
-			TNT1 A 1 A_DoPBWeaponAction
-			Loop
-		Select:
-			TNT1 A 1
-			Goto Ready
-		Deselect:
-			TNT1 A 0 A_Lower
-			Wait
-		Fire:
-			Goto Ready
-	}
-}
-
 ACTOR FreezerAmmo : Ammo
 {
 	Inventory.MaxAmount 999
@@ -29,6 +8,52 @@ ACTOR FreezerAmmo : Ammo
 }
 
 ACTOR RifleSpread : Inventory { Inventory.MaxAmount 1 }
+// WeaponSpecial mode tokens (shared; Inventory form avoids VietDoom-only dependency)
+ACTOR HydraConverge : Inventory { Inventory.MaxAmount 1 }
+ACTOR DispatcherFan : Inventory { Inventory.MaxAmount 1 }
+ACTOR VorpalSoulRend : Inventory { Inventory.MaxAmount 1 }
+ACTOR LegendaryChainOverdrive : Inventory { Inventory.MaxAmount 1 }
+ACTOR WarbringerIncendiary : Inventory { Inventory.MaxAmount 1 }
+ACTOR ACRBurstMode : Inventory { Inventory.MaxAmount 1 }
+ACTOR ACRBurstShots : Inventory { Inventory.MaxAmount 3 }
+ACTOR MAT49Braced : Inventory { Inventory.MaxAmount 1 }
+ACTOR KarnRevolverFan : Inventory { Inventory.MaxAmount 1 }
+ACTOR RainmakerCluster : Inventory { Inventory.MaxAmount 1 }
+ACTOR InterventionMicroYield : Inventory { Inventory.MaxAmount 1 }
+ACTOR BioAcidViscous : Inventory { Inventory.MaxAmount 1 }
+ACTOR StonerBeltPanic : Inventory { Inventory.MaxAmount 1 }
+ACTOR MacheteHeavyCleaver : Inventory { Inventory.MaxAmount 1 }
+ACTOR THMagnumExecutioner : Inventory { Inventory.MaxAmount 1 }
+ACTOR LiquidationFocus : Inventory { Inventory.MaxAmount 1 }
+ACTOR HellPistolHellburst : Inventory { Inventory.MaxAmount 1 }
+ACTOR PSMGBloodChannel : Inventory { Inventory.MaxAmount 1 }
+ACTOR PPShDrumDump : Inventory { Inventory.MaxAmount 1 }
+ACTOR LegendaryASGStorm : Inventory { Inventory.MaxAmount 1 }
+ACTOR LegendaryASGStormTimer : Inventory { Inventory.MaxAmount 105 }
+ACTOR NemesisLMGOverclock : Inventory { Inventory.MaxAmount 1 }
+ACTOR DismantlerDisassemble : Inventory { Inventory.MaxAmount 1 }
+ACTOR DeracinatorRootSpike : Inventory { Inventory.MaxAmount 1 }
+ACTOR DemonTechMinigunSpin : Inventory { Inventory.MaxAmount 1 }
+ACTOR DemonTechMinigunHeat : Inventory { Inventory.MaxAmount 40 }
+ACTOR DevastadorLance : Inventory { Inventory.MaxAmount 1 }
+ACTOR CalamityWaveReady : Inventory { Inventory.MaxAmount 1 }
+ACTOR TechBlasterAtomSplit : Inventory { Inventory.MaxAmount 1 }
+ACTOR AmnesiaMemoryWipe : Inventory { Inventory.MaxAmount 1 }
+ACTOR MegaRigPriorityFamily : Inventory { Inventory.MaxAmount 4 }
+ACTOR CinerealAshStorm : Inventory { Inventory.MaxAmount 1 }
+ACTOR SiriusCrisisFlare : Inventory { Inventory.MaxAmount 1 }
+ACTOR SSGSteelBreath : Inventory { Inventory.MaxAmount 1 }
+ACTOR RotationalSGSpinLock : Inventory { Inventory.MaxAmount 1 }
+ACTOR TotenheimTacticalYield : Inventory { Inventory.MaxAmount 1 }
+ACTOR IonSoulCapacitor : Inventory { Inventory.MaxAmount 1 }
+ACTOR LightningGunChainStorm : Inventory { Inventory.MaxAmount 1 }
+ACTOR GodEnragedGodwrath : Inventory { Inventory.MaxAmount 1 }
+ACTOR EnragedBFGVent : Inventory { Inventory.MaxAmount 1 }
+ACTOR LegendaryBFG10KSweep : Inventory { Inventory.MaxAmount 1 }
+ACTOR LegendaryPlasmaStorm : Inventory { Inventory.MaxAmount 1 }
+ACTOR MP12APChannel : Inventory { Inventory.MaxAmount 1 }
+ACTOR BoltRifleMatchGrade : Inventory { Inventory.MaxAmount 1 }
+ACTOR CryoRifleAbsoluteZero : Inventory { Inventory.MaxAmount 1 }
 ACTOR HMGPower : Inventory { Inventory.MaxAmount 1 }
 ACTOR ChangeFire_Type : Inventory { Inventory.MaxAmount 1 }
 ACTOR JustStartGameWithRifle : Inventory { Inventory.MaxAmount 1 }
@@ -46,9 +71,6 @@ ACTOR RifleSelected : Inventory { Inventory.MaxAmount 1 }
 ACTOR FreezerSelected : Inventory { Inventory.MaxAmount 1 }
 ACTOR PBBlastMomentum : Inventory { Inventory.MaxAmount 1 }
 ACTOR Krg_heavyammo : Inventory { Inventory.MaxAmount 1 }
-ACTOR DropMachete : Inventory { Inventory.MaxAmount 1 }
-ACTOR M202Durability : Inventory { Inventory.MaxAmount 200 }
-ACTOR M202Destroyed : Inventory { Inventory.MaxAmount 1 }
 
 ACTOR SSGWeaponSpawner : Actor { +NOBLOCKMAP }
 ACTOR RifleSmokeScopeSpawner : Actor { +NOBLOCKMAP }
@@ -70,22 +92,6 @@ ACTOR SmallFlameTrails3 : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
 ACTOR HorizontalShockwave : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
 ACTOR ExplosionAirBurstEffectSmall : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
 ACTOR FiftyBullet : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
-
-ACTOR M202PickUpHC : Inventory
-{
-	+INVENTORY.QUIET
-	Inventory.MaxAmount 1
-}
-ACTOR M202PickUpHC_90 : M202PickUpHC { }
-ACTOR M202PickUpHC_80 : M202PickUpHC { }
-ACTOR M202PickUpHC_70 : M202PickUpHC { }
-ACTOR M202PickUpHC_60 : M202PickUpHC { }
-ACTOR M202PickUpHC_50 : M202PickUpHC { }
-ACTOR M202PickUpHC_40 : M202PickUpHC { }
-ACTOR M202PickUpHC_30 : M202PickUpHC { }
-ACTOR M202PickUpHC_20 : M202PickUpHC { }
-ACTOR M202PickUpHC_10 : M202PickUpHC { }
-ACTOR M202PickUpHC_5 : M202PickUpHC { }
 
 Actor RazorjackEmpower : Inventory { Inventory.MaxAmount 1 }
 

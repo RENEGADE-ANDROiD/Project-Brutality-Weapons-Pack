@@ -1,12 +1,3 @@
-AddOptionMenu "OptionsMenu"
-{
-    Submenu "PBWP Options", "ttwcoptions"
-}
-AddOptionMenu "OptionsMenuSimple"
-{
-	Submenu "PBWP Options", "ttwcoptions"
-}
-
 DefaultListMenu
 {
 	Selector "PBWPSEL", 0, 0
@@ -27,13 +18,11 @@ ListMenu "MainMenu"
 			TextItem "Save Game", "s", "SaveGameMenu"
 			TextItem "Options", "o", "OptionsMenu"
 			TextItem "PB Options", "p", "PBSettings"
-			TextItem "PBWP Options", "p", "ttwcoptions"
 		}
 		else
 		{
 			TextItem "Options", "o", "OptionsMenu"
 			TextItem "Project Brutality", "p", "PBSettings"
-			TextItem "PBWP Options", "p", "ttwcoptions"
 			TextItem "Load Game", "l", "LoadGameMenu"
 			TextItem "Save Game", "s", "SaveGameMenu"
 		}
@@ -61,34 +50,30 @@ OptionMenu "ttwcoptions"
 {
 	Title "PBWP Options"
 	Class "PBWP_OptionMenu"
-	StaticText "Also under PB Options -> Addon Options -> PBWP Options", gold
+	StaticText "PB Options -> Addon Options -> PB War Pack", gold
+	StaticText "Tier spawn toggles: Configure Spawns -> Weapons", gold
     StaticText ""
+	SubMenu "$PBWP_COMBAT_RATING_SHOP", "AmmunitionShopSystem"
 	Submenu "$PBWP_General_OPTIONS", "GeneralSettings"
-	Submenu "$PBWP_WeaponSpawns_OPTIONS", "WeaponPackSpawnSettings"
-	Submenu "$PBWP_MonsterDrop_OPTIONS", "MonsterDropWeapSett"
+	Submenu "$PBWP_GC_ENHANCEMENTS", "GodComplexEnhanceOpts"
 	Submenu "$PBWP_ItemSpawns_OPTIONS", "ItemSpawnSett"
+	SubMenu "$PBWP_KILLSTREAK_OPTIONS", "PB_KillstreakOptions"
+	Submenu "$PBWP_MonsterDrop_OPTIONS", "MonsterDropWeapSett"
+	Submenu "Monster Enhancement Settings", "mk_CLMenu"
+	Submenu "$PBWP_WeaponSpawns_OPTIONS", "WeaponPackSpawnSettings"
+	Submenu "$PBWP_WEAPON_VISUALS", "PBWP_WeaponVisualSettings"
 	StaticText ""
     StaticText "Extras"
 	StaticText ""
-	SubMenu "$PBWP_KILLSTREAK_OPTIONS", "PB_KillstreakOptions"
-	SubMenu "$PBWP_COMBAT_RATING_SHOP", "AmmunitionShopSystem"
-	SubMenu "Champions Lite", "mk_CLMenu"
 	Submenu "$PBWP_QUICKSWITCHER", "SwitchItUpOptions"
 	Submenu "$PBWP_ARCADE", "PBArcadeTweaksSettings"
 	Submenu "$PBWP_OUCHIE", "DamageFlashColorsWoooo"
-	Submenu "$PBWP_DMGINDICATOR", "D4D_DIMenu"
 	submenu "$PBWP_DOORBUSTER","BusterMenu"
-	Submenu "$PBWP_SCREEN_TILT", "TiltPlusPlusMenu"
-	Submenu "$PBWP_WEAPON_VISUALS", "WeaponVisuals"
-	Submenu "Tactical Weapon Motion", "PBTacticalMotionOptions"
-	Submenu "$PBWP_GC_ENHANCEMENTS", "GodComplexEnhanceOpts"
-	Submenu "Riot Shield", "PBWP_RiotShieldSettings"
 	StaticText ""
 	Command "$PB_GO_TESTMAP", "map PBTEST"
 	StaticText ""
 	StaticText "Project Brutality Weapons Pack Version: 1.9.7-Release", gold
-	/* StaticText "CHAMPIONS v2.9.1 is Loaded", white // DONT SHOW MODS THAT ALREADY HAVE THEIR OWN SETTINGS
-	StaticText "DOORBUSTER v1.0 is Loaded", white
+	/* StaticText "DOORBUSTER v1.0 is Loaded", white
 	StaticText "Random Weapon Switcher v1.0 is Loaded", white */
 	/* StaticText "Arcade Tweaks v1.0 is Loaded", white */
 	StaticText "PickupItemVariations v1.2 is Loaded", white
@@ -112,10 +97,7 @@ OptionMenu "GeneralSettings"
 	option "Monster weapon drops ","PB_WeaponDrops","MonsterDrops"
 	Option "Kill Streak System Enabled", "pb_ks_enable", "OnOff"
 	Option "Low Health Effect Enabled", "cl_Health_FX", "OnOff"
-	Option "Helmet Drop is Enabled", "HelmetDropCVAR", "OnOff"
-	option "Damage Indicators Enabled ","D4D_DamageIndicators","OnOff"
 	option "Floating Items","FloatingVials","OnOff"
-	ScaleSlider "Champions Lite Spawn Chance",		"cl_OverrideChance", 	-1, 256, 1, "Never Spawn", "Difficulty Based"
 	ScaleSlider "Flash duration", "OuchFlashDuration", 0, 35, 1, "Disabled", "????? HOW IS IT -1"
 	Control "Show Experience", "PB_CRSHW"
 	Option "Experience & kill XP", "pb_xp_rewards", "OnOff"
@@ -323,7 +305,6 @@ OptionMenu "MonsterDropWeapSett"
 	StaticText ""
 	Option "Enable Cyberdemons Drop (PBX when loaded)", "PBSpawnCyberdemonRLDrop", "OnOff"
 	Option "Enable Masterminds Drop (PBX when loaded)", "PBSpawnMastermindCGDrop", "OnOff"
-	Option "Enable Rocket Hell Trooper Drop", "PBSpawnPaingiverDrop", "OnOff"
 
 	StaticText ""
 	StaticText "---------------Slot 8 weapons---------------", gold
@@ -360,6 +341,9 @@ OptionMenu "WeaponPackSpawnSettings"
 	Option "VietDoom set (all below)", "PBWP_Pack_VietDoom", "OnOff"
 	Option "Cyberaugumented set (all below)", "PBWP_Pack_Cyberaugumented", "OnOff"
 	Option "Freezer weapons set", "PBWP_Pack_Freezer", "OnOff"
+	StaticText ""
+	StaticText "---------------Addon weapon options---------------", gold
+	Submenu "$PBWP_RIOT_SHIELD", "PBWP_RiotShieldSettings"
 	StaticText ""
 	StaticText "Quick tier toggles: PB Options -> Addon Options -> Weapons", gold
 	StaticText "This menu lists every PBWP firearm (master on/off).", white
@@ -428,7 +412,6 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText ""
 	// PBX: PBX_Prosurv_LeverAction
 	Option "Spawn Doom 2016 Shotgun", "PBSpawnPB_Doom2016Shotgun", "OnOff"
-	Option "Spawn Cryo Shotgun", "PBSpawnPB_CryoShotgun", "OnOff"
 	// PBX: PBX_CSSG
 	Option "Spawn IN - Rotational SG", "PBSpawnRotationalSG", "OnOff"
 	Option "Spawn IN - HASG aka Lady Golide", "PBSpawnHASG", "OnOff"
@@ -464,7 +447,7 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText "---------------Slot 5 weapons---------------", gold
 	StaticText ""
 	Option "Spawn Auto Cannon", "PBSpawnAutoCannon", "OnOff"
-	Option "Spawn Fire & Ice - Dragon Slayer Sword", "PBSpawnFire_and_IceDragonSlayer", "OnOff"
+	//Option "Spawn Fire & Ice - Dragon Slayer Sword", "PBSpawnFire_and_IceDragonSlayer", "OnOff"
 	Option "Spawn IN - Gallary Nailgun", "PBSpawnINNailGun", "OnOff"
 	// PBX: PBX_NeoHMG
 	Option "Spawn D2016 - Machinegun", "PBSpawnD4Machinegun", "OnOff"
@@ -480,9 +463,8 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText ""
 	Option "Spawn IN - Chthonic Rifle", "PBSpawnChthonicRifle", "OnOff"
 	Option "Spawn IN - Fallen Hawk", "PBSpawnFallen_Hawk", "OnOff"
-	// PBX: PBX_CyberdemonRL, PBX_Excavator, PBX_MastermindChaingun
+	// PBX: PBX_CyberdemonRL, PBX_MastermindChaingun
 	Option "Spawn DUKE - Devastator", "PBSpawnDevastator", "OnOff"
-	Option "Spawn Paingiver", "PBSpawnPaingiver", "OnOff"
 	Option "Spawn D2016 - Rocket Launcher", "PBSpawnD4RocketLauncher", "OnOff"
 	Option "Spawn IN - SuperGrenadeLauncher", "PBSpawnSuperGrenadeLauncher", "OnOff"
 	Option "Spawn Duke Nukem 3D RPG", "PBSpawnDukeRPG", "OnOff"
@@ -543,7 +525,6 @@ OptionMenu "WeaponPackSpawnSettings"
 	StaticText ""
 	StaticText "---------------VietDoom weapons (BD v22)---------------", gold
 	StaticText ""
-	Option "VietDoom weapon durability", "PB_VietDoomDurability", "OnOff"
 	Option "Spawn VietDoom - M1911A1", "PBSpawnVietM1911", "OnOff"
 	Option "Spawn VietDoom - M3 Grease Gun", "PBSpawnVietM3A1", "OnOff"
 	Option "Spawn VietDoom - Thompson M1A1", "PBSpawnVietThompson", "OnOff"
@@ -577,7 +558,6 @@ OptionMenu "WeaponPackSpawnSettings"
 	Option "Spawn Cyberaugumented - Dismantler", "PBSpawnPBWP_Dismantler", "OnOff"
 	Option "Spawn Cyberaugumented - Cinereal Ordnance", "PBSpawnPBWP_CinerealOrdnance", "OnOff"
 	Option "Spawn Cyberaugumented - Dispatcher", "PBSpawnPBWP_Dispatcher", "OnOff"
-	Option "Spawn Cyberaugumented - Legionnaire", "PBSpawnPBWP_Legionnaire", "OnOff"
 	Option "Spawn Cyberaugumented - Sirius Crisis Roscoe", "PBSpawnPBWP_SiriusCrisis", "OnOff"
 }
 
@@ -698,7 +678,7 @@ OptionMenu "AmmunitionShopSystem"
 	StaticText " "
 	Command "Buy Energy Beam Katana (500 Points)",		"PukeName BuyPB_BeamKatana"
 	StaticText " "
-	Command "Buy Fire and Ice Dragon Slayer (1000 Points)",		"PukeName BuyDragonSlayer"
+	//Command "Buy Fire and Ice Dragon Slayer (1000 Points)",		"PukeName BuyDragonSlayer"
 	StaticText " "
 	Command "Buy Razorjack (650 Points)",		"PukeName BuyRazorjack"
 	StaticText " "
@@ -723,8 +703,6 @@ OptionMenu "AmmunitionShopSystem"
 	StaticText "------------ SHOTGUNS ------------", gold
 	StaticText " "
 	// PBX_Prosurv_Ballista
-	StaticText " "
-	Command "Buy Cryo Shotgun (650 Points)",		"PukeName BuyCryoShotgun"
 	StaticText " "
 	Command "Buy Doom 2016 Shotgun (500 Points)",		"PukeName BuyDoom2016Shotgun"
 	StaticText " "
@@ -774,13 +752,9 @@ OptionMenu "AmmunitionShopSystem"
 	StaticText " "
 	Command "Buy Duke Nukem Ripper (800 Points)",		"PukeName BuyDukeNukemRipper"
 	StaticText " "
-	// PBX_Excavator
-	StaticText " "
 	Command "Buy HASG Lady Hungry (700 Points)",		"PukeName BuyINMiniGun"
 	StaticText " "
 	// PBX_MastermindChaingun, PBX_NeoHMG
-	StaticText " "
-	Command "Buy Paingiver (700 Points)",		"PukeName BuyPaingiver"
 	StaticText " "
 	Command "Buy Power Overwhelming (500 Points)",		"PukeName BuyPowerOverwhelming"
 	StaticText " "
@@ -819,107 +793,6 @@ OptionMenu "AmmunitionShopSystem"
 
 }
 ////////
-	
-OptionMenu "mk_CLMenu"
-	{
-	Class "PBWP_OptionMenu"
-	Title "Champions Lite"
-	StaticText "Reload the map after changing settings", gold
-	StaticText " "
-
-	Submenu "Quick Presets", "mk_CLPresetMenu"
-	Submenu "Trait Weights", "mk_CLTraitMenu"
-	Submenu "Mutation Weights", "mk_CLMutationMenu"
-	Submenu "Map Caps", "mk_CLCapMenu"
-	Submenu "Captain Aura", "mk_CLCaptainMenu"
-	StaticText " "
-
-	ScaleSlider "Spawn Chance", "cl_OverrideChance", -1, 256, 1, "Off", "By Difficulty"
-	ScaleSlider "Mutation Chance", "cl_Mutations", 0, 256, 1, "Off"
-	Option "Visual FX", "cl_VisualFX", "YesNo"
-	Option "Combat FX Throttle", "cl_fx_throttle", "OnOff"
-	Option "Performance Lite Mode", "cl_performance_lite", "OnOff"
-	Option "Visibility FX Cull", "cl_fx_visibility", "OnOff"
-	Option "Trait Particles", "cl_Particles", "YesNo"
-	Option "Size Markers", "cl_Markers", "YesNo"
-	ScaleSlider "Bulwark Armor Mul", "cl_bulwark_armor_mul", 1, 8, 1, "1x", "8x"
-	}
-
-OptionMenu "mk_CLPresetMenu"
-	{
-	Class "PBWP_OptionMenu"
-	Title "Quick Presets"
-	StaticText "Applies spawn, weights, caps, and FX settings", gold
-	StaticText "Reload map after applying", gold
-	StaticText " "
-
-	SafeCommand "Lite (performance)", "event cl_preset_lite", "Apply Lite preset?"
-	SafeCommand "Standard (defaults)", "event cl_preset_standard", "Reset to Standard preset?"
-	SafeCommand "Mayhem (maximum)", "event cl_preset_mayhem", "Apply Mayhem preset?"
-	}
-
-OptionMenu "mk_CLCapMenu"
-	{
-	Class "PBWP_OptionMenu"
-	Title "Map Champion Caps"
-	Option "Enable Map Caps", "cl_cap_enabled", "OnOff"
-	ScaleSlider "Small Map Cap", "cl_cap_small", 0, 128, 1, "Off"
-	ScaleSlider "Medium Map Cap", "cl_cap_medium", 0, 256, 1, "Off"
-	ScaleSlider "Large Map Cap", "cl_cap_large", 0, 512, 1, "Off"
-	Slider "Medium Threshold", "cl_cap_medium_count", 25, 500, 5
-	Slider "Large Threshold", "cl_cap_large_count", 100, 1000, 25
-	}
-
-OptionMenu "mk_CLCaptainMenu"
-	{
-	Class "PBWP_OptionMenu"
-	Title "Captain Aura"
-	Slider "Aura Radius", "cl_captain_radius", 128, 1024, 32
-	Slider "Minion Damage Taken", "cl_captain_buff_dr", 10, 100, 5
-	Slider "Minion Speed Boost", "cl_captain_buff_speed", 100, 200, 5
-	}
-
-OptionMenu "mk_CLTraitMenu"
-	{
-	Class "PBWP_OptionMenu"
-	Title "Trait Weights"
-	SafeCommand "Reset Defaults", "event cl_reset_traitweight", "Reset all trait weights?"
-	StaticText " "
-	ScaleSlider "Bulwark", "cl_weight_Bulwark", 0, 10, 1, "Off"
-	ScaleSlider "Brute", "cl_weight_Brute", 0, 10, 1, "Off"
-	ScaleSlider "Swift", "cl_weight_Swift", 0, 10, 1, "Off"
-	ScaleSlider "Volatile", "cl_weight_Volatile", 0, 10, 1, "Off"
-	ScaleSlider "Toxic", "cl_weight_Toxic", 0, 10, 1, "Off"
-	ScaleSlider "Blink", "cl_weight_Blink", 0, 10, 1, "Off"
-	ScaleSlider "Stalker", "cl_weight_Stalker", 0, 10, 1, "Off"
-	ScaleSlider "Splitter", "cl_weight_Splitter", 0, 10, 1, "Off"
-	ScaleSlider "Veteran", "cl_weight_Veteran", 0, 10, 1, "Off"
-	ScaleSlider "Captain", "cl_weight_Captain", 0, 10, 1, "Off"
-	}
-
-OptionMenu "mk_CLMutationMenu"
-	{
-	Class "PBWP_OptionMenu"
-	Title "Mutation Weights"
-	ScaleSlider "Giant", "cl_weight_Giant", 0, 10, 1, "Off"
-	ScaleSlider "Spectral", "cl_weight_Spectral", 0, 10, 1, "Off"
-	ScaleSlider "Rampage", "cl_weight_Rampage", 0, 10, 1, "Off"
-	}
-
-OptionValue "cl_traits"
-	{
-	-1, "off"
-	0, "Bulwark"
-	1, "Brute"
-	2, "Swift"
-	3, "Volatile"
-	4, "Toxic"
-	5, "Blink"
-	6, "Stalker"
-	7, "Splitter"
-	8, "Veteran"
-	9, "Captain"
-	}
 
 OptionMenu "SwitchItUpOptions" 
 {
@@ -993,52 +866,6 @@ OptionValue "ATPickupMode"
 	1, "Stack to 500"
 }
 
-optionmenu "D4D_DIMenu"
-{
-	Title "D4D Damage indicators menu"
-	statictext "====================="
-	statictext ""
-	option "Enabled ","D4D_DamageIndicators","YesNo"
-	statictext ""
-	option "Type ","D4D_IndicatorType","D4DIndTypes"
-	statictext ""
-	option "Enable damage type colored indicator ","D4D_NoColorType","NoYes"
-	statictext ""
-	slider "Scale ","D4D_DIScale",0.2,1.0,0.05
-	statictext ""
-	slider "Alpha ","D4D_DIAlpha",0.05,1.0,0.05
-	statictext ""
-	slider "Duration (in Tics) ","D4D_DITimer",20,140,5
-	statictext ""
-	option "Animation ","D4D_DIAnim","D4DAnimTypes"
-	statictext ""
-	statictext "Indicator default color"
-	statictext ""
-	colorpicker "Color picker","D4D_DefColor"
-	statictext ""
-	textfield "Hex","D4D_DefColor"
-}
-
-optionvalue "D4DIndTypes"
-{
-	0,"MW2019"
-	1,"D4D"
-	2,"CODWW2"
-	3,"WD"
-}
-
-optionvalue "D4DAnimTypes"
-{
-	-1,"None"
-	0,"< Expand >(Subtle)"
-	1,">Shrink<(Fast)"
-	2,"< Expand >(Fast)"
-	3,">Shrink<(Subtle)"
-	4,"Blink"
-	5,"Float"
-	6,"Float & grow"
-}
-
 OptionMenu "DamageFlashColorsWoooo"
 {
 	Class "PBWP_OptionMenu"
@@ -1090,33 +917,18 @@ OptionValue "OuchFlashType"
 	1, "Solid color"
 }
 
-// TiltPlusPlusMenu and WeaponVisuals are defined in PB_Staging (TiltPlusPlusMenu / WeaponVisuals classes).
+// PBWP weapon visuals — addon-only hub (do not patch PB Staging WeaponVisuals).
 
-OptionValue "TacticalRollCap"
+OptionMenu "PBWP_WeaponVisualSettings"
 {
-	0, "Off"
-	1, "On"
-}
-
-OptionMenu "PBTacticalMotionOptions"
-{
-	Title "Tactical Weapon Motion"
+	Title "$PBWP_WEAPON_VISUALS"
 	Class "PBWP_OptionMenu"
 	Position -48
-	StaticText "Strafe tilt, movement lowering, and lean (PB 2022)."
-	StaticText " "
-	Option "Enable tactical weapon motion.", "pb_tac_enable", "YesNo"
-	Option "Apply only while in ready states.", "pb_tac_ready_only", "YesNo"
-	Option "Apply only while moving.", "pb_tac_move_only", "YesNo"
-	Slider "Rotational tilt velocity.", "pb_tac_roll_velocity", 0.2, 4.0, 0.05, 2
-	Slider "Rotational tilt resistance.", "pb_tac_roll_resistance", 0.05, 0.60, 0.01, 2
-	Option "Cap rotational tilt.", "pb_tac_roll_cap", "TacticalRollCap"
-	Slider "Rotational tilt cap amount.", "pb_tac_roll_cap_value", 0.5, 6.0, 0.1, 1
-	Slider "Weapon lowering scale.", "pb_tac_lowering_scale", 0.0, 2.0, 0.05, 2
-	Option "Enable lean.", "pb_tac_lean_enable", "YesNo"
-	Slider "Lean angle.", "pb_tac_lean_angle", 0.0, 25.0, 0.5, 1
-	Slider "Lean smoothing.", "pb_tac_lean_smoothing", 0.05, 0.50, 0.01, 2
-	Slider "Tilt display smoothing.", "pb_tac_tilt_smoothing", 0.50, 0.95, 0.01, 2
+	StaticText "--------- Motion ---------", 1
+	Submenu "$PBWP_SCREEN_TILT", "TiltPlusPlusMenu"
+	StaticText ""
+	StaticText "--------- Viewmodel ---------", 1
+	Submenu "Bob, sway, and rendering", "WeaponVisuals"
 }
 
 OptionValue "SwayDirection"
@@ -1147,35 +959,7 @@ OptionValue "PixelFixOptions"
 
 AddOptionMenu "PB_AddonOptions"
 {
-	Submenu "$PBWP_ADDON_SETTINGS", "PBWP_AddonMenu"
-}
-
-OptionMenu "PBWP_AddonMenu"
-{
-	Title		"$PBWP_ADDON_SETTINGS"
-	Class		"PBWP_OptionMenu"
-	Position	-48
-	StaticText	"Tier spawn toggles live under Configure Spawns -> Weapons.", gold
-	StaticText	""
-	Submenu		"$PBWP_General_OPTIONS",			"GeneralSettings"
-	Submenu		"$PBWP_WeaponSpawns_OPTIONS",		"WeaponPackSpawnSettings"
-	Submenu		"$PBWP_MonsterDrop_OPTIONS",		"MonsterDropWeapSett"
-	Submenu		"$PBWP_ItemSpawns_OPTIONS",			"ItemSpawnSett"
-	StaticText	""
-	StaticText	"--------- Extras ---------",		1
-	SubMenu		"$PBWP_KILLSTREAK_OPTIONS",			"PB_KillstreakOptions"
-	SubMenu		"$PBWP_COMBAT_RATING_SHOP",			"AmmunitionShopSystem"
-	SubMenu		"Champions Lite",					"mk_CLMenu"
-	Submenu		"$PBWP_QUICKSWITCHER",				"SwitchItUpOptions"
-	Submenu		"$PBWP_ARCADE",						"PBArcadeTweaksSettings"
-	Submenu		"$PBWP_OUCHIE",						"DamageFlashColorsWoooo"
-	Submenu		"$PBWP_DMGINDICATOR",				"D4D_DIMenu"
-	Submenu		"$PBWP_DOORBUSTER",					"BusterMenu"
-	Submenu		"$PBWP_SCREEN_TILT",				"TiltPlusPlusMenu"
-	Submenu		"$PBWP_WEAPON_VISUALS",				"WeaponVisuals"
-	Submenu		"$PBWP_GC_ENHANCEMENTS",			"GodComplexEnhanceOpts"
-	StaticText	""
-	Submenu		"$PBWP_ALL_SETTINGS",				"ttwcoptions"
+	Submenu "$PBWP_ADDON_SETTINGS", "ttwcoptions"
 }
 
 // Chainsaw / slot 1 melee
@@ -1193,7 +977,7 @@ AddOptionMenu "AddonWeaponSpawns" after "SAWT2"
 AddOptionMenu "AddonWeaponSpawns" after "SAWT3"
 {
 	FlagOption	"PBWP - Argent Sith Katana",		"pbwp_saw_filter",	"OffOn", 3
-	FlagOption	"PBWP - Fire & Ice Dragon Slayer",	"pbwp_saw_filter",	"OffOn", 4
+	//FlagOption	"PBWP - Fire & Ice Dragon Slayer",	"pbwp_saw_filter",	"OffOn", 4
 	FlagOption	"PBWP - Tiberium Soulblade (Vorpal)",	"pbwp_saw_filter",	"OffOn", 5
 }
 
@@ -1251,17 +1035,11 @@ AddOptionMenu "AddonWeaponSpawns" after "CHNT4"
 // Rocket launcher / slot 6
 AddOptionMenu "AddonWeaponSpawns" after "LAUT3"
 {
-	FlagOption	"PBWP - Paingiver",					"pbwp_rocketlauncher_filter",	"OffOn", 0
-	FlagOption	"PBWP - Doom 2016 Rocket Launcher",	"pbwp_rocketlauncher_filter",	"OffOn", 1
-	FlagOption	"PBWP - Super Grenade Launcher",	"pbwp_rocketlauncher_filter",	"OffOn", 2
+	FlagOption	"PBWP - Doom 2016 Rocket Launcher",	"pbwp_rocketlauncher_filter",	"OffOn", 0
+	FlagOption	"PBWP - Super Grenade Launcher",	"pbwp_rocketlauncher_filter",	"OffOn", 1
 }
 
 // Plasma rifle / slots 7-8
-AddOptionMenu "AddonWeaponSpawns" after "PLST2"
-{
-	FlagOption	"PBWP - Cryo Shotgun",				"pbwp_plasmarifle_filter",	"OffOn", 0
-}
-
 AddOptionMenu "AddonWeaponSpawns" after "PLST3"
 {
 	FlagOption	"PBWP - Gauss Cannon",				"pbwp_plasmarifle_filter",	"OffOn", 1
@@ -1372,4 +1150,130 @@ OptionMenu "PBWP_RiotShieldSettings"
 OptionMenu "OptionsMenu"
 {
 	Class "PBWP_OptionMenu"
+}
+
+// --- Champions Lite (Monster Enhancement Settings) ---
+
+OptionMenu "mk_CLMenu"
+{
+	Title "Monster Enhancement Settings"
+	Class "PBWP_OptionMenu"
+	StaticText "Reload the map after changing settings", gold
+	StaticText "PB Options -> Addon Options -> PB War Pack", gold
+	StaticText " "
+
+	Submenu "Quick Presets", "mk_CLPresetMenu"
+	Submenu "Trait Weights", "mk_CLTraitMenu"
+	Submenu "Mutation Weights", "mk_CLMutationMenu"
+	Submenu "Map Caps", "mk_CLCapMenu"
+	Submenu "Captain Aura", "mk_CLCaptainMenu"
+	StaticText " "
+
+	ScaleSlider "Spawn Chance", "cl_OverrideChance", -1, 256, 1, "Off", "By Difficulty"
+	ScaleSlider "Mutation Chance", "cl_Mutations", 0, 256, 1, "Off"
+	Option "Visual FX", "cl_VisualFX", "YesNo"
+	Option "Combat FX Throttle", "cl_fx_throttle", "OnOff"
+	Option "Performance Lite Mode", "cl_performance_lite", "OnOff"
+	Option "Visibility FX Cull", "cl_fx_visibility", "OnOff"
+	Option "Trait Particles", "cl_Particles", "YesNo"
+	Option "Size Markers", "cl_Markers", "YesNo"
+	ScaleSlider "Bulwark Armor Mul", "cl_bulwark_armor_mul", 1, 8, 1, "1x", "8x"
+}
+
+OptionMenu "mk_CLPresetMenu"
+{
+	Title "Quick Presets"
+	Class "PBWP_OptionMenu"
+	StaticText "Applies spawn, weights, caps, and FX settings", gold
+	StaticText "Reload map after applying", gold
+	StaticText " "
+
+	SafeCommand "Lite (performance)", "event cl_preset_lite", "Apply Lite preset?"
+	SafeCommand "Standard (defaults)", "event cl_preset_standard", "Reset to Standard preset?"
+	SafeCommand "Mayhem (maximum)", "event cl_preset_mayhem", "Apply Mayhem preset?"
+}
+
+OptionMenu "mk_CLCapMenu"
+{
+	Title "Map Champion Caps"
+	Class "PBWP_OptionMenu"
+	StaticText "Limits total champions by map monster count", gold
+	StaticText " "
+
+	Option "Enable Map Caps", "cl_cap_enabled", "OnOff"
+	ScaleSlider "Small Map Cap", "cl_cap_small", 0, 128, 1, "Off"
+	ScaleSlider "Medium Map Cap", "cl_cap_medium", 0, 256, 1, "Off"
+	ScaleSlider "Large Map Cap", "cl_cap_large", 0, 512, 1, "Off"
+	Slider "Medium Threshold", "cl_cap_medium_count", 25, 500, 5
+	Slider "Large Threshold", "cl_cap_large_count", 100, 1000, 25
+}
+
+OptionMenu "mk_CLCaptainMenu"
+{
+	Title "Captain Aura"
+	Class "PBWP_OptionMenu"
+	StaticText "Captain buffs nearby allies; shielded while minions live", gold
+	StaticText " "
+
+	Slider "Aura Radius", "cl_captain_radius", 128, 1024, 32
+	Slider "Minion Damage Taken", "cl_captain_buff_dr", 10, 100, 5
+	Slider "Minion Speed Boost", "cl_captain_buff_speed", 100, 200, 5
+}
+
+OptionMenu "mk_CLTraitMenu"
+{
+	Title "Trait Weights"
+	Class "PBWP_OptionMenu"
+	StaticText "Weight 1-10 = relative pick chance (0 = off)", gold
+	StaticText "Higher weight means that trait is rolled more often", gold
+	StaticText " "
+	StaticText "Bulwark - bonus armor, weak to fire/explosions", gold
+	StaticText "Brute - harder melee hits | Swift - faster movement", gold
+	StaticText "Volatile - explodes on death | Toxic - poison + creep", gold
+	StaticText "Blink - short teleport | Stalker - ambush dashes", gold
+	StaticText "Splitter - death projectiles | Veteran - frontal DR", gold
+	StaticText "Captain - buffs allies, shield with minions alive", gold
+	StaticText " "
+
+	SafeCommand "Reset Defaults", "event cl_reset_traitweight", "Reset all trait weights?"
+
+	ScaleSlider "Bulwark", "cl_weight_Bulwark", 0, 10, 1, "Off"
+	ScaleSlider "Brute", "cl_weight_Brute", 0, 10, 1, "Off"
+	ScaleSlider "Swift", "cl_weight_Swift", 0, 10, 1, "Off"
+	ScaleSlider "Volatile", "cl_weight_Volatile", 0, 10, 1, "Off"
+	ScaleSlider "Toxic", "cl_weight_Toxic", 0, 10, 1, "Off"
+	ScaleSlider "Blink", "cl_weight_Blink", 0, 10, 1, "Off"
+	ScaleSlider "Stalker", "cl_weight_Stalker", 0, 10, 1, "Off"
+	ScaleSlider "Splitter", "cl_weight_Splitter", 0, 10, 1, "Off"
+	ScaleSlider "Veteran", "cl_weight_Veteran", 0, 10, 1, "Off"
+	ScaleSlider "Captain", "cl_weight_Captain", 0, 10, 1, "Off"
+}
+
+OptionMenu "mk_CLMutationMenu"
+{
+	Title "Mutation Weights"
+	Class "PBWP_OptionMenu"
+	StaticText "Weight 1-10 = relative pick chance (0 = off)", gold
+	StaticText "Giant - larger, tougher | Spectral - translucent wisps", gold
+	StaticText "Rampage - enrages below half health", gold
+	StaticText " "
+
+	ScaleSlider "Giant", "cl_weight_Giant", 0, 10, 1, "Off"
+	ScaleSlider "Spectral", "cl_weight_Spectral", 0, 10, 1, "Off"
+	ScaleSlider "Rampage", "cl_weight_Rampage", 0, 10, 1, "Off"
+}
+
+OptionValue "cl_traits"
+{
+	-1, "off"
+	0, "Bulwark"
+	1, "Brute"
+	2, "Swift"
+	3, "Volatile"
+	4, "Toxic"
+	5, "Blink"
+	6, "Stalker"
+	7, "Splitter"
+	8, "Veteran"
+	9, "Captain"
 }

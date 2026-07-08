@@ -157,7 +157,7 @@ GiveInventory("MonsterKilled", 1);
 	}
 	//IMP-ALER
 	else if (MonsterName == "PB_InfectedImp" || MonsterName == "PB_DarkImpST" || MonsterName == "PB_DarkImpNami" || MonsterName == "PB_DarkImpVoid" || MonsterName == "PB_DarkImpNether") {
-	if (WeaponName == "Melee_Attacks" || WeaponName == "PB_Chainsaw" || WeaponName == "PB_Axe" || WeaponName == "PB_BeamKatana" || WeaponName == "PB_ArgentSith" || WeaponName == "BattleAxe" || WeaponName == "Razorjack" || WeaponName == "Fire_and_Ice-DragonSlayer" || WeaponName == "INNailGun" || WeaponName == "SuperNailgun" || WeaponName == "PB_Nailgun") {
+	if (WeaponName == "Melee_Attacks" || WeaponName == "PB_Chainsaw" || WeaponName == "PB_Axe" || WeaponName == "PB_BeamKatana" || WeaponName == "PB_ArgentSith" || WeaponName == "BattleAxe" || WeaponName == "Razorjack" || WeaponName == "INNailGun" || WeaponName == "SuperNailgun" || WeaponName == "PB_Nailgun") {
 	SetFont("bigfont");
 	HudMessage(s:"IMP-ALER"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
 	HudMessage(s:"PickAxe/Katana Melee AND +15 Points AND +15 Armor AND +15 Health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
@@ -201,7 +201,7 @@ GiveInventory("MonsterKilled", 1);
 	}
 	}
 	//Deadeye
-	else if (WeaponName == "PB_RocketLauncher" || WeaponName == "Paingiver" || WeaponName == "PBX_Prosurv_Ballista" || WeaponName == "PB_GaussCannon" || WeaponName == "PBX_Excavator" || WeaponName == "D4RocketLauncher" || WeaponName == "PB_Railgun" && DistanceToTarget >= 750) {
+	else if (WeaponName == "PB_RocketLauncher" || WeaponName == "PBX_Prosurv_Ballista" || WeaponName == "PB_GaussCannon" || WeaponName == "D4RocketLauncher" || WeaponName == "PB_Railgun" && DistanceToTarget >= 750) {
 	SetFont("bigfont");
 	HudMessage(s:"DEADEYE"; 1,96,CR_RED, 0.025, 0.745, 7.0, 0.8, 3.7);
 	HudMessage(s:"+10 points AND +10 health"; 1,100,CR_GOLD, 0.025, 0.785, 7.0, 0.8, 3.7);
@@ -214,6 +214,9 @@ GiveInventory("MonsterKilled", 1);
 script "BeginProgression" enter {
 int PlayerButton;
 str WeaponName1;
+// ZScript PB_XPRewardsHandler owns XP/rank when pb_xp_rewards is on — legacy ACS loop duplicates XP and spams rewards.
+if (GetCVar("pb_xp_rewards"))
+	terminate;
 GiveInventory("PB_XPBank", 50);
 str WeaponName2;
 	while (true) {

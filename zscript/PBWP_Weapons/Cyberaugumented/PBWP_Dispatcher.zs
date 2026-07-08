@@ -21,8 +21,18 @@ class PBWP_Dispatcher : PBWP_CA_WeaponBase
 	{
 		A_GunFlash();
 		A_WeaponOffset(frandom(-2.5, 2.5), frandom(31, 36), WOF_INTERPOLATE);
-		A_FireCustomMissile("PBWP_CA_RehauledPlasma", 0, 0);
-		A_TakeInventory("PB_Cell", 1);
+		if (CountInv("DispatcherFan") >= 1)
+		{
+			A_FireCustomMissile("PBWP_CA_RehauledPlasma", -3, 0);
+			A_FireCustomMissile("PBWP_CA_RehauledPlasma", 0, 0);
+			A_FireCustomMissile("PBWP_CA_RehauledPlasma", 3, 0);
+			A_TakeInventory("PB_Cell", 3);
+		}
+		else
+		{
+			A_FireCustomMissile("PBWP_CA_RehauledPlasma", 0, 0);
+			A_TakeInventory("PB_Cell", 1);
+		}
 		A_AlertMonsters();
 	}
 
@@ -71,7 +81,11 @@ class PBWP_Dispatcher : PBWP_CA_WeaponBase
 		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "ThrowBarrel");
 		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
 		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "ThrowIceBarrel");
-		TNT1 A 0 { return PB_jumpIfNoAmmo("Ready3", 1, false); }
+		TNT1 A 0
+		{
+			int need = (CountInv("DispatcherFan") >= 1) ? 3 : 1;
+			return PB_jumpIfNoAmmo("Ready3", need, false);
+		}
 		PLG_ BCD 1;
 		Goto FireLoop;
 
@@ -84,6 +98,15 @@ class PBWP_Dispatcher : PBWP_CA_WeaponBase
 
 		Weaponspecial:
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
+		TNT1 A 0 A_JumpIfInventory("DispatcherFan", 1, "DispatcherFanOff");
+		TNT1 A 0 A_GiveInventory("DispatcherFan", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Stream: Delusion Fan");
+		Goto Ready3;
+	DispatcherFanOff:
+		TNT1 A 0 A_TakeInventory("DispatcherFan", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Stream: Focused");
 		Goto Ready3;
 
 		Reload:
