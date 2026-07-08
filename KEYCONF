@@ -23,9 +23,10 @@ alias PBWP_MagnetModeOn "netevent PBWP_MagnetModeOn; rebind PBWP_MagnetModeOff"
 alias PBWP_MagnetModeOff "netevent PBWP_MagnetModeOff; rebind PBWP_MagnetModeOn"
 defaultbind M PBWP_MagnetModeOff
 
+alias cl_menu "openmenu mk_CLMenu"
+
 alias SwitchItUp "NetEvent SwitchItUp"
 alias BackItUp "NetEvent SwitchBack"
-alias cl_menu "openmenu mk_CLMenu"
 
 //addkeysection "Random Weapon Switch Bind" "RandomSwitchBind"
 addmenukey "Switch It Up: Random Weapon Select" 									"SwitchItUp"
@@ -41,19 +42,6 @@ alias Dash "NetEvent Dash"
 alias WallSlide "NetEvent WallSlide"
 alias GrapplingHook "NetEvent GrapplingHook"
 
-addmenukey "Leaning Movement" PBLeanToggle
-alias PBLeanToggle "netevent pb_lean_toggle"
-addmenukey "Lean Left" PBLeanLeft
-alias PBLeanLeft "+pb_lean_left"
-alias +pb_lean_left "netevent pb_lean_left"
-alias -pb_lean_left "netevent pb_unlean_left"
-addmenukey "Lean Right" PBLeanRight
-alias PBLeanRight "+pb_lean_right"
-alias +pb_lean_right "netevent pb_lean_right"
-alias -pb_lean_right "netevent pb_unlean_right"
-
-
-
 // Karnage Legacy weapon slots
 AddSlotDefault 2 HandgunG2
 AddSlotDefault 2 MP55
@@ -65,4 +53,3 @@ AddSlotDefault 6 PAGrenadelauncher
 AddSlotDefault 7 Plasmastinger
 AddSlotDefault 2 LiTRevolver
 AddSlotDefault 5 PB_HYDRA
-AddSlotDefault 5 Fire_and_Ice-DragonSlayer

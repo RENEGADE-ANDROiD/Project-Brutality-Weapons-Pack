@@ -12,6 +12,7 @@ ACTOR Thompson : PB_WeaponBase
 	States
 	{
 	NoAmmo:
+		TNT1 A 0 { return PB_jumpIfNoAmmo("Reload", 1, true, true, ""); }
 		"####" A 0 A_PlaySound("weapons/dryfire", CHAN_WEAPON)
 		"####" "#" 1 A_DoPBWeaponAction(WRF_NOFIRE)
 		Goto Ready3
@@ -193,7 +194,6 @@ Goto SelectFirstPersonLegs
 		TNT1 A 0 A_JumpIfInventory("FiredSecondary",1,"AltFire")
 		TNT1 AAA 0
 		THMA A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
-		"####" "#" 0 A_JumpIfInventory("DropIt",1,"Dropper")
 		Loop
 
 	Ready2:
@@ -215,13 +215,11 @@ Goto SelectFirstPersonLegs
 		RI2G A 0 A_JumpIfInventory("IsRunning",1,"StartSprint")
 		RI2G A 0 A_TakeInventory("UsedStamina", 2)
 		THMI C 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
-		"####" "#" 0 A_JumpIfInventory("DropIt",1,"Dropper")
 		Loop
 
 	Deselect:
 		THMA A 0 A_Takeinventory("Zoomed",1)
 		THMA A 0 A_Takeinventory("ADSmode",1)
-		AKMG A 0 A_TakeInventory("DropIt", 1)
 		THMA A 0 A_TakeInventory("TossGrenade", 1)
 		THMA A 0 A_TakeInventory("Kicking",1)
 		THMA A 0 A_TakeInventory("Taunting",1)
@@ -239,7 +237,6 @@ Goto SelectFirstPersonLegs
 		TNT1 A 0 A_Lower(120)
 		Wait
 
-
 	Salute:
 		TNT1 A 0 A_AlertMonsters
 		SALU ABCDEDCDEDCDEDCBA 4
@@ -248,23 +245,17 @@ Goto SelectFirstPersonLegs
 		Goto Ready3
 	Fire:
 		TNT1 A 0 { return PB_FireExecuteCheck(); }
+		TNT1 A 0 { return PB_jumpIfNoAmmo("Reload", 1, true, true); }
 		THMI C 0 A_JumpIfInventory("Zoomed",1,13)
 		THMA A 0
 		"####" "#" 0 A_JumpIfInventory("NoReloading",1,"NoReload")
 		//"####" A 0 A_TakeInventory("IsInspecting",1)
 		"####" "#" 0 A_JumpIfInventory("ThompsonAmmo",1,1)
 		Goto NoAmmo
-		"####" "#" 0 A_JumpIfInventory("VietDoomDurabilityDisabled", 1, 3)
-		"####" "#" 0 A_JumpIfInventory("ThompsonDurability",1,1)
-		Goto GunBroken
-		"####" "#" 0
-		"####" "#" 0 A_JumpIfInventory("ThompsonDurability",35,2)
-		"####" "#" 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
-		"####" "#" 0
 		"####" "###" 0
+		"####" "#" 0 { PB_LowAmmoSoundWarning("smg"); }
 		"####" "#" 0 A_Takeinventory("ThompsonAmmo",1)
 		"####" "#" 0 A_JumpIfInventory("ThompsonAmmo",5,2)
-		"####" "#" 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
 		"####" "###" 0
 		Goto ResumeFireFrame
 		"####" "#" 0 A_JumpIfInventory("ThompsonAmmo",1,1)
@@ -286,14 +277,29 @@ Goto SelectFirstPersonLegs
 		THMA A 0 A_JumpIfInventory("Zoomed",1,"Fire2")
 		THMA "#" 0 A_SpawnItemEx("PlayerMuzzle1",30,5,30)
 		THMA "#" 0 { PB_GunSmoke(0,0,0); }
-		THMF A 1 BRIGHT { PB_LowAmmoSoundWarning("smg"); PB_FireBullets("PB_45ACP", 1, 4, 0, 0, 3); }
+		THMF A 1 BRIGHT
+		{
+			if (CountInv("ThompsonDump") >= 1)
+			{
+				PB_FireBullets("PB_45ACP", 1, 6, 0, 0, 5);
+			}
+			else
+			{
+				PB_FireBullets("PB_45ACP", 1, 4, 0, 0, 3);
+			}
+		}
 		THMA "#" 0 A_Quake(2,2,0,3,"")
 		THMA B 0 A_FireCustomMissile("PistolCaseSpawn",5,0,6,-14)
 		THMA B 0 A_ZoomFactor(0.96)
 		THMA A 0 A_SetPitch(pitch-1.0)
 		THMF B 1 
 		TNT1 A 0 A_ZoomFactor(1.0)
+		THMA A 0 A_JumpIfInventory("ThompsonDump", 1, "ThompsonDumpRefire")
 		THMF C 1 A_SetPitch(Pitch+0.5)
+		THMA A 0 A_Refire
+		Goto Ready
+	ThompsonDumpRefire:
+		THMA A 0 A_SetAngle(angle + frandom(-1.5, 1.5))
 		THMA A 0 A_Refire
 		Goto Ready
 
@@ -306,7 +312,7 @@ Goto SelectFirstPersonLegs
 		THMA A 0 A_SpawnItemEx("PlayerMuzzle1",30,0,45)
 		THMA A 0 { PB_GunSmoke(0,0,0); }
 		THMA A 0 A_ZoomFactor(1.14)
-		THMI d 1 BRIGHT { PB_LowAmmoSoundWarning("smg"); PB_FireBullets("PB_45ACP", 1, 3, 0, 0, 2); }
+		THMI d 1 BRIGHT { PB_FireBullets("PB_45ACP", 1, 3, 0, 0, 2); }
 		THMA A 0 A_SetPitch(pitch-1.0)
 		THMI e 1 A_ZoomFactor(1.2) 
 		THMi F 1 A_SetPitch(Pitch+0.25)
@@ -325,6 +331,27 @@ Goto SelectFirstPersonLegs
 		RI2G A 0
 		Goto Ready2
 
+	WeaponSpecial:
+		TNT1 A 0 {
+			A_TakeInventory("GoWeaponSpecialAbility", 1);
+			A_TakeInventory("Zoomed", 1);
+			A_TakeInventory("ADSmode", 1);
+			A_TakeInventory("ZoomHold", 1);
+			A_ZoomFactor(1.0);
+		}
+		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 A_JumpIfInventory("ThompsonDump", 1, "ThompsonDumpOff")
+		TNT1 A 0 A_GiveInventory("ThompsonDump", 1)
+		TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+		TNT1 A 0 A_Print("Drum: Typewriter Dump")
+		Goto Ready3
+	ThompsonDumpOff:
+		TNT1 A 0 A_TakeInventory("ThompsonDump", 1)
+		TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+		TNT1 A 0 A_Print("Drum: Standard")
+		Goto Ready3
 	AltFire:
 		THMA A 0
 		2IFG A 0 A_JumpIfInventory("IsPlayingAsPurist", 1,"PuristWarning")
@@ -491,7 +518,6 @@ Goto SelectFirstPersonLegs
 		THMA A 0 A_ClearReFire
 		THMA A 0 { PB_SetMagUnloaded(false); }
 
-
 		THMA A 1 A_DoPBWeaponAction(WRF_NOBOB|WRF_NOFIRE|WRF_ALLOWZOOM)
 		Goto ReloadConcluded
 
@@ -551,9 +577,7 @@ Goto SelectFirstPersonLegs
 		//THMA A 0 A_Giveinventory("DoubleThompsonAmmo",1)
 		THMA A 0 { PB_SetMagUnloaded(false); }
 
-
 		//THMA A 0 { PB_SetMagUnloaded(false); }
-
 
 		THMA A 0 A_Takeinventory("PB_LowCalMag",1,TIF_NOTAKEINFINITE)
 		Goto InsertBullets
@@ -599,9 +623,7 @@ Goto SelectFirstPersonLegs
 		//THMA A 0 A_Takeinventory("DoubleThompsonAmmo",1)
 		THMA A 0 { PB_SetMagUnloaded(true); }
 
-
 		//THMA A 0 { PB_SetMagUnloaded(true); }
-
 
 		THMA A 0 A_Giveinventory("PB_LowCalMag",1)
 		Goto RemoveBullets
@@ -609,134 +631,11 @@ Goto SelectFirstPersonLegs
 		THMr MLKJIIIIIIBA 1
 		THMA A 0 A_Takeinventory("Unloading",1)
 		Goto Ready3
-	GunBroken:
-		"####" "#" 0
-		"####" "#" 0 A_TakeInventory("BurstCounter", 0x7FFFFFFF)
-		"####" "#" 0 A_Takeinventory("Zoomed",1)
-		"####" "#" 0 A_Takeinventory("ADSmode",1)
-		"####" "#" 0 A_ZoomFactor(1.0)
-		"####" "#" 1 offset(0,34)
-		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
-		"####" "#" 1 offset(0,33)
-		"####" "#" 1 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
-		"####" "#" 0 A_Print("Your gun has been destroyed!\n\n\n\n\n\n\n")
-		"####" "#" 0 A_GiveInventory("ThompsonDestroyed", 1)
-		"####" "#" 0 A_PlaySound("DSBRK2")
-		"####" "#" 0 A_Quake(4,5,0,12,"")
-		"####" "##" 0 A_CustomMissile("MetalShard1", 20, 0, random(-30, 30), 2, random(-10, 25))
-		"####" "#" 0 A_SpawnItemEx("PlayerMuzzle1",30,0,45)
-		"####" "#" 0 A_FireCustomMissile("DistantFireSoundShotgun", random(-1,1), 0, 0, -12, 0, random(-1,1))
-		"####" "#######" 0 A_CustomMissile("Shotgunparticles2", 20, 0, random(-30, 30), 2, random(-10, 25))
-		"####" "#######" 0 A_CustomMissile("Shotgunparticles", 20, 0, random(-35, 35), 2, random(-10, 25))
-		"####" "##" 0 A_CustomMissile ("MetalShard2", 20, 0, random(-30, 30), 2, random(-10, 25))
-		"####" "####" 0 A_CustomMissile ("WoodParticle", 20, 0, random(-30, 30), 2, random(-10, 25))
-		"####" "#" 0 A_CustomMissile("ExplosionParticle", 20, 0, random(-10, 10), 2, random(-10, 25))
-		"####" "##" 0 A_CustomMissile ("MetalShard3", 20, 0, random(-30, 30), 2, random(-10, 25))
-		"####" "#" 0 A_FireCustomMissile("SmokeSpawner",0,0,0,5)
-		TNT1 A 0 A_GiveInventory("DropThompson", 1)
-		TNT1 A 0 A_TakeInventory("DropIt", 1)
-		TNT1 A 0 A_SelectWeapon("Dropper")
-		Stop
-
-	JamChanceHigh:
-		"####" "#" 0 A_Jump(8, "ClearJam")
-		Goto ResumeFireFrame
-
-	JamChanceMid:
-		"####" "#" 0 A_Jump(6, "ClearJam")
-		Goto ResumeFireFrame
-
-	JamChanceLow:
-		"####" "#" 0 A_Jump(4, "ClearJam")
-		Goto ResumeFireFrame
-
-	ClearJam:
-		THMA a 0
-		"####" "#" 0
-		"####" "#" 0 A_TakeInventory("BurstCounter", 0x7FFFFFFF)
-		"####" "#" 0 A_Takeinventory("Zoomed",1)
-		"####" "#" 0 A_Takeinventory("ADSmode",1)
-		"####" "#" 0 A_ZoomFactor(1.0)
-		"####" "#" 0 A_ClearReFire
-		"####" "#" 1 offset(0,34)
-		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
-		"####" "#" 1 offset(0,33)
-		"####" "#" 2 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
-		"####" "#" 1 A_ClearReFire
-		THMA A 4		
-		THMC ABCDEEEFGHHHI 1
-		2IFR A 0 A_PlaySound("Rifle/Bolt2", 5)
-		THMI e 0 A_FireCustomMissile("PistolCaseSpawn",1,0,8,0)
-		THMC JJJJJKLLLLMNB 1
-		THMA A 3
-		Goto Ready
-
-	PrintConditionTrash:
-		"####" "#" 0 A_Print("Condition: \crTrash\n\n\n\n\n\n\n")
-		Goto Inspect2CarryOn
-
-	PrintConditionBroken:
-		"####" "#" 0 A_Print("Condition: \cgBroken\n\n\n\n\n\n\n")
-		Goto Inspect2CarryOn
-
-	PrintConditionAlmostBroken:
-		"####" "#" 0 A_Print("Condition: \cgAlmost Broken\n\n\n\n\n\n\n")
-		Goto Inspect2CarryOn
-
-	PrintConditionCritical:
-		"####" "#" 0 A_Print("Condition: \caCritical\n\n\n\n\n\n\n")
-		Goto Inspect2CarryOn
-
-	PrintConditionBad:
-		"####" "#" 0 A_Print("Condition: \caBad\n\n\n\n\n\n\n")
-		Goto Inspect2CarryOn
-
-	PrintConditionHeavilyWorn:
-		"####" "#" 0 A_Print("Condition: \ciHeavily Worn\n\n\n\n\n\n\n")
-		Goto Inspect2CarryOn
-
-	PrintConditionWorn:
-		"####" "#" 0 A_Print("Condition: \ciWorn\n\n\n\n\n\n\n")
-		Goto Inspect2CarryOn
-
-	PrintConditionFair:
-		"####" "#" 0 A_Print("Condition: \ckFair\n\n\n\n\n\n\n")
-		Goto Inspect2CarryOn
-
-	PrintConditionGood:
-		"####" "#" 0 A_Print("Condition: \cdGood\n\n\n\n\n\n\n")
-		Goto Inspect2CarryOn
-
-	PrintConditionVeryGood:
-		"####" "#" 0 A_Print("Condition: \cdVery Good\n\n\n\n\n\n\n")
-		Goto Inspect2CarryOn
-
-	PrintConditionExcellent:
-		"####" "#" 0 A_Print("Condition: \cdExcellent\n\n\n\n\n\n\n")
-		Goto Inspect2CarryOn
-
-	PrintConditionPristine:
-		"####" "#" 0 A_Print("Condition: \cCPristine\n\n\n\n\n\n\n")
-
-	Inspect2CarryOn:
-		"####" "#" 0 A_GiveInventory("HoldInspect",1)
-
-	Dropper:
-		GLOA A 0 A_JumpIfInventory("VietDoomDurabilityDisabled", 1,"Ready")
-		919A A 0 A_Takeinventory("Zoomed",1)
-		919A A 0 A_Takeinventory("ADSmode",1)
-		919A A 0 A_ZoomFactor(1.0)
-		TNT1 A 0 A_GiveInventory("DropThompson", 1)
-		TNT1 A 0 A_TakeInventory("DropIt", 1)
-		TNT1 A 0 A_SelectWeapon("Dropper")
-		Stop
-
 	Spawn:
 		M1TM P 1
 		M1TM P 1 A_SpawnItemEx ("ThompsonSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION | SXF_TRANSFERAMBUSHFLAG ,0)
 		Stop
 }
-
 
 }
 ACTOR ThompsonAmmo : Ammo
@@ -774,8 +673,6 @@ ACTOR ThompsonPickUp: BDWeaponSpawner
 		P3ST A 0 A_JumpIfInventory("Thompson", 1, "AmmoOnly")
 	PickupNormal:
 		P3ST A 0 A_GiveInventory("Thompson", 1)
-		P3ST A 0 A_JumpIfInventory("VietDoomDurabilityDisabled", 1, 1)
-		P3ST A 0 A_GiveInventory("ThompsonDurability", 600)
 		P3ST A 0 A_Giveinventory("PB_LowCalMag", 10)
 		Stop
 
@@ -787,547 +684,3 @@ ACTOR ThompsonPickUp: BDWeaponSpawner
 }
 
 }
-
-Actor ThompsonDestroyed : bd_Token {}
-
-ACTOR ThompsonPickUpHC: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	scale 0.88
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		M1TM P 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		M1TM P -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("Thompson", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceThompson! \c-(Bulk: 4)\n Condition: \cCPristine")
-		TNT1 A 0 A_GiveInventory("Thompson", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
-		TNT1 A 0 A_GiveInventory("ThompsonDurability", 600)
-		TNT1 A 0 A_SelectWeapon("Thompson")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR ThompsonPickUpHC_90: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	scale 0.88
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		M1TM P 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		M1TM P -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("Thompson", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceThompson! \c-(Bulk: 4)\n Condition: \cDExcellent")
-		TNT1 A 0 A_GiveInventory("Thompson", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
-		TNT1 A 0 A_GiveInventory("ThompsonDurability", random(540,599))
-		TNT1 A 0 A_SelectWeapon("Thompson")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_90")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_90")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR ThompsonPickUpHC_80: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	scale 0.88
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		M1TM P 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		M1TM P -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("Thompson", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceThompson! \c-(Bulk: 4)\n Condition: \cDVery Good")
-		TNT1 A 0 A_GiveInventory("Thompson", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
-		TNT1 A 0 A_GiveInventory("ThompsonDurability", random(480,539))
-		TNT1 A 0 A_SelectWeapon("Thompson")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_80")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_80")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR ThompsonPickUpHC_70: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	scale 0.88
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		M1TM P 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		M1TM P -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("Thompson", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceThompson! \c-(Bulk: 4)\n Condition: \cDGood")
-		TNT1 A 0 A_GiveInventory("Thompson", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
-		TNT1 A 0 A_GiveInventory("ThompsonDurability", random(420,479))
-		TNT1 A 0 A_SelectWeapon("Thompson")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_70")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_70")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR ThompsonPickUpHC_60: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	scale 0.88
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		M1TM P 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		M1TM P -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("Thompson", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceThompson! \c-(Bulk: 4)\n Condition: \cKFair")
-		TNT1 A 0 A_GiveInventory("Thompson", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
-		TNT1 A 0 A_GiveInventory("ThompsonDurability", random(360,419))
-		TNT1 A 0 A_SelectWeapon("Thompson")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_60")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_60")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR ThompsonPickUpHC_50: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	scale 0.88
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		M1TM P 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		M1TM P -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("Thompson", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceThompson! \c-(Bulk: 4)\n Condition: \ciWorn")
-		TNT1 A 0 A_GiveInventory("Thompson", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
-		TNT1 A 0 A_GiveInventory("ThompsonDurability", random(300,359))
-		TNT1 A 0 A_SelectWeapon("Thompson")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_50")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_50")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR ThompsonPickUpHC_40: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	scale 0.88
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		M1TM P 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		M1TM P -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("Thompson", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceThompson! \c-(Bulk: 4)\n Condition: \ciHeavily Worn")
-		TNT1 A 0 A_GiveInventory("Thompson", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
-		TNT1 A 0 A_GiveInventory("ThompsonDurability", random(240,299))
-		TNT1 A 0 A_SelectWeapon("Thompson")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_40")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_40")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR ThompsonPickUpHC_30: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	scale 0.88
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		M1TM P 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		M1TM P -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("Thompson", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceThompson! \c-(Bulk: 4)\n Condition: \caBad")
-		TNT1 A 0 A_GiveInventory("Thompson", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
-		TNT1 A 0 A_GiveInventory("ThompsonDurability", random(180,239))
-		TNT1 A 0 A_SelectWeapon("Thompson")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_30")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_30")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR ThompsonPickUpHC_20: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	scale 0.88
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		M1TM P 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		M1TM P -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("Thompson", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceThompson! \c-(Bulk: 4)\n Condition: \caCritical")
-		TNT1 A 0 A_GiveInventory("Thompson", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
-		TNT1 A 0 A_GiveInventory("ThompsonDurability", random(120,179))
-		TNT1 A 0 A_SelectWeapon("Thompson")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_20")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_20")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR ThompsonPickUpHC_10: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	scale 0.88
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		M1TM P 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		M1TM P -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("Thompson", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceThompson! \c-(Bulk: 4)\n Condition: \cgAlmost Broken")
-		TNT1 A 0 A_GiveInventory("Thompson", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
-		TNT1 A 0 A_GiveInventory("ThompsonDurability", random(60,119))
-		TNT1 A 0 A_SelectWeapon("Thompson")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_10")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_10")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR ThompsonPickUpHC_5: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	scale 0.88
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		M1TM P 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		M1TM P -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("Thompson", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceThompson! \c-(Bulk: 4)\n Condition: \cgBroken")
-		TNT1 A 0 A_GiveInventory("Thompson", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
-		TNT1 A 0 A_GiveInventory("ThompsonDurability", random(30,59))
-		TNT1 A 0 A_SelectWeapon("Thompson")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_5")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_5")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR ThompsonPickUpHC_trash: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	scale 0.88
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		M1TM P 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		M1TM P -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("Thompson", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceThompson! \c-(Bulk: 4)\n Condition: \crTrash")
-		TNT1 A 0 A_GiveInventory("Thompson", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 4)
-		TNT1 A 0 A_GiveInventory("ThompsonDurability", random(1,29))
-		TNT1 A 0 A_SelectWeapon("Thompson")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_trash")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("ThompsonPickUpHC_trash")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-

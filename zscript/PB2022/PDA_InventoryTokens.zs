@@ -13,11 +13,6 @@ class XM21HasBallistics : Inventory { Default { Inventory.MaxAmount 1; } }
 class LeverActionHellMode : Inventory { Default { Inventory.MaxAmount 1; } }
 class Select_LeverAction_Marlin : Inventory { Default { Inventory.MaxAmount 1; } }
 
-class PB_CryoShotgun_Pellet : Inventory { Default { Inventory.MaxAmount 1; } }
-class PB_CryoShotgun_Electric : Inventory { Default { Inventory.MaxAmount 1; } }
-class PB_CryoShotgun_Orb : Inventory { Default { Inventory.MaxAmount 1; } }
-class PB_CryoShotgun_Wind : Inventory { Default { Inventory.MaxAmount 1; } }
-
 // QuadAkimboMode — DECORATE: actors/Weapons/Slot3/QUADBARREL.dec
 class PB_DMR_GravityAltMode : Inventory { Default { Inventory.MaxAmount 1; } }
 class Select_PB_DMR_SuperBall : Inventory { Default { Inventory.MaxAmount 1; } }
@@ -31,14 +26,7 @@ class HellPistolerBeamMode : Inventory { Default { Inventory.MaxAmount 1; } }
 class FireModeCryoRifleBeam : Inventory { Default { Inventory.MaxAmount 1; } }
 class FireModeAcidGun : Inventory { Default { Inventory.MaxAmount 1; } }
 
-// PB_WeaponTacticalFeel_Inventory / PB_CryoShotgun — Staging tokens not visible to PBWP ZScript TU
-class PlayerIsThrowingAMolotovCocktail : Inventory { Default { Inventory.MaxAmount 1; } }
-// DoShoulderCannon — stub in BaseWeapon_Functions.zsc; Glory Kills replaces behavior when loaded
-class HasBurningBarrel : Inventory { Default { Inventory.MaxAmount 1; } }
-class GrabbedBurningBarrel : Inventory { Default { Inventory.MaxAmount 1; } }
 class HasFreezerWeapon : Inventory { Default { Inventory.MaxAmount 1; } }
-class PB_CryoCells : Ammo { Default { Inventory.MaxAmount 300; } }
-class PB_CryoCannonCells : Ammo { Default { Inventory.MaxAmount 120; } }
 class GotAPack_h : Inventory { Default { Inventory.MaxAmount 1; } }
 class GotAPack : Inventory { Default { Inventory.MaxAmount 1; } }
 class NewShell : Ammo { Default { Inventory.MaxAmount 2; } }

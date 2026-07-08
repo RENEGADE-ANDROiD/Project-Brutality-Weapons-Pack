@@ -154,7 +154,6 @@ class PB_AchievementCombatHandler : EventHandler
 
 		if (inf is "PB_Rocket" || inf is "Rocket"
 			|| inf is "RocketExplosion"
-			|| inf is "SeekerRocket"
 			|| inf is "HandGrenadeExplosion" || inf is "GrenadeExplosion"
 			|| inf is "ExcavatorExplosion" || inf is "StickyExplosion"
 			|| inf is "ImpactGrenadeExplosion")
@@ -183,8 +182,8 @@ class PB_AchievementCombatHandler : EventHandler
 
 	static int ClassifyWeaponClass(Name wpn)
 	{
-		if (wpn == 'PB_RocketLauncher' || wpn == 'PB_SuperGL' || wpn == 'PB_Excavator'
-			|| wpn == 'Paingiver' || wpn == 'PB_CF_RocketLauncher'
+		if (wpn == 'PB_RocketLauncher' || wpn == 'PB_SuperGL'
+			|| wpn == 'PB_CF_RocketLauncher'
 			|| wpn == 'MastermindChaingun' || wpn == 'PB_CyberdemonRL')
 			return PB_MK_EXPLOSIVE;
 
@@ -199,7 +198,7 @@ class PB_AchievementCombatHandler : EventHandler
 			return PB_MK_SNIPER;
 
 		if (wpn == 'PB_PlasmaGun' || wpn == 'PB_M2Plasma' || wpn == 'PB_DarkMatterRifle'
-			|| wpn == 'ChexRifle' || wpn == 'PB_CryoShotgun')
+			|| wpn == 'ChexRifle')
 			return PB_MK_PLASMA;
 
 		if (wpn == 'WW_FreezenadeSelected')

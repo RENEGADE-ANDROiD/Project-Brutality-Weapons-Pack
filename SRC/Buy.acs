@@ -160,10 +160,6 @@ Script "BuyRotationalSG" (Void) {
 BuySomething(800, "RotationalSG", 1);
 }
 
-Script "BuyCryoShotgun" (Void) {
-BuySomething(650, "PB_CryoShotgun", 1);
-}
-
 Script "BuyDoom2016Shotgun" (Void) {
 BuySomething(500, "PB_Doom2016Shotgun", 1);
 }
@@ -228,9 +224,11 @@ Script "BuyINNailGun" (Void) {
 BuySomething(650, "INNailGun", 1);
 }
 
+/*
 Script "BuyDragonSlayer" (Void) {
 BuySomething(1000, "Fire_and_Ice-DragonSlayer", 1);
 }
+*/
 
 Script "BuyDukeNukemRipper" (Void) {
 BuySomething(800, "DukeNukemRipper", 1);
@@ -252,20 +250,12 @@ Script "BuySuperGrenadeLauncher" (Void) {
 BuySomething(500, "SuperGrenadeLauncher", 1);
 }
 
-Script "BuyExcavator" (Void) {
-BuySomething(800, "PBX_Excavator", 1);
-}
-
 Script "BuyCyberdemonsMissileLauncher" (Void) {
 BuySomething(900, "PBX_CyberdemonRL", 1);
 }
 
 Script "BuyMastermindChaingun" (Void) {
 BuySomething(600, "PBX_MastermindChaingun", 1);
-}
-
-Script "BuyPaingiver" (Void) {
-BuySomething(700, "Paingiver", 1);
 }
 
 Script "BuyD4RocketLauncher" (Void) {

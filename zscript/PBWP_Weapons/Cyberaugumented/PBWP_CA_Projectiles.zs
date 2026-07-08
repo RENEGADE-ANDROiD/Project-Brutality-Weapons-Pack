@@ -465,6 +465,41 @@ class PBWP_CA_Grenade : Rocket
 	}
 }
 
+// Intervention Micro-Yield — slower, fatter sticky blast.
+class PBWP_CA_MicroYieldGrenade : PBWP_CA_Grenade
+{
+	Default
+	{
+		Speed 22;
+		Damage 35;
+		Scale 0.65;
+		Gravity 0.28;
+		BounceFactor 0.15;
+		WallBounceFactor 0.15;
+	}
+	States
+	{
+	Death:
+		MNAD A 1 Bright;
+		NBKL D 2 Bright
+		{
+			A_Explode(220, 192);
+			A_SpawnItem("PBWP_CA_GrenadePuff");
+			bNoGravity = true;
+			A_QuakeEx(3, 3, 3, 28, 0, 600, "none", QF_SCALEDOWN | QF_3D);
+		}
+		NBKL E 2 Bright
+		{
+			for (int i = 5; i > 0; i--)
+				A_SpawnItemEx("PBWP_CA_ExplosionSmall", frandom(-6, 6), frandom(-6, 6), frandom(-3, 3),
+					frandom(-0.5, 0.5), frandom(-0.5, 0.5), frandom(-0.5, 0.5), frandom(0, 360),
+					SXF_NOCHECKPOSITION);
+		}
+		NBKL FGHIJKLM 2 Bright;
+		Stop;
+	}
+}
+
 class PBWP_CA_BFGSpheroid : Rocket
 {
 	Default
@@ -901,6 +936,177 @@ class PBWP_CA_DeracinatorBolt : Rocket
 		}
 		BF4X D 2 Bright { A_BFGSpray("PBWP_CA_BFGExtra", damagecnt: 20); }
 		BF4X EEFFGG 2 Bright;
+		Stop;
+	}
+}
+
+// Deracinator Root Spike — arcing ground-seeking blast.
+class PBWP_CA_RootSpike : PBWP_CA_DeracinatorBolt
+{
+	Default
+	{
+		Speed 28;
+		-NOGRAVITY;
+		Gravity 0.6;
+	}
+	States
+	{
+	Death:
+		BF4X A 1 Bright
+		{
+			A_SpawnItem("PBWP_CA_BfgGreenPuff");
+			A_Explode(180, 160);
+			for (int i = 0; i < 6; i++)
+				A_SpawnItemEx("PBWP_CA_ElecDeathBurst", frandom(-16, 16), frandom(-16, 16), frandom(0, 8),
+					flags: SXF_NOCHECKPOSITION | SXF_TRANSFERTRANSLATION, 40);
+		}
+		BF4X D 2 Bright;
+		BF4X EEFFGG 2 Bright;
+		Stop;
+	}
+}
+
+// Amnesia Memory Wipe — short-range stun/confuse pulse.
+class PBWP_CA_MemoryWipePulse : Actor
+{
+	Default
+	{
+		+MISSILE;
+		+BRIGHT;
+		+NOGRAVITY;
+		+FORCEPAIN;
+		Radius 12;
+		Height 12;
+		Speed 18;
+		Damage 40;
+		RenderStyle "Add";
+		Alpha 0.75;
+		Scale 1.4;
+		Translation "0:255=%[0.00,0.00,0.00]:[1.03,2.00,0.70]";
+		DeathSound "DCYBFGX/Explode";
+		DamageType "BFG";
+	}
+	States
+	{
+	Spawn:
+		BF3X ABCB 1 Bright
+		{
+			A_Explode(25, 96, XF_NOTMISSILE);
+			A_SpawnParticle(0xc9ffa3, SPF_FULLBRIGHT, random(12, 20), random(8, 14), frandom(0, 360),
+				frandom(-2, 2), frandom(-2, 2), frandom(-2, 2), fadestepf: 0.05, sizestep: 0.3);
+		}
+		BF3X ABCB 1 Bright;
+		Goto Death;
+	Death:
+		BF4X A 1 Bright
+		{
+			A_SetBlend("Green", 0.45, 18);
+			A_Explode(120, 220, XF_NOTMISSILE);
+			A_RadiusThrust(800, 256, RTF_NOIMPACTDAMAGE | RTF_NOTMISSILE);
+			A_BFGSpray("PBWP_CA_BFGExtra", damagecnt: 12);
+			A_SpawnItem("PBWP_CA_BfgGreenPuff");
+		}
+		BF4X BCDEFG 2 Bright;
+		Stop;
+	}
+}
+
+// Cinereal Ash Storm — seed that blooms into a lingering DoT cloud.
+class PBWP_CA_AshStormSeed : FastProjectile
+{
+	Default
+	{
+		+BRIGHT;
+		+NOGRAVITY;
+		Damage 5;
+		Speed 40;
+		Radius 8;
+		Height 8;
+		RenderStyle "Add";
+		Alpha 0.5;
+		Scale 0.6;
+		Translation "80:111=[138,138,138]:[0,0,0]", "0:255=%[0.00,0.00,0.00]:[0.31,0.31,0.31]";
+	}
+	States
+	{
+	Spawn:
+		TRAC A 2 Bright;
+		Loop;
+	Death:
+		TNT1 A 0 A_SpawnItemEx("PBWP_CA_AshStormCloud", 0, 0, 8, flags: SXF_NOCHECKPOSITION);
+		Stop;
+	}
+}
+
+class PBWP_CA_AshStormCloud : Actor
+{
+	Default
+	{
+		+NOGRAVITY;
+		+NOBLOCKMAP;
+		+DONTSPLASH;
+		+BRIGHT;
+		RenderStyle "Add";
+		Alpha 0.35;
+		Scale 2.0;
+		Translation "80:111=[138,138,138]:[0,0,0]", "0:255=%[0.00,0.00,0.00]:[0.31,0.31,0.31]";
+	}
+	States
+	{
+	Spawn:
+		TNT1 A 0 NoDelay A_SetScale(2.2, 2.2);
+		EF2_ AAAAAAAA 3 Bright
+		{
+			A_Explode(8, 112, XF_NOTMISSILE);
+			A_SpawnParticle(0xaaaaaa, SPF_FULLBRIGHT, random(20, 35), random(10, 18), frandom(0, 360),
+				frandom(-24, 24), frandom(-24, 24), frandom(0, 16),
+				0, 0, frandom(0.2, 0.8), fadestepf: 0.03, sizestep: 0.15);
+			A_FadeOut(0.02);
+		}
+		Stop;
+	}
+}
+
+// Sirius Crisis Flare — blinding softener round.
+class PBWP_CA_CrisisFlare : FastProjectile
+{
+	Default
+	{
+		+BRIGHT;
+		+FORCEPAIN;
+		+FORCERADIUSDMG;
+		Damage 20;
+		Speed 90;
+		Radius 14;
+		Height 14;
+		Scale 0.9;
+		RenderStyle "Add";
+		Alpha 0.9;
+		Translation "0:255=%[0.00,0.00,0.00]:[1.06,1.66,1.83]";
+		DamageType "Plasma";
+		DeathSound "SiriusBFG/Fire";
+	}
+	States
+	{
+	Spawn:
+		TRAC E 1 Bright
+		{
+			A_SpawnParticle(0x88ddff, SPF_FULLBRIGHT, random(10, 18), random(6, 12), frandom(0, 360),
+				frandom(-2, 2), frandom(-2, 2), frandom(-2, 2), fadestepf: 0.06, sizestep: 0.25);
+		}
+		Loop;
+	Death:
+		TNT1 A 0
+		{
+			A_SetBlend("White", 0.7, 24, "Cyan");
+			A_Explode(80, 280, XF_NOTMISSILE);
+			A_RadiusThrust(400, 300, RTF_NOIMPACTDAMAGE | RTF_NOTMISSILE);
+			for (int i = 0; i < 10; i++)
+				A_SpawnItemEx("PBWP_CA_SiriusSmoke", frandom(-8, 8), frandom(-8, 8), frandom(-8, 8),
+					frandom(-4, 4), frandom(-4, 4), frandom(-4, 4), frandom(0, 360), SXF_NOCHECKPOSITION);
+			A_QuakeEx(3, 3, 3, 25, 0, 500, "none", QF_SCALEDOWN);
+		}
+		TNT1 AAAAA 3 { A_Explode(15, 220, XF_NOTMISSILE); }
 		Stop;
 	}
 }
@@ -1460,53 +1666,6 @@ class PBWP_CA_NapalmGrenade : PBWP_CA_Grenade
 					SXF_NOCHECKPOSITION);
 		}
 		NBKL FGHIJKLM 2 Bright;
-		Stop;
-	}
-}
-
-// Legionnaire — upstream DCY_OverhauledRocket fold
-class PBWP_CA_LegionnaireRocket : Rocket
-{
-	Default
-	{
-		DamageType "Explosive";
-		Speed 32;
-		Damage 20;
-		Radius 11;
-		Height 8;
-		Scale 1.2;
-		+DEHEXPLOSION;
-		+RANDOMIZE;
-		SeeSound "RocketLauncher/Kaboom";
-		DeathSound "Explod";
-		RenderStyle "Normal";
-	}
-	States
-	{
-	Spawn:
-		NMSL A 1 Bright
-		{
-			if ((level.time % 3) == 0)
-			{
-				A_SpawnParticle(0xff3e1f, SPF_FULLBRIGHT | SPF_RELATIVE, random(20, 35), random(4, 8),
-					frandom(0, 360), frandom(-1, 1), frandom(-1, 1), frandom(-1, 1), fadestepf: 0.05, sizestep: -0.2);
-				A_SpawnItemEx("PBWP_CA_GrenadeFlare", frandom(-2.5, 2.5), frandom(-2.5, 2.5), frandom(-2.5, 2.5),
-					flags: SXF_NOCHECKPOSITION);
-			}
-		}
-		Loop;
-	Death:
-		TNT1 A 0;
-		TNT1 A 5 Bright
-		{
-			A_Explode(128, 128);
-			A_SpawnItem("PBWP_CA_GrenadePuff");
-			A_QuakeEx(2, 2, 2, 20, 0, 200, "none", QF_SCALEDOWN);
-			for (int i = 0; i < 3; i++)
-				A_SpawnItemEx("PBWP_CA_ExplosionSmall", frandom(-5, 5), frandom(-5, 5), frandom(-2, 2),
-					frandom(-0.85, 0.85), frandom(-0.85, 0.85), frandom(-0.85, 0.85), frandom(0, 360),
-					SXF_NOCHECKPOSITION);
-		}
 		Stop;
 	}
 }

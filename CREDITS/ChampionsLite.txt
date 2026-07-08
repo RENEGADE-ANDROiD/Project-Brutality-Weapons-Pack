@@ -1,0 +1,9 @@
+Champions Lite — Monster Enhancement (folded into PBWP)
+
+Trimmed fork of Champions Enemies for universal Doom/Heretic/Hexen use (UZDoom 4.14+).
+
+Explosion / projectile / glow / pentagram sprites — Freedoom (Amuscaria) / original Champions Enemies.
+ZScript source: MIT (see Champions Lite repository LICENSE).
+
+Traits: Bulwark, Brute, Swift, Volatile, Toxic, Blink, Stalker, Splitter, Veteran, Captain.
+Mutations: Giant, Spectral, Rampage.

@@ -18,14 +18,17 @@ class PBWP_Dismantler : PBWP_CA_WeaponBase
 		Inventory.PickupMessage "Now you hold the Dismantler. Sacred incineration.";
 		Inventory.PickupSound "VeneratedTruncheon/Pickup";
 		Weapon.UpSound "VeneratedTruncheon/Up";
-		Inventory.Icon "LTBRA0";
-		Inventory.AltHudIcon "LTBRA0";
+		Inventory.Icon "LTBRZ0";
+		Inventory.AltHudIcon "LTBRZ0";
 		Obituary "%o was incinerated by %k's Dismantler.";
 	}
 
 	action void PBWP_DismantlerBeam()
 	{
-		A_FireCustomMissile("PBWP_CA_VeneratedBeam", frandom(-10, 10), 0);
+		double spread = (CountInv("DismantlerDisassemble") >= 1) ? 3.0 : 10.0;
+		A_FireCustomMissile("PBWP_CA_VeneratedBeam", frandom(-spread, spread), 0);
+		if (CountInv("DismantlerDisassemble") >= 1)
+			A_FireCustomMissile("PBWP_CA_VeneratedBeam", frandom(-1.5, 1.5), 0);
 		A_QuakeEx(3, 3, 3, 15, 0, 1000, "", QF_SCALEDOWN, falloff: 1600);
 		if ((level.time % 2) == 1) PB_TakeAmmo("PBWP_DismantlerMag", 1, 0, 0);
 		if ((level.time % 3) == 1) A_StartSound("VeneratedTruncheon/LaserShoot", 9, CHANF_OVERLAP);
@@ -34,7 +37,7 @@ class PBWP_Dismantler : PBWP_CA_WeaponBase
 	states
 	{
 	Spawn:
-		LTBR A -1;
+		LTBR Z -1;
 		Stop;
 
 		Steady:
@@ -131,6 +134,15 @@ class PBWP_Dismantler : PBWP_CA_WeaponBase
 
 		Weaponspecial:
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
+		TNT1 A 0 A_JumpIfInventory("DismantlerDisassemble", 1, "DismantlerDisassembleOff");
+		TNT1 A 0 A_GiveInventory("DismantlerDisassemble", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Rite: Disassemble");
+		Goto Ready3;
+	DismantlerDisassembleOff:
+		TNT1 A 0 A_TakeInventory("DismantlerDisassemble", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Rite: Standard");
 		Goto Ready3;
 
 		FlashPunching:

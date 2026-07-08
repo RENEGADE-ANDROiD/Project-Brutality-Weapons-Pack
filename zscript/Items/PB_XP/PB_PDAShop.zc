@@ -41,7 +41,7 @@ class PB_PDAShopPurchaseHandler : StaticEventHandler
 		ParseRow("Ammunition Shop", "12 Rockets", 150, "BuyRocket");
 		ParseRow("Ammunition Shop", "100 Pistol Bullets", 100, "BuyPistolClip");
 		ParseRow("Special Weapons", "GC - Legendary Chainsaw", 1000, "BuyLegendaryChainsaw");
-		ParseRow("Special Weapons", "GC - Nemesis LMG", 1000, "BuyNemesisLMG");
+		// ParseRow("Special Weapons", "GC - Nemesis LMG", 1000, "BuyNemesisLMG"); // disabled
 		ParseRow("Special Weapons", "GC - Legendary Assault Shotgun", 2000, "BuyLegendaryAssaultShotgun");
 		ParseRow("Special Weapons", "GC - Legendary Plasmatic Rifle", 3000, "BuyLegendaryPlasmaticRifle");
 		ParseRow("Special Weapons", "GC - Devastador BFG", 3000, "BuyDevastador");
@@ -57,7 +57,6 @@ class PB_PDAShopPurchaseHandler : StaticEventHandler
 		ParseRow("Pistols & SMGs", "Hell Pistoler", 800, "BuyHellPistoler");
 		ParseRow("Pistols & SMGs", "Sub-fusil - Holy Bastard", 300, "BuyW_SMG");
 		ParseRow("Pistols & SMGs", "UZI", 450, "BuyPB_UZI");
-		ParseRow("Shotguns", "Cryo Shotgun", 650, "BuyCryoShotgun");
 		ParseRow("Shotguns", "Doom 2016 Shotgun", 500, "BuyDoom2016Shotgun");
 		ParseRow("Shotguns", "Demon Tech Shotgun", 800, "BuyDTShotgun");
 		ParseRow("Shotguns", "HASG", 800, "BuyHASG");

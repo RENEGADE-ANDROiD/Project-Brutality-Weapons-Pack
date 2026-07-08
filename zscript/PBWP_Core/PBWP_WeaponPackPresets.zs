@@ -39,7 +39,6 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 	// Map spawns off; monster-drop toggles on (salvage weapons are drop-only).
 	private static void SetMonsterDropWeapons(bool on)
 	{
-		SetMonsterDrop("PBSpawnPaingiverDrop", on);
 		SetMonsterDrop("PBSpawnMSSGDrop", on);
 		SetMonsterDrop("PBSpawnMancFlameCannonDrop", on);
 		SetMonsterDrop("PBSpawnCryoRifleDrop", on);
@@ -117,8 +116,9 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 	static void SetSchismFireIce(bool on)
 	{
 		SetSpawn("PBSpawnBattleAxe", on);
-		SetSpawn("PBSpawnFire_and_IceDragonSlayer", on);
+		// SetSpawn("PBSpawnFire_and_IceDragonSlayer", on); // disabled pending polish
 		SetSpawn("PBSpawnThunderCrossbow", on);
+		SetSpawn("PBSpawnStormcast", on);
 		SetMonsterDrop("PBSpawnStormcastDrop", on);
 		SetMonsterDrop("PBSpawnThunderCrossbowDrop", on);
 		SetPackToggle("PBWP_Pack_SCHISM", on);
@@ -128,7 +128,6 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 	{
 		SetSpawn("PBSpawnPB_CryoRifle", on);
 		SetMonsterDrop("PBSpawnCryoRifleDrop", on);
-		SetSpawn("PBSpawnPB_CryoShotgun", on);
 		SetSpawn("SpawnFreezeNade", on);
 		SetSpawn("FreezebotSpawn", on);
 		SetPackToggle("PBWP_Pack_Freezer", on);
@@ -209,7 +208,6 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 		SetSpawn("PBSpawnPBWP_Dismantler", on);
 		SetSpawn("PBSpawnPBWP_CinerealOrdnance", on);
 		SetSpawn("PBSpawnPBWP_Dispatcher", on);
-		SetSpawn("PBSpawnPBWP_Legionnaire", on);
 		SetSpawn("PBSpawnPBWP_SiriusCrisis", on);
 		SetPackToggle("PBWP_Pack_Cyberaugumented", on);
 	}
@@ -240,7 +238,6 @@ class PBWP_WeaponPackPresets : StaticEventHandler
 		SetSpawn("PBSpawnUZI", on);
 		SetSpawn("PBSpawnTHMagnum", on);
 		SetSpawn("PBSpawnRiotShield", on);
-		SetSpawn("PBSpawnPB_CryoShotgun", on);
 		SetSpawn("PBSpawnHexaLionShotgun", on);
 		SetSpawn("PBSpawnM1887", on);
 		SetSpawn("PBSpawnRotatingDoubleBarrel", on);

@@ -1,5 +1,4 @@
 // VietDoom BD player/weapon tokens and spawners not shipped in PB Staging.
-// Dropper weapon: see VietDoom_Durability.dec
 
 ACTOR TokenCleaner : bd_Token
 {
@@ -10,7 +9,6 @@ ACTOR TokenCleaner : bd_Token
 		TNT1 A 0 A_TakeInventory("ZoomHold", 1)
 		TNT1 A 0 A_TakeInventory("ADSmode", 1)
 		TNT1 A 0 A_TakeInventory("TossGrenade", 1)
-		TNT1 A 0 A_TakeInventory("DropIt", 1)
 		TNT1 A 0 A_TakeInventory("FiredPrimary", 1)
 		TNT1 A 0 A_TakeInventory("FiredSecondary", 1)
 		TNT1 A 0 A_TakeInventory("GoSpecial", 1)
@@ -60,8 +58,6 @@ ACTOR UseShotgunStrap : bd_Token {
 }
 ACTOR BurstCounter : bd_Token {
 }
-ACTOR BulkPoint : bd_Token {
-}
 ACTOR RPGSelected : bd_Token {
 }
 ACTOR HeavyAutomaticWeapon : bd_Token {
@@ -91,23 +87,10 @@ ACTOR ThompsonSpawner : Actor { +NOBLOCKMAP }
 ACTOR MAT49Spawner : Actor { +NOBLOCKMAP }
 ACTOR PPShSpawner : Actor { +NOBLOCKMAP }
 
-// PPSh-41 — disabled (PPS.dec unwired); stubs satisfy VietDoom_Durability.dec references.
+// PPSh-41 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â disabled (PPS.dec unwired); minimal pickup stub for map references.
 ACTOR PPSh : Inventory { Inventory.MaxAmount 1 }
-ACTOR PPShDestroyed : bd_Token {}
 ACTOR PPShAmmo : Ammo { Inventory.MaxAmount 71 }
 ACTOR PPShPickUp : BDWeaponSpawner { +NOBLOCKMAP }
-ACTOR PPShPickUpHC : CustomInventory { Inventory.MaxAmount 1 }
-ACTOR PPShPickUpHC_90 : PPShPickUpHC {}
-ACTOR PPShPickUpHC_80 : PPShPickUpHC {}
-ACTOR PPShPickUpHC_70 : PPShPickUpHC {}
-ACTOR PPShPickUpHC_60 : PPShPickUpHC {}
-ACTOR PPShPickUpHC_50 : PPShPickUpHC {}
-ACTOR PPShPickUpHC_40 : PPShPickUpHC {}
-ACTOR PPShPickUpHC_30 : PPShPickUpHC {}
-ACTOR PPShPickUpHC_20 : PPShPickUpHC {}
-ACTOR PPShPickUpHC_10 : PPShPickUpHC {}
-ACTOR PPShPickUpHC_5 : PPShPickUpHC {}
-ACTOR PPShPickUpHC_trash : PPShPickUpHC {}
 ACTOR PPSSelected : Inventory { Inventory.MaxAmount 1 }
 
 ACTOR IthacaSpawner : Actor { +NOBLOCKMAP }
@@ -126,3 +109,24 @@ ACTOR RPGSpawner : Actor { +NOBLOCKMAP }
 ACTOR NineOneEightSpawner : Actor { +NOBLOCKMAP }
 ACTOR CaseSpawn50_2 : Actor { +NOBLOCKMAP +CLIENTSIDEONLY }
 
+// VietDoom weapon-special wheel select tokens
+ACTOR SelectViet_FullAuto : bd_Token {}
+ACTOR SelectViet_Semi : bd_Token {}
+ACTOR SelectViet_Burst : bd_Token {}
+ACTOR SelectViet_BARFast : bd_Token {}
+ACTOR SelectViet_BARSlow : bd_Token {}
+ACTOR SelectViet_IthacaBuck : bd_Token {}
+ACTOR SelectViet_IthacaDragon : bd_Token {}
+ACTOR AKSemi : bd_Token {}
+ACTOR M16Semi : bd_Token {}
+ACTOR M16Burst : bd_Token {}
+ACTOR M16BurstShots : Inventory { Inventory.MaxAmount 3 }
+ACTOR M79Airburst : bd_Token {}
+ACTOR MosinRush : bd_Token {}
+ACTOR SKSSlam : bd_Token {}
+ACTOR M60Pig : bd_Token {}
+ACTOR RPDSweep : bd_Token {}
+ACTOR ThompsonDump : bd_Token {}
+ACTOR M3Slamfire : bd_Token {}
+ACTOR M1911ConditionOne : bd_Token {}
+ACTOR RPGTandem : bd_Token {}

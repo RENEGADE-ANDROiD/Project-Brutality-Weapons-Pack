@@ -44,7 +44,6 @@ class GC_Enhancements
 			case 'LegendaryAssaultShotgun':
 			case 'LegendaryChainsaw':
 			case 'LegendaryPlasmaticRifle':
-			case 'NemesisLMG':
 				return true;
 		}
 		return false;
@@ -147,21 +146,6 @@ class GC_Enhancements
 			{
 				pm.A_GiveInventory("GCPlasmaChargeMode", 1);
 				pm.A_Print("Plasmatic Rifle: Charged shots");
-			}
-			return;
-		}
-
-		if (cls == 'NemesisLMG')
-		{
-			if (pm.CountInv("GCNemLMGSuppress") >= 1)
-			{
-				pm.A_TakeInventory("GCNemLMGSuppress", 1);
-				pm.A_Print("Nemesis LMG: Standard");
-			}
-			else
-			{
-				pm.A_GiveInventory("GCNemLMGSuppress", 1);
-				pm.A_Print("Nemesis LMG: Suppressive spread");
 			}
 			return;
 		}

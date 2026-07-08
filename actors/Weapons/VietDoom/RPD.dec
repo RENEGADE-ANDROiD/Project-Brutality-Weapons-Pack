@@ -166,13 +166,12 @@ Goto SelectFirstPersonLegs
 		RPDD C 0 A_JumpIfInventory("RPDDeployed",1,"ready4")
 		RPDG A 0 A_JumpIfInventory("IsRunning",1,"StartSprint")
 		RPDG A 0 A_JumpIfInventory("ExecuteDownedEnemy", 1, "DoExecution")
-		RPDG A 0 A_JumpIfInventory("FiredPrimary",1,"Fire")
+		RPDG A 0 A_JumpIfInventory("FiredPrimary",1,"RPDFireIfHeld")
 		TNT1 AAA 0
 		RPDG A 0
 		RPDG A 0 A_JumpIfInventory("PB_HighCalMag",2,2)
 		RPDG B 0
 		"####" "#" 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
-		"####" "#" 0 A_JumpIfInventory("DropIt",1,"Dropper")
 		Loop
 
 	Ready2:
@@ -185,7 +184,6 @@ Goto SelectFirstPersonLegs
 		RPDA G 0
 		"####" "#" 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD|WRF_ALLOWZOOM)
 		RPDG A 0 A_JumpIfInventory("TossGrenade",1,"TossGrenade")
-		"####" "#" 0 A_JumpIfInventory("DropIt",1,"Dropper")
 		TNT1 A 0 A_JumpIFInventory("MGIsOverSomething", 1, "Ready2")
 		RPDU A 0
 		RPDU A 0 A_JumpIfInventory("PB_HighCalMag",2,2)
@@ -206,7 +204,6 @@ Goto SelectFirstPersonLegs
 		RPDu b 0 A_JumpIfInventory("PB_HighCalMag",2,2)
 		RPDu d 0
 		"####" "#" 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD | WRF_NOPRIMARY)
-		"####" "#" 0 A_JumpIfInventory("DropIt",1,"Dropper")
 		TNT1 A 0 A_JumpIFInventory("MGIsOverSomething", 1, "Ready2")
 		Loop
 
@@ -215,7 +212,6 @@ Goto SelectFirstPersonLegs
 		RPDG A 0 A_TakeInventory("TossGrenade", 1)
 		RPDG A 0 A_TakeInventory("Kicking",1)
 		RPDG A 0 A_TakeInventory("Taunting",1)
-		AKMG A 0 A_TakeInventory("DropIt", 1)
 		RPDG A 0 A_TakeInventory("Reloading",1)
 		RPDG A 0 A_TakeInventory("Unloading",1)
 		RPDG A 0 A_TakeInventory("Salute1", 1)
@@ -240,24 +236,48 @@ Goto SelectFirstPersonLegs
 		TNT1 A 0 A_Lower(120)
 		Wait
 
-
 	Salute:
 		TNT1 A 0 A_AlertMonsters
 		SALU ABCDEDCDEDCDEDCBA 4
 		TNT1 A 0 A_TakeInventory("Salute1", 1)
 		TNT1 A 0 A_TakeInventory("Salute2", 1)
 		Goto Ready3
+	WeaponSpecial:
+		TNT1 A 0 {
+			A_TakeInventory("GoWeaponSpecialAbility", 1);
+			A_TakeInventory("Zoomed", 1);
+			A_TakeInventory("ADSmode", 1);
+			A_TakeInventory("ZoomHold", 1);
+			A_ZoomFactor(1.0);
+		}
+		TNT1 A 0 A_JumpIfInventory("GrabbedBarrel", 1, "IdleBarrel")
+		TNT1 A 0 A_JumpIfInventory("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
+		TNT1 A 0 A_JumpIfInventory("GrabbedIceBarrel", 1, "IdleIceBarrel")
+		TNT1 A 0 A_JumpIfInventory("RPDSweep", 1, "RPDSweepOff")
+		TNT1 A 0 A_GiveInventory("RPDSweep", 1)
+		TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+		TNT1 A 0 A_Print("Feed: Drum Sweep")
+		Goto Ready3
+	RPDSweepOff:
+		TNT1 A 0 A_TakeInventory("RPDSweep", 1)
+		TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+		TNT1 A 0 A_Print("Feed: Standard")
+		Goto Ready3
+	RPDFireIfHeld:
+		RPDG A 0 A_JumpIfInventory("PB_HighCalMag", 1, "Fire")
+		Goto RPDEmpty
 	Fire:
 		TNT1 A 0 { return PB_FireExecuteCheck(); }
+		TNT1 A 0 { return PB_jumpIfNoAmmo("RPDEmpty", 1, true, false, ""); }
 		RPDG A 0
 		RPDG "#" 0 A_JumpIfInventory("PB_HighCalMag",1,"ContinueFiring")
 		Goto RPDEmpty
 	ContinueFiring:
 		RPDG "###" 0
 		TNT1 A 0 A_JumpIFInventory("RPDDeployed", 1, "Fire2")
+		TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr, "PB_HighCalMag"); }
 		RPDG "#" 0 A_Takeinventory("PB_HighCalMag",1)
 		RPDG "#" 0 A_JumpIfInventory("PB_HighCalMag",15,1)
-		RPDG "#" 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
 		RPDG A 0 A_AlertMonsters
 		RPDG A 0 A_FireCustomMissile("DistantFireSoundRifle", random(-1,1), 0, 0, -12, 0, random(-1,1))
 		RPDG A 0 A_PlaySound("AKMFire", 1)
@@ -265,10 +285,25 @@ Goto SelectFirstPersonLegs
 		RPDG A 0 A_JumpIfInventory("Zoomed",1,"Fire2")
 		RPDG "#" 0 A_SpawnItemEx("PlayerMuzzle1",30,5,30)
 		RPDG "#" 0 { PB_GunSmoke(0,0,0); }
-		RPDF A 1 BRIGHT { PB_LowAmmoSoundWarning(hdmr, "PB_HighCalMag"); PB_FireBullets("PB_762x51mm", 1, 4, 0, 0, 4); }
+		RPDF A 1 BRIGHT
+		{
+			if (CountInv("RPDSweep") >= 1)
+			{
+				PB_FireBullets("PB_762x51mm", 1, 7, 0, 0, 2);
+				A_SetAngle(angle + frandom(-1.2, 1.2));
+			}
+			else
+			{
+				PB_FireBullets("PB_762x51mm", 1, 4, 0, 0, 4);
+			}
+		}
 		RPDG B 0 { PB_SpawnCasing("PB_EmptyBrass", 32, 6, -14, frandom(4,7), frandom(6,9), frandom(0,5)); }
 		RPDF B 1 A_ZoomFactor(0.96)
+		RPDG A 0 A_JumpIfInventory("RPDSweep", 1, 2)
 		RPDG A 0 A_SetPitch(pitch-1.5)
+		RPDG A 0 A_Jump(256, 2)
+		RPDG A 0 A_SetPitch(pitch-0.7)
+		RPDG A 0
 		RPDF C 1 
 		RPDF D 1 A_ZoomFactor(1.0)
 		RPDG A 0 A_Refire
@@ -276,9 +311,9 @@ Goto SelectFirstPersonLegs
 
 	Fire2:
 		TNT1 A 0
+		TNT1 A 0 { PB_LowAmmoSoundWarning(hdmr, "PB_HighCalMag"); }
 		RPDA A 0 A_Takeinventory("PB_HighCalMag",1)
 		RPDA A 0 A_JumpIfInventory("PB_HighCalMag",15,1)
-		RPDA A 0 A_PlaySound("weapons/lowammo",CHAN_AUTO)
 		RPDG A 0 A_AlertMonsters
 		RPDG A 0 A_FireCustomMissile("DistantFireSoundRifle", random(-1,1), 0, 0, -12, 0, random(-1,1))
 		RPDG A 0 A_PlaySound("AKMFire", 1)
@@ -286,7 +321,7 @@ Goto SelectFirstPersonLegs
 		RPDG "#" 0 A_Quake(1, 2, 0, 2, "")
 		RPDG A 0 A_SpawnItemEx("PlayerMuzzle1",30,0,45)
 		RPDG A 0 { PB_GunSmoke(0,0,0); }
-		RPDA B 1 BRIGHT { PB_LowAmmoSoundWarning(hdmr, "PB_HighCalMag"); PB_FireBullets("PB_762x51mm", 1, 2, 0, 0, 2); }
+		RPDA B 1 BRIGHT { PB_FireBullets("PB_762x51mm", 1, 2, 0, 0, 2); }
 		RPDG A 0 A_ZoomFactor(0.97)
 		RPDA C 1 { PB_SpawnCasing("PB_EmptyBrass", 32, 8, 0, frandom(4,7), frandom(6,9), frandom(0,5)); }
 		RPDA D 1 A_ZoomFactor(1.0)
@@ -332,153 +367,10 @@ Goto SelectFirstPersonLegs
 		TNT1 A 0 A_PlaySound("ads/out", 5)
 		RPDD gFEDCBA 1
 		Goto Ready3
-	GunBroken:
-		"####" "#" 0
-		"####" "#" 0 A_TakeInventory("BurstCounter", 0x7FFFFFFF)
-		"####" "#" 0 A_Takeinventory("Zoomed",1)
-		"####" "#" 0 A_Takeinventory("ADSmode",1)
-		"####" "#" 0 A_ZoomFactor(1.0)
-		"####" "#" 1 offset(0,34)
-		"####" "#" 0 A_PlaySound("Weapon/Empty", 5)
-		"####" "#" 1 offset(0,33)
-		"####" "#" 1 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
-		"####" "#" 0 A_Print("Your machine gun has been destroyed!\n\n\n\n\n\n\n")
-		"####" "#" 0 A_GiveInventory("RPDDestroyed", 1)
-		"####" "#" 0 A_PlaySound("DSBRK2")
-		"####" "#" 0 A_Quake(4,5,0,12,"")
-		"####" "##" 0 A_CustomMissile("MetalShard1", 20, 0, random(-30, 30), 2, random(-10, 25))
-		"####" "#" 0 A_SpawnItemEx("PlayerMuzzle1",30,0,45)
-		"####" "#" 0 A_FireCustomMissile("DistantFireSoundShotgun", random(-1,1), 0, 0, -12, 0, random(-1,1))
-		"####" "#######" 0 A_CustomMissile("Shotgunparticles2", 20, 0, random(-30, 30), 2, random(-10, 25))
-		"####" "#######" 0 A_CustomMissile("Shotgunparticles", 20, 0, random(-35, 35), 2, random(-10, 25))
-		"####" "###" 0 A_CustomMissile ("MetalShard2", 20, 0, random(-30, 30), 2, random(-10, 25))
-		"####" "####" 0 A_CustomMissile ("WoodParticle", 20, 0, random(-30, 30), 2, random(-10, 25))
-		"####" "#" 0 A_CustomMissile("ExplosionParticle", 20, 0, random(-10, 10), 2, random(-10, 25))
-		"####" "##" 0 A_CustomMissile ("MetalShard3", 20, 0, random(-30, 30), 2, random(-10, 25))
-		"####" "#" 0 A_FireCustomMissile("SmokeSpawner",0,0,0,5)
-		TNT1 A 0 A_GiveInventory("DropRPD", 1)
-		TNT1 A 0 A_TakeInventory("DropIt", 1)
-		TNT1 A 0 A_SelectWeapon("Dropper")
-		Stop
-
-	RollForJam:
-		"####" "#" 0 A_JumpIfInventory("RPDDurability", 100, "JamChanceLow")
-		"####" "#" 0 A_JumpIfInventory("RPDDurability", 50, "JamChanceMid")
-
-	JamChanceHigh:
-		"####" "#" 0 A_Jump(10, "ClearJam")
-		Goto ContinueFiring
-
-	JamChanceMid:
-		"####" "#" 0 A_Jump(7, "ClearJam")
-		Goto ContinueFiring
-
-	JamChanceLow:
-		"####" "#" 0 A_Jump(5, "ClearJam")
-		Goto ContinueFiring
-
-	ClearJam:
-		"####" A 1 A_PlaySound("Weapon/Empty", 5)
-		"####" "#" 0
-		"####" "#" 0 A_TakeInventory("BurstCounter", 0x7FFFFFFF)
-		"####" "#" 0 A_Takeinventory("Zoomed",1)
-		"####" "#" 0 A_Takeinventory("ADSmode",1)
-		"####" "#" 0 A_ZoomFactor(1.0)
-		"####" "#" 0 A_ClearReFire
-		"####" "#" 1 offset(0,34)
-		"####" "#" 1 offset(0,33)
-		"####" "#" 2 A_DoPBWeaponAction(WRF_NOFIRE)// | WRF_NOFIRE)
-		"####" "#" 1 A_ClearReFire
-		"####" "#" 3
-
-		RPDT A 0 A_JumpIfInventory("RPDDeployed",1,2)
-		RPDC A 0
-		"####" A 0
-		"####" ABBBBBB 1
-		"####" A 0 A_PlaySound("Rifle/bolt1", 5)
-		"####" C 1 { PB_SpawnCasing("PB_EmptyBrass", 32, 6, -14, frandom(4,7), frandom(6,9), frandom(0,5)); }
-		"####" D 1 offset(0,33)
-		"####" D 5 offset(0,32)
-		"####" E 1 
-		"####" A 0 A_PlaySound("ASG/Bolt2", 5)
-		RPDA A 0 A_JumpIfInventory("RPDDeployed",1,2)
-		RPDG A 3
-		"####" AA 0
-		"####" A 0 A_JumpIfInventory("RPDDeployed",1,"Ready2")
-		Goto Ready
-
-	PrintConditionTrash:
-		"####" "#" 0 A_Print("Condition: \crTrash\n\n\n\n\n\n\n")
-		Goto CarryOnWithThatChecking
-
-	PrintConditionBroken:
-		"####" "#" 0 A_Print("Condition: \cgBroken\n\n\n\n\n\n\n")
-		Goto CarryOnWithThatChecking
-
-	PrintConditionAlmostBroken:
-		"####" "#" 0 A_Print("Condition: \cgAlmost Broken\n\n\n\n\n\n\n")
-		Goto CarryOnWithThatChecking
-
-	PrintConditionCritical:
-		"####" "#" 0 A_Print("Condition: \caCritical\n\n\n\n\n\n\n")
-		Goto CarryOnWithThatChecking
-
-	PrintConditionBad:
-		"####" "#" 0 A_Print("Condition: \caBad\n\n\n\n\n\n\n")
-		Goto CarryOnWithThatChecking
-
-	PrintConditionHeavilyWorn:
-		"####" "#" 0 A_Print("Condition: \ciHeavily Worn\n\n\n\n\n\n\n")
-		Goto CarryOnWithThatChecking
-
-	PrintConditionWorn:
-		"####" "#" 0 A_Print("Condition: \ciWorn\n\n\n\n\n\n\n")
-		Goto CarryOnWithThatChecking
-
-	PrintConditionFair:
-		"####" "#" 0 A_Print("Condition: \ckFair\n\n\n\n\n\n\n")
-		Goto CarryOnWithThatChecking
-
-	PrintConditionGood:
-		"####" "#" 0 A_Print("Condition: \cdGood\n\n\n\n\n\n\n")
-		Goto CarryOnWithThatChecking
-
-	PrintConditionVeryGood:
-		"####" "#" 0 A_Print("Condition: \cdVery Good\n\n\n\n\n\n\n")
-		Goto CarryOnWithThatChecking
-
-	PrintConditionExcellent:
-		"####" "#" 0 A_Print("Condition: \cdExcellent\n\n\n\n\n\n\n")
-		Goto CarryOnWithThatChecking
-
-	PrintConditionPristine:
-		"####" "#" 0 A_Print("Condition: \cCPristine\n\n\n\n\n\n\n")
-
-CarryOnWithThatChecking:
-		"####" D 1 offset(0,33)
-		"####" D 5 offset(0,32)
-		"####" E 1 
-		"####" A 0 A_PlaySound("ASG/Bolt2", 5)
-		RPDA A 0 A_JumpIfInventory("RPDDeployed",1,2)
-		RPDG A 3
-		"####" AA 0
-		"####" A 0 A_JumpIfInventory("RPDDeployed",1,"Ready2")
-		Goto Ready
-
-	Dropper:
-		GLOA A 0 A_JumpIfInventory("VietDoomDurabilityDisabled", 1,"Ready")
-		919A A 0 A_Takeinventory("Zoomed",1)
-		919A A 0 A_Takeinventory("ADSmode",1)
-		919A A 0 A_ZoomFactor(1.0)
-		TNT1 A 0 A_GiveInventory("DropRPD", 1)
-		TNT1 A 0 A_TakeInventory("DropIt", 1)
-		TNT1 A 0 A_SelectWeapon("Dropper")
-		Stop
 	Spawn:
 		WRPD A 1
 		WRPD A 1 A_SpawnItemEx ("RPDSpawner",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION | SXF_TRANSFERAMBUSHFLAG ,0)
 		Stop
-
 
 }
 
@@ -502,8 +394,6 @@ ACTOR RPDPickUp: BDWeaponSpawner
 		P3ST A 0 A_JumpIfInventory("RPD", 1, "AmmoOnly")
 	PickupNormal:
 		P3ST A 0 A_GiveInventory("RPD", 1)
-		P3ST A 0 A_JumpIfInventory("VietDoomDurabilityDisabled", 1, 1)
-		P3ST A 0 A_GiveInventory("RPDDurability", 900)
 		P3ST A 0 A_Giveinventory("PB_HighCalMag", 50)
 		Stop
 
@@ -514,7 +404,6 @@ ACTOR RPDPickUp: BDWeaponSpawner
 
 }
 
-
 }
 Actor RPDDeployed : bd_Token {
 }
@@ -523,559 +412,3 @@ ACTOR NeverSelectedRPD : bd_Token {
 Actor RPDSelected : bd_Token {
 
 }
-
-ACTOR RPDPickUpHC: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		WRPD A 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		WRPD A -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("RPD", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 6, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 5, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceRPD! \c-(Bulk: 6)\n Condition: \cCPristine")
-		TNT1 A 0 A_GiveInventory("RPD", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 6)
-		TNT1 A 0 A_GiveInventory("RPDDurability", 900)
-		TNT1 A 0 A_SelectWeapon("RPD")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR RPDPickUpHC_90: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		WRPD A 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		WRPD A -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("RPD", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 6, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 5, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceRPD! \c-(Bulk: 6)\n Condition: \cdExcellent")
-		TNT1 A 0 A_GiveInventory("RPD", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 6)
-		TNT1 A 0 A_GiveInventory("RPDDurability", random(810,899))
-		TNT1 A 0 A_SelectWeapon("RPD")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_90")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_90")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR RPDPickUpHC_80: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		WRPD A 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		WRPD A -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("RPD", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 6, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 5, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceRPD! \c-(Bulk: 6)\n Condition: \cdVery Good")
-		TNT1 A 0 A_GiveInventory("RPD", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 6)
-		TNT1 A 0 A_GiveInventory("RPDDurability", random(720,809))
-		TNT1 A 0 A_SelectWeapon("RPD")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_80")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_80")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR RPDPickUpHC_70: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		WRPD A 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		WRPD A -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("RPD", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 6, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 5, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceRPD! \c-(Bulk: 6)\n Condition: \cdGood")
-		TNT1 A 0 A_GiveInventory("RPD", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 6)
-		TNT1 A 0 A_GiveInventory("RPDDurability", random(630,719))
-		TNT1 A 0 A_SelectWeapon("RPD")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_70")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_70")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR RPDPickUpHC_60: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		WRPD A 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		WRPD A -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("RPD", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 6, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 5, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceRPD! \c-(Bulk: 6)\n Condition: \ckFair")
-		TNT1 A 0 A_GiveInventory("RPD", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 6)
-		TNT1 A 0 A_GiveInventory("RPDDurability", random(540,629))
-		TNT1 A 0 A_SelectWeapon("RPD")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_60")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_60")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR RPDPickUpHC_50: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		WRPD A 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		WRPD A -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("RPD", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 6, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 5, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceRPD! \c-(Bulk: 6)\n Condition: \ciWorn")
-		TNT1 A 0 A_GiveInventory("RPD", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 6)
-		TNT1 A 0 A_GiveInventory("RPDDurability", random(450,539))
-		TNT1 A 0 A_SelectWeapon("RPD")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_50")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_50")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR RPDPickUpHC_40: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		WRPD A 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		WRPD A -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("RPD", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 6, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 5, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceRPD! \c-(Bulk: 6)\n Condition: \ciHeavily Worn")
-		TNT1 A 0 A_GiveInventory("RPD", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 6)
-		TNT1 A 0 A_GiveInventory("RPDDurability", random(360,449))
-		TNT1 A 0 A_SelectWeapon("RPD")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_40")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_40")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR RPDPickUpHC_30: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		WRPD A 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		WRPD A -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("RPD", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 6, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 5, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceRPD! \c-(Bulk: 6)\n Condition: \caBad")
-		TNT1 A 0 A_GiveInventory("RPD", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 6)
-		TNT1 A 0 A_GiveInventory("RPDDurability", random(270,359))
-		TNT1 A 0 A_SelectWeapon("RPD")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_30")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_30")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR RPDPickUpHC_20: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		WRPD A 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		WRPD A -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("RPD", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 6, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 5, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceRPD! \c-(Bulk: 6)\n Condition: \caCritical")
-		TNT1 A 0 A_GiveInventory("RPD", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 6)
-		TNT1 A 0 A_GiveInventory("RPDDurability", random(180,269))
-		TNT1 A 0 A_SelectWeapon("RPD")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_20")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_20")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR RPDPickUpHC_10: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		WRPD A 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		WRPD A -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("RPD", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 6, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 5, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceRPD! \c-(Bulk: 6)\n Condition: \cgAlmost Broken")
-		TNT1 A 0 A_GiveInventory("RPD", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 6)
-		TNT1 A 0 A_GiveInventory("RPDDurability", random(90,179))
-		TNT1 A 0 A_SelectWeapon("RPD")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_10")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_10")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR RPDPickUpHC_5: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		WRPD A 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		WRPD A -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("RPD", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 6, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 5, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceRPD! \c-(Bulk: 6)\n Condition: \cgBroken")
-		TNT1 A 0 A_GiveInventory("RPD", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 6)
-		TNT1 A 0 A_GiveInventory("RPDDurability", random(45,89))
-		TNT1 A 0 A_SelectWeapon("RPD")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_5")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_5")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-ACTOR RPDPickUpHC_trash: CustomInventory
-{
-	+INVENTORY.NOSCREENFLASH
-	Inventory.PickupMessage ""
-	+INVENTORY.QUIET
-	Inventory.Icon ""
-	Inventory.Pickupsound ""
-	Radius 16
-	Height 8
-	+THRUACTORS
-	States
-	{
-	Spawn:
-		WRPD A 30
-		TNT1 A 0 A_ChangeFlag("THRUACTORS", 0)
-		WRPD A -1
-		Stop
-	Pickup:
-		TNT1 A 0 A_jumpIfInventory("RPD", 1, "Respawn2")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 10, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 9, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 8, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 7, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 6, "Respawn")
-		TNT1 A 0 A_jumpIfInventory("BulkPoint", 5, "Respawn")
-		Goto Picks
-	Picks:
-		TNT1 A 0
-		TNT1 A 0 A_Print("You got the \ceRPD! \c-(Bulk: 6)\n Condition: \crTrash")
-		TNT1 A 0 A_GiveInventory("RPD", 1)
-		TNT1 A 0 A_GiveInventory("Bulkpoint", 6)
-		TNT1 A 0 A_GiveInventory("RPDDurability", random(1,44))
-		TNT1 A 0 A_SelectWeapon("RPD")
-		Stop
-	Respawn:
-		TNT1 A 35
-		TNT1 A 0 A_Print("You can't carry that much!\n\n\n\n\n\n\n")
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_trash")
-		Stop
-	Respawn2:
-		TNT1 A 35
-		TNT1 A 0 A_SpawnItem("RPDPickUpHC_trash")
-		TNT1 A 0 A_Print("You already have one!\n\n\n\n\n\n\n")
-	}
-}
-
-Actor RPDDestroyed : bd_Token {}
-
-

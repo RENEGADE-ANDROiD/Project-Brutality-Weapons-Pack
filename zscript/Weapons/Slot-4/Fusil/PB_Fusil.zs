@@ -53,7 +53,6 @@ class PB_Fusil : PB_WeaponBase
         TNT1 A 0 { PB_RespectIfNeeded(); }
         TNT1 A 0 {
             A_WeaponOffset(0,32);
-            A_SetRoll(0);
             PB_HandleCrosshair(44);
             A_TakeInventory("PB_LockScreenTilt",1);
             A_ClearOverlays(10,11);

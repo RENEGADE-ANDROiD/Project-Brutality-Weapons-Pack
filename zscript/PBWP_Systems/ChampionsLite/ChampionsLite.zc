@@ -1,0 +1,18 @@
+// Champions Lite (cl_ namespace) — folded into PBWP. static.txt must stay last.
+#include "zscript/PBWP_Systems/ChampionsLite/fxthrottle.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/fx.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/handler.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/baseclass.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/tokens.txt"
+
+#include "zscript/PBWP_Systems/ChampionsLite/traits/trait_bulwark.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/traits/trait_brute.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/traits/trait_swift.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/traits/trait_volatile.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/traits/trait_toxic.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/traits/trait_blink.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/traits/trait_stalker.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/traits/trait_splitter.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/traits/trait_veteran.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/traits/trait_captain.txt"
+#include "zscript/PBWP_Systems/ChampionsLite/static.txt"

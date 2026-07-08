@@ -104,6 +104,7 @@ Fire:
 TNT1 A 0 A_JumpIfInventory("PBWP_ComplexAmmo",100,2)
 Goto NoAmmo
 TNT1 AA 0
+EBCE A 0 A_JumpIfInventory("EnragedBFGVent", 1, "EnrageVentFire")
 EBCE A 0 A_PlaySound("Weapons/GuruTrigger",1)
 EBCE ABCDEFGHIJ 1
 TBFG A 0 A_PlaySound("truelegbfg/charge",6)
@@ -120,6 +121,26 @@ EBCE A 0 A_PlaySound("truelegbfg/fire",6)
 EBCE A 0 A_PlaySound("truelegbfg/fire2",7)
 TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",100,TIF_NOTAKEINFINITE)
 EBCE A 0 A_FireCustomMissile("PlayerEnragedGuruBall",0,1,12,0)
+Goto EnragedBFGFireFinish
+EnrageVentFire:
+EBCE A 0 A_PlaySound("Weapons/GuruTrigger",1)
+EBCE ABCDEF 1
+TNT1 A 0 A_AlertMonsters
+EBCE A 0 A_GiveInventory("GuruCharge",2)
+EnrageVentCharger:
+EBCE A 0 A_TakeInventory("GuruCharge",1)
+EBCE AABBCC 1 Bright A_Quake (5, 2, 0, 2,"none")
+EBCE A 0 A_JumpIfInventory("GuruCharge",1,"EnrageVentCharger")
+EBCE A 0 A_StopSound(5)
+EBCE A 0 A_PlaySound("truelegbfg/fire",6)
+EBCE A 0 A_PlaySound("truelegbfg/fire2",7)
+TNT1 A 0 A_TakeInventory("PBWP_ComplexAmmo",100,TIF_NOTAKEINFINITE)
+EBCE A 0 A_FireCustomMissile("PlayerEnragedGuruBall", -20, 0, 0, 0)
+EBCE A 0 A_FireCustomMissile("PlayerEnragedGuruBall", -10, 0, 0, 0)
+EBCE A 0 A_FireCustomMissile("PlayerEnragedGuruBall", 0, 1, 0, 0)
+EBCE A 0 A_FireCustomMissile("PlayerEnragedGuruBall", 10, 0, 0, 0)
+EBCE A 0 A_FireCustomMissile("PlayerEnragedGuruBall", 20, 0, 0, 0)
+EnragedBFGFireFinish:
 EBCE A 0 A_GunFlash
 EBCE A 0 A_SetBlend("Red",0.45,75)
 EBCE A 0 A_SetBlend("White",0.225,75)
@@ -198,6 +219,15 @@ WeaponSpecial:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
 	TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+	TNT1 A 0 A_JumpIfInventory("EnragedBFGVent", 1, "EnragedBFGVentOff")
+	TNT1 A 0 A_GiveInventory("EnragedBFGVent", 1)
+	TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	TNT1 A 0 A_Print("Mode: Enrage Vent")
+	Goto Ready3
+EnragedBFGVentOff:
+	TNT1 A 0 A_TakeInventory("EnragedBFGVent", 1)
+	TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	TNT1 A 0 A_Print("Mode: Full Charge")
 	Goto Ready3
 
 FlashKicking:

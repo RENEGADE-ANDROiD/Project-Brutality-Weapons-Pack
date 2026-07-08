@@ -107,6 +107,7 @@ class NemesisBFGSpawnerInjector : PBInjector
 		}
 	}
 }
+/*
 class NemesisLMGSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
@@ -118,6 +119,7 @@ class NemesisLMGSpawnerInjector : PBInjector
 		}
 	}
 }
+*/
 // LegendaryBFG10K removed — LG10/LB10 sprites not in pack
 /*
 class LegendaryBFG10KSpawnerInjector : PBInjector
@@ -274,7 +276,8 @@ class VorpalBladeSpawnerInjector : PBInjector
 	}
 }
 
-// Dragon Slayer — Fire & Ice (Craneo); chainsaw spawner pool, second half of progression only (T3/T4)
+// Dragon Slayer — Fire & Ice (Craneo); disabled pending tilt/polish pass
+/*
 class Fire_and_IceDragonSlayerSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler)
@@ -286,6 +289,7 @@ class Fire_and_IceDragonSlayerSpawnerInjector : PBInjector
 		}
 	}
 }
+*/
 
 //SLOT 2 ===================================================================================== 2 ==
 
@@ -469,21 +473,6 @@ class PB_Doom2016ShotgunSpawnerInjector : PBInjector
 		handler.InjectSpawn('PB_UpgradeSpawnerT3', 'PB_D16SGExplosiveUpgrade', 255, 1);
 		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'PB_D16SGBurstUpgrade', 255, 1);
 		handler.InjectSpawn('PB_UpgradeSpawnerT4', 'PB_D16SGExplosiveUpgrade', 255, 1);
-		}
-	}
-}
-
-//CryoShotgun
-class PB_CryoShotgunSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-	if (PBWP_SpawnFilters.MaySpawn(PBSpawnPB_CryoShotgun, pbwp_plasmarifle_filter, DisablePBWP_CryoShotgun))
-		{
-		//handler.InjectSpawn('PB_PlasSpawnerT1', 'PB_CryoShotgun', 255, 1);
-		handler.InjectSpawn('PB_PlasSpawnerT2', 'PB_CryoShotgun', 255, 1);
-		handler.InjectSpawn('PB_PlasSpawnerT3', 'PB_CryoShotgun', 255, 1);
-		//handler.InjectSpawn('PB_PlasSpawnerT4', 'PB_CryoShotgun', 255, 1);
 		}
 	}
 }
@@ -705,18 +694,10 @@ class PB_BoltRifleSpawnerInjector : PBInjector
 	}
 }
 
-//Dark Fate - IN
+// Dark Fate / Metal Sniper — PBX_MetalSniper
 class Dark_FateSpawnerInjector : PBInjector
 {
-	override void Init(PB_EventHandler handler)
-	{
-	if (PBSpawnDark_Fate)
-		{
-		handler.InjectSpawn('PB_MGSpawnerT2', 'Dark_Fate', 255, 1);
-		handler.InjectSpawn('PB_MGSpawnerT3', 'Dark_Fate', 255, 1);
-		handler.InjectSpawn('PB_MGSpawnerT4', 'Dark_Fate', 255, 1);
-		}
-	}
+	override void Init(PB_EventHandler handler) {}
 }
 
 //Heavy Sniper - IN
@@ -935,30 +916,10 @@ class DevastatorInjector : PBInjector
 	}
 }
 
-
-// Excavator — PBX_Excavator
-class PBExcavatorInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler) {}
-}
-
 // Mastermind Chaingun — PBX_MastermindChaingun
 class MastermindChaingunSpawnerInjector : PBInjector
 {
 	override void Init(PB_EventHandler handler) {}
-}
-
-// Paingiver — RL spawner T3/T4; Hell Trooper drop remains optional bonus.
-class PaingiverSpawnerInjector : PBInjector
-{
-	override void Init(PB_EventHandler handler)
-	{
-		if (PBWP_SpawnFilters.MaySpawn(PBSpawnPaingiver, pbwp_rocketlauncher_filter, DisablePBWP_Paingiver))
-		{
-			handler.InjectSpawn('PB_RLSpawnerT3', 'Paingiver', 255, 1);
-			handler.InjectSpawn('PB_RLSpawnerT4', 'Paingiver', 255, 1);
-		}
-	}
 }
 
 //Rocket Launcher - D2016
@@ -1158,10 +1119,17 @@ class Satan_ScreamSpawnerInjector : PBInjector
 	}
 }
 
-// Stormcast — monster-drop only (Arch-vile)
+// Stormcast — BFG spawner T3/T4 + Arch-vile drop
 class StormcastSpawnerInjector : PBInjector
 {
-	override void Init(PB_EventHandler handler) {}
+	override void Init(PB_EventHandler handler)
+	{
+		if (PBWP_SpawnFilters.MaySpawn(PBSpawnStormcast, pbwp_bfg_filter, DisablePBWP_Stormcast))
+		{
+			handler.InjectSpawn('PB_BFGSpawnerT3', 'Stormcast', 255, 1);
+			handler.InjectSpawn('PB_BFGSpawnerT4', 'Stormcast', 255, 1);
+		}
+	}
 }
 
 // Thunder Crossbow — plasma-tier map spawns (Fire & Ice / Brutal Hexen)

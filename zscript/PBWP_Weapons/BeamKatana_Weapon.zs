@@ -123,11 +123,7 @@ class PB_BeamKatana : PB_WeaponBase
 		TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "ThrowFlameBarrel");
 		TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "ThrowIceBarrel");
 		TNT1 A 0 PB_CheckBarrelThrow1();
-		TNT1 A 0 {
-			if (CountInv("NoFatality") == 0 && GetCVar("ttwcfbex") == 1)
-				return PB_Execute();
-			return resolveState(null);
-		}
+		TNT1 A 0 { return PB_FireExecuteCheck(); }
 		BKAT A 0 A_JumpIfInventory("KatanaSwitchHands", 1, "NormalCutAlt");
 		BKAT A 1 Bright;
 		BKAT C 1 Bright;

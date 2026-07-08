@@ -71,7 +71,7 @@ class PB_DarkMatterRifle : PB_WeaponBase
 		TNT1 AA 0;
 		TNT1 A 0 A_JumpIfInventory("UseEquipment", 1, "UseEquipment");
 		TNT1 A 0 A_JumpIfInventory("ToggleEquipment", 1, "SwitchEquipment");
-		"PZCR" A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD, PBWEAP_UNLOADED);
+		"PZCR" A 1 A_DoPBWeaponAction(WRF_ALLOWRELOAD, PB_NOUNLOAD);
 		Goto GunEmpty+3;
 
 		DontNeedToReload:

@@ -15,14 +15,17 @@ class PBWP_Deracinator : PBWP_CA_WeaponBase
 		Inventory.PickupMessage "You wield the Deracinator. Obliteration awaits.";
 		Inventory.PickupSound "ObliterationBFG/Raise";
 		Weapon.UpSound "ObliterationBFG/Raise";
-		Inventory.Icon "BFG8A0";
-		Inventory.AltHudIcon "BFG8A0";
+		Inventory.Icon "D4W7A0";
+		Inventory.AltHudIcon "D4W7A0";
 		Obituary "%o was deracinated by %k's Deracinator.";
 	}
 
 	action void PBWP_DeracinatorFire()
 	{
-		A_FireCustomMissile("PBWP_CA_DeracinatorBolt", 0, 0);
+		if (CountInv("DeracinatorRootSpike") >= 1)
+			A_FireCustomMissile("PBWP_CA_RootSpike", 0, 0);
+		else
+			A_FireCustomMissile("PBWP_CA_DeracinatorBolt", 0, 0);
 		A_TakeInventory("PB_Cell", 5);
 		A_GunFlash();
 		PB_GunSmoke(0, 0, 0);
@@ -33,7 +36,7 @@ class PBWP_Deracinator : PBWP_CA_WeaponBase
 	states
 	{
 	Spawn:
-		BFG8 A -1;
+		D4W7 A -1;
 		Stop;
 
 		Steady:
@@ -90,6 +93,15 @@ class PBWP_Deracinator : PBWP_CA_WeaponBase
 
 		Weaponspecial:
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
+		TNT1 A 0 A_JumpIfInventory("DeracinatorRootSpike", 1, "DeracinatorRootOff");
+		TNT1 A 0 A_GiveInventory("DeracinatorRootSpike", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Payload: Root Spike");
+		Goto Ready3;
+	DeracinatorRootOff:
+		TNT1 A 0 A_TakeInventory("DeracinatorRootSpike", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Payload: Standard");
 		Goto Ready3;
 
 		Reload:

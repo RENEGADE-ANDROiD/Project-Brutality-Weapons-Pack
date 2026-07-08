@@ -1,6 +1,5 @@
-// VietDoom v22 — folded from Brutal Doom addon; runs on PB Staging via VietDoom_Compat.
+// VietDoom v22 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â folded from Brutal Doom addon; runs on PB Staging via VietDoom_Compat.
 #INCLUDE ACTORs/Weapons/VietDoom/VietDoom_Compat.dec
-#INCLUDE ACTORs/Weapons/VietDoom/VietDoom_Durability.dec
 #INCLUDE ACTORs/Weapons/VietDoom/VietDoom_FX.dec
 #INCLUDE ACTORs/Weapons/VietDoom/Machete.dec
 #INCLUDE ACTORs/Weapons/VietDoom/M1911.dec

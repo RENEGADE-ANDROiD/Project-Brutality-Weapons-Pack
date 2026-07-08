@@ -351,5 +351,5 @@ Actor HAR_ModII : Inventory
 ACTOR HAR_AK : Ammo
 {
 Inventory.MaxAmount 60
-Inventory.Icon "MGLXA0"
+Inventory.Icon "CELLA0"
 }

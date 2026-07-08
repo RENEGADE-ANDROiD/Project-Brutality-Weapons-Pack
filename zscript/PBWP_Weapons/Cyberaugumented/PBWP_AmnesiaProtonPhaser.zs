@@ -24,8 +24,16 @@ class PBWP_AmnesiaProtonPhaser : PBWP_CA_WeaponBase
 		A_QuakeEx(3, 3, 3, 34, 0, 200, "", QF_SCALEDOWN, falloff: 400);
 		A_StartSound("DCYBFGX/FIRE", CHAN_6, CHANF_DEFAULT, 0.65, ATTN_IDLE);
 		A_StartSound("DCYBFG/Fire", CHAN_WEAPON, CHANF_DEFAULT, 0.8, ATTN_IDLE);
-		A_FireCustomMissile("PBWP_CA_BFGSpheroid", 0, 0);
-		A_TakeInventory("PB_Cell", 40);
+		if (CountInv("AmnesiaMemoryWipe") >= 1)
+		{
+			A_FireCustomMissile("PBWP_CA_MemoryWipePulse", 0, 0);
+			A_TakeInventory("PB_Cell", 40);
+		}
+		else
+		{
+			A_FireCustomMissile("PBWP_CA_BFGSpheroid", 0, 0);
+			A_TakeInventory("PB_Cell", 40);
+		}
 		A_GunFlash();
 		A_AlertMonsters();
 	}
@@ -88,6 +96,15 @@ class PBWP_AmnesiaProtonPhaser : PBWP_CA_WeaponBase
 
 		Weaponspecial:
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
+		TNT1 A 0 A_JumpIfInventory("AmnesiaMemoryWipe", 1, "AmnesiaMemoryWipeOff");
+		TNT1 A 0 A_GiveInventory("AmnesiaMemoryWipe", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Mode: Memory Wipe");
+		Goto Ready3;
+	AmnesiaMemoryWipeOff:
+		TNT1 A 0 A_TakeInventory("AmnesiaMemoryWipe", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Mode: Proton Sphere");
 		Goto Ready3;
 
 		Reload:

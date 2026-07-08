@@ -108,7 +108,14 @@ ACTOR BioAcidLauncher : PB_WeaponBase //Caustic Ammo Used!
 		BAWF A 0
 		BAWF A 1  {
                 PB_FireOffset;
-				A_FireCustomMissile("PBWP_AcidHellBullet", 0, 0, 0, 0, 0, random(-1,1));
+				if (CountInv("BioAcidViscous") >= 1)
+				{
+					A_FireCustomMissile("PBWP_AcidViscousGlob", 0, 0, 0, 0, 0, random(-2,2));
+				}
+				else
+				{
+					A_FireCustomMissile("PBWP_AcidHellBullet", 0, 0, 0, 0, 0, random(-1,1));
+				}
 				PB_GunSmoke(0, 0, 0);
 				PB_LowAmmoSoundWarning(hdmr, "PB_DTech", 1);
 				A_Takeinventory("PB_DTech",1,TIF_NOTAKEINFINITE);
@@ -172,9 +179,16 @@ ACTOR BioAcidLauncher : PB_WeaponBase //Caustic Ammo Used!
 	TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
-	TNT1 A 0 A_Print("Bruh No!")
-	TNT1 A 0 A_PlaySound("NOUPGRD")
 	TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
+	TNT1 A 0 A_JumpIfInventory("BioAcidViscous", 1, "BioAcidViscousOff")
+	TNT1 A 0 A_GiveInventory("BioAcidViscous", 1)
+	TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	TNT1 A 0 A_Print("Stream: Viscous Glob")
+	Goto Ready3
+	BioAcidViscousOff:
+	TNT1 A 0 A_TakeInventory("BioAcidViscous", 1)
+	TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	TNT1 A 0 A_Print("Stream: Standard")
 	Goto Ready3
 	Reload:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "IdleBarrel")

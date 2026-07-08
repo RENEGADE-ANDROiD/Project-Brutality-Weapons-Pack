@@ -170,6 +170,25 @@ class PB_MegaRig : PB_WeaponBase
 		TNT1 A 0 A_ReFire;
 		Goto Ready3;
 
+	WeaponSpecial:
+		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
+		TNT1 A 0
+		{
+			int fam = CountInv("MegaRigPriorityFamily");
+			if (fam >= 4)
+				A_TakeInventory("MegaRigPriorityFamily", 4);
+			else
+				A_GiveInventory("MegaRigPriorityFamily", 1);
+			fam = CountInv("MegaRigPriorityFamily");
+			A_PlaySound("LIGHTON", CHAN_AUTO);
+			if (fam == 1) A_Print("Priority Rack: Ballistic");
+			else if (fam == 2) A_Print("Priority Rack: Scatter");
+			else if (fam == 3) A_Print("Priority Rack: Heavy");
+			else if (fam == 4) A_Print("Priority Rack: Energy");
+			else A_Print("Priority Rack: Full Volley");
+		}
+		Goto Ready3;
+
 	AltFire:
 		TNT1 A 0 A_JumpIfInventory("PB_PowerMegaRig", 1, "AltFireContinue");
 		Goto ExpireDeselect;
@@ -247,6 +266,30 @@ extend class PB_MegaRig
 		if ((slot == MRG_SLOT_INNER_L || slot == MRG_SLOT_INNER_R) && (volleyIdx & 1) != 0)
 			return false;
 		return true;
+	}
+
+	// Priority Rack: 1 ballistic, 2 scatter, 3 heavy missiles, 4 energy.
+	static bool PB_Mega_AttackMatchesPriority(EMegaRigAttack attack, int priority)
+	{
+		switch (priority)
+		{
+			case 1:
+				return attack == MRG_ATK_PROJ_556
+					|| attack == MRG_ATK_PROJ_762
+					|| attack == MRG_ATK_PROJ_9MM;
+			case 2:
+				return attack == MRG_ATK_PROJ_SHOTGUN
+					|| attack == MRG_ATK_PROJ_NAIL;
+			case 3:
+				return attack == MRG_ATK_MISSILE_ROCKET
+					|| attack == MRG_ATK_MISSILE_GAUSS;
+			case 4:
+				return attack == MRG_ATK_MISSILE_ENERGY
+					|| attack == MRG_ATK_MISSILE_PLASMA
+					|| attack == MRG_ATK_MISSILE_BFG;
+			default:
+				return true;
+		}
 	}
 
 	action void PB_Mega_ClearOverlays()
@@ -583,6 +626,10 @@ extend class PB_MegaRig
 		PB_Mega_SpawnSlotMuzzleFX(slot, entry, mSide, mHeight, mForward);
 
 		if (!wpn.PB_Mega_SlotDealsDamage(slot, wpn.volleyLite, wpn.volleyAggressive, wpn.volleyIndex))
+			return;
+
+		int priority = CountInv("MegaRigPriorityFamily");
+		if (priority > 0 && !PB_Mega_AttackMatchesPriority(entry.attack, priority))
 			return;
 
 		if (wpn.volleyLite && PB_MegaRigCatalog.IsHeavyAttack(entry.attack))

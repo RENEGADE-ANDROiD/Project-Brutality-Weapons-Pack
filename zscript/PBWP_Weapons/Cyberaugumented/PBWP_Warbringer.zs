@@ -27,6 +27,16 @@ class PBWP_Warbringer : PBWP_CA_WeaponBase
 		A_StartSound("Rifle/Fire", CHAN_WEAPON, CHANF_DEFAULT, 0.75);
 		A_GunFlash();
 		PB_FireBullets("PB_762x51mm", 1, 0.35, 0, 0, 0.35);
+		if (CountInv("WarbringerIncendiary") >= 1)
+		{
+			FLineTraceData hit;
+			if (LineTrace(angle, 8192, pitch, 0, player.viewheight, 0, 0, hit)
+				&& hit.HitType != TRACE_HitNone)
+			{
+				Spawn("TinyBurningPiece", hit.HitLocation);
+				Spawn("TinyBurningPiece", hit.HitLocation + (frandom(-6, 6), frandom(-6, 6), frandom(0, 6)));
+			}
+		}
 		PB_WeaponRecoil(-1.2, 0.4);
 		PB_SpawnCasing("PB_EmptyBrass", 32, -2, 30, frandom(4, 7), frandom(6, 9), frandom(0, 5));
 		PB_GunSmoke(0, 0, 0);
@@ -128,6 +138,15 @@ class PBWP_Warbringer : PBWP_CA_WeaponBase
 
 		Weaponspecial:
 		TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility", 1);
+		TNT1 A 0 A_JumpIfInventory("WarbringerIncendiary", 1, "WarbringerSetBallistic");
+		TNT1 A 0 A_GiveInventory("WarbringerIncendiary", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Tip: Incendiary");
+		Goto Ready3;
+	WarbringerSetBallistic:
+		TNT1 A 0 A_TakeInventory("WarbringerIncendiary", 1);
+		TNT1 A 0 A_StartSound("LIGHTON", CHAN_AUTO);
+		TNT1 A 0 A_Print("Tip: Ballistic");
 		Goto Ready3;
 
 		FlashPunching:

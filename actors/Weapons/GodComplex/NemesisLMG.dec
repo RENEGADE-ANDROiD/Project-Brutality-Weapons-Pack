@@ -388,11 +388,15 @@ FastFire:
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
 	TNT1 A 0 A_TakeInventory("GoWeaponSpecialAbility",1)
-	TNT1 A 0 A_PlaySound("NemLMG/Empty")
-	TNT1 A 0 A_Print("Seems Tonyn need only Having one Not Having this Weapons.")
-	UVMG CCBBBBAA 2
-	UVMG A 4
-	TNT1 A 0 A_PlaySound("NOUPGRD")
+	TNT1 A 0 A_JumpIfInventory("NemesisLMGFast", 1, "NemesisLMGOverclockOff")
+	TNT1 A 0 A_GiveInventory("NemesisLMGFast", 1)
+	TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	TNT1 A 0 A_Print("Drive: Overclock")
+	Goto Ready3
+	NemesisLMGOverclockOff:
+	TNT1 A 0 A_TakeInventory("NemesisLMGFast", 1)
+	TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	TNT1 A 0 A_Print("Drive: Standard")
 	Goto Ready3
 	FlashKicking:
 		TNT1 A 0 A_JumpIfInventory ("GrabbedBarrel", 1, "FlashBarrelKicking")

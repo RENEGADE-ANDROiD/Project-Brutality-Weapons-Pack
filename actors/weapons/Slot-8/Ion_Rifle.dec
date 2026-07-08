@@ -98,8 +98,15 @@ ACTOR Ion_Heavy : PB_WeaponBase //Back For This Weapon.
 	TNT1 A 0 A_JumpIfInventory ("GrabbedFlameBarrel", 1, "IdleFlameBarrel")
 	TNT1 A 0 A_JumpIfInventory ("GrabbedIceBarrel", 1, "IdleIceBarrel")
 	TNT1 A 0 A_Takeinventory("GoWeaponSpecialAbility",1)
-	TNT1 A 0 A_PlaySound ("NOUPGRD")
-	TNT1 A 0 A_Print("Since Ares Did the Second Weapons. but why to Do again ARES!")
+	TNT1 A 0 A_JumpIfInventory("IonSoulCapacitor", 1, "IonSoulCapacitorOff")
+	TNT1 A 0 A_GiveInventory("IonSoulCapacitor", 1)
+	TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	TNT1 A 0 A_Print("Capacitor: Soul Lance")
+	Goto RealReady
+	IonSoulCapacitorOff:
+	TNT1 A 0 A_TakeInventory("IonSoulCapacitor", 1)
+	TNT1 A 0 A_PlaySound("LIGHTON", CHAN_AUTO)
+	TNT1 A 0 A_Print("Capacitor: Pulse")
 	Goto RealReady
 	  
 	FireNoreload:
@@ -121,6 +128,7 @@ ACTOR Ion_Heavy : PB_WeaponBase //Back For This Weapon.
 			}
 			return state("");
 		}
+	  TNT1 A 0 A_JumpIfInventory("IonSoulCapacitor", 1, "SoulLanceFire")
 	  TNT1 A 0 A_JumpIfInventory("Ion_Ammo",1,2)
 	  Goto Reload
 	  
@@ -151,6 +159,28 @@ ACTOR Ion_Heavy : PB_WeaponBase //Back For This Weapon.
 	  PRLP A 1 A_DoPBWeaponAction(1)
 	  PRLP A 1 A_DoPBWeaponAction(1)
 	  PRLP A 1 A_DoPBWeaponAction(1)
+	  Goto RealReady
+
+	SoulLanceFire:
+	  TNT1 A 0 A_JumpIfInventory("Ion_Ammo", 4, 2)
+	  Goto Reload
+	  TNT1 A 0 { PB_FireOffset; }
+	  PRLF A 2 Bright
+	  TNT1 A 0 A_AlertMonsters
+	  TNT1 A 0 A_FireCustomMissile("PlasmaFlareSpawn", 0, 0, 0, 0)
+	  TNT1 A 0 { PB_GunSmoke(0, 0, 0); }
+	  PRLF B 2 Bright
+	  TNT1 A 0 A_SetPitch(pitch - 1.5)
+	  RNLF F 0 { PB_LowAmmoSoundWarning(hdmr, "Ion_Ammo", 4); }
+	  RNLF F 0 A_TakeInventory("Ion_Ammo", 4,TIF_NOTAKEINFINITE)
+	  TNT1 A 0 A_FireCustomMissile ("ION_Ball_Bouncer")
+	  TNT1 A 0 A_FireCustomMissile ("Ion_Ball")
+	  TNT1 A 0 A_PlaySound("Ion/FireAdd",CHAN_Weapon,0.77,0,2)
+	  TNT1 A 0 A_PlaySound("IRNBLHIT",CHAN_Body,0.99,0,2)
+	  PRLF C 2
+	  TNT1 A 0 A_SetPitch(+ 1.5 + pitch)
+	  PRLF D 2
+	  PRLP AAAA 1 A_DoPBWeaponAction(1)
 	  Goto RealReady
 	  
 	  
