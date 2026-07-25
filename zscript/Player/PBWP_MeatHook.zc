@@ -451,25 +451,26 @@ class HookTrail : Actor
 		Species "HookTrail";
 	}
 
+	// TEND art is authored upright; align each link along the rope (player -> hook).
 	void OrientAlongRope(Hook hook)
 	{
 		if (!hook) { return; }
 		Vector3 along = hook.HookToPlayer;
 		double len = along.Length();
 		if (len < 0.01) { return; }
-		along = (-along) / len;
+		along /= len;
 		double xyLen = along.xy.Length();
 		if (xyLen < 0.01)
 		{
 			Angle = hook.Angle;
-			Pitch = along.z > 0 ? 90.0 : -90.0;
+			Pitch = along.z > 0 ? -90.0 : 90.0;
 		}
 		else
 		{
 			Angle = VectorAngle(along.x, along.y);
-			Pitch = atan2(along.z, xyLen) * (180.0 / 3.141592653589793);
+			Pitch = -atan2(along.z, xyLen);
 		}
-		Roll = 90.0;
+		Roll = 0;
 	}
 
 	override void Tick()
