@@ -226,7 +226,7 @@ extend class PB_WeaponBase
 				A_Overlay(PSP_FLASH, "EquipmentFlashHide");
 			}
 			GRTH OOPPQQ 1 A_StartSound("THRGRN", 1);
-			// Legacy ThrowHook path: host ZScript grapple (same as UseHookEquipmentFire).
+			// Legacy ThrowHook path: PBWP ZScript grapple (same as UseHookEquipmentFire).
 			GRTH Q 1 A_GiveInventory("PB_FireGrapplePulse", 1);
 			GRTH RRSSTTUU 1;
 			TNT1 A 0 {

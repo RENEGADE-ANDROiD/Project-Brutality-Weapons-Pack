@@ -52,6 +52,7 @@ Gameinfo
 	"PB_MapStartInputLockHandler",
 	"PB_ExternalMapCompatHandler",
 	"PBWP_PickupSpamGuardHandler",
+	"GrapplingHookHandler",
 	"cl_Handler",
 	"cl_FXThrottleHandler"
 }

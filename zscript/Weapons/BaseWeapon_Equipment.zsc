@@ -71,7 +71,6 @@ extend class PB_WeaponBase
 		// Host ZScript grapple (PB2022 Hook / HookTrail); not ACS HookShot.
 		UseHookEquipment:
 			TNT1 A 0 A_JumpIfInventory("PBWP_HookToken", 1, "UseHookEquipmentFire");
-			TNT1 A 0 A_JumpIfInventory("PB_HookToken", 1, "UseHookEquipmentFire");
 			TNT1 A 0 A_JumpIfInventory("HookAmmo", 1, "UseHookEquipmentFire");
 			TNT1 A 0 A_JumpIfInventory("AlreadyHaveMeatHook", 1, "UseHookEquipmentFire");
 			TNT1 A 0 A_Print("\cgPick up the \ctMeat Hook\c- first.");
@@ -325,3 +324,6 @@ extend class PB_WeaponBase
 			goto Equipment_Toggle_Handler_Overlay;
 	}
 }
+
+// Meat Hook rope grapple — must compile in Staging's TU (PlayerPawnBase lives there).
+#include "zscript/Player/PBWP_MeatHook.zc"
