@@ -40,7 +40,7 @@ ACTOR HookGiver : CustomInventory
 }
 
 // Legacy tip projectile (unused by equipment; Marauder SSG uses PB_FireGrapplePulse).
-// No ACS pull — host ZScript Hook / HookTrail owns rope physics.
+// Rope physics live in PBWP zscript/Player/PBWP_MeatHook.zc (Staging-compatible).
 Actor HookShot : FastProjectile
 {
 	MissileHeight 8

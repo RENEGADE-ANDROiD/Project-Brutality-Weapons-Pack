@@ -18,7 +18,7 @@ class PB_DMR_GravityAltMode : Inventory { Default { Inventory.MaxAmount 1; } }
 class Select_PB_DMR_SuperBall : Inventory { Default { Inventory.MaxAmount 1; } }
 class Select_PB_DMR_GravityBomb : Inventory { Default { Inventory.MaxAmount 1; } }
 
-class BallistaDemonicMode : Inventory { Default { Inventory.MaxAmount 1; } }
+// BallistaDemonicMode — owned by PBX-Weapons / Ballista DECORATE when that pack is loaded (do not stub here; clashes with PBX).
 
 class HellPistolerBeamMode : Inventory { Default { Inventory.MaxAmount 1; } }
 

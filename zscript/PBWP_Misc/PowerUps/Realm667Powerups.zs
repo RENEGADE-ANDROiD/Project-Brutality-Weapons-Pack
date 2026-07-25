@@ -408,7 +408,7 @@ class FrostAuraPower : Powerup
 								mon.tics  += hpfactor;
 								mon.speed -= hpfactor;
 							}
-							actor frostdmg = Spawn("FrostAuraFreeze", mon.pos);
+							actor frostdmg = Spawn("PBWP_FrostAuraFreeze", mon.pos);
 							if (frostdmg)
 							{
 								int stxW = 0, stxH = 0;
@@ -430,7 +430,7 @@ class FrostAuraPower : Powerup
 							mon.SetStateLabel("GenericFreezeDeath");
 						if (mon.bICECORPSE)
 						{
-							actor frozen = Spawn("FrostAuraFrozen", mon.pos);
+							actor frozen = Spawn("PBWP_FrostAuraFrozen", mon.pos);
 							if (frozen) frozen.A_SetSize(mon.radius, mon.height);
 						}
 					}
@@ -469,7 +469,8 @@ class FrostAuraPower : Powerup
 	}
 }
 
-class FrostAuraFreeze : Actor
+// PBWP_* names avoid clash with PBX-Core FrostAuraFreeze / FrostAuraFrozen.
+class PBWP_FrostAuraFreeze : Actor
 {
 	Default
 	{
@@ -501,7 +502,7 @@ class FrostAuraFreeze : Actor
 	}
 }
 
-class FrostAuraFrozen : Actor
+class PBWP_FrostAuraFrozen : Actor
 {
 	Default
 	{

@@ -1,0 +1,509 @@
+// Meat Hook — ZScript rope grapple for PB Staging + PBWP.
+// Ported from Project Brutality 2022 (Hook / HookTrail / FireHook).
+// Equipment fires via PB_FireGrapplePulse; do not rely on host Hook classes.
+
+extend class PlayerPawnBase
+{
+	actor GrappledMonster;
+	actor HookFired;
+	bool Grappled;
+	float PendulumLength;
+	vector3 GrappleVel;
+	vector3 Rope;
+
+	void FireHook()
+	{
+		if (!player) return;
+		if (CountInv("PBWP_HookToken") < 1
+			&& CountInv("HookAmmo") < 1 && CountInv("AlreadyHaveMeatHook") < 1)
+			return;
+
+		int hookMode = 1;
+		let cv = CVar.FindCVar("pb_hook");
+		if (cv && cv.GetInt() == 2)
+			hookMode = 2;
+
+		if (WaterLevel >= 2 || bNOGRAVITY) { return; }
+
+		if (PendulumLength || (GrappleVel.Length() && hookMode == 1))
+		{
+			StopHook();
+			return;
+		}
+
+		if (GrappleVel.Length() && hookMode == 2)
+		{
+			Float RopePitch = atan2(Rope.XY.Length(), Rope.Z);
+			if (RopePitch >= 90.f)
+			{
+				StopHook();
+				return;
+			}
+			PendulumLength = Rope.Length();
+			RopePitch *= (Vel.Z < 0 ? -1 : 1);
+			Float SwingPitch = RopePitch + 90;
+			Float SwingAngle = VectorAngle(Vel.X, Vel.Y);
+			Vel = GrappleVel.Length() * (sin(SwingPitch) * cos(SwingAngle), sin(SwingPitch) * sin(SwingAngle), cos(SwingPitch));
+			GrappleVel = Vel;
+			return;
+		}
+
+		if (HookFired || Grappled) { return; }
+		A_StartSound("HookLaunch", CHAN_5, CHANF_DEFAULT, 0.8);
+		HookFired = SpawnPlayerMissile("Hook", Angle, 0, 0, - Height / 14.f);
+	}
+
+	bool HookLOS()
+	{
+		Float LOSPitch = atan2(Rope.XY.Length(), Rope.Z) - 90;
+		Float LOSAngle = VectorAngle(Rope.X, Rope.Y);
+		FLineTraceData LOSCheck;
+		LineTrace(LOSAngle, Rope.Length(), LOSPitch, TRF_SOLIDACTORS|TRF_BLOCKSELF, Height / 2.f, data: LOSCheck);
+
+		if (GrappledMonster != Null && LOSCheck.HitActor == GrappledMonster) { return true; }
+
+		return LOSCheck.Distance == Rope.Length();
+	}
+
+	void GrapplingMove()
+	{
+		Let Player = self.player;
+		if (!Player) { StopHook(); return; }
+
+		if (!Player.OnGround) { Grappled = True; }
+
+		if ((Player.OnGround && Grappled) || WaterLevel >= 2 || bNOGRAVITY
+			|| Rope.Length() <= 4.f * Radius
+			|| float(Vel.Length() - GrappleVel.Length()) < 0.f
+			|| !HookLOS() || !Vel.Length())
+		{
+			StopHook();
+			return;
+		}
+
+		if (PendulumLength)
+		{
+			Float RopePitch = atan2(Rope.XY.Length(), Rope.Z);
+			if (RopePitch >= 90)
+			{
+				StopHook();
+				return;
+			}
+
+			Vector3 SwingVel;
+			if (Vel.Z < 0)
+				SwingVel = (GrappleVel.X, GrappleVel.Y, GrappleVel.Z - SET_GRAVITY);
+			else
+			{
+				SwingVel = (GrappleVel.X, GrappleVel.Y, GrappleVel.Z - SET_GRAVITY / 2.f);
+				RopePitch *= -1;
+			}
+			Float SwingPitch = RopePitch + 90;
+			Float SwingAngle = VectorAngle(Vel.X, Vel.Y);
+			Vel = SwingVel.Length() * (sin(SwingPitch) * cos(SwingAngle), sin(SwingPitch) * sin(SwingAngle), cos(SwingPitch));
+
+			Float Tension = Rope.Length() - PendulumLength;
+			if (Tension) { Vel += Tension * SafeUnit3(Rope); }
+
+			MaxAirSpeed = min(Vel.XY.Length(), MaxGroundSpeed * 3.f);
+			Vel.XY = MaxAirSpeed * SafeUnit2(Vel.XY);
+
+			GrappleVel = Vel;
+		}
+		else
+		{
+			GrappleVel = SafeUnit3(Rope) * GrappleVel.Length();
+			Vel = GrappleVel;
+		}
+
+		PlayIdle();
+	}
+
+	void StopHook()
+	{
+		Rope = GrappleVel = (0, 0, 0);
+		PendulumLength = 0;
+		GrappledMonster = Null;
+		Grappled = false;
+		if (HookFired)
+		{
+			HookFired.Destroy();
+			HookFired = null;
+		}
+	}
+}
+
+// HandleMovement/CheckJump already exist on PlayerPawnBase — override on the player subclass.
+extend class PB_PlayerPrawn
+{
+	override void HandleMovement()
+	{
+		if (GrappleVel.Length())
+		{
+			let player = self.player;
+			if (!player)
+			{
+				Super.HandleMovement();
+				return;
+			}
+			UserCmd cmd = player.cmd;
+			if (reactiontime)
+			{
+				reactiontime--;
+				return;
+			}
+			ViewAngleDelta = cmd.Yaw * (360.0 / 65536.0);
+			ViewPitchDelta = cmd.Pitch * (90.0 / 65536.0);
+			if (player.TurnTicks)
+			{
+				player.TurnTicks--;
+				Angle += ViewAngleDelta;
+			}
+			else
+			{
+				angle += ViewAngleDelta;
+			}
+			if (WaterLevel >= 2)
+				Gravity = (Vel.Length() < MaxGroundSpeed / 3.f) ? 0.5f : 0.f;
+			else
+				Gravity = 0.f;
+			GrapplingMove();
+			return;
+		}
+		Super.HandleMovement();
+	}
+
+	override void CheckJump()
+	{
+		if (GrappleVel.Length())
+			return;
+		Super.CheckJump();
+	}
+}
+
+class PB_FireGrapplePulse : Inventory
+{
+	Default
+	{
+		Inventory.MaxAmount 1;
+	}
+	override void AttachToOwner(Actor other)
+	{
+		Super.AttachToOwner(other);
+		let pp = PlayerPawnBase(other);
+		if (pp) pp.FireHook();
+		other.TakeInventory("PB_FireGrapplePulse", 1);
+	}
+}
+
+class GrapplingHookHandler : EventHandler
+{
+	override void NetworkProcess(ConsoleEvent e)
+	{
+		if (!e) return;
+
+		if (e.Player >= 0 && e.Player < MAXPLAYERS && PlayerInGame[e.Player] && Players[e.Player].Mo)
+		{
+			if (e.Name == "GrapplingHook")
+			{
+				Let GrapplingPlayer = PlayerPawnBase(Players[e.Player].Mo);
+				if (GrapplingPlayer) { GrapplingPlayer.FireHook(); }
+			}
+		}
+	}
+}
+
+class Hook : Actor
+{
+	Default
+	{
+		+FORCEXYBILLBOARD;
+		+HITMASTER;
+		+MISSILE;
+		+NOGRAVITY;
+		+NOTELEPORT;
+		+NOTONAUTOMAP;
+		+THRUSPECIES;
+		Damage 6;
+		Height 4;
+		Radius 2;
+		Speed 80;
+		Species "Hook";
+	}
+
+	vector3 HookToPlayer;
+	vector3 HookToMonster;
+	int MonsterSpeed;
+	int MonsterFloatSpeed;
+
+	vector3 SafeUnit3(Vector3 VecToUnit)
+	{
+		if (VecToUnit.Length()) { VecToUnit /= VecToUnit.Length(); }
+		return VecToUnit;
+	}
+
+	vector2 SafeUnit2(Vector2 VecToUnit)
+	{
+		if (VecToUnit.Length()) { VecToUnit /= VecToUnit.Length(); }
+		return VecToUnit;
+	}
+
+	override void Tick()
+	{
+		Let HookOwner = PlayerPawnBase(Target);
+		if (HookOwner)
+		{
+			Vector3 WaistPos = (HookOwner.Pos.X, HookOwner.Pos.Y, HookOwner.Pos.Z + HookOwner.Height / 2.f);
+			HookToPlayer = Pos - WaistPos;
+		}
+
+		Super.Tick();
+		UpdateTrail();
+	}
+
+	void UpdateTrail()
+	{
+		int b;
+		for (b = 1; b <= 14; b++)
+		{
+			ActorIterator BallOfSteele = Level.CreateActorIterator(84115 + b);
+			Actor Ball = BallOfSteele.Next();
+
+			if (Ball != Null)
+			{
+				Vector3 TargetPos = Pos - (HookToPlayer * b / 15.f);
+				Ball.Vel = TargetPos - Ball.Pos;
+				let trail = HookTrail(Ball);
+				if (trail) { trail.OrientAlongRope(self); }
+			}
+		}
+	}
+
+	void InitiateGrapple(Bool Monster)
+	{
+		Let HookOwner = PlayerPawnBase(Target);
+		if (!HookOwner) { SetState(FindState("DespawnHook")); return; }
+
+		float boost = 1.5;
+		let cvBoost = CVar.FindCVar("pb_hookboost");
+		if (cvBoost) boost = cvBoost.GetFloat();
+
+		Float PushLength = HookOwner.MaxGroundSpeed * boost;
+		Vector3 HookPush = SafeUnit3(HookToPlayer) * PushLength;
+		Float HookSpeed = max((HookOwner.Vel + HookPush).Length(), PushLength);
+		HookOwner.Rope = HookToPlayer;
+
+		if (!HookOwner.HookLOS())
+		{
+			SetState(FindState("DespawnHook"));
+			return;
+		}
+
+		HookOwner.dashTics = 0;
+
+		HookSpeed = HookOwner.MaxAirSpeed = min(HookSpeed, HookOwner.MaxGroundSpeed * 3.f);
+		HookOwner.Vel = HookOwner.GrappleVel = HookSpeed * SafeUnit3(HookPush);
+
+		if (Monster)
+		{
+			Let HitMon = Actor(Master);
+			HookOwner.GrappledMonster = HitMon;
+			SetMonsterSpeed(False);
+			A_StartSound("HookMeat", 0);
+		}
+		else
+		{
+			A_StartSound("HookWall", 0);
+		}
+	}
+
+	void SetMonsterSpeed(Bool Reset)
+	{
+		Let Monster = Actor(Master);
+		if (!Monster) return;
+
+		if (!Reset)
+		{
+			MonsterSpeed = Monster.Speed;
+			MonsterFloatSpeed = Monster.FloatSpeed;
+			Monster.Speed = Monster.FloatSpeed = 0;
+		}
+		else
+		{
+			Monster.Speed = MonsterSpeed;
+			Monster.FloatSpeed = MonsterFloatSpeed;
+		}
+	}
+
+	void SpawnTrail()
+	{
+		int h;
+		for (h = 1; h <= 14; h++)
+		{
+			A_SpawnItemEx("HookTrail", 0, 0, 0, 0, 0, 0, 0, SXF_ISTRACER|SXF_SETTARGET|SXF_ORIGINATOR|SXF_NOCHECKPOSITION);
+			Let SlaveTrail = HookTrail(Tracer);
+			if (SlaveTrail)
+				SlaveTrail.ChangeTid(84115 + h);
+		}
+	}
+
+	States
+	{
+	Spawn:
+		OCLW A 0 NoDelay
+		{
+			A_AlertMonsters();
+			SpawnTrail();
+		}
+	Looper:
+		OCLW A 1
+		{
+			Let HookOwner = PlayerPawnBase(Target);
+			if (HookToPlayer.Length() >= 1000.f || !HookOwner)
+			{
+				SetState(FindState("DespawnHook"));
+				return;
+			}
+		}
+		Loop;
+
+	Death:
+		OCLW A 0
+		{
+			Let HookOwner = PlayerPawnBase(Target);
+			if (!HookOwner)
+			{
+				SetState(FindState("DespawnHook"));
+				return;
+			}
+			InitiateGrapple(False);
+		}
+
+	TillDeathDoesUsApart:
+		OCLW A 1
+		{
+			Let HookOwner = PlayerPawnBase(Target);
+			if (!HookOwner || !HookOwner.GrappleVel.Length())
+			{
+				SetState(FindState("DespawnHook"));
+				return;
+			}
+			HookOwner.Rope = HookToPlayer;
+		}
+		Loop;
+
+	XDeath:
+		OCLW A 0
+		{
+			Let Monster = Actor(Master);
+			if (!Monster || !Monster.bISMONSTER)
+			{
+				SetState(FindState("DespawnHook"));
+				return;
+			}
+			InitiateGrapple(True);
+		}
+
+	TillXDeathDoesUsApart:
+		OCLW A 1
+		{
+			Let HookOwner = PlayerPawnBase(Target);
+			Let Monster = Actor(Master);
+			if (!HookOwner || !HookOwner.GrappleVel.Length() || !Monster || Monster.Health <= 0)
+			{
+				SetState(FindState("DespawnHook"));
+				return;
+			}
+			Vel = Monster.Vel;
+			HookOwner.Rope = HookToPlayer;
+		}
+		Loop;
+
+	DespawnHook:
+		OCLW A 0
+		{
+			Let HookOwner = PlayerPawnBase(Target);
+			if (HookOwner)
+			{
+				HookOwner.StopHook();
+				HookOwner.A_StartSound("HookFailed", CHAN_5, CHANF_DEFAULT, 0.2);
+			}
+			Let Monster = Actor(Master);
+			if (Monster && MonsterSpeed) { SetMonsterSpeed(True); }
+		}
+		Stop;
+	}
+}
+
+class HookTrail : Actor
+{
+	Default
+	{
+		+ROLLSPRITE;
+		+MISSILE;
+		+NOGRAVITY;
+		+NOTELEPORT;
+		+NOTONAUTOMAP;
+		+THRUSPECIES;
+		Radius 2;
+		Height 4;
+		Scale 0.45;
+		Species "HookTrail";
+	}
+
+	void OrientAlongRope(Hook hook)
+	{
+		if (!hook) { return; }
+		Vector3 along = hook.HookToPlayer;
+		double len = along.Length();
+		if (len < 0.01) { return; }
+		along = (-along) / len;
+		double xyLen = along.xy.Length();
+		if (xyLen < 0.01)
+		{
+			Angle = hook.Angle;
+			Pitch = along.z > 0 ? 90.0 : -90.0;
+		}
+		else
+		{
+			Angle = VectorAngle(along.x, along.y);
+			Pitch = atan2(along.z, xyLen) * (180.0 / 3.141592653589793);
+		}
+		Roll = 90.0;
+	}
+
+	override void Tick()
+	{
+		Super.Tick();
+		OrientAlongRope(Hook(Target));
+	}
+
+	States
+	{
+	Spawn:
+	Looper:
+		TEND A 1
+		{
+			if (!Hook(Target))
+			{
+				SetState(FindState("DespawnTrail"));
+				return;
+			}
+		}
+		Loop;
+
+	Death:
+		TEND A 1
+		{
+			if (!Hook(Target))
+			{
+				SetState(FindState("DespawnTrail"));
+				return;
+			}
+		}
+		Loop;
+
+	DespawnTrail:
+		Stop;
+	}
+}

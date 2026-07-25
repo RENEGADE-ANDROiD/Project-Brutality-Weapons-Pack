@@ -38,6 +38,9 @@ server color OuchFlash_Bleed 		= "ff0000";
 
 //Hook//
 Server NoArchive Bool sv_allowhookshot = True;
+// ZScript Meat Hook (rope / pendulum) — PBWP-owned; Staging has no pb_hook*
+server int pb_hook = 1; // 1 = re-fire detaches, 2 = pendulum then detach
+server float pb_hookboost = 1.5;
 
 //Random Weapon Switcher//
 user bool rw_switchEnabled = false;

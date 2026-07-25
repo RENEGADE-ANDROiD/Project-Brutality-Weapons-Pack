@@ -30,7 +30,7 @@ A community weapons and systems addon for [Project Brutality Staging](https://gi
 | 8 | `PBX-Items-main.zip` | Powerups / item spawners |
 | 9 | `PBX-Addons-main.zip` | Helmet drops, damage indicators, hit feedback, smart scavenger, backpack reload |
 
-PBWP does **not** require PBX. When PBX is loaded, PBWP skips duplicate systems (helmet drops, directional damage indicators, PBX weapon spawns) so the two packs do not fight.
+PBWP does **not** require PBX. When PBX is loaded, PBWP skips duplicate systems (helmet drops, directional damage indicators, PBX weapon spawns) so the two packs do not fight. Killstreak Frost Aura FX helpers are named `PBWP_FrostAuraFreeze` / `PBWP_FrostAuraFrozen` so they do not collide with PBX-Core’s `FrostAuraFreeze` / `FrostAuraFrozen`.
 
 ---
 
@@ -299,7 +299,7 @@ Toggle world spawns in **PB Options → Addon Options → Configure Spawns → E
 | Equipment | Notes |
 |-----------|-------|
 | Leech | Life-drain beam; uses **PB_DTech** as ammo |
-| Meat Hook | Grapple / mobility — no ammo. Equipment use fires the **host** ZScript grapple (`PB_FireGrapplePulse` → `Hook` / `HookTrail` rope, e.g. PB 2022). Legacy ACS `hook` / tip-only `HookShot` are unused for the wheel path. |
+| Meat Hook | Grapple / mobility — no ammo. PBWP ships ZScript rope grapple (`PB_FireGrapplePulse` → `Hook` / `HookTrail`, `pb_hook` / `pb_hookboost`) for **PB Staging**. Legacy ACS `hook` / tip-only `HookShot` are unused for the wheel path. |
 | **God Complex** | Demonic Chalice (alt-fire consumable via wheel) |
 
 ### Wheel Slot 1 — Damage
