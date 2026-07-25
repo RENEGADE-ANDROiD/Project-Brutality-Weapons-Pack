@@ -1,0 +1,8 @@
+Meat Hook (equipment wheel)
+
+- Hellfall / War Carlsson lineage art (`warcarlssonhook` / TEND chain, OCLW tip).
+- PBWP pickup / wheel ownership (`HookGiver`, `HookAmmo`, `PBWP_HookToken`).
+- Rope physics and trail orientation: host mod ZScript grapple
+  (Project Brutality 2022: `Hook`, `HookTrail`, `PB_FireGrapplePulse`, `pb_hook` / `pb_hookboost`).
+- Legacy ACS `SRC/hook.acs` (`Hook_HitWall` / `Hook_HitEnemy`) and DECORATE `HookShot`
+  are no longer used by the equipment-wheel path (kept for compatibility).

@@ -57,7 +57,7 @@ extend class PB_WeaponBase
 			TNT1 A 0 A_JumpIfInventory("LaserChargeSelected", 1, "ThrowLaserCharge");
 			TNT1 A 0 A_JumpIfInventory("AcidChargeSelected", 1, "ThrowAcidCharge");
 			TNT1 A 0 A_JumpIfInventory("AxeSelected", 1, "ThrowAxe");
-			TNT1 A 0 A_JumpIfInventory("HookSelected", 1, "ThrowHook");
+			TNT1 A 0 A_JumpIfInventory("HookSelected", 1, "UseHookEquipment");
 			TNT1 A 0 A_JumpIfInventory("ShieldSawSelected", 1, "ThrowShieldSaw");
 			TNT1 A 0 A_JumpIfInventory("ShurikenSelected", 1, "ThrowShuriken");
 			TNT1 A 0 A_JumpIfInventory("CaltropsSelected", 1, "ThrowCaltrops");
@@ -67,6 +67,19 @@ extend class PB_WeaponBase
 			TNT1 A 0 A_JumpIfInventory("PipeBombSelected", 1, "ThrowDukePipeBomb");
 			TNT1 A 0 A_JumpIfInventory("GCShieldSphereSelected", 1, "UseGCShieldSphere");
 			TNT1 A 0 A_JumpIfInventory("GCChaliceSelected", 1, "UseGCChalice");
+			Goto GoingToReady;
+		// Host ZScript grapple (PB2022 Hook / HookTrail); not ACS HookShot.
+		UseHookEquipment:
+			TNT1 A 0 A_JumpIfInventory("PBWP_HookToken", 1, "UseHookEquipmentFire");
+			TNT1 A 0 A_JumpIfInventory("PB_HookToken", 1, "UseHookEquipmentFire");
+			TNT1 A 0 A_JumpIfInventory("HookAmmo", 1, "UseHookEquipmentFire");
+			TNT1 A 0 A_JumpIfInventory("AlreadyHaveMeatHook", 1, "UseHookEquipmentFire");
+			TNT1 A 0 A_Print("\cgPick up the \ctMeat Hook\c- first.");
+			TNT1 A 0 A_TakeInventory("UseEquipment", 1);
+			Goto GoingToReady;
+		UseHookEquipmentFire:
+			TNT1 A 0 A_GiveInventory("PB_FireGrapplePulse", 1);
+			TNT1 A 0 A_TakeInventory("UseEquipment", 1);
 			Goto GoingToReady;
 		WheelCancelEquipment:
 			TNT1 A 0

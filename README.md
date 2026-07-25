@@ -299,7 +299,7 @@ Toggle world spawns in **PB Options → Addon Options → Configure Spawns → E
 | Equipment | Notes |
 |-----------|-------|
 | Leech | Life-drain beam; uses **PB_DTech** as ammo |
-| Meat Hook | Grapple / mobility — no ammo |
+| Meat Hook | Grapple / mobility — no ammo. Equipment use fires the **host** ZScript grapple (`PB_FireGrapplePulse` → `Hook` / `HookTrail` rope, e.g. PB 2022). Legacy ACS `hook` / tip-only `HookShot` are unused for the wheel path. |
 | **God Complex** | Demonic Chalice (alt-fire consumable via wheel) |
 
 ### Wheel Slot 1 — Damage
