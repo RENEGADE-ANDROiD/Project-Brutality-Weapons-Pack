@@ -299,7 +299,7 @@ Toggle world spawns in **PB Options → Addon Options → Configure Spawns → E
 | Equipment | Notes |
 |-----------|-------|
 | Leech | Life-drain beam; uses **PB_DTech** as ammo |
-| Meat Hook | Grapple / mobility — no ammo. PBWP ships ZScript rope grapple (`PB_FireGrapplePulse` → `Hook` / `HookTrail`, `pb_hook` / `pb_hookboost`) for **PB Staging**. Legacy ACS `hook` / tip-only `HookShot` are unused for the wheel path. |
+| Meat Hook | Grapple / mobility — no ammo. PBWP ships ZScript rope grapple (`PB_FireGrapplePulse` → `Hook` / `HookTrail`, `pb_hook` / `pb_hookboost`) for **PB Staging**. `HookTrail.OrientAlongRope` keeps upright `TEND` chain links along the rope (no 90° roll). Legacy ACS `hook` / tip-only `HookShot` are unused for the wheel path. |
 | **God Complex** | Demonic Chalice (alt-fire consumable via wheel) |
 
 ### Wheel Slot 1 — Damage
